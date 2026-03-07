@@ -1,5 +1,4 @@
-import { Card } from "@/components/ui/card";
-import { DIFFICULTIES } from "@/lib/constants";
+import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
 import { cn, pluralise } from "@/lib/utils";
 import type { AdventureWithUser } from "@/types";
 import Image from "next/image";
@@ -13,37 +12,40 @@ interface AdventureCardProps {
 }
 
 export function AdventureCard({ adventure, currentUserId, hasVoted = false }: AdventureCardProps) {
-  const difficulty = DIFFICULTIES.find((d) => d.value === adventure.difficulty);
+  const difficulty = DIFFICULTY_MAP.get(adventure.difficulty);
 
   return (
-    <Card className="group overflow-hidden transition-shadow hover:shadow-md">
+    <div className="group border border-stone-800 bg-stone-900 overflow-hidden transition-colors hover:border-stone-700">
       <Link href={`/adventures/${adventure.id}`}>
         <div className="relative aspect-[16/10] overflow-hidden">
           <Image
             src={adventure.coverImageUrl}
             alt={adventure.title}
             fill
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105 brightness-90"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent" />
           <div className="absolute bottom-2 left-2">
-            <span className="rounded-full bg-white/90 px-2.5 py-1 text-xs font-medium text-gray-800 backdrop-blur-sm">
-              {adventure.category.replace("_", " ")}
+            <span className="bg-stone-950/80 px-2 py-0.5 font-display text-xs uppercase tracking-widest text-amber-500 backdrop-blur-sm">
+              {adventure.category.replace(/_/g, " ")}
             </span>
           </div>
         </div>
       </Link>
       <div className="p-4">
         <Link href={`/adventures/${adventure.id}`}>
-          <h3 className="font-semibold text-gray-900 group-hover:text-summit-600">
+          <h3 className="font-display text-base uppercase tracking-wider text-stone-100 group-hover:text-amber-400 transition-colors line-clamp-1">
             {adventure.title}
           </h3>
         </Link>
-        <p className="mt-1 text-sm text-gray-500">{adventure.location}</p>
-        <div className="mt-3 flex items-center justify-between">
-          <div className="flex items-center gap-3 text-xs text-gray-500">
+        <p className="mt-1 font-mono text-xs text-stone-500">{adventure.location}</p>
+        <div className="mt-4 flex items-center justify-between border-t border-stone-800 pt-3">
+          <div className="flex items-center gap-3 font-mono text-xs">
             <span className={cn("font-medium", difficulty?.color)}>{difficulty?.label}</span>
-            <span>{pluralise(adventure.durationDays, "day")}</span>
+            <span className="text-stone-600">·</span>
+            <span className="text-stone-500">{pluralise(adventure.durationDays, "day")}</span>
           </div>
           <VoteButton
             adventureId={adventure.id}
@@ -57,14 +59,14 @@ export function AdventureCard({ adventure, currentUserId, hasVoted = false }: Ad
             <Image
               src={adventure.user.avatarUrl}
               alt={adventure.user.name ?? ""}
-              width={20}
-              height={20}
-              className="rounded-full"
+              width={18}
+              height={18}
+              className="rounded-full opacity-80"
             />
           )}
-          <span className="text-xs text-gray-500">{adventure.user.name}</span>
+          <span className="font-mono text-xs text-stone-600">{adventure.user.name}</span>
         </div>
       </div>
-    </Card>
+    </div>
   );
 }

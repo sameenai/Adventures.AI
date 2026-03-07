@@ -4,7 +4,7 @@ import { TrendArrow } from "./trend-arrow";
 import Image from "next/image";
 import Link from "next/link";
 import { cn, pluralise } from "@/lib/utils";
-import { DIFFICULTIES } from "@/lib/constants";
+import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
 
 interface LeaderboardTableProps {
   entries: LeaderboardEntry[];
@@ -26,7 +26,7 @@ export function LeaderboardTable({ entries }: LeaderboardTableProps) {
         </thead>
         <tbody className="divide-y divide-gray-100">
           {entries.map((entry) => {
-            const difficulty = DIFFICULTIES.find((d) => d.value === entry.adventure.difficulty);
+            const difficulty = DIFFICULTY_MAP.get(entry.adventure.difficulty);
             return (
               <tr key={entry.adventure.id} className="hover:bg-gray-50">
                 <td className="px-4 py-3">
