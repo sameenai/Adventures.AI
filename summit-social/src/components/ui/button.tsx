@@ -11,18 +11,20 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-summit-600 text-white hover:bg-summit-700 focus-visible:ring-summit-500",
-  secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200 focus-visible:ring-gray-400",
+  primary:
+    "bg-amber-500 text-stone-950 hover:bg-amber-400 focus-visible:ring-amber-500 font-semibold tracking-wide",
+  secondary:
+    "bg-stone-800 text-stone-200 hover:bg-stone-700 border border-stone-700 focus-visible:ring-stone-500",
   outline:
-    "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus-visible:ring-summit-500",
-  ghost: "text-gray-700 hover:bg-gray-100 focus-visible:ring-gray-400",
-  danger: "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500",
+    "border border-stone-600 bg-transparent text-stone-300 hover:border-amber-500 hover:text-amber-400 focus-visible:ring-amber-500",
+  ghost: "text-stone-400 hover:text-stone-100 hover:bg-stone-800 focus-visible:ring-stone-500",
+  danger: "bg-red-600 text-white hover:bg-red-500 focus-visible:ring-red-500",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2 text-sm",
-  lg: "px-6 py-3 text-base",
+  sm: "px-3 py-1.5 text-xs uppercase tracking-widest",
+  md: "px-4 py-2 text-xs uppercase tracking-widest",
+  lg: "px-6 py-3 text-sm uppercase tracking-widest",
 };
 
 export function Button({
@@ -37,9 +39,9 @@ export function Button({
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center rounded-lg font-medium transition-colors",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-        "disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex items-center justify-center font-display transition-colors",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-950",
+        "disabled:pointer-events-none disabled:opacity-40",
         variantStyles[variant],
         sizeStyles[size],
         className,
