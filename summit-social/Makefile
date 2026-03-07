@@ -2,7 +2,17 @@
 
 setup:
 	npm install
+	@if [ ! -f .env ]; then \
+		cp .env.example .env; \
+		node -e "const fs=require('fs'),c=require('crypto');let e=fs.readFileSync('.env','utf8');e=e.replace('<generate-with-openssl>',c.randomBytes(32).toString('base64'));fs.writeFileSync('.env',e);"; \
+		echo "→ Created .env with generated NEXTAUTH_SECRET"; \
+	else \
+		echo "→ .env already exists, skipping"; \
+	fi
 	docker compose up -d
+	@echo "→ Waiting for postgres..."
+	@until docker compose exec -T postgres pg_isready -U summit -d summitsocial > /dev/null 2>&1; do sleep 1; done
+	@echo "→ Postgres ready"
 	npx prisma migrate dev --name init
 	npm run db:seed
 
