@@ -1,0 +1,75 @@
+import { authOptions } from "@/lib/auth/config";
+import { prisma } from "@/lib/db/prisma";
+import { updateProfileSchema } from "@/lib/validators/user";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+
+  const user = await prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatarUrl: true,
+      bio: true,
+      instagramUrl: true,
+      twitterUrl: true,
+      websiteUrl: true,
+      adventures: {
+        where: { published: true },
+        orderBy: { voteCount: "desc" },
+        include: {
+          user: { select: { id: true, name: true, avatarUrl: true } },
+          tags: true,
+        },
+      },
+      _count: {
+        select: { adventures: true, votes: true },
+      },
+    },
+  });
+
+  if (!user) {
+    return NextResponse.json({ error: "User not found", code: "NOT_FOUND" }, { status: 404 });
+  }
+
+  return NextResponse.json(user);
+}
+
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id || session.user.id !== id) {
+    return NextResponse.json({ error: "Forbidden", code: "FORBIDDEN" }, { status: 403 });
+  }
+
+  const body = await request.json();
+  const parsed = updateProfileSchema.safeParse(body);
+
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Invalid input", code: "VALIDATION_ERROR", details: parsed.error.flatten() },
+      { status: 400 },
+    );
+  }
+
+  const updated = await prisma.user.update({
+    where: { id },
+    data: parsed.data,
+    select: {
+      id: true,
+      name: true,
+      bio: true,
+      instagramUrl: true,
+      twitterUrl: true,
+      websiteUrl: true,
+    },
+  });
+
+  return NextResponse.json(updated);
+}

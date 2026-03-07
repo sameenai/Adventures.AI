@@ -1,0 +1,204 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  name         String?
+  avatarUrl    String?
+  bio          String?
+  instagramUrl String?
+  twitterUrl   String?
+  websiteUrl   String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  adventures   Adventure[]
+  votes        Vote[]
+  itineraries  Itinerary[]
+  comments     Comment[]
+  accounts     Account[]
+  sessions     Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Adventure {
+  id            String     @id @default(cuid())
+  title         String
+  description   String     @db.Text
+  location      String
+  country       String
+  continent     String
+  category      Category
+  difficulty    Difficulty
+  durationDays  Int
+  coverImageUrl String
+  albumUrl      String?
+  albumPlatform String?
+  highlights    String[]
+  gear          String[]
+  bestMonths    Int[]
+  estimatedCost Int?
+  gpxTrackUrl   String?
+  latitude      Float?
+  longitude     Float?
+  published     Boolean    @default(false)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  userId        String
+  user          User       @relation(fields: [userId], references: [id])
+  votes         Vote[]
+  comments      Comment[]
+  tags          Tag[]
+  voteCount     Int        @default(0)
+
+  @@index([voteCount(sort: Desc)])
+  @@index([category])
+  @@index([continent])
+  @@index([difficulty])
+}
+
+model Vote {
+  id          String    @id @default(cuid())
+  userId      String
+  adventureId String
+  createdAt   DateTime  @default(now())
+  user        User      @relation(fields: [userId], references: [id])
+  adventure   Adventure @relation(fields: [adventureId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, adventureId])
+}
+
+model Comment {
+  id          String    @id @default(cuid())
+  body        String    @db.Text
+  userId      String
+  adventureId String
+  parentId    String?
+  createdAt   DateTime  @default(now())
+  user        User      @relation(fields: [userId], references: [id])
+  adventure   Adventure @relation(fields: [adventureId], references: [id], onDelete: Cascade)
+  parent      Comment?  @relation("Replies", fields: [parentId], references: [id])
+  replies     Comment[] @relation("Replies")
+}
+
+model Tag {
+  id         String      @id @default(cuid())
+  name       String      @unique
+  adventures Adventure[]
+}
+
+model Itinerary {
+  id             String          @id @default(cuid())
+  title          String
+  description    String?         @db.Text
+  startDate      DateTime?
+  endDate        DateTime?
+  budget         Int?
+  travellers     Int             @default(1)
+  status         ItineraryStatus @default(DRAFT)
+  chatHistory    Json
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  userId         String
+  user           User            @relation(fields: [userId], references: [id])
+  days           ItineraryDay[]
+  flightBookings FlightBooking[]
+}
+
+model ItineraryDay {
+  id          String    @id @default(cuid())
+  dayNumber   Int
+  title       String
+  description String?   @db.Text
+  activities  Json
+  itineraryId String
+  itinerary   Itinerary @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
+}
+
+model FlightBooking {
+  id           String     @id @default(cuid())
+  provider     String
+  providerRef  String
+  origin       String
+  destination  String
+  departureAt  DateTime
+  arrivalAt    DateTime
+  airline      String
+  flightNumber String
+  priceGBP     Int
+  currency     String     @default("GBP")
+  cabinClass   String     @default("economy")
+  deepLink     String
+  itineraryId  String?
+  itinerary    Itinerary? @relation(fields: [itineraryId], references: [id])
+  createdAt    DateTime   @default(now())
+}
+
+enum Category {
+  TREKKING
+  MOUNTAINEERING
+  CYCLING
+  KAYAKING
+  DIVING
+  SAFARI
+  SKIING
+  SURFING
+  ROAD_TRIP
+  CULTURAL
+  MULTI_SPORT
+  EXPEDITION
+}
+
+enum Difficulty {
+  EASY
+  MODERATE
+  CHALLENGING
+  EXTREME
+  EXPEDITION_GRADE
+}
+
+enum ItineraryStatus {
+  DRAFT
+  PLANNING
+  BOOKED
+  COMPLETED
+}

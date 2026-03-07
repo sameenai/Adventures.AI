@@ -1,0 +1,91 @@
+"use client";
+
+import type { ChatMessage } from "@/types";
+import { useCallback, useState } from "react";
+
+interface UseChatOptions {
+  itineraryId?: string;
+  initialMessages?: ChatMessage[];
+}
+
+export function useChat({ itineraryId, initialMessages = [] }: UseChatOptions) {
+  const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
+  const [input, setInput] = useState("");
+  const [isStreaming, setIsStreaming] = useState(false);
+
+  const sendMessage = useCallback(
+    async (content: string) => {
+      const userMessage: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "user",
+        content,
+        createdAt: new Date().toISOString(),
+      };
+
+      setMessages((prev) => [...prev, userMessage]);
+      setIsStreaming(true);
+
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: content,
+            itineraryId,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Chat request failed");
+        }
+
+        const reader = response.body?.getReader();
+        if (!reader) throw new Error("No response body");
+
+        const decoder = new TextDecoder();
+        let assistantContent = "";
+        const assistantId = crypto.randomUUID();
+
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: assistantId,
+            role: "assistant",
+            content: "",
+            createdAt: new Date().toISOString(),
+          },
+        ]);
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          assistantContent += chunk;
+
+          setMessages((prev) =>
+            prev.map((msg) =>
+              msg.id === assistantId ? { ...msg, content: assistantContent } : msg,
+            ),
+          );
+        }
+      } catch (error) {
+        console.error("Chat error:", error);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: crypto.randomUUID(),
+            role: "assistant",
+            content: "Sorry, something went wrong. Please try again.",
+            createdAt: new Date().toISOString(),
+          },
+        ]);
+      } finally {
+        setIsStreaming(false);
+      }
+    },
+    [itineraryId],
+  );
+
+  return { messages, input, setInput, sendMessage, isStreaming };
+}
