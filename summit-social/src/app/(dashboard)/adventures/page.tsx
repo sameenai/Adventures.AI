@@ -14,22 +14,23 @@ export default async function AdventuresPage({
   searchParams: Promise<Record<string, string | undefined>>;
 }) {
   const params = await searchParams;
-  const session = await getServerSession(authOptions);
-
-  const adventures = await prisma.adventure.findMany({
-    where: {
-      published: true,
-      ...(params.category && { category: params.category as never }),
-      ...(params.continent && { continent: params.continent }),
-      ...(params.difficulty && { difficulty: params.difficulty as never }),
-    },
-    orderBy: { voteCount: "desc" },
-    take: 20,
-    include: {
-      user: { select: { id: true, name: true, avatarUrl: true } },
-      tags: true,
-    },
-  });
+  const [session, adventures] = await Promise.all([
+    getServerSession(authOptions),
+    prisma.adventure.findMany({
+      where: {
+        published: true,
+        ...(params.category && { category: params.category as never }),
+        ...(params.continent && { continent: params.continent }),
+        ...(params.difficulty && { difficulty: params.difficulty as never }),
+      },
+      orderBy: { voteCount: "desc" },
+      take: 20,
+      include: {
+        user: { select: { id: true, name: true, avatarUrl: true } },
+        tags: true,
+      },
+    }),
+  ]);
 
   let votedIds = new Set<string>();
   if (session?.user?.id) {
@@ -44,26 +45,43 @@ export default async function AdventuresPage({
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Adventures</h1>
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="flex items-end justify-between border-b border-stone-800 pb-6">
+        <div>
+          <p className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-1">
+            Community
+          </p>
+          <h1 className="font-display text-4xl uppercase tracking-widest text-stone-100">
+            Adventures
+          </h1>
+        </div>
         {session && (
           <Link href="/adventures/new">
-            <Button>Share Adventure</Button>
+            <Button size="sm">Share Adventure</Button>
           </Link>
         )}
       </div>
 
-      {/* Filters */}
+      {/* Category filters */}
       <div className="mt-6 flex flex-wrap gap-2">
+        <Link
+          href="/adventures"
+          className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+            !params.category
+              ? "border border-amber-500 text-amber-500"
+              : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+          }`}
+        >
+          All
+        </Link>
         {CATEGORIES.map((cat) => (
           <Link
             key={cat.value}
             href={`/adventures?category=${cat.value}`}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+            className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
               params.category === cat.value
-                ? "bg-summit-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "border border-amber-500 text-amber-500"
+                : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
             }`}
           >
             {cat.label}

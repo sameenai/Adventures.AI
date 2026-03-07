@@ -18,36 +18,36 @@ export function FlightCard({ offer }: FlightCardProps) {
   });
 
   return (
-    <Card className="transition-shadow hover:shadow-md">
-      <CardContent className="flex items-center justify-between">
+    <div className="border border-stone-800 bg-stone-900 transition-colors hover:border-stone-700">
+      <div className="px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-6">
           <div className="text-center">
-            <p className="text-lg font-semibold">{departureTime}</p>
-            <p className="text-xs text-gray-500">{offer.origin}</p>
+            <p className="font-mono text-lg font-bold text-stone-100">{departureTime}</p>
+            <p className="font-display text-xs uppercase tracking-widest text-stone-500">{offer.origin}</p>
           </div>
-          <div className="flex flex-col items-center gap-1">
-            <p className="text-xs text-gray-500">{formatDuration(offer.durationMinutes)}</p>
-            <div className="relative h-px w-24 bg-gray-300">
-              <div className="absolute -top-1 left-0 h-2 w-2 rounded-full bg-gray-400" />
-              <div className="absolute -top-1 right-0 h-2 w-2 rounded-full bg-gray-400" />
+          <div className="flex flex-col items-center gap-1 min-w-[6rem]">
+            <p className="font-mono text-xs text-stone-600">{formatDuration(offer.durationMinutes)}</p>
+            <div className="relative h-px w-24 bg-stone-700">
+              <div className="absolute -top-1 left-0 h-2 w-2 bg-stone-600" />
+              <div className="absolute -top-1 right-0 h-2 w-2 bg-stone-600" />
             </div>
-            <p className="text-xs text-gray-500">
+            <p className="font-mono text-xs text-stone-600">
               {offer.stops === 0 ? "Direct" : `${offer.stops} stop${offer.stops > 1 ? "s" : ""}`}
             </p>
           </div>
           <div className="text-center">
-            <p className="text-lg font-semibold">{arrivalTime}</p>
-            <p className="text-xs text-gray-500">{offer.destination}</p>
+            <p className="font-mono text-lg font-bold text-stone-100">{arrivalTime}</p>
+            <p className="font-display text-xs uppercase tracking-widest text-stone-500">{offer.destination}</p>
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <div className="text-right">
-            <p className="text-xs text-gray-500">{offer.airline}</p>
-            <p className="text-xs text-gray-400">{offer.flightNumber}</p>
+            <p className="font-display text-xs uppercase tracking-wider text-stone-400">{offer.airline}</p>
+            <p className="font-mono text-xs text-stone-600">{offer.flightNumber}</p>
           </div>
           <div className="text-right">
-            <p className="text-xl font-bold text-summit-700">{formatPrice(offer.priceGBP)}</p>
-            <p className="text-xs text-gray-500">per person</p>
+            <p className="font-mono text-xl font-bold text-amber-500">{formatPrice(offer.priceGBP)}</p>
+            <p className="font-mono text-xs text-stone-600">per person</p>
           </div>
           {offer.deepLink && (
             <a href={offer.deepLink} target="_blank" rel="noopener noreferrer">
@@ -55,7 +55,7 @@ export function FlightCard({ offer }: FlightCardProps) {
             </a>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

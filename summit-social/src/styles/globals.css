@@ -1,30 +1,50 @@
 @import "tailwindcss";
 
 @theme {
-  --color-summit-50: #f0f7ff;
-  --color-summit-100: #e0efff;
-  --color-summit-200: #b9dfff;
-  --color-summit-300: #7cc4ff;
-  --color-summit-400: #36a5ff;
-  --color-summit-500: #0c87f2;
-  --color-summit-600: #006acf;
-  --color-summit-700: #0054a7;
-  --color-summit-800: #05478a;
-  --color-summit-900: #0a3c72;
+  /* Summit brand — expedition amber */
+  --color-summit-50: #fffbeb;
+  --color-summit-100: #fef3c7;
+  --color-summit-200: #fde68a;
+  --color-summit-300: #fcd34d;
+  --color-summit-400: #fbbf24;
+  --color-summit-500: #f59e0b;
+  --color-summit-600: #d97706;
+  --color-summit-700: #b45309;
+  --color-summit-800: #92400e;
+  --color-summit-900: #78350f;
 
+  /* Adventure accent */
   --color-adventure-50: #fdf4f3;
   --color-adventure-100: #fce8e4;
   --color-adventure-500: #e74c3c;
   --color-adventure-600: #d63031;
 
-  --color-success: #27ae60;
-  --color-warning: #f39c12;
-  --color-danger: #e74c3c;
+  /* System */
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+
+  /* Fonts — resolved at runtime via Next.js CSS vars */
+  --font-display: var(--font-teko), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-lora), Georgia, serif;
+  --font-mono: var(--font-space-mono), "Courier New", monospace;
 }
 
 @layer base {
   body {
-    @apply bg-white text-gray-900 antialiased;
+    @apply bg-stone-950 text-stone-100 antialiased;
+    font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: 0.03em;
+  }
+
+  /* Thin scrollbar to match dark theme */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #2c2820; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #d97706; }
 }

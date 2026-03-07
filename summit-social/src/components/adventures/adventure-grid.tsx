@@ -1,6 +1,8 @@
 import type { AdventureWithUser } from "@/types";
 import { AdventureCard } from "./adventure-card";
 
+const EMPTY_VOTED_IDS = new Set<string>();
+
 interface AdventureGridProps {
   adventures: AdventureWithUser[];
   currentUserId?: string;
@@ -10,7 +12,7 @@ interface AdventureGridProps {
 export function AdventureGrid({
   adventures,
   currentUserId,
-  votedAdventureIds = new Set(),
+  votedAdventureIds = EMPTY_VOTED_IDS,
 }: AdventureGridProps) {
   if (adventures.length === 0) {
     return (

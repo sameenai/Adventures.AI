@@ -10,12 +10,16 @@ export default async function ItineraryPage() {
   if (!session) redirect("/login");
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-2xl font-bold text-gray-900">AI Trip Planner</h1>
-      <p className="mt-2 text-sm text-gray-600">
-        Describe your dream adventure and I&apos;ll create a detailed itinerary for you.
-      </p>
-      <div className="mt-6 h-[600px] overflow-hidden rounded-xl border border-gray-200 bg-white">
+    <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="border-b border-stone-800 pb-6">
+        <p className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-1">
+          AI-Powered
+        </p>
+        <h1 className="font-display text-4xl uppercase tracking-widest text-stone-100">
+          Trip Planner
+        </h1>
+      </div>
+      <div className="mt-6 h-[600px] overflow-hidden border border-stone-800">
         <ChatWindow />
       </div>
     </div>

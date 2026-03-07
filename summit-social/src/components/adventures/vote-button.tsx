@@ -23,16 +23,17 @@ export function VoteButton({ adventureId, voteCount, hasVoted, disabled }: VoteB
       onClick={toggleVote}
       disabled={disabled || isPending}
       className={cn(
-        "flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium transition-colors",
+        "flex items-center gap-1.5 border px-2.5 py-1 font-mono text-xs transition-colors",
         voted
-          ? "bg-summit-100 text-summit-700"
-          : "bg-gray-100 text-gray-600 hover:bg-gray-200",
-        disabled && "cursor-not-allowed opacity-50",
+          ? "border-amber-500 text-amber-500 bg-amber-500/10"
+          : "border-stone-700 text-stone-500 hover:border-stone-500 hover:text-stone-300",
+        disabled && "cursor-not-allowed opacity-40",
+        isPending && "opacity-60",
       )}
       title={disabled ? "Sign in to vote" : voted ? "Remove vote" : "Vote"}
     >
       <svg
-        className={cn("h-4 w-4", voted && "fill-current")}
+        className={cn("h-3.5 w-3.5", voted && "fill-current")}
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"

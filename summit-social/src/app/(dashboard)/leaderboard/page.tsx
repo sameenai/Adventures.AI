@@ -49,21 +49,30 @@ export default async function LeaderboardPage({
   ];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-2xl font-bold text-gray-900">Adventure Leaderboard</h1>
-      <p className="mt-2 text-sm text-gray-600">
-        The most voted adventures from the SummitSocial community.
-      </p>
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="flex items-end justify-between border-b border-stone-800 pb-6">
+        <div>
+          <p className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-1">
+            Rankings
+          </p>
+          <h1 className="font-display text-4xl uppercase tracking-widest text-stone-100">
+            Leaderboard
+          </h1>
+        </div>
+        <p className="font-mono text-xs text-stone-600 hidden sm:block">
+          Top {entries.length} adventures by vote
+        </p>
+      </div>
 
       <div className="mt-6 flex gap-2">
         {windows.map((w) => (
           <Link
             key={w.value}
             href={`/leaderboard?window=${w.value}`}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+            className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
               timeWindow === w.value
-                ? "bg-summit-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "border border-amber-500 text-amber-500"
+                : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
             }`}
           >
             {w.label}

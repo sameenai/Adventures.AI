@@ -26,13 +26,17 @@ export default function FlightsPage() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-2xl font-bold text-gray-900">Flight Search</h1>
-      <p className="mt-2 text-sm text-gray-600">
-        Compare flights from multiple providers and find the best deals.
-      </p>
+    <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="border-b border-stone-800 pb-6">
+        <p className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-1">
+          Multi-provider
+        </p>
+        <h1 className="font-display text-4xl uppercase tracking-widest text-stone-100">
+          Flights
+        </h1>
+      </div>
 
-      <form onSubmit={handleSearch} className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-5">
+      <form onSubmit={handleSearch} className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-5">
         <Input
           label="From"
           placeholder="LHR"
@@ -70,7 +74,7 @@ export default function FlightsPage() {
       </form>
 
       {error && (
-        <p className="mt-4 text-sm text-red-600">{error}</p>
+        <p className="mt-4 font-mono text-xs text-red-400">{error}</p>
       )}
 
       <div className="mt-8">

@@ -46,11 +46,11 @@ export const CONTINENTS = [
 ] as const;
 
 export const DIFFICULTIES = [
-  { value: "EASY", label: "Easy", color: "text-green-600" },
-  { value: "MODERATE", label: "Moderate", color: "text-yellow-600" },
-  { value: "CHALLENGING", label: "Challenging", color: "text-orange-600" },
-  { value: "EXTREME", label: "Extreme", color: "text-red-600" },
-  { value: "EXPEDITION_GRADE", label: "Expedition Grade", color: "text-purple-600" },
+  { value: "EASY", label: "Easy", color: "text-emerald-400" },
+  { value: "MODERATE", label: "Moderate", color: "text-amber-400" },
+  { value: "CHALLENGING", label: "Challenging", color: "text-orange-400" },
+  { value: "EXTREME", label: "Extreme", color: "text-red-400" },
+  { value: "EXPEDITION_GRADE", label: "Expedition Grade", color: "text-purple-400" },
 ] as const;
 
 export const UPLOAD_MAX_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
