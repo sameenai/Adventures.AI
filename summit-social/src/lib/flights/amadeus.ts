@@ -30,6 +30,9 @@ async function getAccessToken(): Promise<string> {
 }
 
 export async function searchAmadeusFlights(search: FlightSearch): Promise<FlightOffer[]> {
+  if (!process.env.AMADEUS_CLIENT_ID || !process.env.AMADEUS_CLIENT_SECRET) {
+    return [];
+  }
   const token = await getAccessToken();
   const baseUrl = process.env.AMADEUS_BASE_URL ?? "https://test.api.amadeus.com";
 
