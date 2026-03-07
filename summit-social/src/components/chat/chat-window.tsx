@@ -32,15 +32,20 @@ export function ChatWindow({ itineraryId, initialMessages = [] }: ChatWindowProp
   };
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+    <div className="flex h-full flex-col bg-stone-950">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.length === 0 && (
           <div className="flex h-full items-center justify-center">
             <div className="max-w-md text-center">
-              <h3 className="text-lg font-semibold text-gray-900">Plan your next adventure</h3>
-              <p className="mt-2 text-sm text-gray-500">
-                Tell me where you want to go, when, your budget, and I&apos;ll create a detailed
-                itinerary for you.
+              <p className="font-display text-xs uppercase tracking-[0.3em] text-stone-600 mb-3">
+                AI Trip Planner
+              </p>
+              <h3 className="font-display text-xl uppercase tracking-widest text-stone-300">
+                Plan your expedition
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-stone-600">
+                Tell me where you want to go, when, your budget, and I&apos;ll build a detailed
+                day-by-day itinerary.
               </p>
             </div>
           </div>
@@ -51,17 +56,17 @@ export function ChatWindow({ itineraryId, initialMessages = [] }: ChatWindowProp
         {isStreaming && <TypingIndicator />}
         <div ref={messagesEndRef} />
       </div>
-      <form onSubmit={handleSubmit} className="border-t border-gray-200 p-4">
+      <form onSubmit={handleSubmit} className="border-t border-stone-800 p-4">
         <div className="flex gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Describe your dream adventure..."
-            className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-summit-500 focus:outline-none focus:ring-1 focus:ring-summit-500"
+            placeholder="e.g. 2 weeks trekking in Nepal, budget £3000..."
+            className="flex-1 border border-stone-700 bg-stone-900 px-4 py-2 text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
             disabled={isStreaming}
           />
-          <Button type="submit" disabled={!input.trim() || isStreaming} loading={isStreaming}>
+          <Button type="submit" disabled={!input.trim() || isStreaming} loading={isStreaming} size="sm">
             Send
           </Button>
         </div>
