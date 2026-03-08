@@ -1,5 +1,6 @@
 import { authOptions } from "@/lib/auth/config";
 import { openai } from "@/lib/ai/openai";
+import { logger } from "@/lib/logger";
 import { ITINERARY_SYSTEM_PROMPT, buildUserContextPrompt } from "@/lib/ai/prompts";
 import { chatTools } from "@/lib/ai/tools";
 import { RATE_LIMITS } from "@/lib/constants";
@@ -126,7 +127,7 @@ export async function POST(request: NextRequest) {
           });
         }
       } catch (error) {
-        console.error("Streaming error:", error);
+        logger.error("Streaming error", error);
       } finally {
         controller.close();
       }

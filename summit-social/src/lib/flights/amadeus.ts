@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 import type { FlightOffer, FlightSearch } from "./types";
 
 let accessToken: string | null = null;
@@ -55,7 +56,7 @@ export async function searchAmadeusFlights(search: FlightSearch): Promise<Flight
   });
 
   if (!response.ok) {
-    console.error(`Amadeus search failed: ${response.status}`);
+    logger.error(`Amadeus search failed: ${response.status}`);
     return [];
   }
 
