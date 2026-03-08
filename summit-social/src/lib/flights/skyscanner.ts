@@ -1,3 +1,4 @@
+import { logger } from "@/lib/logger";
 import type { FlightOffer, FlightSearch } from "./types";
 
 export async function searchSkyscannerFlights(search: FlightSearch): Promise<FlightOffer[]> {
@@ -5,7 +6,7 @@ export async function searchSkyscannerFlights(search: FlightSearch): Promise<Fli
   const apiKey = process.env.SKYSCANNER_API_KEY;
 
   if (!apiKey) {
-    console.warn("Skyscanner API key not configured");
+    logger.warn("Skyscanner API key not configured");
     return [];
   }
 
@@ -45,7 +46,7 @@ export async function searchSkyscannerFlights(search: FlightSearch): Promise<Fli
   });
 
   if (!response.ok) {
-    console.error(`Skyscanner search failed: ${response.status}`);
+    logger.error(`Skyscanner search failed: ${response.status}`);
     return [];
   }
 

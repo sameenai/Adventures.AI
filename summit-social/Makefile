@@ -9,15 +9,15 @@ setup:
 	else \
 		echo "→ .env already exists, skipping"; \
 	fi
-	docker compose up -d
+	docker-compose up -d
 	@echo "→ Waiting for postgres..."
-	@until docker compose exec -T postgres pg_isready -U summit -d summitsocial > /dev/null 2>&1; do sleep 1; done
+	@until docker-compose exec -T postgres pg_isready -U summit -d summitsocial > /dev/null 2>&1; do sleep 1; done
 	@echo "→ Postgres ready"
 	npx prisma migrate dev --name init
 	npm run db:seed
 
 run:
-	docker compose up -d
+	docker-compose up -d
 	npm run dev
 
 test: test-unit test-integration test-e2e

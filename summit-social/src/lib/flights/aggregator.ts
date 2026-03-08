@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { getCached, setCache } from "@/lib/db/redis";
+import { logger } from "@/lib/logger";
 import { searchAmadeusFlights } from "./amadeus";
 import { searchSkyscannerFlights } from "./skyscanner";
 import type { FlightOffer, FlightSearch, FlightSearchResult } from "./types";
@@ -79,13 +80,13 @@ export async function searchFlights(search: FlightSearch): Promise<FlightSearchR
   if (amadeusResults.status === "fulfilled") {
     offers.push(...amadeusResults.value);
   } else {
-    console.error("Amadeus search failed:", amadeusResults.reason);
+    logger.error("Amadeus search failed", amadeusResults.reason);
   }
 
   if (skyscannerResults.status === "fulfilled") {
     offers.push(...skyscannerResults.value);
   } else {
-    console.error("Skyscanner search failed:", skyscannerResults.reason);
+    logger.error("Skyscanner search failed", skyscannerResults.reason);
   }
 
   offers.sort((a, b) => a.priceGBP - b.priceGBP);
