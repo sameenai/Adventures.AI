@@ -1,4 +1,5 @@
 import { beforeAll, afterAll } from "vitest";
+import "@testing-library/jest-dom/vitest";
 
 beforeAll(() => {
   process.env.DATABASE_URL =
