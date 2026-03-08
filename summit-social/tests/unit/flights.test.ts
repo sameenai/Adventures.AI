@@ -340,7 +340,7 @@ describe("searchFlights (aggregator)", () => {
 
     const result = await searchFlights(baseSearch);
     expect(result.cachedAt).toBeDefined();
-    expect(new Date(result.cachedAt).getTime()).not.toBeNaN();
+    expect(new Date(result.cachedAt ?? "").getTime()).not.toBeNaN();
   });
 
   it("returns cached result without calling providers", async () => {

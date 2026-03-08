@@ -24,7 +24,7 @@ describe("logger", () => {
     it("logs info messages", () => {
       logger.info("test info");
       expect(console.info).toHaveBeenCalledOnce();
-      const call = (console.info as ReturnType<typeof vi.spyOn>).mock.calls[0][0];
+      const call = (console.info as ReturnType<typeof vi.fn>).mock.calls[0][0];
       expect(call).toContain("[INFO]");
       expect(call).toContain("test info");
     });
@@ -32,7 +32,7 @@ describe("logger", () => {
     it("logs warn messages", () => {
       logger.warn("test warning");
       expect(console.warn).toHaveBeenCalledOnce();
-      const call = (console.warn as ReturnType<typeof vi.spyOn>).mock.calls[0][0];
+      const call = (console.warn as ReturnType<typeof vi.fn>).mock.calls[0][0];
       expect(call).toContain("[WARN]");
       expect(call).toContain("test warning");
     });
@@ -40,7 +40,7 @@ describe("logger", () => {
     it("logs error messages", () => {
       logger.error("test error");
       expect(console.error).toHaveBeenCalledOnce();
-      const call = (console.error as ReturnType<typeof vi.spyOn>).mock.calls[0][0];
+      const call = (console.error as ReturnType<typeof vi.fn>).mock.calls[0][0];
       expect(call).toContain("[ERROR]");
       expect(call).toContain("test error");
     });
@@ -53,13 +53,13 @@ describe("logger", () => {
 
     it("does not include data argument when not provided", () => {
       logger.info("no data");
-      const args = (console.info as ReturnType<typeof vi.spyOn>).mock.calls[0];
+      const args = (console.info as ReturnType<typeof vi.fn>).mock.calls[0];
       expect(args).toHaveLength(1);
     });
 
     it("includes ISO timestamp in log output", () => {
       logger.info("timestamp test");
-      const call = (console.info as ReturnType<typeof vi.spyOn>).mock.calls[0][0];
+      const call = (console.info as ReturnType<typeof vi.fn>).mock.calls[0][0];
       expect(call).toMatch(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
     });
   });

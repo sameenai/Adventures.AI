@@ -54,7 +54,10 @@ describe("MessageBubble", () => {
   it("renders tool calls when present", () => {
     const msgWithTools = {
       ...assistantMessage,
-      toolCalls: [{ name: "search_flights" }, { name: "get_weather" }],
+      toolCalls: [
+      { name: "search_flights", args: {}, result: null },
+      { name: "get_weather", args: {}, result: null },
+    ],
     };
     render(<MessageBubble message={msgWithTools} />);
     expect(screen.getByText("↳ search_flights")).toBeInTheDocument();
