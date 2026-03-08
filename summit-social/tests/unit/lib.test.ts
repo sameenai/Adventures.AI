@@ -80,7 +80,13 @@ describe("DIFFICULTY_MAP", () => {
   });
 
   it("contains all 5 difficulty levels", () => {
-    const keys = ["EASY", "MODERATE", "CHALLENGING", "EXTREME", "EXPEDITION_GRADE"];
+    const keys: Parameters<typeof DIFFICULTY_MAP.has>[0][] = [
+      "EASY",
+      "MODERATE",
+      "CHALLENGING",
+      "EXTREME",
+      "EXPEDITION_GRADE",
+    ];
     for (const key of keys) {
       expect(DIFFICULTY_MAP.has(key)).toBe(true);
     }
@@ -95,7 +101,9 @@ describe("DIFFICULTY_MAP", () => {
   });
 
   it("returns undefined for unknown difficulty", () => {
-    expect(DIFFICULTY_MAP.get("UNKNOWN")).toBeUndefined();
+    expect(
+      DIFFICULTY_MAP.get("UNKNOWN" as Parameters<typeof DIFFICULTY_MAP.get>[0]),
+    ).toBeUndefined();
   });
 });
 

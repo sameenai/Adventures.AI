@@ -89,7 +89,7 @@ describe("Input", () => {
   });
 
   it("forwards ref", () => {
-    const ref = { current: null } as React.RefObject<HTMLInputElement>;
+    const ref = { current: null } as unknown as React.RefObject<HTMLInputElement>;
     render(<Input ref={ref} />);
     // ref should be attached to the input element
     expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -328,7 +328,7 @@ const mockEntries: LeaderboardEntry[] = [
       user: { id: "user-1", name: "Alice", avatarUrl: null },
       tags: [],
       durationDays: 14,
-    } as LeaderboardEntry["adventure"],
+    } as unknown as LeaderboardEntry["adventure"],
     previousRank: 2,
   },
   {
@@ -345,7 +345,7 @@ const mockEntries: LeaderboardEntry[] = [
       user: { id: "user-2", name: "Bob", avatarUrl: null },
       tags: [],
       durationDays: 21,
-    } as LeaderboardEntry["adventure"],
+    } as unknown as LeaderboardEntry["adventure"],
   },
 ];
 

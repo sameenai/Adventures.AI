@@ -38,7 +38,7 @@ import { prisma } from "@/lib/db/prisma";
 
 const mockGetSession = getServerSession as ReturnType<typeof vi.fn>;
 const createMock = openai.chat.completions.create as ReturnType<typeof vi.fn>;
-const mockPrismaItinerary = prisma.itinerary as typeof prisma.itinerary & Record<string, ReturnType<typeof vi.fn>>;
+const mockPrismaItinerary = prisma.itinerary as unknown as Record<string, ReturnType<typeof vi.fn>>;
 
 function mockSession(userId = "user-1") {
   mockGetSession.mockResolvedValue({ user: { id: userId, name: "Alice" } });

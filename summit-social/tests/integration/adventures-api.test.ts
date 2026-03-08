@@ -66,7 +66,7 @@ const mockRateLimit = rateLimit as ReturnType<typeof vi.fn>;
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-function makeRequest(url = "http://localhost/api/adventures", init?: RequestInit) {
+function makeRequest(url = "http://localhost/api/adventures", init?: ConstructorParameters<typeof NextRequest>[1]) {
   return new NextRequest(url, init);
 }
 
