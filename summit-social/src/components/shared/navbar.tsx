@@ -1,9 +1,9 @@
 "use client";
 
-import { APP_NAME } from "@/lib/constants";
-import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { APP_NAME } from "@/lib/constants";
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 const NAV_LINKS = [
   { href: "/adventures", label: "Adventures" },
@@ -59,7 +59,9 @@ export function Navbar() {
           ) : (
             <>
               <Link href="/login">
-                <Button variant="ghost" size="sm">Log in</Button>
+                <Button variant="ghost" size="sm">
+                  Log in
+                </Button>
               </Link>
               <Link href="/signup">
                 <Button size="sm">Sign up</Button>

@@ -36,7 +36,7 @@ function buildMockOffers(search: FlightSearch): FlightOffer[] {
       durationMinutes: duration,
       stops: i === 1 ? 1 : 0,
       stopCities: i === 1 ? ["DXB"] : [],
-      priceGBP: (32000 + i * 4500 + (search.passengers - 1) * 18000),
+      priceGBP: 32000 + i * 4500 + (search.passengers - 1) * 18000,
       currency: "GBP",
       cabinClass: search.cabinClass,
       deepLink: "",
@@ -48,10 +48,7 @@ function buildMockOffers(search: FlightSearch): FlightOffer[] {
 const CACHE_TTL_SECONDS = 900; // 15 minutes
 
 function searchCacheKey(search: FlightSearch): string {
-  const hash = createHash("sha256")
-    .update(JSON.stringify(search))
-    .digest("hex")
-    .slice(0, 16);
+  const hash = createHash("sha256").update(JSON.stringify(search)).digest("hex").slice(0, 16);
   return `flights:${hash}`;
 }
 

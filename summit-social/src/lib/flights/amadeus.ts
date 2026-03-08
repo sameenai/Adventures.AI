@@ -1,6 +1,18 @@
 import { logger } from "@/lib/logger";
 import type { FlightOffer, FlightSearch } from "./types";
 
+type AmadeusSegment = {
+  carrierCode: string;
+  number: string;
+  departure: { iataCode: string; at: string };
+  arrival: { iataCode: string; at: string };
+};
+
+type AmadeusItinerary = {
+  duration: string;
+  segments: AmadeusSegment[];
+};
+
 let accessToken: string | null = null;
 let tokenExpiresAt = 0;
 
@@ -25,9 +37,10 @@ async function getAccessToken(): Promise<string> {
   }
 
   const data = await response.json();
-  accessToken = data.access_token;
+  const token = data.access_token as string;
+  accessToken = token;
   tokenExpiresAt = Date.now() + data.expires_in * 1000 - 60_000;
-  return accessToken;
+  return token;
 }
 
 export async function searchAmadeusFlights(search: FlightSearch): Promise<FlightOffer[]> {
@@ -62,11 +75,10 @@ export async function searchAmadeusFlights(search: FlightSearch): Promise<Flight
 
   const data = await response.json();
   return (data.data ?? []).map((offer: Record<string, unknown>): FlightOffer => {
-    const firstSegment = (offer.itineraries as Array<{ segments: Array<Record<string, string>> }>)[0]
-      .segments[0];
-    const lastSegment = (offer.itineraries as Array<{ segments: Array<Record<string, string>> }>)[0]
-      .segments.at(-1)!;
-    const segments = (offer.itineraries as Array<{ segments: Array<Record<string, string>> }>)[0].segments;
+    const itineraries = offer.itineraries as AmadeusItinerary[];
+    const firstSegment = itineraries[0].segments[0];
+    const lastSegment = itineraries[0].segments.at(-1) ?? firstSegment;
+    const segments = itineraries[0].segments;
 
     return {
       id: `amadeus-${offer.id}`,
@@ -78,14 +90,10 @@ export async function searchAmadeusFlights(search: FlightSearch): Promise<Flight
       destination: lastSegment.arrival.iataCode,
       departureAt: firstSegment.departure.at,
       arrivalAt: lastSegment.arrival.at,
-      durationMinutes: parseDuration(
-        (offer.itineraries as Array<{ duration: string }>)[0].duration,
-      ),
+      durationMinutes: parseDuration(itineraries[0].duration),
       stops: segments.length - 1,
       stopCities: segments.slice(0, -1).map((s) => s.arrival.iataCode),
-      priceGBP: Math.round(
-        Number((offer.price as { grandTotal: string }).grandTotal) * 100,
-      ),
+      priceGBP: Math.round(Number((offer.price as { grandTotal: string }).grandTotal) * 100),
       currency: "GBP",
       cabinClass: search.cabinClass,
       deepLink: "",
@@ -97,5 +105,5 @@ export async function searchAmadeusFlights(search: FlightSearch): Promise<Flight
 function parseDuration(iso: string): number {
   const match = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?/);
   if (!match) return 0;
-  return (Number(match[1] ?? 0)) * 60 + Number(match[2] ?? 0);
+  return Number(match[1] ?? 0) * 60 + Number(match[2] ?? 0);
 }

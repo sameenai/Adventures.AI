@@ -21,7 +21,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     RATE_LIMITS.commentCreate.windowSeconds,
   );
   if (!allowed) {
-    return NextResponse.json({ error: "Rate limit exceeded", code: "RATE_LIMITED" }, { status: 429 });
+    return NextResponse.json(
+      { error: "Rate limit exceeded", code: "RATE_LIMITED" },
+      { status: 429 },
+    );
   }
 
   const body = await request.json();

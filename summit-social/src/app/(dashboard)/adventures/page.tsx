@@ -1,8 +1,8 @@
 import { AdventureGrid } from "@/components/adventures/adventure-grid";
 import { Button } from "@/components/ui/button";
+import { authOptions } from "@/lib/auth/config";
 import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
-import { authOptions } from "@/lib/auth/config";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 

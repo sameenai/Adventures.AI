@@ -1,11 +1,11 @@
-import { authOptions } from "@/lib/auth/config";
 import { openai } from "@/lib/ai/openai";
-import { logger } from "@/lib/logger";
 import { ITINERARY_SYSTEM_PROMPT, buildUserContextPrompt } from "@/lib/ai/prompts";
 import { chatTools } from "@/lib/ai/tools";
+import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
+import { logger } from "@/lib/logger";
 import { chatMessageSchema } from "@/lib/validators/chat";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
@@ -23,7 +23,10 @@ export async function POST(request: NextRequest) {
     RATE_LIMITS.chat.windowSeconds,
   );
   if (!allowed) {
-    return NextResponse.json({ error: "Rate limit exceeded", code: "RATE_LIMITED" }, { status: 429 });
+    return NextResponse.json(
+      { error: "Rate limit exceeded", code: "RATE_LIMITED" },
+      { status: 429 },
+    );
   }
 
   const body = await request.json();
@@ -70,7 +73,7 @@ export async function POST(request: NextRequest) {
         const words = mockText.split(" ");
         let fullContent = "";
         for (const word of words) {
-          const token = word + " ";
+          const token = `${word} `;
           fullContent += token;
           controller.enqueue(encoder.encode(token));
           await new Promise<void>((r) => setTimeout(r, 18));
@@ -91,7 +94,11 @@ export async function POST(request: NextRequest) {
       },
     });
     return new NextResponse(readable, {
-      headers: { "Content-Type": "text/event-stream", "Cache-Control": "no-cache", Connection: "keep-alive" },
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      },
     });
   }
 
@@ -145,13 +152,17 @@ export async function POST(request: NextRequest) {
 
 function buildMockResponse(message: string): string {
   const lower = message.toLowerCase();
-  const dest =
-    lower.includes("nepal") ? "Nepal"
-    : lower.includes("patagonia") ? "Patagonia"
-    : lower.includes("kilimanjaro") ? "Tanzania"
-    : lower.includes("iceland") ? "Iceland"
-    : lower.includes("peru") ? "Peru"
-    : "your destination";
+  const dest = lower.includes("nepal")
+    ? "Nepal"
+    : lower.includes("patagonia")
+      ? "Patagonia"
+      : lower.includes("kilimanjaro")
+        ? "Tanzania"
+        : lower.includes("iceland")
+          ? "Iceland"
+          : lower.includes("peru")
+            ? "Peru"
+            : "your destination";
 
   return `Great choice! Here's a suggested itinerary for ${dest}:
 

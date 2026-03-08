@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useChat } from "@/hooks/useChat";
 import type { ChatMessage } from "@/types";
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { MessageBubble } from "./message-bubble";
 import { TypingIndicator } from "./typing-indicator";
 
@@ -19,9 +19,12 @@ export function ChatWindow({ itineraryId, initialMessages = [] }: ChatWindowProp
   });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const messageCount = messages.length;
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (messageCount > 0) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messageCount]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,7 +69,12 @@ export function ChatWindow({ itineraryId, initialMessages = [] }: ChatWindowProp
             className="flex-1 border border-stone-700 bg-stone-900 px-4 py-2 text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
             disabled={isStreaming}
           />
-          <Button type="submit" disabled={!input.trim() || isStreaming} loading={isStreaming} size="sm">
+          <Button
+            type="submit"
+            disabled={!input.trim() || isStreaming}
+            loading={isStreaming}
+            size="sm"
+          >
             Send
           </Button>
         </div>

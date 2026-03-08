@@ -1,5 +1,5 @@
-import type { AdventureWithUser } from "@/types";
 import { AdventureGrid } from "@/components/adventures/adventure-grid";
+import type { AdventureWithUser } from "@/types";
 
 interface AdventureHistoryProps {
   adventures: AdventureWithUser[];

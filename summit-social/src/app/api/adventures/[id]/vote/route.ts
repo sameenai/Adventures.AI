@@ -19,7 +19,10 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
     RATE_LIMITS.vote.windowSeconds,
   );
   if (!allowed) {
-    return NextResponse.json({ error: "Rate limit exceeded", code: "RATE_LIMITED" }, { status: 429 });
+    return NextResponse.json(
+      { error: "Rate limit exceeded", code: "RATE_LIMITED" },
+      { status: 429 },
+    );
   }
 
   const existingVote = await prisma.vote.findUnique({

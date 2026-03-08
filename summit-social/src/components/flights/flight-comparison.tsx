@@ -10,8 +10,8 @@ export function FlightComparison({ offers, loading }: FlightComparisonProps) {
   if (loading) {
     return (
       <div className="space-y-4">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <div key={`skeleton-${i}`} className="h-24 animate-pulse rounded-xl bg-gray-100" />
+        {["sk-1", "sk-2", "sk-3"].map((id) => (
+          <div key={id} className="h-24 animate-pulse rounded-xl bg-gray-100" />
         ))}
       </div>
     );

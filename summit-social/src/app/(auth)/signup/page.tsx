@@ -77,9 +77,7 @@ export default function SignupPage() {
               <div className="w-full border-t border-stone-800" />
             </div>
             <div className="relative flex justify-center">
-              <span className="bg-stone-950 px-3 font-mono text-xs text-stone-600">
-                local dev
-              </span>
+              <span className="bg-stone-950 px-3 font-mono text-xs text-stone-600">local dev</span>
             </div>
           </div>
 
@@ -92,7 +90,9 @@ export default function SignupPage() {
               placeholder="you@example.com"
               required
             />
-            <p className="font-mono text-xs text-stone-600">Creates account instantly — no password needed</p>
+            <p className="font-mono text-xs text-stone-600">
+              Creates account instantly — no password needed
+            </p>
             <Button type="submit" className="w-full justify-center">
               Create account
             </Button>
