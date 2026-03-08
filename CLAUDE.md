@@ -12,9 +12,10 @@ All commands below should be run from `summit-social/`.
 
 ### Development
 ```bash
-make setup          # First-time setup: install, start Docker, migrate DB, seed
-make run            # Start Docker services + Next.js dev server
-npm run dev         # Dev server only (requires Docker already running)
+# Prerequisites (macOS): brew install postgresql redis
+make setup          # First-time setup: install deps, start Postgres/Redis, migrate DB, seed
+make run            # Start Postgres/Redis + Next.js dev server
+npm run dev         # Dev server only (requires Postgres + Redis already running)
 ```
 
 ### Testing
@@ -97,11 +98,14 @@ Key routes:
 - Path alias `@/` maps to `src/`
 
 ### Infrastructure
-Docker Compose is only needed to **run the app** (`make run` / `make setup`), not for testing. It provides:
-- `postgres:16` on port 5432 (dev)
-- `redis:7` on port 6379
+Local dev uses **Homebrew-managed Postgres and Redis** — no Docker required:
+- `brew install postgresql redis` (one-time)
+- `make setup` creates the `summit` role, `summitsocial` database, runs migrations and seeds
+- `make run` / `npm run dev` starts services and the Next.js dev server
 
-For quick local iteration — writing code and running tests — Docker is not a dependency.
+`docker-compose.optional.yml` exists as an alternative for CI or Docker-preference workflows.
+
+Unit and integration tests mock all external services (Prisma, Redis, OpenAI, flight APIs) — no running processes needed for `npm run test:unit` or `npm run test:integration`.
 
 ## Git Workflow
 

@@ -1,5 +1,10 @@
 .PHONY: setup run test test-unit test-integration test-e2e lint build db-migrate db-seed db-studio deploy-preview
 
+# ---------------------------------------------------------------------------
+# Local dev: Postgres and Redis via Homebrew (no Docker required)
+# Install prerequisites: brew install postgresql redis
+# ---------------------------------------------------------------------------
+
 setup:
 	npm install
 	@if [ ! -f .env ]; then \
@@ -9,15 +14,20 @@ setup:
 	else \
 		echo "→ .env already exists, skipping"; \
 	fi
-	docker-compose up -d
-	@echo "→ Waiting for postgres..."
-	@until docker-compose exec -T postgres pg_isready -U summit -d summitsocial > /dev/null 2>&1; do sleep 1; done
+	@echo "→ Starting Postgres and Redis..."
+	@brew services start postgresql@16 2>/dev/null || brew services start postgresql 2>/dev/null || true
+	@brew services start redis 2>/dev/null || true
+	@echo "→ Waiting for Postgres to be ready..."
+	@until pg_isready -q; do sleep 1; done
 	@echo "→ Postgres ready"
+	@psql postgres -c "CREATE ROLE summit WITH LOGIN PASSWORD 'summit';" 2>/dev/null || true
+	@createdb -O summit summitsocial 2>/dev/null || true
 	npx prisma migrate dev --name init
 	npm run db:seed
 
 run:
-	docker-compose up -d
+	@brew services start postgresql@16 2>/dev/null || brew services start postgresql 2>/dev/null || true
+	@brew services start redis 2>/dev/null || true
 	npm run dev
 
 test: test-unit test-integration test-e2e
