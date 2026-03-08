@@ -373,4 +373,73 @@ describe("useInfiniteScroll", () => {
 
     expect(fetchFn).toHaveBeenCalledWith("page-2");
   });
+
+  it("catches error and resets loading when fetchFn throws", async () => {
+    const fetchFn = vi.fn().mockRejectedValueOnce(new Error("Network failure"));
+    const { result } = renderHook(() => useInfiniteScroll({ fetchFn }));
+
+    await act(async () => { await result.current.loadMore(); });
+
+    expect(result.current.loading).toBe(false);
+    // items unchanged
+    expect(result.current.items).toEqual([]);
+  });
+
+  it("sentinelRef observes a node and triggers loadMore on intersection", async () => {
+    type IntersectionCallback = (entries: IntersectionObserverEntry[]) => void;
+    let capturedCallback: IntersectionCallback | null = null;
+    const mockObserve = vi.fn();
+    const mockDisconnect = vi.fn();
+
+    class MockIntersectionObserver {
+      constructor(callback: IntersectionCallback) {
+        capturedCallback = callback;
+      }
+      observe = mockObserve;
+      unobserve = vi.fn();
+      disconnect = mockDisconnect;
+    }
+    vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
+
+    const fetchFn = vi.fn().mockResolvedValue({ items: [{ id: 99 }], nextCursor: undefined });
+    const { result, unmount } = renderHook(() => useInfiniteScroll({ fetchFn }));
+
+    const node = document.createElement("div");
+    act(() => { result.current.sentinelRef(node); });
+    expect(mockObserve).toHaveBeenCalledWith(node);
+
+    // Trigger intersection
+    await act(async () => {
+      capturedCallback!([{ isIntersecting: true } as IntersectionObserverEntry]);
+    });
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+
+    // Disconnect on unmount
+    unmount();
+    expect(mockDisconnect).toHaveBeenCalled();
+
+    vi.unstubAllGlobals();
+  });
+
+  it("sentinelRef disconnects previous observer when called with new node", () => {
+    const mockDisconnect = vi.fn();
+    const mockObserve = vi.fn();
+    class MockIntersectionObserver {
+      observe = mockObserve;
+      disconnect = mockDisconnect;
+      unobserve = vi.fn();
+    }
+    vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
+
+    const fetchFn = vi.fn();
+    const { result } = renderHook(() => useInfiniteScroll({ fetchFn }));
+
+    const node1 = document.createElement("div");
+    const node2 = document.createElement("div");
+    act(() => { result.current.sentinelRef(node1); });
+    act(() => { result.current.sentinelRef(node2); });
+
+    expect(mockDisconnect).toHaveBeenCalledTimes(1);
+    vi.unstubAllGlobals();
+  });
 });
