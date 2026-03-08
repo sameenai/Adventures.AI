@@ -18,11 +18,14 @@ npm run dev         # Dev server only (requires Docker already running)
 ```
 
 ### Testing
+Unit and integration tests run **without any external services** — Prisma, Redis, OpenAI, and all external APIs are mocked at the module level. No Docker or running processes needed.
+
 ```bash
 npm run test:unit          # Vitest unit tests (tests/unit/)
 npm run test:integration   # Vitest integration tests (tests/integration/)
-npm run test:e2e           # Playwright e2e tests
+npx vitest run --coverage  # Full suite with v8 coverage report
 npm run test:watch         # Vitest in watch mode
+npm run test:e2e           # Playwright e2e tests (requires running app + DB)
 ```
 
 ### Linting & Formatting
@@ -94,9 +97,11 @@ Key routes:
 - Path alias `@/` maps to `src/`
 
 ### Infrastructure
-Docker Compose runs:
-- `postgres:16` on port 5432 (dev) and 5433 (test)
+Docker Compose is only needed to **run the app** (`make run` / `make setup`), not for testing. It provides:
+- `postgres:16` on port 5432 (dev)
 - `redis:7` on port 6379
+
+For quick local iteration — writing code and running tests — Docker is not a dependency.
 
 ## Git Workflow
 

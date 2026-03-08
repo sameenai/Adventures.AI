@@ -39,16 +39,14 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
 
 export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const session = await getServerSession(authOptions);
+  const [session, adventure] = await Promise.all([
+    getServerSession(authOptions),
+    prisma.adventure.findUnique({ where: { id }, select: { userId: true } }),
+  ]);
 
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
   }
-
-  const adventure = await prisma.adventure.findUnique({
-    where: { id },
-    select: { userId: true },
-  });
 
   if (!adventure) {
     return NextResponse.json({ error: "Adventure not found", code: "NOT_FOUND" }, { status: 404 });
