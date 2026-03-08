@@ -1,10 +1,10 @@
+import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
+import { cn, pluralise } from "@/lib/utils";
 import type { LeaderboardEntry } from "@/types";
-import { RankBadge } from "./rank-badge";
-import { TrendArrow } from "./trend-arrow";
 import Image from "next/image";
 import Link from "next/link";
-import { cn, pluralise } from "@/lib/utils";
-import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
+import { RankBadge } from "./rank-badge";
+import { TrendArrow } from "./trend-arrow";
 
 interface LeaderboardTableProps {
   entries: LeaderboardEntry[];
@@ -62,7 +62,12 @@ export function LeaderboardTable({ entries }: LeaderboardTableProps) {
                     {entry.adventure.category.replace(/_/g, " ")}
                   </span>
                 </td>
-                <td className={cn("px-4 py-3 hidden lg:table-cell font-mono text-xs font-medium", difficulty?.color)}>
+                <td
+                  className={cn(
+                    "px-4 py-3 hidden lg:table-cell font-mono text-xs font-medium",
+                    difficulty?.color,
+                  )}
+                >
                   {difficulty?.label}
                 </td>
                 <td className="px-4 py-3 text-right font-mono text-sm font-bold text-stone-300">

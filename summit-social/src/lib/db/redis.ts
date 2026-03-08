@@ -13,7 +13,11 @@ if (process.env.NODE_ENV !== "production") {
   globalForRedis.redis = redis;
 }
 
-export async function rateLimit(key: string, limit: number, windowSeconds: number): Promise<boolean> {
+export async function rateLimit(
+  key: string,
+  limit: number,
+  windowSeconds: number,
+): Promise<boolean> {
   const current = await redis.incr(key);
   if (current === 1) {
     await redis.expire(key, windowSeconds);

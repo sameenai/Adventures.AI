@@ -28,7 +28,8 @@ When creating itinerary days, output structured JSON with this format:
   ]
 }`;
 
-export const GEAR_SYSTEM_PROMPT = `You are a gear specialist for outdoor adventures. Recommend essential and optional gear based on the activity type, duration, weather conditions, and difficulty level. Prioritise safety equipment.`;
+export const GEAR_SYSTEM_PROMPT =
+  "You are a gear specialist for outdoor adventures. Recommend essential and optional gear based on the activity type, duration, weather conditions, and difficulty level. Prioritise safety equipment.";
 
 export function buildUserContextPrompt(preferences: {
   budget?: number;
@@ -49,7 +50,5 @@ export function buildUserContextPrompt(preferences: {
   if (preferences.travellers) {
     parts.push(`Group size: ${preferences.travellers} traveller(s)`);
   }
-  return parts.length > 0
-    ? `\n\nUser preferences:\n${parts.join("\n")}`
-    : "";
+  return parts.length > 0 ? `\n\nUser preferences:\n${parts.join("\n")}` : "";
 }

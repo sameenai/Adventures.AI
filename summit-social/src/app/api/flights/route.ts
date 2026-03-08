@@ -19,7 +19,10 @@ export async function POST(request: NextRequest) {
     RATE_LIMITS.flightSearch.windowSeconds,
   );
   if (!allowed) {
-    return NextResponse.json({ error: "Rate limit exceeded", code: "RATE_LIMITED" }, { status: 429 });
+    return NextResponse.json(
+      { error: "Rate limit exceeded", code: "RATE_LIMITED" },
+      { status: 429 },
+    );
   }
 
   const body = await request.json();

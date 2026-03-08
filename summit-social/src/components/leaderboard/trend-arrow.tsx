@@ -14,12 +14,7 @@ export function TrendArrow({ trend }: TrendArrowProps) {
   }
 
   return (
-    <span
-      className={cn(
-        "text-lg",
-        trend === "up" ? "text-green-500" : "text-red-500",
-      )}
-    >
+    <span className={cn("text-lg", trend === "up" ? "text-green-500" : "text-red-500")}>
       {trend === "up" ? "\u25B2" : "\u25BC"}
     </span>
   );

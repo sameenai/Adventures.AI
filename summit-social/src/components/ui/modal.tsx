@@ -29,7 +29,11 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="fixed inset-0 bg-stone-950/80 backdrop-blur-sm" onClick={onClose} onKeyDown={() => {}} />
+      <div
+        className="fixed inset-0 bg-stone-950/80 backdrop-blur-sm"
+        onClick={onClose}
+        onKeyDown={() => {}}
+      />
       <div
         className={cn(
           "relative z-10 w-full max-w-lg border border-stone-700 bg-stone-900 p-6 shadow-2xl",

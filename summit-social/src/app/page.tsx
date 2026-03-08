@@ -5,27 +5,59 @@ import Link from "next/link";
 const FEATURES = [
   {
     label: "AI Trip Planner",
-    description: "Describe your dream expedition and receive a day-by-day itinerary built around your pace, budget, and ambitions.",
+    description:
+      "Describe your dream expedition and receive a day-by-day itinerary built around your pace, budget, and ambitions.",
     icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      <svg
+        className="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        aria-hidden="true"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+        />
       </svg>
     ),
   },
   {
     label: "Community Leaderboard",
-    description: "Discover and vote on world-class adventures. Treks, expeditions, kayaking routes — ranked by the people who've done them.",
+    description:
+      "Discover and vote on world-class adventures. Treks, expeditions, kayaking routes — ranked by the people who've done them.",
     icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+      <svg
+        className="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        aria-hidden="true"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+        />
       </svg>
     ),
   },
   {
     label: "Flight Comparison",
-    description: "Compare fares from Amadeus and Skyscanner in a single view. Find the route that gets you to your trailhead.",
+    description:
+      "Compare fares from Amadeus and Skyscanner in a single view. Find the route that gets you to your trailhead.",
     icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        className="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        aria-hidden="true"
+      >
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
       </svg>
     ),
@@ -43,7 +75,9 @@ export default function LandingPage() {
           </span>
           <div className="flex items-center gap-4">
             <Link href="/login">
-              <Button variant="ghost" size="sm">Log in</Button>
+              <Button variant="ghost" size="sm">
+                Log in
+              </Button>
             </Link>
             <Link href="/signup">
               <Button size="sm">Get Started</Button>
@@ -75,7 +109,8 @@ export default function LandingPage() {
                 Adventure Planning · Community · AI
               </p>
               <h1 className="font-display text-6xl uppercase leading-none tracking-widest text-stone-100 sm:text-8xl">
-                Find Your<br />
+                Find Your
+                <br />
                 <span className="text-amber-500">Summit</span>
               </h1>
               <p className="mt-8 max-w-xl text-base leading-relaxed text-stone-400">
@@ -87,7 +122,9 @@ export default function LandingPage() {
                   <Button size="lg">Start Planning</Button>
                 </Link>
                 <Link href="/adventures">
-                  <Button variant="outline" size="lg">Browse Adventures</Button>
+                  <Button variant="outline" size="lg">
+                    Browse Adventures
+                  </Button>
                 </Link>
               </div>
             </div>
@@ -101,7 +138,9 @@ export default function LandingPage() {
               What&rsquo;s inside
             </p>
             <h2 className="font-display text-3xl uppercase tracking-widest text-stone-100 sm:text-4xl">
-              Built for the<br />serious adventurer
+              Built for the
+              <br />
+              serious adventurer
             </h2>
 
             <div className="mt-16 grid grid-cols-1 gap-px border border-stone-800 md:grid-cols-3">
@@ -116,9 +155,7 @@ export default function LandingPage() {
                   <h3 className="mt-6 font-display text-lg uppercase tracking-widest text-stone-100">
                     {label}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-stone-500">
-                    {description}
-                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-stone-500">{description}</p>
                 </div>
               ))}
             </div>

@@ -13,7 +13,7 @@ interface DayCardProps {
 }
 
 export function DayCard({ day }: DayCardProps) {
-  const activities = day.activities as Activity[];
+  const activities = day.activities as unknown as Activity[];
 
   return (
     <Card>

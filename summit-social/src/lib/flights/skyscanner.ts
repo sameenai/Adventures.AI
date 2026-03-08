@@ -2,7 +2,8 @@ import { logger } from "@/lib/logger";
 import type { FlightOffer, FlightSearch } from "./types";
 
 export async function searchSkyscannerFlights(search: FlightSearch): Promise<FlightOffer[]> {
-  const baseUrl = process.env.SKYSCANNER_BASE_URL ?? "https://partners.api.skyscanner.net/apiservices";
+  const baseUrl =
+    process.env.SKYSCANNER_BASE_URL ?? "https://partners.api.skyscanner.net/apiservices";
   const apiKey = process.env.SKYSCANNER_API_KEY;
 
   if (!apiKey) {
@@ -69,14 +70,21 @@ function mapCabinClass(cabin: string): string {
   return map[cabin] ?? "CABIN_CLASS_ECONOMY";
 }
 
+type SkyscannerItinerary = {
+  pricingOptions: Array<{ price: { amount: string }; items: Array<{ deepLink: string }> }>;
+  legIds: string[];
+};
+
+type SkyscannerContent = {
+  results?: { itineraries?: Record<string, SkyscannerItinerary> };
+};
+
 function normaliseSkyscannerResults(
   data: Record<string, unknown>,
   search: FlightSearch,
 ): FlightOffer[] {
-  const results = (data.content?.results?.itineraries ?? {}) as Record<
-    string,
-    { pricingOptions: Array<{ price: { amount: string }; items: Array<{ deepLink: string }> }>; legIds: string[] }
-  >;
+  const content = data.content as SkyscannerContent | undefined;
+  const results = content?.results?.itineraries ?? {};
 
   return Object.entries(results)
     .slice(0, 20)

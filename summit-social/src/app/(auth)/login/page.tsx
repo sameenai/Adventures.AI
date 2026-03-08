@@ -86,9 +86,7 @@ export default function LoginPage() {
               <div className="w-full border-t border-stone-800" />
             </div>
             <div className="relative flex justify-center">
-              <span className="bg-stone-950 px-3 font-mono text-xs text-stone-600">
-                local dev
-              </span>
+              <span className="bg-stone-950 px-3 font-mono text-xs text-stone-600">local dev</span>
             </div>
           </div>
 

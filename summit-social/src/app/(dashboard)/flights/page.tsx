@@ -31,9 +31,7 @@ export default function FlightsPage() {
         <p className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-1">
           Multi-provider
         </p>
-        <h1 className="font-display text-4xl uppercase tracking-widest text-stone-100">
-          Flights
-        </h1>
+        <h1 className="font-display text-4xl uppercase tracking-widest text-stone-100">Flights</h1>
       </div>
 
       <form onSubmit={handleSearch} className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-5">
@@ -73,9 +71,7 @@ export default function FlightsPage() {
         </div>
       </form>
 
-      {error && (
-        <p className="mt-4 font-mono text-xs text-red-400">{error}</p>
-      )}
+      {error && <p className="mt-4 font-mono text-xs text-red-400">{error}</p>}
 
       <div className="mt-8">
         <FlightComparison offers={offers} loading={loading} />

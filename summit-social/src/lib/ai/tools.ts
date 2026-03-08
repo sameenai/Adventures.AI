@@ -12,7 +12,10 @@ export const chatTools: ChatCompletionTool[] = [
           origin: { type: "string", description: "Origin IATA airport code (e.g. LHR)" },
           destination: { type: "string", description: "Destination IATA airport code (e.g. KTM)" },
           departureDate: { type: "string", description: "Departure date in YYYY-MM-DD format" },
-          returnDate: { type: "string", description: "Return date in YYYY-MM-DD format (optional)" },
+          returnDate: {
+            type: "string",
+            description: "Return date in YYYY-MM-DD format (optional)",
+          },
           passengers: { type: "number", description: "Number of passengers", default: 1 },
           cabinClass: {
             type: "string",
@@ -82,7 +85,10 @@ export const chatTools: ChatCompletionTool[] = [
         type: "object",
         properties: {
           activity: { type: "string", description: "Activity type (e.g. trekking, cycling)" },
-          conditions: { type: "string", description: "Expected conditions (e.g. cold, wet, high altitude)" },
+          conditions: {
+            type: "string",
+            description: "Expected conditions (e.g. cold, wet, high altitude)",
+          },
           duration: { type: "number", description: "Duration in days" },
         },
         required: ["activity", "conditions"],
