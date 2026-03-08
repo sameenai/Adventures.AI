@@ -106,3 +106,7 @@ Docker Compose runs:
 2. Make changes and commit on the branch
 3. Push and open a PR via `gh pr create`
 4. Merge the PR — never push directly to `main`
+
+**Commits must be small and modular.** Each commit should represent one logical, self-contained change that is easy to review, test, and revert independently. Prefer more smaller commits over a single large one.
+
+**Run tests before opening a PR.** All unit and integration tests must pass locally (`npm run test:unit` and `npm run test:integration`) before a PR is created. New code must include tests, and overall coverage must remain high (target 95%+).
