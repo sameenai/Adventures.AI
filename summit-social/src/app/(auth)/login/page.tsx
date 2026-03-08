@@ -1,11 +1,32 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { APP_NAME } from "@/lib/constants";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [devError, setDevError] = useState("");
+
+  async function handleDevLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setDevError("");
+    const result = await signIn("credentials", {
+      email,
+      password: "dev",
+      callbackUrl: "/adventures",
+      redirect: false,
+    });
+    if (result?.error) {
+      setDevError("Sign in failed. Check your email.");
+    } else if (result?.url) {
+      window.location.href = result.url;
+    }
+  }
+
   return (
     <div className="flex min-h-screen bg-stone-950">
       {/* Left decorative panel */}
@@ -59,7 +80,35 @@ export default function LoginPage() {
             </Button>
           </div>
 
-          <p className="mt-8 text-center text-xs text-stone-600">
+          {/* Dev login — works without OAuth credentials */}
+          <div className="relative mt-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-stone-800" />
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-stone-950 px-3 font-mono text-xs text-stone-600">
+                local dev
+              </span>
+            </div>
+          </div>
+
+          <form onSubmit={handleDevLogin} className="mt-6 space-y-3">
+            <Input
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+            />
+            <p className="font-mono text-xs text-stone-600">Password is always &ldquo;dev&rdquo;</p>
+            {devError && <p className="font-mono text-xs text-red-400">{devError}</p>}
+            <Button type="submit" className="w-full justify-center">
+              Sign in
+            </Button>
+          </form>
+
+          <p className="mt-6 text-center text-xs text-stone-600">
             No account?{" "}
             <Link href="/signup" className="text-amber-500 hover:text-amber-400 transition-colors">
               Sign up

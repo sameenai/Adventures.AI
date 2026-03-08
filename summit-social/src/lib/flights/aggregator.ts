@@ -4,6 +4,46 @@ import { searchAmadeusFlights } from "./amadeus";
 import { searchSkyscannerFlights } from "./skyscanner";
 import type { FlightOffer, FlightSearch, FlightSearchResult } from "./types";
 
+const NO_PROVIDERS =
+  !process.env.AMADEUS_CLIENT_ID &&
+  !process.env.AMADEUS_CLIENT_SECRET &&
+  !process.env.SKYSCANNER_API_KEY;
+
+function buildMockOffers(search: FlightSearch): FlightOffer[] {
+  const dep = new Date(`${search.departureDate}T08:30:00Z`);
+  const airlines = [
+    { code: "BA", name: "British Airways" },
+    { code: "EK", name: "Emirates" },
+    { code: "QR", name: "Qatar Airways" },
+    { code: "TK", name: "Turkish Airlines" },
+    { code: "LH", name: "Lufthansa" },
+  ];
+  return airlines.map((airline, i): FlightOffer => {
+    const departure = new Date(dep.getTime() + i * 90 * 60_000);
+    const duration = 180 + i * 45;
+    const arrival = new Date(departure.getTime() + duration * 60_000);
+    return {
+      id: `mock-${i}`,
+      provider: i % 2 === 0 ? "amadeus" : "skyscanner",
+      providerRef: `mock-ref-${i}`,
+      airline: airline.name,
+      flightNumber: `${airline.code}${200 + i * 11}`,
+      origin: search.origin,
+      destination: search.destination,
+      departureAt: departure.toISOString(),
+      arrivalAt: arrival.toISOString(),
+      durationMinutes: duration,
+      stops: i === 1 ? 1 : 0,
+      stopCities: i === 1 ? ["DXB"] : [],
+      priceGBP: (32000 + i * 4500 + (search.passengers - 1) * 18000),
+      currency: "GBP",
+      cabinClass: search.cabinClass,
+      deepLink: "",
+      baggageIncluded: i % 2 === 0,
+    };
+  });
+}
+
 const CACHE_TTL_SECONDS = 900; // 15 minutes
 
 function searchCacheKey(search: FlightSearch): string {
@@ -19,6 +59,14 @@ export async function searchFlights(search: FlightSearch): Promise<FlightSearchR
   const cached = await getCached<FlightSearchResult>(cacheKey);
   if (cached) {
     return { ...cached, cachedAt: cached.cachedAt };
+  }
+
+  if (NO_PROVIDERS) {
+    return {
+      search,
+      offers: buildMockOffers(search),
+      cachedAt: new Date().toISOString(),
+    };
   }
 
   const [amadeusResults, skyscannerResults] = await Promise.allSettled([
