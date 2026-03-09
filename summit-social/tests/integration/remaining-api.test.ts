@@ -510,6 +510,87 @@ describe("PATCH /api/itineraries/[id]", () => {
     );
     expect(response.status).toBe(404);
   });
+
+  it("passes all optional fields to prisma update when provided", async () => {
+    mockSession();
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1" });
+    const updateMock = mockPrisma.itinerary.update as ReturnType<typeof vi.fn>;
+    updateMock.mockResolvedValue({ id: "itin-1", title: "Nepal Trek", days: [] });
+
+    await patchItinerary(
+      new Request("http://localhost/api/itineraries/itin-1", {
+        method: "PATCH",
+        body: JSON.stringify({
+          title: "Nepal Trek",
+          description: "Epic adventure",
+          status: "CONFIRMED",
+          startDate: "2025-08-01",
+          endDate: "2025-08-14",
+          budget: 5000,
+          travellers: 3,
+        }),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "itin-1" }) },
+    );
+
+    expect(updateMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          title: "Nepal Trek",
+          description: "Epic adventure",
+          status: "CONFIRMED",
+          startDate: expect.any(Date),
+          endDate: expect.any(Date),
+          budget: 5000,
+          travellers: 3,
+        }),
+      }),
+    );
+  });
+
+  it("omits undefined optional fields from prisma update", async () => {
+    mockSession();
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1" });
+    const updateMock = mockPrisma.itinerary.update as ReturnType<typeof vi.fn>;
+    updateMock.mockResolvedValue({ id: "itin-1", days: [] });
+
+    await patchItinerary(
+      new Request("http://localhost/api/itineraries/itin-1", {
+        method: "PATCH",
+        body: JSON.stringify({}),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "itin-1" }) },
+    );
+
+    const callData = updateMock.mock.calls[0][0].data;
+    expect(callData).not.toHaveProperty("title");
+    expect(callData).not.toHaveProperty("status");
+    expect(callData).not.toHaveProperty("startDate");
+  });
+
+  it("sets description and budget to explicit values including falsy ones", async () => {
+    mockSession();
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1" });
+    const updateMock = mockPrisma.itinerary.update as ReturnType<typeof vi.fn>;
+    updateMock.mockResolvedValue({ id: "itin-1", days: [] });
+
+    await patchItinerary(
+      new Request("http://localhost/api/itineraries/itin-1", {
+        method: "PATCH",
+        body: JSON.stringify({ description: null, budget: 0 }),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "itin-1" }) },
+    );
+
+    const callData = updateMock.mock.calls[0][0].data;
+    // description uses !== undefined check, so null is included
+    expect(callData).toHaveProperty("description", null);
+    // budget uses !== undefined check, so 0 is included
+    expect(callData).toHaveProperty("budget", 0);
+  });
 });
 
 // ---------------------------------------------------------------------------
