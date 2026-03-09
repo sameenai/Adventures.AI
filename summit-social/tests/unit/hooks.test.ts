@@ -141,6 +141,32 @@ describe("useFlightSearch", () => {
     expect(result.current.error).toBeNull();
     expect(result.current.offers).toHaveLength(1);
   });
+
+  it("uses 'Flight search failed' when error response has no error field", async () => {
+    vi.spyOn(global, "fetch").mockResolvedValueOnce(
+      new Response(JSON.stringify({}), { status: 500 }),
+    );
+
+    const { result } = renderHook(() => useFlightSearch());
+
+    await act(async () => {
+      await result.current.search(searchParams);
+    });
+
+    expect(result.current.error).toBe("Flight search failed");
+  });
+
+  it("uses 'Search failed' when a non-Error is thrown", async () => {
+    vi.spyOn(global, "fetch").mockRejectedValueOnce("unexpected string throw");
+
+    const { result } = renderHook(() => useFlightSearch());
+
+    await act(async () => {
+      await result.current.search(searchParams);
+    });
+
+    expect(result.current.error).toBe("Search failed");
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -440,6 +466,31 @@ describe("useInfiniteScroll", () => {
     act(() => { result.current.sentinelRef(node2); });
 
     expect(mockDisconnect).toHaveBeenCalledTimes(1);
+    vi.unstubAllGlobals();
+  });
+
+  it("sentinelRef does nothing when called with null", () => {
+    const mockDisconnect = vi.fn();
+    const mockObserve = vi.fn();
+    class MockIntersectionObserver {
+      observe = mockObserve;
+      disconnect = mockDisconnect;
+      unobserve = vi.fn();
+    }
+    vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
+
+    const fetchFn = vi.fn();
+    const { result } = renderHook(() => useInfiniteScroll({ fetchFn }));
+
+    // First attach a real node so observerRef is populated
+    const node = document.createElement("div");
+    act(() => { result.current.sentinelRef(node); });
+
+    // Then call with null — should disconnect previous observer and return early
+    act(() => { result.current.sentinelRef(null); });
+
+    expect(mockDisconnect).toHaveBeenCalledTimes(1);
+    expect(mockObserve).toHaveBeenCalledTimes(1); // only the first node
     vi.unstubAllGlobals();
   });
 });

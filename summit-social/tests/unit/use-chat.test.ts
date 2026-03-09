@@ -172,6 +172,22 @@ describe("useChat", () => {
     expect(result.current.isStreaming).toBe(false);
   });
 
+  it("adds error message when response body has no reader", async () => {
+    // Simulate a response with a null body (no readable stream)
+    const nullBodyResponse = new Response(null, { status: 200 });
+    vi.spyOn(global, "fetch").mockResolvedValueOnce(nullBodyResponse);
+
+    const { result } = renderHook(() => useChat({}));
+
+    await act(async () => {
+      await result.current.sendMessage("hello");
+    });
+
+    const errorMsg = result.current.messages.at(-1);
+    expect(errorMsg?.role).toBe("assistant");
+    expect(errorMsg?.content).toContain("something went wrong");
+  });
+
   it("accumulates multiple chunks from stream", async () => {
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
