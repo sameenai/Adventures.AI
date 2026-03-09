@@ -376,7 +376,7 @@ describe("searchSkyscannerFlights", () => {
       );
     });
 
-    await searchSkyscannerFlights({ ...baseSearch, cabinClass: "unknown_class" });
+    await searchSkyscannerFlights({ ...baseSearch, cabinClass: "unknown_class" as "economy" });
     const reqBody = capturedBody as { query: { cabinClass: string } };
     expect(reqBody.query.cabinClass).toBe("CABIN_CLASS_ECONOMY");
   });
