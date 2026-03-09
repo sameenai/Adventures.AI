@@ -138,6 +138,16 @@ describe("Modal", () => {
     unmount();
     expect(document.body.style.overflow).toBe("");
   });
+
+  it("backdrop onKeyDown handler is a no-op (accessibility placeholder)", () => {
+    const onClose = vi.fn();
+    const { container } = render(<Modal open={true} onClose={onClose}>content</Modal>);
+    // The backdrop has backdrop-blur-sm which is safe to select on
+    const backdrop = container.querySelector(".backdrop-blur-sm");
+    expect(backdrop).not.toBeNull();
+    fireEvent.keyDown(backdrop!);
+    expect(onClose).not.toHaveBeenCalled();
+  });
 });
 
 // ---------------------------------------------------------------------------
