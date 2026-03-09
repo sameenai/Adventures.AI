@@ -131,6 +131,13 @@ describe("Modal", () => {
     render(<Modal open={true} onClose={vi.fn()}>body only</Modal>);
     expect(screen.queryByRole("heading")).not.toBeInTheDocument();
   });
+
+  it("cleans up keydown listener and restores body overflow on unmount", () => {
+    const { unmount } = render(<Modal open={true} onClose={vi.fn()}>content</Modal>);
+    expect(document.body.style.overflow).toBe("hidden");
+    unmount();
+    expect(document.body.style.overflow).toBe("");
+  });
 });
 
 // ---------------------------------------------------------------------------

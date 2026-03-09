@@ -220,6 +220,22 @@ describe("ErrorBoundary", () => {
     );
     expect(screen.getByText("Try again")).toBeInTheDocument();
   });
+
+  it("shows fallback message when thrown value has no message", () => {
+    // Throwing a plain object (not an Error) results in error?.message === undefined,
+    // which triggers the ?? "An unexpected error occurred." fallback (line 38).
+    const ThrowingObject = () => {
+      throw { name: "CustomError" }; // eslint-disable-line @typescript-eslint/only-throw-error
+      // biome-ignore lint/correctness/noUnreachable: intentional for test
+      return null;
+    };
+    render(
+      <ErrorBoundary>
+        <ThrowingObject />
+      </ErrorBoundary>,
+    );
+    expect(screen.getByText("An unexpected error occurred.")).toBeInTheDocument();
+  });
 });
 
 // ---------------------------------------------------------------------------
