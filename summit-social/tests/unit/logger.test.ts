@@ -65,10 +65,6 @@ describe("logger", () => {
   });
 
   describe("in production (NODE_ENV === 'production')", () => {
-    // Note: logger.ts evaluates isDev at module load time, so we test the
-    // behaviour by checking that NODE_ENV=production suppresses info.
-    // Since the module is already loaded, we verify the logic indirectly:
-    // in the test environment (not production), info IS logged.
     it("logs warn in any environment", () => {
       logger.warn("prod warn");
       expect(console.warn).toHaveBeenCalledOnce();
@@ -77,6 +73,17 @@ describe("logger", () => {
     it("logs error in any environment", () => {
       logger.error("prod error");
       expect(console.error).toHaveBeenCalledOnce();
+    });
+
+    it("suppresses info logs when NODE_ENV is production", async () => {
+      vi.stubEnv("NODE_ENV", "production");
+      vi.resetModules();
+      const { logger: prodLogger } = await import("@/lib/logger");
+      const infoSpy = vi.spyOn(console, "info").mockImplementation(() => {});
+      prodLogger.info("should be suppressed");
+      expect(infoSpy).not.toHaveBeenCalled();
+      vi.unstubAllEnvs();
+      vi.resetModules();
     });
   });
 });
