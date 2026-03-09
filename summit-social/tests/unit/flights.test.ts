@@ -181,6 +181,82 @@ describe("searchAmadeusFlights", () => {
     expect(result[0].stopCities).toEqual(["DXB"]);
     expect(result[0].durationMinutes).toBe(720);
   });
+
+  it("appends returnDate param when provided", async () => {
+    vi.stubEnv("AMADEUS_CLIENT_ID", "test-id");
+    vi.stubEnv("AMADEUS_CLIENT_SECRET", "test-secret");
+    vi.stubEnv("AMADEUS_BASE_URL", "https://test.api.amadeus.com");
+
+    let capturedUrl = "";
+    vi.spyOn(global, "fetch")
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ access_token: "tok", expires_in: 0 }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      )
+      .mockImplementationOnce(async (url) => {
+        capturedUrl = String(url);
+        return new Response(JSON.stringify({ data: [] }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      });
+
+    await searchAmadeusFlights({ ...baseSearch, returnDate: "2025-08-15" });
+    expect(capturedUrl).toContain("returnDate=2025-08-15");
+  });
+
+  it("reuses cached access token on second call", async () => {
+    vi.stubEnv("AMADEUS_CLIENT_ID", "test-id");
+    vi.stubEnv("AMADEUS_CLIENT_SECRET", "test-secret");
+    vi.stubEnv("AMADEUS_BASE_URL", "https://test.api.amadeus.com");
+
+    const offer = {
+      id: "1",
+      itineraries: [
+        {
+          duration: "PT7H30M",
+          segments: [
+            {
+              carrierCode: "BA",
+              number: "117",
+              departure: { iataCode: "LHR", at: "2025-08-01T10:00:00" },
+              arrival: { iataCode: "JFK", at: "2025-08-01T17:30:00" },
+            },
+          ],
+        },
+      ],
+      price: { grandTotal: "450.00" },
+    };
+
+    const fetchSpy = vi
+      .spyOn(global, "fetch")
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ access_token: "cached-tok", expires_in: 3600 }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ data: [offer] }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ data: [offer] }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+
+    await searchAmadeusFlights(baseSearch);
+    await searchAmadeusFlights(baseSearch);
+
+    // Auth called once; two search calls = 3 fetch calls total
+    expect(fetchSpy).toHaveBeenCalledTimes(3);
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -286,6 +362,66 @@ describe("searchSkyscannerFlights", () => {
     await searchSkyscannerFlights({ ...baseSearch, returnDate: "2025-08-15" });
     const body = capturedBody as { query: { queryLegs: unknown[] } };
     expect(body.query.queryLegs).toHaveLength(2);
+  });
+
+  it("falls back to CABIN_CLASS_ECONOMY for unknown cabin class", async () => {
+    vi.stubEnv("SKYSCANNER_API_KEY", "test-key");
+
+    let capturedBody: unknown;
+    vi.spyOn(global, "fetch").mockImplementationOnce(async (_url, init) => {
+      capturedBody = JSON.parse(init?.body as string);
+      return new Response(
+        JSON.stringify({ content: { results: { itineraries: {} } } }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      );
+    });
+
+    await searchSkyscannerFlights({ ...baseSearch, cabinClass: "unknown_class" });
+    const reqBody = capturedBody as { query: { cabinClass: string } };
+    expect(reqBody.query.cabinClass).toBe("CABIN_CLASS_ECONOMY");
+  });
+
+  it("returns empty array when API response has no content field", async () => {
+    vi.stubEnv("SKYSCANNER_API_KEY", "test-key");
+
+    vi.spyOn(global, "fetch").mockResolvedValueOnce(
+      new Response(JSON.stringify({}), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    const result = await searchSkyscannerFlights(baseSearch);
+    expect(result).toEqual([]);
+  });
+
+  it("uses zero price and empty deepLink when pricing data is missing", async () => {
+    vi.stubEnv("SKYSCANNER_API_KEY", "test-key");
+
+    const skyscannerData = {
+      content: {
+        results: {
+          itineraries: {
+            "itin-no-price": {
+              legIds: ["leg-1"],
+              pricingOptions: [{ price: {}, items: [] }],
+            },
+          },
+        },
+      },
+    };
+
+    vi.spyOn(global, "fetch").mockResolvedValueOnce(
+      new Response(JSON.stringify(skyscannerData), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    const result = await searchSkyscannerFlights(baseSearch);
+    expect(result).toHaveLength(1);
+    expect(result[0].priceGBP).toBe(0);
+    expect(result[0].deepLink).toBe("");
   });
 });
 
