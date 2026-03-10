@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## General Guidelines
+
+When receiving a short or ambiguous request (e.g. a single word like "tui"), ask for clarification before taking action. Do not create files or start large tasks without understanding the intent.
+
 ## Project
 
 **Adventures.AI** — An automated tour and itinerary builder with social features. The main application lives in `summit-social/`, a Next.js 15 full-stack app.
@@ -119,3 +123,5 @@ Unit and integration tests mock all external services (Prisma, Redis, OpenAI, fl
 **Commits must be small and modular.** Each commit should represent one logical, self-contained change that is easy to review, test, and revert independently. Prefer more smaller commits over a single large one.
 
 **Run tests before opening a PR.** All unit and integration tests must pass locally (`npm run test:unit` and `npm run test:integration`) before a PR is created. New code must include tests, and overall coverage must remain high (target 95%+).
+
+**After merging a PR**, delete the remote branch and sync local main: `gh pr merge <number> --squash --delete-branch && git checkout main && git pull`. Never push directly to `main` and then try to create a PR — always create a feature branch first.
