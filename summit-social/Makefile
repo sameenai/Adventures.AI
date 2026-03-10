@@ -2,8 +2,11 @@
 
 # ---------------------------------------------------------------------------
 # Local dev: Postgres and Redis via Homebrew (no Docker required)
-# Install prerequisites: brew install postgresql redis
+# Install prerequisites: brew install postgresql@16 redis
 # ---------------------------------------------------------------------------
+
+# postgresql@16 is keg-only — add its bin to PATH so pg_isready/psql are found
+export PATH := /opt/homebrew/opt/postgresql@16/bin:$(PATH)
 
 setup:
 	npm install
@@ -20,7 +23,7 @@ setup:
 	@echo "→ Waiting for Postgres to be ready..."
 	@until pg_isready -q; do sleep 1; done
 	@echo "→ Postgres ready"
-	@psql postgres -c "CREATE ROLE summit WITH LOGIN PASSWORD 'summit';" 2>/dev/null || true
+	@psql postgres -c "CREATE ROLE summit WITH LOGIN PASSWORD 'summit' CREATEDB;" 2>/dev/null || psql postgres -c "ALTER ROLE summit CREATEDB;" 2>/dev/null || true
 	@createdb -O summit summitsocial 2>/dev/null || true
 	npx prisma migrate dev --name init
 	npm run db:seed
