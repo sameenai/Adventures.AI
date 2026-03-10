@@ -25,19 +25,17 @@ export function Navbar() {
           >
             {APP_NAME.replace("S", "S·")}
           </Link>
-          {session && (
-            <div className="hidden items-center gap-7 md:flex">
-              {NAV_LINKS.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="font-display text-xs uppercase tracking-widest text-stone-400 transition-colors hover:text-amber-500"
-                >
-                  {label}
-                </Link>
-              ))}
-            </div>
-          )}
+          <div className="hidden items-center gap-7 md:flex">
+            {NAV_LINKS.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className="font-display text-xs uppercase tracking-widest text-stone-400 transition-colors hover:text-amber-500"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
         </div>
         <div className="flex items-center gap-4">
           {session ? (
