@@ -17,8 +17,8 @@ export function AdventureGrid({
   if (adventures.length === 0) {
     return (
       <div className="py-16 text-center">
-        <p className="text-lg text-gray-500">No adventures found</p>
-        <p className="mt-1 text-sm text-gray-400">Try adjusting your filters or search query.</p>
+        <p className="font-display text-lg uppercase tracking-widest text-stone-500">No adventures found</p>
+        <p className="mt-1 text-sm text-stone-600">Try adjusting your filters or search query.</p>
       </div>
     );
   }

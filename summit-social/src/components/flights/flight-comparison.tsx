@@ -11,7 +11,7 @@ export function FlightComparison({ offers, loading }: FlightComparisonProps) {
     return (
       <div className="space-y-4">
         {["sk-1", "sk-2", "sk-3"].map((id) => (
-          <div key={id} className="h-24 animate-pulse rounded-xl bg-gray-100" />
+          <div key={id} className="h-24 animate-pulse border border-stone-800 bg-stone-900" />
         ))}
       </div>
     );
@@ -20,14 +20,14 @@ export function FlightComparison({ offers, loading }: FlightComparisonProps) {
   if (offers.length === 0) {
     return (
       <div className="py-12 text-center">
-        <p className="text-gray-500">No flights found for your search criteria.</p>
+        <p className="text-stone-500">No flights found for your search criteria.</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-gray-500">{offers.length} flights found</p>
+      <p className="text-sm text-stone-500">{offers.length} flights found</p>
       {offers.map((offer) => (
         <FlightCard key={offer.id} offer={offer} />
       ))}
