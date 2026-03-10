@@ -21,7 +21,7 @@ export function SocialLinks({ instagramUrl, twitterUrl, websiteUrl }: SocialLink
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm font-medium text-summit-600 hover:text-summit-700"
+          className="text-sm font-medium text-amber-500 hover:text-amber-400"
         >
           {link.label}
         </a>

@@ -18,17 +18,17 @@ export function DayCard({ day }: DayCardProps) {
   return (
     <Card>
       <CardContent>
-        <h3 className="font-semibold text-gray-900">{day.title}</h3>
-        {day.description && <p className="mt-1 text-sm text-gray-600">{day.description}</p>}
+        <h3 className="font-display uppercase tracking-widest text-stone-100">{day.title}</h3>
+        {day.description && <p className="mt-1 text-sm text-stone-400">{day.description}</p>}
         {activities.length > 0 && (
           <ul className="mt-3 space-y-2">
             {activities.map((activity, i) => (
               <li key={`${activity.time}-${i}`} className="flex gap-3 text-sm">
-                <span className="shrink-0 font-mono text-gray-400">{activity.time}</span>
+                <span className="shrink-0 font-mono text-stone-600">{activity.time}</span>
                 <div>
-                  <p className="text-gray-900">{activity.activity}</p>
-                  <p className="text-gray-500">{activity.location}</p>
-                  {activity.notes && <p className="text-xs text-gray-400">{activity.notes}</p>}
+                  <p className="text-stone-100">{activity.activity}</p>
+                  <p className="text-stone-500">{activity.location}</p>
+                  {activity.notes && <p className="text-xs text-stone-600">{activity.notes}</p>}
                 </div>
               </li>
             ))}

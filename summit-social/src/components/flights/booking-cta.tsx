@@ -8,17 +8,17 @@ interface BookingCTAProps {
 
 export function BookingCTA({ offer }: BookingCTAProps) {
   return (
-    <div className="flex items-center justify-between rounded-xl border border-summit-200 bg-summit-50 p-6">
+    <div className="flex items-center justify-between border border-amber-500/30 bg-amber-500/10 p-6">
       <div>
-        <h3 className="font-semibold text-gray-900">
+        <h3 className="font-display uppercase tracking-widest text-stone-100">
           {offer.origin} to {offer.destination}
         </h3>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-stone-400">
           {offer.airline} {offer.flightNumber} &middot; {offer.cabinClass}
         </p>
       </div>
       <div className="flex items-center gap-4">
-        <span className="text-2xl font-bold text-summit-700">{formatPrice(offer.priceGBP)}</span>
+        <span className="font-mono text-2xl font-bold text-amber-500">{formatPrice(offer.priceGBP)}</span>
         <a href={offer.deepLink} target="_blank" rel="noopener noreferrer">
           <Button size="lg">Book Now</Button>
         </a>
