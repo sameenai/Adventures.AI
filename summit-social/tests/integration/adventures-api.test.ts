@@ -149,6 +149,46 @@ describe("GET /api/adventures", () => {
     const findManyCall = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
     expect(findManyCall.where.category).toBe("TREKKING");
   });
+
+  it("orders by createdAt desc when sortBy=newest", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?sortBy=newest"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.orderBy).toEqual({ createdAt: "desc" });
+  });
+
+  it("orders by durationDays asc when sortBy=duration", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?sortBy=duration"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.orderBy).toEqual({ durationDays: "asc" });
+  });
+
+  it("applies OR search clause across title, description, and location", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?search=nepal"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.where.OR).toHaveLength(3);
+    expect(call.where.OR[0]).toMatchObject({ title: { contains: "nepal", mode: "insensitive" } });
+    expect(call.where.OR[1]).toMatchObject({ description: { contains: "nepal", mode: "insensitive" } });
+    expect(call.where.OR[2]).toMatchObject({ location: { contains: "nepal", mode: "insensitive" } });
+  });
+
+  it("passes cursor and skip to prisma when ?cursor= is provided", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?cursor=adv-5"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.cursor).toEqual({ id: "adv-5" });
+    expect(call.skip).toBe(1);
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -226,6 +266,32 @@ describe("POST /api/adventures", () => {
     expect(response.status).toBe(400);
     const data = await response.json();
     expect(data.code).toBe("VALIDATION_ERROR");
+  });
+
+  it("creates adventure with tags via connectOrCreate", async () => {
+    (mockPrisma.adventure.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      ...sampleAdventure,
+      tags: [
+        { id: "tag-1", name: "trekking" },
+        { id: "tag-2", name: "alpine" },
+      ],
+    });
+
+    const response = await createAdventure(
+      new NextRequest("http://localhost/api/adventures", {
+        method: "POST",
+        body: JSON.stringify({ ...validBody, tags: ["trekking", "alpine"] }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    expect(response.status).toBe(201);
+    const createCall = (mockPrisma.adventure.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(createCall.data.tags.connectOrCreate).toHaveLength(2);
+    expect(createCall.data.tags.connectOrCreate[0]).toMatchObject({
+      where: { name: "trekking" },
+      create: { name: "trekking" },
+    });
   });
 });
 

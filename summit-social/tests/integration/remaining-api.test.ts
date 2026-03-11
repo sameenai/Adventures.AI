@@ -293,6 +293,37 @@ describe("POST /api/chat", () => {
     );
   });
 
+  it.each([
+    ["planning a trip to patagonia", "Patagonia"],
+    ["i want to climb kilimanjaro next year", "Tanzania"],
+    ["iceland northern lights trip", "Iceland"],
+    ["peru inca trail hike", "Peru"],
+  ])("mock response names the correct destination for '%s'", async (message, expectedDest) => {
+    mockSession();
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+
+    const response = await chatRoute(
+      new NextRequest("http://localhost/api/chat", {
+        method: "POST",
+        body: JSON.stringify({ message }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    expect(response.status).toBe(200);
+
+    const reader = response.body!.getReader();
+    const decoder = new TextDecoder();
+    let text = "";
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (value) text += decoder.decode(value, { stream: true });
+    }
+
+    expect(text).toContain(expectedDest);
+  });
+
   it("includes existing chat history in prompt when itineraryId is provided", async () => {
     mockSession();
     (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
@@ -409,6 +440,46 @@ describe("POST /api/itineraries", () => {
       }),
     );
     expect(response.status).toBe(401);
+  });
+
+  it("converts startDate and endDate strings to Date objects when provided", async () => {
+    mockSession();
+    (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "itin-new",
+      title: "My Trip",
+    });
+
+    await createItinerary(
+      new Request("http://localhost/api/itineraries", {
+        method: "POST",
+        body: JSON.stringify({ title: "My Trip", startDate: "2025-08-01", endDate: "2025-08-14" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    const createCall = (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(createCall.data.startDate).toBeInstanceOf(Date);
+    expect(createCall.data.endDate).toBeInstanceOf(Date);
+  });
+
+  it("omits startDate and endDate from prisma call when not provided", async () => {
+    mockSession();
+    (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "itin-new",
+      title: "My Trip",
+    });
+
+    await createItinerary(
+      new Request("http://localhost/api/itineraries", {
+        method: "POST",
+        body: JSON.stringify({ title: "My Trip" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    const createCall = (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(createCall.data.startDate).toBeUndefined();
+    expect(createCall.data.endDate).toBeUndefined();
   });
 });
 
