@@ -1,15 +1,16 @@
-import { MapView } from "@/components/itinerary/map-view";
+import { CommentForm } from "@/components/adventures/comment-form";
 import { VoteButton } from "@/components/adventures/vote-button";
+import { MapView } from "@/components/itinerary/map-view";
 import { authOptions } from "@/lib/auth/config";
-import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
 import { prisma } from "@/lib/db/prisma";
+import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
 import { formatPrice, monthName, pluralise, timeAgo } from "@/lib/utils";
 import type { AdventureDetail } from "@/types";
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getServerSession } from "next-auth";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -66,13 +67,28 @@ export default async function AdventureDetailPage({ params }: Props) {
       ? [{ lat: adventure.latitude, lng: adventure.longitude, label: adventure.location }]
       : [];
 
-  const MONTH_NAMES = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const MONTH_NAMES = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
       <nav className="mb-6 flex items-center gap-2 font-mono text-xs text-stone-600">
-        <Link href="/adventures" className="hover:text-amber-500 transition-colors">Adventures</Link>
+        <Link href="/adventures" className="hover:text-amber-500 transition-colors">
+          Adventures
+        </Link>
         <span>/</span>
         <span className="text-stone-400">{adventure.title}</span>
       </nav>
@@ -95,7 +111,9 @@ export default async function AdventureDetailPage({ params }: Props) {
           <h1 className="mt-1 font-display text-3xl uppercase tracking-widest text-stone-100 sm:text-5xl">
             {adventure.title}
           </h1>
-          <p className="mt-2 font-mono text-sm text-stone-400">{adventure.location} · {adventure.country}</p>
+          <p className="mt-2 font-mono text-sm text-stone-400">
+            {adventure.location} · {adventure.country}
+          </p>
         </div>
       </div>
 
@@ -122,14 +140,20 @@ export default async function AdventureDetailPage({ params }: Props) {
         <div className="lg:col-span-2 space-y-8">
           {/* Description */}
           <section>
-            <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">Overview</h2>
-            <p className="text-sm leading-relaxed text-stone-400 whitespace-pre-line">{adventure.description}</p>
+            <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+              Overview
+            </h2>
+            <p className="text-sm leading-relaxed text-stone-400 whitespace-pre-line">
+              {adventure.description}
+            </p>
           </section>
 
           {/* Highlights */}
           {adventure.highlights.length > 0 && (
             <section>
-              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">Highlights</h2>
+              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                Highlights
+              </h2>
               <ul className="space-y-2">
                 {adventure.highlights.map((h) => (
                   <li key={h} className="flex items-start gap-3 text-sm text-stone-400">
@@ -144,7 +168,9 @@ export default async function AdventureDetailPage({ params }: Props) {
           {/* Map */}
           {markers.length > 0 && (
             <section>
-              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">Location</h2>
+              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                Location
+              </h2>
               <MapView markers={markers} className="h-[280px]" />
             </section>
           )}
@@ -154,8 +180,22 @@ export default async function AdventureDetailPage({ params }: Props) {
             <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
               {pluralise(adventure.comments.length, "Comment")}
             </h2>
+            {session?.user?.id ? (
+              <div className="mb-6">
+                <CommentForm adventureId={adventure.id} />
+              </div>
+            ) : (
+              <p className="mb-6 font-mono text-xs text-stone-600">
+                <Link href="/login" className="text-amber-500 hover:text-amber-400">
+                  Sign in
+                </Link>{" "}
+                to leave a comment.
+              </p>
+            )}
             {adventure.comments.length === 0 ? (
-              <p className="text-sm text-stone-600">No comments yet. Be the first to share your experience.</p>
+              <p className="text-sm text-stone-600">
+                No comments yet. Be the first to share your experience.
+              </p>
             ) : (
               <div className="space-y-6">
                 {adventure.comments.map((comment) => (
@@ -182,7 +222,9 @@ export default async function AdventureDetailPage({ params }: Props) {
                             {timeAgo(new Date(comment.createdAt))}
                           </span>
                         </div>
-                        <p className="mt-1 text-sm leading-relaxed text-stone-400">{comment.body}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-stone-400">
+                          {comment.body}
+                        </p>
                       </div>
                     </div>
                     {comment.replies && comment.replies.length > 0 && (
@@ -210,7 +252,9 @@ export default async function AdventureDetailPage({ params }: Props) {
                                   {timeAgo(new Date(reply.createdAt))}
                                 </span>
                               </div>
-                              <p className="mt-1 text-sm leading-relaxed text-stone-400">{reply.body}</p>
+                              <p className="mt-1 text-sm leading-relaxed text-stone-400">
+                                {reply.body}
+                              </p>
                             </div>
                           </div>
                         ))}
@@ -228,10 +272,15 @@ export default async function AdventureDetailPage({ params }: Props) {
           {/* Gear */}
           {adventure.gear.length > 0 && (
             <div className="border border-stone-800 p-5">
-              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">Gear List</h3>
+              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                Gear List
+              </h3>
               <ul className="space-y-2">
                 {adventure.gear.map((item) => (
-                  <li key={item} className="flex items-center gap-2 font-mono text-xs text-stone-400">
+                  <li
+                    key={item}
+                    className="flex items-center gap-2 font-mono text-xs text-stone-400"
+                  >
                     <span className="h-px w-3 bg-stone-700" />
                     {item}
                   </li>
@@ -243,7 +292,9 @@ export default async function AdventureDetailPage({ params }: Props) {
           {/* Best months */}
           {adventure.bestMonths.length > 0 && (
             <div className="border border-stone-800 p-5">
-              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">Best Months</h3>
+              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                Best Months
+              </h3>
               <div className="flex flex-wrap gap-1.5">
                 {MONTH_NAMES.map((name, i) => {
                   const active = adventure.bestMonths.includes(i + 1);
@@ -267,7 +318,9 @@ export default async function AdventureDetailPage({ params }: Props) {
           {/* Tags */}
           {adventure.tags.length > 0 && (
             <div className="border border-stone-800 p-5">
-              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">Tags</h3>
+              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                Tags
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {adventure.tags.map((tag) => (
                   <span
@@ -283,7 +336,9 @@ export default async function AdventureDetailPage({ params }: Props) {
 
           {/* Author */}
           <div className="border border-stone-800 p-5">
-            <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">Posted by</h3>
+            <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+              Posted by
+            </h3>
             <Link href={`/profile/${adventure.user.id}`} className="flex items-center gap-3 group">
               {adventure.user.avatarUrl && (
                 <Image
