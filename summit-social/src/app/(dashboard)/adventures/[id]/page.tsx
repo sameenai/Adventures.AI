@@ -1,4 +1,5 @@
 import { CommentForm } from "@/components/adventures/comment-form";
+import { ShareButtons } from "@/components/adventures/share-buttons";
 import { VoteButton } from "@/components/adventures/vote-button";
 import { MapView } from "@/components/itinerary/map-view";
 import { authOptions } from "@/lib/auth/config";
@@ -127,12 +128,18 @@ export default async function AdventureDetailPage({ params }: Props) {
             <span className="text-stone-500">~{formatPrice(adventure.estimatedCost)} est.</span>
           )}
         </div>
-        <VoteButton
-          adventureId={adventure.id}
-          voteCount={adventure.voteCount}
-          hasVoted={hasVoted}
-          disabled={!session?.user?.id}
-        />
+        <div className="flex items-center gap-3">
+          <ShareButtons
+            title={adventure.title}
+            url={`${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/adventures/${adventure.id}`}
+          />
+          <VoteButton
+            adventureId={adventure.id}
+            voteCount={adventure.voteCount}
+            hasVoted={hasVoted}
+            disabled={!session?.user?.id}
+          />
+        </div>
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
