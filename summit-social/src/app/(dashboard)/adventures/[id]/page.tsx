@@ -367,6 +367,50 @@ export default async function AdventureDetailPage({ params }: Props) {
             </Link>
           </div>
 
+          {/* Album gallery */}
+          {adventure.albumUrl && (
+            <div className="border border-stone-800 p-5">
+              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                Photo Album
+              </h3>
+              <a
+                href={adventure.albumUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 font-mono text-xs text-amber-500 hover:text-amber-400 transition-colors"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 fill-none stroke-current stroke-2 shrink-0"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                  />
+                </svg>
+                View photos on{" "}
+                {adventure.albumPlatform
+                  ? adventure.albumPlatform
+                      .replace("_", " ")
+                      .replace(/\b\w/g, (c) => c.toUpperCase())
+                  : "external site"}
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-3 w-3 fill-none stroke-current stroke-2"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                  />
+                </svg>
+              </a>
+            </div>
+          )}
+
           {/* Plan this trip CTA */}
           <div className="border border-amber-500/20 bg-amber-500/5 p-5">
             <h3 className="font-display text-xs uppercase tracking-[0.35em] text-amber-500 mb-2">
@@ -376,7 +420,7 @@ export default async function AdventureDetailPage({ params }: Props) {
               Use the AI Trip Planner to build a day-by-day itinerary inspired by this adventure.
             </p>
             <Link
-              href="/itinerary"
+              href={`/itinerary?prompt=${encodeURIComponent(`Plan a trip inspired by "${adventure.title}" in ${adventure.location}, ${adventure.country}. Duration: ${adventure.durationDays} days, difficulty: ${adventure.difficulty.toLowerCase()}.`)}`}
               className="block w-full border border-amber-500 bg-amber-500 py-2 text-center font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
             >
               Open Planner

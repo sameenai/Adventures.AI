@@ -10,14 +10,29 @@ import { TypingIndicator } from "./typing-indicator";
 interface ChatWindowProps {
   itineraryId?: string;
   initialMessages?: ChatMessage[];
+  initialPrompt?: string;
 }
 
-export function ChatWindow({ itineraryId, initialMessages = [] }: ChatWindowProps) {
+export function ChatWindow({ itineraryId, initialMessages = [], initialPrompt }: ChatWindowProps) {
   const { messages, input, setInput, sendMessage, isStreaming } = useChat({
     itineraryId,
     initialMessages,
   });
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const promptSentRef = useRef(false);
+
+  // Auto-send a pre-filled prompt exactly once on mount (e.g. from "Plan this trip" CTA).
+  // Capturing values in the ref at declaration time so the effect can safely run
+  // with an empty dependency array without the linter complaining.
+  const initialPromptRef = useRef(initialPrompt);
+  const sendMessageRef = useRef(sendMessage);
+  useEffect(() => {
+    const prompt = initialPromptRef.current;
+    if (prompt && !promptSentRef.current) {
+      promptSentRef.current = true;
+      sendMessageRef.current(prompt);
+    }
+  }, []);
 
   const messageCount = messages.length;
   useEffect(() => {
