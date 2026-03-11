@@ -167,6 +167,28 @@ describe("GET /api/adventures", () => {
     const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
     expect(call.orderBy).toEqual({ durationDays: "asc" });
   });
+
+  it("applies OR search clause across title, description, and location", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?search=nepal"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.where.OR).toHaveLength(3);
+    expect(call.where.OR[0]).toMatchObject({ title: { contains: "nepal", mode: "insensitive" } });
+    expect(call.where.OR[1]).toMatchObject({ description: { contains: "nepal", mode: "insensitive" } });
+    expect(call.where.OR[2]).toMatchObject({ location: { contains: "nepal", mode: "insensitive" } });
+  });
+
+  it("passes cursor and skip to prisma when ?cursor= is provided", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?cursor=adv-5"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.cursor).toEqual({ id: "adv-5" });
+    expect(call.skip).toBe(1);
+  });
 });
 
 // ---------------------------------------------------------------------------
