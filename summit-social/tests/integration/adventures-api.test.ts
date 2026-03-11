@@ -267,6 +267,32 @@ describe("POST /api/adventures", () => {
     const data = await response.json();
     expect(data.code).toBe("VALIDATION_ERROR");
   });
+
+  it("creates adventure with tags via connectOrCreate", async () => {
+    (mockPrisma.adventure.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      ...sampleAdventure,
+      tags: [
+        { id: "tag-1", name: "trekking" },
+        { id: "tag-2", name: "alpine" },
+      ],
+    });
+
+    const response = await createAdventure(
+      new NextRequest("http://localhost/api/adventures", {
+        method: "POST",
+        body: JSON.stringify({ ...validBody, tags: ["trekking", "alpine"] }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    expect(response.status).toBe(201);
+    const createCall = (mockPrisma.adventure.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(createCall.data.tags.connectOrCreate).toHaveLength(2);
+    expect(createCall.data.tags.connectOrCreate[0]).toMatchObject({
+      where: { name: "trekking" },
+      create: { name: "trekking" },
+    });
+  });
 });
 
 // ---------------------------------------------------------------------------
