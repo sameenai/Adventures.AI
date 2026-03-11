@@ -207,6 +207,137 @@ describe("searchAmadeusFlights", () => {
     expect(capturedUrl).toContain("returnDate=2025-08-15");
   });
 
+  it("returns empty array when response data field is null", async () => {
+    vi.stubEnv("AMADEUS_CLIENT_ID", "test-id");
+    vi.stubEnv("AMADEUS_CLIENT_SECRET", "test-secret");
+    vi.stubEnv("AMADEUS_BASE_URL", "https://test.api.amadeus.com");
+
+    vi.spyOn(global, "fetch")
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ access_token: "tok", expires_in: 0 }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ data: null }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+
+    const result = await searchAmadeusFlights(baseSearch);
+    expect(result).toEqual([]);
+  });
+
+  it("parses duration with hours only (no minutes component)", async () => {
+    vi.stubEnv("AMADEUS_CLIENT_ID", "test-id");
+    vi.stubEnv("AMADEUS_CLIENT_SECRET", "test-secret");
+    vi.stubEnv("AMADEUS_BASE_URL", "https://test.api.amadeus.com");
+
+    const offer = {
+      id: "hrs",
+      itineraries: [{
+        duration: "PT2H",
+        segments: [{
+          carrierCode: "BA", number: "100",
+          departure: { iataCode: "LHR", at: "2025-08-01T10:00:00" },
+          arrival: { iataCode: "CDG", at: "2025-08-01T12:00:00" },
+        }],
+      }],
+      price: { grandTotal: "200.00" },
+    };
+
+    vi.spyOn(global, "fetch")
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ access_token: "tok", expires_in: 0 }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ data: [offer] }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+
+    const result = await searchAmadeusFlights(baseSearch);
+    expect(result[0].durationMinutes).toBe(120);
+  });
+
+  it("parses duration with minutes only (no hours component)", async () => {
+    vi.stubEnv("AMADEUS_CLIENT_ID", "test-id");
+    vi.stubEnv("AMADEUS_CLIENT_SECRET", "test-secret");
+    vi.stubEnv("AMADEUS_BASE_URL", "https://test.api.amadeus.com");
+
+    const offer = {
+      id: "mins",
+      itineraries: [{
+        duration: "PT45M",
+        segments: [{
+          carrierCode: "FR", number: "200",
+          departure: { iataCode: "STN", at: "2025-08-01T06:00:00" },
+          arrival: { iataCode: "DUB", at: "2025-08-01T06:45:00" },
+        }],
+      }],
+      price: { grandTotal: "50.00" },
+    };
+
+    vi.spyOn(global, "fetch")
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ access_token: "tok", expires_in: 0 }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ data: [offer] }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+
+    const result = await searchAmadeusFlights(baseSearch);
+    expect(result[0].durationMinutes).toBe(45);
+  });
+
+  it("returns 0 minutes for an unrecognised duration format", async () => {
+    vi.stubEnv("AMADEUS_CLIENT_ID", "test-id");
+    vi.stubEnv("AMADEUS_CLIENT_SECRET", "test-secret");
+    vi.stubEnv("AMADEUS_BASE_URL", "https://test.api.amadeus.com");
+
+    const offer = {
+      id: "bad",
+      itineraries: [{
+        duration: "INVALID",
+        segments: [{
+          carrierCode: "XX", number: "000",
+          departure: { iataCode: "LHR", at: "2025-08-01T10:00:00" },
+          arrival: { iataCode: "JFK", at: "2025-08-01T20:00:00" },
+        }],
+      }],
+      price: { grandTotal: "300.00" },
+    };
+
+    vi.spyOn(global, "fetch")
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ access_token: "tok", expires_in: 0 }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ data: [offer] }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+
+    const result = await searchAmadeusFlights(baseSearch);
+    expect(result[0].durationMinutes).toBe(0);
+  });
+
   it("reuses cached access token on second call", async () => {
     vi.stubEnv("AMADEUS_CLIENT_ID", "test-id");
     vi.stubEnv("AMADEUS_CLIENT_SECRET", "test-secret");
