@@ -302,6 +302,34 @@ describe("searchAmadeusFlights", () => {
     expect(result[0].durationMinutes).toBe(45);
   });
 
+  it("falls back to default base url when AMADEUS_BASE_URL is not set", async () => {
+    vi.stubEnv("AMADEUS_CLIENT_ID", "test-id");
+    vi.stubEnv("AMADEUS_CLIENT_SECRET", "test-secret");
+    // deliberately do NOT stub AMADEUS_BASE_URL so the ?? fallback branch is taken
+
+    let capturedAuthUrl = "";
+    let capturedSearchUrl = "";
+    vi.spyOn(global, "fetch")
+      .mockImplementationOnce(async (url) => {
+        capturedAuthUrl = String(url);
+        return new Response(JSON.stringify({ access_token: "tok", expires_in: 0 }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      })
+      .mockImplementationOnce(async (url) => {
+        capturedSearchUrl = String(url);
+        return new Response(JSON.stringify({ data: [] }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      });
+
+    await searchAmadeusFlights(baseSearch);
+    expect(capturedAuthUrl).toContain("https://test.api.amadeus.com");
+    expect(capturedSearchUrl).toContain("https://test.api.amadeus.com");
+  });
+
   it("returns 0 minutes for an unrecognised duration format", async () => {
     vi.stubEnv("AMADEUS_CLIENT_ID", "test-id");
     vi.stubEnv("AMADEUS_CLIENT_SECRET", "test-secret");
