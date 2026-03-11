@@ -5,8 +5,10 @@
 # Install prerequisites: brew install postgresql@16 redis
 # ---------------------------------------------------------------------------
 
-# postgresql@16 is keg-only — add its bin to PATH so pg_isready/psql are found
-export PATH := /opt/homebrew/opt/postgresql@16/bin:$(PATH)
+# postgresql@16 is keg-only; detect its bin dir at runtime to support both
+# Apple Silicon (/opt/homebrew) and Intel (/usr/local) Macs.
+PG16_BIN := $(shell ls -d /opt/homebrew/opt/postgresql@16/bin /usr/local/opt/postgresql@16/bin 2>/dev/null | head -1)
+export PATH := $(PG16_BIN):$(PATH)
 
 setup:
 	npm install
@@ -21,10 +23,11 @@ setup:
 	@brew services start postgresql@16 2>/dev/null || brew services start postgresql 2>/dev/null || true
 	@brew services start redis 2>/dev/null || true
 	@echo "→ Waiting for Postgres to be ready..."
-	@until pg_isready -q; do sleep 1; done
+	@PG_ISREADY="$(PG16_BIN)/pg_isready"; \
+	until "$$PG_ISREADY" -q 2>/dev/null; do sleep 1; done
 	@echo "→ Postgres ready"
-	@psql postgres -c "CREATE ROLE summit WITH LOGIN PASSWORD 'summit' CREATEDB;" 2>/dev/null || psql postgres -c "ALTER ROLE summit CREATEDB;" 2>/dev/null || true
-	@createdb -O summit summitsocial 2>/dev/null || true
+	@"$(PG16_BIN)/psql" postgres -c "CREATE ROLE summit WITH LOGIN PASSWORD 'summit' CREATEDB;" 2>/dev/null || "$(PG16_BIN)/psql" postgres -c "ALTER ROLE summit CREATEDB;" 2>/dev/null || true
+	@"$(PG16_BIN)/createdb" -O summit summitsocial 2>/dev/null || true
 	npx prisma migrate dev --name init
 	npm run db:seed
 
