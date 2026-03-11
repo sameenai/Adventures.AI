@@ -122,6 +122,29 @@ Unit and integration tests mock all external services (Prisma, Redis, OpenAI, fl
 
 **Commits must be small and modular.** Each commit should represent one logical, self-contained change that is easy to review, test, and revert independently. Prefer more smaller commits over a single large one.
 
+**Every commit message must follow Conventional Commits** — enforced automatically by the `commit-msg` hook:
+
+```
+<type>(<optional scope>): <short description in lower-case>
+
+[optional body]
+```
+
+Allowed types: `feat` · `fix` · `refactor` · `test` · `chore` · `docs` · `style` · `perf` · `ci` · `build` · `revert`
+
+Examples:
+- `feat(auth): add google oauth sign-in`
+- `fix(flights): handle null body in skyscanner response`
+- `test(chat): cover null-body reader edge case`
+- `chore(deps): bump openai to 4.86.0`
+
+**Git hooks run automatically** (Husky + lint-staged + commitlint):
+- **pre-commit**: Biome auto-fix on staged `src/**/*.{ts,tsx}` files + `tsc --noEmit`
+- **commit-msg**: commitlint enforces Conventional Commits format
+- **pre-push**: `npm run test:unit && npm run test:integration` — push is blocked if tests fail
+
+Do not bypass hooks with `--no-verify`. Fix the underlying issue instead.
+
 **Run tests before opening a PR.** All unit and integration tests must pass locally (`npm run test:unit` and `npm run test:integration`) before a PR is created. New code must include tests, and overall coverage must remain high (target 95%+).
 
 **After merging a PR**, delete the remote branch and sync local main: `gh pr merge <number> --squash --delete-branch && git checkout main && git pull`. Never push directly to `main` and then try to create a PR — always create a feature branch first.
