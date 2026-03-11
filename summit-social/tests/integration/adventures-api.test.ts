@@ -149,6 +149,24 @@ describe("GET /api/adventures", () => {
     const findManyCall = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
     expect(findManyCall.where.category).toBe("TREKKING");
   });
+
+  it("orders by createdAt desc when sortBy=newest", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?sortBy=newest"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.orderBy).toEqual({ createdAt: "desc" });
+  });
+
+  it("orders by durationDays asc when sortBy=duration", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?sortBy=duration"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.orderBy).toEqual({ durationDays: "asc" });
+  });
 });
 
 // ---------------------------------------------------------------------------
