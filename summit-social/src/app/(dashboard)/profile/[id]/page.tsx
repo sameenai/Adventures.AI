@@ -4,6 +4,8 @@ import { ProfileHeader } from "@/components/profile/profile-header";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
+import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
@@ -29,6 +31,23 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
             tags: true,
           },
         },
+        bookmarks: {
+          orderBy: { createdAt: "desc" },
+          include: {
+            adventure: {
+              select: {
+                id: true,
+                title: true,
+                coverImageUrl: true,
+                location: true,
+                country: true,
+                category: true,
+                difficulty: true,
+                durationDays: true,
+              },
+            },
+          },
+        },
         _count: {
           select: {
             adventures: { where: { published: true } },
@@ -50,6 +69,9 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
         select: { id: true },
       }))
     : false;
+
+  // Only show bookmarks to the owner of the profile
+  const showBookmarks = isOwnProfile && user.bookmarks.length > 0;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
@@ -75,6 +97,44 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       <div className="mt-10">
         <AdventureHistory adventures={user.adventures} currentUserId={session?.user?.id} />
       </div>
+
+      {showBookmarks && (
+        <div className="mt-12">
+          <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
+            Bucket List · {user.bookmarks.length}
+          </h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {user.bookmarks.map(({ adventure }) => (
+              <Link
+                key={adventure.id}
+                href={`/adventures/${adventure.id}`}
+                className="flex items-center gap-3 border border-stone-800 p-3 hover:border-stone-700 transition-colors group"
+              >
+                <div className="relative h-14 w-20 shrink-0 overflow-hidden">
+                  <Image
+                    src={adventure.coverImageUrl}
+                    alt={adventure.title}
+                    fill
+                    className="object-cover brightness-75 group-hover:brightness-90 transition-all"
+                    sizes="80px"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-mono text-sm text-stone-200 group-hover:text-amber-500 transition-colors truncate">
+                    {adventure.title}
+                  </p>
+                  <p className="font-mono text-xs text-stone-600 truncate">
+                    {adventure.location}, {adventure.country}
+                  </p>
+                  <p className="font-mono text-xs text-stone-700">
+                    {adventure.category.replace(/_/g, " ")} · {adventure.difficulty.toLowerCase()}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

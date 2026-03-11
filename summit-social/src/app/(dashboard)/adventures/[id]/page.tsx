@@ -1,3 +1,4 @@
+import { BookmarkButton } from "@/components/adventures/bookmark-button";
 import { CommentForm } from "@/components/adventures/comment-form";
 import { ShareButtons } from "@/components/adventures/share-buttons";
 import { VoteButton } from "@/components/adventures/vote-button";
@@ -5,7 +6,7 @@ import { MapView } from "@/components/itinerary/map-view";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
-import { formatPrice, monthName, pluralise, timeAgo } from "@/lib/utils";
+import { formatPrice, pluralise, timeAgo } from "@/lib/utils";
 import type { AdventureDetail } from "@/types";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -61,6 +62,13 @@ export default async function AdventureDetailPage({ params }: Props) {
   const difficulty = DIFFICULTY_MAP.get(adventure.difficulty);
   const hasVoted = session?.user?.id
     ? adventure.votes.some((v) => v.userId === session.user.id)
+    : false;
+
+  const isBookmarked = session?.user?.id
+    ? !!(await prisma.bookmark.findUnique({
+        where: { userId_adventureId: { userId: session.user.id, adventureId: id } },
+        select: { id: true },
+      }))
     : false;
 
   const markers =
@@ -129,6 +137,11 @@ export default async function AdventureDetailPage({ params }: Props) {
           )}
         </div>
         <div className="flex items-center gap-3">
+          <BookmarkButton
+            adventureId={adventure.id}
+            isBookmarked={isBookmarked}
+            disabled={!session?.user?.id}
+          />
           <ShareButtons
             title={adventure.title}
             url={`${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/adventures/${adventure.id}`}
