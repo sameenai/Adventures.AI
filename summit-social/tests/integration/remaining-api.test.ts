@@ -441,6 +441,46 @@ describe("POST /api/itineraries", () => {
     );
     expect(response.status).toBe(401);
   });
+
+  it("converts startDate and endDate strings to Date objects when provided", async () => {
+    mockSession();
+    (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "itin-new",
+      title: "My Trip",
+    });
+
+    await createItinerary(
+      new Request("http://localhost/api/itineraries", {
+        method: "POST",
+        body: JSON.stringify({ title: "My Trip", startDate: "2025-08-01", endDate: "2025-08-14" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    const createCall = (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(createCall.data.startDate).toBeInstanceOf(Date);
+    expect(createCall.data.endDate).toBeInstanceOf(Date);
+  });
+
+  it("omits startDate and endDate from prisma call when not provided", async () => {
+    mockSession();
+    (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "itin-new",
+      title: "My Trip",
+    });
+
+    await createItinerary(
+      new Request("http://localhost/api/itineraries", {
+        method: "POST",
+        body: JSON.stringify({ title: "My Trip" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    const createCall = (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(createCall.data.startDate).toBeUndefined();
+    expect(createCall.data.endDate).toBeUndefined();
+  });
 });
 
 // ---------------------------------------------------------------------------
