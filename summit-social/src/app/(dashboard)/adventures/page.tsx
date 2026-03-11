@@ -1,10 +1,12 @@
 import { AdventureGrid } from "@/components/adventures/adventure-grid";
+import { SearchFilter } from "@/components/adventures/search-filter";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
-import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
+import { CATEGORIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export const metadata = { title: "Adventures | SummitSocial" };
 
@@ -14,6 +16,16 @@ export default async function AdventuresPage({
   searchParams: Promise<Record<string, string | undefined>>;
 }) {
   const params = await searchParams;
+  const search = params.search?.trim();
+  const sortBy = params.sortBy ?? "votes";
+
+  const orderBy =
+    sortBy === "newest"
+      ? { createdAt: "desc" as const }
+      : sortBy === "duration"
+        ? { durationDays: "asc" as const }
+        : { voteCount: "desc" as const };
+
   const [session, adventures] = await Promise.all([
     getServerSession(authOptions),
     prisma.adventure.findMany({
@@ -22,8 +34,15 @@ export default async function AdventuresPage({
         ...(params.category && { category: params.category as never }),
         ...(params.continent && { continent: params.continent }),
         ...(params.difficulty && { difficulty: params.difficulty as never }),
+        ...(search && {
+          OR: [
+            { title: { contains: search, mode: "insensitive" } },
+            { description: { contains: search, mode: "insensitive" } },
+            { location: { contains: search, mode: "insensitive" } },
+          ],
+        }),
       },
-      orderBy: { voteCount: "desc" },
+      orderBy,
       take: 20,
       include: {
         user: { select: { id: true, name: true, avatarUrl: true } },
@@ -89,7 +108,12 @@ export default async function AdventuresPage({
         ))}
       </div>
 
-      <div className="mt-8">
+      {/* Search + sort */}
+      <Suspense>
+        <SearchFilter />
+      </Suspense>
+
+      <div className="mt-6">
         <AdventureGrid
           adventures={adventures}
           currentUserId={session?.user?.id}

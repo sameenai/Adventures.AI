@@ -3,6 +3,12 @@ import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+function isAdmin(email: string | null | undefined): boolean {
+  if (!email) return false;
+  const adminEmails = process.env.ADMIN_EMAILS?.split(",").map((e) => e.trim()) ?? [];
+  return adminEmails.includes(email);
+}
+
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
@@ -58,4 +64,32 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
 
   await prisma.adventure.delete({ where: { id } });
   return new NextResponse(null, { status: 204 });
+}
+
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id || !isAdmin(session.user.email)) {
+    return NextResponse.json({ error: "Forbidden", code: "FORBIDDEN" }, { status: 403 });
+  }
+
+  const body = await request.json();
+  const published = typeof body.published === "boolean" ? body.published : undefined;
+  if (published === undefined) {
+    return NextResponse.json({ error: "Invalid input", code: "VALIDATION_ERROR" }, { status: 400 });
+  }
+
+  const adventure = await prisma.adventure.findUnique({ where: { id }, select: { id: true } });
+  if (!adventure) {
+    return NextResponse.json({ error: "Adventure not found", code: "NOT_FOUND" }, { status: 404 });
+  }
+
+  const updated = await prisma.adventure.update({
+    where: { id },
+    data: { published },
+    select: { id: true, published: true },
+  });
+
+  return NextResponse.json(updated);
 }

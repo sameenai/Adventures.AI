@@ -1,4 +1,5 @@
 import { openai } from "@/lib/ai/openai";
+import { ItineraryDaySchema } from "@/lib/ai/parser";
 import { ITINERARY_SYSTEM_PROMPT, buildUserContextPrompt } from "@/lib/ai/prompts";
 import { chatTools } from "@/lib/ai/tools";
 import { authOptions } from "@/lib/auth/config";
@@ -10,6 +11,50 @@ import { chatMessageSchema } from "@/lib/validators/chat";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+
+type AccumulatedToolCall = {
+  id: string;
+  function: { name: string; arguments: string };
+};
+
+/** Persist a create_itinerary_day tool call result to the DB. Returns the itinerary ID. */
+async function persistItineraryDay(
+  args: unknown,
+  userId: string,
+  itineraryId: string | undefined,
+): Promise<string | undefined> {
+  const parsed = ItineraryDaySchema.safeParse(args);
+  if (!parsed.success) return itineraryId;
+
+  let resolvedId = itineraryId;
+
+  if (!resolvedId) {
+    const created = await prisma.itinerary.create({
+      data: { title: "Trip Itinerary", chatHistory: [], userId },
+    });
+    resolvedId = created.id;
+  }
+
+  const { dayNumber, title, description, activities } = parsed.data;
+
+  const existing = await prisma.itineraryDay.findFirst({
+    where: { itineraryId: resolvedId, dayNumber },
+    select: { id: true },
+  });
+
+  if (existing) {
+    await prisma.itineraryDay.update({
+      where: { id: existing.id },
+      data: { title, description, activities },
+    });
+  } else {
+    await prisma.itineraryDay.create({
+      data: { itineraryId: resolvedId, dayNumber, title, description, activities },
+    });
+  }
+
+  return resolvedId;
+}
 
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions);
@@ -102,34 +147,111 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const stream = await openai.chat.completions.create({
-    model: "gpt-4o",
-    messages,
-    tools: chatTools,
-    stream: true,
-  });
-
   const readable = new ReadableStream({
     async start(controller) {
       let fullContent = "";
+      let resolvedItineraryId = itineraryId;
+      const userId = session.user.id;
+
       try {
+        const stream = await openai.chat.completions.create({
+          model: "gpt-4o",
+          messages,
+          tools: chatTools,
+          stream: true,
+        });
+
+        // Accumulate tool call deltas; index → partial call
+        const toolCallsMap = new Map<number, AccumulatedToolCall>();
+        let finishReason: string | null = null;
+
         for await (const chunk of stream) {
-          const delta = chunk.choices[0]?.delta?.content;
-          if (delta) {
-            fullContent += delta;
-            controller.enqueue(encoder.encode(delta));
+          const delta = chunk.choices[0]?.delta;
+          finishReason = chunk.choices[0]?.finish_reason ?? finishReason;
+
+          if (delta?.content) {
+            fullContent += delta.content;
+            controller.enqueue(encoder.encode(delta.content));
+          }
+
+          if (delta?.tool_calls) {
+            for (const tc of delta.tool_calls) {
+              const existing = toolCallsMap.get(tc.index) ?? {
+                id: "",
+                function: { name: "", arguments: "" },
+              };
+              if (tc.id) existing.id = tc.id;
+              if (tc.function?.name) existing.function.name += tc.function.name;
+              if (tc.function?.arguments) existing.function.arguments += tc.function.arguments;
+              toolCallsMap.set(tc.index, existing);
+            }
+          }
+        }
+
+        // Process tool calls if the model requested them
+        if (finishReason === "tool_calls" && toolCallsMap.size > 0) {
+          const toolCalls = Array.from(toolCallsMap.values());
+          const toolResults: Array<{ role: "tool"; content: string; tool_call_id: string }> = [];
+
+          for (const tc of toolCalls) {
+            let resultContent: string;
+
+            if (tc.function.name === "create_itinerary_day") {
+              try {
+                const args = JSON.parse(tc.function.arguments) as unknown;
+                resolvedItineraryId = await persistItineraryDay(args, userId, resolvedItineraryId);
+                resultContent = JSON.stringify({ success: true });
+              } catch (err) {
+                logger.error("create_itinerary_day failed", err);
+                resultContent = JSON.stringify({ success: false, error: "Failed to save day" });
+              }
+            } else {
+              // Other tools (search_flights, etc.) return empty success for now
+              resultContent = JSON.stringify({ success: true, results: [] });
+            }
+
+            toolResults.push({ role: "tool", content: resultContent, tool_call_id: tc.id });
+          }
+
+          // Second streaming call with tool results injected
+          const followUpMessages = [
+            ...messages,
+            {
+              role: "assistant" as const,
+              content: null as unknown as string,
+              tool_calls: toolCalls.map((tc) => ({
+                id: tc.id,
+                type: "function" as const,
+                function: { name: tc.function.name, arguments: tc.function.arguments },
+              })),
+            },
+            ...toolResults,
+          ];
+
+          const followUpStream = await openai.chat.completions.create({
+            model: "gpt-4o",
+            messages: followUpMessages,
+            stream: true,
+          });
+
+          for await (const chunk of followUpStream) {
+            const delta = chunk.choices[0]?.delta?.content;
+            if (delta) {
+              fullContent += delta;
+              controller.enqueue(encoder.encode(delta));
+            }
           }
         }
 
         // Persist chat history
-        if (itineraryId) {
+        if (resolvedItineraryId) {
           const updatedHistory = [
             ...chatHistory,
             { role: "user", content: message },
             { role: "assistant", content: fullContent },
           ];
           await prisma.itinerary.update({
-            where: { id: itineraryId },
+            where: { id: resolvedItineraryId },
             data: { chatHistory: updatedHistory },
           });
         }

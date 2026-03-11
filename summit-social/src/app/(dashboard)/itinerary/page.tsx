@@ -6,8 +6,13 @@ import Link from "next/link";
 
 export const metadata = { title: "Plan Trip | SummitSocial" };
 
-export default async function ItineraryPage() {
+export default async function ItineraryPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
   const session = await getServerSession(authOptions);
+  const { prompt } = await searchParams;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
@@ -22,7 +27,7 @@ export default async function ItineraryPage() {
 
       {session ? (
         <div className="mt-6 h-[600px] overflow-hidden border border-stone-800">
-          <ChatWindow />
+          <ChatWindow initialPrompt={prompt} />
         </div>
       ) : (
         <div className="mt-16 flex flex-col items-center gap-6 text-center">

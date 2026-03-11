@@ -9,7 +9,7 @@ const ActivitySchema = z.object({
   lng: z.number().optional(),
 });
 
-const ItineraryDaySchema = z.object({
+export const ItineraryDaySchema = z.object({
   dayNumber: z.number().int().positive(),
   title: z.string(),
   description: z.string().optional(),
