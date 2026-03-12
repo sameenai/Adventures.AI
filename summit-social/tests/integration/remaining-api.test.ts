@@ -27,6 +27,7 @@ vi.mock("@/lib/db/prisma", () => ({
     comment: { create: vi.fn() },
     itinerary: { findMany: vi.fn(), findUnique: vi.fn(), create: vi.fn(), update: vi.fn(), delete: vi.fn() },
     user: { findUnique: vi.fn(), update: vi.fn() },
+    notification: { findMany: vi.fn(), updateMany: vi.fn() },
   },
 }));
 vi.mock("@/lib/ai/openai", () => ({ openai: { chat: { completions: { create: vi.fn() } } } }));
@@ -36,6 +37,8 @@ vi.mock("@/lib/ai/openai", () => ({ openai: { chat: { completions: { create: vi.
 // ---------------------------------------------------------------------------
 import { POST as createComment } from "@/app/api/adventures/[id]/comments/route";
 import { PATCH as patchAdventure } from "@/app/api/adventures/[id]/route";
+import { GET as getNotifications } from "@/app/api/notifications/route";
+import { POST as markAllRead } from "@/app/api/notifications/read-all/route";
 import { POST as chatRoute } from "@/app/api/chat/route";
 import { GET as getItineraries, POST as createItinerary } from "@/app/api/itineraries/route";
 import {
@@ -909,5 +912,71 @@ describe("PATCH /api/adventures/[id] owner edit", () => {
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data.title).toBe("Updated Title");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// GET /api/notifications
+// ---------------------------------------------------------------------------
+describe("GET /api/notifications", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("returns 401 when not authenticated", async () => {
+    noSession();
+    const response = await getNotifications();
+    expect(response.status).toBe(401);
+  });
+
+  it("returns notifications and unread count", async () => {
+    mockSession("user-1");
+    const mockNotifications = [
+      { id: "n-1", message: "Someone followed you", read: false, createdAt: new Date(), type: "NEW_FOLLOWER", linkUrl: null },
+      { id: "n-2", message: "New comment on your adventure", read: true, createdAt: new Date(), type: "NEW_COMMENT", linkUrl: "/adventures/adv-1" },
+    ];
+    (mockPrisma.notification.findMany as ReturnType<typeof vi.fn>).mockResolvedValue(mockNotifications);
+
+    const response = await getNotifications();
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.notifications).toHaveLength(2);
+    expect(data.unreadCount).toBe(1);
+  });
+
+  it("returns empty array for user with no notifications", async () => {
+    mockSession("user-1");
+    (mockPrisma.notification.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    const response = await getNotifications();
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.notifications).toHaveLength(0);
+    expect(data.unreadCount).toBe(0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// POST /api/notifications/read-all
+// ---------------------------------------------------------------------------
+describe("POST /api/notifications/read-all", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("returns 401 when not authenticated", async () => {
+    noSession();
+    const response = await markAllRead();
+    expect(response.status).toBe(401);
+  });
+
+  it("marks all unread notifications as read", async () => {
+    mockSession("user-1");
+    (mockPrisma.notification.updateMany as ReturnType<typeof vi.fn>).mockResolvedValue({ count: 3 });
+
+    const response = await markAllRead();
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.ok).toBe(true);
+    expect(mockPrisma.notification.updateMany).toHaveBeenCalledWith({
+      where: { userId: "user-1", read: false },
+      data: { read: true },
+    });
   });
 });

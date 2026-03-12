@@ -1,5 +1,6 @@
 "use client";
 
+import { NotificationBell } from "@/components/shared/notification-bell";
 import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/constants";
 import { signOut, useSession } from "next-auth/react";
@@ -41,6 +42,7 @@ export function Navbar() {
         <div className="flex items-center gap-4">
           {session ? (
             <>
+              <NotificationBell />
               <Link
                 href={`/profile/${session.user.id}`}
                 className="font-display text-xs uppercase tracking-widest text-stone-400 hover:text-amber-500 transition-colors"
