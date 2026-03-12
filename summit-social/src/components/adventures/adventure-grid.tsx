@@ -1,23 +1,27 @@
 import type { AdventureWithUser } from "@/types";
 import { AdventureCard } from "./adventure-card";
 
-const EMPTY_VOTED_IDS = new Set<string>();
+const EMPTY_SET = new Set<string>();
 
 interface AdventureGridProps {
   adventures: AdventureWithUser[];
   currentUserId?: string;
   votedAdventureIds?: Set<string>;
+  bookmarkedAdventureIds?: Set<string>;
 }
 
 export function AdventureGrid({
   adventures,
   currentUserId,
-  votedAdventureIds = EMPTY_VOTED_IDS,
+  votedAdventureIds = EMPTY_SET,
+  bookmarkedAdventureIds = EMPTY_SET,
 }: AdventureGridProps) {
   if (adventures.length === 0) {
     return (
       <div className="py-16 text-center">
-        <p className="font-display text-lg uppercase tracking-widest text-stone-500">No adventures found</p>
+        <p className="font-display text-lg uppercase tracking-widest text-stone-500">
+          No adventures found
+        </p>
         <p className="mt-1 text-sm text-stone-600">Try adjusting your filters or search query.</p>
       </div>
     );
@@ -31,6 +35,7 @@ export function AdventureGrid({
           adventure={adventure}
           currentUserId={currentUserId}
           hasVoted={votedAdventureIds.has(adventure.id)}
+          hasBookmarked={bookmarkedAdventureIds.has(adventure.id)}
         />
       ))}
     </div>
