@@ -1,12 +1,13 @@
 import { BookmarkButton } from "@/components/adventures/bookmark-button";
 import { CommentForm } from "@/components/adventures/comment-form";
+import { CommentSection } from "@/components/adventures/comment-section";
 import { ShareButtons } from "@/components/adventures/share-buttons";
 import { VoteButton } from "@/components/adventures/vote-button";
 import { MapView } from "@/components/itinerary/map-view";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
-import { formatPrice, pluralise, timeAgo } from "@/lib/utils";
+import { formatPrice, pluralise } from "@/lib/utils";
 import type { AdventureDetail } from "@/types";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -212,78 +213,11 @@ export default async function AdventureDetailPage({ params }: Props) {
                 to leave a comment.
               </p>
             )}
-            {adventure.comments.length === 0 ? (
-              <p className="text-sm text-stone-600">
-                No comments yet. Be the first to share your experience.
-              </p>
-            ) : (
-              <div className="space-y-6">
-                {adventure.comments.map((comment) => (
-                  <div key={comment.id}>
-                    <div className="flex items-start gap-3">
-                      {comment.user.avatarUrl && (
-                        <Image
-                          src={comment.user.avatarUrl}
-                          alt={comment.user.name ?? ""}
-                          width={28}
-                          height={28}
-                          className="shrink-0 border border-stone-700"
-                        />
-                      )}
-                      <div className="flex-1">
-                        <div className="flex items-baseline gap-2">
-                          <Link
-                            href={`/profile/${comment.user.id}`}
-                            className="font-mono text-xs text-stone-300 hover:text-amber-500 transition-colors"
-                          >
-                            {comment.user.name}
-                          </Link>
-                          <span className="font-mono text-xs text-stone-700">
-                            {timeAgo(new Date(comment.createdAt))}
-                          </span>
-                        </div>
-                        <p className="mt-1 text-sm leading-relaxed text-stone-400">
-                          {comment.body}
-                        </p>
-                      </div>
-                    </div>
-                    {comment.replies && comment.replies.length > 0 && (
-                      <div className="ml-10 mt-4 space-y-4 border-l border-stone-800 pl-4">
-                        {comment.replies.map((reply) => (
-                          <div key={reply.id} className="flex items-start gap-3">
-                            {reply.user.avatarUrl && (
-                              <Image
-                                src={reply.user.avatarUrl}
-                                alt={reply.user.name ?? ""}
-                                width={22}
-                                height={22}
-                                className="shrink-0 border border-stone-700"
-                              />
-                            )}
-                            <div>
-                              <div className="flex items-baseline gap-2">
-                                <Link
-                                  href={`/profile/${reply.user.id}`}
-                                  className="font-mono text-xs text-stone-300 hover:text-amber-500 transition-colors"
-                                >
-                                  {reply.user.name}
-                                </Link>
-                                <span className="font-mono text-xs text-stone-700">
-                                  {timeAgo(new Date(reply.createdAt))}
-                                </span>
-                              </div>
-                              <p className="mt-1 text-sm leading-relaxed text-stone-400">
-                                {reply.body}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+            <CommentSection
+              adventureId={adventure.id}
+              comments={adventure.comments}
+              currentUserId={session?.user?.id ?? null}
+            />
           </section>
         </div>
 
