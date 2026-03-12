@@ -24,9 +24,10 @@ model User {
   comments     Comment[]
   accounts     Account[]
   sessions     Session[]
-  following    Follow[]    @relation("Follower")
-  followers    Follow[]    @relation("Following")
-  bookmarks    Bookmark[]
+  following      Follow[]       @relation("Follower")
+  followers      Follow[]       @relation("Following")
+  bookmarks      Bookmark[]
+  notifications  Notification[]
 }
 
 model Account {
@@ -227,4 +228,23 @@ enum ItineraryStatus {
   PLANNING
   BOOKED
   COMPLETED
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  message   String
+  linkUrl   String?
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum NotificationType {
+  NEW_COMMENT
+  NEW_FOLLOWER
+  NEW_VOTE
+  ADVENTURE_PUBLISHED
+  SYSTEM
 }

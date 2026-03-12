@@ -1,12 +1,13 @@
 import { BookmarkButton } from "@/components/adventures/bookmark-button";
 import { CommentForm } from "@/components/adventures/comment-form";
+import { CommentSection } from "@/components/adventures/comment-section";
 import { ShareButtons } from "@/components/adventures/share-buttons";
 import { VoteButton } from "@/components/adventures/vote-button";
 import { MapView } from "@/components/itinerary/map-view";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
-import { formatPrice, pluralise, timeAgo } from "@/lib/utils";
+import { formatPrice, pluralise } from "@/lib/utils";
 import type { AdventureDetail } from "@/types";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -64,12 +65,28 @@ export default async function AdventureDetailPage({ params }: Props) {
     ? adventure.votes.some((v) => v.userId === session.user.id)
     : false;
 
-  const isBookmarked = session?.user?.id
-    ? !!(await prisma.bookmark.findUnique({
-        where: { userId_adventureId: { userId: session.user.id, adventureId: id } },
-        select: { id: true },
-      }))
-    : false;
+  const [isBookmarkedResult, relatedAdventures] = await Promise.all([
+    session?.user?.id
+      ? prisma.bookmark.findUnique({
+          where: { userId_adventureId: { userId: session.user.id, adventureId: id } },
+          select: { id: true },
+        })
+      : Promise.resolve(null),
+    prisma.adventure.findMany({
+      where: { published: true, category: adventure.category, id: { not: id } },
+      orderBy: { voteCount: "desc" },
+      take: 4,
+      select: {
+        id: true,
+        title: true,
+        coverImageUrl: true,
+        location: true,
+        difficulty: true,
+        durationDays: true,
+      },
+    }),
+  ]);
+  const isBookmarked = !!isBookmarkedResult;
 
   const markers =
     adventure.latitude && adventure.longitude
@@ -137,6 +154,14 @@ export default async function AdventureDetailPage({ params }: Props) {
           )}
         </div>
         <div className="flex items-center gap-3">
+          {session?.user?.id === adventure.user.id && (
+            <Link
+              href={`/adventures/${adventure.id}/edit`}
+              className="border border-stone-700 px-3 py-1.5 font-display text-xs uppercase tracking-widest text-stone-400 hover:text-stone-200 transition-colors"
+            >
+              Edit
+            </Link>
+          )}
           <BookmarkButton
             adventureId={adventure.id}
             isBookmarked={isBookmarked}
@@ -212,78 +237,11 @@ export default async function AdventureDetailPage({ params }: Props) {
                 to leave a comment.
               </p>
             )}
-            {adventure.comments.length === 0 ? (
-              <p className="text-sm text-stone-600">
-                No comments yet. Be the first to share your experience.
-              </p>
-            ) : (
-              <div className="space-y-6">
-                {adventure.comments.map((comment) => (
-                  <div key={comment.id}>
-                    <div className="flex items-start gap-3">
-                      {comment.user.avatarUrl && (
-                        <Image
-                          src={comment.user.avatarUrl}
-                          alt={comment.user.name ?? ""}
-                          width={28}
-                          height={28}
-                          className="shrink-0 border border-stone-700"
-                        />
-                      )}
-                      <div className="flex-1">
-                        <div className="flex items-baseline gap-2">
-                          <Link
-                            href={`/profile/${comment.user.id}`}
-                            className="font-mono text-xs text-stone-300 hover:text-amber-500 transition-colors"
-                          >
-                            {comment.user.name}
-                          </Link>
-                          <span className="font-mono text-xs text-stone-700">
-                            {timeAgo(new Date(comment.createdAt))}
-                          </span>
-                        </div>
-                        <p className="mt-1 text-sm leading-relaxed text-stone-400">
-                          {comment.body}
-                        </p>
-                      </div>
-                    </div>
-                    {comment.replies && comment.replies.length > 0 && (
-                      <div className="ml-10 mt-4 space-y-4 border-l border-stone-800 pl-4">
-                        {comment.replies.map((reply) => (
-                          <div key={reply.id} className="flex items-start gap-3">
-                            {reply.user.avatarUrl && (
-                              <Image
-                                src={reply.user.avatarUrl}
-                                alt={reply.user.name ?? ""}
-                                width={22}
-                                height={22}
-                                className="shrink-0 border border-stone-700"
-                              />
-                            )}
-                            <div>
-                              <div className="flex items-baseline gap-2">
-                                <Link
-                                  href={`/profile/${reply.user.id}`}
-                                  className="font-mono text-xs text-stone-300 hover:text-amber-500 transition-colors"
-                                >
-                                  {reply.user.name}
-                                </Link>
-                                <span className="font-mono text-xs text-stone-700">
-                                  {timeAgo(new Date(reply.createdAt))}
-                                </span>
-                              </div>
-                              <p className="mt-1 text-sm leading-relaxed text-stone-400">
-                                {reply.body}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+            <CommentSection
+              adventureId={adventure.id}
+              comments={adventure.comments}
+              currentUserId={session?.user?.id ?? null}
+            />
           </section>
         </div>
 
@@ -421,6 +379,44 @@ export default async function AdventureDetailPage({ params }: Props) {
                   />
                 </svg>
               </a>
+            </div>
+          )}
+
+          {/* Related adventures */}
+          {relatedAdventures.length > 0 && (
+            <div className="border border-stone-800 p-5">
+              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                More {adventure.category.replace(/_/g, " ")}
+              </h3>
+              <ul className="space-y-3">
+                {relatedAdventures.map((rel) => {
+                  const relDifficulty = DIFFICULTY_MAP.get(rel.difficulty);
+                  return (
+                    <li key={rel.id}>
+                      <Link href={`/adventures/${rel.id}`} className="flex items-start gap-3 group">
+                        <div className="relative h-12 w-16 shrink-0 overflow-hidden border border-stone-800">
+                          <Image
+                            src={rel.coverImageUrl}
+                            alt={rel.title}
+                            fill
+                            className="object-cover brightness-75 group-hover:brightness-90 transition-all"
+                            sizes="64px"
+                          />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-mono text-xs text-stone-200 group-hover:text-amber-500 transition-colors line-clamp-2 leading-relaxed">
+                            {rel.title}
+                          </p>
+                          <p className="mt-0.5 font-mono text-xs text-stone-600">
+                            {rel.location} ·{" "}
+                            <span className={relDifficulty?.color}>{relDifficulty?.label}</span>
+                          </p>
+                        </div>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           )}
 

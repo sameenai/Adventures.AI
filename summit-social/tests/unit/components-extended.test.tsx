@@ -4,6 +4,19 @@ import { describe, expect, it, vi, afterEach } from "vitest";
 
 afterEach(() => cleanup());
 
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ refresh: vi.fn(), push: vi.fn() }),
+  usePathname: () => "/",
+  useSearchParams: () => new URLSearchParams(),
+}));
+
+vi.mock("next/image", () => ({
+  default: ({ src, alt }: { src: string; alt: string }) => (
+    // biome-ignore lint/performance/noImgElement: mock
+    <img src={src} alt={alt} />
+  ),
+}));
+
 // ---------------------------------------------------------------------------
 // UI Primitives: Card, Input, Modal
 // ---------------------------------------------------------------------------
@@ -414,5 +427,155 @@ describe("LeaderboardTable", () => {
     render(<LeaderboardTable entries={[]} />);
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryByRole("row", { name: /trek/i })).not.toBeInTheDocument();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// CommentSection
+// ---------------------------------------------------------------------------
+import { CommentSection } from "@/components/adventures/comment-section";
+import type { CommentWithUser } from "@/types";
+
+const baseComment: CommentWithUser = {
+  id: "c-1",
+  body: "Great adventure!",
+  adventureId: "adv-1",
+  parentId: null,
+  createdAt: new Date("2024-01-01T00:00:00Z"),
+  userId: "user-1",
+  user: { id: "user-1", name: "Alice", avatarUrl: null },
+  replies: [],
+};
+
+const commentWithReply: CommentWithUser = {
+  ...baseComment,
+  id: "c-2",
+  body: "Top-level comment",
+  replies: [
+    {
+      id: "c-2-reply",
+      body: "A reply here",
+      adventureId: "adv-1",
+      parentId: "c-2",
+      createdAt: new Date("2024-01-02T00:00:00Z"),
+      userId: "user-2",
+      user: { id: "user-2", name: "Bob", avatarUrl: null },
+      replies: [],
+    },
+  ],
+};
+
+describe("CommentSection", () => {
+  it("renders empty state when no comments", () => {
+    render(
+      <CommentSection adventureId="adv-1" comments={[]} currentUserId={null} />,
+    );
+    expect(screen.getByText(/No comments yet/i)).toBeInTheDocument();
+  });
+
+  it("renders comment body text", () => {
+    render(
+      <CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId={null} />,
+    );
+    expect(screen.getByText("Great adventure!")).toBeInTheDocument();
+  });
+
+  it("renders comment author name", () => {
+    render(
+      <CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId={null} />,
+    );
+    expect(screen.getByText("Alice")).toBeInTheDocument();
+  });
+
+  it("does not show Reply button when not logged in", () => {
+    render(
+      <CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId={null} />,
+    );
+    expect(screen.queryByText("Reply")).not.toBeInTheDocument();
+  });
+
+  it("shows Reply button when logged in", () => {
+    render(
+      <CommentSection
+        adventureId="adv-1"
+        comments={[baseComment]}
+        currentUserId="user-2"
+      />,
+    );
+    expect(screen.getByText("Reply")).toBeInTheDocument();
+  });
+
+  it("toggles reply form on Reply click", () => {
+    render(
+      <CommentSection
+        adventureId="adv-1"
+        comments={[baseComment]}
+        currentUserId="user-2"
+      />,
+    );
+    fireEvent.click(screen.getByText("Reply"));
+    // Reply form textarea appears
+    expect(screen.getByPlaceholderText("Write a reply…")).toBeInTheDocument();
+  });
+
+  it("hides reply form when Cancel is clicked in the toggle button", () => {
+    render(
+      <CommentSection
+        adventureId="adv-1"
+        comments={[baseComment]}
+        currentUserId="user-2"
+      />,
+    );
+    fireEvent.click(screen.getByText("Reply"));
+    expect(screen.getByPlaceholderText("Write a reply…")).toBeInTheDocument();
+    // toggle button now says "Cancel"
+    fireEvent.click(screen.getByText("Cancel", { selector: "button.font-mono" }));
+    expect(screen.queryByPlaceholderText("Write a reply…")).not.toBeInTheDocument();
+  });
+
+  it("renders nested replies", () => {
+    render(
+      <CommentSection
+        adventureId="adv-1"
+        comments={[commentWithReply]}
+        currentUserId={null}
+      />,
+    );
+    expect(screen.getByText("Top-level comment")).toBeInTheDocument();
+    expect(screen.getByText("A reply here")).toBeInTheDocument();
+    expect(screen.getByText("Bob")).toBeInTheDocument();
+  });
+
+  it("renders multiple comments", () => {
+    const secondComment: CommentWithUser = {
+      ...baseComment,
+      id: "c-3",
+      body: "Another thought",
+      user: { id: "user-3", name: "Carol", avatarUrl: null },
+    };
+    render(
+      <CommentSection
+        adventureId="adv-1"
+        comments={[baseComment, secondComment]}
+        currentUserId={null}
+      />,
+    );
+    expect(screen.getByText("Great adventure!")).toBeInTheDocument();
+    expect(screen.getByText("Another thought")).toBeInTheDocument();
+  });
+
+  it("renders avatar image when avatarUrl is set", () => {
+    const commentWithAvatar: CommentWithUser = {
+      ...baseComment,
+      user: { id: "user-1", name: "Alice", avatarUrl: "https://example.com/avatar.jpg" },
+    };
+    render(
+      <CommentSection
+        adventureId="adv-1"
+        comments={[commentWithAvatar]}
+        currentUserId={null}
+      />,
+    );
+    expect(screen.getByRole("img", { name: "Alice" })).toBeInTheDocument();
   });
 });

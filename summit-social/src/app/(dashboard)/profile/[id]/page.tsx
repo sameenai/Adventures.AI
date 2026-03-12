@@ -24,7 +24,6 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
         twitterUrl: true,
         websiteUrl: true,
         adventures: {
-          where: { published: true },
           orderBy: { voteCount: "desc" },
           include: {
             user: { select: { id: true, name: true, avatarUrl: true } },
@@ -63,6 +62,12 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
   if (!user) notFound();
 
   const isOwnProfile = session?.user?.id === id;
+
+  // Non-owners only see published adventures
+  const visibleAdventures = isOwnProfile
+    ? user.adventures
+    : user.adventures.filter((a) => a.published);
+
   const isFollowing = session?.user?.id
     ? !!(await prisma.follow.findUnique({
         where: { followerId_followingId: { followerId: session.user.id, followingId: id } },
@@ -89,13 +94,24 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
             <span className="text-stone-200">{user._count.following}</span> following
           </span>
         </div>
-        {!isOwnProfile && (
+        {isOwnProfile ? (
+          <Link
+            href="/profile/edit"
+            className="border border-stone-700 px-4 py-1.5 font-display text-xs uppercase tracking-widest text-stone-400 hover:text-stone-200 transition-colors"
+          >
+            Edit Profile
+          </Link>
+        ) : (
           <FollowButton userId={id} isFollowing={isFollowing} disabled={!session?.user?.id} />
         )}
       </div>
 
       <div className="mt-10">
-        <AdventureHistory adventures={user.adventures} currentUserId={session?.user?.id} />
+        <AdventureHistory
+          adventures={visibleAdventures}
+          currentUserId={session?.user?.id}
+          showManageActions={isOwnProfile}
+        />
       </div>
 
       {showBookmarks && (

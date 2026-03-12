@@ -52,15 +52,21 @@ export default async function AdventuresPage({
   ]);
 
   let votedIds = new Set<string>();
+  let bookmarkedIds = new Set<string>();
   if (session?.user?.id) {
-    const votes = await prisma.vote.findMany({
-      where: {
-        userId: session.user.id,
-        adventureId: { in: adventures.map((a) => a.id) },
-      },
-      select: { adventureId: true },
-    });
+    const adventureIds = adventures.map((a) => a.id);
+    const [votes, bookmarks] = await Promise.all([
+      prisma.vote.findMany({
+        where: { userId: session.user.id, adventureId: { in: adventureIds } },
+        select: { adventureId: true },
+      }),
+      prisma.bookmark.findMany({
+        where: { userId: session.user.id, adventureId: { in: adventureIds } },
+        select: { adventureId: true },
+      }),
+    ]);
     votedIds = new Set(votes.map((v) => v.adventureId));
+    bookmarkedIds = new Set(bookmarks.map((b) => b.adventureId));
   }
 
   return (
@@ -118,6 +124,7 @@ export default async function AdventuresPage({
           adventures={adventures}
           currentUserId={session?.user?.id}
           votedAdventureIds={votedIds}
+          bookmarkedAdventureIds={bookmarkedIds}
         />
       </div>
     </div>

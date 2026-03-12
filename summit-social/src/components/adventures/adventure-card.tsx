@@ -3,15 +3,22 @@ import { cn, pluralise } from "@/lib/utils";
 import type { AdventureWithUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { BookmarkButton } from "./bookmark-button";
 import { VoteButton } from "./vote-button";
 
 interface AdventureCardProps {
   adventure: AdventureWithUser;
   currentUserId?: string;
   hasVoted?: boolean;
+  hasBookmarked?: boolean;
 }
 
-export function AdventureCard({ adventure, currentUserId, hasVoted = false }: AdventureCardProps) {
+export function AdventureCard({
+  adventure,
+  currentUserId,
+  hasVoted = false,
+  hasBookmarked = false,
+}: AdventureCardProps) {
   const difficulty = DIFFICULTY_MAP.get(adventure.difficulty);
 
   return (
@@ -47,12 +54,19 @@ export function AdventureCard({ adventure, currentUserId, hasVoted = false }: Ad
             <span className="text-stone-600">·</span>
             <span className="text-stone-500">{pluralise(adventure.durationDays, "day")}</span>
           </div>
-          <VoteButton
-            adventureId={adventure.id}
-            voteCount={adventure.voteCount}
-            hasVoted={hasVoted}
-            disabled={!currentUserId}
-          />
+          <div className="flex items-center gap-1.5">
+            <BookmarkButton
+              adventureId={adventure.id}
+              isBookmarked={hasBookmarked}
+              disabled={!currentUserId}
+            />
+            <VoteButton
+              adventureId={adventure.id}
+              voteCount={adventure.voteCount}
+              hasVoted={hasVoted}
+              disabled={!currentUserId}
+            />
+          </div>
         </div>
         <div className="mt-3 flex items-center gap-2">
           {adventure.user.avatarUrl && (
