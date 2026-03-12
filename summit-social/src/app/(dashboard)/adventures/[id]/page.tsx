@@ -65,12 +65,28 @@ export default async function AdventureDetailPage({ params }: Props) {
     ? adventure.votes.some((v) => v.userId === session.user.id)
     : false;
 
-  const isBookmarked = session?.user?.id
-    ? !!(await prisma.bookmark.findUnique({
-        where: { userId_adventureId: { userId: session.user.id, adventureId: id } },
-        select: { id: true },
-      }))
-    : false;
+  const [isBookmarkedResult, relatedAdventures] = await Promise.all([
+    session?.user?.id
+      ? prisma.bookmark.findUnique({
+          where: { userId_adventureId: { userId: session.user.id, adventureId: id } },
+          select: { id: true },
+        })
+      : Promise.resolve(null),
+    prisma.adventure.findMany({
+      where: { published: true, category: adventure.category, id: { not: id } },
+      orderBy: { voteCount: "desc" },
+      take: 4,
+      select: {
+        id: true,
+        title: true,
+        coverImageUrl: true,
+        location: true,
+        difficulty: true,
+        durationDays: true,
+      },
+    }),
+  ]);
+  const isBookmarked = !!isBookmarkedResult;
 
   const markers =
     adventure.latitude && adventure.longitude
@@ -363,6 +379,44 @@ export default async function AdventureDetailPage({ params }: Props) {
                   />
                 </svg>
               </a>
+            </div>
+          )}
+
+          {/* Related adventures */}
+          {relatedAdventures.length > 0 && (
+            <div className="border border-stone-800 p-5">
+              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                More {adventure.category.replace(/_/g, " ")}
+              </h3>
+              <ul className="space-y-3">
+                {relatedAdventures.map((rel) => {
+                  const relDifficulty = DIFFICULTY_MAP.get(rel.difficulty);
+                  return (
+                    <li key={rel.id}>
+                      <Link href={`/adventures/${rel.id}`} className="flex items-start gap-3 group">
+                        <div className="relative h-12 w-16 shrink-0 overflow-hidden border border-stone-800">
+                          <Image
+                            src={rel.coverImageUrl}
+                            alt={rel.title}
+                            fill
+                            className="object-cover brightness-75 group-hover:brightness-90 transition-all"
+                            sizes="64px"
+                          />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-mono text-xs text-stone-200 group-hover:text-amber-500 transition-colors line-clamp-2 leading-relaxed">
+                            {rel.title}
+                          </p>
+                          <p className="mt-0.5 font-mono text-xs text-stone-600">
+                            {rel.location} ·{" "}
+                            <span className={relDifficulty?.color}>{relDifficulty?.label}</span>
+                          </p>
+                        </div>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           )}
 
