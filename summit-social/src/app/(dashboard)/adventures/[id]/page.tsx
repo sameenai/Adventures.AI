@@ -138,6 +138,14 @@ export default async function AdventureDetailPage({ params }: Props) {
           )}
         </div>
         <div className="flex items-center gap-3">
+          {session?.user?.id === adventure.user.id && (
+            <Link
+              href={`/adventures/${adventure.id}/edit`}
+              className="border border-stone-700 px-3 py-1.5 font-display text-xs uppercase tracking-widest text-stone-400 hover:text-stone-200 transition-colors"
+            >
+              Edit
+            </Link>
+          )}
           <BookmarkButton
             adventureId={adventure.id}
             isBookmarked={isBookmarked}

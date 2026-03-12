@@ -23,7 +23,7 @@ vi.mock("@/lib/db/redis", () => ({
 }));
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
-    adventure: { findUnique: vi.fn(), findMany: vi.fn() },
+    adventure: { findUnique: vi.fn(), findMany: vi.fn(), update: vi.fn() },
     comment: { create: vi.fn() },
     itinerary: { findMany: vi.fn(), findUnique: vi.fn(), create: vi.fn(), update: vi.fn(), delete: vi.fn() },
     user: { findUnique: vi.fn(), update: vi.fn() },
@@ -35,6 +35,7 @@ vi.mock("@/lib/ai/openai", () => ({ openai: { chat: { completions: { create: vi.
 // Imports after mocks
 // ---------------------------------------------------------------------------
 import { POST as createComment } from "@/app/api/adventures/[id]/comments/route";
+import { PATCH as patchAdventure } from "@/app/api/adventures/[id]/route";
 import { POST as chatRoute } from "@/app/api/chat/route";
 import { GET as getItineraries, POST as createItinerary } from "@/app/api/itineraries/route";
 import {
@@ -824,5 +825,89 @@ describe("PATCH /api/users/[id]", () => {
     expect(response.status).toBe(400);
     const data = await response.json();
     expect(data.code).toBe("VALIDATION_ERROR");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// PATCH /api/adventures/[id] — owner edit
+// ---------------------------------------------------------------------------
+describe("PATCH /api/adventures/[id] owner edit", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  const makeRequest = (body: Record<string, unknown>) =>
+    new NextRequest("http://localhost/api/adventures/adv-1", {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+    });
+
+  const updatedAdventure = {
+    id: "adv-1",
+    title: "Updated Title",
+    description: "Updated description with enough characters here",
+    userId: "user-1",
+    tags: [],
+  };
+
+  it("returns 401 when not authenticated", async () => {
+    noSession();
+    const response = await patchAdventure(makeRequest({ title: "X" }), {
+      params: Promise.resolve({ id: "adv-1" }),
+    });
+    expect(response.status).toBe(401);
+  });
+
+  it("returns 404 when adventure not found", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    const response = await patchAdventure(makeRequest({ title: "X" }), {
+      params: Promise.resolve({ id: "adv-1" }),
+    });
+    expect(response.status).toBe(404);
+  });
+
+  it("returns 403 when user is not the owner", async () => {
+    mockSession("user-2");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      userId: "user-1",
+    });
+    const response = await patchAdventure(makeRequest({ title: "X" }), {
+      params: Promise.resolve({ id: "adv-1" }),
+    });
+    expect(response.status).toBe(403);
+  });
+
+  it("returns 400 for invalid adventure data", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      userId: "user-1",
+    });
+    // title too short (< 3 chars)
+    const response = await patchAdventure(makeRequest({ title: "AB" }), {
+      params: Promise.resolve({ id: "adv-1" }),
+    });
+    expect(response.status).toBe(400);
+    const data = await response.json();
+    expect(data.code).toBe("VALIDATION_ERROR");
+  });
+
+  it("updates adventure and returns 200 for owner", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      userId: "user-1",
+    });
+    (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue(updatedAdventure);
+
+    const response = await patchAdventure(
+      makeRequest({ title: "Updated Title", description: "Updated description with enough characters here" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.title).toBe("Updated Title");
   });
 });

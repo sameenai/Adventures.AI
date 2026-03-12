@@ -43,6 +43,15 @@ export const createAdventureSchema = z.object({
   tags: z.array(z.string().max(50)).max(10).default([]),
 });
 
+export const updateAdventureSchema = createAdventureSchema
+  .partial()
+  .omit({ tags: true })
+  .extend({
+    tags: z.array(z.string().max(50)).max(10).optional(),
+  });
+
+export type UpdateAdventureInput = z.infer<typeof updateAdventureSchema>;
+
 export const adventureFilterSchema = z.object({
   cursor: z.string().optional(),
   limit: z.coerce.number().int().min(1).max(100).default(20),
