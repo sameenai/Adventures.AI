@@ -24,6 +24,8 @@ vi.mock("@/lib/db/redis", () => ({
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
     adventure: { findUnique: vi.fn(), findMany: vi.fn(), update: vi.fn(), create: vi.fn() },
+    collection: { findMany: vi.fn(), findUnique: vi.fn(), create: vi.fn(), delete: vi.fn() },
+    collectionItem: { upsert: vi.fn(), deleteMany: vi.fn() },
     comment: { create: vi.fn() },
     follow: { findUnique: vi.fn(), upsert: vi.fn(), deleteMany: vi.fn() },
     vote: { findUnique: vi.fn(), create: vi.fn(), delete: vi.fn() },
@@ -40,6 +42,18 @@ vi.mock("@/lib/ai/openai", () => ({ openai: { chat: { completions: { create: vi.
 // ---------------------------------------------------------------------------
 import { POST as createComment } from "@/app/api/adventures/[id]/comments/route";
 import { POST as duplicateAdventure } from "@/app/api/adventures/[id]/duplicate/route";
+import {
+  GET as getCollections,
+  POST as createCollection,
+} from "@/app/api/collections/route";
+import {
+  GET as getCollection,
+  DELETE as deleteCollection,
+} from "@/app/api/collections/[id]/route";
+import {
+  POST as addToCollection,
+  DELETE as removeFromCollection,
+} from "@/app/api/collections/[id]/items/route";
 import { POST as voteAdventure } from "@/app/api/adventures/[id]/vote/route";
 import { PATCH as patchAdventure } from "@/app/api/adventures/[id]/route";
 import { POST as followUser, DELETE as unfollowUser } from "@/app/api/users/[id]/follow/route";
@@ -481,6 +495,235 @@ describe("POST /api/adventures/[id]/vote", () => {
 
     expect(response.status).toBe(200);
     expect(mockPrisma.notification.create).not.toHaveBeenCalled();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Collections API
+// ---------------------------------------------------------------------------
+describe("GET /api/collections", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("returns 401 when unauthenticated", async () => {
+    noSession();
+    const response = await getCollections();
+    expect(response.status).toBe(401);
+  });
+
+  it("returns collections for authenticated user", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: "col-1", name: "Favourites", _count: { items: 2 }, items: [] },
+    ]);
+    const response = await getCollections();
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data).toHaveLength(1);
+    expect(data[0].name).toBe("Favourites");
+  });
+});
+
+describe("POST /api/collections", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("returns 401 when unauthenticated", async () => {
+    noSession();
+    const response = await createCollection(
+      new NextRequest("http://localhost/api/collections", {
+        method: "POST",
+        body: JSON.stringify({ name: "My List" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    expect(response.status).toBe(401);
+  });
+
+  it("creates a collection and returns 201", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "col-new",
+      name: "My List",
+      userId: "user-1",
+      _count: { items: 0 },
+    });
+    const response = await createCollection(
+      new NextRequest("http://localhost/api/collections", {
+        method: "POST",
+        body: JSON.stringify({ name: "My List" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    expect(response.status).toBe(201);
+    const data = await response.json();
+    expect(data.name).toBe("My List");
+  });
+
+  it("returns 400 for empty name", async () => {
+    mockSession("user-1");
+    const response = await createCollection(
+      new NextRequest("http://localhost/api/collections", {
+        method: "POST",
+        body: JSON.stringify({ name: "" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    expect(response.status).toBe(400);
+  });
+});
+
+describe("GET /api/collections/[id]", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("returns 401 when unauthenticated", async () => {
+    noSession();
+    const response = await getCollection(
+      new Request("http://localhost/api/collections/col-1"),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(401);
+  });
+
+  it("returns 404 when collection not found", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    const response = await getCollection(
+      new Request("http://localhost/api/collections/missing"),
+      { params: Promise.resolve({ id: "missing" }) },
+    );
+    expect(response.status).toBe(404);
+  });
+
+  it("returns 403 when collection belongs to another user", async () => {
+    mockSession("user-2");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "col-1",
+      userId: "user-1",
+      items: [],
+      _count: { items: 0 },
+    });
+    const response = await getCollection(
+      new Request("http://localhost/api/collections/col-1"),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(403);
+  });
+
+  it("returns collection data for owner", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "col-1",
+      name: "My List",
+      userId: "user-1",
+      items: [],
+      _count: { items: 0 },
+    });
+    const response = await getCollection(
+      new Request("http://localhost/api/collections/col-1"),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.name).toBe("My List");
+  });
+});
+
+describe("DELETE /api/collections/[id]", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("deletes collection and returns 204", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.collection.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
+    const response = await deleteCollection(
+      new Request("http://localhost/api/collections/col-1"),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(204);
+  });
+
+  it("returns 403 when not owner", async () => {
+    mockSession("user-2");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    const response = await deleteCollection(
+      new Request("http://localhost/api/collections/col-1"),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(403);
+  });
+});
+
+describe("POST /api/collections/[id]/items", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("returns 401 when unauthenticated", async () => {
+    noSession();
+    const response = await addToCollection(
+      new NextRequest("http://localhost/api/collections/col-1/items", {
+        method: "POST",
+        body: JSON.stringify({ adventureId: "adv-1" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(401);
+  });
+
+  it("adds adventure to collection and returns 201", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.collectionItem.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "ci-1",
+      collectionId: "col-1",
+      adventureId: "adv-1",
+    });
+    const response = await addToCollection(
+      new NextRequest("http://localhost/api/collections/col-1/items", {
+        method: "POST",
+        body: JSON.stringify({ adventureId: "adv-1" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(201);
+  });
+
+  it("returns 400 when adventureId is missing", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    const response = await addToCollection(
+      new NextRequest("http://localhost/api/collections/col-1/items", {
+        method: "POST",
+        body: JSON.stringify({}),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(400);
+  });
+});
+
+describe("DELETE /api/collections/[id]/items", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("removes adventure from collection and returns 204", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.collectionItem.deleteMany as ReturnType<typeof vi.fn>).mockResolvedValue({});
+    const response = await removeFromCollection(
+      new NextRequest("http://localhost/api/collections/col-1/items?adventureId=adv-1"),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(204);
+  });
+
+  it("returns 400 when adventureId query param is missing", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    const response = await removeFromCollection(
+      new NextRequest("http://localhost/api/collections/col-1/items"),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(400);
   });
 });
 
