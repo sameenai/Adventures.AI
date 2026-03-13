@@ -23,7 +23,7 @@ vi.mock("@/lib/db/redis", () => ({
 }));
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
-    adventure: { findUnique: vi.fn(), findMany: vi.fn(), update: vi.fn() },
+    adventure: { findUnique: vi.fn(), findMany: vi.fn(), update: vi.fn(), create: vi.fn() },
     comment: { create: vi.fn() },
     follow: { findUnique: vi.fn(), upsert: vi.fn(), deleteMany: vi.fn() },
     vote: { findUnique: vi.fn(), create: vi.fn(), delete: vi.fn() },
@@ -39,6 +39,7 @@ vi.mock("@/lib/ai/openai", () => ({ openai: { chat: { completions: { create: vi.
 // Imports after mocks
 // ---------------------------------------------------------------------------
 import { POST as createComment } from "@/app/api/adventures/[id]/comments/route";
+import { POST as duplicateAdventure } from "@/app/api/adventures/[id]/duplicate/route";
 import { POST as voteAdventure } from "@/app/api/adventures/[id]/vote/route";
 import { PATCH as patchAdventure } from "@/app/api/adventures/[id]/route";
 import { POST as followUser, DELETE as unfollowUser } from "@/app/api/users/[id]/follow/route";
@@ -480,6 +481,113 @@ describe("POST /api/adventures/[id]/vote", () => {
 
     expect(response.status).toBe(200);
     expect(mockPrisma.notification.create).not.toHaveBeenCalled();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// POST /api/adventures/[id]/duplicate
+// ---------------------------------------------------------------------------
+describe("POST /api/adventures/[id]/duplicate", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  const originalAdventure = {
+    id: "adv-1",
+    title: "Nepal Trek",
+    description: "An epic trek through the Himalayas",
+    location: "Nepal",
+    country: "Nepal",
+    continent: "Asia",
+    category: "TREKKING",
+    difficulty: "CHALLENGING",
+    durationDays: 14,
+    coverImageUrl: "https://example.com/img.jpg",
+    albumUrl: null,
+    albumPlatform: null,
+    highlights: ["Everest Base Camp"],
+    gear: ["Ice axe"],
+    bestMonths: [9, 10],
+    estimatedCost: 3000,
+    gpxTrackUrl: null,
+    latitude: 27.9878,
+    longitude: 86.925,
+    published: true,
+    voteCount: 42,
+    userId: "user-1",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    tags: [{ name: "himalaya" }, { name: "trekking" }],
+  };
+
+  it("returns 401 when unauthenticated", async () => {
+    noSession();
+    const response = await duplicateAdventure(
+      new Request("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+    expect(response.status).toBe(401);
+  });
+
+  it("returns 404 when adventure not found", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    const response = await duplicateAdventure(
+      new Request("http://localhost/api/adventures/missing/duplicate", { method: "POST" }),
+      { params: Promise.resolve({ id: "missing" }) },
+    );
+    expect(response.status).toBe(404);
+  });
+
+  it("returns 403 when user is not the owner", async () => {
+    mockSession("user-2");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(originalAdventure);
+    const response = await duplicateAdventure(
+      new Request("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+    expect(response.status).toBe(403);
+  });
+
+  it("creates a draft duplicate with '(Copy)' suffix and returns 201", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(originalAdventure);
+    (mockPrisma.adventure.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      ...originalAdventure,
+      id: "adv-copy",
+      title: "Nepal Trek (Copy)",
+      published: false,
+      user: { id: "user-1", name: "Alice", avatarUrl: null },
+    });
+
+    const response = await duplicateAdventure(
+      new Request("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(response.status).toBe(201);
+    const data = await response.json();
+    expect(data.title).toBe("Nepal Trek (Copy)");
+    expect(data.published).toBe(false);
+  });
+
+  it("creates the duplicate as unpublished even if original was published", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(originalAdventure);
+    (mockPrisma.adventure.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      ...originalAdventure,
+      id: "adv-copy",
+      title: "Nepal Trek (Copy)",
+      published: false,
+      user: { id: "user-1", name: "Alice", avatarUrl: null },
+    });
+
+    await duplicateAdventure(
+      new Request("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    const createCall = (mockPrisma.adventure.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(createCall.data.published).toBe(false);
+    expect(createCall.data.title).toBe("Nepal Trek (Copy)");
   });
 });
 

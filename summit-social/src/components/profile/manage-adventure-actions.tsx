@@ -10,6 +10,7 @@ interface ManageAdventureActionsProps {
 export function ManageAdventureActions({ adventureId }: ManageAdventureActionsProps) {
   const router = useRouter();
   const [deleting, setDeleting] = useState(false);
+  const [duplicating, setDuplicating] = useState(false);
 
   const handleDelete = async () => {
     if (!confirm("Delete this adventure? This cannot be undone.")) return;
@@ -22,6 +23,16 @@ export function ManageAdventureActions({ adventureId }: ManageAdventureActionsPr
     }
   };
 
+  const handleDuplicate = async () => {
+    setDuplicating(true);
+    try {
+      const res = await fetch(`/api/adventures/${adventureId}/duplicate`, { method: "POST" });
+      if (res.ok) router.refresh();
+    } finally {
+      setDuplicating(false);
+    }
+  };
+
   return (
     <div className="mt-2 flex items-center gap-2 border-t border-stone-800 pt-2">
       <a
@@ -30,6 +41,14 @@ export function ManageAdventureActions({ adventureId }: ManageAdventureActionsPr
       >
         Edit
       </a>
+      <button
+        type="button"
+        onClick={handleDuplicate}
+        disabled={duplicating}
+        className="flex-1 border border-stone-700 py-1 font-display text-xs uppercase tracking-widest text-stone-500 transition-colors hover:border-stone-600 hover:text-stone-300 disabled:opacity-50"
+      >
+        {duplicating ? "…" : "Dupe"}
+      </button>
       <button
         type="button"
         onClick={handleDelete}
