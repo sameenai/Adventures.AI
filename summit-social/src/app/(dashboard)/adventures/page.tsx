@@ -47,6 +47,7 @@ export default async function AdventuresPage({
       include: {
         user: { select: { id: true, name: true, avatarUrl: true } },
         tags: true,
+        _count: { select: { comments: true } },
       },
     }),
   ]);

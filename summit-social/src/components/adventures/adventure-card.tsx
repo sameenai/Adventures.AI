@@ -53,6 +53,14 @@ export function AdventureCard({
             <span className={cn("font-medium", difficulty?.color)}>{difficulty?.label}</span>
             <span className="text-stone-600">·</span>
             <span className="text-stone-500">{pluralise(adventure.durationDays, "day")}</span>
+            {adventure._count?.comments !== undefined && adventure._count.comments > 0 && (
+              <>
+                <span className="text-stone-600">·</span>
+                <span className="text-stone-500">
+                  {pluralise(adventure._count.comments, "comment")}
+                </span>
+              </>
+            )}
           </div>
           <div className="flex items-center gap-1.5">
             <BookmarkButton
