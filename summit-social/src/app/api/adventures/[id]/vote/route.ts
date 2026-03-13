@@ -45,15 +45,32 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
     return NextResponse.json({ voted: false });
   }
 
-  await prisma.$transaction([
+  const [, updatedAdventure] = await prisma.$transaction([
     prisma.vote.create({
       data: { userId: session.user.id, adventureId },
     }),
     prisma.adventure.update({
       where: { id: adventureId },
       data: { voteCount: { increment: 1 } },
+      select: { userId: true, title: true, voteCount: true },
     }),
   ]);
+
+  // Notify owner at milestone vote counts
+  const MILESTONES = [10, 50, 100];
+  if (
+    MILESTONES.includes(updatedAdventure.voteCount) &&
+    updatedAdventure.userId !== session.user.id
+  ) {
+    await prisma.notification.create({
+      data: {
+        userId: updatedAdventure.userId,
+        type: "NEW_VOTE",
+        message: `Your adventure "${updatedAdventure.title}" reached ${updatedAdventure.voteCount} votes!`,
+        linkUrl: `/adventures/${adventureId}`,
+      },
+    });
+  }
 
   return NextResponse.json({ voted: true });
 }

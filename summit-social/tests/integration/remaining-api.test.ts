@@ -25,9 +25,12 @@ vi.mock("@/lib/db/prisma", () => ({
   prisma: {
     adventure: { findUnique: vi.fn(), findMany: vi.fn(), update: vi.fn() },
     comment: { create: vi.fn() },
+    follow: { findUnique: vi.fn(), upsert: vi.fn(), deleteMany: vi.fn() },
+    vote: { findUnique: vi.fn(), create: vi.fn(), delete: vi.fn() },
+    user: { findUnique: vi.fn(), update: vi.fn(), findMany: vi.fn() },
     itinerary: { findMany: vi.fn(), findUnique: vi.fn(), create: vi.fn(), update: vi.fn(), delete: vi.fn() },
-    user: { findUnique: vi.fn(), update: vi.fn() },
-    notification: { findMany: vi.fn(), updateMany: vi.fn() },
+    notification: { findMany: vi.fn(), updateMany: vi.fn(), create: vi.fn(), createMany: vi.fn() },
+    $transaction: vi.fn(),
   },
 }));
 vi.mock("@/lib/ai/openai", () => ({ openai: { chat: { completions: { create: vi.fn() } } } }));
@@ -36,7 +39,9 @@ vi.mock("@/lib/ai/openai", () => ({ openai: { chat: { completions: { create: vi.
 // Imports after mocks
 // ---------------------------------------------------------------------------
 import { POST as createComment } from "@/app/api/adventures/[id]/comments/route";
+import { POST as voteAdventure } from "@/app/api/adventures/[id]/vote/route";
 import { PATCH as patchAdventure } from "@/app/api/adventures/[id]/route";
+import { POST as followUser, DELETE as unfollowUser } from "@/app/api/users/[id]/follow/route";
 import { GET as getNotifications } from "@/app/api/notifications/route";
 import { POST as markAllRead } from "@/app/api/notifications/read-all/route";
 import { POST as chatRoute } from "@/app/api/chat/route";
@@ -70,7 +75,11 @@ describe("POST /api/adventures/[id]/comments", () => {
 
   it("creates a comment and returns 201", async () => {
     mockSession();
-    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "adv-1" });
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      userId: "owner-1",
+      title: "Nepal Trek",
+    });
     (mockPrisma.comment.create as ReturnType<typeof vi.fn>).mockResolvedValue({
       id: "comment-1",
       body: "Great adventure!",
@@ -78,6 +87,7 @@ describe("POST /api/adventures/[id]/comments", () => {
       adventureId: "adv-1",
       user: { id: "user-1", name: "Alice", avatarUrl: null },
     });
+    (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
     const response = await createComment(
       new NextRequest("http://localhost/api/adventures/adv-1/comments", {
@@ -151,7 +161,11 @@ describe("POST /api/adventures/[id]/comments", () => {
 
   it("creates a reply when parentId is provided", async () => {
     mockSession();
-    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "adv-1" });
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      userId: "owner-1",
+      title: "Nepal Trek",
+    });
     (mockPrisma.comment.create as ReturnType<typeof vi.fn>).mockResolvedValue({
       id: "reply-1",
       body: "I agree!",
@@ -160,6 +174,7 @@ describe("POST /api/adventures/[id]/comments", () => {
       adventureId: "adv-1",
       user: { id: "user-1", name: "Alice", avatarUrl: null },
     });
+    (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
     const response = await createComment(
       new NextRequest("http://localhost/api/adventures/adv-1/comments", {
@@ -173,6 +188,298 @@ describe("POST /api/adventures/[id]/comments", () => {
     expect(response.status).toBe(201);
     const data = await response.json();
     expect(data.parentId).toBe("comment-1");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Notification triggers: comment creates notification for adventure owner
+// ---------------------------------------------------------------------------
+describe("POST /api/adventures/[id]/comments — notification triggers", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("creates NEW_COMMENT notification when commenter is not the owner", async () => {
+    mockSession("user-2");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      userId: "user-1",
+      title: "Nepal Trek",
+    });
+    (mockPrisma.comment.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "c-1",
+      body: "Great!",
+      userId: "user-2",
+      adventureId: "adv-1",
+      user: { id: "user-2", name: "Bob", avatarUrl: null },
+    });
+    (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
+
+    await createComment(
+      new NextRequest("http://localhost/api/adventures/adv-1/comments", {
+        method: "POST",
+        body: JSON.stringify({ body: "Great!" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(mockPrisma.notification.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          userId: "user-1",
+          type: "NEW_COMMENT",
+        }),
+      }),
+    );
+  });
+
+  it("does not create notification when commenter is the owner", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      userId: "user-1",
+      title: "Nepal Trek",
+    });
+    (mockPrisma.comment.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "c-1",
+      body: "My own comment",
+      userId: "user-1",
+      adventureId: "adv-1",
+      user: { id: "user-1", name: "Alice", avatarUrl: null },
+    });
+
+    await createComment(
+      new NextRequest("http://localhost/api/adventures/adv-1/comments", {
+        method: "POST",
+        body: JSON.stringify({ body: "My own comment" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(mockPrisma.notification.create).not.toHaveBeenCalled();
+  });
+
+  it("creates mention notifications for @mentioned users", async () => {
+    mockSession("user-2");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      userId: "user-1",
+      title: "Nepal Trek",
+    });
+    (mockPrisma.comment.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "c-1",
+      body: "Hey @Carol check this out!",
+      userId: "user-2",
+      adventureId: "adv-1",
+      user: { id: "user-2", name: "Bob", avatarUrl: null },
+    });
+    (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
+    (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: "user-3" },
+    ]);
+    (mockPrisma.notification.createMany as ReturnType<typeof vi.fn>).mockResolvedValue({ count: 1 });
+
+    await createComment(
+      new NextRequest("http://localhost/api/adventures/adv-1/comments", {
+        method: "POST",
+        body: JSON.stringify({ body: "Hey @Carol check this out!" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(mockPrisma.notification.createMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.arrayContaining([
+          expect.objectContaining({ userId: "user-3", type: "NEW_COMMENT" }),
+        ]),
+      }),
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// POST/DELETE /api/users/[id]/follow — notification triggers
+// ---------------------------------------------------------------------------
+describe("POST /api/users/[id]/follow", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("returns 401 when unauthenticated", async () => {
+    noSession();
+    const response = await followUser(
+      new Request("http://localhost/api/users/user-2/follow", { method: "POST" }),
+      { params: Promise.resolve({ id: "user-2" }) },
+    );
+    expect(response.status).toBe(401);
+  });
+
+  it("returns 400 when following yourself", async () => {
+    mockSession("user-1");
+    const response = await followUser(
+      new Request("http://localhost/api/users/user-1/follow", { method: "POST" }),
+      { params: Promise.resolve({ id: "user-1" }) },
+    );
+    expect(response.status).toBe(400);
+  });
+
+  it("creates a follow and sends NEW_FOLLOWER notification on first follow", async () => {
+    mockSession("user-1");
+    (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>)
+      .mockResolvedValueOnce({ id: "user-2" })   // target exists
+      .mockResolvedValueOnce({ name: "Alice" });  // follower name lookup
+    (mockPrisma.follow.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    (mockPrisma.follow.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
+    (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
+
+    const response = await followUser(
+      new Request("http://localhost/api/users/user-2/follow", { method: "POST" }),
+      { params: Promise.resolve({ id: "user-2" }) },
+    );
+
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.following).toBe(true);
+    expect(mockPrisma.notification.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ userId: "user-2", type: "NEW_FOLLOWER" }),
+      }),
+    );
+  });
+
+  it("does not send notification when re-following (already followed)", async () => {
+    mockSession("user-1");
+    (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "user-2" });
+    (mockPrisma.follow.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "f-1" });
+    (mockPrisma.follow.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
+
+    await followUser(
+      new Request("http://localhost/api/users/user-2/follow", { method: "POST" }),
+      { params: Promise.resolve({ id: "user-2" }) },
+    );
+
+    expect(mockPrisma.notification.create).not.toHaveBeenCalled();
+  });
+
+  it("returns 404 when target user not found", async () => {
+    mockSession("user-1");
+    (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+
+    const response = await followUser(
+      new Request("http://localhost/api/users/missing/follow", { method: "POST" }),
+      { params: Promise.resolve({ id: "missing" }) },
+    );
+    expect(response.status).toBe(404);
+  });
+});
+
+describe("DELETE /api/users/[id]/follow", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("returns 401 when unauthenticated", async () => {
+    noSession();
+    const response = await unfollowUser(
+      new Request("http://localhost/api/users/user-2/follow", { method: "DELETE" }),
+      { params: Promise.resolve({ id: "user-2" }) },
+    );
+    expect(response.status).toBe(401);
+  });
+
+  it("deletes follow and returns following false", async () => {
+    mockSession("user-1");
+    (mockPrisma.follow.deleteMany as ReturnType<typeof vi.fn>).mockResolvedValue({});
+
+    const response = await unfollowUser(
+      new Request("http://localhost/api/users/user-2/follow", { method: "DELETE" }),
+      { params: Promise.resolve({ id: "user-2" }) },
+    );
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.following).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// POST /api/adventures/[id]/vote — notification triggers
+// ---------------------------------------------------------------------------
+describe("POST /api/adventures/[id]/vote", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("returns 401 when unauthenticated", async () => {
+    noSession();
+    const response = await voteAdventure(
+      new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+    expect(response.status).toBe(401);
+  });
+
+  it("returns 429 when rate limited", async () => {
+    mockSession();
+    mockRateLimit.mockResolvedValueOnce(false);
+    const response = await voteAdventure(
+      new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+    expect(response.status).toBe(429);
+  });
+
+  it("removes vote when already voted", async () => {
+    mockSession("user-1");
+    (mockPrisma.vote.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "v-1" });
+    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockImplementation(
+      (ops: unknown[]) => Promise.all(ops),
+    );
+    (mockPrisma.vote.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
+    (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({});
+
+    const response = await voteAdventure(
+      new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.voted).toBe(false);
+  });
+
+  it("adds vote and sends milestone notification at 10 votes", async () => {
+    mockSession("user-2");
+    (mockPrisma.vote.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockResolvedValue([
+      {},
+      { userId: "user-1", title: "Nepal Trek", voteCount: 10 },
+    ]);
+    (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
+
+    const response = await voteAdventure(
+      new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.voted).toBe(true);
+    expect(mockPrisma.notification.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ userId: "user-1", type: "NEW_VOTE" }),
+      }),
+    );
+  });
+
+  it("does not send milestone notification at non-milestone vote count", async () => {
+    mockSession("user-2");
+    (mockPrisma.vote.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockResolvedValue([
+      {},
+      { userId: "user-1", title: "Nepal Trek", voteCount: 7 },
+    ]);
+
+    const response = await voteAdventure(
+      new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(response.status).toBe(200);
+    expect(mockPrisma.notification.create).not.toHaveBeenCalled();
   });
 });
 
