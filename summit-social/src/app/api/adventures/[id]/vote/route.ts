@@ -13,15 +13,15 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
   }
 
-  const allowed = await rateLimit(
+  const { allowed, retryAfter } = await rateLimit(
     `vote:${session.user.id}`,
     RATE_LIMITS.vote.limit,
     RATE_LIMITS.vote.windowSeconds,
   );
   if (!allowed) {
     return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED" },
-      { status: 429 },
+      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } },
     );
   }
 

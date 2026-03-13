@@ -37,7 +37,11 @@ export function CommentForm({
 
       if (!res.ok) {
         const data = await res.json();
-        setError(data.error ?? "Failed to post comment.");
+        if (res.status === 429 && data.retryAfter) {
+          setError(`Too many comments. Try again in ${data.retryAfter}s.`);
+        } else {
+          setError(data.error ?? "Failed to post comment.");
+        }
         return;
       }
 

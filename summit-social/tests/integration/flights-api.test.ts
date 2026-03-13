@@ -23,7 +23,7 @@ vi.mock("@/lib/auth/config", () => ({
 }));
 
 vi.mock("@/lib/db/redis", () => ({
-  rateLimit: vi.fn().mockResolvedValue(true),
+  rateLimit: vi.fn().mockResolvedValue({ allowed: true, retryAfter: 0 }),
   getCached: vi.fn().mockResolvedValue(null),
   setCache: vi.fn().mockResolvedValue(undefined),
   redis: { get: vi.fn().mockResolvedValue(null), set: vi.fn().mockResolvedValue("OK") },
@@ -126,7 +126,7 @@ describe("POST /api/flights", () => {
   });
 
   it("returns 429 when rate limit exceeded", async () => {
-    mockRateLimit.mockResolvedValueOnce(false);
+    mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
 
     const response = await searchFlightsRoute(
       new NextRequest("http://localhost/api/flights", {

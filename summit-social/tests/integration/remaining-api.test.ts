@@ -17,7 +17,7 @@ vi.mock("ioredis", () => {
 vi.mock("next-auth", () => ({ getServerSession: vi.fn() }));
 vi.mock("@/lib/auth/config", () => ({ authOptions: {} }));
 vi.mock("@/lib/db/redis", () => ({
-  rateLimit: vi.fn().mockResolvedValue(true),
+  rateLimit: vi.fn().mockResolvedValue({ allowed: true, retryAfter: 0 }),
   getCached: vi.fn().mockResolvedValue(null),
   setCache: vi.fn().mockResolvedValue(undefined),
 }));
@@ -119,7 +119,7 @@ describe("POST /api/adventures/[id]/comments", () => {
 
   it("returns 429 when rate limited", async () => {
     mockSession();
-    mockRateLimit.mockResolvedValueOnce(false);
+    mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
     const response = await createComment(
       new NextRequest("http://localhost/api/adventures/adv-1/comments", {
         method: "POST",
@@ -416,7 +416,7 @@ describe("POST /api/adventures/[id]/vote", () => {
 
   it("returns 429 when rate limited", async () => {
     mockSession();
-    mockRateLimit.mockResolvedValueOnce(false);
+    mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
     const response = await voteAdventure(
       new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
@@ -617,7 +617,7 @@ describe("POST /api/chat", () => {
 
   it("returns 429 when rate limited", async () => {
     mockSession();
-    mockRateLimit.mockResolvedValueOnce(false);
+    mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
     const response = await chatRoute(
       new NextRequest("http://localhost/api/chat", {
         method: "POST",

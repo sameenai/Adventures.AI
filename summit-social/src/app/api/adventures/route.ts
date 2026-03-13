@@ -66,15 +66,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
   }
 
-  const allowed = await rateLimit(
+  const { allowed, retryAfter } = await rateLimit(
     `adventure:create:${session.user.id}`,
     RATE_LIMITS.adventureCreate.limit,
     RATE_LIMITS.adventureCreate.windowSeconds,
   );
   if (!allowed) {
     return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED" },
-      { status: 429 },
+      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } },
     );
   }
 

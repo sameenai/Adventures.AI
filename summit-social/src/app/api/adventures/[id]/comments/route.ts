@@ -15,15 +15,15 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
   }
 
-  const allowed = await rateLimit(
+  const { allowed, retryAfter } = await rateLimit(
     `comment:${session.user.id}`,
     RATE_LIMITS.commentCreate.limit,
     RATE_LIMITS.commentCreate.windowSeconds,
   );
   if (!allowed) {
     return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED" },
-      { status: 429 },
+      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } },
     );
   }
 
