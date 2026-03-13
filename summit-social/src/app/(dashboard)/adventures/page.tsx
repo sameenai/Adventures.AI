@@ -1,4 +1,4 @@
-import { AdventureGrid } from "@/components/adventures/adventure-grid";
+import { InfiniteAdventureGrid } from "@/components/adventures/infinite-adventure-grid";
 import { SearchFilter } from "@/components/adventures/search-filter";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
@@ -9,6 +9,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 export const metadata = { title: "Adventures | SummitSocial" };
+
+const PAGE_SIZE = 20;
 
 export default async function AdventuresPage({
   searchParams,
@@ -26,7 +28,7 @@ export default async function AdventuresPage({
         ? { durationDays: "asc" as const }
         : { voteCount: "desc" as const };
 
-  const [session, adventures] = await Promise.all([
+  const [session, rawAdventures] = await Promise.all([
     getServerSession(authOptions),
     prisma.adventure.findMany({
       where: {
@@ -43,7 +45,7 @@ export default async function AdventuresPage({
         }),
       },
       orderBy,
-      take: 20,
+      take: PAGE_SIZE + 1,
       include: {
         user: { select: { id: true, name: true, avatarUrl: true } },
         tags: true,
@@ -52,8 +54,12 @@ export default async function AdventuresPage({
     }),
   ]);
 
-  let votedIds = new Set<string>();
-  let bookmarkedIds = new Set<string>();
+  const hasMore = rawAdventures.length > PAGE_SIZE;
+  const adventures = hasMore ? rawAdventures.slice(0, PAGE_SIZE) : rawAdventures;
+  const nextCursor = hasMore ? adventures[adventures.length - 1].id : undefined;
+
+  let votedIds: string[] = [];
+  let bookmarkedIds: string[] = [];
   if (session?.user?.id) {
     const adventureIds = adventures.map((a) => a.id);
     const [votes, bookmarks] = await Promise.all([
@@ -66,8 +72,8 @@ export default async function AdventuresPage({
         select: { adventureId: true },
       }),
     ]);
-    votedIds = new Set(votes.map((v) => v.adventureId));
-    bookmarkedIds = new Set(bookmarks.map((b) => b.adventureId));
+    votedIds = votes.map((v) => v.adventureId);
+    bookmarkedIds = bookmarks.map((b) => b.adventureId);
   }
 
   return (
@@ -121,11 +127,19 @@ export default async function AdventuresPage({
       </Suspense>
 
       <div className="mt-6">
-        <AdventureGrid
-          adventures={adventures}
+        <InfiniteAdventureGrid
+          initialAdventures={adventures}
+          initialNextCursor={nextCursor}
           currentUserId={session?.user?.id}
           votedAdventureIds={votedIds}
           bookmarkedAdventureIds={bookmarkedIds}
+          queryParams={{
+            category: params.category,
+            continent: params.continent,
+            difficulty: params.difficulty,
+            search: params.search,
+            sortBy: params.sortBy,
+          }}
         />
       </div>
     </div>
