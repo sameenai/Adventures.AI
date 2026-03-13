@@ -1,6 +1,7 @@
 import { AdventureHistory } from "@/components/profile/adventure-history";
 import { CollectionsPanel } from "@/components/profile/collections-panel";
 import { FollowButton } from "@/components/profile/follow-button";
+import { FollowSuggestions } from "@/components/profile/follow-suggestions";
 import { ProfileHeader } from "@/components/profile/profile-header";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
@@ -134,6 +135,9 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       </div>
 
       {isOwnProfile && <CollectionsPanel initialCollections={collections} />}
+
+      {/* Follow suggestions: shown to logged-in users based on top category of this profile */}
+      {session?.user?.id && <FollowSuggestions category={visibleAdventures[0]?.category} />}
 
       {showBookmarks && (
         <div className="mt-12">

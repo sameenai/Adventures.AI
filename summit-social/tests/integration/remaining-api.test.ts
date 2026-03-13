@@ -27,7 +27,7 @@ vi.mock("@/lib/db/prisma", () => ({
     collection: { findMany: vi.fn(), findUnique: vi.fn(), create: vi.fn(), delete: vi.fn() },
     collectionItem: { upsert: vi.fn(), deleteMany: vi.fn() },
     comment: { create: vi.fn() },
-    follow: { findUnique: vi.fn(), upsert: vi.fn(), deleteMany: vi.fn() },
+    follow: { findUnique: vi.fn(), upsert: vi.fn(), deleteMany: vi.fn(), findMany: vi.fn() },
     vote: { findUnique: vi.fn(), create: vi.fn(), delete: vi.fn() },
     user: { findUnique: vi.fn(), update: vi.fn(), findMany: vi.fn() },
     itinerary: { findMany: vi.fn(), findUnique: vi.fn(), create: vi.fn(), update: vi.fn(), delete: vi.fn() },
@@ -46,6 +46,7 @@ import {
   GET as getCollections,
   POST as createCollection,
 } from "@/app/api/collections/route";
+import { GET as getUserSuggestions } from "@/app/api/users/suggestions/route";
 import {
   GET as getCollection,
   DELETE as deleteCollection,
@@ -495,6 +496,65 @@ describe("POST /api/adventures/[id]/vote", () => {
 
     expect(response.status).toBe(200);
     expect(mockPrisma.notification.create).not.toHaveBeenCalled();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// GET /api/users/suggestions
+// ---------------------------------------------------------------------------
+describe("GET /api/users/suggestions", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  it("returns 401 when unauthenticated", async () => {
+    noSession();
+    const response = await getUserSuggestions(
+      new NextRequest("http://localhost/api/users/suggestions"),
+    );
+    expect(response.status).toBe(401);
+  });
+
+  it("returns suggested users excluding already followed", async () => {
+    mockSession("user-1");
+    (mockPrisma.follow.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { followingId: "user-2" },
+    ]);
+    (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: "user-3", name: "Carol", avatarUrl: null, _count: { adventures: 5 } },
+    ]);
+
+    const response = await getUserSuggestions(
+      new NextRequest("http://localhost/api/users/suggestions"),
+    );
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data).toHaveLength(1);
+    expect(data[0].id).toBe("user-3");
+  });
+
+  it("returns empty array when all users are already followed", async () => {
+    mockSession("user-1");
+    (mockPrisma.follow.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    const response = await getUserSuggestions(
+      new NextRequest("http://localhost/api/users/suggestions"),
+    );
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data).toHaveLength(0);
+  });
+
+  it("passes category filter to query when provided", async () => {
+    mockSession("user-1");
+    (mockPrisma.follow.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getUserSuggestions(
+      new NextRequest("http://localhost/api/users/suggestions?category=TREKKING"),
+    );
+
+    const call = (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.where.adventures.some).toMatchObject({ category: "TREKKING" });
   });
 });
 
