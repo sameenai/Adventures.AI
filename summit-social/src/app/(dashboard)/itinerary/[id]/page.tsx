@@ -1,3 +1,4 @@
+import { ExportButton } from "@/components/itinerary/export-button";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { formatPrice, pluralise } from "@/lib/utils";
@@ -49,7 +50,7 @@ export default async function ItineraryDetailPage({ params }: Props) {
       </nav>
 
       <div className="mb-8 flex items-start justify-between gap-4">
-        <div>
+        <div className="flex-1">
           <h1 className="font-display text-2xl uppercase tracking-widest text-stone-100">
             {itinerary.title}
           </h1>
@@ -75,6 +76,16 @@ export default async function ItineraryDetailPage({ params }: Props) {
             </span>
           </div>
         </div>
+        {itinerary.days.length > 0 && (
+          <ExportButton
+            title={itinerary.title}
+            description={itinerary.description}
+            days={itinerary.days}
+            travellers={itinerary.travellers}
+            budget={itinerary.budget}
+            status={itinerary.status}
+          />
+        )}
       </div>
 
       {itinerary.days.length === 0 ? (
