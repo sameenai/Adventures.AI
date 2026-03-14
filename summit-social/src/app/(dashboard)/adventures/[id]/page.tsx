@@ -2,6 +2,7 @@ import { BookmarkButton } from "@/components/adventures/bookmark-button";
 import { CommentForm } from "@/components/adventures/comment-form";
 import { CommentSection } from "@/components/adventures/comment-section";
 import { ShareButtons } from "@/components/adventures/share-buttons";
+import { ViewCounter } from "@/components/adventures/view-counter";
 import { VoteButton } from "@/components/adventures/vote-button";
 import { MapView } from "@/components/itinerary/map-view";
 import { authOptions } from "@/lib/auth/config";
@@ -179,6 +180,10 @@ export default async function AdventureDetailPage({ params }: Props) {
           {adventure.estimatedCost && (
             <span className="text-stone-500">~{formatPrice(adventure.estimatedCost)} est.</span>
           )}
+          <ViewCounter
+            adventureId={adventure.id}
+            isAuthor={session?.user?.id === adventure.user.id}
+          />
         </div>
         <div className="flex items-center gap-3">
           {session?.user?.id === adventure.user.id && (
