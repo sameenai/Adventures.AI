@@ -94,7 +94,10 @@ export function AdventureHistory({
                     <span className="text-stone-600">·</span>
                     <span className="text-stone-500">{adventure.voteCount} votes</span>
                   </div>
-                  <ManageAdventureActions adventureId={adventure.id} />
+                  <ManageAdventureActions
+                    adventureId={adventure.id}
+                    published={adventure.published}
+                  />
                 </div>
               </div>
             );
