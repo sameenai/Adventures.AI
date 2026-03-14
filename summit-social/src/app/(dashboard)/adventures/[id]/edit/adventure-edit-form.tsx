@@ -164,6 +164,7 @@ export function AdventureEditForm({ adventure }: AdventureEditFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [enhancing, setEnhancing] = useState(false);
 
   const [form, setForm] = useState({
     title: adventure.title,
@@ -197,6 +198,31 @@ export function AdventureEditForm({ adventure }: AdventureEditFormProps) {
         ? form.bestMonths.filter((x) => x !== m)
         : [...form.bestMonths, m],
     );
+
+  const handleEnhance = async () => {
+    if (!form.description.trim() || form.description.trim().length < 10) return;
+    setEnhancing(true);
+    try {
+      const res = await fetch("/api/adventures/enhance-description", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: form.title,
+          description: form.description,
+          location: form.location,
+          category: form.category,
+          difficulty: form.difficulty,
+          highlights: form.highlights,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.enhanced) set("description", data.enhanced);
+    } catch {
+      // silently ignore
+    } finally {
+      setEnhancing(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -263,9 +289,29 @@ export function AdventureEditForm({ adventure }: AdventureEditFormProps) {
           />
         </div>
         <div>
-          <label htmlFor="description" className={labelCls}>
-            Description *
-          </label>
+          <div className="flex items-center justify-between mb-1.5">
+            <label
+              htmlFor="description"
+              className="font-display text-xs uppercase tracking-[0.25em] text-stone-500"
+            >
+              Description *
+            </label>
+            <button
+              type="button"
+              onClick={handleEnhance}
+              disabled={enhancing || form.description.trim().length < 10}
+              className="flex items-center gap-1.5 border border-stone-700 px-2.5 py-1 font-display text-xs uppercase tracking-widest text-stone-500 hover:border-amber-600 hover:text-amber-500 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {enhancing ? (
+                <>
+                  <span className="h-2.5 w-2.5 animate-spin rounded-full border border-amber-500 border-t-transparent" />
+                  Enhancing…
+                </>
+              ) : (
+                "✦ Improve with AI"
+              )}
+            </button>
+          </div>
           <textarea
             id="description"
             required
