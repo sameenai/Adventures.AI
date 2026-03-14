@@ -11,6 +11,7 @@ interface UseVoteOptions {
 export function useVote({ adventureId, initialVoted, initialCount }: UseVoteOptions) {
   const [voted, setVoted] = useState(initialVoted);
   const [count, setCount] = useState(initialCount);
+  const [rateLimitError, setRateLimitError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const toggleVote = useCallback(() => {
@@ -20,6 +21,7 @@ export function useVote({ adventureId, initialVoted, initialCount }: UseVoteOpti
     // Optimistic update
     setVoted(newVoted);
     setCount(newCount);
+    setRateLimitError(null);
 
     startTransition(async () => {
       try {
@@ -31,6 +33,11 @@ export function useVote({ adventureId, initialVoted, initialCount }: UseVoteOpti
           // Rollback on failure
           setVoted(voted);
           setCount(count);
+          if (response.status === 429) {
+            const data = await response.json().catch(() => ({}));
+            const seconds = data.retryAfter ?? 60;
+            setRateLimitError(`Too many votes. Try again in ${seconds}s.`);
+          }
         }
       } catch {
         // Rollback on error
@@ -40,5 +47,5 @@ export function useVote({ adventureId, initialVoted, initialCount }: UseVoteOpti
     });
   }, [adventureId, voted, count]);
 
-  return { voted, count, toggleVote, isPending };
+  return { voted, count, toggleVote, isPending, rateLimitError };
 }

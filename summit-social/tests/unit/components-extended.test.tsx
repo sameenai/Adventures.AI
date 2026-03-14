@@ -579,3 +579,84 @@ describe("CommentSection", () => {
     expect(screen.getByRole("img", { name: "Alice" })).toBeInTheDocument();
   });
 });
+
+// ---------------------------------------------------------------------------
+// AdventureCard comment count display
+// ---------------------------------------------------------------------------
+import { AdventureCard } from "@/components/adventures/adventure-card";
+import type { AdventureWithUser } from "@/types";
+
+vi.mock("@/components/adventures/bookmark-button", () => ({
+  BookmarkButton: () => null,
+}));
+vi.mock("@/components/adventures/vote-button", () => ({
+  VoteButton: () => null,
+}));
+vi.mock("next/link", () => ({
+  default: ({ href, children }: { href: string; children: React.ReactNode }) => (
+    <a href={href}>{children}</a>
+  ),
+}));
+
+const baseAdventure: AdventureWithUser = {
+  id: "adv-1",
+  title: "Nepal Trek",
+  description: "An epic trek",
+  location: "Nepal",
+  country: "Nepal",
+  continent: "Asia",
+  category: "TREKKING" as never,
+  difficulty: "MODERATE" as never,
+  durationDays: 14,
+  coverImageUrl: "https://example.com/img.jpg",
+  albumUrl: null,
+  albumPlatform: null,
+  highlights: [],
+  gear: [],
+  bestMonths: [],
+  estimatedCost: null,
+  gpxTrackUrl: null,
+  latitude: null,
+  longitude: null,
+  published: true,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  userId: "user-1",
+  voteCount: 5,
+  user: { id: "user-1", name: "Alice", avatarUrl: null },
+  tags: [],
+};
+
+describe("AdventureCard comment count", () => {
+  it("shows comment count when _count.comments > 0", () => {
+    render(
+      <AdventureCard
+        adventure={{ ...baseAdventure, _count: { comments: 3 } }}
+      />,
+    );
+    expect(screen.getByText("3 comments")).toBeInTheDocument();
+  });
+
+  it("shows singular 'comment' for count of 1", () => {
+    render(
+      <AdventureCard
+        adventure={{ ...baseAdventure, _count: { comments: 1 } }}
+      />,
+    );
+    expect(screen.getByText("1 comment")).toBeInTheDocument();
+  });
+
+  it("does not show comment count when _count.comments is 0", () => {
+    render(
+      <AdventureCard
+        adventure={{ ...baseAdventure, _count: { comments: 0 } }}
+      />,
+    );
+    expect(screen.queryByText(/comment/)).not.toBeInTheDocument();
+  });
+
+  it("does not show comment count when _count is absent", () => {
+    render(<AdventureCard adventure={baseAdventure} />);
+    expect(screen.queryByText(/comment/)).not.toBeInTheDocument();
+  });
+});

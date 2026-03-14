@@ -41,7 +41,7 @@ vi.mock("@/lib/auth/config", () => ({
 }));
 
 vi.mock("@/lib/db/redis", () => ({
-  rateLimit: vi.fn().mockResolvedValue(true),
+  rateLimit: vi.fn().mockResolvedValue({ allowed: true, retryAfter: 0 }),
   getCached: vi.fn().mockResolvedValue(null),
   setCache: vi.fn().mockResolvedValue(undefined),
 }));
@@ -241,7 +241,7 @@ describe("POST /api/adventures", () => {
   });
 
   it("returns 429 when rate limit exceeded", async () => {
-    mockRateLimit.mockResolvedValueOnce(false);
+    mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
 
     const response = await createAdventure(
       new NextRequest("http://localhost/api/adventures", {
@@ -387,7 +387,10 @@ describe("POST /api/adventures/[id]/vote", () => {
   it("creates a vote and returns { voted: true }", async () => {
     mockSession("user-1");
     (mockPrisma.vote.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
-    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockResolvedValue([
+      {},
+      { userId: "owner-1", title: "Nepal Trek", voteCount: 5 },
+    ]);
 
     const response = await voteOnAdventure(new Request("http://localhost/api/adventures/adv-1/vote"), {
       params: Promise.resolve({ id: "adv-1" }),
@@ -421,7 +424,7 @@ describe("POST /api/adventures/[id]/vote", () => {
 
   it("returns 429 when rate limit exceeded", async () => {
     mockSession("user-1");
-    mockRateLimit.mockResolvedValueOnce(false);
+    mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
 
     const response = await voteOnAdventure(new Request("http://localhost/api/adventures/adv-1/vote"), {
       params: Promise.resolve({ id: "adv-1" }),

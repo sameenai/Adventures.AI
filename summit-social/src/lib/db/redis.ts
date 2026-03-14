@@ -17,12 +17,16 @@ export async function rateLimit(
   key: string,
   limit: number,
   windowSeconds: number,
-): Promise<boolean> {
+): Promise<{ allowed: boolean; retryAfter: number }> {
   const current = await redis.incr(key);
   if (current === 1) {
     await redis.expire(key, windowSeconds);
   }
-  return current <= limit;
+  if (current <= limit) {
+    return { allowed: true, retryAfter: 0 };
+  }
+  const ttl = await redis.ttl(key);
+  return { allowed: false, retryAfter: ttl > 0 ? ttl : windowSeconds };
 }
 
 export async function getCached<T>(key: string): Promise<T | null> {

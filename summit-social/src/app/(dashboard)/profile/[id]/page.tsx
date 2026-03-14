@@ -1,5 +1,7 @@
 import { AdventureHistory } from "@/components/profile/adventure-history";
+import { CollectionsPanel } from "@/components/profile/collections-panel";
 import { FollowButton } from "@/components/profile/follow-button";
+import { FollowSuggestions } from "@/components/profile/follow-suggestions";
 import { ProfileHeader } from "@/components/profile/profile-header";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
@@ -68,12 +70,30 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
     ? user.adventures
     : user.adventures.filter((a) => a.published);
 
-  const isFollowing = session?.user?.id
-    ? !!(await prisma.follow.findUnique({
-        where: { followerId_followingId: { followerId: session.user.id, followingId: id } },
-        select: { id: true },
-      }))
-    : false;
+  const [isFollowing, collections] = await Promise.all([
+    session?.user?.id
+      ? prisma.follow
+          .findUnique({
+            where: { followerId_followingId: { followerId: session.user.id, followingId: id } },
+            select: { id: true },
+          })
+          .then(Boolean)
+      : Promise.resolve(false),
+    isOwnProfile
+      ? prisma.collection.findMany({
+          where: { userId: id },
+          orderBy: { createdAt: "desc" },
+          include: {
+            _count: { select: { items: true } },
+            items: {
+              take: 1,
+              include: { adventure: { select: { coverImageUrl: true } } },
+              orderBy: { addedAt: "desc" },
+            },
+          },
+        })
+      : Promise.resolve([]),
+  ]);
 
   // Only show bookmarks to the owner of the profile
   const showBookmarks = isOwnProfile && user.bookmarks.length > 0;
@@ -113,6 +133,11 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
           showManageActions={isOwnProfile}
         />
       </div>
+
+      {isOwnProfile && <CollectionsPanel initialCollections={collections} />}
+
+      {/* Follow suggestions: shown to logged-in users based on top category of this profile */}
+      {session?.user?.id && <FollowSuggestions category={visibleAdventures[0]?.category} />}
 
       {showBookmarks && (
         <div className="mt-12">

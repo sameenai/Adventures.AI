@@ -8,6 +8,7 @@ import Link from "next/link";
 
 const NAV_LINKS = [
   { href: "/adventures", label: "Adventures" },
+  { href: "/feed", label: "Feed" },
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/itineraries", label: "My Trips" },
   { href: "/itinerary", label: "Plan Trip" },

@@ -15,15 +15,15 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
   }
 
-  const allowed = await rateLimit(
+  const { allowed, retryAfter } = await rateLimit(
     `comment:${session.user.id}`,
     RATE_LIMITS.commentCreate.limit,
     RATE_LIMITS.commentCreate.windowSeconds,
   );
   if (!allowed) {
     return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED" },
-      { status: 429 },
+      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } },
     );
   }
 
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
   const adventure = await prisma.adventure.findUnique({
     where: { id: adventureId },
-    select: { id: true },
+    select: { id: true, userId: true, title: true },
   });
 
   if (!adventure) {
@@ -57,6 +57,42 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       user: { select: { id: true, name: true, avatarUrl: true } },
     },
   });
+
+  // Notify adventure owner (unless commenter is the owner)
+  if (adventure.userId !== session.user.id) {
+    await prisma.notification.create({
+      data: {
+        userId: adventure.userId,
+        type: "NEW_COMMENT",
+        message: `${comment.user.name ?? "Someone"} commented on your adventure "${adventure.title}"`,
+        linkUrl: `/adventures/${adventureId}`,
+      },
+    });
+  }
+
+  // Notify users @mentioned in the comment body
+  const mentions = parsed.data.body.match(/@(\w+)/g);
+  if (mentions) {
+    const usernames = [...new Set(mentions.map((m) => m.slice(1)))];
+    const mentionedUsers = await prisma.user.findMany({
+      where: { name: { in: usernames } },
+      select: { id: true },
+    });
+    const notifyIds = mentionedUsers
+      .map((u) => u.id)
+      .filter((id) => id !== session.user.id && id !== adventure.userId);
+    if (notifyIds.length > 0) {
+      await prisma.notification.createMany({
+        data: notifyIds.map((userId) => ({
+          userId,
+          type: "NEW_COMMENT" as const,
+          message: `${comment.user.name ?? "Someone"} mentioned you in a comment`,
+          linkUrl: `/adventures/${adventureId}`,
+        })),
+        skipDuplicates: true,
+      });
+    }
+  }
 
   return NextResponse.json(comment, { status: 201 });
 }
