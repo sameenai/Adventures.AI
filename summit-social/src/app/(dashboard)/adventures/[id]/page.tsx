@@ -47,9 +47,13 @@ export default async function AdventureDetailPage({ params }: Props) {
           orderBy: { createdAt: "desc" },
           include: {
             user: { select: { id: true, name: true, avatarUrl: true } },
+            _count: { select: { reactions: true } },
             replies: {
               orderBy: { createdAt: "asc" },
-              include: { user: { select: { id: true, name: true, avatarUrl: true } } },
+              include: {
+                user: { select: { id: true, name: true, avatarUrl: true } },
+                _count: { select: { reactions: true } },
+              },
             },
           },
         },
@@ -64,6 +68,29 @@ export default async function AdventureDetailPage({ params }: Props) {
   const hasVoted = session?.user?.id
     ? adventure.votes.some((v) => v.userId === session.user.id)
     : false;
+
+  // Fetch IDs of comments the viewer has reacted to
+  let reactedCommentIds: string[] = [];
+  if (session?.user?.id) {
+    const allCommentIds = [
+      ...adventure.comments.map((c) => c.id),
+      ...adventure.comments.flatMap((c) => c.replies?.map((r) => r.id) ?? []),
+    ];
+    const reactions = await prisma.commentReaction.findMany({
+      where: { userId: session.user.id, commentId: { in: allCommentIds } },
+      select: { commentId: true },
+    });
+    reactedCommentIds = reactions.map((r) => r.commentId);
+  }
+
+  const commentsWithReactions = adventure.comments.map((c) => ({
+    ...c,
+    viewerReacted: reactedCommentIds.includes(c.id),
+    replies: c.replies?.map((r) => ({
+      ...r,
+      viewerReacted: reactedCommentIds.includes(r.id),
+    })),
+  }));
 
   const [isBookmarkedResult, relatedAdventures] = await Promise.all([
     session?.user?.id
@@ -239,7 +266,7 @@ export default async function AdventureDetailPage({ params }: Props) {
             )}
             <CommentSection
               adventureId={adventure.id}
-              comments={adventure.comments}
+              comments={commentsWithReactions}
               currentUserId={session?.user?.id ?? null}
             />
           </section>

@@ -16,6 +16,8 @@ export type AdventureDetail = Adventure & {
 export type CommentWithUser = Comment & {
   user: Pick<User, "id" | "name" | "avatarUrl">;
   replies?: CommentWithUser[];
+  _count?: { reactions: number };
+  viewerReacted?: boolean;
 };
 
 export type ItineraryWithDays = Itinerary & {
