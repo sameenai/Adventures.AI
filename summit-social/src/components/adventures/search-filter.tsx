@@ -51,6 +51,7 @@ export function SearchFilter() {
         className="border border-stone-700 bg-stone-900 px-3 py-2 font-mono text-xs text-stone-300 focus:border-amber-500 focus:outline-none"
       >
         <option value="votes">Most Voted</option>
+        <option value="trending">Trending</option>
         <option value="newest">Newest</option>
         <option value="duration">Shortest First</option>
       </select>

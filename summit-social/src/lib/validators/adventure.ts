@@ -74,7 +74,7 @@ export const adventureFilterSchema = z.object({
   continent: z.string().optional(),
   difficulty: z.enum(["EASY", "MODERATE", "CHALLENGING", "EXTREME", "EXPEDITION_GRADE"]).optional(),
   search: z.string().max(200).optional(),
-  sortBy: z.enum(["votes", "newest", "duration"]).default("votes"),
+  sortBy: z.enum(["votes", "newest", "duration", "trending"]).default("votes"),
 });
 
 export type CreateAdventureInput = z.infer<typeof createAdventureSchema>;

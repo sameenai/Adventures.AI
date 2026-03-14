@@ -21,37 +21,58 @@ export default async function AdventuresPage({
   const search = params.search?.trim();
   const sortBy = params.sortBy ?? "votes";
 
-  const orderBy =
-    sortBy === "newest"
-      ? { createdAt: "desc" as const }
-      : sortBy === "duration"
-        ? { durationDays: "asc" as const }
-        : { voteCount: "desc" as const };
+  const where = {
+    published: true,
+    ...(params.category && { category: params.category as never }),
+    ...(params.continent && { continent: params.continent }),
+    ...(params.difficulty && { difficulty: params.difficulty as never }),
+    ...(search && {
+      OR: [
+        { title: { contains: search, mode: "insensitive" as const } },
+        { description: { contains: search, mode: "insensitive" as const } },
+        { location: { contains: search, mode: "insensitive" as const } },
+      ],
+    }),
+  };
+
+  const include = {
+    user: { select: { id: true, name: true, avatarUrl: true } },
+    tags: true,
+    _count: { select: { comments: true } },
+  };
 
   const [session, rawAdventures] = await Promise.all([
     getServerSession(authOptions),
-    prisma.adventure.findMany({
-      where: {
-        published: true,
-        ...(params.category && { category: params.category as never }),
-        ...(params.continent && { continent: params.continent }),
-        ...(params.difficulty && { difficulty: params.difficulty as never }),
-        ...(search && {
-          OR: [
-            { title: { contains: search, mode: "insensitive" } },
-            { description: { contains: search, mode: "insensitive" } },
-            { location: { contains: search, mode: "insensitive" } },
-          ],
+    sortBy === "trending"
+      ? (async () => {
+          const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+          const recentVotes = await prisma.vote.groupBy({
+            by: ["adventureId"],
+            where: { createdAt: { gte: sevenDaysAgo } },
+            _count: { adventureId: true },
+            orderBy: { _count: { adventureId: "desc" } },
+            take: PAGE_SIZE + 1,
+          });
+          const orderedIds = recentVotes.map((v) => v.adventureId);
+          const map = await prisma.adventure
+            .findMany({ where: { ...where, id: { in: orderedIds } }, include })
+            .then((list) => new Map(list.map((a) => [a.id, a])));
+          return orderedIds.flatMap((id) => {
+            const a = map.get(id);
+            return a ? [a] : [];
+          });
+        })()
+      : prisma.adventure.findMany({
+          where,
+          orderBy:
+            sortBy === "newest"
+              ? { createdAt: "desc" as const }
+              : sortBy === "duration"
+                ? { durationDays: "asc" as const }
+                : { voteCount: "desc" as const },
+          take: PAGE_SIZE + 1,
+          include,
         }),
-      },
-      orderBy,
-      take: PAGE_SIZE + 1,
-      include: {
-        user: { select: { id: true, name: true, avatarUrl: true } },
-        tags: true,
-        _count: { select: { comments: true } },
-      },
-    }),
   ]);
 
   const hasMore = rawAdventures.length > PAGE_SIZE;
