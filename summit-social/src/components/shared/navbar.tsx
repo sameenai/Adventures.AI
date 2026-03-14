@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: "/adventures", label: "Adventures" },
   { href: "/feed", label: "Feed" },
   { href: "/leaderboard", label: "Leaderboard" },
+  { href: "/users/search", label: "People" },
   { href: "/itineraries", label: "My Trips" },
   { href: "/itinerary", label: "Plan Trip" },
   { href: "/flights", label: "Flights" },
