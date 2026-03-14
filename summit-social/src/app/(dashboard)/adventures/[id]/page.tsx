@@ -2,6 +2,7 @@ import { BookmarkButton } from "@/components/adventures/bookmark-button";
 import { CommentForm } from "@/components/adventures/comment-form";
 import { CommentSection } from "@/components/adventures/comment-section";
 import { ShareButtons } from "@/components/adventures/share-buttons";
+import { ViewCounter } from "@/components/adventures/view-counter";
 import { VoteButton } from "@/components/adventures/vote-button";
 import { MapView } from "@/components/itinerary/map-view";
 import { authOptions } from "@/lib/auth/config";
@@ -47,9 +48,13 @@ export default async function AdventureDetailPage({ params }: Props) {
           orderBy: { createdAt: "desc" },
           include: {
             user: { select: { id: true, name: true, avatarUrl: true } },
+            _count: { select: { reactions: true } },
             replies: {
               orderBy: { createdAt: "asc" },
-              include: { user: { select: { id: true, name: true, avatarUrl: true } } },
+              include: {
+                user: { select: { id: true, name: true, avatarUrl: true } },
+                _count: { select: { reactions: true } },
+              },
             },
           },
         },
@@ -64,6 +69,29 @@ export default async function AdventureDetailPage({ params }: Props) {
   const hasVoted = session?.user?.id
     ? adventure.votes.some((v) => v.userId === session.user.id)
     : false;
+
+  // Fetch IDs of comments the viewer has reacted to
+  let reactedCommentIds: string[] = [];
+  if (session?.user?.id) {
+    const allCommentIds = [
+      ...adventure.comments.map((c) => c.id),
+      ...adventure.comments.flatMap((c) => c.replies?.map((r) => r.id) ?? []),
+    ];
+    const reactions = await prisma.commentReaction.findMany({
+      where: { userId: session.user.id, commentId: { in: allCommentIds } },
+      select: { commentId: true },
+    });
+    reactedCommentIds = reactions.map((r) => r.commentId);
+  }
+
+  const commentsWithReactions = adventure.comments.map((c) => ({
+    ...c,
+    viewerReacted: reactedCommentIds.includes(c.id),
+    replies: c.replies?.map((r) => ({
+      ...r,
+      viewerReacted: reactedCommentIds.includes(r.id),
+    })),
+  }));
 
   const [isBookmarkedResult, relatedAdventures] = await Promise.all([
     session?.user?.id
@@ -152,6 +180,10 @@ export default async function AdventureDetailPage({ params }: Props) {
           {adventure.estimatedCost && (
             <span className="text-stone-500">~{formatPrice(adventure.estimatedCost)} est.</span>
           )}
+          <ViewCounter
+            adventureId={adventure.id}
+            isAuthor={session?.user?.id === adventure.user.id}
+          />
         </div>
         <div className="flex items-center gap-3">
           {session?.user?.id === adventure.user.id && (
@@ -211,12 +243,16 @@ export default async function AdventureDetailPage({ params }: Props) {
           )}
 
           {/* Map */}
-          {markers.length > 0 && (
+          {(markers.length > 0 || adventure.gpxTrackUrl) && (
             <section>
               <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                Location
+                {adventure.gpxTrackUrl ? "Route" : "Location"}
               </h2>
-              <MapView markers={markers} className="h-[280px]" />
+              <MapView
+                markers={markers}
+                gpxTrackUrl={adventure.gpxTrackUrl ?? undefined}
+                className="h-[280px]"
+              />
             </section>
           )}
 
@@ -239,7 +275,7 @@ export default async function AdventureDetailPage({ params }: Props) {
             )}
             <CommentSection
               adventureId={adventure.id}
-              comments={adventure.comments}
+              comments={commentsWithReactions}
               currentUserId={session?.user?.id ?? null}
             />
           </section>

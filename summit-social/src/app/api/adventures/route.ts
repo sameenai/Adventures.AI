@@ -34,6 +34,43 @@ export async function GET(request: NextRequest) {
     }),
   };
 
+  // Trending: rank by votes cast in the last 7 days
+  if (sortBy === "trending") {
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+    const recentVoteCounts = await prisma.vote.groupBy({
+      by: ["adventureId"],
+      where: { createdAt: { gte: sevenDaysAgo } },
+      _count: { adventureId: true },
+      orderBy: { _count: { adventureId: "desc" } },
+      take: limit + 1,
+    });
+
+    const orderedIds = recentVoteCounts.map((v) => v.adventureId);
+
+    const adventuresMap = await prisma.adventure
+      .findMany({
+        where: { ...where, id: { in: orderedIds } },
+        include: {
+          user: { select: { id: true, name: true, avatarUrl: true } },
+          tags: true,
+          _count: { select: { comments: true } },
+        },
+      })
+      .then((list) => new Map(list.map((a) => [a.id, a])));
+
+    const ordered = orderedIds.flatMap((id) => {
+      const a = adventuresMap.get(id);
+      return a ? [a] : [];
+    });
+
+    const hasMore = recentVoteCounts.length > limit;
+    const items = hasMore ? ordered.slice(0, limit) : ordered;
+    const nextCursor = hasMore && items.length > 0 ? items[items.length - 1].id : undefined;
+
+    return NextResponse.json({ items, nextCursor });
+  }
+
   const orderBy =
     sortBy === "newest"
       ? { createdAt: "desc" as const }

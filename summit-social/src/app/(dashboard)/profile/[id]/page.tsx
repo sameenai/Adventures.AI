@@ -107,12 +107,18 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
           <span>
             <span className="text-stone-200">{user._count.adventures}</span> adventures
           </span>
-          <span>
+          <Link
+            href={`/profile/${id}/followers`}
+            className="hover:text-amber-500 transition-colors"
+          >
             <span className="text-stone-200">{user._count.followers}</span> followers
-          </span>
-          <span>
+          </Link>
+          <Link
+            href={`/profile/${id}/following`}
+            className="hover:text-amber-500 transition-colors"
+          >
             <span className="text-stone-200">{user._count.following}</span> following
-          </span>
+          </Link>
         </div>
         {isOwnProfile ? (
           <Link
