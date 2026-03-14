@@ -16,10 +16,26 @@ const markerIcon = L.icon({
 
 interface LeafletMapProps {
   markers: Array<{ lat: number; lng: number; label: string }>;
+  gpxTrackUrl?: string;
   className?: string;
 }
 
-export function LeafletMap({ markers, className }: LeafletMapProps) {
+function parseGpxPoints(xml: string): [number, number][] {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(xml, "application/xml");
+  const trkpts = doc.querySelectorAll("trkpt");
+  const points: [number, number][] = [];
+  for (const pt of trkpts) {
+    const lat = Number.parseFloat(pt.getAttribute("lat") ?? "");
+    const lon = Number.parseFloat(pt.getAttribute("lon") ?? "");
+    if (!Number.isNaN(lat) && !Number.isNaN(lon)) {
+      points.push([lat, lon]);
+    }
+  }
+  return points;
+}
+
+export function LeafletMap({ markers, gpxTrackUrl, className }: LeafletMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
 
@@ -48,11 +64,25 @@ export function LeafletMap({ markers, className }: LeafletMapProps) {
       L.marker([lat, lng], { icon: markerIcon }).addTo(map).bindPopup(label);
     }
 
+    if (gpxTrackUrl) {
+      fetch(gpxTrackUrl)
+        .then((r) => r.text())
+        .then((xml) => {
+          const points = parseGpxPoints(xml);
+          if (points.length > 1) {
+            const polyline = L.polyline(points, { color: "#f59e0b", weight: 3, opacity: 0.9 });
+            polyline.addTo(map);
+            map.fitBounds(polyline.getBounds(), { padding: [20, 20] });
+          }
+        })
+        .catch(() => {});
+    }
+
     return () => {
       map.remove();
       mapRef.current = null;
     };
-  }, [markers]);
+  }, [markers, gpxTrackUrl]);
 
   return (
     <div

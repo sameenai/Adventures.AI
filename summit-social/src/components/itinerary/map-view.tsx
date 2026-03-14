@@ -16,9 +16,10 @@ const LeafletMap = dynamic(() => import("./leaflet-map").then((m) => m.LeafletMa
 
 interface MapViewProps {
   markers: Array<{ lat: number; lng: number; label: string }>;
+  gpxTrackUrl?: string;
   className?: string;
 }
 
-export function MapView({ markers, className }: MapViewProps) {
-  return <LeafletMap markers={markers} className={className} />;
+export function MapView({ markers, gpxTrackUrl, className }: MapViewProps) {
+  return <LeafletMap markers={markers} gpxTrackUrl={gpxTrackUrl} className={className} />;
 }

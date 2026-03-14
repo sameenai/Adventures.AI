@@ -243,12 +243,16 @@ export default async function AdventureDetailPage({ params }: Props) {
           )}
 
           {/* Map */}
-          {markers.length > 0 && (
+          {(markers.length > 0 || adventure.gpxTrackUrl) && (
             <section>
               <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                Location
+                {adventure.gpxTrackUrl ? "Route" : "Location"}
               </h2>
-              <MapView markers={markers} className="h-[280px]" />
+              <MapView
+                markers={markers}
+                gpxTrackUrl={adventure.gpxTrackUrl ?? undefined}
+                className="h-[280px]"
+              />
             </section>
           )}
 
