@@ -159,9 +159,16 @@ export default async function AdventureDetailPage({ params }: Props) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6">
-          <span className="font-display text-xs uppercase tracking-[0.35em] text-amber-500">
-            {adventure.category.replace(/_/g, " ")}
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="font-display text-xs uppercase tracking-[0.35em] text-amber-500">
+              {adventure.category.replace(/_/g, " ")}
+            </span>
+            {adventure.id.startsWith("seed-") && (
+              <span className="border border-stone-600 px-2 py-0.5 font-display text-xs uppercase tracking-widest text-stone-500">
+                Demo
+              </span>
+            )}
+          </div>
           <h1 className="mt-1 font-display text-3xl uppercase tracking-widest text-stone-100 sm:text-5xl">
             {adventure.title}
           </h1>
