@@ -2,17 +2,16 @@
 
 import { NotificationBell } from "@/components/shared/notification-bell";
 import { Button } from "@/components/ui/button";
-import { APP_NAME } from "@/lib/constants";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: "/adventures", label: "Adventures" },
+  { href: "/adventures", label: "Explore" },
   { href: "/feed", label: "Feed" },
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/users/search", label: "People" },
   { href: "/itineraries", label: "My Trips" },
-  { href: "/itinerary", label: "Plan Trip" },
+  { href: "/itinerary", label: "Plan" },
   { href: "/flights", label: "Flights" },
 ];
 
@@ -20,21 +19,25 @@ export function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-stone-800 bg-stone-950/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 border-b border-stone-800/80 bg-stone-950/98 backdrop-blur-md">
+      {/* Amber accent line across the top */}
+      <div className="h-px bg-gradient-to-r from-transparent via-amber-600/60 to-transparent" />
       <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-10">
-          <Link
-            href="/adventures"
-            className="font-display text-xl uppercase tracking-[0.2em] text-amber-500 hover:text-amber-400 transition-colors"
-          >
-            {APP_NAME.replace("S", "S·")}
+          <Link href="/adventures" className="group flex items-center gap-2.5">
+            <span className="font-display text-base leading-none text-amber-500 transition-colors group-hover:text-amber-400">
+              ▲
+            </span>
+            <span className="font-display text-xl uppercase tracking-[0.25em] text-stone-100 transition-colors group-hover:text-amber-400">
+              Basecamp
+            </span>
           </Link>
-          <div className="hidden items-center gap-7 md:flex">
+          <div className="hidden items-center gap-6 md:flex">
             {NAV_LINKS.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className="font-display text-xs uppercase tracking-widest text-stone-400 transition-colors hover:text-amber-500"
+                className="font-display text-xs uppercase tracking-widest text-stone-500 transition-colors hover:text-amber-500"
               >
                 {label}
               </Link>
@@ -67,7 +70,7 @@ export function Navbar() {
                 </Button>
               </Link>
               <Link href="/signup">
-                <Button size="sm">Sign up</Button>
+                <Button size="sm">Join</Button>
               </Link>
             </>
           )}
