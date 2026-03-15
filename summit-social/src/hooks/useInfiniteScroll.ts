@@ -16,7 +16,7 @@ export function useInfiniteScroll<T>({
   const [items, setItems] = useState<T[]>(initialItems);
   const [cursor, setCursor] = useState<string | undefined>(initialCursor);
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(initialCursor !== undefined);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   const loadMore = useCallback(async () => {

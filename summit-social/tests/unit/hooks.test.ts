@@ -305,7 +305,7 @@ describe("useInfiniteScroll", () => {
   it("initialises with provided items", () => {
     const fetchFn = vi.fn();
     const { result } = renderHook(() =>
-      useInfiniteScroll({ fetchFn, initialItems: [{ id: 1 }, { id: 2 }] }),
+      useInfiniteScroll({ fetchFn, initialItems: [{ id: 1 }, { id: 2 }], initialCursor: "cursor-1" }),
     );
     expect(result.current.items).toHaveLength(2);
     expect(result.current.loading).toBe(false);
@@ -357,7 +357,7 @@ describe("useInfiniteScroll", () => {
 
     const fetchFn = vi.fn().mockReturnValueOnce(firstCall);
 
-    const { result } = renderHook(() => useInfiniteScroll({ fetchFn }));
+    const { result } = renderHook(() => useInfiniteScroll({ fetchFn, initialCursor: "cursor-1" }));
 
     // Start first load
     act(() => { result.current.loadMore(); });
@@ -377,7 +377,7 @@ describe("useInfiniteScroll", () => {
   it("does not call fetchFn when hasMore is false", async () => {
     const fetchFn = vi.fn().mockResolvedValueOnce({ items: [], nextCursor: undefined });
 
-    const { result } = renderHook(() => useInfiniteScroll({ fetchFn }));
+    const { result } = renderHook(() => useInfiniteScroll({ fetchFn, initialCursor: "cursor-1" }));
 
     // First call sets hasMore=false
     await act(async () => { await result.current.loadMore(); });
@@ -428,7 +428,7 @@ describe("useInfiniteScroll", () => {
     vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
 
     const fetchFn = vi.fn().mockResolvedValue({ items: [{ id: 99 }], nextCursor: undefined });
-    const { result, unmount } = renderHook(() => useInfiniteScroll({ fetchFn }));
+    const { result, unmount } = renderHook(() => useInfiniteScroll({ fetchFn, initialCursor: "cursor-1" }));
 
     const node = document.createElement("div");
     act(() => { result.current.sentinelRef(node); });
