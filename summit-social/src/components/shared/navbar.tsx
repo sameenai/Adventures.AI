@@ -24,7 +24,7 @@ export function Navbar() {
       <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-10">
           <Link
-            href="/"
+            href="/adventures"
             className="font-display text-xl uppercase tracking-[0.2em] text-amber-500 hover:text-amber-400 transition-colors"
           >
             {APP_NAME.replace("S", "S·")}
