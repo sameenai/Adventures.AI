@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export const metadata = { title: "Adventures | SummitSocial" };
+export const metadata = { title: "Adventures | Basecamp" };
 
 const PAGE_SIZE = 20;
 

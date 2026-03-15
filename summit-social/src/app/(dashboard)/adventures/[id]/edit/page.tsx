@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     select: { title: true },
   });
   if (!adventure) return {};
-  return { title: `Edit ${adventure.title} | SummitSocial` };
+  return { title: `Edit ${adventure.title} | Basecamp` };
 }
 
 export default async function EditAdventurePage({ params }: Props) {

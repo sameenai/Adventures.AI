@@ -7,7 +7,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { DeleteItineraryButton } from "./delete-button";
 
-export const metadata: Metadata = { title: "My Itineraries | SummitSocial" };
+export const metadata: Metadata = { title: "My Itineraries | Basecamp" };
 
 export default async function ItinerariesPage() {
   const session = await getServerSession(authOptions);

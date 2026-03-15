@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth/config";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 
-export const metadata = { title: "Plan Trip | SummitSocial" };
+export const metadata = { title: "Plan Trip | Basecamp" };
 
 export default async function ItineraryPage({
   searchParams,

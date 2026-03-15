@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { ProfileEditForm } from "./profile-edit-form";
 
-export const metadata: Metadata = { title: "Edit Profile | SummitSocial" };
+export const metadata: Metadata = { title: "Edit Profile | Basecamp" };
 
 export default async function ProfileEditPage() {
   const session = await getServerSession(authOptions);

@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = { title: "Moderation Queue | SummitSocial" };
+export const metadata = { title: "Moderation Queue | Basecamp" };
 
 function isAdmin(email: string | null | undefined): boolean {
   if (!email) return false;

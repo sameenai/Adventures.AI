@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "Activity Feed | SummitSocial" };
+export const metadata: Metadata = { title: "Activity Feed | Basecamp" };
 
 export default async function FeedPage() {
   const session = await getServerSession(authOptions);

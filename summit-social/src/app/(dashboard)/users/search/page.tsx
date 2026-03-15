@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export const metadata: Metadata = { title: "Find People | SummitSocial" };
+export const metadata: Metadata = { title: "Find People | Basecamp" };
 
 async function UserResults({ q }: { q: string }) {
   if (!q || q.trim().length < 2) {

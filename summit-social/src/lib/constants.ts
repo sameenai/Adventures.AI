@@ -1,6 +1,6 @@
-export const APP_NAME = "SummitSocial";
+export const APP_NAME = "Basecamp";
 export const APP_DESCRIPTION =
-  "Plan extraordinary adventures with AI, discover community-curated trips, and compare flights — all in one place.";
+  "The expedition platform for serious adventurers. Discover world-class routes, plan trips with AI, and share your journeys.";
 export const APP_URL = process.env.NEXTAUTH_URL ?? "http://localhost:3000";
 
 export const PAGINATION_DEFAULT_LIMIT = 20;
