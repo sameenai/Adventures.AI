@@ -34,10 +34,15 @@ export function AdventureCard({
           />
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent" />
-          <div className="absolute bottom-2 left-2">
+          <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
             <span className="bg-stone-950/80 px-2 py-0.5 font-display text-xs uppercase tracking-widest text-amber-500 backdrop-blur-sm">
               {adventure.category.replace(/_/g, " ")}
             </span>
+            {adventure.id.startsWith("seed-") && (
+              <span className="bg-stone-950/80 px-2 py-0.5 font-display text-xs uppercase tracking-widest text-stone-500 backdrop-blur-sm">
+                Demo
+              </span>
+            )}
           </div>
         </div>
       </Link>
