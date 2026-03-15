@@ -98,70 +98,95 @@ export default async function AdventuresPage({
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <div className="flex items-end justify-between border-b border-stone-800 pb-6">
-        <div>
-          <p className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-1">
-            Community
-          </p>
-          <h1 className="font-display text-4xl uppercase tracking-widest text-stone-100">
-            Adventures
-          </h1>
+    <div>
+      {/* Hero banner */}
+      <div className="relative overflow-hidden border-b border-stone-800 bg-stone-950">
+        {/* Topographic dot grid */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage: "radial-gradient(circle, #d97706 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+        {/* Diagonal accent */}
+        <div
+          className="absolute right-0 top-0 h-full w-px opacity-10"
+          style={{ background: "linear-gradient(180deg, #d97706 0%, transparent 70%)" }}
+        />
+        <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.4em] text-amber-600/70">
+                ▲ Basecamp / Explore
+              </p>
+              <h1 className="mt-3 font-display text-6xl uppercase leading-none tracking-widest text-stone-100 sm:text-8xl">
+                Adventures
+              </h1>
+              <p className="mt-4 font-mono text-xs text-stone-600">
+                {rawAdventures.length > 0
+                  ? `${adventures.length}${hasMore ? "+" : ""} expeditions across 7 continents`
+                  : "No adventures found — adjust your filters"}
+              </p>
+            </div>
+            {session && (
+              <Link href="/adventures/new">
+                <Button size="sm">Share Adventure</Button>
+              </Link>
+            )}
+          </div>
         </div>
-        {session && (
-          <Link href="/adventures/new">
-            <Button size="sm">Share Adventure</Button>
-          </Link>
-        )}
       </div>
 
-      {/* Category filters */}
-      <div className="mt-6 flex flex-wrap gap-2">
-        <Link
-          href="/adventures"
-          className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
-            !params.category
-              ? "border border-amber-500 text-amber-500"
-              : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
-          }`}
-        >
-          All
-        </Link>
-        {CATEGORIES.map((cat) => (
+      <div className="mx-auto max-w-7xl px-4 pt-6 pb-10 sm:px-6 lg:px-8">
+        {/* Category filters */}
+        <div className="flex flex-wrap gap-2">
           <Link
-            key={cat.value}
-            href={`/adventures?category=${cat.value}`}
+            href="/adventures"
             className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
-              params.category === cat.value
+              !params.category
                 ? "border border-amber-500 text-amber-500"
                 : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
             }`}
           >
-            {cat.label}
+            All
           </Link>
-        ))}
-      </div>
+          {CATEGORIES.map((cat) => (
+            <Link
+              key={cat.value}
+              href={`/adventures?category=${cat.value}`}
+              className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                params.category === cat.value
+                  ? "border border-amber-500 text-amber-500"
+                  : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+              }`}
+            >
+              {cat.label}
+            </Link>
+          ))}
+        </div>
 
-      {/* Search + sort */}
-      <Suspense>
-        <SearchFilter />
-      </Suspense>
+        {/* Search + sort */}
+        <Suspense>
+          <SearchFilter />
+        </Suspense>
 
-      <div className="mt-6">
-        <InfiniteAdventureGrid
-          initialAdventures={adventures}
-          initialNextCursor={nextCursor}
-          currentUserId={session?.user?.id}
-          votedAdventureIds={votedIds}
-          bookmarkedAdventureIds={bookmarkedIds}
-          queryParams={{
-            category: params.category,
-            continent: params.continent,
-            difficulty: params.difficulty,
-            search: params.search,
-            sortBy: params.sortBy,
-          }}
-        />
+        <div className="mt-6">
+          <InfiniteAdventureGrid
+            initialAdventures={adventures}
+            initialNextCursor={nextCursor}
+            currentUserId={session?.user?.id}
+            votedAdventureIds={votedIds}
+            bookmarkedAdventureIds={bookmarkedIds}
+            queryParams={{
+              category: params.category,
+              continent: params.continent,
+              difficulty: params.difficulty,
+              search: params.search,
+              sortBy: params.sortBy,
+            }}
+          />
+        </div>
       </div>
     </div>
   );
