@@ -260,6 +260,654 @@ Acclimatisation is everything. Arrive in Nairobi or Dar es Salaam at least two d
   });
 
   // -------------------------------------------------------------------------
+  // Additional tags
+  // -------------------------------------------------------------------------
+  const extraTagNames = [
+    "glacier",
+    "midnight-sun",
+    "horse-trekking",
+    "volcanic",
+    "cultural-immersion",
+    "remote",
+    "island",
+    "safari",
+  ];
+  const extraTags = await Promise.all(
+    extraTagNames.map((name) =>
+      prisma.tag.upsert({ where: { name }, update: {}, create: { name } }),
+    ),
+  );
+  const allTags = { ...tagMap, ...Object.fromEntries(extraTags.map((t) => [t.name, t])) };
+
+  // -------------------------------------------------------------------------
+  // Adventure 4 — Haute Route: Chamonix to Zermatt
+  // -------------------------------------------------------------------------
+  const adventure4 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-4" },
+    update: {},
+    create: {
+      id: "seed-adventure-4",
+      title: "Haute Route: Chamonix to Zermatt",
+      description: `The classic high-level alpine traverse connects two of the world's most iconic mountain towns across 180 kilometres of glacier, moraine, and high pass — entirely above 2,000m for most of its length. It is not a technical route, but it is a serious one. The weather, the altitude, and the cumulative daily elevation gain of 12,000m across fifteen days demand respect.
+
+The route starts in the shadow of Mont Blanc and ends with the Matterhorn filling the valley ahead of you on the descent into Zermatt. In between: the chaotic crevassed Glacier du Trient, the hanging valley of Arolla where chamois appear at dusk on the lateral moraines, the brutal ascent to the Col de Riedmatten (2,919m) with hands on rock, and the surreal flat expanse of the Grand Désert glacier where you can walk for an hour and feel no closer to anything.
+
+Huts are comfortable and sociable — the Swiss Alpine Club system is the best in the world for multi-day mountain travel. Book the entire chain in March for a July departure; rooms go fast. The traditional route runs hut-to-hut in roughly 15 stages. Most walkers carry just a 10–12kg day pack, leaving heavier gear for a single duffel sent ahead by taxi on rest days.
+
+The Chamonix to Zermatt direction is the classic for good reason: the weather typically deteriorates from west to east, so you start in worse conditions and finish in the best. The final descent into Zermatt with the Matterhorn appearing around every corner is one of the great finishes in alpine trekking.`,
+      location: "Chamonix to Zermatt, Pennine Alps",
+      country: "France / Switzerland",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 15,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [
+        "Final descent into Zermatt with the Matterhorn materialising around each bend",
+        "Glacier du Trient crossing at dawn — crevassed ice glowing blue-white",
+        "Arolla valley: classic Swiss alp scenery, chamois on the moraines at dusk",
+        "Col de Riedmatten (2,919m) — hands-on scramble to the roof of the traverse",
+        "Grand Désert glacier: a flat, silent expanse of ice above the valley noise",
+        "SAC mountain hut dinners — three-course meals at 2,500m with other alpinists",
+        "Mont Blanc visible for the first three days behind you",
+      ],
+      gear: [
+        "Trail runners or light trekking boots (well broken in)",
+        "Microspikes (early season — July crossings may have hard snow)",
+        "10–12kg pack — leave the rest in storage at Chamonix or Zermatt",
+        "Trekking poles (crucial on knee-punishing descents)",
+        "Down jacket and hardshell for passes and afternoon storms",
+        "SAC hut sheet sleeping bag liner (required in all Swiss Alpine Club huts)",
+        "Sunglasses rated for glacier UV (Category 4)",
+        "1:25,000 Swisstopo maps or offline Swisstopo app",
+        "Emergency bivouac bag",
+        "Hut reservation printouts — no signal in several valleys",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 350000,
+      latitude: 46.0207,
+      longitude: 7.7491,
+      published: true,
+      userId: user1.id,
+      voteCount: 187,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 5 — Lofoten Islands Sea Kayaking
+  // -------------------------------------------------------------------------
+  const adventure5 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-5" },
+    update: {},
+    create: {
+      id: "seed-adventure-5",
+      title: "Lofoten Islands Sea Kayaking",
+      description: `The Lofoten Islands rise from the Norwegian Sea like a fever dream: vertical walls of granite and gneiss dropping directly into arctic water so clear you can watch cod move ten metres below the hull of your kayak. The archipelago sits above the Arctic Circle, and in July and August the sun circles the horizon without setting — you paddle at midnight in amber light, set camp on a beach at 2am, and wake to find the same light still pouring through the tent door.
+
+Eight days of paddling covers the outer archipelago from Å in the south to Svolvær in the north, with a route that weaves between sea stacks, through tidal narrows, and around headlands that funnel wind into powerful chop on exposed crossings. The fjords are genuinely sheltered — 20-minute crossings between islands rather than open-water marathon days — but weather changes fast and paddlers must read conditions conservatively. Three of eight days will have enough wind to consider a rest day.
+
+Camping is the way to experience Lofoten properly. Friluftsliv — the Norwegian concept of outdoor life — means public access to virtually all land and beaches. You'll camp on white sand beaches backed by wildflowers, with fishing villages accessible by kayak but invisible from any road. The fishing huts (rorbuer) offer a warm meal and a shower on rest days for roughly 600 NOK.
+
+Cod fishing has defined Lofoten for a thousand years. In spring, the air is heavy with drying fish. In summer the mountains mirror in the flat water and the light never stops.`,
+      location: "Lofoten Archipelago, Nordland",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      highlights: [
+        "Midnight sun paddling — amber light at 1am on mirror-flat arctic water",
+        "Sea stack labyrinth at Moskenesøya's outer coast",
+        "Camping on white sand beaches inaccessible except by kayak",
+        "Seeing the granite walls reflected perfectly in the morning fjord",
+        "Reine village harbour approach by kayak at sunset — the Lofoten postcard",
+        "Tide race surfing the tidal narrows at Nappstraumen",
+        "Eagle overhead almost guaranteed — white-tailed eagles nest throughout",
+      ],
+      gear: [
+        "Sea kayak with bulkhead hatches and deck lines (rental available Svolvær)",
+        "Drysuit or wetsuit — water temperature 12–15°C even in August",
+        "PFD, towline, bilge pump, paddle float",
+        "VHF marine radio (Channel 16 for Norwegian Coast Guard)",
+        "Dry bags for all camping gear (pack as if your hatch will flood)",
+        "3-season sleeping bag and lightweight tent for beach camping",
+        "Waterproof chart case with Statens Kartverk charts",
+        "Wind meter — 15 knots is your limit for exposed crossings",
+        "Midges cream (July swarms can be intense on land)",
+        "Cash in NOK (some fishing villages are card-only, not internet)",
+      ],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 250000,
+      latitude: 68.1085,
+      longitude: 13.5956,
+      published: true,
+      userId: user3.id,
+      voteCount: 134,
+      tags: {
+        connect: [
+          { id: allTags["midnight-sun"].id },
+          { id: allTags["island"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 6 — Trans-Bhutan Trail
+  // -------------------------------------------------------------------------
+  const adventure6 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-6" },
+    update: {},
+    create: {
+      id: "seed-adventure-6",
+      title: "Trans-Bhutan Trail",
+      description: `Bhutan only reopened its ancient pilgrimage route as a long-distance trail in 2022, and so far relatively few outsiders have walked it end to end. The Trans-Bhutan Trail runs 400km across the kingdom from the Haa Valley in the west to Trashigang in the east, traversing the full width of the last intact Himalayan Buddhist kingdom along a network of paths that monks, traders, and armies have used for centuries.
+
+The trail is divided into 25 stages but is rarely completed in one push — most intrepid walkers tackle a 21-day western section from Haa to Bumthang, which crosses the highest passes (some above 4,200m) and the densest concentration of dzong fortresses, lhakhang temples, and remote yak herder settlements. This is not a wilderness trail in the Torres del Paine sense: it moves through living communities, and you will eat in farmhouses, sleep in monastery guesthouses, and be invited to share butter tea by strangers.
+
+Bhutan's government-mandated sustainable development fee (USD 200 per day until recently reduced to USD 100) was long a barrier. At current rates, a 21-day trail cost runs to roughly USD 2,100 in fees alone, plus accommodation. This keeps volumes low. On the entire first week of walking you may encounter no other foreign trekkers.
+
+The eastern stages through Trongsa and Bumthang pass through valleys of buckwheat and red rice fields framed by 7,000m peaks. The views from the Pele La pass are arguably the finest mountain panorama accessible without technical climbing in the Himalaya.`,
+      location: "Haa Valley to Bumthang, Himalayan Bhutan",
+      country: "Bhutan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1600&q=80",
+      highlights: [
+        "Pele La pass panorama: 4,390m with 7,000m Himalayan giants ahead",
+        "Punakha Dzong — whitewashed fortress at the confluence of two rivers",
+        "Farmhouse overnights with local families — real Bhutanese kitchen fire dinners",
+        "Taktshang (Tiger's Nest) monastery perched on a 3,120m cliff face",
+        "Ancient mani stone walls and prayer wheels on unmarked yak trails",
+        "Bumthang valley's red-painted temples and ancient religious site",
+        "Walking stretches with zero other trekkers for days at a time",
+      ],
+      gear: [
+        "Trekking poles (mandatory — passes are steep and often muddy)",
+        "Layering system rated to -10°C for high passes",
+        "Waterproof gaiters (monsoon-season trails can be deep mud)",
+        "Altitude medication (Diamox) — passes above 4,000m without acclimatisation time",
+        "Cash in Ngultrum (BTN) — few ATMs outside Thimphu and Paro",
+        "Offline maps: Maps.me or Gaia GPS loaded before arrival",
+        "Trekking permit via Bhutan Tourism Council (required, arranged with licensed operator)",
+        "Sleeping bag rated to -5°C (monastery guesthouses are cold)",
+        "Camera with wide-angle for dzong architecture",
+        "Buffer days: Bhutan's trails become rivers in monsoon rain",
+      ],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 600000,
+      latitude: 27.4712,
+      longitude: 89.6339,
+      published: true,
+      userId: user2.id,
+      voteCount: 76,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 7 — Okavango Delta Mokoro Expedition
+  // -------------------------------------------------------------------------
+  const adventure7 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-7" },
+    update: {},
+    create: {
+      id: "seed-adventure-7",
+      title: "Okavango Delta Mokoro Expedition",
+      description: `The Okavango is the world's largest inland delta, an improbable ecosystem that flows from Angola's highlands into the Kalahari sand and simply stops — spreading across 15,000 km² of papyrus channels, hippo-grazed floodplains, and palm islands without ever reaching the sea. In July, the flood is at its peak, and the delta transforms into a maze of waterways navigated in mokoro — the traditional dugout canoes of the Bayei and Hambukushu people, poled standing from the stern.
+
+Seven days gives you enough time to leave the motorboat safaris behind and move into the deep delta where only mokoro can go. Your poler navigates by memory — there are no maps that capture the detail of these waterways — through channels so narrow that papyrus brushes both sides simultaneously and the smell of crushed reed fills the air. You hear the hippo in the darkness and the poler reads the water surface for crocodile signs.
+
+Wild camping is the rule, not the exception. You sleep under canvas metres from active game trails. A bull elephant can walk through camp at 3am; your poler will click softly with his tongue and the elephant will move on. The delta is genuinely remote and genuinely wild.
+
+The wildlife density rivals any game reserve in Africa. Elephant herds of 50+ wade through the shallows. Red lechwe scatter in explosions of spray. Fish eagles call from every dead tree. This is safari at its most elemental — no vehicle, no road, nothing between you and the ecosystem except reed and water.`,
+      location: "Okavango Delta, Ngamiland",
+      country: "Botswana",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600&q=80",
+      highlights: [
+        "Silent mokoro gliding through papyrus channels at dawn — no engine noise",
+        "Elephant herds wading through the shallows around your camp island",
+        "African fish eagle calling from dead tree above the tent at sunrise",
+        "Walking safari with your poler through the palm islands",
+        "Night sounds: hippo, lion distant, reed frogs in their thousands",
+        "Red lechwe herds scattering in slow-motion spray across the floodplain",
+        "Stars undimmed by any human light source — Milky Way from camp every clear night",
+      ],
+      gear: [
+        "Neutral colours only: khaki, sand, olive — no bright colours in game areas",
+        "Lightweight long sleeves (malaria mosquitoes and delta sun)",
+        "Dry bags for all camera gear and valuables in the mokoro",
+        "Head torch with red mode (for night camp without disturbing animals)",
+        "Malaria prophylaxis — start before departure, continue after",
+        "Water purification tablets (drinking directly from delta not advised)",
+        "Wide-angle and telephoto lens combination (wildlife approach distance varies hugely)",
+        "Light camp shoes — no heavy boots needed except walking safari days",
+        "Yellow fever vaccination (required for Botswana entry from some countries)",
+        "Binoculars: 8×42 minimum for bird watching (800+ species recorded in delta)",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 400000,
+      latitude: -19.2931,
+      longitude: 22.8603,
+      published: true,
+      userId: user1.id,
+      voteCount: 102,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["safari"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 8 — Villarrica Volcano Summit, Chile
+  // -------------------------------------------------------------------------
+  const adventure8 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-8" },
+    update: {},
+    create: {
+      id: "seed-adventure-8",
+      title: "Villarrica Volcano Summit",
+      description: `Villarrica is one of South America's most active volcanoes and one of its most accessible. At 2,847m it is not an altitude challenge — it is an ice challenge. The flanks are permanently glaciated, the summit is a snow and ice climb requiring crampons and ice axe from the hut at 1,400m, and the caldera at the top contains an active lava lake that glows red and spits molten rock on good days.
+
+The standard ascent route starts at 5am from the Villarrica ski resort base. Guides — mandatory in Pucón — lead groups of 8–10 up the snow slopes in the dark, moving by headlamp on a gradient that steepens sharply in the final 400 vertical metres. You arrive at the crater rim at dawn, lean over the edge on a fixed rope, and watch the lava below circulate in slow orange convections while sulphur gases tear at your eyes.
+
+The descent is the highlight for many: you self-arrest brake on your ice axe down the steep snow, then pull out the plastic sledge provided by your guide company and toboggan the lower snowfield at speed back to the ski resort. It is chaotic and completely undignified and utterly satisfying.
+
+The window for summiting is weather-dependent. Villarrica has a 60–70% success rate on any given day — summit if the weather gives you the chance, because the volcano is perpetually active and closes without notice when eruption risk rises. In 2015 it erupted and evacuated Pucón in the middle of the night.`,
+      location: "Pucón, Los Ríos Region",
+      country: "Chile",
+      continent: "South America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: [
+        "Active lava lake at the crater rim — visible lava convection on clear days",
+        "Ice axe crampon ascent up the glaciated south face at dawn",
+        "Sulphur gas clouds rolling out of the caldera — gas mask on the rim",
+        "Toboggan descent on plastic sledge — uncontrolled speed down the snowfield",
+        "Panoramic sunrise from the summit: Lanín, Llaima, and the Chilean lake district",
+        "Pre-dawn approach through the ski resort by headlamp in crampons",
+      ],
+      gear: [
+        "Crampons and ice axe (provided by guide, check harness and pick condition)",
+        "Gas mask or P100 respirator (mandatory, rentable in Pucón if not owned)",
+        "Gaiters and waterproof mountaineering boots (crampon-compatible essential)",
+        "Ski goggles (sulphur gas and ice wind on summit)",
+        "Thermal base and mid layer — the crater rim is violently cold and windy",
+        "Hardshell jacket and trousers (ice and wind)",
+        "Glacier glasses (Category 4 UV) under goggles",
+        "Toboggan under-trousers or padded waterproof trousers for descent",
+        "Camera with weather sealing — moisture and sulphur corrode unprotected gear",
+        "Pucón guide company booking (CONAF requires licensed guide)",
+      ],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 50000,
+      latitude: -39.4220,
+      longitude: -71.9383,
+      published: true,
+      userId: user2.id,
+      voteCount: 89,
+      tags: {
+        connect: [
+          { id: allTags["volcanic"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 9 — Rwenzori Mountains: Mountains of the Moon
+  // -------------------------------------------------------------------------
+  const adventure9 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-9" },
+    update: {},
+    create: {
+      id: "seed-adventure-9",
+      title: "Rwenzori Mountains: Mountains of the Moon",
+      description: `The Rwenzori range on the Uganda–DRC border is Africa's most mysterious mountain massif — equatorial glaciers draped over peaks above 5,000m, permanently wrapped in cloud, with flora that has evolved in total isolation into alien giant forms: 10-metre groundsel trees, heather forests the size of oaks, giant lobelia with flower spikes taller than a person. It is the most otherworldly landscape in Africa and, outside specialist mountaineering circles, almost completely unknown.
+
+The standard Kilembe Route takes eight days to traverse the range from the Ugandan side. The elevation gain is relentless — you climb from 1,600m at the trailhead to the main ridge above 4,700m in four days, crossing from the tropical forest zone through giant heather, through the bizarre Afroalpine moorland, into the glaciated summit zone of Mount Stanley (5,109m, the third highest peak in Africa).
+
+The technical summit via Margherita Peak on Mount Stanley requires basic crampon and rope skills. The range averages 270 rain days a year — this is not an exaggeration. Every day will involve some rain. The trails are mud, the huts are basic, and everything below 4,000m is relentlessly wet and leechy. Above 4,000m the cold replaces the wet. The payoff is landscapes that have no parallel anywhere else on earth and glacier views that almost no one has ever photographed.
+
+The Rwenzori glaciers are retreating rapidly — at current melt rates, the ice fields will be gone by 2040. If equatorial glaciers are on your list, go now.`,
+      location: "Rwenzori Mountains National Park, Western Uganda",
+      country: "Uganda",
+      continent: "Africa",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [
+        "Giant groundsel trees at 4,000m — prehistoric giants found nowhere else on earth",
+        "Margherita Peak glacier (5,109m) — Africa's highest ice field, disappearing by 2040",
+        "Giant lobelia forest: alien flower spikes in every direction through the mist",
+        "Equatorial glacier crossing with crampons — one of the world's rarest experiences",
+        "View from Margherita: DRC jungle canopy below, glaciers above the clouds",
+        "Bigo Bog at 3,400m: peat bog traversed on log bridges under hanging heather",
+        "Complete solitude — fewer than 5,000 people climb the Rwenzori annually",
+      ],
+      gear: [
+        "Crampons and ice axe (Margherita summit route — full alpine kit required)",
+        "Trekking boots with aggressive mud grip — lower trail is severe bog",
+        "Gaiters up to the knee (mud sections are thigh-deep in places)",
+        "Waterproof everything: pack liner, dry bags, taped jacket seams",
+        "Leech socks — tube socks worn over trekking socks below 3,500m",
+        "Sleeping bag rated to -10°C (huts are unheated at altitude)",
+        "Trekking poles with large mud baskets",
+        "Water purification (streams are clean above 3,000m, filter below)",
+        "Rwenzori Mountaineering Services guide and porters (mandatory)",
+        "Uganda visa — obtain e-visa before departure",
+      ],
+      bestMonths: [1, 2, 6, 7, 8],
+      estimatedCost: 300000,
+      latitude: 0.3993,
+      longitude: 29.9278,
+      published: true,
+      userId: user1.id,
+      voteCount: 58,
+      tags: {
+        connect: [
+          { id: allTags["glacier"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 10 — Kyrgyzstan Tian Shan Horse Trek
+  // -------------------------------------------------------------------------
+  const adventure10 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-10" },
+    update: {},
+    create: {
+      id: "seed-adventure-10",
+      title: "Kyrgyzstan Tian Shan Horse Trek",
+      description: `Kyrgyzstan is the last place in Central Asia where nomadic summer migration — moving livestock from winter valley to alpine jailoo pasture — still happens at scale. A horse trek across the central Tian Shan in July follows the same routes that Kyrgyz families have ridden for centuries, climbing from 1,600m river valleys to 4,000m passes with a string of horses carrying camp, a local guide who navigates by landscape memory, and views of the glaciated peaks that give the range its name: Tian Shan — Mountains of Heaven.
+
+The classic 12-day route runs from the Kochkor Valley south to Son-Kol Lake, then west through the Suusamyr Valley and over the Köl-Tor pass to the Jumgal basin. You spend 8–10 hours in the saddle on peak days, with no marked trails on much of the route — just the faint tracks of previous riders and herds. At Son-Kol the lake sits at 3,016m with 360° views of the Tian Shan, and the shore is lined with summer yurt camps where you can eat fresh kurt (dried yogurt balls) and fermented mare's milk and watch the horses graze at the water's edge.
+
+The riding itself is not a gentle pony trek. Kyrgyz horses are small, strong, and unpredictable — they have been bred for mountain terrain and respond to leg pressure rather than rein control in the style most Western riders are accustomed to. Two days is enough to adapt. The hardest days are the pass crossings, where the trail becomes scree and the horse picks its own line with or without your input.
+
+This is Central Asia at its most pristine. No one sells anything, no one has a booking system, and the welcome from nomadic families at their summer jailoos is completely genuine.`,
+      location: "Kochkor to Jumgal, Naryn Region",
+      country: "Kyrgyzstan",
+      continent: "Asia",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1519449556851-5720b33024e7?w=1600&q=80",
+      highlights: [
+        "Son-Kol Lake at 3,016m — horses grazing at the edge, yurts on the shore",
+        "Tian Shan passes at 4,000m with unmarked routes through glacial moraine",
+        "Overnight in nomadic family yurts — fermented mare's milk at every meal",
+        "Eagle hunter demonstration near Kochkor — centuries-old hunting tradition",
+        "Completely unmarked backcountry navigation by landscape memory",
+        "Suusamyr Valley panorama: 200km of mountain grassland with no roads",
+        "Galloping on Kyrgyz horses across open alpine plateau — nothing like it",
+      ],
+      gear: [
+        "Riding trousers (padded cycling shorts underneath for long days)",
+        "Riding gloves and helmet (guides provide helmets, inspect condition)",
+        "Waterproof jacket — mountain weather changes in minutes",
+        "Warm sleeping bag (-5°C minimum for Son-Kol)",
+        "Trekking poles (useful on off-horse sections through boulder fields)",
+        "Water purification — mountain streams clean but carry iodine tablets",
+        "Cash in Kyrgyz som — no ATMs outside Bishkek and Osh",
+        "Saddle sore cream (honest advice: it will be needed by day 3)",
+        "Satellite communicator (SPOT or Garmin InReach — no mobile signal for days)",
+        "Offline maps: Gaia GPS loaded before departure in Bishkek",
+      ],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 180000,
+      latitude: 42.1834,
+      longitude: 75.0148,
+      published: true,
+      userId: user3.id,
+      voteCount: 71,
+      tags: {
+        connect: [
+          { id: allTags["horse-trekking"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 11 — Mongolia Eagle Hunter Expedition
+  // -------------------------------------------------------------------------
+  const adventure11 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-11" },
+    update: {},
+    create: {
+      id: "seed-adventure-11",
+      title: "Mongolia Eagle Hunter Expedition",
+      description: `In the Altai Mountains of far western Mongolia, a handful of Kazakh families still practice berkutchi — the art of hunting with trained golden eagles. The eagles, taken as fledglings and trained over years, are used to hunt foxes and sometimes wolves across the winter steppe. Spending ten days following these families into the Altai backcountry is an encounter with one of the last truly pre-modern hunting cultures still practiced at any scale on earth.
+
+The expedition runs from Ulgii, Mongolia's westernmost city, into the Altai range with a small group of berkutchi families during the October-November hunting season. You travel by Russian 4WD UAZ van to the winter camps, then on horseback through the river valleys and across the high ridges where the hunters release their eagles from horseback at altitude, watching them stoop in 300 km/h dives onto prey below.
+
+This is not a performance for tourists. The families hunt to supplement their income and feed their animals. The eagles weigh 5–7kg, stand 90cm tall, and have a wingspan of over two metres. You will be close enough to see the yellow eye. On hunting days the cold is brutal — October in the Altai regularly reaches -25°C — but the landscape compensates: snow-dusted steppe, larch forests in autumn colour, the Altai peaks reflecting in frozen river bends.
+
+The Golden Eagle Festival in early October brings berkutchi families to Ulgii for competition riding and eagle demonstrations. The ten days following the festival then travel into the backcountry to see real hunting in real terrain. No festival performance is a substitute for the genuine article.`,
+      location: "Bayan-Ulgii Province, Mongolian Altai",
+      country: "Mongolia",
+      continent: "Asia",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?w=1600&q=80",
+      highlights: [
+        "Golden eagle stooping at 300 km/h from horseback in the Altai mountains",
+        "Golden Eagle Festival: horseback competition and eagle display, Ulgii",
+        "Living with Kazakh nomadic families in felt-lined winter gers",
+        "Altai larch forest in peak October colour under first snowfall",
+        "Eagle's eye contact at close range — 2m wingspan, 7kg predator on the glove",
+        "Night temperatures to -25°C under a sky so clear it bends under its own stars",
+        "Horseback traverse of unmarked Altai river valleys and ridgelines",
+      ],
+      gear: [
+        "Extreme cold layering: base wool, down mid, expedition outer — rated to -30°C",
+        "Face mask and goggles for -25°C riding (frostbite is real at this temperature)",
+        "Insulated riding boots (pack warmers inside for the coldest days)",
+        "Camera with battery grip and spare batteries kept warm inside jacket",
+        "Telephoto lens 300–500mm equivalent for eagle flight shots",
+        "Glove liners under outer mittens (fine camera work requires bare fingers briefly)",
+        "Cash in Mongolian Tögrög — no card payment anywhere in Bayan-Ulgii province",
+        "Mongolian visa (obtainable on arrival at Ulgii with Kazakh passport, arrange in advance for others)",
+        "Travel insurance covering -25°C horse-riding activity",
+        "Merino wool underwear (3 sets — hand washing in cold camps)",
+      ],
+      bestMonths: [10, 11],
+      estimatedCost: 420000,
+      latitude: 48.9674,
+      longitude: 89.9714,
+      published: true,
+      userId: user2.id,
+      voteCount: 93,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["horse-trekking"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 12 — Skeleton Coast Self-Drive & Kayak, Namibia
+  // -------------------------------------------------------------------------
+  const adventure12 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-12" },
+    update: {},
+    create: {
+      id: "seed-adventure-12",
+      title: "Skeleton Coast Self-Drive & Kayak, Namibia",
+      description: `The Skeleton Coast earned its name from the whale and seal bones that once lined its beaches in the age of industrial whaling, and from the shipwrecks of vessels driven onto a shore where south-flowing cold Atlantic current meets north-flowing desert air to produce permanent fog banks that roll 60 kilometres inland before burning off. It is one of the most remote and inhospitable coastlines on earth — and one of the most spectacular.
+
+A 14-day self-drive routes south to north from Lüderitz on the southern Namibian coast through the Sperrgebiet diamond-prohibited territory to Swakopmund, then north along the Skeleton Coast to the Ugab River and the northern sector — a zone so restricted it requires a special permit and can only be visited on fly-in safaris or on foot with a registered guide.
+
+The southern section is accessible by 4WD and rewards with: the rusted hulk of the Eduard Bohlen beached 500m from the current shore (the dunes moved around it), the fur seal colony at Cape Cross (100,000 animals, overwhelming in every sense), the red sand dunes of the Namib tumbling directly into the Atlantic, and the desert-adapted wildlife that somehow survives — black rhino, desert lion, and the Welwitschia mirabilis plant, a living fossil estimated at up to 2,000 years old.
+
+The kayaking section runs three days from Swakopmund on the open Atlantic coast among Cape fur seals and African penguins. The cold Benguela current means the water never exceeds 16°C even in summer. The seals approach to within metres of the kayak out of pure curiosity.`,
+      location: "Lüderitz to Terrace Bay, Namib Desert Coast",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1600&q=80",
+      highlights: [
+        "Eduard Bohlen shipwreck 500m into the desert — the coastline has moved around it",
+        "Cape Cross seal colony: 100,000 Cape fur seals at the surf line",
+        "Namib red dunes meeting Atlantic waves — the only desert that meets the ocean",
+        "Kayaking with seals and penguins from Swakopmund in 16°C Atlantic water",
+        "Welwitschia mirabilis plants: 2,000-year-old living fossils in the gravel desert",
+        "Fog-filled mornings in the Namib — cool silence before the sun burns it away",
+        "Desert-adapted lion tracks in the sand at the Ugab River mouth",
+      ],
+      gear: [
+        "High-clearance 4WD with dual spare tyres (roads are corrugated gravel for 600km)",
+        "Recovery kit: MaxTrax, hi-lift jack, tow rope, shovel",
+        "Water: 20L minimum reserve per vehicle at all times in the Sperrgebiet",
+        "Satellite phone or InReach — no mobile signal for days at a time",
+        "Wetsuit (full 3mm) for kayaking in cold Benguela current",
+        "Binoculars for coastal wildlife (8×42 minimum)",
+        "Skeleton Coast National Park permit (advance booking via NWR)",
+        "Sperrgebiet entry permit (via Namibia Tourism Board if accessible)",
+        "Camera with UV filter — Namib light and salt spray are brutal on glass",
+        "Spare fuel: 80L jerry cans (distances between fuel stops exceed 300km in places)",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 500000,
+      latitude: -21.1408,
+      longitude: 13.6781,
+      published: true,
+      userId: user3.id,
+      voteCount: 67,
+      tags: {
+        connect: [
+          { id: allTags["desert"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 13 — Laugavegur & Fimmvörðuháls Trail, Iceland
+  // -------------------------------------------------------------------------
+  const adventure13 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-13" },
+    update: {},
+    create: {
+      id: "seed-adventure-13",
+      title: "Laugavegur & Fimmvörðuháls Trail, Iceland",
+      description: `The Laugavegur is Iceland's most celebrated trail and one of the world's great short treks — 55 kilometres of volcanic terrain linking the Landmannalaugar geothermal area to Þórsmörk in five days of walking through a landscape that looks rendered by a compositor who got confused between planetary biomes. Rhyolite mountains in mint green and terracotta. Black obsidian sand plains. Active sulphur fields venting pale gas. Glacial rivers you ford in boots on. Hot spring pools you soak in at camp.
+
+The route runs north to south, finishing with a descent into Þórsmörk — a birch-covered river canyon that acts as the warmest, most sheltered microclimate in Iceland, and a dramatic contrast to the barren plateau above. The extension via Fimmvörðuháls adds two more days, crossing the 2010 Eyjafjallajökull eruption lava fields where the rock is still warm in places and sea smoke rises from vents in the basalt.
+
+Huts along the route are the logistical anchor: Hrafntinnusker, Álftavatn, Emstrur, and Þórsmörk each have sleeping spaces, a hot meal, and a community of walkers from across the world who are all equally soaked and equally thrilled. Book huts the day they open in January for July and August dates — demand vastly exceeds supply.
+
+Iceland's weather can deliver all four seasons in a single day. The Laugavegur has turned ankle-deep river crossings into chest-deep ones overnight after rain. Build a buffer day at Þórsmörk and use it.`,
+      location: "Landmannalaugar to Þórsmörk, Southern Highlands",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=1600&q=80",
+      highlights: [
+        "Landmannalaugar hot spring pool after the first day's walk — geothermal steam everywhere",
+        "Rhyolite mountain palette: mint, orange, purple — colours found nowhere else on earth",
+        "Fimmvörðuháls lava field crossing: 2010 eruption rock still warm underfoot",
+        "Álftavatn lake camp with Eyjafjallajökull glacier behind the tent at dusk",
+        "River crossings: glacial blue, thigh-deep, cold enough to take your breath",
+        "Þórsmörk birch canyon: birdsong and warmth after days of barren plateau",
+        "Emstrur black sand plain — stark volcanic moonscape mid-route",
+      ],
+      gear: [
+        "Waterproof gaiters above the knee (river crossings are cold and sometimes deep)",
+        "Trekking poles with large baskets (essential for river crossing stability)",
+        "Waterproof trousers (worn more than off on most crossings)",
+        "Gore-Tex boots that can get completely wet and still insulate",
+        "Mid-layer down jacket — even in July, wind chill above 700m is severe",
+        "Hut sleeping bag liner (mandatory in Ferðafélag Íslands huts)",
+        "Trekking sandals for camp (don't walk a wet day in camp shoes but your feet need air)",
+        "Offline maps: SafeTravel Iceland app with downloaded area",
+        "Emergency bivouac bag rated to 0°C",
+        "Hut booking confirmation printout (no signal at Hrafntinnusker)",
+      ],
+      bestMonths: [7, 8],
+      estimatedCost: 150000,
+      latitude: 63.9929,
+      longitude: -19.0582,
+      published: true,
+      userId: user1.id,
+      voteCount: 156,
+      tags: {
+        connect: [
+          { id: allTags["volcanic"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -269,6 +917,24 @@ Acclimatisation is everything. Arrive in Nairobi or Dar es Salaam at least two d
       { userId: user1.id, adventureId: adventure2.id },
       { userId: user1.id, adventureId: adventure3.id },
       { userId: user3.id, adventureId: adventure3.id },
+      { userId: user2.id, adventureId: adventure4.id },
+      { userId: user3.id, adventureId: adventure4.id },
+      { userId: user1.id, adventureId: adventure5.id },
+      { userId: user2.id, adventureId: adventure5.id },
+      { userId: user1.id, adventureId: adventure6.id },
+      { userId: user3.id, adventureId: adventure6.id },
+      { userId: user2.id, adventureId: adventure7.id },
+      { userId: user3.id, adventureId: adventure7.id },
+      { userId: user1.id, adventureId: adventure8.id },
+      { userId: user3.id, adventureId: adventure9.id },
+      { userId: user1.id, adventureId: adventure10.id },
+      { userId: user2.id, adventureId: adventure10.id },
+      { userId: user1.id, adventureId: adventure11.id },
+      { userId: user3.id, adventureId: adventure11.id },
+      { userId: user2.id, adventureId: adventure12.id },
+      { userId: user1.id, adventureId: adventure13.id },
+      { userId: user2.id, adventureId: adventure13.id },
+      { userId: user3.id, adventureId: adventure13.id },
     ],
     skipDuplicates: true,
   });
@@ -561,9 +1227,9 @@ Acclimatisation is everything. Arrive in Nairobi or Dar es Salaam at least two d
 
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
-  console.log(`  Adventures: ${adventure1.title}, ${adventure2.title}, ${adventure3.title}`);
+  console.log(`  Adventures: 13 total`);
   console.log(`  Itineraries: ${itinerary1.title}, ${itinerary2.title}, ${itinerary3.title}`);
-  console.log(`  Tags: ${tags.map((t) => t.name).join(", ")}`);
+  console.log(`  Tags: ${tags.map((t) => t.name).join(", ")}, ${extraTagNames.join(", ")}`);
 }
 
 main()
