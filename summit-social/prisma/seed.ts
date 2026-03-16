@@ -2604,6 +2604,63 @@ The final day's walk into Santiago — the city in the rain, the plaza, the cath
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 44 — Pamir Highway Cycle, Tajikistan
+  // -------------------------------------------------------------------------
+  const adventure44 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-44" },
+    update: {},
+    create: {
+      id: "seed-adventure-44",
+      title: "Pamir Highway Cycle, Tajikistan",
+      description: `The Pamir Highway — the M41 — is the world's second-highest international road, crossing the Wakhan Corridor and the high Pamir plateau between Dushanbe and Osh. Cycling it is a self-supported expedition through one of the least-visited and most geopolitically complex corners of the planet: the intersection of the Silk Road, the Afghan border, and the Chinese frontier, at an average altitude above 3,500m.
+
+The route from Dushanbe to Osh is 1,500km and typically takes 21 days by bicycle. The key stages are the Wakhan Corridor — a narrow valley running along the Afghan border, where the river is the border and Afghani villages are visible across the water — and the Pamir plateau itself, beginning at Murghab (3,618m) where the road reaches the high steppe and the landscape simplifies to brown grass, blue sky, and no people for 200km at a stretch.
+
+The Karakul Lake descent is the route's emotional peak: the saline lake sits at 3,914m in a volcanic crater, surrounded by the Muztagh Ata massif (7,546m) across the Chinese border. The colours at altitude — the deep blue of the lake against the pale brown of the steppe and the white of the glacier — are unreproducible in photograph.
+
+Self-sufficiency is essential. Between Ishkashim and Murghab, the closest resupply point is 200km away. The Pamiri homestay network compensates: families in even the smallest settlements will feed and house a cyclist for a modest contribution.`,
+      location: "Dushanbe to Osh via Wakhan Corridor",
+      country: "Tajikistan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&q=80",
+      highlights: [
+        "Wakhan Corridor: cycling the Afghan border with Hindukush peaks above the river",
+        "Karakul Lake (3,914m): volcanic crater lake with Muztagh Ata across the Chinese border",
+        "Murghab Pamir plateau: 200km of brown steppe above 3,600m with no traffic",
+        "Pamiri homestay hospitality: kumiss, bread, and a felt mat in a village of 12 families",
+        "Ak-Baital Pass (4,655m): the highest road pass in the former Soviet Union",
+        "Wakhan petroglyphs: ancient hunting scenes carved into the cliffsides above the trail",
+      ],
+      gear: [
+        "Expedition touring bike with 3-inch-wide tyres (road turns to track without warning)",
+        "Full self-sufficiency kit: stove, food for 5 days, water filter (no resupply for 200km segments)",
+        "Cold-weather sleeping system rated to -15°C (plateau nights are brutal even in July)",
+        "GBAO permit for Gorno-Badakhshan Autonomous Region (arranged at Tajik embassy)",
+        "Satellite communicator — no GSM signal for 500km of the route",
+        "Altitude medication from 3,500m upward (cumulative altitude fatigue is real over 21 days)",
+      ],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 250000,
+      latitude: 38.0039,
+      longitude: 73.7921,
+      published: true,
+      userId: user1.id,
+      voteCount: 84,
+      tags: {
+        connect: [
+          { id: allTags["remote"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2691,6 +2748,8 @@ The final day's walk into Santiago — the city in the rain, the plaza, the cath
       { userId: user3.id, adventureId: adventure42.id },
       { userId: user1.id, adventureId: adventure43.id },
       { userId: user2.id, adventureId: adventure43.id },
+      { userId: user2.id, adventureId: adventure44.id },
+      { userId: user3.id, adventureId: adventure44.id },
     ],
     skipDuplicates: true,
   });
