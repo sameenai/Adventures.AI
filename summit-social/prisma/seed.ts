@@ -1638,6 +1638,62 @@ Wild camping is technically prohibited in the Calanques National Park but tolera
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 27 — Amalfi Coast Path Walk
+  // -------------------------------------------------------------------------
+  const adventure27 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-27" },
+    update: {},
+    create: {
+      id: "seed-adventure-27",
+      title: "Amalfi Coast Path Walk",
+      description: `The Amalfi Coast is a 50km stretch of vertical southern Italy — cliff villages stacked above the Tyrrhenian Sea, lemon terraces hanging between the houses, and a driving road so narrow it has become a tourist attraction in itself. Walking it rather than driving is the only way to access the high paths that connect the villages above the road, where the real Amalfi exists: stone mule tracks, abandoned terraces reclaimed by wild oregano and rosemary, and views across the water to Capri.
+
+The Sentiero degli Dei — the Path of the Gods — is the centrepiece. It runs high above Positano from Agerola to Nocelle, traversing the ridge at 600m with the coast and Capri below and the Lattari mountains above. It takes 4–5 hours and gains nothing in the walking: the elevation is held the entire length. The views are so consistently spectacular that progress slows involuntarily.
+
+A five-day walk covers the full coast from Salerno to Positano via the high paths, with nights in Cetara (the finest small village on the coast), Ravello (above the road, genuinely quiet), Praiano, and Positano. Each day is 15–20km with 700–1,000m of accumulated ascent and descent on stone steps built centuries ago and maintained with serious care.
+
+Book accommodation in April — the Amalfi coast is full in July and August and prices treble.`,
+      location: "Amalfi Coast, Campania",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1529573441783-0ccba9a8abcb?w=1600&q=80",
+      highlights: [
+        "Sentiero degli Dei (Path of the Gods): 600m-high traverse with Capri on the horizon",
+        "Ravello above the crowds: medieval village with Europe's finest coastal garden",
+        "Cetara harbour: small fishing village, tuna colatura in everything",
+        "Positano descent: cliff stairs through bougainvillea arriving at the beach",
+        "Lemon groves between Minori and Maiori: fragrant tunnel paths under the canopy",
+        "Nocelle sunset: the Positano silhouette and the open Tyrrhenian at dusk",
+      ],
+      gear: [
+        "Comfortable trail shoes (stone steps are slippery when wet)",
+        "Light daypack (20L — luggage transfer available between towns)",
+        "Sun protection — limited shade on high paths",
+        "Water bottle — springs in each village but limited on the ridge paths",
+        "Light layers for evening (cliff villages cool fast after sunset)",
+        "Small amount of cash (village trattorie and path-side bars are cash only)",
+      ],
+      bestMonths: [4, 5, 6, 9, 10, 11],
+      estimatedCost: 80000,
+      latitude: 40.6340,
+      longitude: 14.6027,
+      published: true,
+      userId: user2.id,
+      voteCount: 54,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["cultural-immersion"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1691,6 +1747,8 @@ Wild camping is technically prohibited in the Calanques National Park but tolera
       { userId: user2.id, adventureId: adventure25.id },
       { userId: user2.id, adventureId: adventure26.id },
       { userId: user3.id, adventureId: adventure26.id },
+      { userId: user1.id, adventureId: adventure27.id },
+      { userId: user3.id, adventureId: adventure27.id },
     ],
     skipDuplicates: true,
   });
