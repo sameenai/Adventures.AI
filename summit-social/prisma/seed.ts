@@ -1132,6 +1132,62 @@ Camping on Phi Phi Don with a kayak allows access to the bay side beaches after 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 18 — Cape Peninsula Hike
+  // -------------------------------------------------------------------------
+  const adventure18 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-18" },
+    update: {},
+    create: {
+      id: "seed-adventure-18",
+      title: "Cape Peninsula Hike & Penguin Beach",
+      description: `The Cape Peninsula juts 75km south from Cape Town into the South Atlantic, narrowing to the Cape of Good Hope — not the southernmost point of Africa (that's Cape Agulhas, 150km east) but the point where the continent seems to end and the two oceans begin their conversation. A two-day walk covers the peninsula's highlights from the city end to the Cape, with a return by train through the wine farms of the False Bay coast.
+
+Day one starts at Chapman's Peak, where the cliff road is closed to traffic and open to walkers with unobstructed views of Hout Bay and the Atlantic. The trail threads through fynbos — the unique Cape floral kingdom with 8,500 plant species in an area the size of Portugal — before descending to Noordhoek Beach, a 7km arc of white sand usually shared only with horses and kelp.
+
+Day two covers Boulders Beach, where an African penguin colony of 3,000 birds has colonised the granite boulders between the beach houses, and the Cape of Good Hope itself — the dramatic meeting point of the peninsula's final cliffs, with a lighthouse, a sign, and views that feel like the edge of something large.
+
+This is one of the world's few places where baboons, penguins, and great white sharks all share a coastline. The baboons are genuinely dangerous in car parks; keep windows closed and bags zipped.`,
+      location: "Cape Peninsula, Western Cape",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=1600&q=80",
+      highlights: [
+        "Boulders Beach African penguin colony — 3,000 penguins between the beach houses",
+        "Cape of Good Hope: the southwest tip where two ocean systems meet",
+        "Chapman's Peak cliff walk above the Atlantic with Hout Bay below",
+        "Fynbos biome: 8,500 plant species in the world's smallest floral kingdom",
+        "Noordhoek Beach — 7km of white sand shared only with horses",
+        "Cape Point lighthouse viewpoint: 300m above the wave-cut cliffs",
+      ],
+      gear: [
+        "Trail shoes or light hiking boots",
+        "Windproof jacket (Cape winds are forceful and sudden)",
+        "Sun protection — UV index routinely exceeds 11 in summer",
+        "Cape Peninsula National Park entry fee (included in SAN Parks pass)",
+        "Camera with a wide angle for cliff panoramas",
+        "Water bottle — no springs on the upper trail",
+      ],
+      bestMonths: [9, 10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 15000,
+      latitude: -34.3568,
+      longitude: 18.4734,
+      published: true,
+      userId: user2.id,
+      voteCount: 41,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1167,6 +1223,8 @@ Camping on Phi Phi Don with a kayak allows access to the bay side beaches after 
       { userId: user2.id, adventureId: adventure16.id },
       { userId: user2.id, adventureId: adventure17.id },
       { userId: user3.id, adventureId: adventure17.id },
+      { userId: user1.id, adventureId: adventure18.id },
+      { userId: user3.id, adventureId: adventure18.id },
     ],
     skipDuplicates: true,
   });
