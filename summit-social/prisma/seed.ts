@@ -908,6 +908,62 @@ Iceland's weather can deliver all four seasons in a single day. The Laugavegur h
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 14 — Cotswolds Way Weekend Walk
+  // -------------------------------------------------------------------------
+  const adventure14 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-14" },
+    update: {},
+    create: {
+      id: "seed-adventure-14",
+      title: "Cotswolds Way Weekend Walk",
+      description: `The Cotswolds is England at its most pastoral — limestone villages with honey-coloured stone, dry-stone walls threading between sheep pastures, church towers rising from beech hangers. The Cotswolds Way runs 164 km from Chipping Campden to Bath, but a single weekend on its northern stretch gives you the heart of the route without the need for a fortnight's leave.
+
+Start in Chipping Campden, a market town that has barely changed since the wool merchants built it in the 15th century. The first morning climbs to Dover's Hill — a natural amphitheatre with views across the Vale of Evesham — before dropping through Broadway and ascending Fish Hill, the Cotswolds' highest point at 312m. This is not altitude; it is perspective, and the view stretches forty miles on a clear day.
+
+The second day threads Stanton, Stanway, and Hailes Abbey — a ruined Cistercian monastery half-swallowed by meadow grass — before finishing at Winchcombe. These are villages that exist to be walked through, with pubs that have been serving walkers longer than the word "tourist" has existed.
+
+This is the ideal first multi-day walk: well-marked, well-serviced, with accommodation in every village and no technical terrain. Distance each day is 18–22km. Boots are required — the limestone clay turns slick after rain — but no specialist kit is needed. The Cotswolds rewards slow travel and stopping for every church gate.`,
+      location: "Chipping Campden to Winchcombe, Gloucestershire",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80",
+      highlights: [
+        "Dover's Hill amphitheatre — 40-mile views across the Vale of Evesham",
+        "Broadway village: honey-stone cottages, the Lygon Arms pub, and Tudor Market Hall",
+        "Fish Hill summit (312m) — the Cotswolds' highest accessible point",
+        "Hailes Abbey ruins: 13th-century Cistercian monastery in open meadow",
+        "Stanton village: arguably the most perfectly preserved medieval village in England",
+        "Real ale in centuries-old pubs every 8–10km along the route",
+      ],
+      gear: [
+        "Waterproof hiking boots (limestone clay is slick after rain)",
+        "Trekking poles optional but useful on descents",
+        "Waterproof jacket and pack cover",
+        "OS Explorer Map OL45 'The Cotswolds' (or Ordnance Survey app)",
+        "Day pack 25–30L with packed lunch",
+        "Layers for unpredictable English weather",
+      ],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 25000,
+      latitude: 52.0486,
+      longitude: -1.7775,
+      published: true,
+      userId: user1.id,
+      voteCount: 45,
+      tags: {
+        connect: [
+          { id: allTags["multi-day"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -935,6 +991,8 @@ Iceland's weather can deliver all four seasons in a single day. The Laugavegur h
       { userId: user1.id, adventureId: adventure13.id },
       { userId: user2.id, adventureId: adventure13.id },
       { userId: user3.id, adventureId: adventure13.id },
+      { userId: user2.id, adventureId: adventure14.id },
+      { userId: user3.id, adventureId: adventure14.id },
     ],
     skipDuplicates: true,
   });
