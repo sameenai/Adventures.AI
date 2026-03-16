@@ -1188,6 +1188,62 @@ This is one of the world's few places where baboons, penguins, and great white s
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 19 — Dolomites Tre Cime Loop
+  // -------------------------------------------------------------------------
+  const adventure19 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-19" },
+    update: {},
+    create: {
+      id: "seed-adventure-19",
+      title: "Dolomites Tre Cime Loop",
+      description: `The Tre Cime di Lavaredo — three vertical dolomite pillars rising to 2,999m from the Sexten Dolomites plateau — are the most photographed rock formation in the Alps, and the circular trail beneath them is one of the most accessible truly spectacular mountain walks in Europe. The loop is 9km and 600m of elevation gain, and it can be walked in three hours by a fit person or stretched across a magnificent day.
+
+The standard approach drives or takes a shuttle bus from Auronzo to the Rifugio Auronzo at 2,333m, which eliminates the hardest altitude gain. From there the trail circles anticlockwise through the rocky saddles on the north face — the dramatic side, where the walls drop 500m into the scree below — before returning across the south-facing meadows with the peaks' profiles catching the afternoon light.
+
+The north face views are the highlight: the Cime di Dentro, Cima Grande, and Cima Occidentale standing in a row, their north walls scored with ice and lichens, the Austrian Dolomites behind them. You can often see climbers on the routes but the walls are genuinely large enough that they appear as insects.
+
+Arrive before 8am to park, or take the shuttle after 9am and accept sharing the trail. The rifugio system offers lunch and coffee at 2,450m. Sunset from the Locatelli Rifugio on the north side is worth staying for.`,
+      location: "Tre Cime di Lavaredo, South Tyrol",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1600&q=80",
+      highlights: [
+        "North face view of all three Cime in a line — the definitive Dolomites image",
+        "Rifugio Locatelli at the north saddle — coffee with the walls directly above",
+        "Climbers visible on the north face routes from the trail below",
+        "Alpine meadows on the south loop: wildflowers and marmots in July",
+        "Sunrise from the Auronzo Rifugio: the three peaks turning orange at dawn",
+        "Forcella Lavaredo saddle (2,454m): the full north-face panorama revealed at once",
+      ],
+      gear: [
+        "Hiking boots with ankle support (loose rock on the saddle crossings)",
+        "Warm mid-layer (north face is cold and shadowed even in July)",
+        "Trekking poles for the descent on loose dolomite scree",
+        "Sun protection — UV at 2,400m is intense",
+        "Shuttle bus ticket from Auronzo (saves parking fee, avoids queue)",
+        "Cash for rifugio lunch (cards not always accepted at altitude)",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 30000,
+      latitude: 46.6175,
+      longitude: 12.3048,
+      published: true,
+      userId: user3.id,
+      voteCount: 91,
+      tags: {
+        connect: [
+          { id: allTags["alpine"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1225,6 +1281,8 @@ This is one of the world's few places where baboons, penguins, and great white s
       { userId: user3.id, adventureId: adventure17.id },
       { userId: user1.id, adventureId: adventure18.id },
       { userId: user3.id, adventureId: adventure18.id },
+      { userId: user1.id, adventureId: adventure19.id },
+      { userId: user2.id, adventureId: adventure19.id },
     ],
     skipDuplicates: true,
   });
