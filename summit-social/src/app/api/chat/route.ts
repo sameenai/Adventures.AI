@@ -1,4 +1,3 @@
-import { openai } from "@/lib/ai/openai";
 import { ItineraryDaySchema } from "@/lib/ai/parser";
 import { ITINERARY_SYSTEM_PROMPT, buildUserContextPrompt } from "@/lib/ai/prompts";
 import { chatTools } from "@/lib/ai/tools";
@@ -11,6 +10,7 @@ import { chatMessageSchema } from "@/lib/validators/chat";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import OpenAI from "openai";
 
 type AccumulatedToolCall = {
   id: string;
@@ -74,6 +74,13 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Resolve the OpenAI API key: prefer the user's own key, fall back to the shared app key.
+  const userRecord = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { openAiApiKey: true },
+  });
+  const resolvedApiKey = userRecord?.openAiApiKey ?? process.env.OPENAI_API_KEY ?? null;
+
   const body = await request.json();
   const parsed = chatMessageSchema.safeParse(body);
 
@@ -110,8 +117,8 @@ export async function POST(request: NextRequest) {
 
   const encoder = new TextEncoder();
 
-  // Stream a mock response when OpenAI is not configured
-  if (!process.env.OPENAI_API_KEY) {
+  // Stream a mock response when no API key is available (app key or user key)
+  if (!resolvedApiKey) {
     const mockText = buildMockResponse(message);
     const readable = new ReadableStream({
       async start(controller) {
@@ -147,6 +154,8 @@ export async function POST(request: NextRequest) {
     });
   }
 
+  const openaiClient = new OpenAI({ apiKey: resolvedApiKey });
+
   const readable = new ReadableStream({
     async start(controller) {
       let fullContent = "";
@@ -154,7 +163,7 @@ export async function POST(request: NextRequest) {
       const userId = session.user.id;
 
       try {
-        const stream = await openai.chat.completions.create({
+        const stream = await openaiClient.chat.completions.create({
           model: "gpt-4o",
           messages,
           tools: chatTools,
@@ -228,7 +237,7 @@ export async function POST(request: NextRequest) {
             ...toolResults,
           ];
 
-          const followUpStream = await openai.chat.completions.create({
+          const followUpStream = await openaiClient.chat.completions.create({
             model: "gpt-4o",
             messages: followUpMessages,
             stream: true,
