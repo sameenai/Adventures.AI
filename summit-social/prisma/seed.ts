@@ -2775,6 +2775,64 @@ The Svalbard Global Seed Vault is visible from Longyearbyen. The permafrost laye
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 47 — Antarctic Peninsula Sailing Expedition
+  // -------------------------------------------------------------------------
+  const adventure47 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-47" },
+    update: {},
+    create: {
+      id: "seed-adventure-47",
+      title: "Antarctic Peninsula Sailing Expedition",
+      description: `Antarctica is the last continent — the coldest, driest, windiest, and highest on average, with no permanent human population and no territorial sovereignty. Reaching it by small expedition vessel via the Drake Passage (the most violent sea crossing on earth) is the defining wilderness voyage, and a 12-day itinerary covers the Peninsula's highlights: the Lemaire Channel, the South Shetland Islands, and the vast penguin rookeries of Paradise Bay.
+
+The Drake Passage crossing takes two days each way. In calm conditions (the "Drake Lake") it is a gentle open-ocean swell. In storm conditions (the "Drake Shake") it is 8-10m waves with all vessel operations suspended. The first sight of the Antarctic Peninsula — the cloud line that turns out to be a continent — is one of the most powerful moments in travel.
+
+Zodiac landings on the Peninsula itself put you among the wildlife: gentoo and chinstrap penguin colonies of 50,000–100,000 birds, leopard seals resting on floes, humpback whales feeding in the nutrient-rich waters. The protocols are strict — no closer than 5m to penguins (they routinely ignore this rule), no touching wildlife, all bio-security controls for invasive species prevention.
+
+The international expedition vessel carries scientists and specialist guides who provide lectures on the ecology, geology, and climate research underway in Antarctica. This is not a cruise ship experience. It is an expedition, complete with uncertainty about where the ice allows access each day.`,
+      location: "Antarctic Peninsula, Southern Ocean",
+      country: "Antarctica",
+      continent: "Antarctica",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=1600&q=80",
+      highlights: [
+        "First sight of Antarctica: the cloud line becoming a continent through binoculars",
+        "Gentoo penguin colony landing: 100,000 birds on a beach with no roads or fences",
+        "Humpback whale surfacing alongside the Zodiac in Paradise Bay",
+        "Lemaire Channel navigation: the vessel threading between 600m ice walls",
+        "Leopard seal on an ice floe: 3m predator asleep at arm's reach",
+        "Drake Passage full storm: 8m swells and the bow going under white water",
+      ],
+      gear: [
+        "Expedition parka and waterproof trousers (provided by most operators — confirm)",
+        "Motion sickness prescription medication (scopolamine patches, not over-the-counter)",
+        "Waterproof camera housing (sea spray on all Zodiac operations)",
+        "Rubber boots for landings (mud and guano — provided by operator, bring warm liners)",
+        "Binoculars 8x42 or 10x50 (whale sightings at range, glaciers across channel)",
+        "Insurance covering adventure activities in Antarctica (standard travel insurance excludes this)",
+      ],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 900000,
+      latitude: -64.2823,
+      longitude: -63.0000,
+      published: true,
+      userId: user1.id,
+      voteCount: 105,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["glacier"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2868,6 +2926,8 @@ The Svalbard Global Seed Vault is visible from Longyearbyen. The permafrost laye
       { userId: user3.id, adventureId: adventure45.id },
       { userId: user1.id, adventureId: adventure46.id },
       { userId: user2.id, adventureId: adventure46.id },
+      { userId: user2.id, adventureId: adventure47.id },
+      { userId: user3.id, adventureId: adventure47.id },
     ],
     skipDuplicates: true,
   });
