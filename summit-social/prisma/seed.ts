@@ -3177,6 +3177,49 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 56 — GR20 Corsica Complete
+  // -------------------------------------------------------------------------
+  const adventure56 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-56" },
+    update: {},
+    create: {
+      id: "seed-adventure-56",
+      title: "GR20 Corsica Complete",
+      description: `Walk the full GR20 from Calenzana in the north to Conca in the south — 180 km across the spine of Corsica's mountains, widely considered the most demanding long-distance trail in Europe. The route climbs relentlessly through granite landscapes that feel more like the Dolomites than anything in France, with sustained scrambling, fixed chain sections, and technical route-finding that rewards map-reading over GPS.\n\nThe northern half is harder: sustained 1,000 m ascents over rough granite, boulder fields, and snow patches that linger into July. The southern half opens into maquis scrubland and red-soiled forest with a gentler pace and spectacular sea views. The refuges along the route serve cold beer and hot pasta — small luxuries that feel enormous after a 10-hour mountain day. Trekkers move at very different speeds here, so you will pass and be passed by the same faces across many days, building the trail community that makes this route unforgettable.`,
+      location: "Calenzana to Conca, Haute-Corse",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 15,
+      coverImageUrl: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&q=80",
+      highlights: [
+        "Most demanding long-distance trail in Europe",
+        "Sustained granite scrambling with fixed chains",
+        "Snow patches in the north through July",
+        "Stunning maquis and sea views in the south",
+        "Strong trail community in mountain refuges",
+      ],
+      gear: [
+        "45 L technical pack (weight is the enemy)",
+        "Trail running shoes (faster over granite than boots)",
+        "Trekking poles",
+        "Helmet recommended for northern section scrambles",
+        "Full waterproofs",
+        "2 L water capacity (some sections have no water for hours)",
+        "Sleeping bag liner (refuges have blankets)",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 130000,
+      latitude: 42.3,
+      longitude: 9.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 33,
+      tags: { connect: [{ name: "trekking" }, { name: "scrambling" }, { name: "europe" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3289,6 +3332,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure54.id },
       { userId: user1.id, adventureId: adventure55.id },
       { userId: user3.id, adventureId: adventure55.id },
+      { userId: user1.id, adventureId: adventure56.id },
+      { userId: user2.id, adventureId: adventure56.id },
     ],
     skipDuplicates: true,
   });
