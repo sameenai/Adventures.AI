@@ -3088,6 +3088,49 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 54 — Greenland Ice Cap Trek
+  // -------------------------------------------------------------------------
+  const adventure54 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-54" },
+    update: {},
+    create: {
+      id: "seed-adventure-54",
+      title: "Greenland Ice Cap Trek",
+      description: `Cross a section of the Greenland Ice Sheet on ski and pulk — one of the world's most spectacular wilderness traverses. The route departs from the ice edge near Kangerlussuaq and travels across a vast white plateau where the horizon in every direction is nothing but sky and ice. Crevasse navigation, polar camp craft, and white-out navigation are the skills of the day.\n\nNights are spent in expedition tents staked into the ice, temperature dropping to -20°C, the silence so complete you can hear your own heartbeat. The light at these latitudes is extraordinary — 24-hour daylight in June means you trek in golden midnight sun just as easily as noon. On clear evenings the ice glows cobalt blue from within. This route requires excellent physical fitness and cold-weather camping experience, but is accessible to non-technical trekkers with proper guiding. The sense of being alone on an ice sheet the size of a continent never leaves you.`,
+      location: "Kangerlussuaq Ice Edge",
+      country: "Greenland",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [
+        "Ski and pulk across the Greenland Ice Sheet",
+        "24-hour daylight in June on the polar plateau",
+        "Cobalt blue ice glowing at midnight",
+        "Complete silence of the world's second-largest ice mass",
+        "Crevasse navigation and polar camp skills",
+      ],
+      gear: [
+        "Ski touring setup (rentable in Kangerlussuaq)",
+        "Pulk sled for gear hauling",
+        "Expedition sleeping bag rated to -30°C",
+        "4-season polar tent",
+        "Balaclava, goggles, and face protection",
+        "Emergency PLB (mandatory)",
+        "Stove with fuel for melting ice water",
+      ],
+      bestMonths: [5, 6, 7],
+      estimatedCost: 350000,
+      latitude: 67.0,
+      longitude: -50.0,
+      published: true,
+      userId: user1.id,
+      voteCount: 17,
+      tags: { connect: [{ name: "arctic" }, { name: "skiing" }, { name: "expedition" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3196,6 +3239,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure52.id },
       { userId: user1.id, adventureId: adventure53.id },
       { userId: user2.id, adventureId: adventure53.id },
+      { userId: user2.id, adventureId: adventure54.id },
+      { userId: user3.id, adventureId: adventure54.id },
     ],
     skipDuplicates: true,
   });
