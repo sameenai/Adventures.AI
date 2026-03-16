@@ -2547,6 +2547,63 @@ Water is abundant above 3,000m but must be filtered — giardia is present in vi
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 43 — Camino Frances de Santiago
+  // -------------------------------------------------------------------------
+  const adventure43 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-43" },
+    update: {},
+    create: {
+      id: "seed-adventure-43",
+      title: "Camino Frances de Santiago",
+      description: `The Camino Frances — the French Way — is the principal route of the Camino de Santiago, the medieval pilgrimage road to the tomb of Saint James at Santiago de Compostela. From Saint-Jean-Pied-de-Port in the French Pyrenees it runs 780km across northern Spain: over the Pyrenees to Pamplona, through the Meseta's flat wheat plateau, over the Serra do Cebreiro into Galicia's green hills, and down to the cathedral at Santiago. Walking it takes 35 days.
+
+The Camino is not a wilderness walk — it is a human road, a civilisation walk through two millennia of pilgrimage culture. You walk on Roman roads, sleep in medieval monasteries, and enter Burgos Cathedral past pilgrims who have walked from southern France or further. The albergue system — pilgrim hostels at 8–12 EUR a night — creates a social structure that generates its own friendships and rituals: coffee at dawn, hospitalero stamp in the credential, shared dinner at a communal table.
+
+The Meseta — the 200km wheat plateau between Burgos and León — is what separates the Camino from other long routes. It is flat, wide, and repetitive. The sky is large and the path is straight. People who have walked the Meseta describe it as a meditation or an ordeal or both. There are no shortcuts and no scenery. The mind has to deal with itself.
+
+The final day's walk into Santiago — the city in the rain, the plaza, the cathedral facade — is one of the great arrival moments in any form of travel.`,
+      location: "Saint-Jean-Pied-de-Port to Santiago de Compostela",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 35,
+      coverImageUrl: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=1600&q=80",
+      highlights: [
+        "Pyrenees crossing on Day 1: from Saint-Jean over the Ibañeta Pass into Spain",
+        "Pamplona old town: the city of the Running of the Bulls at dawn before tourists arrive",
+        "Cruz de Ferro (Iron Cross): the traditional stone-leaving ritual at 1,505m on the Meseta",
+        "O Cebreiro village: Galicia's gateway, Celtic stone church in a cloud at 1,330m",
+        "Santiago de Compostela cathedral arrival: the Botafumeiro incense ritual",
+        "The Meseta dawn: walking into the sun on a straight Roman road with no other feature",
+      ],
+      gear: [
+        "Trail shoes or light hikers (pavement sections demand cushioning as much as grip)",
+        "Pilgrim credential (credencial del peregrino) from the first albergue or Confraternity",
+        "Pack under 10% of body weight (most pilgrims start too heavy and post gear home by week two)",
+        "Blister prevention: correct socks, anti-friction, toe protection from day one",
+        "Sleeping bag liner for albergue bunks",
+        "Walking poles (for the Pyrenees crossing and later descents in Galicia)",
+      ],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 200000,
+      latitude: 42.8805,
+      longitude: -8.5457,
+      published: true,
+      userId: user3.id,
+      voteCount: 121,
+      tags: {
+        connect: [
+          { id: allTags["multi-day"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["solo-travel"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2632,6 +2689,8 @@ Water is abundant above 3,000m but must be filtered — giardia is present in vi
       { userId: user3.id, adventureId: adventure41.id },
       { userId: user1.id, adventureId: adventure42.id },
       { userId: user3.id, adventureId: adventure42.id },
+      { userId: user1.id, adventureId: adventure43.id },
+      { userId: user2.id, adventureId: adventure43.id },
     ],
     skipDuplicates: true,
   });
