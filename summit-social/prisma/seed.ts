@@ -3347,6 +3347,49 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 60 — Dolomites Alta Via 1
+  // -------------------------------------------------------------------------
+  const adventure60 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-60" },
+    update: {},
+    create: {
+      id: "seed-adventure-60",
+      title: "Dolomites Alta Via 1",
+      description: `Walk the Alta Via 1 — 120 km from Lago di Braies to Belluno through the heart of the Dolomites, following high-level ridges that give constant views of the UNESCO-listed towers and pinnacles that make this range unique on Earth. The pale rock takes on extraordinary color at sunrise and sunset: gold, pink, then deep purple as the light fades.\n\nThe route uses rifugios throughout — comfortable mountain huts that serve full dinners with local wine, meaning you carry only a day pack. This is luxury adventure: hard enough to feel serious, comfortable enough to end every day well-fed with cold Spritz in hand. Several sections involve via ferrata moves — fixed iron rungs and cables assist exposed traverses — but overall the route is navigable without specialist climbing skills. The Cinque Torri and Tre Cime di Lavaredo sections are among the most photographed mountain landscapes in the world; on the trail you inhabit them rather than simply observe them.`,
+      location: "Lago di Braies to Belluno",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [
+        "120 km through UNESCO Dolomites World Heritage landscape",
+        "Rifugio hut-to-hut walking with full dinners",
+        "Tre Cime di Lavaredo — most iconic Dolomite towers",
+        "Via ferrata sections with fixed iron aid",
+        "Alpenglow — Dolomite rock turns gold then purple at dusk",
+      ],
+      gear: [
+        "Day pack 20–25 L (luggage transfer available)",
+        "Via ferrata set (harness + lanyard) for northern sections",
+        "Hiking boots with ankle support",
+        "Trekking poles",
+        "Rain jacket",
+        "Sun protection (high UV at altitude)",
+        "Cash for rifugio dinners",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 140000,
+      latitude: 46.7,
+      longitude: 12.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 47,
+      tags: { connect: [{ name: "trekking" }, { name: "via-ferrata" }, { name: "europe" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3467,6 +3510,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure58.id },
       { userId: user2.id, adventureId: adventure59.id },
       { userId: user3.id, adventureId: adventure59.id },
+      { userId: user1.id, adventureId: adventure60.id },
+      { userId: user2.id, adventureId: adventure60.id },
     ],
     skipDuplicates: true,
   });
