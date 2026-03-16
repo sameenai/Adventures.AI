@@ -18,7 +18,9 @@ export function BookingCTA({ offer }: BookingCTAProps) {
         </p>
       </div>
       <div className="flex items-center gap-4">
-        <span className="font-mono text-2xl font-bold text-amber-500">{formatPrice(offer.priceGBP)}</span>
+        <span className="font-mono text-2xl font-bold text-amber-500">
+          {formatPrice(offer.priceGBP)}
+        </span>
         <a href={offer.deepLink} target="_blank" rel="noopener noreferrer">
           <Button size="lg">Book Now</Button>
         </a>

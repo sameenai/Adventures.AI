@@ -19,11 +19,14 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
         />
       )}
       <div className="text-center sm:text-left">
-        <h1 className="font-display text-2xl uppercase tracking-widest text-stone-100">{user.name}</h1>
+        <h1 className="font-display text-2xl uppercase tracking-widest text-stone-100">
+          {user.name}
+        </h1>
         {user.bio && <p className="mt-2 max-w-lg text-sm text-stone-400">{user.bio}</p>}
         <div className="mt-3 flex items-center justify-center gap-4 text-sm text-stone-500 sm:justify-start">
           <span>
-            <strong className="font-mono text-stone-100">{user._count.adventures}</strong> adventures
+            <strong className="font-mono text-stone-100">{user._count.adventures}</strong>{" "}
+            adventures
           </span>
           <span>
             <strong className="font-mono text-stone-100">{user._count.votes}</strong> votes given
