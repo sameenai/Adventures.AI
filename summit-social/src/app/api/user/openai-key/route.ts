@@ -1,0 +1,77 @@
+import { authOptions } from "@/lib/auth/config";
+import { prisma } from "@/lib/db/prisma";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { z } from "zod";
+
+const saveKeySchema = z.object({
+  key: z
+    .string()
+    .min(20, "Key is too short")
+    .max(200, "Key is too long")
+    .regex(/^sk-/, "Must be a valid OpenAI API key starting with sk-"),
+});
+
+/** Returns whether the current user has a key saved (never returns the key itself). */
+export async function GET() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { openAiApiKey: true },
+  });
+
+  const key = user?.openAiApiKey;
+  return NextResponse.json({
+    hasKey: !!key,
+    hint: key ? `${key.slice(0, 7)}…${key.slice(-4)}` : null,
+  });
+}
+
+/** Saves or replaces the user's OpenAI API key. */
+export async function POST(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
+  }
+
+  const body = await request.json();
+  const parsed = saveKeySchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: parsed.error.issues[0]?.message ?? "Invalid key", code: "VALIDATION_ERROR" },
+      { status: 400 },
+    );
+  }
+
+  const key = parsed.data.key;
+
+  await prisma.user.update({
+    where: { id: session.user.id },
+    data: { openAiApiKey: key },
+  });
+
+  return NextResponse.json({
+    hasKey: true,
+    hint: `${key.slice(0, 7)}…${key.slice(-4)}`,
+  });
+}
+
+/** Removes the user's stored OpenAI API key. */
+export async function DELETE() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
+  }
+
+  await prisma.user.update({
+    where: { id: session.user.id },
+    data: { openAiApiKey: null },
+  });
+
+  return NextResponse.json({ hasKey: false, hint: null });
+}
