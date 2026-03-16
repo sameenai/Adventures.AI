@@ -24,12 +24,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const adventure = await prisma.adventure.findUnique({
     where: { id },
-    select: { title: true, description: true },
+    select: { title: true, description: true, coverImageUrl: true, location: true, country: true },
   });
   if (!adventure) return {};
+
+  const title = `${adventure.title} | Basecamp`;
+  const description = adventure.description.slice(0, 155);
+
   return {
-    title: `${adventure.title} | Basecamp`,
-    description: adventure.description.slice(0, 155),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      images: [{ url: adventure.coverImageUrl, width: 1200, height: 630, alt: adventure.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [adventure.coverImageUrl],
+    },
   };
 }
 
