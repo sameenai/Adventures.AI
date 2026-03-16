@@ -18,13 +18,20 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { cursor, limit, category, continent, difficulty, search, sortBy } = parsed.data;
+  const { cursor, limit, category, continent, difficulty, search, sortBy, duration } = parsed.data;
+
+  const DURATION_RANGES = {
+    weekend: { gte: 1, lte: 3 },
+    week: { gte: 4, lte: 7 },
+    expedition: { gte: 8 },
+  } as const;
 
   const where = {
     published: true,
     ...(category && { category }),
     ...(continent && { continent }),
     ...(difficulty && { difficulty }),
+    ...(duration && { durationDays: DURATION_RANGES[duration] }),
     ...(search && {
       OR: [
         { title: { contains: search, mode: "insensitive" as const } },
