@@ -2205,6 +2205,63 @@ All trails start from El Chalten village. No permits, no booking, no fees.`,
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 37 — Inca Trail to Machu Picchu
+  // -------------------------------------------------------------------------
+  const adventure37 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-37" },
+    update: {},
+    create: {
+      id: "seed-adventure-37",
+      title: "Inca Trail to Machu Picchu",
+      description: `The classic Inca Trail is a four-day, 43km walk through the Peruvian Andes on a route the Incas built, maintained, and walked 500 years before the first European reached South America. It climbs from the Sacred Valley at 2,650m to Dead Woman's Pass at 4,215m and descends through cloud forest to emerge at the Sun Gate above Machu Picchu — the most famous archaeological reveal in trekking.
+
+The trail is not technically difficult but it is aerobically demanding: the second day climbs 1,200m in 10km on cobbled stone steps designed for shorter-legged people and maintained in largely original condition. At altitude in the Andean sun, porters with 25kg loads overtake most walkers without apparent effort. The altitude is the variable nobody fully accounts for: Dead Woman's Pass at 4,215m is not extreme, but arriving at it without acclimatisation days in Cusco and Pisac first will reduce most fit adults to a slow shuffle.
+
+The cloud forest on the third day is one of the great botanical environments: a closed canopy of tree ferns, bromeliads, and orchids at 3,000m, with hummingbirds feeding at eye level and Andean cock-of-the-rock displaying in the understorey. The forest opens at Wiñay Wayna — a complete Inca ruin complex embedded in the cloud forest wall — before the final descent to Intipunku.
+
+Permits are limited to 500 per day total (guides and porters included). Book three to six months ahead for May–September. The trail closes in February.`,
+      location: "Cusco to Machu Picchu, Cusco Region",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1526400473556-aac12354f3db?w=1600&q=80",
+      highlights: [
+        "Sun Gate (Intipunku) at dawn: Machu Picchu revealed through the fog below",
+        "Dead Woman's Pass (4,215m): the high point of the trail and the hardest single climb",
+        "Wiñay Wayna Inca ruin complex embedded in the cloud forest wall",
+        "Cloud forest orchids and hummingbirds on the third day's descent",
+        "Machu Picchu at dawn before the train tourists arrive",
+        "Andean condors riding thermals above the Urubamba Valley",
+      ],
+      gear: [
+        "Layering system for 4,215m — night temperatures below 5°C at high camp",
+        "Trekking poles (Inca stone steps are steep and slippery after rain)",
+        "Waterproofs (cloud forest section is genuinely wet, not merely damp)",
+        "Altitude acclimatisation: minimum three nights in Cusco before Day 1",
+        "Altitude medication (Diamox 250mg — available in Cusco, prescription not always required)",
+        "Inca Trail permit number and licensed guide company confirmation",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 120000,
+      latitude: -13.1631,
+      longitude: -72.5450,
+      published: true,
+      userId: user3.id,
+      voteCount: 198,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2278,6 +2335,8 @@ All trails start from El Chalten village. No permits, no booking, no fees.`,
       { userId: user3.id, adventureId: adventure35.id },
       { userId: user1.id, adventureId: adventure36.id },
       { userId: user3.id, adventureId: adventure36.id },
+      { userId: user1.id, adventureId: adventure37.id },
+      { userId: user2.id, adventureId: adventure37.id },
     ],
     skipDuplicates: true,
   });
