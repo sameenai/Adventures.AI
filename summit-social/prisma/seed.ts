@@ -1244,6 +1244,62 @@ Arrive before 8am to park, or take the shuttle after 9am and accept sharing the 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 20 — Mount Fuji Sunrise Climb
+  // -------------------------------------------------------------------------
+  const adventure20 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-20" },
+    update: {},
+    create: {
+      id: "seed-adventure-20",
+      title: "Mount Fuji Sunrise Climb",
+      description: `Mount Fuji is Japan's highest peak at 3,776m and its most iconic symbol — a near-perfect stratovolcano that has been the subject of Japanese art for a thousand years. Climbing it overnight to reach the summit for sunrise (goraiko) is a pilgrimage that millions have made, and for good reason: watching the sun rise above a sea of cloud from Japan's roof, with the shadow of the cone stretching west across the Pacific horizon, is one of the great mountain experiences in the world.
+
+The Yoshida Trail on the north flank is the most popular route and the best serviced — staffed mountain huts every 300m of elevation above the 5th Station, selling oxygen canisters, hot food, and warming stations for the inevitable midnight cold. The climb takes 5–7 hours to the summit crater; descent via the Subashiri Trail takes 3–4 hours on a sandy switchback designed specifically for fast descent.
+
+Fuji's season is strictly July 1 to mid-September. Outside this window, trails are officially closed and mountain huts are shuttered. The crowds are real — weekends in August can put 10,000 people on the mountain in a single night. Weekday departures in July or early September dramatically improve the experience.
+
+Above the 8th Station the cold is serious. The crater rim at 3,776m in July at 4am is regularly below 0°C with wind. Dress for conditions you won't encounter at 5th Station.`,
+      location: "Mount Fuji, Shizuoka/Yamanashi Prefecture",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1504598318550-17eba1008a68?w=1600&q=80",
+      highlights: [
+        "Goraiko sunrise from the crater rim — the shadow of Fuji stretching over Pacific cloud",
+        "Crater walk: the full volcanic rim circuit at 3,776m takes 45 minutes",
+        "Sea of clouds (Unkai) below the summit on clear mornings",
+        "Mountain hut culture: hot noodles and tea at midnight above 3,000m",
+        "Descent on the Subashiri sand trail — running descent on volcanic ash",
+        "Yoshida 5th Station: torii gates and traditional stalls before the ascent begins",
+      ],
+      gear: [
+        "Insulated jacket and gloves — summit temperatures below 0°C at night",
+        "Waterproof outer shell (sudden storms above 3,000m)",
+        "Headlamp with spare batteries (4-hour night approach)",
+        "Trekking poles (Subashiri descent is steep switchback)",
+        "Mountain sickness medication (optional but recommended for susceptible climbers)",
+        "Cash — hut prices climb with altitude, cards not accepted at all stops",
+      ],
+      bestMonths: [7, 8],
+      estimatedCost: 30000,
+      latitude: 35.3606,
+      longitude: 138.7274,
+      published: true,
+      userId: user1.id,
+      voteCount: 115,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1283,6 +1339,8 @@ Arrive before 8am to park, or take the shuttle after 9am and accept sharing the 
       { userId: user3.id, adventureId: adventure18.id },
       { userId: user1.id, adventureId: adventure19.id },
       { userId: user2.id, adventureId: adventure19.id },
+      { userId: user2.id, adventureId: adventure20.id },
+      { userId: user3.id, adventureId: adventure20.id },
     ],
     skipDuplicates: true,
   });
