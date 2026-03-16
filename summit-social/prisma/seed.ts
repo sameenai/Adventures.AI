@@ -3220,6 +3220,49 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 57 — Transylvania Cycling Tour
+  // -------------------------------------------------------------------------
+  const adventure57 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-57" },
+    update: {},
+    create: {
+      id: "seed-adventure-57",
+      title: "Transylvania Cycling Tour",
+      description: `Pedal through the Saxon villages and forested passes of Transylvania on a 350 km loop from Brasov — a region of medieval fortified churches, hay meadows alive with wildflowers, and brown bear country where shepherds still move their flocks across ancient routes. The roads are quiet, the gradients manageable, and the landscape constantly rewards the slower pace of cycling over driving.\n\nBase yourself in guesthouses run by local families who serve plates of sarmale and tuica before you've even hung up your panniers. Climb the Bucegi Mountains on a forest road and coast into Sinaia past the Peles Castle, one of Europe's most extravagant royal residences. The medieval citadel of Sighisoara — birthplace of Vlad the Impaler — is the most atmospheric lunch stop you will ever have. This is cycling as cultural immersion: every village has a different Saxon dialect, a different church on the hill, and a different grandmother with strong opinions about which road you should take.`,
+      location: "Brasov, Transylvania",
+      country: "Romania",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: [
+        "Medieval Saxon villages and fortified churches",
+        "Brown bear country in the Carpathian Mountains",
+        "Peles Castle descent from the Bucegi Mountains",
+        "Sighisoara — the best-preserved medieval citadel in Europe",
+        "Family guesthouses with extraordinary traditional food",
+      ],
+      gear: [
+        "Touring or gravel bike (rentable in Brasov)",
+        "Panniers or bikepacking bags",
+        "Cycling helmet",
+        "Merino cycling base layer",
+        "Rain cape",
+        "Repair kit (tube, pump, multi-tool)",
+        "Bear spray (low risk but standard precaution)",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 75000,
+      latitude: 45.6,
+      longitude: 25.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 25,
+      tags: { connect: [{ name: "cycling" }, { name: "culture" }, { name: "europe" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3334,6 +3377,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure55.id },
       { userId: user1.id, adventureId: adventure56.id },
       { userId: user2.id, adventureId: adventure56.id },
+      { userId: user2.id, adventureId: adventure57.id },
+      { userId: user3.id, adventureId: adventure57.id },
     ],
     skipDuplicates: true,
   });
