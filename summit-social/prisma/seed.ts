@@ -3959,9 +3959,10 @@ The international expedition vessel carries scientists and specialist guides who
     ],
   });
 
+  const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
-  console.log(`  Adventures: 13 total`);
+  console.log(`  Adventures: ${adventureCount} total`);
   console.log(`  Itineraries: ${itinerary1.title}, ${itinerary2.title}, ${itinerary3.title}`);
   console.log(`  Tags: ${tags.map((t) => t.name).join(", ")}, ${extraTagNames.join(", ")}`);
 }
