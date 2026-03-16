@@ -2034,6 +2034,63 @@ Jordan is deeply hospitable; small gestures of reciprocity — accepting tea, sh
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 34 — Sahara Desert Camel Trek, Morocco
+  // -------------------------------------------------------------------------
+  const adventure34 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-34" },
+    update: {},
+    create: {
+      id: "seed-adventure-34",
+      title: "Sahara Desert Camel Trek, Morocco",
+      description: `The Erg Chebbi dunes near Merzouga in southeast Morocco rise 150m from the hammada rock desert in one of the great landscape surprises of North Africa — you drive through three hours of flat, featureless stone desert and then the dunes are simply there, enormous and golden, stretching 22km from north to south. A five-day camel trek enters this landscape and stays in it long enough for the scale to register.
+
+Day one loads the camels at the edge of Merzouga and crosses into the erg by afternoon, camping at the first high dune. The camel's slow gait — 4km/h, three hours per day of riding — is the right pace for the Sahara. You see the wind-sculpted surface in detail: the slip face curves, the horn formations of the barchans, the occasional dead branch of an ancient acacia tree poking from the sand.
+
+Nights in the erg are the point. The temperature drops fast after sunset — 15°C within an hour of darkness — and the sky at Merzouga is one of the clearest in Africa. The Milky Way stands perpendicular to the horizon. Shooting stars are routine. The silence is total except for the wind over the dune crests.
+
+The Berber guides navigate by landmark and star. There are no marked routes in the erg. Each morning the wind has reshaped the surface and the previous day's tracks have been erased.`,
+      location: "Erg Chebbi, Merzouga, Draa-Tafilalet",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: [
+        "Erg Chebbi dunes: 150m orange sand waves stretching 22km — nothing looks this colour in nature",
+        "Dawn from the highest dune: shadow of the erg spreading west as the sun crests east",
+        "Milky Way above the erg: one of Africa's darkest night skies from the desert floor",
+        "Nomadic Berber tea ceremony at camp: three glasses of increasingly sweet mint tea",
+        "Camel riding the crest of the barchan formations — the slip face below",
+        "Abandoned ksour (fortified village) half-buried by advancing dunes at route edge",
+      ],
+      gear: [
+        "Loose cotton long trousers and long-sleeve shirt (sun and wind protection, not warmth)",
+        "Warm layer for nights — temperature drops 15°C within an hour of sunset",
+        "Headscarf or shemagh (sand wind on the camel is constant)",
+        "Lip balm and nasal moisturiser — the air is dessicating",
+        "Camera with UV filter and sealed lens (sand is very fine and gets into everything)",
+        "Flip-flops for camp (boots stay on for riding and walking)",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 60000,
+      latitude: 31.0997,
+      longitude: -4.0130,
+      published: true,
+      userId: user3.id,
+      voteCount: 81,
+      tags: {
+        connect: [
+          { id: allTags["desert"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2101,6 +2158,8 @@ Jordan is deeply hospitable; small gestures of reciprocity — accepting tea, sh
       { userId: user3.id, adventureId: adventure32.id },
       { userId: user1.id, adventureId: adventure33.id },
       { userId: user3.id, adventureId: adventure33.id },
+      { userId: user1.id, adventureId: adventure34.id },
+      { userId: user2.id, adventureId: adventure34.id },
     ],
     skipDuplicates: true,
   });
