@@ -3434,6 +3434,48 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 62 — Camino Portugues Coastal
+  // -------------------------------------------------------------------------
+  const adventure62 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-62" },
+    update: {},
+    create: {
+      id: "seed-adventure-62",
+      title: "Camino Portugues Coastal",
+      description: `Walk the Coastal Variant of the Camino Portugues from Porto to Santiago de Compostela — 280 km of Atlantic coastline, estuaries, and fishing villages that offer an alternative to the more crowded Central Route. The coastal path follows dune paths, wooden boardwalks, and clifftop trails with the Atlantic on one side and cork oak forest on the other, crossing into Galicia over a beautifully simple stone bridge at Vila Nova de Cerveira.\n\nThis is a Camino for those who want solitude alongside pilgrimage. The coastal route sees far fewer walkers than the Meseta, meaning you often have beaches entirely to yourself. Albergues are plentiful and inexpensive; the food shifts from Portuguese bacalhau to Galician pulpo as you cross the border. The final 100 km enter the required minimum for the compostela certificate, but the whole route rewards those who start from Porto. Arriving into the Plaza del Obradoiro after a week of walking carries a weight that surprises nearly everyone who experiences it.`,
+      location: "Porto to Santiago de Compostela",
+      country: "Portugal",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=1600&q=80",
+      highlights: [
+        "Atlantic dunes and clifftop coastal trails",
+        "Far fewer pilgrims than the popular Frances route",
+        "Seafood transition from Portuguese bacalhau to Galician pulpo",
+        "Stone bridge crossing into Galicia at Vila Nova de Cerveira",
+        "Cathedral arrival at Plaza del Obradoiro in Santiago",
+      ],
+      gear: [
+        "Well-broken-in walking shoes — this is the most important gear",
+        "25 L pack",
+        "Blister kit (Compeed)",
+        "Rain jacket (Atlantic weather is unpredictable)",
+        "Pilgrim credential (credencial) to collect stamps",
+        "Trekking poles optional but helpful",
+      ],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 65000,
+      latitude: 42.5,
+      longitude: -8.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 52,
+      tags: { connect: [{ name: "trekking" }, { name: "camino" }, { name: "coastal" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3558,6 +3600,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user2.id, adventureId: adventure60.id },
       { userId: user1.id, adventureId: adventure61.id },
       { userId: user3.id, adventureId: adventure61.id },
+      { userId: user2.id, adventureId: adventure62.id },
+      { userId: user3.id, adventureId: adventure62.id },
     ],
     skipDuplicates: true,
   });
