@@ -964,6 +964,62 @@ This is the ideal first multi-day walk: well-marked, well-serviced, with accommo
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 15 — Cinque Terre Coastal Trails
+  // -------------------------------------------------------------------------
+  const adventure15 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-15" },
+    update: {},
+    create: {
+      id: "seed-adventure-15",
+      title: "Cinque Terre Coastal Trails",
+      description: `Five fishing villages clamped to cliffs above the Ligurian Sea, connected by stone paths that have been maintained since the 12th century. The Cinque Terre — Monterosso, Vernazza, Corniglia, Manarola, and Riomaggiore — are Italy's most visited coastal stretch for good reason, and the walking trails that thread between them are among the most scenic in Europe.
+
+The classic weekend approach walks from north to south over two days: Monterosso to Vernazza on day one (the most dramatic section, with cliff-edge path above breaking surf), then Vernazza to Manarola and down to Riomaggiore on day two via the famed Sentiero Azzurro. The Via dell'Amore — the "Lovers' Path" between Manarola and Riomaggiore — is the most photographed stretch, cut directly into the cliff face above the sea.
+
+The high trail network — less visited and more rewarding — climbs above the coastal path into the terraced vineyards and chestnut forests. Sciacchetrà, the local dessert wine made from Bosco, Albarola, and Vermentino grapes grown on these impossibly steep terraces, is the reward for going up instead of down.
+
+The villages fill with day-trippers from April to October; arrive early (before 9am) or stay the night to experience them in the hour before the first train arrives and the hour after the last train leaves.`,
+      location: "Cinque Terre, Liguria",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=1600&q=80",
+      highlights: [
+        "Vernazza harbour from the coastal trail above — the classic Cinque Terre view",
+        "Via dell'Amore: cliff-cut path between Manarola and Riomaggiore above the Ligurian Sea",
+        "High trail through terraced Sciacchetrà vineyards above Corniglia",
+        "Sunrise from Manarola headland before the day-trippers arrive",
+        "Monterosso beach swim after the cliff walk — the only sandy beach of the five",
+        "Focaccia di Recco and local anchovies in any harbour bar",
+      ],
+      gear: [
+        "Trail shoes or light hiking boots (paths are paved but uneven)",
+        "Cinque Terre Card (trail access + train connections included)",
+        "Sun protection — exposed cliff sections with no shade",
+        "Small daypack 15–20L with water (fountains in every village)",
+        "Swimwear for Monterosso beach",
+        "Light layer for morning coastal breeze",
+      ],
+      bestMonths: [4, 5, 9, 10, 11],
+      estimatedCost: 40000,
+      latitude: 44.1274,
+      longitude: 9.7052,
+      published: true,
+      userId: user2.id,
+      voteCount: 62,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["multi-day"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -993,6 +1049,8 @@ This is the ideal first multi-day walk: well-marked, well-serviced, with accommo
       { userId: user3.id, adventureId: adventure13.id },
       { userId: user2.id, adventureId: adventure14.id },
       { userId: user3.id, adventureId: adventure14.id },
+      { userId: user1.id, adventureId: adventure15.id },
+      { userId: user3.id, adventureId: adventure15.id },
     ],
     skipDuplicates: true,
   });
