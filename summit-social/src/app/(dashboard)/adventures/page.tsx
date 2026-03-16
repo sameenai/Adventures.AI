@@ -2,7 +2,7 @@ import { InfiniteAdventureGrid } from "@/components/adventures/infinite-adventur
 import { SearchFilter } from "@/components/adventures/search-filter";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
-import { CATEGORIES } from "@/lib/constants";
+import { CATEGORIES, DIFFICULTIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -21,11 +21,21 @@ export default async function AdventuresPage({
   const search = params.search?.trim();
   const sortBy = params.sortBy ?? "votes";
 
+  const DURATION_RANGES = {
+    weekend: { gte: 1, lte: 3 },
+    week: { gte: 4, lte: 7 },
+    expedition: { gte: 8 },
+  } as const;
+
   const where = {
     published: true,
     ...(params.category && { category: params.category as never }),
     ...(params.continent && { continent: params.continent }),
     ...(params.difficulty && { difficulty: params.difficulty as never }),
+    ...(params.duration &&
+      params.duration in DURATION_RANGES && {
+        durationDays: DURATION_RANGES[params.duration as keyof typeof DURATION_RANGES],
+      }),
     ...(search && {
       OR: [
         { title: { contains: search, mode: "insensitive" as const } },
@@ -123,10 +133,13 @@ export default async function AdventuresPage({
               <h1 className="mt-3 font-display text-6xl uppercase leading-none tracking-widest text-stone-100 sm:text-8xl">
                 Adventures
               </h1>
-              <p className="mt-4 font-mono text-xs text-stone-600">
+              <p className="mt-4 font-mono text-xs text-stone-500">
                 {rawAdventures.length > 0
                   ? `${adventures.length}${hasMore ? "+" : ""} expeditions across 7 continents`
                   : "No adventures found — adjust your filters"}
+              </p>
+              <p className="mt-1 font-mono text-xs text-stone-700">
+                Weekend escapes · week-long treks · multi-month expeditions
               </p>
             </div>
             {session && (
@@ -166,6 +179,67 @@ export default async function AdventuresPage({
           ))}
         </div>
 
+        {/* Duration quick-filters */}
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+            Duration
+          </span>
+          {(
+            [
+              { value: "weekend", label: "Weekend", sub: "1–3 days" },
+              { value: "week", label: "Week", sub: "4–7 days" },
+              { value: "expedition", label: "Expedition", sub: "8+ days" },
+            ] as const
+          ).map(({ value, label, sub }) => {
+            const active = params.duration === value;
+            const href = active
+              ? `/adventures${params.category ? `?category=${params.category}` : ""}`
+              : `/adventures?duration=${value}${params.category ? `&category=${params.category}` : ""}`;
+            return (
+              <Link
+                key={value}
+                href={href}
+                className={`flex items-baseline gap-1.5 px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                  active
+                    ? "border border-amber-500 text-amber-500"
+                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+                }`}
+              >
+                {label}
+                <span className="font-mono text-[9px] normal-case tracking-normal opacity-60">
+                  {sub}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Difficulty quick-filters */}
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+            Level
+          </span>
+          {DIFFICULTIES.map((diff) => {
+            const active = params.difficulty === diff.value;
+            const href = active
+              ? `/adventures${params.category ? `?category=${params.category}` : ""}`
+              : `/adventures?difficulty=${diff.value}${params.category ? `&category=${params.category}` : ""}`;
+            return (
+              <Link
+                key={diff.value}
+                href={href}
+                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                  active
+                    ? `border ${diff.value === "EASY" ? "border-emerald-500 text-emerald-400" : diff.value === "MODERATE" ? "border-amber-500 text-amber-400" : diff.value === "CHALLENGING" ? "border-orange-500 text-orange-400" : diff.value === "EXTREME" ? "border-red-500 text-red-400" : "border-purple-500 text-purple-400"}`
+                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+                }`}
+              >
+                {diff.label}
+              </Link>
+            );
+          })}
+        </div>
+
         {/* Search + sort */}
         <Suspense>
           <SearchFilter />
@@ -182,6 +256,7 @@ export default async function AdventuresPage({
               category: params.category,
               continent: params.continent,
               difficulty: params.difficulty,
+              duration: params.duration,
               search: params.search,
               sortBy: params.sortBy,
             }}
