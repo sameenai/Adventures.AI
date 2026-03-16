@@ -1977,6 +1977,63 @@ Rent a semi-automatic Honda at Ha Giang (no licence required, ~200,000 VND per d
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 33 — Wadi Rum & Petra Desert Trek
+  // -------------------------------------------------------------------------
+  const adventure33 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-33" },
+    update: {},
+    create: {
+      id: "seed-adventure-33",
+      title: "Wadi Rum and Petra Desert Trek",
+      description: `Jordan in five days combines two of the ancient world's most spectacular landscapes: Petra — the Nabataean rock city carved into rose sandstone cliffs 2,000 years ago — and Wadi Rum, the vast desert valley of towering sandstone towers that Lawrence of Arabia called "vast, echoing, and Godlike." Together they form one of the world's great desert itineraries.
+
+Petra is best approached by the Siq at dawn — the 1.2km slot canyon narrows to 3m at its tightest point before opening onto the Treasury facade at the end of a bend. Arrive at 6am on a weekday and you will experience that moment alone. The main circuit adds the Monastery (850 steps above the valley — larger than the Treasury and usually deserted), the High Place of Sacrifice ridge walk, and the Royal Tombs facades. Two full days is the minimum to do Petra properly.
+
+Wadi Rum is best experienced by staying with a Bedouin camp and using their guides rather than joining jeep tours. Two nights in a desert camp gives time for a full day of trekking: Jebel Rum by its north-facing gully (3–4 hours), the sand dunes of Umm Ishrin, and the red canyon at Khazali where Nabataean inscriptions are carved into the canyon walls at shoulder height. The night sky from Wadi Rum is one of the darkest in the Middle East.
+
+Jordan is deeply hospitable; small gestures of reciprocity — accepting tea, sharing food — matter more than tip culture.`,
+      location: "Petra and Wadi Rum, Ma'an Governorate",
+      country: "Jordan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1539541417736-3d44c90da315?w=1600&q=80",
+      highlights: [
+        "Petra Siq at dawn: 1.2km slot canyon opening onto the Treasury at first light, alone",
+        "The Monastery (Al-Deir): larger than the Treasury, 850 steps above the valley, usually deserted",
+        "Wadi Rum Jebel Rum summit: sandstone towers above the red desert floor at sunset",
+        "Khazali Canyon: Nabataean inscriptions at shoulder height in a red slot canyon",
+        "Bedouin camp night in Wadi Rum: tea over the fire with the Milky Way overhead",
+        "Wadi Rum sunrise: the towers emerging from darkness with the dunes turning orange",
+      ],
+      gear: [
+        "Sun protection: hat, long sleeves, SPF50 (desert UV is extreme)",
+        "Hiking boots with ankle support for rocky canyon terrain",
+        "3L+ water capacity (no water in Wadi Rum between camps)",
+        "Headlamp (Petra at night and early Siq approach)",
+        "Jordan Pass (includes visa fee and Petra entry — significantly cheaper than paying separately)",
+        "Cash in JD — Wadi Rum camps are cash only",
+      ],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 80000,
+      latitude: 29.5350,
+      longitude: 35.4067,
+      published: true,
+      userId: user2.id,
+      voteCount: 96,
+      tags: {
+        connect: [
+          { id: allTags["desert"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2042,6 +2099,8 @@ Rent a semi-automatic Honda at Ha Giang (no licence required, ~200,000 VND per d
       { userId: user2.id, adventureId: adventure31.id },
       { userId: user2.id, adventureId: adventure32.id },
       { userId: user3.id, adventureId: adventure32.id },
+      { userId: user1.id, adventureId: adventure33.id },
+      { userId: user3.id, adventureId: adventure33.id },
     ],
     skipDuplicates: true,
   });
