@@ -26,7 +26,7 @@ export function Navbar() {
       <div className="h-px bg-gradient-to-r from-transparent via-amber-600/60 to-transparent" />
       <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-10">
-          <Link href="/adventures" className="group flex items-center gap-2.5">
+          <Link href="/" className="group flex items-center gap-2.5">
             <span className="font-display text-base leading-none text-amber-500 transition-colors group-hover:text-amber-400">
               ▲
             </span>

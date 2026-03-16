@@ -36,7 +36,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/adventures" className="group flex items-center gap-2.5">
+            <Link href="/" className="group flex items-center gap-2.5">
               <span className="font-display text-base text-amber-500 transition-colors group-hover:text-amber-400">
                 ▲
               </span>
