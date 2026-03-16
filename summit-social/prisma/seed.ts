@@ -1356,6 +1356,63 @@ Stay overnight in Beddgelert — a 45-minute drive from the trailhead — to rea
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 22 — Trolltunga Hike, Norway
+  // -------------------------------------------------------------------------
+  const adventure22 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-22" },
+    update: {},
+    create: {
+      id: "seed-adventure-22",
+      title: "Trolltunga Hike, Norway",
+      description: `Trolltunga — the Troll's Tongue — is a horizontal rock ledge jutting 700m above Lake Ringedalsvatnet in the Hardangerfjord region. It is the most dramatic viewpoint in Norway, and the photograph of someone standing on the ledge over that void has become one of the defining images of adventure travel. The hike is 22km and 1,100m of elevation gain, which makes it a serious day hike or a civilised two-day trip with a night at the top.
+
+The trail begins at Skjeggedal, climbs steeply through the birch forest above the Ringedalen valley, and crosses a long alpine plateau before the final approach to the Tongue. The plateau is genuinely exposed — in cloud it reduces to compass navigation between cairns — and the climate changes fast. In June the final kilometre involves crampons on consolidated snow. By late August the plateau is bare rock and crowberries.
+
+The two-day version camps on the plateau at the lake below Trolltunga, giving access to the ledge at sunrise before the day-hikers arrive. In summer the queue for the ledge photograph can be 90 minutes long; at 7am it is empty. The overnight also means you witness the plateau in the extraordinary light of the Norwegian summer evening — still bright at 11pm, turning amber and gold.
+
+Book the trail bus from Odda or Tyssedal in July and August — the trailhead car park fills before 7am.`,
+      location: "Trolltunga, Odda, Hardanger",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=1600&q=80",
+      highlights: [
+        "Trolltunga ledge: standing 700m above Ringedalsvatnet — the definitive Norway shot",
+        "Plateau sunrise before the day-hikers arrive — empty Tongue at 6:30am",
+        "Hardangerfjord panorama from the plateau: fjord system and glacier visible together",
+        "Midnight semi-darkness on the plateau — never truly dark in July",
+        "Ringedalen valley ascent through silver birch forest with waterfalls",
+        "Wild camping on the plateau: no crowds, total silence, no light pollution",
+      ],
+      gear: [
+        "Trekking poles (1,100m of ascent and the same descent in a single day)",
+        "Microspikes for June snow on the final approach",
+        "Full waterproofs and warm layers for plateau conditions",
+        "Tent if staying overnight (no hut on the route — wild camping is legal)",
+        "Navigation app with offline map (plateau cairns are hard to follow in cloud)",
+        "Camera — the Trolltunga shot requires a willing companion or tripod",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 20000,
+      latitude: 60.1242,
+      longitude: 6.7393,
+      published: true,
+      userId: user3.id,
+      voteCount: 108,
+      tags: {
+        connect: [
+          { id: allTags["midnight-sun"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1399,6 +1456,8 @@ Stay overnight in Beddgelert — a 45-minute drive from the trailhead — to rea
       { userId: user3.id, adventureId: adventure20.id },
       { userId: user1.id, adventureId: adventure21.id },
       { userId: user3.id, adventureId: adventure21.id },
+      { userId: user1.id, adventureId: adventure22.id },
+      { userId: user2.id, adventureId: adventure22.id },
     ],
     skipDuplicates: true,
   });
