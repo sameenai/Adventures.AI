@@ -1694,6 +1694,62 @@ Book accommodation in April — the Amalfi coast is full in July and August and 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 28 — Danube Cycle: Vienna to Budapest
+  // -------------------------------------------------------------------------
+  const adventure28 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-28" },
+    update: {},
+    create: {
+      id: "seed-adventure-28",
+      title: "Danube Cycle: Vienna to Budapest",
+      description: `The EuroVelo 6 Danube Cycling Path between Vienna and Budapest is the most beginner-friendly multi-day cycle touring route in Europe: 320km of dedicated riverside path with almost no traffic, consistent elevation gain (the Danube valley is near-flat for almost the entire distance), and a succession of Baroque cities and medieval market towns that provide a cultural counterpoint to the physical progress.
+
+Vienna to Bratislava (80km, day one) rolls through the Nationalpark Donau-Auen — a Danube floodplain forest of ash and willow — before the Bratislava skyline appears above the levee. Bratislava's old town deserves an afternoon: its scale is manageable and the castle-hill view over the Danube with the Austrian bank beyond captures the geography of the route perfectly.
+
+From Bratislava the path continues southeast through Slovakia and Hungarian border town Esztergom — with the largest basilica in Hungary dominating the river bend above the cycle path — before the final leg into Budapest. The Danube Bend south of Esztergom is the most scenic stretch: the river hairpins through forested hills and the baroque town of Visegrád perches on its promontory above the water.
+
+Budapest is the finish: arrive from the path on the north bank, cross the Chain Bridge, and reward yourself with a thermal bath in one of the city's 19th-century spa palaces.`,
+      location: "Vienna to Budapest via Bratislava",
+      country: "Austria",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: [
+        "Bratislava old town: compact Central European Baroque on the Danube bank",
+        "Esztergom Basilica: Hungary's largest church visible 20km downriver on approach",
+        "Danube Bend: river hairpin through forest hills between Visegrád and Budapest",
+        "Visegrád citadel above the river bend — medieval fortress on the limestone spur",
+        "Budapest Chain Bridge arrival: the Chain Bridge from the river at speed",
+        "Széchenyi thermal bath in Budapest: 19th-century spa to end six days of saddle time",
+      ],
+      gear: [
+        "Touring or hybrid bike (rentable in Vienna — multiple operators near main station)",
+        "Panniers or bikepacking bags (rear rack sufficient — route is flat)",
+        "Padded cycling shorts (6 days in the saddle demands comfort)",
+        "Lights (some tunnel sections on the path require front and rear)",
+        "Offline navigation: Komoot or Ride with GPS with EuroVelo 6 downloaded",
+        "Puncture kit and tyre levers (service shops in every town but not always open)",
+      ],
+      bestMonths: [4, 5, 6, 8, 9, 10],
+      estimatedCost: 70000,
+      latitude: 47.6875,
+      longitude: 17.6504,
+      published: true,
+      userId: user3.id,
+      voteCount: 49,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1749,6 +1805,8 @@ Book accommodation in April — the Amalfi coast is full in July and August and 
       { userId: user3.id, adventureId: adventure26.id },
       { userId: user1.id, adventureId: adventure27.id },
       { userId: user3.id, adventureId: adventure27.id },
+      { userId: user1.id, adventureId: adventure28.id },
+      { userId: user2.id, adventureId: adventure28.id },
     ],
     skipDuplicates: true,
   });
