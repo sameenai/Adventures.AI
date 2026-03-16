@@ -1020,6 +1020,62 @@ The villages fill with day-trippers from April to October; arrive early (before 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 16 — Gili Islands Snorkel Escape
+  // -------------------------------------------------------------------------
+  const adventure16 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-16" },
+    update: {},
+    create: {
+      id: "seed-adventure-16",
+      title: "Gili Islands Snorkel Escape",
+      description: `Three small coral islands off the northwest coast of Lombok, reachable by a 20-minute fast boat from Bangsal harbour. No motorised vehicles on any of the Gilis — just bicycles, horse carts, and foot traffic on sand paths. The pace drops to something close to silence.
+
+Gili Trawangan is the largest and most social, with beach bars and a sunset strip that fills at dusk. Gili Meno in the middle is the quietest — a handful of guesthouses, a turtle sanctuary, and coral gardens that begin metres from the beach. Gili Air combines the two: enough life to feel connected, enough quiet to sleep well.
+
+The snorkelling is the main event. The house reef at Gili Meno holds the densest population of sea turtles in Indonesia — not captive or baited, just resident. They feed on the seagrass at depths of 3–8m and are accustomed to swimmers. Green turtles and hawksbills both use the reef. You will see turtles.
+
+The coral restoration projects around all three islands are among the most successful in Southeast Asia. Biorock structures, planted with coral fragments, have created artificial reef systems that host remarkable diversity: lionfish, bumphead parrotfish, and blacktip reef sharks patrol the outer slopes. No experience is required — rent a mask and fins from any beach shack and walk in.`,
+      location: "Gili Islands, West Nusa Tenggara",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=1600&q=80",
+      highlights: [
+        "Gili Meno house reef — wild sea turtles feeding at 3–8m depth, no guide needed",
+        "Biorock coral restoration structures teeming with reef fish",
+        "Blacktip reef sharks on the outer slope of Gili Trawangan at dusk",
+        "Car-free island paths — only bicycles and horse carts between bungalows and beach",
+        "Sunset from Gili Trawangan's strip: Bali's Agung volcano on the horizon",
+        "Fresh grilled fish at sunset warung on any of the three islands",
+      ],
+      gear: [
+        "Mask and snorkel (rentable on island but bring your own for fit)",
+        "Reef-safe sunscreen only (chemical sunscreen banned on the Gilis)",
+        "Rash guard for sun protection on extended snorkel sessions",
+        "Waterproof dry bag for phone and valuables on boats",
+        "Light sandals or reef shoes (coral rubble on some entry points)",
+        "Cash in IDR — most warungs and smaller guesthouses don't take cards",
+      ],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 30000,
+      latitude: -8.3500,
+      longitude: 116.0400,
+      published: true,
+      userId: user3.id,
+      voteCount: 78,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["coastal"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1051,6 +1107,8 @@ The villages fill with day-trippers from April to October; arrive early (before 
       { userId: user3.id, adventureId: adventure14.id },
       { userId: user1.id, adventureId: adventure15.id },
       { userId: user3.id, adventureId: adventure15.id },
+      { userId: user1.id, adventureId: adventure16.id },
+      { userId: user2.id, adventureId: adventure16.id },
     ],
     skipDuplicates: true,
   });
