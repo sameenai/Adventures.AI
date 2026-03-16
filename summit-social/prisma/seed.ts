@@ -908,6 +908,2618 @@ Iceland's weather can deliver all four seasons in a single day. The Laugavegur h
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 14 — Cotswolds Way Weekend Walk
+  // -------------------------------------------------------------------------
+  const adventure14 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-14" },
+    update: {},
+    create: {
+      id: "seed-adventure-14",
+      title: "Cotswolds Way Weekend Walk",
+      description: `The Cotswolds is England at its most pastoral — limestone villages with honey-coloured stone, dry-stone walls threading between sheep pastures, church towers rising from beech hangers. The Cotswolds Way runs 164 km from Chipping Campden to Bath, but a single weekend on its northern stretch gives you the heart of the route without the need for a fortnight's leave.
+
+Start in Chipping Campden, a market town that has barely changed since the wool merchants built it in the 15th century. The first morning climbs to Dover's Hill — a natural amphitheatre with views across the Vale of Evesham — before dropping through Broadway and ascending Fish Hill, the Cotswolds' highest point at 312m. This is not altitude; it is perspective, and the view stretches forty miles on a clear day.
+
+The second day threads Stanton, Stanway, and Hailes Abbey — a ruined Cistercian monastery half-swallowed by meadow grass — before finishing at Winchcombe. These are villages that exist to be walked through, with pubs that have been serving walkers longer than the word "tourist" has existed.
+
+This is the ideal first multi-day walk: well-marked, well-serviced, with accommodation in every village and no technical terrain. Distance each day is 18–22km. Boots are required — the limestone clay turns slick after rain — but no specialist kit is needed. The Cotswolds rewards slow travel and stopping for every church gate.`,
+      location: "Chipping Campden to Winchcombe, Gloucestershire",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80",
+      highlights: [
+        "Dover's Hill amphitheatre — 40-mile views across the Vale of Evesham",
+        "Broadway village: honey-stone cottages, the Lygon Arms pub, and Tudor Market Hall",
+        "Fish Hill summit (312m) — the Cotswolds' highest accessible point",
+        "Hailes Abbey ruins: 13th-century Cistercian monastery in open meadow",
+        "Stanton village: arguably the most perfectly preserved medieval village in England",
+        "Real ale in centuries-old pubs every 8–10km along the route",
+      ],
+      gear: [
+        "Waterproof hiking boots (limestone clay is slick after rain)",
+        "Trekking poles optional but useful on descents",
+        "Waterproof jacket and pack cover",
+        "OS Explorer Map OL45 'The Cotswolds' (or Ordnance Survey app)",
+        "Day pack 25–30L with packed lunch",
+        "Layers for unpredictable English weather",
+      ],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 25000,
+      latitude: 52.0486,
+      longitude: -1.7775,
+      published: true,
+      userId: user1.id,
+      voteCount: 45,
+      tags: {
+        connect: [
+          { id: allTags["multi-day"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 15 — Cinque Terre Coastal Trails
+  // -------------------------------------------------------------------------
+  const adventure15 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-15" },
+    update: {},
+    create: {
+      id: "seed-adventure-15",
+      title: "Cinque Terre Coastal Trails",
+      description: `Five fishing villages clamped to cliffs above the Ligurian Sea, connected by stone paths that have been maintained since the 12th century. The Cinque Terre — Monterosso, Vernazza, Corniglia, Manarola, and Riomaggiore — are Italy's most visited coastal stretch for good reason, and the walking trails that thread between them are among the most scenic in Europe.
+
+The classic weekend approach walks from north to south over two days: Monterosso to Vernazza on day one (the most dramatic section, with cliff-edge path above breaking surf), then Vernazza to Manarola and down to Riomaggiore on day two via the famed Sentiero Azzurro. The Via dell'Amore — the "Lovers' Path" between Manarola and Riomaggiore — is the most photographed stretch, cut directly into the cliff face above the sea.
+
+The high trail network — less visited and more rewarding — climbs above the coastal path into the terraced vineyards and chestnut forests. Sciacchetrà, the local dessert wine made from Bosco, Albarola, and Vermentino grapes grown on these impossibly steep terraces, is the reward for going up instead of down.
+
+The villages fill with day-trippers from April to October; arrive early (before 9am) or stay the night to experience them in the hour before the first train arrives and the hour after the last train leaves.`,
+      location: "Cinque Terre, Liguria",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=1600&q=80",
+      highlights: [
+        "Vernazza harbour from the coastal trail above — the classic Cinque Terre view",
+        "Via dell'Amore: cliff-cut path between Manarola and Riomaggiore above the Ligurian Sea",
+        "High trail through terraced Sciacchetrà vineyards above Corniglia",
+        "Sunrise from Manarola headland before the day-trippers arrive",
+        "Monterosso beach swim after the cliff walk — the only sandy beach of the five",
+        "Focaccia di Recco and local anchovies in any harbour bar",
+      ],
+      gear: [
+        "Trail shoes or light hiking boots (paths are paved but uneven)",
+        "Cinque Terre Card (trail access + train connections included)",
+        "Sun protection — exposed cliff sections with no shade",
+        "Small daypack 15–20L with water (fountains in every village)",
+        "Swimwear for Monterosso beach",
+        "Light layer for morning coastal breeze",
+      ],
+      bestMonths: [4, 5, 9, 10, 11],
+      estimatedCost: 40000,
+      latitude: 44.1274,
+      longitude: 9.7052,
+      published: true,
+      userId: user2.id,
+      voteCount: 62,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["multi-day"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 16 — Gili Islands Snorkel Escape
+  // -------------------------------------------------------------------------
+  const adventure16 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-16" },
+    update: {},
+    create: {
+      id: "seed-adventure-16",
+      title: "Gili Islands Snorkel Escape",
+      description: `Three small coral islands off the northwest coast of Lombok, reachable by a 20-minute fast boat from Bangsal harbour. No motorised vehicles on any of the Gilis — just bicycles, horse carts, and foot traffic on sand paths. The pace drops to something close to silence.
+
+Gili Trawangan is the largest and most social, with beach bars and a sunset strip that fills at dusk. Gili Meno in the middle is the quietest — a handful of guesthouses, a turtle sanctuary, and coral gardens that begin metres from the beach. Gili Air combines the two: enough life to feel connected, enough quiet to sleep well.
+
+The snorkelling is the main event. The house reef at Gili Meno holds the densest population of sea turtles in Indonesia — not captive or baited, just resident. They feed on the seagrass at depths of 3–8m and are accustomed to swimmers. Green turtles and hawksbills both use the reef. You will see turtles.
+
+The coral restoration projects around all three islands are among the most successful in Southeast Asia. Biorock structures, planted with coral fragments, have created artificial reef systems that host remarkable diversity: lionfish, bumphead parrotfish, and blacktip reef sharks patrol the outer slopes. No experience is required — rent a mask and fins from any beach shack and walk in.`,
+      location: "Gili Islands, West Nusa Tenggara",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=1600&q=80",
+      highlights: [
+        "Gili Meno house reef — wild sea turtles feeding at 3–8m depth, no guide needed",
+        "Biorock coral restoration structures teeming with reef fish",
+        "Blacktip reef sharks on the outer slope of Gili Trawangan at dusk",
+        "Car-free island paths — only bicycles and horse carts between bungalows and beach",
+        "Sunset from Gili Trawangan's strip: Bali's Agung volcano on the horizon",
+        "Fresh grilled fish at sunset warung on any of the three islands",
+      ],
+      gear: [
+        "Mask and snorkel (rentable on island but bring your own for fit)",
+        "Reef-safe sunscreen only (chemical sunscreen banned on the Gilis)",
+        "Rash guard for sun protection on extended snorkel sessions",
+        "Waterproof dry bag for phone and valuables on boats",
+        "Light sandals or reef shoes (coral rubble on some entry points)",
+        "Cash in IDR — most warungs and smaller guesthouses don't take cards",
+      ],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 30000,
+      latitude: -8.3500,
+      longitude: 116.0400,
+      published: true,
+      userId: user3.id,
+      voteCount: 78,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["coastal"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 17 — Phi Phi Islands Sea Kayak
+  // -------------------------------------------------------------------------
+  const adventure17 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-17" },
+    update: {},
+    create: {
+      id: "seed-adventure-17",
+      title: "Phi Phi Islands Sea Kayak",
+      description: `The Phi Phi archipelago in the Andaman Sea is one of Thailand's most dramatic seascapes — limestone karst towers draped in jungle, rising straight from water so clear you can see the shadow of your kayak on the seabed at 8m depth. The standard tourist experience arrives by speedboat and leaves by afternoon. The kayak experience is something else entirely.
+
+Three days of paddling gives you access to the sea caves, hidden lagoons, and morning coves that the tour boats never reach. The hongs — enclosed tidal lagoons inside hollow karst formations — can only be entered by kayak at low tide, ducking through tunnel entrances less than a metre high to emerge into cathedral chambers open to the sky, with herons nesting on the cliff walls and mangrove roots descending into crystalline water.
+
+Maya Bay — the beach made famous by The Beach — is best approached by kayak in the early morning before 7am, when the speedboats haven't yet arrived and the beach is empty of everything except sand, cliff, and sea. The national park closed the bay for three years to allow coral recovery; the water clarity has improved dramatically since reopening.
+
+Camping on Phi Phi Don with a kayak allows access to the bay side beaches after sunset, when bioluminescent plankton lights the water blue with each paddle stroke.`,
+      location: "Ko Phi Phi, Krabi Province",
+      country: "Thailand",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=1600&q=80",
+      highlights: [
+        "Sea cave hongs — tidal lagoons inside hollow karst, entered by kayak at low tide",
+        "Maya Bay before 7am — empty beach in the limestone amphitheatre",
+        "Bioluminescent plankton at night turning paddle strokes electric blue",
+        "Viking Cave: 400-year-old sea swallow nest paintings on the cliff wall",
+        "Morning snorkelling inside Pileh Lagoon — fish density visible from the kayak",
+        "Sunset from Phi Phi Don viewpoint above the twin-bay silhouette",
+      ],
+      gear: [
+        "Sit-on-top kayak (rentable at Phi Phi Don pier — double kayak for beginners)",
+        "Dry bag for phone, wallet, and camera",
+        "Reef-safe sunscreen (Andaman coral is sensitive)",
+        "Snorkel mask (bring own for fit — lagoon snorkelling is excellent)",
+        "Water shoes for rocky beach landings",
+        "Waterproof phone case for underwater photos",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 20000,
+      latitude: 7.7407,
+      longitude: 98.7784,
+      published: true,
+      userId: user1.id,
+      voteCount: 55,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 18 — Cape Peninsula Hike
+  // -------------------------------------------------------------------------
+  const adventure18 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-18" },
+    update: {},
+    create: {
+      id: "seed-adventure-18",
+      title: "Cape Peninsula Hike & Penguin Beach",
+      description: `The Cape Peninsula juts 75km south from Cape Town into the South Atlantic, narrowing to the Cape of Good Hope — not the southernmost point of Africa (that's Cape Agulhas, 150km east) but the point where the continent seems to end and the two oceans begin their conversation. A two-day walk covers the peninsula's highlights from the city end to the Cape, with a return by train through the wine farms of the False Bay coast.
+
+Day one starts at Chapman's Peak, where the cliff road is closed to traffic and open to walkers with unobstructed views of Hout Bay and the Atlantic. The trail threads through fynbos — the unique Cape floral kingdom with 8,500 plant species in an area the size of Portugal — before descending to Noordhoek Beach, a 7km arc of white sand usually shared only with horses and kelp.
+
+Day two covers Boulders Beach, where an African penguin colony of 3,000 birds has colonised the granite boulders between the beach houses, and the Cape of Good Hope itself — the dramatic meeting point of the peninsula's final cliffs, with a lighthouse, a sign, and views that feel like the edge of something large.
+
+This is one of the world's few places where baboons, penguins, and great white sharks all share a coastline. The baboons are genuinely dangerous in car parks; keep windows closed and bags zipped.`,
+      location: "Cape Peninsula, Western Cape",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=1600&q=80",
+      highlights: [
+        "Boulders Beach African penguin colony — 3,000 penguins between the beach houses",
+        "Cape of Good Hope: the southwest tip where two ocean systems meet",
+        "Chapman's Peak cliff walk above the Atlantic with Hout Bay below",
+        "Fynbos biome: 8,500 plant species in the world's smallest floral kingdom",
+        "Noordhoek Beach — 7km of white sand shared only with horses",
+        "Cape Point lighthouse viewpoint: 300m above the wave-cut cliffs",
+      ],
+      gear: [
+        "Trail shoes or light hiking boots",
+        "Windproof jacket (Cape winds are forceful and sudden)",
+        "Sun protection — UV index routinely exceeds 11 in summer",
+        "Cape Peninsula National Park entry fee (included in SAN Parks pass)",
+        "Camera with a wide angle for cliff panoramas",
+        "Water bottle — no springs on the upper trail",
+      ],
+      bestMonths: [9, 10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 15000,
+      latitude: -34.3568,
+      longitude: 18.4734,
+      published: true,
+      userId: user2.id,
+      voteCount: 41,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 19 — Dolomites Tre Cime Loop
+  // -------------------------------------------------------------------------
+  const adventure19 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-19" },
+    update: {},
+    create: {
+      id: "seed-adventure-19",
+      title: "Dolomites Tre Cime Loop",
+      description: `The Tre Cime di Lavaredo — three vertical dolomite pillars rising to 2,999m from the Sexten Dolomites plateau — are the most photographed rock formation in the Alps, and the circular trail beneath them is one of the most accessible truly spectacular mountain walks in Europe. The loop is 9km and 600m of elevation gain, and it can be walked in three hours by a fit person or stretched across a magnificent day.
+
+The standard approach drives or takes a shuttle bus from Auronzo to the Rifugio Auronzo at 2,333m, which eliminates the hardest altitude gain. From there the trail circles anticlockwise through the rocky saddles on the north face — the dramatic side, where the walls drop 500m into the scree below — before returning across the south-facing meadows with the peaks' profiles catching the afternoon light.
+
+The north face views are the highlight: the Cime di Dentro, Cima Grande, and Cima Occidentale standing in a row, their north walls scored with ice and lichens, the Austrian Dolomites behind them. You can often see climbers on the routes but the walls are genuinely large enough that they appear as insects.
+
+Arrive before 8am to park, or take the shuttle after 9am and accept sharing the trail. The rifugio system offers lunch and coffee at 2,450m. Sunset from the Locatelli Rifugio on the north side is worth staying for.`,
+      location: "Tre Cime di Lavaredo, South Tyrol",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1600&q=80",
+      highlights: [
+        "North face view of all three Cime in a line — the definitive Dolomites image",
+        "Rifugio Locatelli at the north saddle — coffee with the walls directly above",
+        "Climbers visible on the north face routes from the trail below",
+        "Alpine meadows on the south loop: wildflowers and marmots in July",
+        "Sunrise from the Auronzo Rifugio: the three peaks turning orange at dawn",
+        "Forcella Lavaredo saddle (2,454m): the full north-face panorama revealed at once",
+      ],
+      gear: [
+        "Hiking boots with ankle support (loose rock on the saddle crossings)",
+        "Warm mid-layer (north face is cold and shadowed even in July)",
+        "Trekking poles for the descent on loose dolomite scree",
+        "Sun protection — UV at 2,400m is intense",
+        "Shuttle bus ticket from Auronzo (saves parking fee, avoids queue)",
+        "Cash for rifugio lunch (cards not always accepted at altitude)",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 30000,
+      latitude: 46.6175,
+      longitude: 12.3048,
+      published: true,
+      userId: user3.id,
+      voteCount: 91,
+      tags: {
+        connect: [
+          { id: allTags["alpine"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 20 — Mount Fuji Sunrise Climb
+  // -------------------------------------------------------------------------
+  const adventure20 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-20" },
+    update: {},
+    create: {
+      id: "seed-adventure-20",
+      title: "Mount Fuji Sunrise Climb",
+      description: `Mount Fuji is Japan's highest peak at 3,776m and its most iconic symbol — a near-perfect stratovolcano that has been the subject of Japanese art for a thousand years. Climbing it overnight to reach the summit for sunrise (goraiko) is a pilgrimage that millions have made, and for good reason: watching the sun rise above a sea of cloud from Japan's roof, with the shadow of the cone stretching west across the Pacific horizon, is one of the great mountain experiences in the world.
+
+The Yoshida Trail on the north flank is the most popular route and the best serviced — staffed mountain huts every 300m of elevation above the 5th Station, selling oxygen canisters, hot food, and warming stations for the inevitable midnight cold. The climb takes 5–7 hours to the summit crater; descent via the Subashiri Trail takes 3–4 hours on a sandy switchback designed specifically for fast descent.
+
+Fuji's season is strictly July 1 to mid-September. Outside this window, trails are officially closed and mountain huts are shuttered. The crowds are real — weekends in August can put 10,000 people on the mountain in a single night. Weekday departures in July or early September dramatically improve the experience.
+
+Above the 8th Station the cold is serious. The crater rim at 3,776m in July at 4am is regularly below 0°C with wind. Dress for conditions you won't encounter at 5th Station.`,
+      location: "Mount Fuji, Shizuoka/Yamanashi Prefecture",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1504598318550-17eba1008a68?w=1600&q=80",
+      highlights: [
+        "Goraiko sunrise from the crater rim — the shadow of Fuji stretching over Pacific cloud",
+        "Crater walk: the full volcanic rim circuit at 3,776m takes 45 minutes",
+        "Sea of clouds (Unkai) below the summit on clear mornings",
+        "Mountain hut culture: hot noodles and tea at midnight above 3,000m",
+        "Descent on the Subashiri sand trail — running descent on volcanic ash",
+        "Yoshida 5th Station: torii gates and traditional stalls before the ascent begins",
+      ],
+      gear: [
+        "Insulated jacket and gloves — summit temperatures below 0°C at night",
+        "Waterproof outer shell (sudden storms above 3,000m)",
+        "Headlamp with spare batteries (4-hour night approach)",
+        "Trekking poles (Subashiri descent is steep switchback)",
+        "Mountain sickness medication (optional but recommended for susceptible climbers)",
+        "Cash — hut prices climb with altitude, cards not accepted at all stops",
+      ],
+      bestMonths: [7, 8],
+      estimatedCost: 30000,
+      latitude: 35.3606,
+      longitude: 138.7274,
+      published: true,
+      userId: user1.id,
+      voteCount: 115,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 21 — Snowdon via Watkin Path
+  // -------------------------------------------------------------------------
+  const adventure21 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-21" },
+    update: {},
+    create: {
+      id: "seed-adventure-21",
+      title: "Snowdon via the Watkin Path",
+      description: `Snowdon — Yr Wyddfa in Welsh — is the highest point in England and Wales at 1,085m, and the Watkin Path is its finest ascent route: beginning in a Nantgwynant oakwood beside a waterfall and climbing through cwms, beside Bronze Age standing stones and abandoned slate quarries, to the summit ridge with 360-degree views across Snowdonia and, on clear days, Ireland.
+
+The Watkin Path is the longest and most varied of Snowdon's six main routes. The lower section through Nantgwynant is genuinely woodland walking — ancient sessile oak hung with ferns and mosses in a landscape that has barely changed since the glaciers retreated 12,000 years ago. The ruins of the Plas Cwmllan slate quarry halfway up are a reminder that this mountain was a working landscape until the 1890s.
+
+The upper section becomes rocky and exposed, requiring hands on rock at the final steps to the summit. The Bwlch y Saethau (Pass of the Arrows) on the ridge is where, in legend, Arthur fell in his final battle. The summit cairn holds the ruins of a Victorian railway station — the Snowdon Mountain Railway still runs from Llanberis and deposits people 50m from the top, which adds to the surreal summit experience.
+
+Stay overnight in Beddgelert — a 45-minute drive from the trailhead — to reach the car park before the 9am rush on weekends.`,
+      location: "Snowdon (Yr Wyddfa), Gwynedd",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [
+        "Nantgwynant oakwood approach — ancient sessile oak forest below the cwm",
+        "Plas Cwmllan slate quarry ruins: mid-Victorian industrial archaeology at 700m",
+        "Bwlch y Saethau ridge: Arthurian legend and a 180-degree ridgeline view",
+        "Summit (1,085m): highest point in England and Wales, with a cafe",
+        "Cwm Llan under Yr Wyddfa: glacial cirque with standing water in winter",
+        "Views to Anglesey, Cardigan Bay, and (rarely) the Wicklow Mountains of Ireland",
+      ],
+      gear: [
+        "Waterproof boots — the Watkin Path has permanent stream crossings low down",
+        "Full waterproofs including trousers (Welsh weather is famously changeable)",
+        "Trekking poles (upper section has loose shale)",
+        "Emergency whistle and basic first aid",
+        "OS Explorer Map OL17 'Snowdon' (or downloaded offline)",
+        "Layers including warm mid-layer (summit is 1,085m — noticeably cold)",
+      ],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 10000,
+      latitude: 53.0685,
+      longitude: -4.0763,
+      published: true,
+      userId: user2.id,
+      voteCount: 38,
+      tags: {
+        connect: [
+          { id: allTags["alpine"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 22 — Trolltunga Hike, Norway
+  // -------------------------------------------------------------------------
+  const adventure22 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-22" },
+    update: {},
+    create: {
+      id: "seed-adventure-22",
+      title: "Trolltunga Hike, Norway",
+      description: `Trolltunga — the Troll's Tongue — is a horizontal rock ledge jutting 700m above Lake Ringedalsvatnet in the Hardangerfjord region. It is the most dramatic viewpoint in Norway, and the photograph of someone standing on the ledge over that void has become one of the defining images of adventure travel. The hike is 22km and 1,100m of elevation gain, which makes it a serious day hike or a civilised two-day trip with a night at the top.
+
+The trail begins at Skjeggedal, climbs steeply through the birch forest above the Ringedalen valley, and crosses a long alpine plateau before the final approach to the Tongue. The plateau is genuinely exposed — in cloud it reduces to compass navigation between cairns — and the climate changes fast. In June the final kilometre involves crampons on consolidated snow. By late August the plateau is bare rock and crowberries.
+
+The two-day version camps on the plateau at the lake below Trolltunga, giving access to the ledge at sunrise before the day-hikers arrive. In summer the queue for the ledge photograph can be 90 minutes long; at 7am it is empty. The overnight also means you witness the plateau in the extraordinary light of the Norwegian summer evening — still bright at 11pm, turning amber and gold.
+
+Book the trail bus from Odda or Tyssedal in July and August — the trailhead car park fills before 7am.`,
+      location: "Trolltunga, Odda, Hardanger",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=1600&q=80",
+      highlights: [
+        "Trolltunga ledge: standing 700m above Ringedalsvatnet — the definitive Norway shot",
+        "Plateau sunrise before the day-hikers arrive — empty Tongue at 6:30am",
+        "Hardangerfjord panorama from the plateau: fjord system and glacier visible together",
+        "Midnight semi-darkness on the plateau — never truly dark in July",
+        "Ringedalen valley ascent through silver birch forest with waterfalls",
+        "Wild camping on the plateau: no crowds, total silence, no light pollution",
+      ],
+      gear: [
+        "Trekking poles (1,100m of ascent and the same descent in a single day)",
+        "Microspikes for June snow on the final approach",
+        "Full waterproofs and warm layers for plateau conditions",
+        "Tent if staying overnight (no hut on the route — wild camping is legal)",
+        "Navigation app with offline map (plateau cairns are hard to follow in cloud)",
+        "Camera — the Trolltunga shot requires a willing companion or tripod",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 20000,
+      latitude: 60.1242,
+      longitude: 6.7393,
+      published: true,
+      userId: user3.id,
+      voteCount: 108,
+      tags: {
+        connect: [
+          { id: allTags["midnight-sun"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 23 — Tongariro Alpine Crossing, New Zealand
+  // -------------------------------------------------------------------------
+  const adventure23 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-23" },
+    update: {},
+    create: {
+      id: "seed-adventure-23",
+      title: "Tongariro Alpine Crossing",
+      description: `New Zealand's most famous single-day walk traverses the heart of Tongariro National Park — a UNESCO dual World Heritage site and the setting for Mount Doom in the Lord of the Rings films. The 19.4km crossing climbs through steam vents, across the South Crater, over the Red Crater rim at 1,886m, and descends past the Emerald Lakes — volcanic pools tinted brilliant turquoise by mineral deposits — before dropping through subalpine scrub to the Ketetahi trailhead.
+
+The walk is one-way, requiring a shuttle bus from either end. The climb to Red Crater is steep — 300m in 2km — and the crater rim is genuinely exposed, with strong cold winds even in midsummer. The descent from Red Crater involves loose scree that is slippery in wet conditions. But the summit view rewards every element of effort: the active volcanic vent of Te Maari, the three peaks of Tongariro, Ngauruhoe, and Ruapehu in profile, and the Blue and Emerald Lakes sitting in the caldera below like alien gemstones.
+
+The Crossing is sacred to Maori — Ngāti Tūwharetoa consider the peaks as ancestors rather than mountains. Walk respectfully: do not climb off-trail onto the summit cones, and do not remove rocks or volcanic material.
+
+Check the eruption forecast at GeoNet before departure — the Tongariro volcano system had a minor eruption in 2012 and the hazard level fluctuates.`,
+      location: "Tongariro National Park, Waikato",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=1600&q=80",
+      highlights: [
+        "Emerald Lakes: volcanic mineral pools in the caldera — electric blue-green in morning light",
+        "Red Crater rim (1,886m): the highest point, with steam and the full volcanic panorama",
+        "Mount Ngauruhoe (Mount Doom) in profile on the western approach",
+        "South Crater: flat volcanic plain, Mars-like in colour and emptiness",
+        "Steam vents on the lower Ketetahi slope — heat rising through snow in winter",
+        "The full three-volcano alignment: Ruapehu, Ngauruhoe, Tongariro across the plateau",
+      ],
+      gear: [
+        "Sturdy hiking boots (loose volcanic scree on Red Crater descent)",
+        "Windproof layer — crater rim wind can be strong even on calm days",
+        "Full waterproofs (weather can close in in 30 minutes)",
+        "Trekking poles for the steep scree descent",
+        "Shuttle booking (one-way crossing requires transport both ends)",
+        "GeoNet eruption forecast check on day of walk",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 25000,
+      latitude: -39.1362,
+      longitude: 175.6422,
+      published: true,
+      userId: user1.id,
+      voteCount: 84,
+      tags: {
+        connect: [
+          { id: allTags["volcanic"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 24 — Ben Nevis Winter Summit
+  // -------------------------------------------------------------------------
+  const adventure24 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-24" },
+    update: {},
+    create: {
+      id: "seed-adventure-24",
+      title: "Ben Nevis Winter Summit",
+      description: `At 1,345m, Ben Nevis is the highest point in the British Isles — unremarkable in height by alpine standards, but formidable in winter condition. The north face holds Scotland's longest and most technically demanding ice routes, and the summit plateau in January sits under ice and wind that regularly exceeds 150 km/h. A winter ascent of the Mountain Track (the tourist path in summer) is a serious mountaineering objective that requires full winter equipment and navigation competence.
+
+The Mountain Track from the Visitor Centre in Glen Nevis is 16km return with 1,345m of ascent. In summer it is a well-marked gravel path. In winter it is buried under consolidated snow and ice from the 700m mark, becomes a grade 1/2 winter climb on the final zigzags in hard conditions, and the plateau is a white-out navigation exercise in cloud. Every year ill-prepared walkers require rescue. Every year some don't come back.
+
+Which makes the summit in good conditions one of the most rewarding day objectives in the UK. Clear winter days — rare but spectacular — give views to Ireland, Northern England, and deep into the Cairngorms. The snow cornices on the north face rim are sculptural. The ice formations in the summit observatory ruins are extraordinary. The silence at the top on a still day in February is complete.
+
+The key hazard is the plateau: featureless, cornice-rimmed on the north, and in cloud indistinguishable from the descent route. A compass bearing (282° for the summit, 231° to descend away from the cliffs) must be known before departure.`,
+      location: "Ben Nevis, Fort William, Lochaber",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=1600&q=80",
+      highlights: [
+        "Highest summit in the British Isles in full winter condition",
+        "Summit plateau ice formations and north-face cornice viewing in clear weather",
+        "Observatory ruins at 1,345m buried under winter ice",
+        "360-degree view to Ireland on rare clear winter days",
+        "Red Burn gully: the classic line on the Mountain Track in grade 1/2 snow",
+        "Fort William below in late afternoon sun after summit descent",
+      ],
+      gear: [
+        "12-point crampons (mandatory above 700m in winter condition)",
+        "Ice axe — arrest technique essential before departure",
+        "Full winter layering system rated to -20°C windchill",
+        "Compass and ability to take bearings (GPS fails in wet conditions)",
+        "Goggles and balaclava for plateau wind",
+        "Avalanche transceiver, probe, and shovel (essential in loaded snow conditions)",
+      ],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 25000,
+      latitude: 56.7969,
+      longitude: -5.0037,
+      published: true,
+      userId: user2.id,
+      voteCount: 73,
+      tags: {
+        connect: [
+          { id: allTags["alpine"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 25 — Half Dome via Cables, Yosemite
+  // -------------------------------------------------------------------------
+  const adventure25 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-25" },
+    update: {},
+    create: {
+      id: "seed-adventure-25",
+      title: "Half Dome via Cables, Yosemite",
+      description: `Half Dome is Yosemite's iconic monolith — the 2,693m dome whose sheer northwest face has defined adventure photography since Ansel Adams pointed his camera at it in the 1940s. The summit route climbs the back of the dome via two fixed steel cables on a 45-degree polished granite slope, above a vertical face that drops 600m to the valley floor. It is not technically difficult, but it is genuinely exposed, and the cables section above the shoulder has no safety net — if you fall, you fall.
+
+The round trip from Yosemite Valley is 24km and 1,460m of elevation gain — a serious day hike in any context, made harder by altitude and the physical demands of the cables. Most hikers start at 5–6am to reach the cables before afternoon thunderstorm buildup.
+
+The sub-dome approach below the cables is a classic Yosemite granite scramble: hands-on slabs at 30–35 degrees, requiring some comfort with exposure. The cables themselves (two parallel steel cables supported on metal poles driven into the granite) are the crux — 130m of near-vertical granite with wooden boards as foot rests. In wet conditions the polished granite becomes ice-slick and the NPS closes the cables entirely.
+
+A permit is required: 300 daily hikers maximum in the cable season (late May to mid-October). Apply in the permit lottery in March. Day-hike permits fill immediately.`,
+      location: "Yosemite National Park, California",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [
+        "Half Dome cables: 130m of fixed-cable climbing at 45 degrees above a 600m drop",
+        "Summit views: Yosemite Valley below, Clouds Rest ahead, Sierra Nevada stretching east",
+        "Nevada Falls on the Mist Trail approach — rainbow in the spray at midday",
+        "Sub-Dome slabs: granite scrambling above the sub-dome shoulder with exposure",
+        "Yosemite Valley from above — the perspective no valley-floor viewpoint can give",
+        "Merced River canyon and Liberty Cap from the summit rim",
+      ],
+      gear: [
+        "Leather gloves (mandatory — cable friction tears skin)",
+        "Helmet (rockfall risk from cables above you when crowded)",
+        "Trail running shoes or approach shoes (stickier on granite than boots)",
+        "Early start (5am) to beat afternoon thunderstorm risk",
+        "3L of water (no reliable source above Nevada Falls)",
+        "Half Dome permit (lottery in March — no permit, no cables)",
+      ],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 15000,
+      latitude: 37.7459,
+      longitude: -119.5332,
+      published: true,
+      userId: user3.id,
+      voteCount: 127,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 26 — Calanques Rock Climbing & Coastal Camp
+  // -------------------------------------------------------------------------
+  const adventure26 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-26" },
+    update: {},
+    create: {
+      id: "seed-adventure-26",
+      title: "Calanques Rock Climbing and Coastal Camp",
+      description: `The Calanques are a 20km stretch of limestone fjords between Marseille and Cassis on the French Mediterranean coast — creamy white cliffs dropping into water so clear and blue it reads as deliberately saturated. The national park preserves some of the best sport climbing in France alongside wild swimming, coastal camping, and walking that oscillates between perfume of wild thyme and vertigo.
+
+Three days combines the best of the Calanques: one day of climbing on the limestone bolted routes above En-Vau (the most spectacular fjord in the range, accessible only on foot or by sea), one day of coastal traversing between Cassis and Morgiou, and one overnight camp on a plateau above the cliff edge with the Mediterranean 200m below and the Calanques d'En-Vau spreading west in the evening light.
+
+The climbing here is exceptional — 5a through 8c routes on pocketed limestone with the sea below. The beginner routes at Sormiou and Morgiou are steep and well-protected; the harder routes at Devenson have serious runout and require traditional skills. Most rental guide services offer a full climbing day for €80–100 pp.
+
+Wild camping is technically prohibited in the Calanques National Park but tolerated on certain plateaux — check current rules with the park office in Marseille. The alternative is a B&B in Cassis (15-minute drive) and day access on foot.`,
+      location: "Calanques National Park, Bouches-du-Rhone",
+      country: "France",
+      continent: "Europe",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?w=1600&q=80",
+      highlights: [
+        "Calanque d'En-Vau: the most dramatic fjord, accessible only on foot — turquoise below white cliffs",
+        "Sport climbing above the Mediterranean on pocketed limestone with sea views",
+        "Wild swimming at the base of the cliffs in water clear enough to see 15m depth",
+        "Coastal traverse: scrambling between fjords with cliff tops above the sea",
+        "Sunset from the En-Vau plateau — Calanques silhouettes in amber light",
+        "Marseille bouillabaisse after the climb — the only acceptable post-climbing meal",
+      ],
+      gear: [
+        "Rock shoes and harness (rentable in Cassis and Marseille)",
+        "Helmet (mandatory on all limestone routes — loose pockets)",
+        "Chalk bag and belaying device",
+        "Approach shoes for the rocky path to En-Vau (30-minute scramble)",
+        "Swimwear for calanque pools (water temperature 20–24°C in summer)",
+        "Sun protection — white limestone reflects UV from above and below",
+      ],
+      bestMonths: [4, 5, 6, 9, 10, 11],
+      estimatedCost: 50000,
+      latitude: 43.2071,
+      longitude: 5.4455,
+      published: true,
+      userId: user1.id,
+      voteCount: 66,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 27 — Amalfi Coast Path Walk
+  // -------------------------------------------------------------------------
+  const adventure27 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-27" },
+    update: {},
+    create: {
+      id: "seed-adventure-27",
+      title: "Amalfi Coast Path Walk",
+      description: `The Amalfi Coast is a 50km stretch of vertical southern Italy — cliff villages stacked above the Tyrrhenian Sea, lemon terraces hanging between the houses, and a driving road so narrow it has become a tourist attraction in itself. Walking it rather than driving is the only way to access the high paths that connect the villages above the road, where the real Amalfi exists: stone mule tracks, abandoned terraces reclaimed by wild oregano and rosemary, and views across the water to Capri.
+
+The Sentiero degli Dei — the Path of the Gods — is the centrepiece. It runs high above Positano from Agerola to Nocelle, traversing the ridge at 600m with the coast and Capri below and the Lattari mountains above. It takes 4–5 hours and gains nothing in the walking: the elevation is held the entire length. The views are so consistently spectacular that progress slows involuntarily.
+
+A five-day walk covers the full coast from Salerno to Positano via the high paths, with nights in Cetara (the finest small village on the coast), Ravello (above the road, genuinely quiet), Praiano, and Positano. Each day is 15–20km with 700–1,000m of accumulated ascent and descent on stone steps built centuries ago and maintained with serious care.
+
+Book accommodation in April — the Amalfi coast is full in July and August and prices treble.`,
+      location: "Amalfi Coast, Campania",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1529573441783-0ccba9a8abcb?w=1600&q=80",
+      highlights: [
+        "Sentiero degli Dei (Path of the Gods): 600m-high traverse with Capri on the horizon",
+        "Ravello above the crowds: medieval village with Europe's finest coastal garden",
+        "Cetara harbour: small fishing village, tuna colatura in everything",
+        "Positano descent: cliff stairs through bougainvillea arriving at the beach",
+        "Lemon groves between Minori and Maiori: fragrant tunnel paths under the canopy",
+        "Nocelle sunset: the Positano silhouette and the open Tyrrhenian at dusk",
+      ],
+      gear: [
+        "Comfortable trail shoes (stone steps are slippery when wet)",
+        "Light daypack (20L — luggage transfer available between towns)",
+        "Sun protection — limited shade on high paths",
+        "Water bottle — springs in each village but limited on the ridge paths",
+        "Light layers for evening (cliff villages cool fast after sunset)",
+        "Small amount of cash (village trattorie and path-side bars are cash only)",
+      ],
+      bestMonths: [4, 5, 6, 9, 10, 11],
+      estimatedCost: 80000,
+      latitude: 40.6340,
+      longitude: 14.6027,
+      published: true,
+      userId: user2.id,
+      voteCount: 54,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["cultural-immersion"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 28 — Danube Cycle: Vienna to Budapest
+  // -------------------------------------------------------------------------
+  const adventure28 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-28" },
+    update: {},
+    create: {
+      id: "seed-adventure-28",
+      title: "Danube Cycle: Vienna to Budapest",
+      description: `The EuroVelo 6 Danube Cycling Path between Vienna and Budapest is the most beginner-friendly multi-day cycle touring route in Europe: 320km of dedicated riverside path with almost no traffic, consistent elevation gain (the Danube valley is near-flat for almost the entire distance), and a succession of Baroque cities and medieval market towns that provide a cultural counterpoint to the physical progress.
+
+Vienna to Bratislava (80km, day one) rolls through the Nationalpark Donau-Auen — a Danube floodplain forest of ash and willow — before the Bratislava skyline appears above the levee. Bratislava's old town deserves an afternoon: its scale is manageable and the castle-hill view over the Danube with the Austrian bank beyond captures the geography of the route perfectly.
+
+From Bratislava the path continues southeast through Slovakia and Hungarian border town Esztergom — with the largest basilica in Hungary dominating the river bend above the cycle path — before the final leg into Budapest. The Danube Bend south of Esztergom is the most scenic stretch: the river hairpins through forested hills and the baroque town of Visegrád perches on its promontory above the water.
+
+Budapest is the finish: arrive from the path on the north bank, cross the Chain Bridge, and reward yourself with a thermal bath in one of the city's 19th-century spa palaces.`,
+      location: "Vienna to Budapest via Bratislava",
+      country: "Austria",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: [
+        "Bratislava old town: compact Central European Baroque on the Danube bank",
+        "Esztergom Basilica: Hungary's largest church visible 20km downriver on approach",
+        "Danube Bend: river hairpin through forest hills between Visegrád and Budapest",
+        "Visegrád citadel above the river bend — medieval fortress on the limestone spur",
+        "Budapest Chain Bridge arrival: the Chain Bridge from the river at speed",
+        "Széchenyi thermal bath in Budapest: 19th-century spa to end six days of saddle time",
+      ],
+      gear: [
+        "Touring or hybrid bike (rentable in Vienna — multiple operators near main station)",
+        "Panniers or bikepacking bags (rear rack sufficient — route is flat)",
+        "Padded cycling shorts (6 days in the saddle demands comfort)",
+        "Lights (some tunnel sections on the path require front and rear)",
+        "Offline navigation: Komoot or Ride with GPS with EuroVelo 6 downloaded",
+        "Puncture kit and tyre levers (service shops in every town but not always open)",
+      ],
+      bestMonths: [4, 5, 6, 8, 9, 10],
+      estimatedCost: 70000,
+      latitude: 47.6875,
+      longitude: 17.6504,
+      published: true,
+      userId: user3.id,
+      voteCount: 49,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 29 — Galapagos Wildlife Snorkel Week
+  // -------------------------------------------------------------------------
+  const adventure29 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-29" },
+    update: {},
+    create: {
+      id: "seed-adventure-29",
+      title: "Galapagos Islands Wildlife Snorkel Week",
+      description: `The Galapagos Islands are a living classroom in evolutionary biology — the archipelago where Darwin formulated natural selection, and where a millennium of geographic isolation has produced wildlife with no fear of humans. The marine iguanas sun themselves on your towel. The sea lions sleep on the dive pontoon. The blue-footed boobies perform their mating dance three feet from where you stand.
+
+A week on a live-aboard or island-hopping itinerary covers the three principal wildlife zones: the western islands (Fernandina and Isabela) where the Humboldt current brings cold upwelling and the richest marine density; the central islands (Santa Cruz and Seymour Norte) for giant tortoises, frigatebirds, and the Darwin Research Station; and the southern islands (Española and Floreana) for the waved albatross colony and sea turtle nesting beaches.
+
+Snorkelling in the Galapagos is among the best in the world without technical skill. The cold Humboldt current brings extraordinary nutrient load and unusual species: marine iguanas feeding on algae at 5m depth, sea lions spiralling around you in close circles, Galapagos penguins swimming at the surface, and whale sharks cruising by in July and August. The visibility on a calm day exceeds 20m.
+
+July–December brings cooler and rougher conditions but whale sharks and the albatross. January–June is calmer and warmer with better visibility. Either way, the wildlife is year-round.`,
+      location: "Galapagos Archipelago, Pacific Ocean",
+      country: "Ecuador",
+      continent: "South America",
+      category: Category.DIVING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=1600&q=80",
+      highlights: [
+        "Marine iguanas underwater: endemic lizards grazing on algae at 5m depth",
+        "Sea lions spiralling around snorkellers in Galapagos sea lion bays",
+        "Galapagos penguins at the surface — the only penguins north of the equator",
+        "Whale sharks cruising the Gordon Rocks dive site (July–October)",
+        "Blue-footed booby courtship dance at arm's reach — no fear of humans",
+        "Giant tortoises at the Darwin Research Centre, Santa Cruz: 100-year-old animals",
+      ],
+      gear: [
+        "5mm wetsuit (Humboldt current keeps water at 18–22°C even in summer)",
+        "Snorkel mask (bring own — rental quality varies; marine iguanas warrant good optics)",
+        "Reef-safe sunscreen only (chemical sunscreen banned in the marine reserve)",
+        "Waterproof camera housing or GoPro mount",
+        "National Park permit (arranged by tour operator — required for all islands)",
+        "Motion sickness medication for inter-island boat crossings (Drake passage equivalent on bad days)",
+      ],
+      bestMonths: [1, 2, 3, 4, 5, 7, 8],
+      estimatedCost: 300000,
+      latitude: -0.9538,
+      longitude: -90.9656,
+      published: true,
+      userId: user1.id,
+      voteCount: 161,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["island"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 30 — Bali Temples, Rice Terraces & Jungle Trek
+  // -------------------------------------------------------------------------
+  const adventure30 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-30" },
+    update: {},
+    create: {
+      id: "seed-adventure-30",
+      title: "Bali Temples, Rice Terraces and Jungle Trek",
+      description: `Bali's cultural and natural landscape is the most layered in Southeast Asia — a Hindu island inside a Muslim archipelago, where the rice terrace engineering of the subak irrigation system has shaped the land for a thousand years and the temple calendar runs continuously through 200+ ceremonies a year. Walking through this landscape rather than touring it by scooter reveals the depth beneath the Instagram surface.
+
+A five-day itinerary centres on Ubud — the cultural heartland in the island's interior — and radiates out: north into the volcanic highlands of Mount Batur, east to the water temples of Pura Tirta Empul, west through the Campuhan Ridge walk above the Wos River, and south to the rice terraces of Tegalalang and Jatiluwih.
+
+The Campuhan Ridge is the ideal first morning: a 9km walk along a narrow path between two river valleys, through stands of bamboo and the back gardens of the silver craftsmen's compound, arriving at the Pura Gunung Lebah temple above the confluence. No tourist buses reach this path. The only company is local farmers and the occasional artist seeking light.
+
+Mount Batur at dawn requires a 2am start but pays back: the volcanic caldera at sunrise, with Lake Batur below and Agung filling the eastern horizon. It is the easiest summit in Indonesia and the most rewarding dawn view.`,
+      location: "Ubud, Bali",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=1600&q=80",
+      highlights: [
+        "Campuhan Ridge walk above Ubud: riverside bamboo and artist compounds, no crowds",
+        "Mount Batur sunrise (1,717m): volcanic caldera and Lake Batur at dawn",
+        "Jatiluwih rice terraces: UNESCO-listed subak irrigation system in working use",
+        "Pura Tirta Empul: active water temple with ritual purification in the spring pools",
+        "Traditional Balinese dance performance in a torch-lit open temple courtyard",
+        "Tegalalang rice paddies: stepped terraces above the Petanu River gorge",
+      ],
+      gear: [
+        "Sarong (mandatory for temple entry — available for rent at every entrance)",
+        "Comfortable walking sandals or trail shoes for ridge paths",
+        "Headlamp for the Batur pre-dawn start",
+        "Insect repellent (jungle paths below 800m have mosquitoes)",
+        "Light rain jacket (sudden tropical showers are daily in wet season)",
+        "Cash in IDR — most local warungs and temples are cash only",
+      ],
+      bestMonths: [4, 5, 6, 9, 10, 11],
+      estimatedCost: 50000,
+      latitude: -8.5069,
+      longitude: 115.2625,
+      published: true,
+      userId: user2.id,
+      voteCount: 72,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 31 — Milford Track, New Zealand
+  // -------------------------------------------------------------------------
+  const adventure31 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-31" },
+    update: {},
+    create: {
+      id: "seed-adventure-31",
+      title: "Milford Track, New Zealand",
+      description: `The Milford Track is New Zealand's most famous Great Walk — a 53.5km one-way route through Fiordland National Park from Lake Te Anau to Milford Sound, described at its opening in 1908 as "the finest walk in the world." The description remains defensible. Four days of walking connects ancient beech forest, glacially carved river valley, mountain pass, and waterfall-threaded gorge to the sea fjord at Milford Sound — a journey through 600 million years of geological drama.
+
+Day one is flat: a boat crossing to the trailhead and a gentle walk through Clinton River beech forest, birds calling from the canopy. The kiwi, robin, and fantail are all regular companions. Day two climbs the Clinton Valley and reaches McKinnon Pass at 1,154m — the crest of the main divide, where the weather changes between steps and both valleys are visible from the saddle. Mackinnon Hut on the pass is one of the great mountain huts in the world.
+
+Day three descends the Arthur Valley past Sutherland Falls (580m — one of the world's tallest accessible waterfalls) to Dumpling Hut, with a side trip that gets you within spray distance of the falls' base. Day four follows the Arthur River to Sandfly Point and the Milford Sound ferry.
+
+The walk is one-way and hut-only — no camping. Book from October 1 for the following season. The quota is 90 walkers per direction per day; numbers are genuinely limited.`,
+      location: "Fiordland National Park, Southland",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=1600&q=80",
+      highlights: [
+        "McKinnon Pass (1,154m): mountain saddle with both valleys visible, weather and light shifting constantly",
+        "Sutherland Falls side trip: 580m cascade at arm's reach",
+        "Clinton River beech forest: kiwi, robin, and fantail on quiet mornings",
+        "Giant Gate Falls: Arthur River in flood pouring over a granite step on day four",
+        "Milford Sound arrival by ferry: the fjord from the water after four days on foot",
+        "Mackinnon Hut on the pass: the finest mountain hut position in New Zealand",
+      ],
+      gear: [
+        "DOC hut booking confirmation (mandatory — no camping, no entry without booking)",
+        "Waterproof everything: Fiordland receives 7,000mm of rain per year",
+        "Trekking poles (McKinnon Pass descent is steep and often wet)",
+        "Sandfly protection for Sandfly Point (the name is descriptive and accurate)",
+        "Merino base layers (huts are cold at night even in summer)",
+        "Hut sleeping bag liner (provided in huts, but own liner recommended)",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 120000,
+      latitude: -44.6754,
+      longitude: 167.8966,
+      published: true,
+      userId: user3.id,
+      voteCount: 143,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["alpine"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 32 — Ha Giang Loop Motorbike, Vietnam
+  // -------------------------------------------------------------------------
+  const adventure32 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-32" },
+    update: {},
+    create: {
+      id: "seed-adventure-32",
+      title: "Ha Giang Loop Motorbike, Vietnam",
+      description: `Ha Giang Province in Vietnam's far north is the country's most dramatic and least-visited landscape: a vast karst plateau dissected by river gorges, terraced by H'mong and Dao farmers into staircases of rice and corn, and bounded to the north by the Chinese border mountains. The 350km loop from Ha Giang city through Dong Van, Meo Vac, and back is among the finest motorbike routes in Southeast Asia.
+
+The road to Dong Van crosses the Ma Pi Leng Pass — a 20km stretch of cliff-edge mountain road above the Nho Que River gorge that is legitimately one of the most spectacular stretches of road in Asia. The gorge is 1,000m deep and the road has no barrier. The river 1,000m below appears as a turquoise thread. On a semi-automatic 110cc step-through, this section takes two hours and commands complete attention.
+
+The H'mong and Lo Lo villages along the route have maintained their traditional dress, architecture, and market culture largely undisturbed by tourism. Sunday markets at Dong Van and Meo Vac bring together a dozen different ethnic groups in their full traditional costume. The corn wine is unavoidable and the lamb hot pot at altitude is excellent.
+
+Rent a semi-automatic Honda at Ha Giang (no licence required, ~200,000 VND per day). The loop runs clockwise. Allow five days to avoid rushing any section. The roads are paved but narrow and trucks own the right of way.`,
+      location: "Ha Giang Province, Northern Vietnam",
+      country: "Vietnam",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1552084117-56a987666449?w=1600&q=80",
+      highlights: [
+        "Ma Pi Leng Pass: 20km of cliff-edge road above a 1,000m-deep turquoise gorge",
+        "Dong Van Sunday market: 12 ethnic groups in traditional dress trading in the karst town",
+        "Lung Cu Flag Tower: northernmost point of Vietnam, two countries visible",
+        "Meo Vac cliff roads: hairpin sequences above the Nho Que river canyon",
+        "H'mong stone village homestays at 1,400m with corn wine and hot pot",
+        "Buckwheat flower fields in October: pink carpet across the grey limestone plateau",
+      ],
+      gear: [
+        "Helmet (good quality available to rent in Ha Giang — inspect condition)",
+        "Windproof jacket and gloves (altitude wind at 1,500m is cold year-round)",
+        "Rain suit (typhoon season brings heavy rain — ponchos are sold on the route)",
+        "Riding gloves and ankle-covering footwear",
+        "Cash in VND — no ATMs in most villages, Ha Giang is the last reliable stop",
+        "Offline maps: Maps.me or OsmAnd downloaded before departure",
+      ],
+      bestMonths: [9, 10, 3, 4, 5],
+      estimatedCost: 30000,
+      latitude: 23.2090,
+      longitude: 105.0456,
+      published: true,
+      userId: user1.id,
+      voteCount: 88,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["solo-travel"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 33 — Wadi Rum & Petra Desert Trek
+  // -------------------------------------------------------------------------
+  const adventure33 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-33" },
+    update: {},
+    create: {
+      id: "seed-adventure-33",
+      title: "Wadi Rum and Petra Desert Trek",
+      description: `Jordan in five days combines two of the ancient world's most spectacular landscapes: Petra — the Nabataean rock city carved into rose sandstone cliffs 2,000 years ago — and Wadi Rum, the vast desert valley of towering sandstone towers that Lawrence of Arabia called "vast, echoing, and Godlike." Together they form one of the world's great desert itineraries.
+
+Petra is best approached by the Siq at dawn — the 1.2km slot canyon narrows to 3m at its tightest point before opening onto the Treasury facade at the end of a bend. Arrive at 6am on a weekday and you will experience that moment alone. The main circuit adds the Monastery (850 steps above the valley — larger than the Treasury and usually deserted), the High Place of Sacrifice ridge walk, and the Royal Tombs facades. Two full days is the minimum to do Petra properly.
+
+Wadi Rum is best experienced by staying with a Bedouin camp and using their guides rather than joining jeep tours. Two nights in a desert camp gives time for a full day of trekking: Jebel Rum by its north-facing gully (3–4 hours), the sand dunes of Umm Ishrin, and the red canyon at Khazali where Nabataean inscriptions are carved into the canyon walls at shoulder height. The night sky from Wadi Rum is one of the darkest in the Middle East.
+
+Jordan is deeply hospitable; small gestures of reciprocity — accepting tea, sharing food — matter more than tip culture.`,
+      location: "Petra and Wadi Rum, Ma'an Governorate",
+      country: "Jordan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1539541417736-3d44c90da315?w=1600&q=80",
+      highlights: [
+        "Petra Siq at dawn: 1.2km slot canyon opening onto the Treasury at first light, alone",
+        "The Monastery (Al-Deir): larger than the Treasury, 850 steps above the valley, usually deserted",
+        "Wadi Rum Jebel Rum summit: sandstone towers above the red desert floor at sunset",
+        "Khazali Canyon: Nabataean inscriptions at shoulder height in a red slot canyon",
+        "Bedouin camp night in Wadi Rum: tea over the fire with the Milky Way overhead",
+        "Wadi Rum sunrise: the towers emerging from darkness with the dunes turning orange",
+      ],
+      gear: [
+        "Sun protection: hat, long sleeves, SPF50 (desert UV is extreme)",
+        "Hiking boots with ankle support for rocky canyon terrain",
+        "3L+ water capacity (no water in Wadi Rum between camps)",
+        "Headlamp (Petra at night and early Siq approach)",
+        "Jordan Pass (includes visa fee and Petra entry — significantly cheaper than paying separately)",
+        "Cash in JD — Wadi Rum camps are cash only",
+      ],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 80000,
+      latitude: 29.5350,
+      longitude: 35.4067,
+      published: true,
+      userId: user2.id,
+      voteCount: 96,
+      tags: {
+        connect: [
+          { id: allTags["desert"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 34 — Sahara Desert Camel Trek, Morocco
+  // -------------------------------------------------------------------------
+  const adventure34 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-34" },
+    update: {},
+    create: {
+      id: "seed-adventure-34",
+      title: "Sahara Desert Camel Trek, Morocco",
+      description: `The Erg Chebbi dunes near Merzouga in southeast Morocco rise 150m from the hammada rock desert in one of the great landscape surprises of North Africa — you drive through three hours of flat, featureless stone desert and then the dunes are simply there, enormous and golden, stretching 22km from north to south. A five-day camel trek enters this landscape and stays in it long enough for the scale to register.
+
+Day one loads the camels at the edge of Merzouga and crosses into the erg by afternoon, camping at the first high dune. The camel's slow gait — 4km/h, three hours per day of riding — is the right pace for the Sahara. You see the wind-sculpted surface in detail: the slip face curves, the horn formations of the barchans, the occasional dead branch of an ancient acacia tree poking from the sand.
+
+Nights in the erg are the point. The temperature drops fast after sunset — 15°C within an hour of darkness — and the sky at Merzouga is one of the clearest in Africa. The Milky Way stands perpendicular to the horizon. Shooting stars are routine. The silence is total except for the wind over the dune crests.
+
+The Berber guides navigate by landmark and star. There are no marked routes in the erg. Each morning the wind has reshaped the surface and the previous day's tracks have been erased.`,
+      location: "Erg Chebbi, Merzouga, Draa-Tafilalet",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: [
+        "Erg Chebbi dunes: 150m orange sand waves stretching 22km — nothing looks this colour in nature",
+        "Dawn from the highest dune: shadow of the erg spreading west as the sun crests east",
+        "Milky Way above the erg: one of Africa's darkest night skies from the desert floor",
+        "Nomadic Berber tea ceremony at camp: three glasses of increasingly sweet mint tea",
+        "Camel riding the crest of the barchan formations — the slip face below",
+        "Abandoned ksour (fortified village) half-buried by advancing dunes at route edge",
+      ],
+      gear: [
+        "Loose cotton long trousers and long-sleeve shirt (sun and wind protection, not warmth)",
+        "Warm layer for nights — temperature drops 15°C within an hour of sunset",
+        "Headscarf or shemagh (sand wind on the camel is constant)",
+        "Lip balm and nasal moisturiser — the air is dessicating",
+        "Camera with UV filter and sealed lens (sand is very fine and gets into everything)",
+        "Flip-flops for camp (boots stay on for riding and walking)",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 60000,
+      latitude: 31.0997,
+      longitude: -4.0130,
+      published: true,
+      userId: user3.id,
+      voteCount: 81,
+      tags: {
+        connect: [
+          { id: allTags["desert"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 35 — Faroe Islands Coastal Hikes
+  // -------------------------------------------------------------------------
+  const adventure35 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-35" },
+    update: {},
+    create: {
+      id: "seed-adventure-35",
+      title: "Faroe Islands Coastal Hikes",
+      description: `Eighteen islands of black basalt and green grass rising from the North Atlantic between Norway and Iceland — the Faroe Islands are a landscape of extremes: vertical sea cliffs, waterfalls that fall into the ocean, and a light that alternates between the grey of continuous cloud and the extraordinary gold of a North Atlantic break. In summer, the islands are walkable in a way they are not at any other time, and the path network connects the villages in a system of old post roads and shepherd tracks that predate roads entirely.
+
+Six days covers the essential circuits: Trælanípa and the lake that drains directly into the sea (one of the most photographed viewpoints in the Faroes, but genuinely dramatic rather than merely photogenic), the cliffs of Beinisvørð at 470m above the open Atlantic, the Múlafossur waterfall at Gásadalur falling from the cliff edge into the sea below, and the Slættaratindur ascent — the highest point at 882m — with views to five islands on a clear day.
+
+The villages are extraordinary: grass-roofed houses on turf platforms at the cliff edge, fishing boats in the grass-lined harbours, and a sense that the 20th century arrived but was absorbed rather than transformative. In Saksun, the village of a dozen houses in a tidal lagoon looks unchanged since the Norse sagas.
+
+The Faroese have a word, søvnur, for the particular type of atmospheric melancholy the islands induce — an untranslatable combination of wonder and longing. You will understand it by day two.`,
+      location: "Faroe Islands, North Atlantic",
+      country: "Denmark",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: [
+        "Trælanípa: the lake (Sørvágsvatn) that appears to float above the sea — optical illusion cliff edge",
+        "Múlafossur waterfall: streaming off the Gásadalur cliff face into the Atlantic",
+        "Beinisvørð sea cliffs (470m): sheer basalt above the open ocean with gannet colonies",
+        "Slættaratindur summit (882m): highest point with five-island panorama",
+        "Saksun tidal lagoon village: Norse-style turf-roofed farms at the cliff edge",
+        "Atlantic puffin colonies on the grass cliff tops of Mykines island",
+      ],
+      gear: [
+        "Full waterproofs (the Faroes receive 260+ rain days per year — assume wet every day)",
+        "Windproof outer layer (cliff-edge winds exceed 60 km/h regularly)",
+        "Hiking boots with good grip (basalt grass is slick when wet)",
+        "Layers — temperature fluctuates 10°C in an hour",
+        "Offline maps: Visit Faroe Islands trail app downloaded",
+        "Respect for private land — trails cross farms; close gates behind you",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 150000,
+      latitude: 62.0079,
+      longitude: -6.7906,
+      published: true,
+      userId: user1.id,
+      voteCount: 77,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["island"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 36 — El Chalten & Fitz Roy Trails, Patagonia
+  // -------------------------------------------------------------------------
+  const adventure36 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-36" },
+    update: {},
+    create: {
+      id: "seed-adventure-36",
+      title: "El Chalten and Fitz Roy Trails, Patagonia",
+      description: `El Chalten is a village of 1,500 people at the end of a road in Argentine Patagonia, built in the 1980s as a territorial claim and now the trekking capital of South America. The mountains above it — Fitz Roy (3,405m) and Cerro Torre (3,128m) — are two of the hardest technical climbs on earth, but the trail network that approaches their bases is open to anyone with good boots and patience for Patagonian weather.
+
+The Laguna de los Tres trail is the peak experience: 22km return with 800m of ascent, climbing through southern beech forest before breaking into the moraine above Laguna de los Tres — a glacial lake directly below the Fitz Roy granite spire. On a clear morning the spire reflects in the lake and the Patagonian light turns the rock colours from pink to orange to gold within twenty minutes of sunrise. Clear mornings in El Chalten average seven to ten per month; plan for five days and expect two to three good views.
+
+Cerro Torre via Laguna Torre is the second essential route: the granite needle of Cerro Torre appears at the valley head, with the Viedma Glacier visible to the south and the Torre Glacier calving icebergs into the lagoon below the tower. The approach is easier but the summit view is arguably more dramatic — the needle in clear conditions is one of the great mountain profiles on earth.
+
+All trails start from El Chalten village. No permits, no booking, no fees.`,
+      location: "El Chalten, Los Glaciares National Park",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&q=80",
+      highlights: [
+        "Laguna de los Tres at sunrise: Fitz Roy reflected in the glacial lake below the spire",
+        "Cerro Torre granite needle in clear conditions: arguably the world's most dramatic summit profile",
+        "Torre Glacier calving icebergs into Laguna Torre below the needle",
+        "Mirador del Condor: condors riding thermals above the Viedma Glacier below",
+        "El Chalten village at dusk: the two towers turning pink in the Patagonian last light",
+        "Southern beech forest on the lower approach — lenga in autumn gold before the open moraine",
+      ],
+      gear: [
+        "Windproof hardshell (Patagonian wind is the defining experience — be prepared)",
+        "Waterproof gaiters (stream crossings on Laguna de los Tres approach)",
+        "Trekking poles (steep moraine on the final approach to Laguna de los Tres)",
+        "Down jacket for summit waits — linger for the light change",
+        "Extra food for weather-delay days in El Chalten",
+        "Flexible itinerary: plan for five days minimum to guarantee two clear-view days",
+      ],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 80000,
+      latitude: -49.3316,
+      longitude: -72.8864,
+      published: true,
+      userId: user2.id,
+      voteCount: 169,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["glacier"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 37 — Inca Trail to Machu Picchu
+  // -------------------------------------------------------------------------
+  const adventure37 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-37" },
+    update: {},
+    create: {
+      id: "seed-adventure-37",
+      title: "Inca Trail to Machu Picchu",
+      description: `The classic Inca Trail is a four-day, 43km walk through the Peruvian Andes on a route the Incas built, maintained, and walked 500 years before the first European reached South America. It climbs from the Sacred Valley at 2,650m to Dead Woman's Pass at 4,215m and descends through cloud forest to emerge at the Sun Gate above Machu Picchu — the most famous archaeological reveal in trekking.
+
+The trail is not technically difficult but it is aerobically demanding: the second day climbs 1,200m in 10km on cobbled stone steps designed for shorter-legged people and maintained in largely original condition. At altitude in the Andean sun, porters with 25kg loads overtake most walkers without apparent effort. The altitude is the variable nobody fully accounts for: Dead Woman's Pass at 4,215m is not extreme, but arriving at it without acclimatisation days in Cusco and Pisac first will reduce most fit adults to a slow shuffle.
+
+The cloud forest on the third day is one of the great botanical environments: a closed canopy of tree ferns, bromeliads, and orchids at 3,000m, with hummingbirds feeding at eye level and Andean cock-of-the-rock displaying in the understorey. The forest opens at Wiñay Wayna — a complete Inca ruin complex embedded in the cloud forest wall — before the final descent to Intipunku.
+
+Permits are limited to 500 per day total (guides and porters included). Book three to six months ahead for May–September. The trail closes in February.`,
+      location: "Cusco to Machu Picchu, Cusco Region",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1526400473556-aac12354f3db?w=1600&q=80",
+      highlights: [
+        "Sun Gate (Intipunku) at dawn: Machu Picchu revealed through the fog below",
+        "Dead Woman's Pass (4,215m): the high point of the trail and the hardest single climb",
+        "Wiñay Wayna Inca ruin complex embedded in the cloud forest wall",
+        "Cloud forest orchids and hummingbirds on the third day's descent",
+        "Machu Picchu at dawn before the train tourists arrive",
+        "Andean condors riding thermals above the Urubamba Valley",
+      ],
+      gear: [
+        "Layering system for 4,215m — night temperatures below 5°C at high camp",
+        "Trekking poles (Inca stone steps are steep and slippery after rain)",
+        "Waterproofs (cloud forest section is genuinely wet, not merely damp)",
+        "Altitude acclimatisation: minimum three nights in Cusco before Day 1",
+        "Altitude medication (Diamox 250mg — available in Cusco, prescription not always required)",
+        "Inca Trail permit number and licensed guide company confirmation",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 120000,
+      latitude: -13.1631,
+      longitude: -72.5450,
+      published: true,
+      userId: user3.id,
+      voteCount: 198,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 38 — Mont Blanc Summit via Gouter Route
+  // -------------------------------------------------------------------------
+  const adventure38 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-38" },
+    update: {},
+    create: {
+      id: "seed-adventure-38",
+      title: "Mont Blanc Summit via the Gouter Route",
+      description: `At 4,808m, Mont Blanc is the highest peak in the Alps and the highest point in Western Europe. The Voie Normale via the Gouter Hut is the easiest route to the summit — a high-altitude snow climb rather than a technical mountaineering route — but it demands full alpine competence, acclimatisation, and respect for rapidly changing weather at altitude. Between 10,000 and 30,000 people attempt the summit each year; roughly a quarter turn back.
+
+The approach from Saint-Gervais takes the Mont Blanc Express rack railway to Nid d'Aigle station (2,372m), then climbs the Tete Rousse Glacier and the notorious Grand Couloir — a rock funnel that channels stonefall from the Aiguille du Gouter above. Crossing the Grand Couloir is timed to the early morning freeze before the sun loosens the rock; the window is 45 minutes and the guide will know it precisely.
+
+The Gouter Hut at 3,835m is the staging point for summit day. Departure is at 2am. Six hours of cramponing on 30-40 degree consolidated snow, with the Dome du Gouter at 4,304m and the Col du Dome before the final push to the summit. The altitude affects judgment — decisions about summit or turn-back are harder at 4,500m than they look from the valley. Trust your guide.
+
+The view from the summit is 360 degrees and the horizon curves. Fourteen countries are theoretically visible. The experience is one of complete disorientation: you are standing higher than all of Western Europe, in all its smallness.`,
+      location: "Mont Blanc, Chamonix Valley",
+      country: "France",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [
+        "Mont Blanc summit (4,808m): highest point in the Alps and all of Western Europe",
+        "Gouter Hut (3,835m) at sunset: the Chamonix valley floor 2,000m below in evening light",
+        "Grand Couloir crossing in the pre-dawn freeze — calculated timing at the route's crux",
+        "Dome du Gouter (4,304m): pre-summit plateau with the final ridge ahead",
+        "Chamonix valley from the summit: the entire Mont Blanc massif spread below you",
+        "Summit sunrise: the Alps in every direction, cloud layers below, horizon curving",
+      ],
+      gear: [
+        "12-point steel crampons compatible with your mountaineering boots",
+        "Ice axe with wrist loop",
+        "Mountaineering double boots (rental available in Chamonix)",
+        "Down suit or equivalent layering to -25°C windchill",
+        "Helmet (Grand Couloir stonefall is real and unforeseeable)",
+        "Certified mountain guide (Compagnie des Guides de Chamonix — non-negotiable for first ascent)",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 200000,
+      latitude: 45.8326,
+      longitude: 6.8652,
+      published: true,
+      userId: user1.id,
+      voteCount: 147,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["alpine"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 39 — Matterhorn Hornli Ridge Ascent
+  // -------------------------------------------------------------------------
+  const adventure39 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-39" },
+    update: {},
+    create: {
+      id: "seed-adventure-39",
+      title: "Matterhorn Hornli Ridge Ascent",
+      description: `The Matterhorn is the most recognisable mountain in the world — the perfect pyramid silhouette that has stood for the idea of an impossible peak since Whymper first stood on its summit in 1865 (and lost four companions in the descent). The Hörnli Ridge — the northeast arête above Zermatt — is the normal route and the one most first-time aspirants take. At AD+ difficulty, it requires solid rock scrambling skills, high altitude experience, and an experienced guide. It is not a walk.
+
+The approach starts from the Schwarzsee cable car station above Zermatt and climbs to the Hörnlihutte (3,260m) — the only hut on the route — for an overnight before the summit attempt begins at 3:30am. The Hörnli Ridge is 1,220m of steep mixed terrain: rock bands, fixed ropes, ledges, and the occasional loose section that the thousands of previous climbers have exposed. Helmet is mandatory; stonefall from parties above is constant in busy season.
+
+The route is not the hardest climb on the mountain — that would be the North Face — but it demands full commitment. The upper ridge above the Shoulder (4,257m) narrows to true arête conditions with exposure on both sides and the summit cross appearing at intervals as the angle eases before the final steepening. Summit success rate with a guide is roughly 50% on any given attempt day, weather being the dominant variable.
+
+Zermatt below is car-free. The approach by rack railway adds to the sense of an earlier era of alpinism.`,
+      location: "Matterhorn, Zermatt, Valais",
+      country: "Switzerland",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [
+        "Matterhorn summit (4,478m): the most iconic peak in the Alps",
+        "Hornli Ridge upper arête: narrow rock crest with 1,000m exposure on both flanks",
+        "Hornlihutte at 3,260m: the pre-dawn staging point above the Zermatt valley",
+        "Zermatt below in dawn light as the ridge gains altitude",
+        "Summit cross in clear conditions — the full range of the Pennine Alps visible",
+        "Shoulder traverse at 4,257m: the route's narrowest and most exposed point",
+      ],
+      gear: [
+        "Rock climbing shoes or approach shoes (guide will specify)",
+        "Harness, helmet, and via ferrata set (fixed rope sections)",
+        "Mountaineering boots and 12-point crampons",
+        "Down jacket for pre-dawn temperatures at 4,000m+",
+        "Certified UIAGM/IFMGA mountain guide (mandatory for safe ascent)",
+        "Physical preparation: 5a+ rock climbing fitness and 4,000m+ altitude experience",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 250000,
+      latitude: 45.9766,
+      longitude: 7.6586,
+      published: true,
+      userId: user2.id,
+      voteCount: 122,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["alpine"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 40 — Annapurna Circuit Trek, Nepal
+  // -------------------------------------------------------------------------
+  const adventure40 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-40" },
+    update: {},
+    create: {
+      id: "seed-adventure-40",
+      title: "Annapurna Circuit Trek, Nepal",
+      description: `The Annapurna Circuit is the great loop: 160–220km (depending on access point) circumnavigating the Annapurna massif through the world's deepest gorge, over the highest trekking pass in Nepal, and through a landscape that changes from subtropical lowland to Tibetan plateau within 100km. It is one of the most diverse and complete mountain journeys on earth.
+
+The route climbs north from Besisahar through increasingly dramatic terrain: the Marsyangdi River gorge narrows at Jagat, the forest gives way to dry scrub above Chame, and Manang sits in its high valley at 3,519m with Annapurna III (7,555m) filling the north wall. Two acclimatisation days in Manang are non-negotiable: Ice Lake at 4,600m is the standard acclimatisation hike, offering views of the entire circuit ahead.
+
+Thorong La Pass at 5,416m is the physical and psychological centrepiece. The 3am start from High Camp gets you to the pass before the afternoon wind builds. The descent to Muktinath on the far side drops 1,600m in 8km on loose scree and moraines — the knees feel it for two days.
+
+The Mustang region on the far side of the pass is the hidden reward: a Tibetan plateau landscape with 14th-century cave monasteries, mustard-yellow fields against red cliff faces, and prayer wheels turning in the dry wind. It feels like a different country because, a century ago, it was.`,
+      location: "Annapurna Conservation Area, Gandaki Province",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [
+        "Thorong La Pass (5,416m): the high point, summit before the afternoon wind",
+        "Manang acclimatisation view: Annapurna III (7,555m) across the valley floor",
+        "Mustang region: Tibetan plateau landscape and 14th-century cave monasteries",
+        "Ice Lake (4,600m): acclimatisation hike above Manang with full circuit panorama",
+        "Marsyangdi Gorge lower section: subtropical forest and waterfalls in the deep canyon",
+        "Muktinath temple: sacred Hindu and Buddhist site at 3,710m in the rain shadow",
+      ],
+      gear: [
+        "Summit-rated down jacket and sleeping bag (-15°C for Thorong La night temperatures)",
+        "Altitude medication (Diamox 250mg — mandatory above 4,000m for most trekkers)",
+        "Trekking poles with large baskets (Thorong La descent on loose scree is punishing)",
+        "Microspikes for the pre-dawn Thorong La approach in frozen conditions",
+        "TIMS card and ACAP permit (arranged in Besisahar or Kathmandu)",
+        "Offline maps: Gaia GPS or Maps.me downloaded before departure",
+      ],
+      bestMonths: [10, 11, 3, 4, 5],
+      estimatedCost: 180000,
+      latitude: 28.5965,
+      longitude: 83.9575,
+      published: true,
+      userId: user3.id,
+      voteCount: 176,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["multi-day"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 41 — Everest Base Camp Trek
+  // -------------------------------------------------------------------------
+  const adventure41 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-41" },
+    update: {},
+    create: {
+      id: "seed-adventure-41",
+      title: "Everest Base Camp Trek",
+      description: `The walk to Everest Base Camp is the most famous trek in the world — and one of the most misrepresented. It is not a technical climb. No ropes, no crampons, no crevasses. It is a high-altitude walk on established trails that requires nothing except fitness, acclimatisation time, and the willingness to move slowly. What it delivers in return is a 14-day journey into the world's highest mountain ecosystem, culminating at 5,364m where 400 expedition tents and the Khumbu Icefall greet you with the face of the world's highest peak.
+
+The approach from Lukla airport (2,846m) — the most dangerous commercial runway in the world — climbs through Namche Bazaar, the Sherpa capital at 3,440m, through the Sagarmatha National Park rhododendron forests to Tengboche monastery (3,867m) and across the high moraines above Dingboche to Base Camp. Acclimatisation days in Namche and Dingboche are not optional: AMS above 4,000m without adjustment kills people who ignored the same advice.
+
+Kala Patthar (5,545m) is the real viewpoint, not Base Camp. The walk above Gorak Shep in the dark delivers you to a ridge with the full south face of Everest (8,848m) at eye level — and Lhotse, Nuptse, and Makalu filling the horizon. It is the most complete high-altitude panorama accessible to a non-climber.
+
+The Sherpa culture that carries this mountain is the other story: the monastery at Tengboche, the yak caravans on the trail, the teahouse communities at each altitude stage.`,
+      location: "Khumbu Region, Solukhumbu District",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1526400473556-aac12354f3db?w=1600&q=80",
+      highlights: [
+        "Kala Patthar (5,545m): full south face of Everest at eye level at dawn",
+        "Everest Base Camp (5,364m): the Khumbu Icefall below the Lhotse Face",
+        "Tengboche Monastery (3,867m): the highest monastery in the Himalaya with a view",
+        "Namche Bazaar Saturday market: the trading hub of the Khumbu",
+        "Dudh Kosi river gorge: emerald water in the deep Khumbu canyon",
+        "Full eight-thousander panorama: Everest, Lhotse, Nuptse, Makalu from the high trail",
+      ],
+      gear: [
+        "Down jacket rated to -20°C (Base Camp nights drop to -20°C even in October)",
+        "Altitude medication (Diamox — start day before Namche ascent, stop at Base Camp)",
+        "Microspikes for the Kala Patthar pre-dawn ascent on frozen trail",
+        "Sagarmatha National Park permit and TIMS card",
+        "Quality trekking boots (two weeks of rocky trail requires ankle support)",
+        "Sleeping bag rated to -15°C (teahouse blankets are insufficient above 4,000m)",
+      ],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 250000,
+      latitude: 28.0026,
+      longitude: 86.8528,
+      published: true,
+      userId: user1.id,
+      voteCount: 231,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 42 — John Muir Trail, California
+  // -------------------------------------------------------------------------
+  const adventure42 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-42" },
+    update: {},
+    create: {
+      id: "seed-adventure-42",
+      title: "John Muir Trail, California",
+      description: `The John Muir Trail runs 342km from Yosemite Valley to the summit of Mount Whitney — the highest peak in the contiguous United States at 4,421m — through the Sierra Nevada high country, crossing nine high passes above 3,600m and following the Pacific Crest Trail corridor through granite wilderness that Muir called "the range of light." It is the benchmark of American long-distance hiking.
+
+The route is entirely above 2,500m for most of its length and stays above 3,000m for long stretches. The Sierras are a different mountain environment from the Rockies or Cascades: the granite is clean, the skies are reliably blue in July and August, and the trail is exceptionally well maintained. The alpine lakes — Thousand Island Lake, Rae Lakes, Guitar Lake — are the defining landscape feature: hundreds of clear bodies of water at altitude, each one different in shape and character.
+
+Whitney Zone permits (for the final ascent) and Yosemite Valley trailhead permits are both required and both extremely competitive. Apply in the permit lottery in February for peak season dates. An alternative southern start from Horseshoe Meadows avoids the Valley permit scarcity.
+
+Water is abundant above 3,000m but must be filtered — giardia is present in virtually all Sierra water sources. Bears are active: a bear canister is mandatory in all Sierra wilderness zones. Pack to 14–16kg (excluding water) for a 21-day thru-hike.`,
+      location: "Sierra Nevada, California",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80",
+      highlights: [
+        "Mount Whitney summit (4,421m): highest point in the contiguous USA",
+        "Thousand Island Lake: mirror granite lake with the Ritter Range reflected at sunrise",
+        "Evolution Valley: the jewel of the Sierra Nevada, named for Darwin's contemporaries",
+        "Forester Pass (4,009m): highest point on the PCT, snowfields in July",
+        "Rae Lakes: three connected alpine lakes in a granite amphitheatre",
+        "Guitar Lake: the classic camp below Whitney, guitar-shaped in satellite view",
+      ],
+      gear: [
+        "Bear canister (mandatory in all Sierra wilderness — BV500 Bearikade or equivalent)",
+        "Water filter (Sawyer Squeeze or similar — giardia in all water sources)",
+        "Ultralight pack (sub-6kg base weight critical for 21-day mileage)",
+        "Microspikes for June/early July high pass snowfields",
+        "JMT permit + Whitney Zone permit (lottery in February)",
+        "Resupply strategy: Muir Trail Ranch and Vermilion Valley Resort mid-route",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 120000,
+      latitude: 37.7798,
+      longitude: -119.3472,
+      published: true,
+      userId: user2.id,
+      voteCount: 138,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 43 — Camino Frances de Santiago
+  // -------------------------------------------------------------------------
+  const adventure43 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-43" },
+    update: {},
+    create: {
+      id: "seed-adventure-43",
+      title: "Camino Frances de Santiago",
+      description: `The Camino Frances — the French Way — is the principal route of the Camino de Santiago, the medieval pilgrimage road to the tomb of Saint James at Santiago de Compostela. From Saint-Jean-Pied-de-Port in the French Pyrenees it runs 780km across northern Spain: over the Pyrenees to Pamplona, through the Meseta's flat wheat plateau, over the Serra do Cebreiro into Galicia's green hills, and down to the cathedral at Santiago. Walking it takes 35 days.
+
+The Camino is not a wilderness walk — it is a human road, a civilisation walk through two millennia of pilgrimage culture. You walk on Roman roads, sleep in medieval monasteries, and enter Burgos Cathedral past pilgrims who have walked from southern France or further. The albergue system — pilgrim hostels at 8–12 EUR a night — creates a social structure that generates its own friendships and rituals: coffee at dawn, hospitalero stamp in the credential, shared dinner at a communal table.
+
+The Meseta — the 200km wheat plateau between Burgos and León — is what separates the Camino from other long routes. It is flat, wide, and repetitive. The sky is large and the path is straight. People who have walked the Meseta describe it as a meditation or an ordeal or both. There are no shortcuts and no scenery. The mind has to deal with itself.
+
+The final day's walk into Santiago — the city in the rain, the plaza, the cathedral facade — is one of the great arrival moments in any form of travel.`,
+      location: "Saint-Jean-Pied-de-Port to Santiago de Compostela",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 35,
+      coverImageUrl: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=1600&q=80",
+      highlights: [
+        "Pyrenees crossing on Day 1: from Saint-Jean over the Ibañeta Pass into Spain",
+        "Pamplona old town: the city of the Running of the Bulls at dawn before tourists arrive",
+        "Cruz de Ferro (Iron Cross): the traditional stone-leaving ritual at 1,505m on the Meseta",
+        "O Cebreiro village: Galicia's gateway, Celtic stone church in a cloud at 1,330m",
+        "Santiago de Compostela cathedral arrival: the Botafumeiro incense ritual",
+        "The Meseta dawn: walking into the sun on a straight Roman road with no other feature",
+      ],
+      gear: [
+        "Trail shoes or light hikers (pavement sections demand cushioning as much as grip)",
+        "Pilgrim credential (credencial del peregrino) from the first albergue or Confraternity",
+        "Pack under 10% of body weight (most pilgrims start too heavy and post gear home by week two)",
+        "Blister prevention: correct socks, anti-friction, toe protection from day one",
+        "Sleeping bag liner for albergue bunks",
+        "Walking poles (for the Pyrenees crossing and later descents in Galicia)",
+      ],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 200000,
+      latitude: 42.8805,
+      longitude: -8.5457,
+      published: true,
+      userId: user3.id,
+      voteCount: 121,
+      tags: {
+        connect: [
+          { id: allTags["multi-day"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["solo-travel"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 44 — Pamir Highway Cycle, Tajikistan
+  // -------------------------------------------------------------------------
+  const adventure44 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-44" },
+    update: {},
+    create: {
+      id: "seed-adventure-44",
+      title: "Pamir Highway Cycle, Tajikistan",
+      description: `The Pamir Highway — the M41 — is the world's second-highest international road, crossing the Wakhan Corridor and the high Pamir plateau between Dushanbe and Osh. Cycling it is a self-supported expedition through one of the least-visited and most geopolitically complex corners of the planet: the intersection of the Silk Road, the Afghan border, and the Chinese frontier, at an average altitude above 3,500m.
+
+The route from Dushanbe to Osh is 1,500km and typically takes 21 days by bicycle. The key stages are the Wakhan Corridor — a narrow valley running along the Afghan border, where the river is the border and Afghani villages are visible across the water — and the Pamir plateau itself, beginning at Murghab (3,618m) where the road reaches the high steppe and the landscape simplifies to brown grass, blue sky, and no people for 200km at a stretch.
+
+The Karakul Lake descent is the route's emotional peak: the saline lake sits at 3,914m in a volcanic crater, surrounded by the Muztagh Ata massif (7,546m) across the Chinese border. The colours at altitude — the deep blue of the lake against the pale brown of the steppe and the white of the glacier — are unreproducible in photograph.
+
+Self-sufficiency is essential. Between Ishkashim and Murghab, the closest resupply point is 200km away. The Pamiri homestay network compensates: families in even the smallest settlements will feed and house a cyclist for a modest contribution.`,
+      location: "Dushanbe to Osh via Wakhan Corridor",
+      country: "Tajikistan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&q=80",
+      highlights: [
+        "Wakhan Corridor: cycling the Afghan border with Hindukush peaks above the river",
+        "Karakul Lake (3,914m): volcanic crater lake with Muztagh Ata across the Chinese border",
+        "Murghab Pamir plateau: 200km of brown steppe above 3,600m with no traffic",
+        "Pamiri homestay hospitality: kumiss, bread, and a felt mat in a village of 12 families",
+        "Ak-Baital Pass (4,655m): the highest road pass in the former Soviet Union",
+        "Wakhan petroglyphs: ancient hunting scenes carved into the cliffsides above the trail",
+      ],
+      gear: [
+        "Expedition touring bike with 3-inch-wide tyres (road turns to track without warning)",
+        "Full self-sufficiency kit: stove, food for 5 days, water filter (no resupply for 200km segments)",
+        "Cold-weather sleeping system rated to -15°C (plateau nights are brutal even in July)",
+        "GBAO permit for Gorno-Badakhshan Autonomous Region (arranged at Tajik embassy)",
+        "Satellite communicator — no GSM signal for 500km of the route",
+        "Altitude medication from 3,500m upward (cumulative altitude fatigue is real over 21 days)",
+      ],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 250000,
+      latitude: 38.0039,
+      longitude: 73.7921,
+      published: true,
+      userId: user1.id,
+      voteCount: 84,
+      tags: {
+        connect: [
+          { id: allTags["remote"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 45 — Aconcagua Normal Route
+  // -------------------------------------------------------------------------
+  const adventure45 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-45" },
+    update: {},
+    create: {
+      id: "seed-adventure-45",
+      title: "Aconcagua Normal Route",
+      description: `Aconcagua is the highest mountain outside Asia at 6,961m — the Roof of the Americas. The Normal Route via the northwest face is a non-technical high-altitude mountaineering objective: no ropes required on the standard line, no glacier travel, no technical rock. What it demands instead is extraordinary altitude adaptation, physical conditioning, and patience for a 20-day summit window that includes acclimatisation camps, rest days, and weather holds at the mountain.
+
+The approach from Mendoza takes three days by road and mule trail to Plaza de Mulas base camp at 4,300m — already higher than all of Europe. The climb then moves through two high camps (Nido de Condores at 5,570m and Cólera at 6,000m) to the Canaleta — the loose scree gully that is the final 350m before the summit. At altitude, the Canaleta takes 4–5 hours for what looks like a 30-minute walk.
+
+The summit view encompasses the Pacific coast, the Chilean glaciers, and the plains of Mendoza. You are standing higher than any point in the world outside Asia. The success rate on any given expedition is roughly 30–40% for acclimatised, well-guided climbers; weather and altitude sickness are the dominant factors. Most summits come on attempt days between January 10 and February 20.
+
+The experience of altitude at 6,900m is unlike anything below it. Decision-making degrades. Fine motor control is reduced. The team dynamic is the margin between summit and safe descent.`,
+      location: "Aconcagua Provincial Park, Mendoza",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1600&q=80",
+      highlights: [
+        "Aconcagua summit (6,961m): highest point outside Asia — the Roof of the Americas",
+        "Plaza de Mulas base camp: 4,300m, the highest established camp in the Americas",
+        "Nido de Condores (5,570m): the condors riding thermals below the camp",
+        "The Canaleta: the defining grind — 350m of loose scree at 6,600m+",
+        "Summit view: Pacific coast, Chilean ice fields, and Argentine plains in every direction",
+        "Andean condor soaring below base camp — 3m wingspan below you",
+      ],
+      gear: [
+        "Expedition down suit (-40°C rated — summit temperatures below -30°C with wind)",
+        "Double mountaineering boots (La Sportiva G2 or equivalent)",
+        "12-point steel crampons",
+        "Poles rated for alpine use — the Canaleta demands aggressive planting",
+        "Aconcagua park permit (USD 800–1,200 depending on season and entry date)",
+        "UIAGM-certified high-altitude guide (inexperienced parties have a 10% summit rate)",
+      ],
+      bestMonths: [1, 2],
+      estimatedCost: 500000,
+      latitude: -32.6532,
+      longitude: -70.0109,
+      published: true,
+      userId: user2.id,
+      voteCount: 93,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 46 — Svalbard Polar Wilderness Expedition
+  // -------------------------------------------------------------------------
+  const adventure46 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-46" },
+    update: {},
+    create: {
+      id: "seed-adventure-46",
+      title: "Svalbard Polar Wilderness Expedition",
+      description: `Svalbard — the Norwegian Arctic archipelago at 78°N — is one of the world's most extreme accessible wilderness destinations: a landscape of glacier, tundra, and sea ice where polar bears outnumber people and all travel outside Longyearbyen must be accompanied by armed protection. Eight days on a small expedition vessel covers the west coast and crosses into Woodfjorden, one of the least-visited fjords in the archipelago.
+
+The vessel anchors at the ice edge for Zodiac zodiac landings on beaches where walrus haul out in groups of 40–50, where bearded seals sleep on ice floes that calve from the tidewater glaciers above, and where reindeer pick their way through the tundra cotton grass without looking up. The guide carries a rifle and keeps watch at every landing; polar bears appear at range in every day of expedition travel.
+
+The midnight sun makes photography viable at any hour. The light at 2am on a clear Arctic night — amber, horizontal, casting shadows 20m long — is one of the most extraordinary qualities of light on the planet. The stillness is total. No noise from any human source.
+
+The Svalbard Global Seed Vault is visible from Longyearbyen. The permafrost layer that maintains it is the same permafrost whose retreat is the defining environmental fact of the archipelago's recent history.`,
+      location: "Svalbard Archipelago, Barents Sea",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.SAFARI,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      highlights: [
+        "Polar bear sighting: the defining Arctic wildlife encounter — guide keeps watch at all times",
+        "Walrus haul-out on a tundra beach: 40+ animals at close range from the Zodiac",
+        "Tidewater glacier calving: the sound arrives seconds after the visual",
+        "Midnight sun photography at 2am: horizontal amber light, 20m shadows",
+        "Sea ice edge navigation: bearded seals sleeping on floes the vessel passes at walking pace",
+        "Svalbard reindeer on the tundra: the world's most northerly wild deer population",
+      ],
+      gear: [
+        "Expedition suit or extreme cold layering: temperatures -5°C to +5°C in summer",
+        "Rubber boots for Zodiac landings (all provided on vessel — confirm size in advance)",
+        "Telephoto lens 400mm+ (polar bears are photographed at range for safety)",
+        "Windproof outer layer (Arctic wind is constant and cutting)",
+        "Motion sickness medication for Barents Sea crossings",
+        "Passport and Svalbard entry documentation (special provisions for nationalities outside Schengen)",
+      ],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 600000,
+      latitude: 78.2232,
+      longitude: 15.6267,
+      published: true,
+      userId: user3.id,
+      voteCount: 79,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["midnight-sun"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 47 — Antarctic Peninsula Sailing Expedition
+  // -------------------------------------------------------------------------
+  const adventure47 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-47" },
+    update: {},
+    create: {
+      id: "seed-adventure-47",
+      title: "Antarctic Peninsula Sailing Expedition",
+      description: `Antarctica is the last continent — the coldest, driest, windiest, and highest on average, with no permanent human population and no territorial sovereignty. Reaching it by small expedition vessel via the Drake Passage (the most violent sea crossing on earth) is the defining wilderness voyage, and a 12-day itinerary covers the Peninsula's highlights: the Lemaire Channel, the South Shetland Islands, and the vast penguin rookeries of Paradise Bay.
+
+The Drake Passage crossing takes two days each way. In calm conditions (the "Drake Lake") it is a gentle open-ocean swell. In storm conditions (the "Drake Shake") it is 8-10m waves with all vessel operations suspended. The first sight of the Antarctic Peninsula — the cloud line that turns out to be a continent — is one of the most powerful moments in travel.
+
+Zodiac landings on the Peninsula itself put you among the wildlife: gentoo and chinstrap penguin colonies of 50,000–100,000 birds, leopard seals resting on floes, humpback whales feeding in the nutrient-rich waters. The protocols are strict — no closer than 5m to penguins (they routinely ignore this rule), no touching wildlife, all bio-security controls for invasive species prevention.
+
+The international expedition vessel carries scientists and specialist guides who provide lectures on the ecology, geology, and climate research underway in Antarctica. This is not a cruise ship experience. It is an expedition, complete with uncertainty about where the ice allows access each day.`,
+      location: "Antarctic Peninsula, Southern Ocean",
+      country: "Antarctica",
+      continent: "Antarctica",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=1600&q=80",
+      highlights: [
+        "First sight of Antarctica: the cloud line becoming a continent through binoculars",
+        "Gentoo penguin colony landing: 100,000 birds on a beach with no roads or fences",
+        "Humpback whale surfacing alongside the Zodiac in Paradise Bay",
+        "Lemaire Channel navigation: the vessel threading between 600m ice walls",
+        "Leopard seal on an ice floe: 3m predator asleep at arm's reach",
+        "Drake Passage full storm: 8m swells and the bow going under white water",
+      ],
+      gear: [
+        "Expedition parka and waterproof trousers (provided by most operators — confirm)",
+        "Motion sickness prescription medication (scopolamine patches, not over-the-counter)",
+        "Waterproof camera housing (sea spray on all Zodiac operations)",
+        "Rubber boots for landings (mud and guano — provided by operator, bring warm liners)",
+        "Binoculars 8x42 or 10x50 (whale sightings at range, glaciers across channel)",
+        "Insurance covering adventure activities in Antarctica (standard travel insurance excludes this)",
+      ],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 900000,
+      latitude: -64.2823,
+      longitude: -63.0000,
+      published: true,
+      userId: user1.id,
+      voteCount: 105,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["glacier"].id },
+        ],
+      },
+    },
+  });
+
+  // Adventure 48 — Amazon Headwaters Canoe Expedition
+  // -------------------------------------------------------------------------
+  const adventure48 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-48" },
+    update: {},
+    create: {
+      id: "seed-adventure-48",
+      title: "Amazon Headwaters Canoe Expedition",
+      description: `Paddle deep into the Ecuadorian Amazon from the Napo River tributaries into seldom-visited várzea forest. Launch from a riverside community near Tena, navigate winding blackwater streams, and camp on sandy beaches beneath cathedral jungle. Your guide — a Kichwa elder who has spent a lifetime reading the river — teaches you to identify medicinal plants, set fish traps, and read weather by cloud formation over the canopy.\n\nDays are spent paddling 20–35 km through shifting channels, pulling ashore to explore oxbow lakes teeming with caimans, river dolphins, and giant otters. Nights are spent in hammocks or simple riverside lodges, listening to howler monkeys and the chorus of ten thousand frogs. The river demands constant attention: reading currents, scouting shallows, and portaging around log jams. By the end you will have developed instincts that no classroom can teach.`,
+      location: "Napo River, Tena",
+      country: "Ecuador",
+      continent: "South America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: [
+        "Paddle blackwater tributaries rarely visited by outsiders",
+        "Travel with a Kichwa elder guide",
+        "Spot river dolphins, caimans, and giant otters",
+        "Camp on jungle beaches beneath the forest canopy",
+        "Learn traditional plant knowledge and fishing techniques",
+      ],
+      gear: [
+        "Sit-on-top canoe (provided)",
+        "Dry bags — 20 L and 40 L",
+        "Quick-dry clothing",
+        "Insect repellent (DEET 30%+)",
+        "Rain jacket",
+        "Water purification tablets",
+        "Headlamp with spare batteries",
+        "Lightweight hammock",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 180000,
+      latitude: -0.9,
+      longitude: -77.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 19,
+      tags: { connect: [{ name: "kayaking" }, { name: "jungle" }, { name: "wildlife" }] },
+    },
+  });
+
+  // Adventure 49 — Atlas Mountains Traverse
+  // -------------------------------------------------------------------------
+  const adventure49 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-49" },
+    update: {},
+    create: {
+      id: "seed-adventure-49",
+      title: "Atlas Mountains Traverse",
+      description: `Cross Morocco's High Atlas from Imlil to the remote Aït Bouguemez valley — the Valley of Happy People — via the Tichka Plateau and a string of Berber villages that have changed little in centuries. The trail climbs through walnut orchards and terraced barley fields, threads high passes where mules still carry salt and saffron, and descends into hidden valleys of rose-pink kasbahs.\n\nAccommodation is in traditional mountain gîtes where your host family serves tagine cooked over wood fire and argan oil pressed from trees on the hillside. The route tops out at 3,500 m on the Tichka Plateau, an ancient transhumance pasture where Berber families still bring their herds each summer. This is a trek for those who want to move through a living culture, not past it — unhurried, conversational, with plenty of time to accept tea.`,
+      location: "Imlil to Aït Bouguemez",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1548693434-0571b716da38?w=1600&q=80",
+      highlights: [
+        "Cross the Tichka Plateau at 3,500 m",
+        "Stay with Berber families in traditional gîtes",
+        "Trek through the Valley of Happy People",
+        "Visit kasbahs and rose-water village markets",
+        "Spectacular views of the Sahara foothills to the south",
+      ],
+      gear: [
+        "Trekking poles",
+        "Layers for 5°C night temps",
+        "Sun hat and high-SPF sunscreen",
+        "Headlamp",
+        "Day pack 20–25 L",
+        "Broken-in trail shoes",
+      ],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 90000,
+      latitude: 31.1,
+      longitude: -7.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 27,
+      tags: { connect: [{ name: "trekking" }, { name: "culture" }, { name: "mountains" }] },
+    },
+  });
+
+  // Adventure 50 — Scottish Munros Multi-Peak Challenge
+  // -------------------------------------------------------------------------
+  const adventure50 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-50" },
+    update: {},
+    create: {
+      id: "seed-adventure-50",
+      title: "Scottish Munros Multi-Peak Challenge",
+      description: `Bag eight Munros across the Cairngorms and Glencoe in eight days — a highland circuit that showcases the full character of Scotland's wild places. Start in the Cairngorm plateau, the UK's only sub-arctic mountain environment, where plateau walks above 1,200 m cross snowfields well into summer. Then move west to Glencoe's famous ridges: the Aonach Eagach and the Bidean nam Bian massif where narrow crests demand hands-and-feet scrambling.\n\nThis is mountain weather at its most theatrical — mist rolling in from the Atlantic, sudden sunshine breaking on a lochan, and the almost magical quality of Scottish light in the golden hour. Navigation is core to the experience: OS map and compass work in low visibility is expected and tested. Evenings are spent in stone-walled bothies or classic mountain hostels, drying gear over radiators and sharing whisky with other hillwalkers.`,
+      location: "Cairngorms and Glencoe",
+      country: "Scotland",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [
+        "Summit eight Munros across two iconic mountain regions",
+        "Traverse the Aonach Eagach ridge in Glencoe",
+        "Navigate sub-arctic Cairngorm plateau",
+        "Stay in traditional Scottish bothies",
+        "Experience the extraordinary quality of highland light",
+      ],
+      gear: [
+        "Full waterproofs (jacket + trousers)",
+        "OS 1:25,000 maps + baseplate compass",
+        "Trekking poles",
+        "Gaiters",
+        "Merino base layers",
+        "Warm hat and gloves (even in summer)",
+        "Emergency bivvy",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 110000,
+      latitude: 57.1,
+      longitude: -3.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 22,
+      tags: { connect: [{ name: "mountaineering" }, { name: "hiking" }, { name: "scotland" }] },
+    },
+  });
+
+  // Adventure 51 — Cape to Cape Track
+  // -------------------------------------------------------------------------
+  const adventure51 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-51" },
+    update: {},
+    create: {
+      id: "seed-adventure-51",
+      title: "Cape to Cape Track",
+      description: `Walk the full 123 km Cape to Cape Track along Western Australia's Margaret River coast, from Cape Naturaliste lighthouse to Cape Leeuwin where the Indian and Southern Oceans meet. The trail ribbons between limestone headlands and bays of impossible turquoise, through towering karri and jarrah forest, past surf beaches where the swells arrive unbroken from Antarctica.\n\nThe track passes world-class wineries and artisan food producers — making it entirely possible to hike all day and eat very well each evening. Campsites sit at the edge of coastal cliffs or in forest clearings with birdsong for an alarm clock. The final day's descent to Cape Leeuwin, with both oceans visible and the historic lighthouse standing against an evening sky, is one of the great trail finishes in the world. Easygoing grades and clear waymarking make this an ideal multi-day trail for those new to long-distance hiking.`,
+      location: "Margaret River Region",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 13,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [
+        "Walk where the Indian and Southern Oceans meet at Cape Leeuwin",
+        "Limestone cliffs and turquoise bays throughout",
+        "Famous Margaret River wine region along the route",
+        "Ancient karri and jarrah forest sections",
+        "Clear waymarking — ideal first multi-day trail",
+      ],
+      gear: [
+        "Trail runners or light hiking boots",
+        "Tent or bivvy (some free campsites)",
+        "35 L hiking pack",
+        "Water filter",
+        "Sunscreen and sun hat (essential)",
+        "Lightweight sleeping bag",
+      ],
+      bestMonths: [9, 10, 11, 4, 5],
+      estimatedCost: 95000,
+      latitude: -34.0,
+      longitude: 115.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 31,
+      tags: { connect: [{ name: "trekking" }, { name: "coastal" }, { name: "australia" }] },
+    },
+  });
+
+  // Adventure 52 — Overland Track
+  // -------------------------------------------------------------------------
+  const adventure52 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-52" },
+    update: {},
+    create: {
+      id: "seed-adventure-52",
+      title: "Overland Track",
+      description: `Tasmania's iconic 65 km Overland Track runs south from Cradle Mountain to Lake St Clair through the heart of the Tasmanian Wilderness World Heritage Area — one of the last great temperate wilderness areas on Earth. The route passes jagged dolerite peaks, buttongrass moorland, ancient pencil pine groves, and alpine tarns that reflect the sky in perfect stillness.\n\nThe track is well-maintained with a series of staffed huts, making it accessible to first-time multi-day trekkers who can still carry their own tent for flexibility. Side trips to the summit of Cradle Mountain or Mount Ossa — the state's highest peak — are worth the extra effort for 360° views across a landscape that has been effectively untouched for millennia. Wombats, wallabies, and echidnas wander the campsites at dusk. The final leg descends through ancient myrtle beech forest to the shores of Lake St Clair, Australia's deepest natural lake.`,
+      location: "Cradle Mountain - Lake St Clair National Park",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1568454537842-d933259bb258?w=1600&q=80",
+      highlights: [
+        "Walk through UNESCO World Heritage wilderness",
+        "Summit Cradle Mountain or Mount Ossa on side trips",
+        "Ancient pencil pine and myrtle beech forests",
+        "Wombats and wallabies at camp every evening",
+        "Finish at Australia's deepest natural lake",
+      ],
+      gear: [
+        "30–35 L pack",
+        "Tent (huts available but carry one for flexibility)",
+        "Full waterproofs — Tassie weather changes fast",
+        "Gaiters for muddy sections",
+        "Trekking poles",
+        "Warm layers including fleece and down jacket",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 70000,
+      latitude: -41.6,
+      longitude: 145.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 36,
+      tags: { connect: [{ name: "trekking" }, { name: "wildlife" }, { name: "australia" }] },
+    },
+  });
+
+  // Adventure 53 — Te Araroa South Island Section
+  // -------------------------------------------------------------------------
+  const adventure53 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-53" },
+    update: {},
+    create: {
+      id: "seed-adventure-53",
+      title: "Te Araroa South Island Section",
+      description: `The South Island section of Te Araroa covers roughly 1,100 km from Nelson at the top of the island to Bluff at the southern tip — a 25-day highlight itinerary taking in the trail's greatest chapters. Begin with the Richmond Ranges, a challenging highland traverse rarely visited by casual tourists, then descend into the wine country of Marlborough before hitting the Nelson Lakes.\n\nThe Southern Alps section via the Richmond, Poulter, and Rangitata is the heart of the walk — river crossings that demand judgment, unmarked routes across alpine tarns, and ridgelines where the views of Aoraki/Mount Cook stop you cold. The final chapter crosses the Southland plains into Fiordland, finishing on the long beach walk to Bluff's famous signpost. This is trail running territory if you move fast, or immersive long-form trekking if you don't — either way it will recalibrate your sense of what wild country means.`,
+      location: "Nelson to Bluff, South Island",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 25,
+      coverImageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
+      highlights: [
+        "Richmond Ranges traverse with remote alpine camping",
+        "Multiple significant river crossings requiring judgment",
+        "Views of Aoraki/Mount Cook from the Southern Alps",
+        "Fiordland coastal finale into Bluff",
+        "Wild country that resets your sense of scale",
+      ],
+      gear: [
+        "50 L pack with removable daypack",
+        "Trekking poles (essential for river crossings)",
+        "Tent rated to 4-season",
+        "GPS device loaded with TA waypoints",
+        "PLB or satellite communicator (required)",
+        "River crossing shoes (crocs or dedicated pair)",
+        "Waterproof map pouch",
+      ],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 220000,
+      latitude: -43.5,
+      longitude: 171.0,
+      published: true,
+      userId: user3.id,
+      voteCount: 28,
+      tags: { connect: [{ name: "trekking" }, { name: "thru-hike" }, { name: "new-zealand" }] },
+    },
+  });
+
+  // Adventure 54 — Greenland Ice Cap Trek
+  // -------------------------------------------------------------------------
+  const adventure54 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-54" },
+    update: {},
+    create: {
+      id: "seed-adventure-54",
+      title: "Greenland Ice Cap Trek",
+      description: `Cross a section of the Greenland Ice Sheet on ski and pulk — one of the world's most spectacular wilderness traverses. The route departs from the ice edge near Kangerlussuaq and travels across a vast white plateau where the horizon in every direction is nothing but sky and ice. Crevasse navigation, polar camp craft, and white-out navigation are the skills of the day.\n\nNights are spent in expedition tents staked into the ice, temperature dropping to -20°C, the silence so complete you can hear your own heartbeat. The light at these latitudes is extraordinary — 24-hour daylight in June means you trek in golden midnight sun just as easily as noon. On clear evenings the ice glows cobalt blue from within. This route requires excellent physical fitness and cold-weather camping experience, but is accessible to non-technical trekkers with proper guiding. The sense of being alone on an ice sheet the size of a continent never leaves you.`,
+      location: "Kangerlussuaq Ice Edge",
+      country: "Greenland",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [
+        "Ski and pulk across the Greenland Ice Sheet",
+        "24-hour daylight in June on the polar plateau",
+        "Cobalt blue ice glowing at midnight",
+        "Complete silence of the world's second-largest ice mass",
+        "Crevasse navigation and polar camp skills",
+      ],
+      gear: [
+        "Ski touring setup (rentable in Kangerlussuaq)",
+        "Pulk sled for gear hauling",
+        "Expedition sleeping bag rated to -30°C",
+        "4-season polar tent",
+        "Balaclava, goggles, and face protection",
+        "Emergency PLB (mandatory)",
+        "Stove with fuel for melting ice water",
+      ],
+      bestMonths: [5, 6, 7],
+      estimatedCost: 350000,
+      latitude: 67.0,
+      longitude: -50.0,
+      published: true,
+      userId: user1.id,
+      voteCount: 17,
+      tags: { connect: [{ name: "arctic" }, { name: "skiing" }, { name: "expedition" }] },
+    },
+  });
+
+  // Adventure 55 — Denali Base Camp Trek
+  // -------------------------------------------------------------------------
+  const adventure55 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-55" },
+    update: {},
+    create: {
+      id: "seed-adventure-55",
+      title: "Denali Base Camp Trek",
+      description: `Trek to the 2,200 m base camp of Denali — North America's highest peak — via the Kahiltna Glacier without attempting the technical summit. Fly by small bush plane from Talkeetna to land directly on the glacier, where the scale of the Alaska Range immediately overwhelms every frame of reference. Denali rises 4,000 m above camp in a near-vertical wall of ice and rock.\n\nThe base camp environment during peak season is surprisingly social — mountaineers from around the world prepare their summit bids while rangers manage the world's largest high-altitude latrine excavation program (the mountain's strict Leave No Trace requirements are extraordinary). Days are spent acclimatizing on the lower glacier, learning to read ice features, and making day trips toward the Kahiltna Pass. The flying approach and glacier camp experience alone make this a once-in-a-lifetime trip; the mountain is so large it creates its own weather systems. Rangers brief you on the history of the mountain — both the triumphs and the tragedies — and the briefing humbles every person in the room.`,
+      location: "Kahiltna Glacier, Denali National Park",
+      country: "United States",
+      continent: "North America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=1600&q=80",
+      highlights: [
+        "Fly by bush plane onto the Kahiltna Glacier",
+        "Camp beneath the 4,000 m wall of Denali's south face",
+        "Acclimatization climbs to Kahiltna Pass",
+        "Meet summit teams from every corner of the world",
+        "Ranger-led briefing on Denali's mountaineering history",
+      ],
+      gear: [
+        "Double plastic mountaineering boots",
+        "Crampons and ice axe",
+        "Crevasse rescue kit (rope, prussiks, pulleys)",
+        "4-season expedition tent",
+        "Sleeping bag rated to -40°C",
+        "Glacier glasses and goggles",
+        "PLB (mandatory)",
+        "NPS permit (required well in advance)",
+      ],
+      bestMonths: [5, 6],
+      estimatedCost: 450000,
+      latitude: 63.1,
+      longitude: -151.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 21,
+      tags: {
+        connect: [{ name: "mountaineering" }, { name: "glacier" }, { name: "expedition" }],
+      },
+    },
+  });
+
+  // Adventure 56 — GR20 Corsica Complete
+  // -------------------------------------------------------------------------
+  const adventure56 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-56" },
+    update: {},
+    create: {
+      id: "seed-adventure-56",
+      title: "GR20 Corsica Complete",
+      description: `Walk the full GR20 from Calenzana in the north to Conca in the south — 180 km across the spine of Corsica's mountains, widely considered the most demanding long-distance trail in Europe. The route climbs relentlessly through granite landscapes that feel more like the Dolomites than anything in France, with sustained scrambling, fixed chain sections, and technical route-finding that rewards map-reading over GPS.\n\nThe northern half is harder: sustained 1,000 m ascents over rough granite, boulder fields, and snow patches that linger into July. The southern half opens into maquis scrubland and red-soiled forest with a gentler pace and spectacular sea views. The refuges along the route serve cold beer and hot pasta — small luxuries that feel enormous after a 10-hour mountain day. Trekkers move at very different speeds here, so you will pass and be passed by the same faces across many days, building the trail community that makes this route unforgettable.`,
+      location: "Calenzana to Conca, Haute-Corse",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 15,
+      coverImageUrl: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&q=80",
+      highlights: [
+        "Most demanding long-distance trail in Europe",
+        "Sustained granite scrambling with fixed chains",
+        "Snow patches in the north through July",
+        "Stunning maquis and sea views in the south",
+        "Strong trail community in mountain refuges",
+      ],
+      gear: [
+        "45 L technical pack (weight is the enemy)",
+        "Trail running shoes (faster over granite than boots)",
+        "Trekking poles",
+        "Helmet recommended for northern section scrambles",
+        "Full waterproofs",
+        "2 L water capacity (some sections have no water for hours)",
+        "Sleeping bag liner (refuges have blankets)",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 130000,
+      latitude: 42.3,
+      longitude: 9.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 33,
+      tags: { connect: [{ name: "trekking" }, { name: "scrambling" }, { name: "europe" }] },
+    },
+  });
+
+  // Adventure 57 — Transylvania Cycling Tour
+  // -------------------------------------------------------------------------
+  const adventure57 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-57" },
+    update: {},
+    create: {
+      id: "seed-adventure-57",
+      title: "Transylvania Cycling Tour",
+      description: `Pedal through the Saxon villages and forested passes of Transylvania on a 350 km loop from Brasov — a region of medieval fortified churches, hay meadows alive with wildflowers, and brown bear country where shepherds still move their flocks across ancient routes. The roads are quiet, the gradients manageable, and the landscape constantly rewards the slower pace of cycling over driving.\n\nBase yourself in guesthouses run by local families who serve plates of sarmale and tuica before you've even hung up your panniers. Climb the Bucegi Mountains on a forest road and coast into Sinaia past the Peles Castle, one of Europe's most extravagant royal residences. The medieval citadel of Sighisoara — birthplace of Vlad the Impaler — is the most atmospheric lunch stop you will ever have. This is cycling as cultural immersion: every village has a different Saxon dialect, a different church on the hill, and a different grandmother with strong opinions about which road you should take.`,
+      location: "Brasov, Transylvania",
+      country: "Romania",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: [
+        "Medieval Saxon villages and fortified churches",
+        "Brown bear country in the Carpathian Mountains",
+        "Peles Castle descent from the Bucegi Mountains",
+        "Sighisoara — the best-preserved medieval citadel in Europe",
+        "Family guesthouses with extraordinary traditional food",
+      ],
+      gear: [
+        "Touring or gravel bike (rentable in Brasov)",
+        "Panniers or bikepacking bags",
+        "Cycling helmet",
+        "Merino cycling base layer",
+        "Rain cape",
+        "Repair kit (tube, pump, multi-tool)",
+        "Bear spray (low risk but standard precaution)",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 75000,
+      latitude: 45.6,
+      longitude: 25.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 25,
+      tags: { connect: [{ name: "cycling" }, { name: "culture" }, { name: "europe" }] },
+    },
+  });
+
+  // Adventure 58 — Costa Rica Jungle to Pacific
+  // -------------------------------------------------------------------------
+  const adventure58 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-58" },
+    update: {},
+    create: {
+      id: "seed-adventure-58",
+      title: "Costa Rica Jungle to Pacific",
+      description: `A week-long multi-sport traverse of Costa Rica's Pacific coast and Osa Peninsula — one of the most biodiverse places on Earth — combining kayak, jungle trek, and surf. Begin in Manuel Antonio, where sloths hang over the beach path and scarlet macaws screech overhead, then kayak the mangrove estuaries to reach the Osa Peninsula's Corcovado National Park.\n\nCorcovado is where naturalists go when everywhere else feels domesticated: jaguar, tapir, four species of monkey, and sea turtles nesting by starlight. Trek the coastal trail for two days, camping in park stations, then end the week with surf lessons at Pavones — one of the longest left-hand point breaks in the world. The transition from jungle to ocean to surf is seamless and the guiding infrastructure is excellent. This is an ideal first "adventure trip" for those stepping beyond resort travel — challenging enough to feel earned but supported enough to be worry-free.`,
+      location: "Manuel Antonio to Pavones, Osa Peninsula",
+      country: "Costa Rica",
+      continent: "North America",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1600&q=80",
+      highlights: [
+        "Corcovado National Park — the most biodiverse place on Earth",
+        "Jaguar, tapir, and four monkey species",
+        "Mangrove kayaking on the Osa coast",
+        "Sea turtle nesting by starlight",
+        "Surf lessons at Pavones' world-famous left-hand break",
+      ],
+      gear: [
+        "Quick-dry shorts and shirts",
+        "Light trail shoes and flip flops",
+        "Insect repellent and lightweight long sleeves",
+        "Dry bag for kayak days",
+        "Reef-safe sunscreen",
+        "Binoculars for wildlife spotting",
+      ],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 160000,
+      latitude: 8.7,
+      longitude: -83.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 42,
+      tags: { connect: [{ name: "multi-sport" }, { name: "wildlife" }, { name: "jungle" }] },
+    },
+  });
+
+  // Adventure 59 — Samaria Gorge and White Mountains
+  // -------------------------------------------------------------------------
+  const adventure59 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-59" },
+    update: {},
+    create: {
+      id: "seed-adventure-59",
+      title: "Samaria Gorge and White Mountains",
+      description: `A five-day walking circuit across Crete's Lefka Ori — the White Mountains — culminating in a descent of the Samaria Gorge, one of Europe's longest and most dramatic gorges at 16 km. The high plateau of the Omalos plain at 1,080 m feels like the moon in summer: bare white limestone karst baking in the Mediterranean sun, wild goats on the clifftops, and silence broken only by the wind.\n\nThe trail descends through increasingly towering gorge walls — the narrowest section, the Sideroportes or Iron Gates, squeezes to just 3 m wide with walls 300 m high on either side. Water from the stream is cold enough to numb your feet and clean enough to drink. The gorge exits at the sea-level village of Agia Roumeli where you board a ferry to Hora Sfakion, then spend the final days exploring Sfakia's dramatic coastal villages on foot. This itinerary adds a high-route loop above the gorge for those who want the full mountain experience before the famous descent.`,
+      location: "Lefka Ori, Western Crete",
+      country: "Greece",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1555993539-1732b0258235?w=1600&q=80",
+      highlights: [
+        "Descend 16 km through Samaria Gorge, Europe's longest",
+        "Iron Gates — 3 m wide between 300 m cliffs",
+        "High plateau karst landscape on the Omalos plain",
+        "Ferry from Agia Roumeli after exiting the gorge",
+        "Sfakia coastal villages accessible only by boat or trail",
+      ],
+      gear: [
+        "Sturdy trail shoes with ankle support",
+        "2+ L water capacity (springs in gorge but plan for heat)",
+        "Sun protection — hat, sunscreen, sunglasses",
+        "Trekking poles",
+        "Light day pack 20 L",
+        "Cash for ferry and village tavernas",
+      ],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 60000,
+      latitude: 35.3,
+      longitude: 23.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 38,
+      tags: { connect: [{ name: "trekking" }, { name: "gorge" }, { name: "europe" }] },
+    },
+  });
+
+  // Adventure 60 — Dolomites Alta Via 1
+  // -------------------------------------------------------------------------
+  const adventure60 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-60" },
+    update: {},
+    create: {
+      id: "seed-adventure-60",
+      title: "Dolomites Alta Via 1",
+      description: `Walk the Alta Via 1 — 120 km from Lago di Braies to Belluno through the heart of the Dolomites, following high-level ridges that give constant views of the UNESCO-listed towers and pinnacles that make this range unique on Earth. The pale rock takes on extraordinary color at sunrise and sunset: gold, pink, then deep purple as the light fades.\n\nThe route uses rifugios throughout — comfortable mountain huts that serve full dinners with local wine, meaning you carry only a day pack. This is luxury adventure: hard enough to feel serious, comfortable enough to end every day well-fed with cold Spritz in hand. Several sections involve via ferrata moves — fixed iron rungs and cables assist exposed traverses — but overall the route is navigable without specialist climbing skills. The Cinque Torri and Tre Cime di Lavaredo sections are among the most photographed mountain landscapes in the world; on the trail you inhabit them rather than simply observe them.`,
+      location: "Lago di Braies to Belluno",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [
+        "120 km through UNESCO Dolomites World Heritage landscape",
+        "Rifugio hut-to-hut walking with full dinners",
+        "Tre Cime di Lavaredo — most iconic Dolomite towers",
+        "Via ferrata sections with fixed iron aid",
+        "Alpenglow — Dolomite rock turns gold then purple at dusk",
+      ],
+      gear: [
+        "Day pack 20–25 L (luggage transfer available)",
+        "Via ferrata set (harness + lanyard) for northern sections",
+        "Hiking boots with ankle support",
+        "Trekking poles",
+        "Rain jacket",
+        "Sun protection (high UV at altitude)",
+        "Cash for rifugio dinners",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 140000,
+      latitude: 46.7,
+      longitude: 12.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 47,
+      tags: { connect: [{ name: "trekking" }, { name: "via-ferrata" }, { name: "europe" }] },
+    },
+  });
+
+  // Adventure 61 — K2 Base Camp Trek
+  // -------------------------------------------------------------------------
+  const adventure61 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-61" },
+    update: {},
+    create: {
+      id: "seed-adventure-61",
+      title: "K2 Base Camp Trek",
+      description: `The trek to K2 Base Camp in the Karakoram is widely considered the finest high-altitude trek in the world — more remote, more demanding, and more raw than the Everest Base Camp route. The approach up the Baltoro Glacier passes Concordia, the confluence of four of the world's longest glaciers outside the polar regions, where an amphitheatre of 8,000 m peaks including Broad Peak, the Gasherbrums, and K2 itself rises in every direction.\n\nK2 at close range is a different experience from Everest: steeper, more geometric, almost architectural in its severity. The mountain radiates a particular kind of menace even in clear weather. The trek requires glacier travel on moraines and crevassed ice, river crossings, and sustained days at 4,000–5,000 m. Porters from the Baltistani community carry the heavy loads and contribute essential local knowledge and humor. Camping at Concordia under the full Karakoram sky — no light pollution for hundreds of kilometers — is among the most extraordinary nights available to any traveler on Earth.`,
+      location: "Baltoro Glacier, Karakoram",
+      country: "Pakistan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1600&q=80",
+      highlights: [
+        "Concordia — amphitheatre of four 8,000 m peaks",
+        "K2 close-up — the most technically demanding 8,000 m peak",
+        "Baltoro Glacier traverse on world's longest high-altitude moraine",
+        "Camping under zero-light-pollution Karakoram sky",
+        "Baltistani porter culture — extraordinary hospitality",
+      ],
+      gear: [
+        "50 L pack (porters carry camping gear)",
+        "4-season sleeping bag",
+        "Trekking poles",
+        "Glacier glasses and goggles",
+        "Altitude medication (Diamox — consult doctor)",
+        "Water purification — Sawyer Squeeze or SteriPen",
+        "PLB or satellite communicator",
+        "Pakistan trekking permit (required)",
+      ],
+      bestMonths: [7, 8],
+      estimatedCost: 280000,
+      latitude: 35.9,
+      longitude: 76.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 29,
+      tags: { connect: [{ name: "trekking" }, { name: "glacier" }, { name: "8000m" }] },
+    },
+  });
+
+  // Adventure 62 — Camino Portugues Coastal
+  // -------------------------------------------------------------------------
+  const adventure62 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-62" },
+    update: {},
+    create: {
+      id: "seed-adventure-62",
+      title: "Camino Portugues Coastal",
+      description: `Walk the Coastal Variant of the Camino Portugues from Porto to Santiago de Compostela — 280 km of Atlantic coastline, estuaries, and fishing villages that offer an alternative to the more crowded Central Route. The coastal path follows dune paths, wooden boardwalks, and clifftop trails with the Atlantic on one side and cork oak forest on the other, crossing into Galicia over a beautifully simple stone bridge at Vila Nova de Cerveira.\n\nThis is a Camino for those who want solitude alongside pilgrimage. The coastal route sees far fewer walkers than the Meseta, meaning you often have beaches entirely to yourself. Albergues are plentiful and inexpensive; the food shifts from Portuguese bacalhau to Galician pulpo as you cross the border. The final 100 km enter the required minimum for the compostela certificate, but the whole route rewards those who start from Porto. Arriving into the Plaza del Obradoiro after a week of walking carries a weight that surprises nearly everyone who experiences it.`,
+      location: "Porto to Santiago de Compostela",
+      country: "Portugal",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=1600&q=80",
+      highlights: [
+        "Atlantic dunes and clifftop coastal trails",
+        "Far fewer pilgrims than the popular Frances route",
+        "Seafood transition from Portuguese bacalhau to Galician pulpo",
+        "Stone bridge crossing into Galicia at Vila Nova de Cerveira",
+        "Cathedral arrival at Plaza del Obradoiro in Santiago",
+      ],
+      gear: [
+        "Well-broken-in walking shoes — this is the most important gear",
+        "25 L pack",
+        "Blister kit (Compeed)",
+        "Rain jacket (Atlantic weather is unpredictable)",
+        "Pilgrim credential (credencial) to collect stamps",
+        "Trekking poles optional but helpful",
+      ],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 65000,
+      latitude: 42.5,
+      longitude: -8.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 52,
+      tags: { connect: [{ name: "trekking" }, { name: "camino" }, { name: "coastal" }] },
+    },
+  });
+
+  // Adventure 63 — Tour du Mont Blanc
+  // -------------------------------------------------------------------------
+  const adventure63 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-63" },
+    update: {},
+    create: {
+      id: "seed-adventure-63",
+      title: "Tour du Mont Blanc",
+      description: `Circumnavigate Western Europe's highest peak on the 170 km Tour du Mont Blanc — a classic mountain circuit crossing three countries (France, Italy, Switzerland) in eleven days, with 10,000 m of cumulative ascent. The TMB is among the world's most beloved long-distance trails for good reason: the mountain reveals a completely different face from each valley, and the transition between French, Italian, and Swiss alpine cultures is as absorbing as the landscape itself.\n\nThe route uses refuges and auberges throughout, meaning you walk with a light pack and end every evening with a hot shower, cold beer, and a communal dinner with fellow trekkers from every corner of the world. The most dramatic moments come on the high passes — Col du Bonhomme, Col de la Seigne, Grand Col Ferret — where Mont Blanc itself fills the sky and you understand for the first time why the mountain has been drawing people for 250 years. The final stage returns to Chamonix through the Aiguilles Rouges for a sunset view of the entire massif, and something in you has changed.`,
+      location: "Chamonix, Mont Blanc Massif",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 11,
+      coverImageUrl: "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=1600&q=80",
+      highlights: [
+        "Circle the highest peak in Western Europe across 3 countries",
+        "10,000 m total ascent over 11 days",
+        "Col de la Seigne — best view of Mont Blanc's Italian face",
+        "Refuge hut-to-hut with full dinners and stunning company",
+        "Final approach to Chamonix via the Aiguilles Rouges ridge",
+      ],
+      gear: [
+        "30 L day pack (luggage transfer between some refuges)",
+        "Trekking poles",
+        "Hiking boots — waterproof with ankle support",
+        "Rain jacket and warm mid-layer",
+        "Sun protection (glacier UV)",
+        "Refuge reservation essential (book months in advance)",
+        "Cash for supplements and drinks at refuges",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 150000,
+      latitude: 45.9,
+      longitude: 6.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 64,
+      tags: { connect: [{ name: "trekking" }, { name: "mountains" }, { name: "europe" }] },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -935,6 +3547,106 @@ Iceland's weather can deliver all four seasons in a single day. The Laugavegur h
       { userId: user1.id, adventureId: adventure13.id },
       { userId: user2.id, adventureId: adventure13.id },
       { userId: user3.id, adventureId: adventure13.id },
+      { userId: user2.id, adventureId: adventure14.id },
+      { userId: user3.id, adventureId: adventure14.id },
+      { userId: user1.id, adventureId: adventure15.id },
+      { userId: user3.id, adventureId: adventure15.id },
+      { userId: user1.id, adventureId: adventure16.id },
+      { userId: user2.id, adventureId: adventure16.id },
+      { userId: user2.id, adventureId: adventure17.id },
+      { userId: user3.id, adventureId: adventure17.id },
+      { userId: user1.id, adventureId: adventure18.id },
+      { userId: user3.id, adventureId: adventure18.id },
+      { userId: user1.id, adventureId: adventure19.id },
+      { userId: user2.id, adventureId: adventure19.id },
+      { userId: user2.id, adventureId: adventure20.id },
+      { userId: user3.id, adventureId: adventure20.id },
+      { userId: user1.id, adventureId: adventure21.id },
+      { userId: user3.id, adventureId: adventure21.id },
+      { userId: user1.id, adventureId: adventure22.id },
+      { userId: user2.id, adventureId: adventure22.id },
+      { userId: user2.id, adventureId: adventure23.id },
+      { userId: user3.id, adventureId: adventure23.id },
+      { userId: user1.id, adventureId: adventure24.id },
+      { userId: user3.id, adventureId: adventure24.id },
+      { userId: user1.id, adventureId: adventure25.id },
+      { userId: user2.id, adventureId: adventure25.id },
+      { userId: user2.id, adventureId: adventure26.id },
+      { userId: user3.id, adventureId: adventure26.id },
+      { userId: user1.id, adventureId: adventure27.id },
+      { userId: user3.id, adventureId: adventure27.id },
+      { userId: user1.id, adventureId: adventure28.id },
+      { userId: user2.id, adventureId: adventure28.id },
+      { userId: user2.id, adventureId: adventure29.id },
+      { userId: user3.id, adventureId: adventure29.id },
+      { userId: user1.id, adventureId: adventure30.id },
+      { userId: user3.id, adventureId: adventure30.id },
+      { userId: user1.id, adventureId: adventure31.id },
+      { userId: user2.id, adventureId: adventure31.id },
+      { userId: user2.id, adventureId: adventure32.id },
+      { userId: user3.id, adventureId: adventure32.id },
+      { userId: user1.id, adventureId: adventure33.id },
+      { userId: user3.id, adventureId: adventure33.id },
+      { userId: user1.id, adventureId: adventure34.id },
+      { userId: user2.id, adventureId: adventure34.id },
+      { userId: user2.id, adventureId: adventure35.id },
+      { userId: user3.id, adventureId: adventure35.id },
+      { userId: user1.id, adventureId: adventure36.id },
+      { userId: user3.id, adventureId: adventure36.id },
+      { userId: user1.id, adventureId: adventure37.id },
+      { userId: user2.id, adventureId: adventure37.id },
+      { userId: user2.id, adventureId: adventure38.id },
+      { userId: user3.id, adventureId: adventure38.id },
+      { userId: user1.id, adventureId: adventure39.id },
+      { userId: user3.id, adventureId: adventure39.id },
+      { userId: user1.id, adventureId: adventure40.id },
+      { userId: user2.id, adventureId: adventure40.id },
+      { userId: user2.id, adventureId: adventure41.id },
+      { userId: user3.id, adventureId: adventure41.id },
+      { userId: user1.id, adventureId: adventure42.id },
+      { userId: user3.id, adventureId: adventure42.id },
+      { userId: user1.id, adventureId: adventure43.id },
+      { userId: user2.id, adventureId: adventure43.id },
+      { userId: user2.id, adventureId: adventure44.id },
+      { userId: user3.id, adventureId: adventure44.id },
+      { userId: user1.id, adventureId: adventure45.id },
+      { userId: user3.id, adventureId: adventure45.id },
+      { userId: user1.id, adventureId: adventure46.id },
+      { userId: user2.id, adventureId: adventure46.id },
+      { userId: user2.id, adventureId: adventure47.id },
+      { userId: user3.id, adventureId: adventure47.id },
+      { userId: user1.id, adventureId: adventure48.id },
+      { userId: user3.id, adventureId: adventure48.id },
+      { userId: user2.id, adventureId: adventure49.id },
+      { userId: user3.id, adventureId: adventure49.id },
+      { userId: user1.id, adventureId: adventure50.id },
+      { userId: user3.id, adventureId: adventure50.id },
+      { userId: user2.id, adventureId: adventure51.id },
+      { userId: user3.id, adventureId: adventure51.id },
+      { userId: user1.id, adventureId: adventure52.id },
+      { userId: user3.id, adventureId: adventure52.id },
+      { userId: user1.id, adventureId: adventure53.id },
+      { userId: user2.id, adventureId: adventure53.id },
+      { userId: user2.id, adventureId: adventure54.id },
+      { userId: user3.id, adventureId: adventure54.id },
+      { userId: user1.id, adventureId: adventure55.id },
+      { userId: user3.id, adventureId: adventure55.id },
+      { userId: user1.id, adventureId: adventure56.id },
+      { userId: user2.id, adventureId: adventure56.id },
+      { userId: user2.id, adventureId: adventure57.id },
+      { userId: user3.id, adventureId: adventure57.id },
+      { userId: user1.id, adventureId: adventure58.id },
+      { userId: user3.id, adventureId: adventure58.id },
+      { userId: user2.id, adventureId: adventure59.id },
+      { userId: user3.id, adventureId: adventure59.id },
+      { userId: user1.id, adventureId: adventure60.id },
+      { userId: user2.id, adventureId: adventure60.id },
+      { userId: user1.id, adventureId: adventure61.id },
+      { userId: user3.id, adventureId: adventure61.id },
+      { userId: user2.id, adventureId: adventure62.id },
+      { userId: user3.id, adventureId: adventure62.id },
+      { userId: user1.id, adventureId: adventure63.id },
+      { userId: user2.id, adventureId: adventure63.id },
     ],
     skipDuplicates: true,
   });
