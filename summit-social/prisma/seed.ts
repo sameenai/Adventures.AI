@@ -1750,6 +1750,63 @@ Budapest is the finish: arrive from the path on the north bank, cross the Chain 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 29 — Galapagos Wildlife Snorkel Week
+  // -------------------------------------------------------------------------
+  const adventure29 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-29" },
+    update: {},
+    create: {
+      id: "seed-adventure-29",
+      title: "Galapagos Islands Wildlife Snorkel Week",
+      description: `The Galapagos Islands are a living classroom in evolutionary biology — the archipelago where Darwin formulated natural selection, and where a millennium of geographic isolation has produced wildlife with no fear of humans. The marine iguanas sun themselves on your towel. The sea lions sleep on the dive pontoon. The blue-footed boobies perform their mating dance three feet from where you stand.
+
+A week on a live-aboard or island-hopping itinerary covers the three principal wildlife zones: the western islands (Fernandina and Isabela) where the Humboldt current brings cold upwelling and the richest marine density; the central islands (Santa Cruz and Seymour Norte) for giant tortoises, frigatebirds, and the Darwin Research Station; and the southern islands (Española and Floreana) for the waved albatross colony and sea turtle nesting beaches.
+
+Snorkelling in the Galapagos is among the best in the world without technical skill. The cold Humboldt current brings extraordinary nutrient load and unusual species: marine iguanas feeding on algae at 5m depth, sea lions spiralling around you in close circles, Galapagos penguins swimming at the surface, and whale sharks cruising by in July and August. The visibility on a calm day exceeds 20m.
+
+July–December brings cooler and rougher conditions but whale sharks and the albatross. January–June is calmer and warmer with better visibility. Either way, the wildlife is year-round.`,
+      location: "Galapagos Archipelago, Pacific Ocean",
+      country: "Ecuador",
+      continent: "South America",
+      category: Category.DIVING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=1600&q=80",
+      highlights: [
+        "Marine iguanas underwater: endemic lizards grazing on algae at 5m depth",
+        "Sea lions spiralling around snorkellers in Galapagos sea lion bays",
+        "Galapagos penguins at the surface — the only penguins north of the equator",
+        "Whale sharks cruising the Gordon Rocks dive site (July–October)",
+        "Blue-footed booby courtship dance at arm's reach — no fear of humans",
+        "Giant tortoises at the Darwin Research Centre, Santa Cruz: 100-year-old animals",
+      ],
+      gear: [
+        "5mm wetsuit (Humboldt current keeps water at 18–22°C even in summer)",
+        "Snorkel mask (bring own — rental quality varies; marine iguanas warrant good optics)",
+        "Reef-safe sunscreen only (chemical sunscreen banned in the marine reserve)",
+        "Waterproof camera housing or GoPro mount",
+        "National Park permit (arranged by tour operator — required for all islands)",
+        "Motion sickness medication for inter-island boat crossings (Drake passage equivalent on bad days)",
+      ],
+      bestMonths: [1, 2, 3, 4, 5, 7, 8],
+      estimatedCost: 300000,
+      latitude: -0.9538,
+      longitude: -90.9656,
+      published: true,
+      userId: user1.id,
+      voteCount: 161,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["island"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1807,6 +1864,8 @@ Budapest is the finish: arrive from the path on the north bank, cross the Chain 
       { userId: user3.id, adventureId: adventure27.id },
       { userId: user1.id, adventureId: adventure28.id },
       { userId: user2.id, adventureId: adventure28.id },
+      { userId: user2.id, adventureId: adventure29.id },
+      { userId: user3.id, adventureId: adventure29.id },
     ],
     skipDuplicates: true,
   });
