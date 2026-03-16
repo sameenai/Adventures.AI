@@ -1413,6 +1413,62 @@ Book the trail bus from Odda or Tyssedal in July and August — the trailhead ca
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 23 — Tongariro Alpine Crossing, New Zealand
+  // -------------------------------------------------------------------------
+  const adventure23 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-23" },
+    update: {},
+    create: {
+      id: "seed-adventure-23",
+      title: "Tongariro Alpine Crossing",
+      description: `New Zealand's most famous single-day walk traverses the heart of Tongariro National Park — a UNESCO dual World Heritage site and the setting for Mount Doom in the Lord of the Rings films. The 19.4km crossing climbs through steam vents, across the South Crater, over the Red Crater rim at 1,886m, and descends past the Emerald Lakes — volcanic pools tinted brilliant turquoise by mineral deposits — before dropping through subalpine scrub to the Ketetahi trailhead.
+
+The walk is one-way, requiring a shuttle bus from either end. The climb to Red Crater is steep — 300m in 2km — and the crater rim is genuinely exposed, with strong cold winds even in midsummer. The descent from Red Crater involves loose scree that is slippery in wet conditions. But the summit view rewards every element of effort: the active volcanic vent of Te Maari, the three peaks of Tongariro, Ngauruhoe, and Ruapehu in profile, and the Blue and Emerald Lakes sitting in the caldera below like alien gemstones.
+
+The Crossing is sacred to Maori — Ngāti Tūwharetoa consider the peaks as ancestors rather than mountains. Walk respectfully: do not climb off-trail onto the summit cones, and do not remove rocks or volcanic material.
+
+Check the eruption forecast at GeoNet before departure — the Tongariro volcano system had a minor eruption in 2012 and the hazard level fluctuates.`,
+      location: "Tongariro National Park, Waikato",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=1600&q=80",
+      highlights: [
+        "Emerald Lakes: volcanic mineral pools in the caldera — electric blue-green in morning light",
+        "Red Crater rim (1,886m): the highest point, with steam and the full volcanic panorama",
+        "Mount Ngauruhoe (Mount Doom) in profile on the western approach",
+        "South Crater: flat volcanic plain, Mars-like in colour and emptiness",
+        "Steam vents on the lower Ketetahi slope — heat rising through snow in winter",
+        "The full three-volcano alignment: Ruapehu, Ngauruhoe, Tongariro across the plateau",
+      ],
+      gear: [
+        "Sturdy hiking boots (loose volcanic scree on Red Crater descent)",
+        "Windproof layer — crater rim wind can be strong even on calm days",
+        "Full waterproofs (weather can close in in 30 minutes)",
+        "Trekking poles for the steep scree descent",
+        "Shuttle booking (one-way crossing requires transport both ends)",
+        "GeoNet eruption forecast check on day of walk",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 25000,
+      latitude: -39.1362,
+      longitude: 175.6422,
+      published: true,
+      userId: user1.id,
+      voteCount: 84,
+      tags: {
+        connect: [
+          { id: allTags["volcanic"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1458,6 +1514,8 @@ Book the trail bus from Odda or Tyssedal in July and August — the trailhead ca
       { userId: user3.id, adventureId: adventure21.id },
       { userId: user1.id, adventureId: adventure22.id },
       { userId: user2.id, adventureId: adventure22.id },
+      { userId: user2.id, adventureId: adventure23.id },
+      { userId: user3.id, adventureId: adventure23.id },
     ],
     skipDuplicates: true,
   });
