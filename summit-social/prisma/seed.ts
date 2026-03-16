@@ -2319,6 +2319,62 @@ The view from the summit is 360 degrees and the horizon curves. Fourteen countri
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 39 — Matterhorn Hornli Ridge Ascent
+  // -------------------------------------------------------------------------
+  const adventure39 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-39" },
+    update: {},
+    create: {
+      id: "seed-adventure-39",
+      title: "Matterhorn Hornli Ridge Ascent",
+      description: `The Matterhorn is the most recognisable mountain in the world — the perfect pyramid silhouette that has stood for the idea of an impossible peak since Whymper first stood on its summit in 1865 (and lost four companions in the descent). The Hörnli Ridge — the northeast arête above Zermatt — is the normal route and the one most first-time aspirants take. At AD+ difficulty, it requires solid rock scrambling skills, high altitude experience, and an experienced guide. It is not a walk.
+
+The approach starts from the Schwarzsee cable car station above Zermatt and climbs to the Hörnlihutte (3,260m) — the only hut on the route — for an overnight before the summit attempt begins at 3:30am. The Hörnli Ridge is 1,220m of steep mixed terrain: rock bands, fixed ropes, ledges, and the occasional loose section that the thousands of previous climbers have exposed. Helmet is mandatory; stonefall from parties above is constant in busy season.
+
+The route is not the hardest climb on the mountain — that would be the North Face — but it demands full commitment. The upper ridge above the Shoulder (4,257m) narrows to true arête conditions with exposure on both sides and the summit cross appearing at intervals as the angle eases before the final steepening. Summit success rate with a guide is roughly 50% on any given attempt day, weather being the dominant variable.
+
+Zermatt below is car-free. The approach by rack railway adds to the sense of an earlier era of alpinism.`,
+      location: "Matterhorn, Zermatt, Valais",
+      country: "Switzerland",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [
+        "Matterhorn summit (4,478m): the most iconic peak in the Alps",
+        "Hornli Ridge upper arête: narrow rock crest with 1,000m exposure on both flanks",
+        "Hornlihutte at 3,260m: the pre-dawn staging point above the Zermatt valley",
+        "Zermatt below in dawn light as the ridge gains altitude",
+        "Summit cross in clear conditions — the full range of the Pennine Alps visible",
+        "Shoulder traverse at 4,257m: the route's narrowest and most exposed point",
+      ],
+      gear: [
+        "Rock climbing shoes or approach shoes (guide will specify)",
+        "Harness, helmet, and via ferrata set (fixed rope sections)",
+        "Mountaineering boots and 12-point crampons",
+        "Down jacket for pre-dawn temperatures at 4,000m+",
+        "Certified UIAGM/IFMGA mountain guide (mandatory for safe ascent)",
+        "Physical preparation: 5a+ rock climbing fitness and 4,000m+ altitude experience",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 250000,
+      latitude: 45.9766,
+      longitude: 7.6586,
+      published: true,
+      userId: user2.id,
+      voteCount: 122,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["alpine"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2396,6 +2452,8 @@ The view from the summit is 360 degrees and the horizon curves. Fourteen countri
       { userId: user2.id, adventureId: adventure37.id },
       { userId: user2.id, adventureId: adventure38.id },
       { userId: user3.id, adventureId: adventure38.id },
+      { userId: user1.id, adventureId: adventure39.id },
+      { userId: user3.id, adventureId: adventure39.id },
     ],
     skipDuplicates: true,
   });
