@@ -2432,6 +2432,63 @@ The Mustang region on the far side of the pass is the hidden reward: a Tibetan p
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 41 — Everest Base Camp Trek
+  // -------------------------------------------------------------------------
+  const adventure41 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-41" },
+    update: {},
+    create: {
+      id: "seed-adventure-41",
+      title: "Everest Base Camp Trek",
+      description: `The walk to Everest Base Camp is the most famous trek in the world — and one of the most misrepresented. It is not a technical climb. No ropes, no crampons, no crevasses. It is a high-altitude walk on established trails that requires nothing except fitness, acclimatisation time, and the willingness to move slowly. What it delivers in return is a 14-day journey into the world's highest mountain ecosystem, culminating at 5,364m where 400 expedition tents and the Khumbu Icefall greet you with the face of the world's highest peak.
+
+The approach from Lukla airport (2,846m) — the most dangerous commercial runway in the world — climbs through Namche Bazaar, the Sherpa capital at 3,440m, through the Sagarmatha National Park rhododendron forests to Tengboche monastery (3,867m) and across the high moraines above Dingboche to Base Camp. Acclimatisation days in Namche and Dingboche are not optional: AMS above 4,000m without adjustment kills people who ignored the same advice.
+
+Kala Patthar (5,545m) is the real viewpoint, not Base Camp. The walk above Gorak Shep in the dark delivers you to a ridge with the full south face of Everest (8,848m) at eye level — and Lhotse, Nuptse, and Makalu filling the horizon. It is the most complete high-altitude panorama accessible to a non-climber.
+
+The Sherpa culture that carries this mountain is the other story: the monastery at Tengboche, the yak caravans on the trail, the teahouse communities at each altitude stage.`,
+      location: "Khumbu Region, Solukhumbu District",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1526400473556-aac12354f3db?w=1600&q=80",
+      highlights: [
+        "Kala Patthar (5,545m): full south face of Everest at eye level at dawn",
+        "Everest Base Camp (5,364m): the Khumbu Icefall below the Lhotse Face",
+        "Tengboche Monastery (3,867m): the highest monastery in the Himalaya with a view",
+        "Namche Bazaar Saturday market: the trading hub of the Khumbu",
+        "Dudh Kosi river gorge: emerald water in the deep Khumbu canyon",
+        "Full eight-thousander panorama: Everest, Lhotse, Nuptse, Makalu from the high trail",
+      ],
+      gear: [
+        "Down jacket rated to -20°C (Base Camp nights drop to -20°C even in October)",
+        "Altitude medication (Diamox — start day before Namche ascent, stop at Base Camp)",
+        "Microspikes for the Kala Patthar pre-dawn ascent on frozen trail",
+        "Sagarmatha National Park permit and TIMS card",
+        "Quality trekking boots (two weeks of rocky trail requires ankle support)",
+        "Sleeping bag rated to -15°C (teahouse blankets are insufficient above 4,000m)",
+      ],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 250000,
+      latitude: 28.0026,
+      longitude: 86.8528,
+      published: true,
+      userId: user1.id,
+      voteCount: 231,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2513,6 +2570,8 @@ The Mustang region on the far side of the pass is the hidden reward: a Tibetan p
       { userId: user3.id, adventureId: adventure39.id },
       { userId: user1.id, adventureId: adventure40.id },
       { userId: user2.id, adventureId: adventure40.id },
+      { userId: user2.id, adventureId: adventure41.id },
+      { userId: user3.id, adventureId: adventure41.id },
     ],
     skipDuplicates: true,
   });
