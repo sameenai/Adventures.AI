@@ -3305,6 +3305,48 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 59 — Samaria Gorge and White Mountains
+  // -------------------------------------------------------------------------
+  const adventure59 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-59" },
+    update: {},
+    create: {
+      id: "seed-adventure-59",
+      title: "Samaria Gorge and White Mountains",
+      description: `A five-day walking circuit across Crete's Lefka Ori — the White Mountains — culminating in a descent of the Samaria Gorge, one of Europe's longest and most dramatic gorges at 16 km. The high plateau of the Omalos plain at 1,080 m feels like the moon in summer: bare white limestone karst baking in the Mediterranean sun, wild goats on the clifftops, and silence broken only by the wind.\n\nThe trail descends through increasingly towering gorge walls — the narrowest section, the Sideroportes or Iron Gates, squeezes to just 3 m wide with walls 300 m high on either side. Water from the stream is cold enough to numb your feet and clean enough to drink. The gorge exits at the sea-level village of Agia Roumeli where you board a ferry to Hora Sfakion, then spend the final days exploring Sfakia's dramatic coastal villages on foot. This itinerary adds a high-route loop above the gorge for those who want the full mountain experience before the famous descent.`,
+      location: "Lefka Ori, Western Crete",
+      country: "Greece",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1555993539-1732b0258235?w=1600&q=80",
+      highlights: [
+        "Descend 16 km through Samaria Gorge, Europe's longest",
+        "Iron Gates — 3 m wide between 300 m cliffs",
+        "High plateau karst landscape on the Omalos plain",
+        "Ferry from Agia Roumeli after exiting the gorge",
+        "Sfakia coastal villages accessible only by boat or trail",
+      ],
+      gear: [
+        "Sturdy trail shoes with ankle support",
+        "2+ L water capacity (springs in gorge but plan for heat)",
+        "Sun protection — hat, sunscreen, sunglasses",
+        "Trekking poles",
+        "Light day pack 20 L",
+        "Cash for ferry and village tavernas",
+      ],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 60000,
+      latitude: 35.3,
+      longitude: 23.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 38,
+      tags: { connect: [{ name: "trekking" }, { name: "gorge" }, { name: "europe" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3423,6 +3465,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure57.id },
       { userId: user1.id, adventureId: adventure58.id },
       { userId: user3.id, adventureId: adventure58.id },
+      { userId: user2.id, adventureId: adventure59.id },
+      { userId: user3.id, adventureId: adventure59.id },
     ],
     skipDuplicates: true,
   });
