@@ -3263,6 +3263,48 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 58 — Costa Rica Jungle to Pacific
+  // -------------------------------------------------------------------------
+  const adventure58 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-58" },
+    update: {},
+    create: {
+      id: "seed-adventure-58",
+      title: "Costa Rica Jungle to Pacific",
+      description: `A week-long multi-sport traverse of Costa Rica's Pacific coast and Osa Peninsula — one of the most biodiverse places on Earth — combining kayak, jungle trek, and surf. Begin in Manuel Antonio, where sloths hang over the beach path and scarlet macaws screech overhead, then kayak the mangrove estuaries to reach the Osa Peninsula's Corcovado National Park.\n\nCorcovado is where naturalists go when everywhere else feels domesticated: jaguar, tapir, four species of monkey, and sea turtles nesting by starlight. Trek the coastal trail for two days, camping in park stations, then end the week with surf lessons at Pavones — one of the longest left-hand point breaks in the world. The transition from jungle to ocean to surf is seamless and the guiding infrastructure is excellent. This is an ideal first "adventure trip" for those stepping beyond resort travel — challenging enough to feel earned but supported enough to be worry-free.`,
+      location: "Manuel Antonio to Pavones, Osa Peninsula",
+      country: "Costa Rica",
+      continent: "North America",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1600&q=80",
+      highlights: [
+        "Corcovado National Park — the most biodiverse place on Earth",
+        "Jaguar, tapir, and four monkey species",
+        "Mangrove kayaking on the Osa coast",
+        "Sea turtle nesting by starlight",
+        "Surf lessons at Pavones' world-famous left-hand break",
+      ],
+      gear: [
+        "Quick-dry shorts and shirts",
+        "Light trail shoes and flip flops",
+        "Insect repellent and lightweight long sleeves",
+        "Dry bag for kayak days",
+        "Reef-safe sunscreen",
+        "Binoculars for wildlife spotting",
+      ],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 160000,
+      latitude: 8.7,
+      longitude: -83.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 42,
+      tags: { connect: [{ name: "multi-sport" }, { name: "wildlife" }, { name: "jungle" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3379,6 +3421,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user2.id, adventureId: adventure56.id },
       { userId: user2.id, adventureId: adventure57.id },
       { userId: user3.id, adventureId: adventure57.id },
+      { userId: user1.id, adventureId: adventure58.id },
+      { userId: user3.id, adventureId: adventure58.id },
     ],
     skipDuplicates: true,
   });
