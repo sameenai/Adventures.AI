@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/users/search", label: "People" },
   { href: "/itineraries", label: "My Trips" },
+  { href: "/bookmarks", label: "Bucket List" },
   { href: "/itinerary", label: "Plan" },
   { href: "/flights", label: "Flights" },
 ];

@@ -258,6 +258,14 @@ export default async function AdventuresPage({
 
         <div className="mt-6">
           <InfiniteAdventureGrid
+            key={[
+              params.category,
+              params.continent,
+              params.difficulty,
+              params.duration,
+              params.search,
+              params.sortBy,
+            ].join("|")}
             initialAdventures={adventures}
             initialNextCursor={nextCursor}
             currentUserId={session?.user?.id}
