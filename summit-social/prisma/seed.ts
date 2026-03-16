@@ -3476,6 +3476,49 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 63 — Tour du Mont Blanc
+  // -------------------------------------------------------------------------
+  const adventure63 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-63" },
+    update: {},
+    create: {
+      id: "seed-adventure-63",
+      title: "Tour du Mont Blanc",
+      description: `Circumnavigate Western Europe's highest peak on the 170 km Tour du Mont Blanc — a classic mountain circuit crossing three countries (France, Italy, Switzerland) in eleven days, with 10,000 m of cumulative ascent. The TMB is among the world's most beloved long-distance trails for good reason: the mountain reveals a completely different face from each valley, and the transition between French, Italian, and Swiss alpine cultures is as absorbing as the landscape itself.\n\nThe route uses refuges and auberges throughout, meaning you walk with a light pack and end every evening with a hot shower, cold beer, and a communal dinner with fellow trekkers from every corner of the world. The most dramatic moments come on the high passes — Col du Bonhomme, Col de la Seigne, Grand Col Ferret — where Mont Blanc itself fills the sky and you understand for the first time why the mountain has been drawing people for 250 years. The final stage returns to Chamonix through the Aiguilles Rouges for a sunset view of the entire massif, and something in you has changed.`,
+      location: "Chamonix, Mont Blanc Massif",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 11,
+      coverImageUrl: "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=1600&q=80",
+      highlights: [
+        "Circle the highest peak in Western Europe across 3 countries",
+        "10,000 m total ascent over 11 days",
+        "Col de la Seigne — best view of Mont Blanc's Italian face",
+        "Refuge hut-to-hut with full dinners and stunning company",
+        "Final approach to Chamonix via the Aiguilles Rouges ridge",
+      ],
+      gear: [
+        "30 L day pack (luggage transfer between some refuges)",
+        "Trekking poles",
+        "Hiking boots — waterproof with ankle support",
+        "Rain jacket and warm mid-layer",
+        "Sun protection (glacier UV)",
+        "Refuge reservation essential (book months in advance)",
+        "Cash for supplements and drinks at refuges",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 150000,
+      latitude: 45.9,
+      longitude: 6.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 64,
+      tags: { connect: [{ name: "trekking" }, { name: "mountains" }, { name: "europe" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3602,6 +3645,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure61.id },
       { userId: user2.id, adventureId: adventure62.id },
       { userId: user3.id, adventureId: adventure62.id },
+      { userId: user1.id, adventureId: adventure63.id },
+      { userId: user2.id, adventureId: adventure63.id },
     ],
     skipDuplicates: true,
   });
