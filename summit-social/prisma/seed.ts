@@ -1300,6 +1300,62 @@ Above the 8th Station the cold is serious. The crater rim at 3,776m in July at 4
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 21 — Snowdon via Watkin Path
+  // -------------------------------------------------------------------------
+  const adventure21 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-21" },
+    update: {},
+    create: {
+      id: "seed-adventure-21",
+      title: "Snowdon via the Watkin Path",
+      description: `Snowdon — Yr Wyddfa in Welsh — is the highest point in England and Wales at 1,085m, and the Watkin Path is its finest ascent route: beginning in a Nantgwynant oakwood beside a waterfall and climbing through cwms, beside Bronze Age standing stones and abandoned slate quarries, to the summit ridge with 360-degree views across Snowdonia and, on clear days, Ireland.
+
+The Watkin Path is the longest and most varied of Snowdon's six main routes. The lower section through Nantgwynant is genuinely woodland walking — ancient sessile oak hung with ferns and mosses in a landscape that has barely changed since the glaciers retreated 12,000 years ago. The ruins of the Plas Cwmllan slate quarry halfway up are a reminder that this mountain was a working landscape until the 1890s.
+
+The upper section becomes rocky and exposed, requiring hands on rock at the final steps to the summit. The Bwlch y Saethau (Pass of the Arrows) on the ridge is where, in legend, Arthur fell in his final battle. The summit cairn holds the ruins of a Victorian railway station — the Snowdon Mountain Railway still runs from Llanberis and deposits people 50m from the top, which adds to the surreal summit experience.
+
+Stay overnight in Beddgelert — a 45-minute drive from the trailhead — to reach the car park before the 9am rush on weekends.`,
+      location: "Snowdon (Yr Wyddfa), Gwynedd",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [
+        "Nantgwynant oakwood approach — ancient sessile oak forest below the cwm",
+        "Plas Cwmllan slate quarry ruins: mid-Victorian industrial archaeology at 700m",
+        "Bwlch y Saethau ridge: Arthurian legend and a 180-degree ridgeline view",
+        "Summit (1,085m): highest point in England and Wales, with a cafe",
+        "Cwm Llan under Yr Wyddfa: glacial cirque with standing water in winter",
+        "Views to Anglesey, Cardigan Bay, and (rarely) the Wicklow Mountains of Ireland",
+      ],
+      gear: [
+        "Waterproof boots — the Watkin Path has permanent stream crossings low down",
+        "Full waterproofs including trousers (Welsh weather is famously changeable)",
+        "Trekking poles (upper section has loose shale)",
+        "Emergency whistle and basic first aid",
+        "OS Explorer Map OL17 'Snowdon' (or downloaded offline)",
+        "Layers including warm mid-layer (summit is 1,085m — noticeably cold)",
+      ],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 10000,
+      latitude: 53.0685,
+      longitude: -4.0763,
+      published: true,
+      userId: user2.id,
+      voteCount: 38,
+      tags: {
+        connect: [
+          { id: allTags["alpine"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1341,6 +1397,8 @@ Above the 8th Station the cold is serious. The crater rim at 3,776m in July at 4
       { userId: user2.id, adventureId: adventure19.id },
       { userId: user2.id, adventureId: adventure20.id },
       { userId: user3.id, adventureId: adventure20.id },
+      { userId: user1.id, adventureId: adventure21.id },
+      { userId: user3.id, adventureId: adventure21.id },
     ],
     skipDuplicates: true,
   });
