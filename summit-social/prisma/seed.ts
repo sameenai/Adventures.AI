@@ -1469,6 +1469,62 @@ Check the eruption forecast at GeoNet before departure — the Tongariro volcano
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 24 — Ben Nevis Winter Summit
+  // -------------------------------------------------------------------------
+  const adventure24 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-24" },
+    update: {},
+    create: {
+      id: "seed-adventure-24",
+      title: "Ben Nevis Winter Summit",
+      description: `At 1,345m, Ben Nevis is the highest point in the British Isles — unremarkable in height by alpine standards, but formidable in winter condition. The north face holds Scotland's longest and most technically demanding ice routes, and the summit plateau in January sits under ice and wind that regularly exceeds 150 km/h. A winter ascent of the Mountain Track (the tourist path in summer) is a serious mountaineering objective that requires full winter equipment and navigation competence.
+
+The Mountain Track from the Visitor Centre in Glen Nevis is 16km return with 1,345m of ascent. In summer it is a well-marked gravel path. In winter it is buried under consolidated snow and ice from the 700m mark, becomes a grade 1/2 winter climb on the final zigzags in hard conditions, and the plateau is a white-out navigation exercise in cloud. Every year ill-prepared walkers require rescue. Every year some don't come back.
+
+Which makes the summit in good conditions one of the most rewarding day objectives in the UK. Clear winter days — rare but spectacular — give views to Ireland, Northern England, and deep into the Cairngorms. The snow cornices on the north face rim are sculptural. The ice formations in the summit observatory ruins are extraordinary. The silence at the top on a still day in February is complete.
+
+The key hazard is the plateau: featureless, cornice-rimmed on the north, and in cloud indistinguishable from the descent route. A compass bearing (282° for the summit, 231° to descend away from the cliffs) must be known before departure.`,
+      location: "Ben Nevis, Fort William, Lochaber",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=1600&q=80",
+      highlights: [
+        "Highest summit in the British Isles in full winter condition",
+        "Summit plateau ice formations and north-face cornice viewing in clear weather",
+        "Observatory ruins at 1,345m buried under winter ice",
+        "360-degree view to Ireland on rare clear winter days",
+        "Red Burn gully: the classic line on the Mountain Track in grade 1/2 snow",
+        "Fort William below in late afternoon sun after summit descent",
+      ],
+      gear: [
+        "12-point crampons (mandatory above 700m in winter condition)",
+        "Ice axe — arrest technique essential before departure",
+        "Full winter layering system rated to -20°C windchill",
+        "Compass and ability to take bearings (GPS fails in wet conditions)",
+        "Goggles and balaclava for plateau wind",
+        "Avalanche transceiver, probe, and shovel (essential in loaded snow conditions)",
+      ],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 25000,
+      latitude: 56.7969,
+      longitude: -5.0037,
+      published: true,
+      userId: user2.id,
+      voteCount: 73,
+      tags: {
+        connect: [
+          { id: allTags["alpine"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1516,6 +1572,8 @@ Check the eruption forecast at GeoNet before departure — the Tongariro volcano
       { userId: user2.id, adventureId: adventure22.id },
       { userId: user2.id, adventureId: adventure23.id },
       { userId: user3.id, adventureId: adventure23.id },
+      { userId: user1.id, adventureId: adventure24.id },
+      { userId: user3.id, adventureId: adventure24.id },
     ],
     skipDuplicates: true,
   });
