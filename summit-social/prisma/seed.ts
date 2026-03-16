@@ -2961,6 +2961,48 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 51 — Cape to Cape Track
+  // -------------------------------------------------------------------------
+  const adventure51 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-51" },
+    update: {},
+    create: {
+      id: "seed-adventure-51",
+      title: "Cape to Cape Track",
+      description: `Walk the full 123 km Cape to Cape Track along Western Australia's Margaret River coast, from Cape Naturaliste lighthouse to Cape Leeuwin where the Indian and Southern Oceans meet. The trail ribbons between limestone headlands and bays of impossible turquoise, through towering karri and jarrah forest, past surf beaches where the swells arrive unbroken from Antarctica.\n\nThe track passes world-class wineries and artisan food producers — making it entirely possible to hike all day and eat very well each evening. Campsites sit at the edge of coastal cliffs or in forest clearings with birdsong for an alarm clock. The final day's descent to Cape Leeuwin, with both oceans visible and the historic lighthouse standing against an evening sky, is one of the great trail finishes in the world. Easygoing grades and clear waymarking make this an ideal multi-day trail for those new to long-distance hiking.`,
+      location: "Margaret River Region",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 13,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [
+        "Walk where the Indian and Southern Oceans meet at Cape Leeuwin",
+        "Limestone cliffs and turquoise bays throughout",
+        "Famous Margaret River wine region along the route",
+        "Ancient karri and jarrah forest sections",
+        "Clear waymarking — ideal first multi-day trail",
+      ],
+      gear: [
+        "Trail runners or light hiking boots",
+        "Tent or bivvy (some free campsites)",
+        "35 L hiking pack",
+        "Water filter",
+        "Sunscreen and sun hat (essential)",
+        "Lightweight sleeping bag",
+      ],
+      bestMonths: [9, 10, 11, 4, 5],
+      estimatedCost: 95000,
+      latitude: -34.0,
+      longitude: 115.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 31,
+      tags: { connect: [{ name: "trekking" }, { name: "coastal" }, { name: "australia" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3063,6 +3105,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure49.id },
       { userId: user1.id, adventureId: adventure50.id },
       { userId: user3.id, adventureId: adventure50.id },
+      { userId: user2.id, adventureId: adventure51.id },
+      { userId: user3.id, adventureId: adventure51.id },
     ],
     skipDuplicates: true,
   });
