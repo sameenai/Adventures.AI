@@ -1,7 +1,6 @@
+import { APP_URL } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import type { MetadataRoute } from "next";
-
-const BASE_URL = process.env.NEXTAUTH_URL ?? "http://localhost:3000";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const adventures = await prisma.adventure.findMany({
@@ -11,21 +10,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: BASE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
+    { url: APP_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
     {
-      url: `${BASE_URL}/adventures`,
+      url: `${APP_URL}/adventures`,
       lastModified: new Date(),
       changeFrequency: "hourly",
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/leaderboard`,
+      url: `${APP_URL}/leaderboard`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.7,
     },
     {
-      url: `${BASE_URL}/flights`,
+      url: `${APP_URL}/flights`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.6,
@@ -33,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const adventureRoutes: MetadataRoute.Sitemap = adventures.map((a) => ({
-    url: `${BASE_URL}/adventures/${a.id}`,
+    url: `${APP_URL}/adventures/${a.id}`,
     lastModified: a.updatedAt,
     changeFrequency: "weekly" as const,
     priority: 0.8,
