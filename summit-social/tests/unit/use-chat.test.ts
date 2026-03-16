@@ -128,6 +128,28 @@ describe("useChat", () => {
     expect(errorMsg?.content).toContain("something went wrong");
   });
 
+  it("includes api error message in thrown error when response body has error field", async () => {
+    vi.spyOn(global, "fetch").mockResolvedValueOnce(
+      new Response(JSON.stringify({ error: "Unauthorized", code: "UNAUTHORIZED" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    const { result } = renderHook(() => useChat({}));
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    await act(async () => {
+      await result.current.sendMessage("hello");
+    });
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Chat error:",
+      expect.objectContaining({ message: "Unauthorized" }),
+    );
+    consoleSpy.mockRestore();
+  });
+
   it("posts to /api/chat with message content", async () => {
     const fetchSpy = vi.spyOn(global, "fetch").mockResolvedValueOnce(makeStreamResponse("ok"));
 

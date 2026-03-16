@@ -36,7 +36,8 @@ export function useChat({ itineraryId, initialMessages = [] }: UseChatOptions) {
         });
 
         if (!response.ok) {
-          throw new Error("Chat request failed");
+          const errData = (await response.json().catch(() => ({}))) as { error?: string };
+          throw new Error(errData.error ?? `Chat request failed (${response.status})`);
         }
 
         const reader = response.body?.getReader();
