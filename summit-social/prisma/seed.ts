@@ -1807,6 +1807,62 @@ July–December brings cooler and rougher conditions but whale sharks and the al
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 30 — Bali Temples, Rice Terraces & Jungle Trek
+  // -------------------------------------------------------------------------
+  const adventure30 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-30" },
+    update: {},
+    create: {
+      id: "seed-adventure-30",
+      title: "Bali Temples, Rice Terraces and Jungle Trek",
+      description: `Bali's cultural and natural landscape is the most layered in Southeast Asia — a Hindu island inside a Muslim archipelago, where the rice terrace engineering of the subak irrigation system has shaped the land for a thousand years and the temple calendar runs continuously through 200+ ceremonies a year. Walking through this landscape rather than touring it by scooter reveals the depth beneath the Instagram surface.
+
+A five-day itinerary centres on Ubud — the cultural heartland in the island's interior — and radiates out: north into the volcanic highlands of Mount Batur, east to the water temples of Pura Tirta Empul, west through the Campuhan Ridge walk above the Wos River, and south to the rice terraces of Tegalalang and Jatiluwih.
+
+The Campuhan Ridge is the ideal first morning: a 9km walk along a narrow path between two river valleys, through stands of bamboo and the back gardens of the silver craftsmen's compound, arriving at the Pura Gunung Lebah temple above the confluence. No tourist buses reach this path. The only company is local farmers and the occasional artist seeking light.
+
+Mount Batur at dawn requires a 2am start but pays back: the volcanic caldera at sunrise, with Lake Batur below and Agung filling the eastern horizon. It is the easiest summit in Indonesia and the most rewarding dawn view.`,
+      location: "Ubud, Bali",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=1600&q=80",
+      highlights: [
+        "Campuhan Ridge walk above Ubud: riverside bamboo and artist compounds, no crowds",
+        "Mount Batur sunrise (1,717m): volcanic caldera and Lake Batur at dawn",
+        "Jatiluwih rice terraces: UNESCO-listed subak irrigation system in working use",
+        "Pura Tirta Empul: active water temple with ritual purification in the spring pools",
+        "Traditional Balinese dance performance in a torch-lit open temple courtyard",
+        "Tegalalang rice paddies: stepped terraces above the Petanu River gorge",
+      ],
+      gear: [
+        "Sarong (mandatory for temple entry — available for rent at every entrance)",
+        "Comfortable walking sandals or trail shoes for ridge paths",
+        "Headlamp for the Batur pre-dawn start",
+        "Insect repellent (jungle paths below 800m have mosquitoes)",
+        "Light rain jacket (sudden tropical showers are daily in wet season)",
+        "Cash in IDR — most local warungs and temples are cash only",
+      ],
+      bestMonths: [4, 5, 6, 9, 10, 11],
+      estimatedCost: 50000,
+      latitude: -8.5069,
+      longitude: 115.2625,
+      published: true,
+      userId: user2.id,
+      voteCount: 72,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1866,6 +1922,8 @@ July–December brings cooler and rougher conditions but whale sharks and the al
       { userId: user2.id, adventureId: adventure28.id },
       { userId: user2.id, adventureId: adventure29.id },
       { userId: user3.id, adventureId: adventure29.id },
+      { userId: user1.id, adventureId: adventure30.id },
+      { userId: user3.id, adventureId: adventure30.id },
     ],
     skipDuplicates: true,
   });
