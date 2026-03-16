@@ -3003,6 +3003,48 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 52 — Overland Track
+  // -------------------------------------------------------------------------
+  const adventure52 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-52" },
+    update: {},
+    create: {
+      id: "seed-adventure-52",
+      title: "Overland Track",
+      description: `Tasmania's iconic 65 km Overland Track runs south from Cradle Mountain to Lake St Clair through the heart of the Tasmanian Wilderness World Heritage Area — one of the last great temperate wilderness areas on Earth. The route passes jagged dolerite peaks, buttongrass moorland, ancient pencil pine groves, and alpine tarns that reflect the sky in perfect stillness.\n\nThe track is well-maintained with a series of staffed huts, making it accessible to first-time multi-day trekkers who can still carry their own tent for flexibility. Side trips to the summit of Cradle Mountain or Mount Ossa — the state's highest peak — are worth the extra effort for 360° views across a landscape that has been effectively untouched for millennia. Wombats, wallabies, and echidnas wander the campsites at dusk. The final leg descends through ancient myrtle beech forest to the shores of Lake St Clair, Australia's deepest natural lake.`,
+      location: "Cradle Mountain - Lake St Clair National Park",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1568454537842-d933259bb258?w=1600&q=80",
+      highlights: [
+        "Walk through UNESCO World Heritage wilderness",
+        "Summit Cradle Mountain or Mount Ossa on side trips",
+        "Ancient pencil pine and myrtle beech forests",
+        "Wombats and wallabies at camp every evening",
+        "Finish at Australia's deepest natural lake",
+      ],
+      gear: [
+        "30–35 L pack",
+        "Tent (huts available but carry one for flexibility)",
+        "Full waterproofs — Tassie weather changes fast",
+        "Gaiters for muddy sections",
+        "Trekking poles",
+        "Warm layers including fleece and down jacket",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 70000,
+      latitude: -41.6,
+      longitude: 145.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 36,
+      tags: { connect: [{ name: "trekking" }, { name: "wildlife" }, { name: "australia" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3107,6 +3149,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure50.id },
       { userId: user2.id, adventureId: adventure51.id },
       { userId: user3.id, adventureId: adventure51.id },
+      { userId: user1.id, adventureId: adventure52.id },
+      { userId: user3.id, adventureId: adventure52.id },
     ],
     skipDuplicates: true,
   });
