@@ -2832,6 +2832,50 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 48 — Amazon Headwaters Canoe Expedition
+  // -------------------------------------------------------------------------
+  const adventure48 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-48" },
+    update: {},
+    create: {
+      id: "seed-adventure-48",
+      title: "Amazon Headwaters Canoe Expedition",
+      description: `Paddle deep into the Ecuadorian Amazon from the Napo River tributaries into seldom-visited várzea forest. Launch from a riverside community near Tena, navigate winding blackwater streams, and camp on sandy beaches beneath cathedral jungle. Your guide — a Kichwa elder who has spent a lifetime reading the river — teaches you to identify medicinal plants, set fish traps, and read weather by cloud formation over the canopy.\n\nDays are spent paddling 20–35 km through shifting channels, pulling ashore to explore oxbow lakes teeming with caimans, river dolphins, and giant otters. Nights are spent in hammocks or simple riverside lodges, listening to howler monkeys and the chorus of ten thousand frogs. The river demands constant attention: reading currents, scouting shallows, and portaging around log jams. By the end you will have developed instincts that no classroom can teach.`,
+      location: "Napo River, Tena",
+      country: "Ecuador",
+      continent: "South America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: [
+        "Paddle blackwater tributaries rarely visited by outsiders",
+        "Travel with a Kichwa elder guide",
+        "Spot river dolphins, caimans, and giant otters",
+        "Camp on jungle beaches beneath the forest canopy",
+        "Learn traditional plant knowledge and fishing techniques",
+      ],
+      gear: [
+        "Sit-on-top canoe (provided)",
+        "Dry bags — 20 L and 40 L",
+        "Quick-dry clothing",
+        "Insect repellent (DEET 30%+)",
+        "Rain jacket",
+        "Water purification tablets",
+        "Headlamp with spare batteries",
+        "Lightweight hammock",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 180000,
+      latitude: -0.9,
+      longitude: -77.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 19,
+      tags: { connect: [{ name: "kayaking" }, { name: "jungle" }, { name: "wildlife" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -2928,6 +2972,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user2.id, adventureId: adventure46.id },
       { userId: user2.id, adventureId: adventure47.id },
       { userId: user3.id, adventureId: adventure47.id },
+      { userId: user1.id, adventureId: adventure48.id },
+      { userId: user3.id, adventureId: adventure48.id },
     ],
     skipDuplicates: true,
   });
