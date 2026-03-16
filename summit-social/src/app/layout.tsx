@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "@/lib/env";
 import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
 import type { Metadata } from "next";
 import { Lora, Space_Mono, Teko } from "next/font/google";
