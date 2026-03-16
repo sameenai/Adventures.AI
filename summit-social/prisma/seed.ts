@@ -2876,6 +2876,48 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 49 — Atlas Mountains Traverse
+  // -------------------------------------------------------------------------
+  const adventure49 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-49" },
+    update: {},
+    create: {
+      id: "seed-adventure-49",
+      title: "Atlas Mountains Traverse",
+      description: `Cross Morocco's High Atlas from Imlil to the remote Aït Bouguemez valley — the Valley of Happy People — via the Tichka Plateau and a string of Berber villages that have changed little in centuries. The trail climbs through walnut orchards and terraced barley fields, threads high passes where mules still carry salt and saffron, and descends into hidden valleys of rose-pink kasbahs.\n\nAccommodation is in traditional mountain gîtes where your host family serves tagine cooked over wood fire and argan oil pressed from trees on the hillside. The route tops out at 3,500 m on the Tichka Plateau, an ancient transhumance pasture where Berber families still bring their herds each summer. This is a trek for those who want to move through a living culture, not past it — unhurried, conversational, with plenty of time to accept tea.`,
+      location: "Imlil to Aït Bouguemez",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1548693434-0571b716da38?w=1600&q=80",
+      highlights: [
+        "Cross the Tichka Plateau at 3,500 m",
+        "Stay with Berber families in traditional gîtes",
+        "Trek through the Valley of Happy People",
+        "Visit kasbahs and rose-water village markets",
+        "Spectacular views of the Sahara foothills to the south",
+      ],
+      gear: [
+        "Trekking poles",
+        "Layers for 5°C night temps",
+        "Sun hat and high-SPF sunscreen",
+        "Headlamp",
+        "Day pack 20–25 L",
+        "Broken-in trail shoes",
+      ],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 90000,
+      latitude: 31.1,
+      longitude: -7.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 27,
+      tags: { connect: [{ name: "trekking" }, { name: "culture" }, { name: "mountains" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -2974,6 +3016,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure47.id },
       { userId: user1.id, adventureId: adventure48.id },
       { userId: user3.id, adventureId: adventure48.id },
+      { userId: user2.id, adventureId: adventure49.id },
+      { userId: user3.id, adventureId: adventure49.id },
     ],
     skipDuplicates: true,
   });
