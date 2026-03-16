@@ -2262,6 +2262,63 @@ Permits are limited to 500 per day total (guides and porters included). Book thr
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 38 — Mont Blanc Summit via Gouter Route
+  // -------------------------------------------------------------------------
+  const adventure38 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-38" },
+    update: {},
+    create: {
+      id: "seed-adventure-38",
+      title: "Mont Blanc Summit via the Gouter Route",
+      description: `At 4,808m, Mont Blanc is the highest peak in the Alps and the highest point in Western Europe. The Voie Normale via the Gouter Hut is the easiest route to the summit — a high-altitude snow climb rather than a technical mountaineering route — but it demands full alpine competence, acclimatisation, and respect for rapidly changing weather at altitude. Between 10,000 and 30,000 people attempt the summit each year; roughly a quarter turn back.
+
+The approach from Saint-Gervais takes the Mont Blanc Express rack railway to Nid d'Aigle station (2,372m), then climbs the Tete Rousse Glacier and the notorious Grand Couloir — a rock funnel that channels stonefall from the Aiguille du Gouter above. Crossing the Grand Couloir is timed to the early morning freeze before the sun loosens the rock; the window is 45 minutes and the guide will know it precisely.
+
+The Gouter Hut at 3,835m is the staging point for summit day. Departure is at 2am. Six hours of cramponing on 30-40 degree consolidated snow, with the Dome du Gouter at 4,304m and the Col du Dome before the final push to the summit. The altitude affects judgment — decisions about summit or turn-back are harder at 4,500m than they look from the valley. Trust your guide.
+
+The view from the summit is 360 degrees and the horizon curves. Fourteen countries are theoretically visible. The experience is one of complete disorientation: you are standing higher than all of Western Europe, in all its smallness.`,
+      location: "Mont Blanc, Chamonix Valley",
+      country: "France",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [
+        "Mont Blanc summit (4,808m): highest point in the Alps and all of Western Europe",
+        "Gouter Hut (3,835m) at sunset: the Chamonix valley floor 2,000m below in evening light",
+        "Grand Couloir crossing in the pre-dawn freeze — calculated timing at the route's crux",
+        "Dome du Gouter (4,304m): pre-summit plateau with the final ridge ahead",
+        "Chamonix valley from the summit: the entire Mont Blanc massif spread below you",
+        "Summit sunrise: the Alps in every direction, cloud layers below, horizon curving",
+      ],
+      gear: [
+        "12-point steel crampons compatible with your mountaineering boots",
+        "Ice axe with wrist loop",
+        "Mountaineering double boots (rental available in Chamonix)",
+        "Down suit or equivalent layering to -25°C windchill",
+        "Helmet (Grand Couloir stonefall is real and unforeseeable)",
+        "Certified mountain guide (Compagnie des Guides de Chamonix — non-negotiable for first ascent)",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 200000,
+      latitude: 45.8326,
+      longitude: 6.8652,
+      published: true,
+      userId: user1.id,
+      voteCount: 147,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["alpine"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2337,6 +2394,8 @@ Permits are limited to 500 per day total (guides and porters included). Book thr
       { userId: user3.id, adventureId: adventure36.id },
       { userId: user1.id, adventureId: adventure37.id },
       { userId: user2.id, adventureId: adventure37.id },
+      { userId: user2.id, adventureId: adventure38.id },
+      { userId: user3.id, adventureId: adventure38.id },
     ],
     skipDuplicates: true,
   });
