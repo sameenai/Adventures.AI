@@ -2375,6 +2375,63 @@ Zermatt below is car-free. The approach by rack railway adds to the sense of an 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 40 — Annapurna Circuit Trek, Nepal
+  // -------------------------------------------------------------------------
+  const adventure40 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-40" },
+    update: {},
+    create: {
+      id: "seed-adventure-40",
+      title: "Annapurna Circuit Trek, Nepal",
+      description: `The Annapurna Circuit is the great loop: 160–220km (depending on access point) circumnavigating the Annapurna massif through the world's deepest gorge, over the highest trekking pass in Nepal, and through a landscape that changes from subtropical lowland to Tibetan plateau within 100km. It is one of the most diverse and complete mountain journeys on earth.
+
+The route climbs north from Besisahar through increasingly dramatic terrain: the Marsyangdi River gorge narrows at Jagat, the forest gives way to dry scrub above Chame, and Manang sits in its high valley at 3,519m with Annapurna III (7,555m) filling the north wall. Two acclimatisation days in Manang are non-negotiable: Ice Lake at 4,600m is the standard acclimatisation hike, offering views of the entire circuit ahead.
+
+Thorong La Pass at 5,416m is the physical and psychological centrepiece. The 3am start from High Camp gets you to the pass before the afternoon wind builds. The descent to Muktinath on the far side drops 1,600m in 8km on loose scree and moraines — the knees feel it for two days.
+
+The Mustang region on the far side of the pass is the hidden reward: a Tibetan plateau landscape with 14th-century cave monasteries, mustard-yellow fields against red cliff faces, and prayer wheels turning in the dry wind. It feels like a different country because, a century ago, it was.`,
+      location: "Annapurna Conservation Area, Gandaki Province",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [
+        "Thorong La Pass (5,416m): the high point, summit before the afternoon wind",
+        "Manang acclimatisation view: Annapurna III (7,555m) across the valley floor",
+        "Mustang region: Tibetan plateau landscape and 14th-century cave monasteries",
+        "Ice Lake (4,600m): acclimatisation hike above Manang with full circuit panorama",
+        "Marsyangdi Gorge lower section: subtropical forest and waterfalls in the deep canyon",
+        "Muktinath temple: sacred Hindu and Buddhist site at 3,710m in the rain shadow",
+      ],
+      gear: [
+        "Summit-rated down jacket and sleeping bag (-15°C for Thorong La night temperatures)",
+        "Altitude medication (Diamox 250mg — mandatory above 4,000m for most trekkers)",
+        "Trekking poles with large baskets (Thorong La descent on loose scree is punishing)",
+        "Microspikes for the pre-dawn Thorong La approach in frozen conditions",
+        "TIMS card and ACAP permit (arranged in Besisahar or Kathmandu)",
+        "Offline maps: Gaia GPS or Maps.me downloaded before departure",
+      ],
+      bestMonths: [10, 11, 3, 4, 5],
+      estimatedCost: 180000,
+      latitude: 28.5965,
+      longitude: 83.9575,
+      published: true,
+      userId: user3.id,
+      voteCount: 176,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["multi-day"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2454,6 +2511,8 @@ Zermatt below is car-free. The approach by rack railway adds to the sense of an 
       { userId: user3.id, adventureId: adventure38.id },
       { userId: user1.id, adventureId: adventure39.id },
       { userId: user3.id, adventureId: adventure39.id },
+      { userId: user1.id, adventureId: adventure40.id },
+      { userId: user2.id, adventureId: adventure40.id },
     ],
     skipDuplicates: true,
   });
