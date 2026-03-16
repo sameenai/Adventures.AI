@@ -1,18 +1,23 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useTransition } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 
 export function SearchFilter() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
-  const current = {
-    search: searchParams.get("search") ?? "",
-    sortBy: searchParams.get("sortBy") ?? "votes",
-    category: searchParams.get("category") ?? "",
-  };
+  const searchParam = searchParams.get("search") ?? "";
+  const sortBy = searchParams.get("sortBy") ?? "votes";
+
+  const [inputValue, setInputValue] = useState(searchParam);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Keep input in sync when the URL search param changes externally
+  useEffect(() => {
+    setInputValue(searchParam);
+  }, [searchParam]);
 
   const update = useCallback(
     (key: string, value: string) => {
@@ -22,7 +27,6 @@ export function SearchFilter() {
       } else {
         params.delete(key);
       }
-      // reset cursor when filters change
       params.delete("cursor");
       startTransition(() => {
         router.push(`/adventures?${params.toString()}`);
@@ -31,14 +35,32 @@ export function SearchFilter() {
     [router, searchParams],
   );
 
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setInputValue(value);
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => {
+        update("search", value);
+      }, 300);
+    },
+    [update],
+  );
+
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, []);
+
   return (
     <div className="mt-6 flex flex-wrap items-center gap-3">
       <div className="relative flex-1 min-w-[200px]">
         <input
           type="search"
-          defaultValue={current.search}
+          value={inputValue}
           placeholder="Search adventures…"
-          onChange={(e) => update("search", e.target.value)}
+          onChange={handleSearchChange}
           className="w-full border border-stone-700 bg-stone-900 px-4 py-2 font-mono text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
         />
         {isPending && (
@@ -46,7 +68,7 @@ export function SearchFilter() {
         )}
       </div>
       <select
-        value={current.sortBy}
+        value={sortBy}
         onChange={(e) => update("sortBy", e.target.value)}
         className="border border-stone-700 bg-stone-900 px-3 py-2 font-mono text-xs text-stone-300 focus:border-amber-500 focus:outline-none"
       >
