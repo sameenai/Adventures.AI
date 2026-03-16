@@ -2661,6 +2661,63 @@ Self-sufficiency is essential. Between Ishkashim and Murghab, the closest resupp
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 45 — Aconcagua Normal Route
+  // -------------------------------------------------------------------------
+  const adventure45 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-45" },
+    update: {},
+    create: {
+      id: "seed-adventure-45",
+      title: "Aconcagua Normal Route",
+      description: `Aconcagua is the highest mountain outside Asia at 6,961m — the Roof of the Americas. The Normal Route via the northwest face is a non-technical high-altitude mountaineering objective: no ropes required on the standard line, no glacier travel, no technical rock. What it demands instead is extraordinary altitude adaptation, physical conditioning, and patience for a 20-day summit window that includes acclimatisation camps, rest days, and weather holds at the mountain.
+
+The approach from Mendoza takes three days by road and mule trail to Plaza de Mulas base camp at 4,300m — already higher than all of Europe. The climb then moves through two high camps (Nido de Condores at 5,570m and Cólera at 6,000m) to the Canaleta — the loose scree gully that is the final 350m before the summit. At altitude, the Canaleta takes 4–5 hours for what looks like a 30-minute walk.
+
+The summit view encompasses the Pacific coast, the Chilean glaciers, and the plains of Mendoza. You are standing higher than any point in the world outside Asia. The success rate on any given expedition is roughly 30–40% for acclimatised, well-guided climbers; weather and altitude sickness are the dominant factors. Most summits come on attempt days between January 10 and February 20.
+
+The experience of altitude at 6,900m is unlike anything below it. Decision-making degrades. Fine motor control is reduced. The team dynamic is the margin between summit and safe descent.`,
+      location: "Aconcagua Provincial Park, Mendoza",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1600&q=80",
+      highlights: [
+        "Aconcagua summit (6,961m): highest point outside Asia — the Roof of the Americas",
+        "Plaza de Mulas base camp: 4,300m, the highest established camp in the Americas",
+        "Nido de Condores (5,570m): the condors riding thermals below the camp",
+        "The Canaleta: the defining grind — 350m of loose scree at 6,600m+",
+        "Summit view: Pacific coast, Chilean ice fields, and Argentine plains in every direction",
+        "Andean condor soaring below base camp — 3m wingspan below you",
+      ],
+      gear: [
+        "Expedition down suit (-40°C rated — summit temperatures below -30°C with wind)",
+        "Double mountaineering boots (La Sportiva G2 or equivalent)",
+        "12-point steel crampons",
+        "Poles rated for alpine use — the Canaleta demands aggressive planting",
+        "Aconcagua park permit (USD 800–1,200 depending on season and entry date)",
+        "UIAGM-certified high-altitude guide (inexperienced parties have a 10% summit rate)",
+      ],
+      bestMonths: [1, 2],
+      estimatedCost: 500000,
+      latitude: -32.6532,
+      longitude: -70.0109,
+      published: true,
+      userId: user2.id,
+      voteCount: 93,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2750,6 +2807,8 @@ Self-sufficiency is essential. Between Ishkashim and Murghab, the closest resupp
       { userId: user2.id, adventureId: adventure43.id },
       { userId: user2.id, adventureId: adventure44.id },
       { userId: user3.id, adventureId: adventure44.id },
+      { userId: user1.id, adventureId: adventure45.id },
+      { userId: user3.id, adventureId: adventure45.id },
     ],
     skipDuplicates: true,
   });
