@@ -22,24 +22,47 @@ export default async function LeaderboardPage({
           ? new Date(Date.now() - 365 * 24 * 60 * 60 * 1000)
           : undefined;
 
-  const adventures = await prisma.adventure.findMany({
-    where: {
-      published: true,
-      ...(dateFilter && { createdAt: { gte: dateFilter } }),
-    },
-    orderBy: { voteCount: "desc" },
-    take: 100,
-    include: {
-      user: { select: { id: true, name: true, avatarUrl: true } },
-      tags: true,
-    },
-  });
+  const includeOpts = {
+    user: { select: { id: true, name: true, avatarUrl: true } },
+    tags: true,
+  } as const;
 
-  const entries: LeaderboardEntry[] = adventures.map((adventure, index) => ({
-    rank: index + 1,
-    adventure,
-    trend: "stable" as const,
-  }));
+  const [adventures, allTimeAdventures] = await Promise.all([
+    prisma.adventure.findMany({
+      where: {
+        published: true,
+        ...(dateFilter && { createdAt: { gte: dateFilter } }),
+      },
+      orderBy: { voteCount: "desc" },
+      take: 100,
+      include: includeOpts,
+    }),
+    // Always fetch all-time ranks as the comparison baseline
+    timeWindow !== "all"
+      ? prisma.adventure.findMany({
+          where: { published: true },
+          orderBy: { voteCount: "desc" },
+          take: 100,
+          select: { id: true },
+        })
+      : Promise.resolve([]),
+  ]);
+
+  // Build a map of id → 1-based all-time rank
+  const allTimeRankMap = new Map(allTimeAdventures.map((a, i) => [a.id, i + 1]));
+
+  const entries: LeaderboardEntry[] = adventures.map((adventure, index) => {
+    const currentRank = index + 1;
+    if (timeWindow === "all") {
+      return { rank: currentRank, adventure, trend: "stable" as const };
+    }
+    const allTimeRank = allTimeRankMap.get(adventure.id);
+    if (allTimeRank === undefined) {
+      return { rank: currentRank, adventure, trend: "new" as const, previousRank: undefined };
+    }
+    const trend = currentRank < allTimeRank ? "up" : currentRank > allTimeRank ? "down" : "stable";
+    return { rank: currentRank, adventure, trend, previousRank: allTimeRank };
+  });
 
   const windows = [
     { value: "all", label: "All Time" },
