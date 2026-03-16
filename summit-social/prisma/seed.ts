@@ -3390,6 +3390,50 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 61 — K2 Base Camp Trek
+  // -------------------------------------------------------------------------
+  const adventure61 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-61" },
+    update: {},
+    create: {
+      id: "seed-adventure-61",
+      title: "K2 Base Camp Trek",
+      description: `The trek to K2 Base Camp in the Karakoram is widely considered the finest high-altitude trek in the world — more remote, more demanding, and more raw than the Everest Base Camp route. The approach up the Baltoro Glacier passes Concordia, the confluence of four of the world's longest glaciers outside the polar regions, where an amphitheatre of 8,000 m peaks including Broad Peak, the Gasherbrums, and K2 itself rises in every direction.\n\nK2 at close range is a different experience from Everest: steeper, more geometric, almost architectural in its severity. The mountain radiates a particular kind of menace even in clear weather. The trek requires glacier travel on moraines and crevassed ice, river crossings, and sustained days at 4,000–5,000 m. Porters from the Baltistani community carry the heavy loads and contribute essential local knowledge and humor. Camping at Concordia under the full Karakoram sky — no light pollution for hundreds of kilometers — is among the most extraordinary nights available to any traveler on Earth.`,
+      location: "Baltoro Glacier, Karakoram",
+      country: "Pakistan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1600&q=80",
+      highlights: [
+        "Concordia — amphitheatre of four 8,000 m peaks",
+        "K2 close-up — the most technically demanding 8,000 m peak",
+        "Baltoro Glacier traverse on world's longest high-altitude moraine",
+        "Camping under zero-light-pollution Karakoram sky",
+        "Baltistani porter culture — extraordinary hospitality",
+      ],
+      gear: [
+        "50 L pack (porters carry camping gear)",
+        "4-season sleeping bag",
+        "Trekking poles",
+        "Glacier glasses and goggles",
+        "Altitude medication (Diamox — consult doctor)",
+        "Water purification — Sawyer Squeeze or SteriPen",
+        "PLB or satellite communicator",
+        "Pakistan trekking permit (required)",
+      ],
+      bestMonths: [7, 8],
+      estimatedCost: 280000,
+      latitude: 35.9,
+      longitude: 76.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 29,
+      tags: { connect: [{ name: "trekking" }, { name: "glacier" }, { name: "8000m" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3512,6 +3556,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure59.id },
       { userId: user1.id, adventureId: adventure60.id },
       { userId: user2.id, adventureId: adventure60.id },
+      { userId: user1.id, adventureId: adventure61.id },
+      { userId: user3.id, adventureId: adventure61.id },
     ],
     skipDuplicates: true,
   });
