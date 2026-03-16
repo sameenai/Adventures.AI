@@ -1,23 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  /* Summit brand — expedition amber */
-  --color-summit-50: #fffbeb;
-  --color-summit-100: #fef3c7;
-  --color-summit-200: #fde68a;
-  --color-summit-300: #fcd34d;
-  --color-summit-400: #fbbf24;
-  --color-summit-500: #f59e0b;
-  --color-summit-600: #d97706;
-  --color-summit-700: #b45309;
-  --color-summit-800: #92400e;
-  --color-summit-900: #78350f;
+  /* Basecamp fire — amber campfire tones */
+  --color-fire-50: #fffbeb;
+  --color-fire-100: #fef3c7;
+  --color-fire-200: #fde68a;
+  --color-fire-300: #fcd34d;
+  --color-fire-400: #fbbf24;
+  --color-fire-500: #f59e0b;
+  --color-fire-600: #d97706;
+  --color-fire-700: #b45309;
+  --color-fire-800: #92400e;
+  --color-fire-900: #78350f;
 
-  /* Adventure accent */
-  --color-adventure-50: #fdf4f3;
-  --color-adventure-100: #fce8e4;
-  --color-adventure-500: #e74c3c;
-  --color-adventure-600: #d63031;
+  /* Basecamp terrain — forest greens */
+  --color-terrain-50: #f0fdf4;
+  --color-terrain-100: #dcfce7;
+  --color-terrain-200: #bbf7d0;
+  --color-terrain-300: #86efac;
+  --color-terrain-400: #4ade80;
+  --color-terrain-500: #22c55e;
+  --color-terrain-600: #16a34a;
+  --color-terrain-700: #15803d;
+  --color-terrain-800: #166534;
+  --color-terrain-900: #14532d;
+
+  /* Basecamp earth — warm dark backgrounds */
+  --color-earth-900: #1a1208;
+  --color-earth-950: #100c04;
 
   /* System */
   --color-success: #34d399;
@@ -47,7 +57,7 @@
     letter-spacing: 0.03em;
   }
 
-  /* Thin scrollbar to match dark theme */
+  /* Thin scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -56,8 +66,8 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #2c2820;
-    border-radius: 3px;
+    background: #3d2e1a;
+    border-radius: 0;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #d97706;

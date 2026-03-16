@@ -2,7 +2,7 @@ import { ExploreMap } from "@/components/explore/explore-map";
 import { prisma } from "@/lib/db/prisma";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Explore | SummitSocial" };
+export const metadata: Metadata = { title: "Explore | Basecamp" };
 
 export default async function ExplorePage() {
   const adventures = await prisma.adventure.findMany({

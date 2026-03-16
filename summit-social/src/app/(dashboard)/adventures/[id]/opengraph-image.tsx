@@ -152,7 +152,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
         </div>
       </div>
 
-      {/* SummitSocial brand */}
+      {/* Basecamp brand */}
       <div
         style={{
           position: "absolute",
@@ -165,7 +165,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           textTransform: "uppercase",
         }}
       >
-        SummitSocial
+        Basecamp
       </div>
     </div>,
     { width: 1200, height: 630 },

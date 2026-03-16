@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     select: { title: true },
   });
   if (!itinerary) return {};
-  return { title: `${itinerary.title} | SummitSocial` };
+  return { title: `${itinerary.title} | Basecamp` };
 }
 
 export default async function ItineraryDetailPage({ params }: Props) {

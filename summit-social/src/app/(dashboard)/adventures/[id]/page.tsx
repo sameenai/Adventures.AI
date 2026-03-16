@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
   if (!adventure) return {};
   return {
-    title: `${adventure.title} | SummitSocial`,
+    title: `${adventure.title} | Basecamp`,
     description: adventure.description.slice(0, 155),
   };
 }
