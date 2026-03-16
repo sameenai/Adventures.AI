@@ -168,6 +168,21 @@ describe("GET /api/adventures", () => {
     expect(call.orderBy).toEqual({ durationDays: "asc" });
   });
 
+  it.each([
+    ["weekend", { gte: 1, lte: 3 }],
+    ["week", { gte: 4, lte: 7 }],
+    ["fortnight", { gte: 8, lte: 14 }],
+    ["expedition", { gte: 15, lte: 89 }],
+    ["lifestyle", { gte: 90 }],
+  ] as const)("applies correct durationDays range for duration=%s", async (duration, expected) => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest(`http://localhost/api/adventures?duration=${duration}`));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.where.durationDays).toEqual(expected);
+  });
+
   it("applies OR search clause across title, description, and location", async () => {
     (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
 

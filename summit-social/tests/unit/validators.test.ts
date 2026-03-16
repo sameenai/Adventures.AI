@@ -236,6 +236,18 @@ describe("adventureFilterSchema", () => {
     expect(result.success).toBe(false);
   });
 
+  it("accepts all valid duration values", () => {
+    for (const duration of ["weekend", "week", "fortnight", "expedition", "lifestyle"]) {
+      const result = adventureFilterSchema.safeParse({ duration });
+      expect(result.success).toBe(true);
+    }
+  });
+
+  it("rejects an invalid duration value", () => {
+    const result = adventureFilterSchema.safeParse({ duration: "month" });
+    expect(result.success).toBe(false);
+  });
+
   it("accepts optional filters", () => {
     const result = adventureFilterSchema.safeParse({
       category: "TREKKING",
