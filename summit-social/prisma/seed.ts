@@ -1076,6 +1076,62 @@ The coral restoration projects around all three islands are among the most succe
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 17 — Phi Phi Islands Sea Kayak
+  // -------------------------------------------------------------------------
+  const adventure17 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-17" },
+    update: {},
+    create: {
+      id: "seed-adventure-17",
+      title: "Phi Phi Islands Sea Kayak",
+      description: `The Phi Phi archipelago in the Andaman Sea is one of Thailand's most dramatic seascapes — limestone karst towers draped in jungle, rising straight from water so clear you can see the shadow of your kayak on the seabed at 8m depth. The standard tourist experience arrives by speedboat and leaves by afternoon. The kayak experience is something else entirely.
+
+Three days of paddling gives you access to the sea caves, hidden lagoons, and morning coves that the tour boats never reach. The hongs — enclosed tidal lagoons inside hollow karst formations — can only be entered by kayak at low tide, ducking through tunnel entrances less than a metre high to emerge into cathedral chambers open to the sky, with herons nesting on the cliff walls and mangrove roots descending into crystalline water.
+
+Maya Bay — the beach made famous by The Beach — is best approached by kayak in the early morning before 7am, when the speedboats haven't yet arrived and the beach is empty of everything except sand, cliff, and sea. The national park closed the bay for three years to allow coral recovery; the water clarity has improved dramatically since reopening.
+
+Camping on Phi Phi Don with a kayak allows access to the bay side beaches after sunset, when bioluminescent plankton lights the water blue with each paddle stroke.`,
+      location: "Ko Phi Phi, Krabi Province",
+      country: "Thailand",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=1600&q=80",
+      highlights: [
+        "Sea cave hongs — tidal lagoons inside hollow karst, entered by kayak at low tide",
+        "Maya Bay before 7am — empty beach in the limestone amphitheatre",
+        "Bioluminescent plankton at night turning paddle strokes electric blue",
+        "Viking Cave: 400-year-old sea swallow nest paintings on the cliff wall",
+        "Morning snorkelling inside Pileh Lagoon — fish density visible from the kayak",
+        "Sunset from Phi Phi Don viewpoint above the twin-bay silhouette",
+      ],
+      gear: [
+        "Sit-on-top kayak (rentable at Phi Phi Don pier — double kayak for beginners)",
+        "Dry bag for phone, wallet, and camera",
+        "Reef-safe sunscreen (Andaman coral is sensitive)",
+        "Snorkel mask (bring own for fit — lagoon snorkelling is excellent)",
+        "Water shoes for rocky beach landings",
+        "Waterproof phone case for underwater photos",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 20000,
+      latitude: 7.7407,
+      longitude: 98.7784,
+      published: true,
+      userId: user1.id,
+      voteCount: 55,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1109,6 +1165,8 @@ The coral restoration projects around all three islands are among the most succe
       { userId: user3.id, adventureId: adventure15.id },
       { userId: user1.id, adventureId: adventure16.id },
       { userId: user2.id, adventureId: adventure16.id },
+      { userId: user2.id, adventureId: adventure17.id },
+      { userId: user3.id, adventureId: adventure17.id },
     ],
     skipDuplicates: true,
   });
