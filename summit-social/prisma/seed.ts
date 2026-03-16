@@ -2091,6 +2091,63 @@ The Berber guides navigate by landmark and star. There are no marked routes in t
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 35 — Faroe Islands Coastal Hikes
+  // -------------------------------------------------------------------------
+  const adventure35 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-35" },
+    update: {},
+    create: {
+      id: "seed-adventure-35",
+      title: "Faroe Islands Coastal Hikes",
+      description: `Eighteen islands of black basalt and green grass rising from the North Atlantic between Norway and Iceland — the Faroe Islands are a landscape of extremes: vertical sea cliffs, waterfalls that fall into the ocean, and a light that alternates between the grey of continuous cloud and the extraordinary gold of a North Atlantic break. In summer, the islands are walkable in a way they are not at any other time, and the path network connects the villages in a system of old post roads and shepherd tracks that predate roads entirely.
+
+Six days covers the essential circuits: Trælanípa and the lake that drains directly into the sea (one of the most photographed viewpoints in the Faroes, but genuinely dramatic rather than merely photogenic), the cliffs of Beinisvørð at 470m above the open Atlantic, the Múlafossur waterfall at Gásadalur falling from the cliff edge into the sea below, and the Slættaratindur ascent — the highest point at 882m — with views to five islands on a clear day.
+
+The villages are extraordinary: grass-roofed houses on turf platforms at the cliff edge, fishing boats in the grass-lined harbours, and a sense that the 20th century arrived but was absorbed rather than transformative. In Saksun, the village of a dozen houses in a tidal lagoon looks unchanged since the Norse sagas.
+
+The Faroese have a word, søvnur, for the particular type of atmospheric melancholy the islands induce — an untranslatable combination of wonder and longing. You will understand it by day two.`,
+      location: "Faroe Islands, North Atlantic",
+      country: "Denmark",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: [
+        "Trælanípa: the lake (Sørvágsvatn) that appears to float above the sea — optical illusion cliff edge",
+        "Múlafossur waterfall: streaming off the Gásadalur cliff face into the Atlantic",
+        "Beinisvørð sea cliffs (470m): sheer basalt above the open ocean with gannet colonies",
+        "Slættaratindur summit (882m): highest point with five-island panorama",
+        "Saksun tidal lagoon village: Norse-style turf-roofed farms at the cliff edge",
+        "Atlantic puffin colonies on the grass cliff tops of Mykines island",
+      ],
+      gear: [
+        "Full waterproofs (the Faroes receive 260+ rain days per year — assume wet every day)",
+        "Windproof outer layer (cliff-edge winds exceed 60 km/h regularly)",
+        "Hiking boots with good grip (basalt grass is slick when wet)",
+        "Layers — temperature fluctuates 10°C in an hour",
+        "Offline maps: Visit Faroe Islands trail app downloaded",
+        "Respect for private land — trails cross farms; close gates behind you",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 150000,
+      latitude: 62.0079,
+      longitude: -6.7906,
+      published: true,
+      userId: user1.id,
+      voteCount: 77,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["island"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2160,6 +2217,8 @@ The Berber guides navigate by landmark and star. There are no marked routes in t
       { userId: user3.id, adventureId: adventure33.id },
       { userId: user1.id, adventureId: adventure34.id },
       { userId: user2.id, adventureId: adventure34.id },
+      { userId: user2.id, adventureId: adventure35.id },
+      { userId: user3.id, adventureId: adventure35.id },
     ],
     skipDuplicates: true,
   });
