@@ -3131,6 +3131,52 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 55 — Denali Base Camp Trek
+  // -------------------------------------------------------------------------
+  const adventure55 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-55" },
+    update: {},
+    create: {
+      id: "seed-adventure-55",
+      title: "Denali Base Camp Trek",
+      description: `Trek to the 2,200 m base camp of Denali — North America's highest peak — via the Kahiltna Glacier without attempting the technical summit. Fly by small bush plane from Talkeetna to land directly on the glacier, where the scale of the Alaska Range immediately overwhelms every frame of reference. Denali rises 4,000 m above camp in a near-vertical wall of ice and rock.\n\nThe base camp environment during peak season is surprisingly social — mountaineers from around the world prepare their summit bids while rangers manage the world's largest high-altitude latrine excavation program (the mountain's strict Leave No Trace requirements are extraordinary). Days are spent acclimatizing on the lower glacier, learning to read ice features, and making day trips toward the Kahiltna Pass. The flying approach and glacier camp experience alone make this a once-in-a-lifetime trip; the mountain is so large it creates its own weather systems. Rangers brief you on the history of the mountain — both the triumphs and the tragedies — and the briefing humbles every person in the room.`,
+      location: "Kahiltna Glacier, Denali National Park",
+      country: "United States",
+      continent: "North America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=1600&q=80",
+      highlights: [
+        "Fly by bush plane onto the Kahiltna Glacier",
+        "Camp beneath the 4,000 m wall of Denali's south face",
+        "Acclimatization climbs to Kahiltna Pass",
+        "Meet summit teams from every corner of the world",
+        "Ranger-led briefing on Denali's mountaineering history",
+      ],
+      gear: [
+        "Double plastic mountaineering boots",
+        "Crampons and ice axe",
+        "Crevasse rescue kit (rope, prussiks, pulleys)",
+        "4-season expedition tent",
+        "Sleeping bag rated to -40°C",
+        "Glacier glasses and goggles",
+        "PLB (mandatory)",
+        "NPS permit (required well in advance)",
+      ],
+      bestMonths: [5, 6],
+      estimatedCost: 450000,
+      latitude: 63.1,
+      longitude: -151.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 21,
+      tags: {
+        connect: [{ name: "mountaineering" }, { name: "glacier" }, { name: "expedition" }],
+      },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3241,6 +3287,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user2.id, adventureId: adventure53.id },
       { userId: user2.id, adventureId: adventure54.id },
       { userId: user3.id, adventureId: adventure54.id },
+      { userId: user1.id, adventureId: adventure55.id },
+      { userId: user3.id, adventureId: adventure55.id },
     ],
     skipDuplicates: true,
   });
