@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db/prisma";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { OpenAiKeyForm } from "./openai-key-form";
 import { ProfileEditForm } from "./profile-edit-form";
 
 export const metadata: Metadata = { title: "Edit Profile | Basecamp" };
@@ -20,10 +21,14 @@ export default async function ProfileEditPage() {
       instagramUrl: true,
       twitterUrl: true,
       websiteUrl: true,
+      openAiApiKey: true,
     },
   });
 
   if (!user) redirect("/login");
+
+  const { openAiApiKey, ...profileUser } = user;
+  const keyHint = openAiApiKey ? `${openAiApiKey.slice(0, 7)}…${openAiApiKey.slice(-4)}` : null;
 
   return (
     <div className="mx-auto max-w-lg px-4 py-10 sm:px-6 lg:px-8">
@@ -35,7 +40,10 @@ export default async function ProfileEditPage() {
           Update your name, bio, and social links.
         </p>
       </div>
-      <ProfileEditForm user={user} />
+      <ProfileEditForm user={profileUser} />
+      <div className="mt-10">
+        <OpenAiKeyForm initialHasKey={!!openAiApiKey} initialHint={keyHint} />
+      </div>
     </div>
   );
 }

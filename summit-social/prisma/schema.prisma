@@ -16,6 +16,7 @@ model User {
   instagramUrl     String?
   twitterUrl       String?
   websiteUrl       String?
+  openAiApiKey     String?           @db.Text
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   adventures       Adventure[]

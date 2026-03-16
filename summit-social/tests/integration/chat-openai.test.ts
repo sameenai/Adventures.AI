@@ -1,6 +1,9 @@
 // Tests for the real OpenAI streaming path in POST /api/chat
 // (the code path executed when OPENAI_API_KEY is set)
 
+// Hoist the mock function so it's accessible both inside vi.mock and in tests.
+const { mockCreate } = vi.hoisted(() => ({ mockCreate: vi.fn() }));
+
 vi.mock("ioredis", () => {
   const Redis = vi.fn().mockImplementation(() => ({
     get: vi.fn().mockResolvedValue(null),
@@ -19,25 +22,29 @@ vi.mock("@/lib/db/redis", () => ({
 }));
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
+    user: {
+      findUnique: vi.fn().mockResolvedValue({ openAiApiKey: null }),
+    },
     itinerary: {
       findUnique: vi.fn().mockResolvedValue(null),
       update: vi.fn().mockResolvedValue({}),
     },
   },
 }));
-vi.mock("@/lib/ai/openai", () => ({
-  openai: { chat: { completions: { create: vi.fn() } } },
+// Mock the openai npm package — the chat route creates OpenAI instances directly.
+vi.mock("openai", () => ({
+  default: vi.fn().mockImplementation(() => ({
+    chat: { completions: { create: mockCreate } },
+  })),
 }));
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { NextRequest } from "next/server";
 import { POST as chatRoute } from "@/app/api/chat/route";
 import { getServerSession } from "next-auth";
-import { openai } from "@/lib/ai/openai";
 import { prisma } from "@/lib/db/prisma";
 
 const mockGetSession = getServerSession as ReturnType<typeof vi.fn>;
-const createMock = openai.chat.completions.create as ReturnType<typeof vi.fn>;
 const mockPrismaItinerary = prisma.itinerary as unknown as Record<string, ReturnType<typeof vi.fn>>;
 
 function mockSession(userId = "user-1") {
@@ -85,7 +92,7 @@ describe("POST /api/chat — real OpenAI path", () => {
 
   it("streams OpenAI chunks to the response", async () => {
     mockSession();
-    createMock.mockResolvedValue(makeAsyncStream(["Hello ", "world"]));
+    mockCreate.mockResolvedValue(makeAsyncStream(["Hello ", "world"]));
 
     const response = await chatRoute(makeRequest({ message: "Plan my trip" }));
     expect(response.status).toBe(200);
@@ -105,7 +112,7 @@ describe("POST /api/chat — real OpenAI path", () => {
 
   it("persists chat history to itinerary after streaming", async () => {
     mockSession();
-    createMock.mockResolvedValue(makeAsyncStream(["Great plan!"]));
+    mockCreate.mockResolvedValue(makeAsyncStream(["Great plan!"]));
     mockPrismaItinerary.findUnique.mockResolvedValue({ chatHistory: [] });
 
     const response = await chatRoute(makeRequest({ message: "Plan Nepal", itineraryId: "itin-42" }));
@@ -125,7 +132,7 @@ describe("POST /api/chat — real OpenAI path", () => {
       yield { choices: [{ delta: { content: "Start" } }] };
       throw new Error("OpenAI dropped connection");
     }
-    createMock.mockResolvedValue(failingStream());
+    mockCreate.mockResolvedValue(failingStream());
 
     const response = await chatRoute(makeRequest({ message: "Plan" }));
     expect(response.status).toBe(200);
@@ -135,7 +142,7 @@ describe("POST /api/chat — real OpenAI path", () => {
 
   it("skips history update when no itineraryId", async () => {
     mockSession();
-    createMock.mockResolvedValue(makeAsyncStream(["Done"]));
+    mockCreate.mockResolvedValue(makeAsyncStream(["Done"]));
 
     const response = await chatRoute(makeRequest({ message: "Quick question" }));
     await drainStream(response);
