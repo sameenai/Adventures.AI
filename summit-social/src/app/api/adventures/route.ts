@@ -23,7 +23,9 @@ export async function GET(request: NextRequest) {
   const DURATION_RANGES = {
     weekend: { gte: 1, lte: 3 },
     week: { gte: 4, lte: 7 },
-    expedition: { gte: 8 },
+    fortnight: { gte: 8, lte: 14 },
+    expedition: { gte: 15, lte: 89 },
+    lifestyle: { gte: 90 },
   } as const;
 
   const where = {

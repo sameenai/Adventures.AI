@@ -36,7 +36,9 @@ export default async function AdventuresPage({
   const DURATION_RANGES = {
     weekend: { gte: 1, lte: 3 },
     week: { gte: 4, lte: 7 },
-    expedition: { gte: 8 },
+    fortnight: { gte: 8, lte: 14 },
+    expedition: { gte: 15, lte: 89 },
+    lifestyle: { gte: 90 },
   } as const;
 
   const where = {
@@ -203,7 +205,9 @@ export default async function AdventuresPage({
             [
               { value: "weekend", label: "Weekend", sub: "1–3 days" },
               { value: "week", label: "Week", sub: "4–7 days" },
-              { value: "expedition", label: "Expedition", sub: "8+ days" },
+              { value: "fortnight", label: "Fortnight", sub: "8–14 days" },
+              { value: "expedition", label: "Expedition", sub: "15–89 days" },
+              { value: "lifestyle", label: "Lifestyle", sub: "90+ days" },
             ] as const
           ).map(({ value, label, sub }) => {
             const active = params.duration === value;
