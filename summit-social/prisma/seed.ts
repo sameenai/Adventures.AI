@@ -2718,6 +2718,63 @@ The experience of altitude at 6,900m is unlike anything below it. Decision-makin
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 46 — Svalbard Polar Wilderness Expedition
+  // -------------------------------------------------------------------------
+  const adventure46 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-46" },
+    update: {},
+    create: {
+      id: "seed-adventure-46",
+      title: "Svalbard Polar Wilderness Expedition",
+      description: `Svalbard — the Norwegian Arctic archipelago at 78°N — is one of the world's most extreme accessible wilderness destinations: a landscape of glacier, tundra, and sea ice where polar bears outnumber people and all travel outside Longyearbyen must be accompanied by armed protection. Eight days on a small expedition vessel covers the west coast and crosses into Woodfjorden, one of the least-visited fjords in the archipelago.
+
+The vessel anchors at the ice edge for Zodiac zodiac landings on beaches where walrus haul out in groups of 40–50, where bearded seals sleep on ice floes that calve from the tidewater glaciers above, and where reindeer pick their way through the tundra cotton grass without looking up. The guide carries a rifle and keeps watch at every landing; polar bears appear at range in every day of expedition travel.
+
+The midnight sun makes photography viable at any hour. The light at 2am on a clear Arctic night — amber, horizontal, casting shadows 20m long — is one of the most extraordinary qualities of light on the planet. The stillness is total. No noise from any human source.
+
+The Svalbard Global Seed Vault is visible from Longyearbyen. The permafrost layer that maintains it is the same permafrost whose retreat is the defining environmental fact of the archipelago's recent history.`,
+      location: "Svalbard Archipelago, Barents Sea",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.SAFARI,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      highlights: [
+        "Polar bear sighting: the defining Arctic wildlife encounter — guide keeps watch at all times",
+        "Walrus haul-out on a tundra beach: 40+ animals at close range from the Zodiac",
+        "Tidewater glacier calving: the sound arrives seconds after the visual",
+        "Midnight sun photography at 2am: horizontal amber light, 20m shadows",
+        "Sea ice edge navigation: bearded seals sleeping on floes the vessel passes at walking pace",
+        "Svalbard reindeer on the tundra: the world's most northerly wild deer population",
+      ],
+      gear: [
+        "Expedition suit or extreme cold layering: temperatures -5°C to +5°C in summer",
+        "Rubber boots for Zodiac landings (all provided on vessel — confirm size in advance)",
+        "Telephoto lens 400mm+ (polar bears are photographed at range for safety)",
+        "Windproof outer layer (Arctic wind is constant and cutting)",
+        "Motion sickness medication for Barents Sea crossings",
+        "Passport and Svalbard entry documentation (special provisions for nationalities outside Schengen)",
+      ],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 600000,
+      latitude: 78.2232,
+      longitude: 15.6267,
+      published: true,
+      userId: user3.id,
+      voteCount: 79,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["midnight-sun"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2809,6 +2866,8 @@ The experience of altitude at 6,900m is unlike anything below it. Decision-makin
       { userId: user3.id, adventureId: adventure44.id },
       { userId: user1.id, adventureId: adventure45.id },
       { userId: user3.id, adventureId: adventure45.id },
+      { userId: user1.id, adventureId: adventure46.id },
+      { userId: user2.id, adventureId: adventure46.id },
     ],
     skipDuplicates: true,
   });
