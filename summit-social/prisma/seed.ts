@@ -1525,6 +1525,62 @@ The key hazard is the plateau: featureless, cornice-rimmed on the north, and in 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 25 — Half Dome via Cables, Yosemite
+  // -------------------------------------------------------------------------
+  const adventure25 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-25" },
+    update: {},
+    create: {
+      id: "seed-adventure-25",
+      title: "Half Dome via Cables, Yosemite",
+      description: `Half Dome is Yosemite's iconic monolith — the 2,693m dome whose sheer northwest face has defined adventure photography since Ansel Adams pointed his camera at it in the 1940s. The summit route climbs the back of the dome via two fixed steel cables on a 45-degree polished granite slope, above a vertical face that drops 600m to the valley floor. It is not technically difficult, but it is genuinely exposed, and the cables section above the shoulder has no safety net — if you fall, you fall.
+
+The round trip from Yosemite Valley is 24km and 1,460m of elevation gain — a serious day hike in any context, made harder by altitude and the physical demands of the cables. Most hikers start at 5–6am to reach the cables before afternoon thunderstorm buildup.
+
+The sub-dome approach below the cables is a classic Yosemite granite scramble: hands-on slabs at 30–35 degrees, requiring some comfort with exposure. The cables themselves (two parallel steel cables supported on metal poles driven into the granite) are the crux — 130m of near-vertical granite with wooden boards as foot rests. In wet conditions the polished granite becomes ice-slick and the NPS closes the cables entirely.
+
+A permit is required: 300 daily hikers maximum in the cable season (late May to mid-October). Apply in the permit lottery in March. Day-hike permits fill immediately.`,
+      location: "Yosemite National Park, California",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [
+        "Half Dome cables: 130m of fixed-cable climbing at 45 degrees above a 600m drop",
+        "Summit views: Yosemite Valley below, Clouds Rest ahead, Sierra Nevada stretching east",
+        "Nevada Falls on the Mist Trail approach — rainbow in the spray at midday",
+        "Sub-Dome slabs: granite scrambling above the sub-dome shoulder with exposure",
+        "Yosemite Valley from above — the perspective no valley-floor viewpoint can give",
+        "Merced River canyon and Liberty Cap from the summit rim",
+      ],
+      gear: [
+        "Leather gloves (mandatory — cable friction tears skin)",
+        "Helmet (rockfall risk from cables above you when crowded)",
+        "Trail running shoes or approach shoes (stickier on granite than boots)",
+        "Early start (5am) to beat afternoon thunderstorm risk",
+        "3L of water (no reliable source above Nevada Falls)",
+        "Half Dome permit (lottery in March — no permit, no cables)",
+      ],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 15000,
+      latitude: 37.7459,
+      longitude: -119.5332,
+      published: true,
+      userId: user3.id,
+      voteCount: 127,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1574,6 +1630,8 @@ The key hazard is the plateau: featureless, cornice-rimmed on the north, and in 
       { userId: user3.id, adventureId: adventure23.id },
       { userId: user1.id, adventureId: adventure24.id },
       { userId: user3.id, adventureId: adventure24.id },
+      { userId: user1.id, adventureId: adventure25.id },
+      { userId: user2.id, adventureId: adventure25.id },
     ],
     skipDuplicates: true,
   });
