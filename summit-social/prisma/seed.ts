@@ -1920,6 +1920,63 @@ The walk is one-way and hut-only — no camping. Book from October 1 for the fol
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 32 — Ha Giang Loop Motorbike, Vietnam
+  // -------------------------------------------------------------------------
+  const adventure32 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-32" },
+    update: {},
+    create: {
+      id: "seed-adventure-32",
+      title: "Ha Giang Loop Motorbike, Vietnam",
+      description: `Ha Giang Province in Vietnam's far north is the country's most dramatic and least-visited landscape: a vast karst plateau dissected by river gorges, terraced by H'mong and Dao farmers into staircases of rice and corn, and bounded to the north by the Chinese border mountains. The 350km loop from Ha Giang city through Dong Van, Meo Vac, and back is among the finest motorbike routes in Southeast Asia.
+
+The road to Dong Van crosses the Ma Pi Leng Pass — a 20km stretch of cliff-edge mountain road above the Nho Que River gorge that is legitimately one of the most spectacular stretches of road in Asia. The gorge is 1,000m deep and the road has no barrier. The river 1,000m below appears as a turquoise thread. On a semi-automatic 110cc step-through, this section takes two hours and commands complete attention.
+
+The H'mong and Lo Lo villages along the route have maintained their traditional dress, architecture, and market culture largely undisturbed by tourism. Sunday markets at Dong Van and Meo Vac bring together a dozen different ethnic groups in their full traditional costume. The corn wine is unavoidable and the lamb hot pot at altitude is excellent.
+
+Rent a semi-automatic Honda at Ha Giang (no licence required, ~200,000 VND per day). The loop runs clockwise. Allow five days to avoid rushing any section. The roads are paved but narrow and trucks own the right of way.`,
+      location: "Ha Giang Province, Northern Vietnam",
+      country: "Vietnam",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1552084117-56a987666449?w=1600&q=80",
+      highlights: [
+        "Ma Pi Leng Pass: 20km of cliff-edge road above a 1,000m-deep turquoise gorge",
+        "Dong Van Sunday market: 12 ethnic groups in traditional dress trading in the karst town",
+        "Lung Cu Flag Tower: northernmost point of Vietnam, two countries visible",
+        "Meo Vac cliff roads: hairpin sequences above the Nho Que river canyon",
+        "H'mong stone village homestays at 1,400m with corn wine and hot pot",
+        "Buckwheat flower fields in October: pink carpet across the grey limestone plateau",
+      ],
+      gear: [
+        "Helmet (good quality available to rent in Ha Giang — inspect condition)",
+        "Windproof jacket and gloves (altitude wind at 1,500m is cold year-round)",
+        "Rain suit (typhoon season brings heavy rain — ponchos are sold on the route)",
+        "Riding gloves and ankle-covering footwear",
+        "Cash in VND — no ATMs in most villages, Ha Giang is the last reliable stop",
+        "Offline maps: Maps.me or OsmAnd downloaded before departure",
+      ],
+      bestMonths: [9, 10, 3, 4, 5],
+      estimatedCost: 30000,
+      latitude: 23.2090,
+      longitude: 105.0456,
+      published: true,
+      userId: user1.id,
+      voteCount: 88,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["solo-travel"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1983,6 +2040,8 @@ The walk is one-way and hut-only — no camping. Book from October 1 for the fol
       { userId: user3.id, adventureId: adventure30.id },
       { userId: user1.id, adventureId: adventure31.id },
       { userId: user2.id, adventureId: adventure31.id },
+      { userId: user2.id, adventureId: adventure32.id },
+      { userId: user3.id, adventureId: adventure32.id },
     ],
     skipDuplicates: true,
   });
