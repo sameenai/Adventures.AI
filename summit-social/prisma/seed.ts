@@ -2148,6 +2148,63 @@ The Faroese have a word, søvnur, for the particular type of atmospheric melanch
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 36 — El Chalten & Fitz Roy Trails, Patagonia
+  // -------------------------------------------------------------------------
+  const adventure36 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-36" },
+    update: {},
+    create: {
+      id: "seed-adventure-36",
+      title: "El Chalten and Fitz Roy Trails, Patagonia",
+      description: `El Chalten is a village of 1,500 people at the end of a road in Argentine Patagonia, built in the 1980s as a territorial claim and now the trekking capital of South America. The mountains above it — Fitz Roy (3,405m) and Cerro Torre (3,128m) — are two of the hardest technical climbs on earth, but the trail network that approaches their bases is open to anyone with good boots and patience for Patagonian weather.
+
+The Laguna de los Tres trail is the peak experience: 22km return with 800m of ascent, climbing through southern beech forest before breaking into the moraine above Laguna de los Tres — a glacial lake directly below the Fitz Roy granite spire. On a clear morning the spire reflects in the lake and the Patagonian light turns the rock colours from pink to orange to gold within twenty minutes of sunrise. Clear mornings in El Chalten average seven to ten per month; plan for five days and expect two to three good views.
+
+Cerro Torre via Laguna Torre is the second essential route: the granite needle of Cerro Torre appears at the valley head, with the Viedma Glacier visible to the south and the Torre Glacier calving icebergs into the lagoon below the tower. The approach is easier but the summit view is arguably more dramatic — the needle in clear conditions is one of the great mountain profiles on earth.
+
+All trails start from El Chalten village. No permits, no booking, no fees.`,
+      location: "El Chalten, Los Glaciares National Park",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&q=80",
+      highlights: [
+        "Laguna de los Tres at sunrise: Fitz Roy reflected in the glacial lake below the spire",
+        "Cerro Torre granite needle in clear conditions: arguably the world's most dramatic summit profile",
+        "Torre Glacier calving icebergs into Laguna Torre below the needle",
+        "Mirador del Condor: condors riding thermals above the Viedma Glacier below",
+        "El Chalten village at dusk: the two towers turning pink in the Patagonian last light",
+        "Southern beech forest on the lower approach — lenga in autumn gold before the open moraine",
+      ],
+      gear: [
+        "Windproof hardshell (Patagonian wind is the defining experience — be prepared)",
+        "Waterproof gaiters (stream crossings on Laguna de los Tres approach)",
+        "Trekking poles (steep moraine on the final approach to Laguna de los Tres)",
+        "Down jacket for summit waits — linger for the light change",
+        "Extra food for weather-delay days in El Chalten",
+        "Flexible itinerary: plan for five days minimum to guarantee two clear-view days",
+      ],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 80000,
+      latitude: -49.3316,
+      longitude: -72.8864,
+      published: true,
+      userId: user2.id,
+      voteCount: 169,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["glacier"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2219,6 +2276,8 @@ The Faroese have a word, søvnur, for the particular type of atmospheric melanch
       { userId: user2.id, adventureId: adventure34.id },
       { userId: user2.id, adventureId: adventure35.id },
       { userId: user3.id, adventureId: adventure35.id },
+      { userId: user1.id, adventureId: adventure36.id },
+      { userId: user3.id, adventureId: adventure36.id },
     ],
     skipDuplicates: true,
   });
