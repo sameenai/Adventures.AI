@@ -2489,6 +2489,64 @@ The Sherpa culture that carries this mountain is the other story: the monastery 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 42 — John Muir Trail, California
+  // -------------------------------------------------------------------------
+  const adventure42 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-42" },
+    update: {},
+    create: {
+      id: "seed-adventure-42",
+      title: "John Muir Trail, California",
+      description: `The John Muir Trail runs 342km from Yosemite Valley to the summit of Mount Whitney — the highest peak in the contiguous United States at 4,421m — through the Sierra Nevada high country, crossing nine high passes above 3,600m and following the Pacific Crest Trail corridor through granite wilderness that Muir called "the range of light." It is the benchmark of American long-distance hiking.
+
+The route is entirely above 2,500m for most of its length and stays above 3,000m for long stretches. The Sierras are a different mountain environment from the Rockies or Cascades: the granite is clean, the skies are reliably blue in July and August, and the trail is exceptionally well maintained. The alpine lakes — Thousand Island Lake, Rae Lakes, Guitar Lake — are the defining landscape feature: hundreds of clear bodies of water at altitude, each one different in shape and character.
+
+Whitney Zone permits (for the final ascent) and Yosemite Valley trailhead permits are both required and both extremely competitive. Apply in the permit lottery in February for peak season dates. An alternative southern start from Horseshoe Meadows avoids the Valley permit scarcity.
+
+Water is abundant above 3,000m but must be filtered — giardia is present in virtually all Sierra water sources. Bears are active: a bear canister is mandatory in all Sierra wilderness zones. Pack to 14–16kg (excluding water) for a 21-day thru-hike.`,
+      location: "Sierra Nevada, California",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80",
+      highlights: [
+        "Mount Whitney summit (4,421m): highest point in the contiguous USA",
+        "Thousand Island Lake: mirror granite lake with the Ritter Range reflected at sunrise",
+        "Evolution Valley: the jewel of the Sierra Nevada, named for Darwin's contemporaries",
+        "Forester Pass (4,009m): highest point on the PCT, snowfields in July",
+        "Rae Lakes: three connected alpine lakes in a granite amphitheatre",
+        "Guitar Lake: the classic camp below Whitney, guitar-shaped in satellite view",
+      ],
+      gear: [
+        "Bear canister (mandatory in all Sierra wilderness — BV500 Bearikade or equivalent)",
+        "Water filter (Sawyer Squeeze or similar — giardia in all water sources)",
+        "Ultralight pack (sub-6kg base weight critical for 21-day mileage)",
+        "Microspikes for June/early July high pass snowfields",
+        "JMT permit + Whitney Zone permit (lottery in February)",
+        "Resupply strategy: Muir Trail Ranch and Vermilion Valley Resort mid-route",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 120000,
+      latitude: 37.7798,
+      longitude: -119.3472,
+      published: true,
+      userId: user2.id,
+      voteCount: 138,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -2572,6 +2630,8 @@ The Sherpa culture that carries this mountain is the other story: the monastery 
       { userId: user2.id, adventureId: adventure40.id },
       { userId: user2.id, adventureId: adventure41.id },
       { userId: user3.id, adventureId: adventure41.id },
+      { userId: user1.id, adventureId: adventure42.id },
+      { userId: user3.id, adventureId: adventure42.id },
     ],
     skipDuplicates: true,
   });
