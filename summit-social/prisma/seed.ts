@@ -2918,6 +2918,49 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 50 — Scottish Munros Multi-Peak Challenge
+  // -------------------------------------------------------------------------
+  const adventure50 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-50" },
+    update: {},
+    create: {
+      id: "seed-adventure-50",
+      title: "Scottish Munros Multi-Peak Challenge",
+      description: `Bag eight Munros across the Cairngorms and Glencoe in eight days — a highland circuit that showcases the full character of Scotland's wild places. Start in the Cairngorm plateau, the UK's only sub-arctic mountain environment, where plateau walks above 1,200 m cross snowfields well into summer. Then move west to Glencoe's famous ridges: the Aonach Eagach and the Bidean nam Bian massif where narrow crests demand hands-and-feet scrambling.\n\nThis is mountain weather at its most theatrical — mist rolling in from the Atlantic, sudden sunshine breaking on a lochan, and the almost magical quality of Scottish light in the golden hour. Navigation is core to the experience: OS map and compass work in low visibility is expected and tested. Evenings are spent in stone-walled bothies or classic mountain hostels, drying gear over radiators and sharing whisky with other hillwalkers.`,
+      location: "Cairngorms and Glencoe",
+      country: "Scotland",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [
+        "Summit eight Munros across two iconic mountain regions",
+        "Traverse the Aonach Eagach ridge in Glencoe",
+        "Navigate sub-arctic Cairngorm plateau",
+        "Stay in traditional Scottish bothies",
+        "Experience the extraordinary quality of highland light",
+      ],
+      gear: [
+        "Full waterproofs (jacket + trousers)",
+        "OS 1:25,000 maps + baseplate compass",
+        "Trekking poles",
+        "Gaiters",
+        "Merino base layers",
+        "Warm hat and gloves (even in summer)",
+        "Emergency bivvy",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 110000,
+      latitude: 57.1,
+      longitude: -3.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 22,
+      tags: { connect: [{ name: "mountaineering" }, { name: "hiking" }, { name: "scotland" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3018,6 +3061,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure48.id },
       { userId: user2.id, adventureId: adventure49.id },
       { userId: user3.id, adventureId: adventure49.id },
+      { userId: user1.id, adventureId: adventure50.id },
+      { userId: user3.id, adventureId: adventure50.id },
     ],
     skipDuplicates: true,
   });
