@@ -1581,6 +1581,63 @@ A permit is required: 300 daily hikers maximum in the cable season (late May to 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 26 — Calanques Rock Climbing & Coastal Camp
+  // -------------------------------------------------------------------------
+  const adventure26 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-26" },
+    update: {},
+    create: {
+      id: "seed-adventure-26",
+      title: "Calanques Rock Climbing and Coastal Camp",
+      description: `The Calanques are a 20km stretch of limestone fjords between Marseille and Cassis on the French Mediterranean coast — creamy white cliffs dropping into water so clear and blue it reads as deliberately saturated. The national park preserves some of the best sport climbing in France alongside wild swimming, coastal camping, and walking that oscillates between perfume of wild thyme and vertigo.
+
+Three days combines the best of the Calanques: one day of climbing on the limestone bolted routes above En-Vau (the most spectacular fjord in the range, accessible only on foot or by sea), one day of coastal traversing between Cassis and Morgiou, and one overnight camp on a plateau above the cliff edge with the Mediterranean 200m below and the Calanques d'En-Vau spreading west in the evening light.
+
+The climbing here is exceptional — 5a through 8c routes on pocketed limestone with the sea below. The beginner routes at Sormiou and Morgiou are steep and well-protected; the harder routes at Devenson have serious runout and require traditional skills. Most rental guide services offer a full climbing day for €80–100 pp.
+
+Wild camping is technically prohibited in the Calanques National Park but tolerated on certain plateaux — check current rules with the park office in Marseille. The alternative is a B&B in Cassis (15-minute drive) and day access on foot.`,
+      location: "Calanques National Park, Bouches-du-Rhone",
+      country: "France",
+      continent: "Europe",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?w=1600&q=80",
+      highlights: [
+        "Calanque d'En-Vau: the most dramatic fjord, accessible only on foot — turquoise below white cliffs",
+        "Sport climbing above the Mediterranean on pocketed limestone with sea views",
+        "Wild swimming at the base of the cliffs in water clear enough to see 15m depth",
+        "Coastal traverse: scrambling between fjords with cliff tops above the sea",
+        "Sunset from the En-Vau plateau — Calanques silhouettes in amber light",
+        "Marseille bouillabaisse after the climb — the only acceptable post-climbing meal",
+      ],
+      gear: [
+        "Rock shoes and harness (rentable in Cassis and Marseille)",
+        "Helmet (mandatory on all limestone routes — loose pockets)",
+        "Chalk bag and belaying device",
+        "Approach shoes for the rocky path to En-Vau (30-minute scramble)",
+        "Swimwear for calanque pools (water temperature 20–24°C in summer)",
+        "Sun protection — white limestone reflects UV from above and below",
+      ],
+      bestMonths: [4, 5, 6, 9, 10, 11],
+      estimatedCost: 50000,
+      latitude: 43.2071,
+      longitude: 5.4455,
+      published: true,
+      userId: user1.id,
+      voteCount: 66,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1632,6 +1689,8 @@ A permit is required: 300 daily hikers maximum in the cable season (late May to 
       { userId: user3.id, adventureId: adventure24.id },
       { userId: user1.id, adventureId: adventure25.id },
       { userId: user2.id, adventureId: adventure25.id },
+      { userId: user2.id, adventureId: adventure26.id },
+      { userId: user3.id, adventureId: adventure26.id },
     ],
     skipDuplicates: true,
   });
