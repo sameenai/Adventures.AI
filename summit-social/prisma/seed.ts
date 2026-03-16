@@ -1863,6 +1863,63 @@ Mount Batur at dawn requires a 2am start but pays back: the volcanic caldera at 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 31 — Milford Track, New Zealand
+  // -------------------------------------------------------------------------
+  const adventure31 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-31" },
+    update: {},
+    create: {
+      id: "seed-adventure-31",
+      title: "Milford Track, New Zealand",
+      description: `The Milford Track is New Zealand's most famous Great Walk — a 53.5km one-way route through Fiordland National Park from Lake Te Anau to Milford Sound, described at its opening in 1908 as "the finest walk in the world." The description remains defensible. Four days of walking connects ancient beech forest, glacially carved river valley, mountain pass, and waterfall-threaded gorge to the sea fjord at Milford Sound — a journey through 600 million years of geological drama.
+
+Day one is flat: a boat crossing to the trailhead and a gentle walk through Clinton River beech forest, birds calling from the canopy. The kiwi, robin, and fantail are all regular companions. Day two climbs the Clinton Valley and reaches McKinnon Pass at 1,154m — the crest of the main divide, where the weather changes between steps and both valleys are visible from the saddle. Mackinnon Hut on the pass is one of the great mountain huts in the world.
+
+Day three descends the Arthur Valley past Sutherland Falls (580m — one of the world's tallest accessible waterfalls) to Dumpling Hut, with a side trip that gets you within spray distance of the falls' base. Day four follows the Arthur River to Sandfly Point and the Milford Sound ferry.
+
+The walk is one-way and hut-only — no camping. Book from October 1 for the following season. The quota is 90 walkers per direction per day; numbers are genuinely limited.`,
+      location: "Fiordland National Park, Southland",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=1600&q=80",
+      highlights: [
+        "McKinnon Pass (1,154m): mountain saddle with both valleys visible, weather and light shifting constantly",
+        "Sutherland Falls side trip: 580m cascade at arm's reach",
+        "Clinton River beech forest: kiwi, robin, and fantail on quiet mornings",
+        "Giant Gate Falls: Arthur River in flood pouring over a granite step on day four",
+        "Milford Sound arrival by ferry: the fjord from the water after four days on foot",
+        "Mackinnon Hut on the pass: the finest mountain hut position in New Zealand",
+      ],
+      gear: [
+        "DOC hut booking confirmation (mandatory — no camping, no entry without booking)",
+        "Waterproof everything: Fiordland receives 7,000mm of rain per year",
+        "Trekking poles (McKinnon Pass descent is steep and often wet)",
+        "Sandfly protection for Sandfly Point (the name is descriptive and accurate)",
+        "Merino base layers (huts are cold at night even in summer)",
+        "Hut sleeping bag liner (provided in huts, but own liner recommended)",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 120000,
+      latitude: -44.6754,
+      longitude: 167.8966,
+      published: true,
+      userId: user3.id,
+      voteCount: 143,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["alpine"].id },
+        ],
+      },
+    },
+  });
+
+  // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
   await prisma.vote.createMany({
@@ -1924,6 +1981,8 @@ Mount Batur at dawn requires a 2am start but pays back: the volcanic caldera at 
       { userId: user3.id, adventureId: adventure29.id },
       { userId: user1.id, adventureId: adventure30.id },
       { userId: user3.id, adventureId: adventure30.id },
+      { userId: user1.id, adventureId: adventure31.id },
+      { userId: user2.id, adventureId: adventure31.id },
     ],
     skipDuplicates: true,
   });
