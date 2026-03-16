@@ -12,6 +12,18 @@ export const metadata = { title: "Adventures | Basecamp" };
 
 const PAGE_SIZE = 20;
 
+function buildFilterUrl(
+  current: Record<string, string | undefined>,
+  overrides: Record<string, string | undefined>,
+): string {
+  const merged = { ...current, ...overrides };
+  const qs = Object.entries(merged)
+    .filter(([, v]) => v !== undefined && v !== "")
+    .map(([k, v]) => `${k}=${encodeURIComponent(v as string)}`)
+    .join("&");
+  return `/adventures${qs ? `?${qs}` : ""}`;
+}
+
 export default async function AdventuresPage({
   searchParams,
 }: {
@@ -155,7 +167,7 @@ export default async function AdventuresPage({
         {/* Category filters */}
         <div className="flex flex-wrap gap-2">
           <Link
-            href="/adventures"
+            href={buildFilterUrl(params, { category: undefined })}
             className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
               !params.category
                 ? "border border-amber-500 text-amber-500"
@@ -164,19 +176,22 @@ export default async function AdventuresPage({
           >
             All
           </Link>
-          {CATEGORIES.map((cat) => (
-            <Link
-              key={cat.value}
-              href={`/adventures?category=${cat.value}`}
-              className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
-                params.category === cat.value
-                  ? "border border-amber-500 text-amber-500"
-                  : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
-              }`}
-            >
-              {cat.label}
-            </Link>
-          ))}
+          {CATEGORIES.map((cat) => {
+            const active = params.category === cat.value;
+            return (
+              <Link
+                key={cat.value}
+                href={buildFilterUrl(params, { category: active ? undefined : cat.value })}
+                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                  active
+                    ? "border border-amber-500 text-amber-500"
+                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+                }`}
+              >
+                {cat.label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Duration quick-filters */}
@@ -192,9 +207,7 @@ export default async function AdventuresPage({
             ] as const
           ).map(({ value, label, sub }) => {
             const active = params.duration === value;
-            const href = active
-              ? `/adventures${params.category ? `?category=${params.category}` : ""}`
-              : `/adventures?duration=${value}${params.category ? `&category=${params.category}` : ""}`;
+            const href = buildFilterUrl(params, { duration: active ? undefined : value });
             return (
               <Link
                 key={value}
@@ -221,9 +234,7 @@ export default async function AdventuresPage({
           </span>
           {DIFFICULTIES.map((diff) => {
             const active = params.difficulty === diff.value;
-            const href = active
-              ? `/adventures${params.category ? `?category=${params.category}` : ""}`
-              : `/adventures?difficulty=${diff.value}${params.category ? `&category=${params.category}` : ""}`;
+            const href = buildFilterUrl(params, { difficulty: active ? undefined : diff.value });
             return (
               <Link
                 key={diff.value}
