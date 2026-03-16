@@ -3045,6 +3045,49 @@ The international expedition vessel carries scientists and specialist guides who
     },
   });
 
+  // Adventure 53 — Te Araroa South Island Section
+  // -------------------------------------------------------------------------
+  const adventure53 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-53" },
+    update: {},
+    create: {
+      id: "seed-adventure-53",
+      title: "Te Araroa South Island Section",
+      description: `The South Island section of Te Araroa covers roughly 1,100 km from Nelson at the top of the island to Bluff at the southern tip — a 25-day highlight itinerary taking in the trail's greatest chapters. Begin with the Richmond Ranges, a challenging highland traverse rarely visited by casual tourists, then descend into the wine country of Marlborough before hitting the Nelson Lakes.\n\nThe Southern Alps section via the Richmond, Poulter, and Rangitata is the heart of the walk — river crossings that demand judgment, unmarked routes across alpine tarns, and ridgelines where the views of Aoraki/Mount Cook stop you cold. The final chapter crosses the Southland plains into Fiordland, finishing on the long beach walk to Bluff's famous signpost. This is trail running territory if you move fast, or immersive long-form trekking if you don't — either way it will recalibrate your sense of what wild country means.`,
+      location: "Nelson to Bluff, South Island",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 25,
+      coverImageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
+      highlights: [
+        "Richmond Ranges traverse with remote alpine camping",
+        "Multiple significant river crossings requiring judgment",
+        "Views of Aoraki/Mount Cook from the Southern Alps",
+        "Fiordland coastal finale into Bluff",
+        "Wild country that resets your sense of scale",
+      ],
+      gear: [
+        "50 L pack with removable daypack",
+        "Trekking poles (essential for river crossings)",
+        "Tent rated to 4-season",
+        "GPS device loaded with TA waypoints",
+        "PLB or satellite communicator (required)",
+        "River crossing shoes (crocs or dedicated pair)",
+        "Waterproof map pouch",
+      ],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 220000,
+      latitude: -43.5,
+      longitude: 171.0,
+      published: true,
+      userId: user3.id,
+      voteCount: 28,
+      tags: { connect: [{ name: "trekking" }, { name: "thru-hike" }, { name: "new-zealand" }] },
+    },
+  });
+
   // -------------------------------------------------------------------------
   // Votes
   // -------------------------------------------------------------------------
@@ -3151,6 +3194,8 @@ The international expedition vessel carries scientists and specialist guides who
       { userId: user3.id, adventureId: adventure51.id },
       { userId: user1.id, adventureId: adventure52.id },
       { userId: user3.id, adventureId: adventure52.id },
+      { userId: user1.id, adventureId: adventure53.id },
+      { userId: user2.id, adventureId: adventure53.id },
     ],
     skipDuplicates: true,
   });
