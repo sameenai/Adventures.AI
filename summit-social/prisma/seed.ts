@@ -6817,6 +6817,47 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 118
+  const adventure118 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-118" },
+    update: {},
+    create: {
+      id: "seed-adventure-118",
+      title: "Drakensberg Grand Traverse",
+      description: `The Drakensberg Grand Traverse is South Africa's ultimate trekking challenge — a 220 km high-route along the rooftop of the Drakensberg escarpment, largely above 3,000 m, crossing from Cathedral Peak to Bushman's Nek in around 14 days. The route traverses a UNESCO World Heritage Site of outstanding beauty, passing Bushman rock art galleries, soaring basalt pinnacles, deep valleys carved by waterfalls, and rolling highland meadows filled with proteas and crane lilies. A demanding and remote wild camp experience through one of Africa's most spectacular mountain ranges.`,
+      location: "Cathedral Peak",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600&q=80",
+      highlights: [
+        "Amphitheatre and Tugela Falls",
+        "Bushman rock art galleries",
+        "Rhino Peak summit",
+        "High-altitude meadows",
+        "Wilderness wild camping",
+      ],
+      gear: ["4-season tent", "30°C sleeping bag", "Trekking poles", "Navigation compass", "Water filter"],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 2200,
+      latitude: -28.93,
+      longitude: 29.23,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["africa"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure118.id },
+      { userId: user2.id, adventureId: adventure118.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
