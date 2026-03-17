@@ -188,3 +188,50 @@ describe("ManageAdventureActions publish toggle", () => {
     ));
   });
 });
+
+// ---------------------------------------------------------------------------
+// ApiKeyCallout
+// ---------------------------------------------------------------------------
+import { ApiKeyCallout } from "@/components/ui/api-key-callout";
+
+describe("ApiKeyCallout", () => {
+  it("renders the title and description", () => {
+    render(
+      <ApiKeyCallout title="Unlock AI Trip Planning" description="Add your API key to continue." />,
+    );
+    expect(screen.getByText("Unlock AI Trip Planning")).toBeTruthy();
+    expect(screen.getByText("Add your API key to continue.")).toBeTruthy();
+  });
+
+  it("renders an Add API Key link pointing to /profile/edit#api-key", () => {
+    render(
+      <ApiKeyCallout title="Unlock AI Trip Planning" description="Add your API key to continue." />,
+    );
+    const link = screen.getByRole("link", { name: /add api key/i });
+    expect(link).toBeTruthy();
+    expect(link.getAttribute("href")).toBe("/profile/edit#api-key");
+  });
+
+  it("applies the className prop to the container", () => {
+    const { container } = render(
+      <ApiKeyCallout
+        className="mt-6"
+        title="Unlock AI Trip Planning"
+        description="Add your API key to continue."
+      />,
+    );
+    expect(container.firstChild?.toString()).toBeTruthy();
+    expect((container.firstChild as HTMLElement).className).toContain("mt-6");
+  });
+
+  it("renders without a className prop", () => {
+    expect(() =>
+      render(
+        <ApiKeyCallout
+          title="Unlock AI Trip Planning"
+          description="Add your API key to continue."
+        />,
+      ),
+    ).not.toThrow();
+  });
+});
