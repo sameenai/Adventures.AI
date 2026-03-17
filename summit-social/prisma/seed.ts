@@ -5919,6 +5919,71 @@ Fiordland receives rain 200+ days per year — pack fully waterproof everything 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 98 — Stockholm Archipelago Kayak, Sweden
+  // -------------------------------------------------------------------------
+  const adventure98 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-98" },
+    update: {},
+    create: {
+      id: "seed-adventure-98",
+      title: "Stockholm Archipelago Kayak, Sweden",
+      description: `The Stockholm Archipelago contains 30,000 islands stretching 150km into the Baltic Sea — from the busy inner archipelago accessible by regular ferry from the city, to the remote outer archipelago where the bare granite skerries are visited by sailing boats and kayaks only. Paddling through this landscape in summer, with 18 hours of daylight and water warm enough to swim in, is one of the most accessible multi-day kayak journeys in northern Europe.
+
+The classic kayak route runs from Sandhamn (accessible by ferry from Stockholm) south and east through the Möja and Ornö archipelago groups, camping on the outer islands using Sweden's allemansrätten (Freedom to Roam) law that allows wild camping on any undeveloped land. Daily distances of 15–25km are comfortable in calm conditions; the Baltic can generate wind chop quickly, so weather monitoring matters.
+
+The outer archipelago is genuinely quiet — you may paddle an entire day between Sandhamn and Landsort seeing only one or two other vessels. Fishing villages on larger islands (Möja, Runmarö) sell smoked fish, fresh bread, and ice cream from minimal local shops. The return to Stockholm is by ferry from any of the outer islands.
+
+June–August is the prime season. July is peak Swedish holiday month — inner archipelago islands are busy; the outer is always calm. Budget SEK 500–800 per day for food and campsite fees (many are free under allemansrätten).`,
+      location: "Stockholm Archipelago, Baltic Sea",
+      country: "Sweden",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1478720568477-152d9b5f04b5?w=1600&q=80",
+      highlights: [
+        "Paddling through 30,000-island granite archipelago in midnight sun",
+        "Wild camping on outer skerries under Swedish allemansrätten — no fees, no fences",
+        "Sandhamn village — historic maritime racing hub with summer restaurant culture",
+        "Landsort lighthouse — southernmost point of the archipelago on a tiny island",
+        "Smoked fish directly from fishermen in Möja village harbour",
+        "Baltic swimming at sunset — water 20–22°C in peak summer",
+      ],
+      gear: [
+        "Sea kayak with rudder (Baltic wind chop requires directional control)",
+        "3mm shorty or swimming costume — water up to 22°C in summer",
+        "Wild camping kit (tent, sleeping bag, stove)",
+        "Swedish maritime charts (archipelago navigation)",
+        "VHF radio for weather updates",
+        "Insect repellent (mosquitoes in wooded island camping areas)",
+      ],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 80000,
+      latitude: 59.2833,
+      longitude: 18.8167,
+      published: true,
+      userId: user2.id,
+      voteCount: 39,
+      tags: {
+        connect: [
+          { id: allTags["kayaking"].id },
+          { id: allTags["midnight-sun"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["europe"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure98.id },
+      { userId: user2.id, adventureId: adventure98.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
