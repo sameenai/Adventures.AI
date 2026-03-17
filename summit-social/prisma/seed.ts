@@ -6049,6 +6049,111 @@ November–April is the optimal combination of temperatures and whale activity. 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 100 — Masai Mara Big Five Safari, Kenya
+  // -------------------------------------------------------------------------
+  const adventure100 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-100" },
+    update: {},
+    create: {
+      id: "seed-adventure-100",
+      title: "Masai Mara Big Five Safari, Kenya",
+      description: `The Masai Mara is Kenya's premier game reserve — an extension of Tanzania's Serengeti ecosystem that receives the northern leg of the annual Great Migration and hosts the densest concentration of lions in Africa. Big cats are here in numbers that make spotting routine: lion prides on kopjes, cheetah mothers teaching cubs to hunt, leopards draping impala kills from acacia branches. Black rhino, the most endangered of the Big Five, inhabit the Mara Conservancies around the reserve border.
+
+July–October brings the Great Migration — 1.5 million wildebeest, 500,000 zebra, and 250,000 Thomson's gazelle crossing the Mara River from Tanzania in dramatic mass crossings where Nile crocodiles wait in the water. The crossings are unpredictable — herds may hesitate for hours, then cross in minutes. Staying 3+ days maximises the chance of witnessing one.
+
+The Mara Conservancies (Olare Motorogi, Mara Naboisho, Mara North) adjacent to the main reserve charge higher fees but restrict vehicle numbers — you may have a cheetah hunt entirely to yourself rather than surrounded by 15 safari vehicles.
+
+Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Accommodation ranges from luxury tented camps (USD 500–1,000 per night) to budget bandas outside the reserve (USD 80–150). All game drives are in open 4WD vehicles with professional Maasai or trained guides.`,
+      location: "Masai Mara National Reserve, Narok County",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1530973428-5bf2db2e4d71?w=1600&q=80",
+      highlights: [
+        "Great Migration Mara River crossing — crocodile ambush on 1.5M wildebeest (Jul–Oct)",
+        "Lion pride hunting on the Mara Plains — highest lion density in Africa",
+        "Cheetah mother with cubs — Mara Naboisho Conservancy",
+        "Leopard with impala kill in an acacia tree at sunset",
+        "Hot air balloon at dawn — the Mara from 300m at sunrise",
+        "Maasai village visit and cultural afternoon with game drive guide",
+      ],
+      gear: [
+        "Neutral/khaki clothing (bright colours disturb wildlife)",
+        "Binoculars (10x42 minimum for game viewing)",
+        "Long lens camera (300mm minimum for big cat photography)",
+        "Malaria prophylaxis (consult doctor — Kenya malaria risk is real)",
+        "Yellow fever certificate (required for Kenya entry from endemic countries)",
+        "Warm fleece for early morning 6am game drives (10°C in the Mara)",
+      ],
+      bestMonths: [7, 8, 9, 10],
+      estimatedCost: 500000,
+      latitude: -1.4826,
+      longitude: 35.1438,
+      published: true,
+      userId: user1.id,
+      voteCount: 88,
+      tags: {
+        connect: [
+          { id: allTags["safari"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure100.id },
+      { userId: user1.id, adventureId: adventure100.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 101
+  const adventure101 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-101" },
+    update: {},
+    create: {
+      id: "seed-adventure-101",
+      title: "Chobe Elephant Safari",
+      description: `Chobe National Park in northern Botswana hosts the largest concentration of elephants on Earth — up to 120,000 during the dry season. This intimate safari combines game drives along the Chobe River floodplains with sunset boat cruises, putting you within metres of breeding herds as they wade into the water to drink and bathe. Lions, leopards, wild dogs, and vast buffalo herds complete the Big Five experience in one of Africa's most wildlife-dense ecosystems.`,
+      location: "Kasane",
+      country: "Botswana",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1549366021-119a7d2f7f35?w=1600&q=80",
+      highlights: [
+        "Elephant herds at Chobe River",
+        "Sunset boat cruise",
+        "Wild dog sightings",
+        "Savuti lion territory",
+        "Night game drives",
+      ],
+      gear: ["Neutral-coloured clothing", "Binoculars", "Telephoto lens", "Insect repellent", "Wide-brimmed hat"],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 3200,
+      latitude: -17.8,
+      longitude: 25.15,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure101.id },
+      { userId: user2.id, adventureId: adventure101.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
