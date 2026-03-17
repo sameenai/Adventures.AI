@@ -55,6 +55,13 @@ export async function searchSkyscannerFlights(search: FlightSearch): Promise<Fli
   return normaliseSkyscannerResults(data, search);
 }
 
+function appendAffiliateId(url: string): string {
+  const affiliateId = process.env.SKYSCANNER_AFFILIATE_ID;
+  if (!affiliateId || !url) return url;
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}associateid=${encodeURIComponent(affiliateId)}`;
+}
+
 function parseDateParts(dateStr: string): { year: number; month: number; day: number } {
   const [year, month, day] = dateStr.split("-").map(Number);
   return { year, month, day };
@@ -106,7 +113,7 @@ function normaliseSkyscannerResults(
         priceGBP: Math.round(Number(pricing?.price.amount ?? 0) * 100),
         currency: "GBP",
         cabinClass: search.cabinClass,
-        deepLink: pricing?.items[0]?.deepLink ?? "",
+        deepLink: appendAffiliateId(pricing?.items[0]?.deepLink ?? ""),
         baggageIncluded: false,
       };
     });
