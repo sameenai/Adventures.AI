@@ -4762,6 +4762,71 @@ Spring (April–May) and autumn (September–October) offer the best temperature
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 80 — Lalibela Rock Churches and Simien Mountains, Ethiopia
+  // -------------------------------------------------------------------------
+  const adventure80 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-80" },
+    update: {},
+    create: {
+      id: "seed-adventure-80",
+      title: "Lalibela Rock Churches and Simien Mountains, Ethiopia",
+      description: `Ethiopia rewards the traveller who goes beyond safari circuits. Lalibela in the Amhara highlands contains eleven rock-hewn churches carved directly into solid volcanic bedrock in the 12th century — an engineering achievement so implausible that medieval Europeans attributed the construction to angels. Bete Giyorgis (St George), the most photographed, descends 12 metres into the earth, its cruciform roof perfectly level with the surrounding ground.
+
+The Simien Mountains National Park, 400km northwest, is an altogether different experience — a shattered plateau of basalt columns and deep escarpments, home to the endemic Gelada baboon (the last grass-eating primate), Ethiopian wolf, and Walia ibex. Trekking here at altitudes above 4,000m to the summit of Ras Dejen, the fourth-highest peak in Africa, is a world-class high-altitude hiking experience largely undiscovered by international visitors.
+
+Combining Lalibela, Gondar (the 17th-century castle compound), and the Simien Mountains in a single two-week itinerary is achievable via domestic flights on Ethiopian Airlines. The cuisine — injera flatbread, doro wot chicken stew, tej honey wine — is excellent and inexpensive throughout.
+
+Dry season (October–May) is the best visiting window. Budget USD 100–180 per day including guides, permits, and accommodation.`,
+      location: "Lalibela and Simien Mountains National Park",
+      country: "Ethiopia",
+      continent: "Africa",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=1600&q=80",
+      highlights: [
+        "Bete Giyorgis — the cruciform rock-hewn church, a UNESCO World Heritage Site",
+        "Orthodox Christian pilgrimage atmosphere of Lalibela — priests in white robes",
+        "Gelada baboon troops at sunrise on the Simien escarpment",
+        "Ras Dejen summit (4,550m) — fourth-highest peak in Africa",
+        "Fasilides Castle complex, Gondar — 17th-century royal enclosure",
+        "Ethiopian coffee ceremony — the ritual preparation and three-cup sequence",
+      ],
+      gear: [
+        "Lightweight hiking boots (Simien trekking on rocky terrain)",
+        "Warm jacket — Simien nights above 3,800m drop to 0°C",
+        "Modest dress for churches (shoulders and legs covered)",
+        "Ethiopian Birr cash (cards unreliable outside Addis)",
+        "Altitude sickness medication (Simien plateau 3,800–4,550m)",
+        "Personal water filter — tap water not potable in rural areas",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 180000,
+      latitude: 12.0321,
+      longitude: 39.0476,
+      published: true,
+      userId: user2.id,
+      voteCount: 48,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["trekking"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure80.id },
+      { userId: user2.id, adventureId: adventure80.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
