@@ -4055,6 +4055,71 @@ Verbier village is expensive — budget CHF 500–800 per day including accommod
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 69 — La Grave Unpatrolled Ski, Hautes-Alpes
+  // -------------------------------------------------------------------------
+  const adventure69 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-69" },
+    update: {},
+    create: {
+      id: "seed-adventure-69",
+      title: "La Grave Unpatrolled Ski, Hautes-Alpes",
+      description: `La Grave is the anti-resort. One telepherique, no grooming, no ski patrol, no safety nets, no marked runs, no snowmaking. What you get instead is 2,150m of vertical on the north face of La Meije — the last unclimbed major Alpine peak when it was finally summited in 1877 — served by a single gondola that deposits you above the glaciers.
+
+The terrain is entirely natural: glaciers, crevasse fields, couloirs ranging from 35 to 55 degrees, and open snowfields that funnel you through cliff bands and moraine. First-timers typically hire a local guide (essential for your first season); regulars learn the terrain intimately over years. The locals who ski here daily in January are among the best off-piste skiers in Europe.
+
+The village of La Grave has resisted development with impressive stubbornness — a few cafés, a hardware shop, some basic pensions, and the Café de la Meije where the guides and mountain workers drink. No spa, no après-ski, no nightclub. Just skiing and mountains.
+
+December–April is the season. The lift doesn't open until the snowpack is safe — sometimes January. Skiers who come specifically for La Grave's culture stay in the village and ski every day the lift opens.`,
+      location: "La Grave, Hautes-Alpes",
+      country: "France",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1517823249873-f642ddc2b7a4?w=1600&q=80",
+      highlights: [
+        "2,150m unpatrolled vertical on the north face of La Meije",
+        "No grooming, no safety nets — completely natural glaciated terrain",
+        "Couloirs from 35–55 degrees on the Chancel and Girose glaciers",
+        "Café de la Meije — authentic mountain worker culture, no tourists",
+        "La Meije summit views — one of the most dramatic peaks in the French Alps",
+        "Skiing with the La Grave locals — daily riders who know every crevasse",
+      ],
+      gear: [
+        "Expert-level off-piste skis (105mm+)",
+        "Avalanche beacon, probe, shovel (mandatory — no patrol)",
+        "Crevasse rescue knowledge or guided arrangement",
+        "Ski crampons for morning glacial crossings",
+        "Rope team equipment if venturing beyond known routes",
+        "GPS device — the terrain does not have marked runs",
+      ],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 120000,
+      latitude: 45.0475,
+      longitude: 6.3014,
+      published: true,
+      userId: user3.id,
+      voteCount: 42,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["europe"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure69.id },
+      { userId: user3.id, adventureId: adventure69.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
