@@ -4441,6 +4441,70 @@ April through October offers the most consistent Southern Ocean swell. Charter p
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 75 — Uluwatu Cliff Break Surf Camp, Bali
+  // -------------------------------------------------------------------------
+  const adventure75 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-75" },
+    update: {},
+    create: {
+      id: "seed-adventure-75",
+      title: "Uluwatu Cliff Break Surf Camp, Bali",
+      description: `Uluwatu is where Bali's surf culture concentrates — a left-hand reef break running along the base of dramatic limestone cliffs, accessible only by descending through a sea cave at low tide. The wave is long, consistent, and has multiple take-off zones that accommodate both intermediate and advanced surfers. In the 1970s it was one of the first breaks in Asia to gain international attention; it's been a pilgrimage site ever since.
+
+The Bukit Peninsula below the famous temple holds a cluster of world-class breaks within a short drive of each other: Padang Padang (Kelly Slater's favourite), Bingin (perfect shortboard lefts), Impossible (rarely breaking but extraordinary when it does), and Dreamland for beginners. A week based on the Bukit lets you sample the whole lineup based on swell and tide.
+
+The cliff-top warung restaurants above Uluwatu are legendary — plastic tables, Bintang beers, and a sunset view over the Indian Ocean with the surf far below. The famous Kecak dance at the Uluwatu temple happens every evening at dusk.
+
+Stay on the Bukit in Pecatu, Padang Padang, or Bingin. Accommodation ranges from USD 30 cliff-edge bungalows to boutique boutique villas. Rainy season (November–March) brings offshore winds and cleaner surf; dry season (April–October) offers bigger south swells.`,
+      location: "Uluwatu, Bukit Peninsula, Bali",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.SURFING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1519052726739-bcb1a18b24e4?w=1600&q=80",
+      highlights: [
+        "Uluwatu sea cave entry — paddle out through a limestone cave at low tide",
+        "Padang Padang — a perfect short, hollow tube that requires precise timing",
+        "Bingin right-hander — long, forgiving wall ideal for intermediate progression",
+        "Sunset Kecak fire dance at Uluwatu temple above the break",
+        "Cliff-top warung sunset — Bintang, grilled fish, and the Indian Ocean below",
+        "Dreamland for beginners when the bukit is too big",
+      ],
+      gear: [
+        "5'10\"–6'4\" shortboard for clean reef conditions",
+        "7'0\" mini-mal for Dreamland and learning days",
+        "Boardshorts only — Bali water 27–29°C",
+        "Rash vest or Lycra for sun protection",
+        "Reef booties recommended for Uluwatu and Padang Padang",
+        "Temple sarong (mandatory for Uluwatu temple entrance)",
+      ],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 120000,
+      latitude: -8.8294,
+      longitude: 115.0847,
+      published: true,
+      userId: user3.id,
+      voteCount: 73,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["island"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure75.id },
+      { userId: user3.id, adventureId: adventure75.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
