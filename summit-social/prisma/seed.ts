@@ -6650,6 +6650,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 114
+  const adventure114 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-114" },
+    update: {},
+    create: {
+      id: "seed-adventure-114",
+      title: "New Zealand South Island Grand Traverse",
+      description: `New Zealand's South Island packs extraordinary diversity into a relatively small area — volcanic geothermal fields, ancient glaciers, fiords, golden beaches, and the Southern Alps all within a day's travel of each other. This grand traverse combines kayaking Milford Sound, hiking the Routeburn Track, mountain biking the Old Ghost Road, and surfing at Raglan in a single end-to-end adventure that showcases the full range of terrain on offer. The ultimate multi-sport sampler of the world's adventure capital.`,
+      location: "Queenstown",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=1600&q=80",
+      highlights: [
+        "Milford Sound kayaking",
+        "Routeburn Track",
+        "Old Ghost Road mountain bike",
+        "Bungee jump at Kawarau",
+        "Abel Tasman sea kayaking",
+      ],
+      gear: ["Kayak paddle jacket", "Mountain bike", "Hiking poles", "Wetsuit", "Merino wool layers"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 3800,
+      latitude: -45.03,
+      longitude: 168.66,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure114.id },
+      { userId: user2.id, adventureId: adventure114.id },
+      { userId: user3.id, adventureId: adventure114.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
