@@ -3927,6 +3927,70 @@ Bases are the villages of Lyngseidet and Furuflaten. A handful of specialist gui
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 67 — Heli-Skiing Bella Coola Wilderness, Canada
+  // -------------------------------------------------------------------------
+  const adventure67 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-67" },
+    update: {},
+    create: {
+      id: "seed-adventure-67",
+      title: "Heli-Skiing Bella Coola Wilderness, Canada",
+      description: `Bella Coola sits at the end of a glaciated fjord in the Coast Mountains of British Columbia, accessible only by a notoriously steep gravel road or floatplane. The mountains surrounding the valley hold some of the deepest snowpack and most untracked terrain in North America — which is why heli-ski operations here have drawn powder obsessives since the 1990s.
+
+A typical week involves four to six helicopter-accessed runs per day, dropping groups onto ridge spines above tree line before skiing 1,000–1,800m vertical through old-growth cedar and spruce forest to pickup zones. The trees here are different from most heli-ski terrain — massive old-growth with wide spacing, skiing through them like a cathedral.
+
+The snowpack is maritime — heavy and wet by January standards, but settles into a dense, supportive base that holds well into April. The real seasons are February through April when cold high-pressure systems deliver weeks of consistent powder conditions.
+
+Packages are typically week-long all-inclusive affairs run by Tweedsmuir Park Lodge or similar operators, including accommodation, meals, guide, and around 100,000 vertical feet of skiing. Budget USD 8,000–12,000 per person per week. Book 12–18 months in advance.`,
+      location: "Bella Coola Valley, Coast Mountains",
+      country: "Canada",
+      continent: "North America",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1547517023-6546a27fde7b?w=1600&q=80",
+      highlights: [
+        "Old-growth cedar cathedral skiing — massive spaced trees unlike any resort terrain",
+        "100,000+ vertical feet in a week on completely untracked snow",
+        "Helicopter landings on narrow ridge spines above the Bella Coola fjord",
+        "Wild salmon and coastal wilderness immersion from the lodge",
+        "Completely isolated — no other skiers in sight for the entire week",
+        "Glacier descents to sea-level fjord pickups",
+      ],
+      gear: [
+        "Powder skis (115mm+ underfoot) — operator can advise and sometimes rent",
+        "Avalanche transceiver, probe, and shovel (mandatory, guides check)",
+        "Breathable hardshell jacket and bibs",
+        "Liner gloves and gauntlet mittens",
+        "Goggle and helmet",
+        "Personal medications — nearest hospital is hours away",
+      ],
+      bestMonths: [2, 3, 4],
+      estimatedCost: 1000000,
+      latitude: 52.3667,
+      longitude: -126.7667,
+      published: true,
+      userId: user1.id,
+      voteCount: 38,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["expedition"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure67.id },
+      { userId: user1.id, adventureId: adventure67.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
