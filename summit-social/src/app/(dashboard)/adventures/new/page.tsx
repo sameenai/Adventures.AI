@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const MONTH_NAMES = [
@@ -162,19 +162,24 @@ function ListInput({
 
 export default function NewAdventurePage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [enhancing, setEnhancing] = useState(false);
 
+  // Pre-fill from itinerary if arriving via "Publish as Adventure" CTA
+  const prefillTitle = searchParams.get("title") ?? "";
+  const prefillDuration = Number(searchParams.get("durationDays") ?? 7);
+
   const [form, setForm] = useState({
-    title: "",
+    title: prefillTitle,
     description: "",
     location: "",
     country: "",
     continent: "Europe" as string,
     category: "TREKKING" as string,
     difficulty: "MODERATE" as string,
-    durationDays: 7,
+    durationDays: prefillDuration,
     coverImageUrl: "",
     albumUrl: "",
     albumPlatform: "" as string,
@@ -282,6 +287,11 @@ export default function NewAdventurePage() {
         <p className="mt-2 text-sm text-stone-500">
           Your submission will be reviewed before going live.
         </p>
+        {prefillTitle && (
+          <p className="mt-3 font-mono text-xs text-amber-600/80">
+            ✦ Pre-filled from your AI itinerary — fill in the remaining details below.
+          </p>
+        )}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">

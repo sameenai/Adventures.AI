@@ -900,6 +900,8 @@ describe("POST /api/adventures/[id]/duplicate", () => {
 describe("POST /api/chat", () => {
   beforeEach(() => {
     vi.stubEnv("OPENAI_API_KEY", "");
+    // Route always auto-creates an itinerary on first message
+    (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "auto-itin-1" });
   });
   afterEach(() => {
     vi.clearAllMocks();

@@ -76,16 +76,24 @@ export default async function ItineraryDetailPage({ params }: Props) {
             </span>
           </div>
         </div>
-        {itinerary.days.length > 0 && (
-          <ExportButton
-            title={itinerary.title}
-            description={itinerary.description}
-            days={itinerary.days}
-            travellers={itinerary.travellers}
-            budget={itinerary.budget}
-            status={itinerary.status}
-          />
-        )}
+        <div className="flex shrink-0 items-center gap-2">
+          {itinerary.days.length > 0 && (
+            <ExportButton
+              title={itinerary.title}
+              description={itinerary.description}
+              days={itinerary.days}
+              travellers={itinerary.travellers}
+              budget={itinerary.budget}
+              status={itinerary.status}
+            />
+          )}
+          <Link
+            href={`/adventures/new?title=${encodeURIComponent(itinerary.title)}&durationDays=${itinerary.days.length || 1}`}
+            className="border border-amber-500 px-3 py-1.5 font-display text-xs uppercase tracking-widest text-amber-500 transition-colors hover:bg-amber-500 hover:text-stone-950"
+          >
+            Publish as Adventure
+          </Link>
+        </div>
       </div>
 
       {itinerary.days.length === 0 ? (
