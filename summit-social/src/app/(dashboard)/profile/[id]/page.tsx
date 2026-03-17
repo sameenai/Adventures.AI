@@ -25,6 +25,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
         instagramUrl: true,
         twitterUrl: true,
         websiteUrl: true,
+        plan: true,
         adventures: {
           orderBy: { voteCount: "desc" },
           include: {

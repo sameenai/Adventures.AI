@@ -51,6 +51,12 @@ export function Navbar() {
             <>
               <NotificationBell />
               <Link
+                href="/pro"
+                className="border border-amber-500/50 px-2 py-0.5 font-display text-[10px] uppercase tracking-widest text-amber-500 transition-colors hover:border-amber-500 hover:bg-amber-500/10"
+              >
+                Upgrade
+              </Link>
+              <Link
                 href={`/profile/${session.user.id}`}
                 className="font-display text-xs uppercase tracking-widest text-stone-400 hover:text-amber-500 transition-colors"
               >

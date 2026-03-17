@@ -54,3 +54,18 @@ export const DIFFICULTIES = [
 ] as const;
 
 export const UPLOAD_MAX_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
+
+export const PLANS = {
+  FREE: {
+    name: "Free",
+    aiCreditsPerMonth: 5,
+    bookmarkLimit: 20,
+    priceGBP: 0,
+  },
+  PRO: {
+    name: "Pro",
+    aiCreditsPerMonth: Number.POSITIVE_INFINITY,
+    bookmarkLimit: Number.POSITIVE_INFINITY,
+    priceGBP: 9,
+  },
+} as const;

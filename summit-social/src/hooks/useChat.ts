@@ -38,7 +38,15 @@ export function useChat({ itineraryId, initialMessages = [] }: UseChatOptions) {
         });
 
         if (!response.ok) {
-          const errData = (await response.json().catch(() => ({}))) as { error?: string };
+          const errData = (await response.json().catch(() => ({}))) as {
+            error?: string;
+            code?: string;
+          };
+          if (response.status === 402 && errData.code === "UPGRADE_REQUIRED") {
+            throw new Error(
+              "You've used all 5 free AI sessions this month. [Upgrade to Pro](/pro) for unlimited planning.",
+            );
+          }
           throw new Error(errData.error ?? `Chat request failed (${response.status})`);
         }
 

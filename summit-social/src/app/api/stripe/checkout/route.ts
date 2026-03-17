@@ -1,0 +1,65 @@
+import { authOptions } from "@/lib/auth/config";
+import { APP_URL } from "@/lib/constants";
+import { prisma } from "@/lib/db/prisma";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
+
+export async function POST() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
+  }
+
+  const stripeKey = process.env.STRIPE_SECRET_KEY;
+  if (!stripeKey) {
+    return NextResponse.json({ error: "Billing not configured" }, { status: 503 });
+  }
+
+  const priceId = process.env.STRIPE_PRO_PRICE_ID;
+  if (!priceId) {
+    return NextResponse.json({ error: "Pro price not configured" }, { status: 503 });
+  }
+
+  const stripe = new Stripe(stripeKey);
+
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { email: true, stripeCustomerId: true, plan: true },
+  });
+
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  }
+
+  if (user.plan === "PRO") {
+    return NextResponse.json({ error: "Already on Pro plan" }, { status: 400 });
+  }
+
+  // Reuse existing Stripe customer or create one
+  let customerId = user.stripeCustomerId;
+  if (!customerId) {
+    const customer = await stripe.customers.create({
+      email: user.email,
+      metadata: { userId: session.user.id },
+    });
+    customerId = customer.id;
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: { stripeCustomerId: customerId },
+    });
+  }
+
+  const checkoutSession = await stripe.checkout.sessions.create({
+    customer: customerId,
+    mode: "subscription",
+    line_items: [{ price: priceId, quantity: 1 }],
+    success_url: `${APP_URL}/pro/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${APP_URL}/pro`,
+    // Pass userId in both places so the webhook can resolve the user
+    metadata: { userId: session.user.id },
+    subscription_data: { metadata: { userId: session.user.id } },
+  });
+
+  return NextResponse.json({ url: checkoutSession.url });
+}

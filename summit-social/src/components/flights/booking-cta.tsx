@@ -6,7 +6,14 @@ interface BookingCTAProps {
   offer: FlightOffer;
 }
 
+const PROVIDER_LABELS: Record<string, string> = {
+  skyscanner: "via Skyscanner",
+  amadeus: "via Amadeus",
+};
+
 export function BookingCTA({ offer }: BookingCTAProps) {
+  const providerLabel = PROVIDER_LABELS[offer.provider] ?? offer.provider;
+
   return (
     <div className="flex items-center justify-between border border-amber-500/30 bg-amber-500/10 p-6">
       <div>
@@ -16,12 +23,15 @@ export function BookingCTA({ offer }: BookingCTAProps) {
         <p className="text-sm text-stone-400">
           {offer.airline} {offer.flightNumber} &middot; {offer.cabinClass}
         </p>
+        <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-stone-600">
+          {providerLabel}
+        </p>
       </div>
       <div className="flex items-center gap-4">
         <span className="font-mono text-2xl font-bold text-amber-500">
           {formatPrice(offer.priceGBP)}
         </span>
-        <a href={offer.deepLink} target="_blank" rel="noopener noreferrer">
+        <a href={offer.deepLink} target="_blank" rel="noopener noreferrer sponsored">
           <Button size="lg">Book Now</Button>
         </a>
       </div>

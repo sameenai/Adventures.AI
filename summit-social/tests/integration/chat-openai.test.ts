@@ -23,7 +23,13 @@ vi.mock("@/lib/db/redis", () => ({
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
     user: {
-      findUnique: vi.fn().mockResolvedValue({ openAiApiKey: null }),
+      findUnique: vi.fn().mockResolvedValue({
+        openAiApiKey: null,
+        plan: "FREE",
+        aiCreditsUsed: 0,
+        aiCreditsResetAt: new Date(),
+      }),
+      update: vi.fn().mockResolvedValue({}),
     },
     adventure: {
       findMany: vi.fn().mockResolvedValue([]),

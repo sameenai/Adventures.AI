@@ -26,7 +26,15 @@ export type ItineraryWithDays = Itinerary & {
 
 export type UserProfile = Pick<
   User,
-  "id" | "name" | "email" | "avatarUrl" | "bio" | "instagramUrl" | "twitterUrl" | "websiteUrl"
+  | "id"
+  | "name"
+  | "email"
+  | "avatarUrl"
+  | "bio"
+  | "instagramUrl"
+  | "twitterUrl"
+  | "websiteUrl"
+  | "plan"
 > & {
   adventures: AdventureWithUser[];
   _count: { adventures: number; votes: number };
