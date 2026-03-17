@@ -6485,6 +6485,46 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 110
+  const adventure110 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-110" },
+    update: {},
+    create: {
+      id: "seed-adventure-110",
+      title: "Congo River Canoe Journey",
+      description: `The Congo River is the world's second largest by water volume and the deepest river on Earth. This remarkable expedition paddles a section of the lower Congo through dense equatorial rainforest, stopping at riverside villages accessible only by water, watching forest elephants at salt licks, and camping under skies undimmed by light pollution. The region is raw, remote, and utterly unlike anywhere else — a journey into one of the last true wilderness frontiers on the planet.`,
+      location: "Kinshasa",
+      country: "Democratic Republic of the Congo",
+      continent: "Africa",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1600&q=80",
+      highlights: [
+        "Dense equatorial rainforest",
+        "Riverside village encounters",
+        "Forest elephants",
+        "Night sky camping",
+        "Congo River rapids",
+      ],
+      gear: ["Expedition kayak or canoe", "Dry bags", "Water purification", "Malaria prophylaxis", "Satellite communicator"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 4500,
+      latitude: -4.3,
+      longitude: 15.3,
+      published: true,
+      userId: user1.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["jungle"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure110.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
