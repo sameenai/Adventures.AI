@@ -3,6 +3,7 @@ import { CollectionsPanel } from "@/components/profile/collections-panel";
 import { FollowButton } from "@/components/profile/follow-button";
 import { FollowSuggestions } from "@/components/profile/follow-suggestions";
 import { ProfileHeader } from "@/components/profile/profile-header";
+import { ApiKeyCallout } from "@/components/ui/api-key-callout";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
@@ -105,26 +106,11 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       {isOwnProfile && !hasApiKey && safeUser.plan !== "PRO" && (
-        <div className="mb-6 border border-amber-500/60 bg-amber-500/5 p-5">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="font-display text-xs uppercase tracking-[0.3em] text-amber-500">
-                Unlock AI Trip Planning
-              </p>
-              <p className="mt-2 max-w-xl text-sm leading-relaxed text-stone-400">
-                Add your OpenAI API key to start building personalised, day-by-day itineraries with
-                GPT-4o. Your key is stored privately, never shared, and lets you bypass the monthly
-                session limit.
-              </p>
-            </div>
-            <Link
-              href="/profile/edit#api-key"
-              className="shrink-0 border border-amber-500 bg-amber-500 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
-            >
-              Add API Key
-            </Link>
-          </div>
-        </div>
+        <ApiKeyCallout
+          className="mb-6"
+          title="Unlock AI trip planning"
+          description="Add your OpenAI API key to start building personalised, day-by-day itineraries with GPT-4o. Your key is stored privately, never shared, and lets you bypass the monthly session limit."
+        />
       )}
       <ProfileHeader user={safeUser} />
 
