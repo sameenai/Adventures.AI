@@ -6153,6 +6153,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 102
+  const adventure102 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-102" },
+    update: {},
+    create: {
+      id: "seed-adventure-102",
+      title: "Kruger to Canyon Safari",
+      description: `South Africa's greatest safari road trip links Kruger National Park — home to the densest Big Five population in the world — with the dramatic Blyde River Canyon, the third largest canyon on Earth. Travel from open bushveld game drives at dawn to canyon viewpoints at sunset, with stops at panoramic vantage points, ancient Bourke's Luck Potholes, and lush escarpment forests along the Panorama Route. A versatile adventure combining wildlife, geology, and scenery in one sweep.`,
+      location: "Kruger National Park",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600&q=80",
+      highlights: [
+        "Big Five game drives",
+        "Blyde River Canyon panoramas",
+        "Bourke's Luck Potholes",
+        "Leopard Creek border camp",
+        "God's Window viewpoint",
+      ],
+      gear: ["Safari clothing", "Binoculars", "Camera with zoom", "Sunscreen", "Comfortable walking shoes"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2800,
+      latitude: -24.0,
+      longitude: 31.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure102.id },
+      { userId: user2.id, adventureId: adventure102.id },
+      { userId: user3.id, adventureId: adventure102.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
