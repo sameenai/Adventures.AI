@@ -6775,6 +6775,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 117
+  const adventure117 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-117" },
+    update: {},
+    create: {
+      id: "seed-adventure-117",
+      title: "Kumano Kodo Pilgrimage",
+      description: `The Kumano Kodo is a network of ancient pilgrimage routes through the Kii Peninsula in southern Japan, one of only two UNESCO World Heritage trail systems in the world (the other being the Camino de Santiago). The paths wind through sacred cedar forests, past moss-covered stone lanterns, and between three Grand Shrines of Kumano, where Japanese emperors have walked for over a millennium. Overnight in traditional minshuku guesthouses, bathe in forest onsen, and absorb the deep spiritual atmosphere of this mountain pilgrimage.`,
+      location: "Tanabe",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: [
+        "Nakahechi main route",
+        "Three Grand Shrines of Kumano",
+        "Sacred cedar forests",
+        "Traditional minshuku stays",
+        "Forest onsen baths",
+      ],
+      gear: ["Waterproof hiking boots", "Trekking poles", "Rain jacket", "Pilgrim staff (kongō-tsue)", "Small backpack"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 1800,
+      latitude: 33.73,
+      longitude: 135.37,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure117.id },
+      { userId: user2.id, adventureId: adventure117.id },
+      { userId: user3.id, adventureId: adventure117.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
