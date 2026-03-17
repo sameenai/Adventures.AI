@@ -6858,6 +6858,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 119
+  const adventure119 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-119" },
+    update: {},
+    create: {
+      id: "seed-adventure-119",
+      title: "GR10 Pyrenees Traverse",
+      description: `The GR10 is France's great Pyrenean high route, traversing the entire mountain range from the Atlantic at Hendaye to the Mediterranean at Banyuls-sur-Mer along 866 km of mountain trail. The route stays on the French side of the border, passing through Basque country, the Hautes-Pyrénées, and Catalan foothills, with dramatic ascents over glacially sculpted cols and descents into villages famous for their cassoulet and Armagnac. Most trekkers complete the full traverse in six to eight weeks, though the route can be tackled in stages across multiple seasons.`,
+      location: "Hendaye",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 50,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [
+        "Lac de Gaube and Vignemale",
+        "Cirque de Gavarnie",
+        "Basque country villages",
+        "Bagnères-de-Luchon thermal baths",
+        "Mediterranean finish at Banyuls",
+      ],
+      gear: ["Lightweight tent", "Trekking poles", "Waterproof boots", "Gaiters", "French IGN maps"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: 43.37,
+      longitude: -1.78,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure119.id },
+      { userId: user2.id, adventureId: adventure119.id },
+      { userId: user3.id, adventureId: adventure119.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
