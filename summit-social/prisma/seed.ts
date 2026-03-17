@@ -5278,6 +5278,71 @@ June–September is the prime window: dry season, moderate temperatures, and con
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 88 — North Coast 500, Scottish Highlands
+  // -------------------------------------------------------------------------
+  const adventure88 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-88" },
+    update: {},
+    create: {
+      id: "seed-adventure-88",
+      title: "North Coast 500, Scottish Highlands",
+      description: `The North Coast 500 — Scotland's answer to Route 66 — is a 500-mile loop from Inverness around the northern Highlands, passing through some of the last genuinely wild land in Europe. The route was officially established in 2015 but the landscape it traverses has resisted human domestication for millennia: Torridon's Precambrian sandstone mountains, Assynt's isolated quartzite peaks, Caithness's sea stack coastline, and the Flow Country's vast peat bog are not things you find anywhere else.
+
+The drive itself takes 5–7 days done properly, but a week barely allows stops at each day's obvious highlights. The real value is in slowing down — Applecross village across the dramatic Bealach na Bà pass, the fairy tale castle at Eilean Donan on a still morning, Handa Island's seabird cliffs in summer, and Cape Wrath's lighthouse at the northwest corner of mainland Britain.
+
+Scotland in summer offers 18–20 hours of daylight, making evening hikes into the mountains above wherever you're camped entirely feasible. Wild camping is a legal right in Scotland under the Land Reform Act 2003 — the entire route can be camped for the cost of a bag of coal for the firepit.
+
+May–September is the tourist season; May offers the most daylight and fewest midges. The midges (tiny biting flies) in June–August are a genuine challenge — bring a head net and midge repellent.`,
+      location: "Inverness to Inverness via North Coast, Scotland",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [
+        "Bealach na Bà — one of Britain's most dramatic mountain passes into Applecross",
+        "Eilean Donan Castle at dawn — the most photographed castle in Scotland",
+        "Torridon mountains — Precambrian sandstone ridges above loch and sea",
+        "Cape Wrath — the northwest tip of mainland Britain and its lighthouse",
+        "Handa Island seabird colony — 100,000 great skua and razorbill nesting (summer)",
+        "Wild camping above Loch Assynt — sleeping under the Scottish sky",
+      ],
+      gear: [
+        "Waterproof jacket and trousers (guaranteed rain at some point)",
+        "Midge head net and repellent (June–August essential)",
+        "Wild camping kit — Scotland allows it legally everywhere",
+        "Ordnance Survey maps of the Highlands for day hikes",
+        "Wellies or waterproof hiking boots for bog walking",
+        "Whisky flask — you'll be passing distilleries",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 150000,
+      latitude: 58.2,
+      longitude: -4.8,
+      published: true,
+      userId: user1.id,
+      voteCount: 69,
+      tags: {
+        connect: [
+          { id: allTags["scotland"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["europe"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure88.id },
+      { userId: user1.id, adventureId: adventure88.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
