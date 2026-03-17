@@ -44,6 +44,20 @@ export default defineConfig({
         "src/components/itinerary/map-view.tsx",
         "src/components/profile/adventure-history.tsx",
         "src/components/profile/profile-header.tsx",
+        // Leaflet map components — require DOM APIs unavailable in jsdom
+        "src/components/explore/**",
+        "src/components/itinerary/leaflet-map.tsx",
+        // Startup env validation — side-effect module, no exported functions to test
+        "src/lib/env.ts",
+        // Large multi-section form pages — covered by e2e
+        "src/app/(dashboard)/adventures/**/adventure-edit-form.tsx",
+        "src/app/(dashboard)/profile/edit/profile-edit-form.tsx",
+        // Pure skeleton/loading UI — no logic
+        "src/app/**/loading.tsx",
+        // Not-found page — pure static markup, no logic
+        "src/app/not-found.tsx",
+        // Pure presentation — no logic, only renders links
+        "src/components/profile/social-links.tsx",
       ],
     },
     setupFiles: ["tests/fixtures/setup.ts"],
