@@ -5854,6 +5854,71 @@ Combine with hiking on Triglav, Slovenia's only 2,864m peak, and cycling through
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 97 — Doubtful Sound Sea Kayak, Fiordland
+  // -------------------------------------------------------------------------
+  const adventure97 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-97" },
+    update: {},
+    create: {
+      id: "seed-adventure-97",
+      title: "Doubtful Sound Sea Kayak, Fiordland",
+      description: `Doubtful Sound is larger, more remote, and less visited than its famous Fiordland neighbour Milford Sound — accessible only by boat across Lake Manapouri and over the Wilmot Pass by road, which keeps day-tripper numbers manageable and the fiord genuinely wild. Paddling a sea kayak through the three arms of the sound, camping on beaches where waterfalls from the rain-soaked bluffs drop directly into the water beside you, is one of the most extraordinary paddling experiences in the Southern Hemisphere.
+
+The fiord's daily rainfall (around 7,000mm per year) creates a permanent fresh-water layer on the surface — this causes the dark tannin-stained water to let almost no light through, creating conditions where deep-water species like black coral live at just 6–10m depth rather than 50m+. Dolphins, bottlenose and dusky, use the fiord year-round; New Zealand fur seals haul out on rocky islands throughout.
+
+Guided 3-day kayak expeditions from Manapouri are the standard format — the logistics of getting equipment over the Wilmot Pass make independent kayaking complex on a first visit. Some operators combine kayaking with overnight cruises on the water.
+
+Fiordland receives rain 200+ days per year — pack fully waterproof everything and accept it with equanimity. The fiord is at its most dramatic in rain: waterfalls appear on every cliff face that was dry an hour before.`,
+      location: "Doubtful Sound, Fiordland National Park",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1600&q=80",
+      highlights: [
+        "Paddling past 1,000m cliff faces with waterfalls in full flood after rain",
+        "Black coral at 6m depth due to the fresh-water light-blocking layer",
+        "Bottlenose dolphin pod escort through the main arm of the sound",
+        "New Zealand fur seal colonies on rocky outcrops",
+        "Camping on a deserted beach deep inside the fiord in total silence",
+        "Milky Fiord arm — the deepest and narrowest finger with dramatic acoustics",
+      ],
+      gear: [
+        "Sea kayak with bulkheads (provided on guided trips)",
+        "Drysuit or 5mm wetsuit — water 12–16°C, rain constant",
+        "Fully waterproof dry bags for sleeping bag and clothing",
+        "Camp stove and cooking supplies for multi-night camping",
+        "Sandfly repellent (Doubtful Sound sandflies are legendary)",
+        "Rain jacket and trousers you don't mind getting soaked",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 150000,
+      latitude: -45.3267,
+      longitude: 166.9833,
+      published: true,
+      userId: user1.id,
+      voteCount: 43,
+      tags: {
+        connect: [
+          { id: allTags["kayaking"].id },
+          { id: allTags["new-zealand"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure97.id },
+      { userId: user1.id, adventureId: adventure97.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
