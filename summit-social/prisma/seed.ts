@@ -5148,6 +5148,71 @@ Do this drive from north to south to keep the ocean on your right. Allow 7–10 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 86 — Iceland Ring Road Complete Circuit
+  // -------------------------------------------------------------------------
+  const adventure86 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-86" },
+    update: {},
+    create: {
+      id: "seed-adventure-86",
+      title: "Iceland Ring Road Complete Circuit",
+      description: `Route 1, Iceland's Ring Road, circles the entire island in 1,332km — a complete circuit that passes through every major landscape type the country offers: black sand desert, active volcanoes, ice cap, fjord, lava field, waterfall, and geothermal spa. The road is fully paved and well-maintained, making the circuit accessible to ordinary rental vehicles in summer while demanding a 4WD in winter.
+
+The classic highlights are well-documented — Jökulsárlón glacier lagoon and its icebergs, the waterfalls of the east (Skógafoss, Seljalandsfoss, Svartifoss), the Snæfellsnes Peninsula's volcanic glacier, the Westfjords for true wilderness — but the Ring Road's particular joy is the landscape between the highlights: lava deserts that look post-apocalyptic, fjord drives where you share the road with nothing but sheep, and the consistent surprise of Iceland's scale.
+
+Midnight sun in June–July means 24-hour daylight, enabling driving and hiking at any hour. Northern lights season runs September–March, with the darkest windows in October–February providing the best aurora photography.
+
+Rent a campervan in Reykjavik for maximum flexibility — wild camping is legal on most uncultivated land outside national parks. Budget USD 250–400 per day for rental, fuel, food, and camping fees.`,
+      location: "Ring Road, Route 1, Iceland",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1600&q=80",
+      highlights: [
+        "Jökulsárlón glacier lagoon — icebergs calving into a coastal lagoon at the Atlantic",
+        "Skógafoss waterfall — walk behind the 60m curtain of water",
+        "Vatnajökull National Park — Europe's largest glacier by volume",
+        "Northern lights from a darkened campervan in the Westfjords (September–March)",
+        "Midnight sun drive through the East Fjords in June",
+        "Mývatn geothermal area — pseudocraters, boiling mud pools, and cave baths",
+      ],
+      gear: [
+        "4WD campervan (essential for F-roads and winter travel)",
+        "Layered clothing system — Icelandic weather changes hourly",
+        "Waterproof jacket and trousers (guaranteed rain somewhere)",
+        "Aurora forecasting app (Vedur.is is the official service)",
+        "Gravel insurance for rental car (gravel roads are everywhere outside Ring Road)",
+        "Portable camp stove — eating at restaurants is expensive",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 300000,
+      latitude: 64.9631,
+      longitude: -19.0208,
+      published: true,
+      userId: user2.id,
+      voteCount: 82,
+      tags: {
+        connect: [
+          { id: allTags["photography"].id },
+          { id: allTags["volcanic"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure86.id },
+      { userId: user2.id, adventureId: adventure86.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
