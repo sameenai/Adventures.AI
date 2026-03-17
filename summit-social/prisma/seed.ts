@@ -6403,6 +6403,47 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 108
+  const adventure108 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-108" },
+    update: {},
+    create: {
+      id: "seed-adventure-108",
+      title: "Alps 2 Ocean Cycle Trail",
+      description: `New Zealand's Alps 2 Ocean trail is a 301 km journey from the foot of Aoraki/Mount Cook — the country's highest peak — down through the Mackenzie Basin, past turquoise glacial lakes, and along braided rivers to the Pacific Ocean at Oamaru. The trail passes through high-country sheep stations, along old hydro canals, and through the Waitaki Valley wine country before descending to the Victorian port town famous for its little blue penguins. A scenic, mostly off-road ride through the heart of the South Island.`,
+      location: "Aoraki/Mount Cook",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: [
+        "Aoraki/Mount Cook views",
+        "Lake Tekapo turquoise waters",
+        "Mackenzie Basin high country",
+        "Waitaki Valley vineyards",
+        "Oamaru blue penguin colony",
+      ],
+      gear: ["Mountain bike", "Cycling gloves", "Merino base layer", "Sunscreen", "Panniers"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 1100,
+      latitude: -43.74,
+      longitude: 170.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure108.id },
+      { userId: user3.id, adventureId: adventure108.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
