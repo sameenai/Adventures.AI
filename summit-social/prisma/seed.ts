@@ -5213,6 +5213,71 @@ Rent a campervan in Reykjavik for maximum flexibility — wild camping is legal 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 87 — Namibia Desert and Skeleton Coast Self-Drive
+  // -------------------------------------------------------------------------
+  const adventure87 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-87" },
+    update: {},
+    create: {
+      id: "seed-adventure-87",
+      title: "Namibia Desert and Skeleton Coast Self-Drive",
+      description: `Namibia is one of the most visually distinctive countries in the world — the Namib Desert is the world's oldest at 55 million years, its orange-red dunes at Sossusvlei rising 300 metres from white salt pans; the Skeleton Coast is a graveyard of ships and whale bones where the cold Atlantic and the hyper-arid desert meet; and Etosha National Park is a white salt pan safari destination where elephants, lions, and rhinos gather at floodlit waterholes after dark.
+
+The self-drive circuit of 4,000–5,000km takes 14–18 days and is well within the capability of a confident driver in a 4WD: Windhoek → Fish River Canyon → Lüderitz → Sossusvlei → Swakopmund → Skeleton Coast → Etosha → Windhoek. Roads are gravel for large sections but generally well-maintained. Fuel stations are far apart — never miss a fill-up opportunity.
+
+Sossusvlei's Dead Vlei (a white clay pan surrounded by 1,000-year-old camel thorn skeletons against orange dunes) is one of the great photographic landscapes on earth. Arrive at dawn to photograph before the heat haze builds.
+
+June–September is the prime window: dry season, moderate temperatures, and concentrated wildlife at Etosha waterholes. The coast is cold year-round due to the Benguela current.`,
+      location: "Sossusvlei, Skeleton Coast, Etosha, Swakopmund",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1600&q=80",
+      highlights: [
+        "Dead Vlei, Sossusvlei — ancient camel thorn skeletons on white clay, orange dunes",
+        "Big Daddy Dune at sunrise — 325m of perfect Namib desert sand",
+        "Etosha waterhole nights — lions hunting at the floodlit pan after dark",
+        "Cape Cross Seal Reserve — 100,000 Cape fur seals on the Skeleton Coast",
+        "Kolmanskop ghost town — diamond mining town reclaimed by desert sand dunes",
+        "Fish River Canyon — second largest canyon in the world, 160km long",
+      ],
+      gear: [
+        "4WD with high clearance and two spare tyres (gravel roads are hard on rubber)",
+        "50L of water storage (distances between services can exceed 300km)",
+        "GPS offline map (Maps.me or Gaia GPS with Namibia downloaded)",
+        "Recovery kit: traction boards, shovel, tow rope",
+        "Warm clothing — Namib nights and Skeleton Coast fog drop to 10°C",
+        "Binoculars and telephoto lens for Etosha game drives",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 350000,
+      latitude: -24.7332,
+      longitude: 15.9423,
+      published: true,
+      userId: user3.id,
+      voteCount: 66,
+      tags: {
+        connect: [
+          { id: allTags["desert"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["safari"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure87.id },
+      { userId: user3.id, adventureId: adventure87.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
