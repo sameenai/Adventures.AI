@@ -5472,6 +5472,69 @@ Palau is accessible via Guam, Manila, or Tokyo. Live-aboard packages run USD 2,5
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 91 — Red Sea Liveaboard, Ras Mohammed to Brothers Islands
+  // -------------------------------------------------------------------------
+  const adventure91 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-91" },
+    update: {},
+    create: {
+      id: "seed-adventure-91",
+      title: "Red Sea Liveaboard, Ras Mohammed to Brothers Islands",
+      description: `The Red Sea is one of the world's premier liveaboard diving destinations — warm, clear water, shallow-growing hard coral in superb condition, and a pelagic scene that delivers hammerhead sharks, oceanic whitetips, and thresher sharks at the Brothers Islands and Daedalus Reef. The classic southern liveaboard circuit from Hurghada runs to Ras Mohammed (the submerged tip of the Sinai Peninsula), down the Egyptian coast past Sha'ab Abu Nuhas wreck site, and out to the offshore pinnacles.
+
+The Brothers (El Akhawein) are two tiny rocky islands in the open Red Sea, 60km offshore, that rise from 800m of water. The walls are covered in soft corals and home to schools of barracuda, jacks, and the resident oceanic whitetip sharks that were Jacques Cousteau's favourite Red Sea subject. Daedalus Reef adds hammerheads and schooling hammerhead sharks on the right swell and current.
+
+Liveaboard boats from Hurghada run 7-day circuits year-round. The boats range from basic to comfortable — look for ADORA or WADI GIN quality boats if budget allows. Nitrox is widely available for extending bottom time. Prices run USD 900–1,800 per person for a 7-night all-inclusive liveaboard.
+
+October–May is the prime season. Summer (June–September) is hot (air and water both 30°C+) but still excellent diving.`,
+      location: "Hurghada to Brothers Islands, Red Sea",
+      country: "Egypt",
+      continent: "Africa",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827291-72cdfc29a9f2?w=1600&q=80",
+      highlights: [
+        "Brothers Islands oceanic whitetip sharks — Cousteau's favourite pelagic",
+        "Daedalus Reef hammerhead school — seasonal but spectacular when present",
+        "Sha'ab Abu Nuhas wreck alley — four cargo ships in 18–28m",
+        "Ras Mohammed National Park — pristine coral walls at Sinai's southern tip",
+        "Elphinstone Reef — a vertical wall with 60m+ visibility on calm days",
+        "Liveaboard life — diving 3–4 times daily, sundeck evenings, Red Sea sunsets",
+      ],
+      gear: [
+        "PADI Advanced Open Water minimum (Deep certification for Brothers walls)",
+        "3mm wetsuit (water 22–28°C depending on season)",
+        "Dive computer and dive torch for swim-throughs",
+        "Nitrox certification (strongly recommended for extended bottom time)",
+        "Seasickness medication for the overnight crossing to offshore sites",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4, 5],
+      estimatedCost: 150000,
+      latitude: 26.3667,
+      longitude: 34.2667,
+      published: true,
+      userId: user1.id,
+      voteCount: 57,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure91.id },
+      { userId: user1.id, adventureId: adventure91.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
