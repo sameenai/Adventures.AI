@@ -4313,6 +4313,69 @@ Stay in Haleiwa or Waialua — 10–20 minutes from the beach. Rent a car; the N
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 73 — Jeffreys Bay Surfing Expedition, South Africa
+  // -------------------------------------------------------------------------
+  const adventure73 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-73" },
+    update: {},
+    create: {
+      id: "seed-adventure-73",
+      title: "Jeffreys Bay Surfing Expedition, South Africa",
+      description: `Jeffreys Bay — J-Bay to anyone who surfs — is one of the five best point breaks on earth. The wave unzips from Boneyards through Point and on to Kitchen Windows in a single right-hand wall that in prime conditions runs for 800 metres without a section. In July during the WSL Championship Tour event, the world's best surfers compete here. The rest of the year, you share it with travelling surfers and a growing local contingent.
+
+The Agulhas current pushes cold, nutrient-rich water up from the South Atlantic, keeping the water at 14–18°C year-round — cold enough to require a 4/3mm full suit in winter, when the best swells arrive. The beach itself has evolved from a hippie outpost into a decent surf town with good accommodation and restaurants, but hasn't lost its edge entirely.
+
+Beyond J-Bay itself, the Eastern Cape offers remarkable marine wildlife — great white shark diving at Mossel Bay, whale watching from Cape Agulhas (August–November), and the Garden Route national parks within driving distance. A surf trip that combines J-Bay with a broader Eastern Cape road trip makes an exceptional two-week journey.
+
+Fly to Port Elizabeth (now Gqeberha), hire a car, and base yourself in J-Bay for surf. Three to seven days at the break itself is typical before extending the road trip.`,
+      location: "Jeffreys Bay, Eastern Cape",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.SURFING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1531722569936-825d4ebd6dad?w=1600&q=80",
+      highlights: [
+        "Supertubes — the main J-Bay peak, 800m of right-hand wall at its best",
+        "WSL Championship Tour event in July — watch the world's best surf",
+        "Great white shark cage diving at Mossel Bay, 2 hours west",
+        "Southern right whale watching from Cape Agulhas August–November",
+        "Billabong factory outlet — original surf gear at African prices",
+        "Boneyard sessions at sunrise before the onshore wind arrives",
+      ],
+      gear: [
+        "4/3mm full wetsuit (water temperature 14–18°C year-round)",
+        "6'2\"–7'0\" high-performance shortboard for clean point waves",
+        "Booties and gloves for mid-winter sessions",
+        "Surf wax (cold water formula)",
+        "Rash vest for summer sessions when winds warm up",
+      ],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 180000,
+      latitude: -34.0527,
+      longitude: 24.9285,
+      published: true,
+      userId: user1.id,
+      voteCount: 52,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure73.id },
+      { userId: user1.id, adventureId: adventure73.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
