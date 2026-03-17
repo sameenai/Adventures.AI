@@ -6608,6 +6608,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 113
+  const adventure113 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-113" },
+    update: {},
+    create: {
+      id: "seed-adventure-113",
+      title: "Morocco Atlas to Sahara Multi-Sport",
+      description: `Morocco in miniature: this multi-sport adventure crosses the full sweep of the country's landscapes in a single journey, from the snow-dusted peaks of the High Atlas to the orange dunes of the Sahara. Trek to a Berber village above the snowline, mountain bike across hammada stone desert, ride a camel to a Saharan camp for a night under the stars, then 4x4 through dramatic gorges back to the imperial city of Marrakech. A sensory overload of colour, culture, and adventure packed into a single tour.`,
+      location: "Marrakech",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1529963183134-61a90db47eaf?w=1600&q=80",
+      highlights: [
+        "High Atlas Berber village trek",
+        "Sahara dune camp",
+        "Camel ride at sunset",
+        "Todra Gorge 4x4",
+        "Marrakech medina",
+      ],
+      gear: ["Trekking boots", "Mountain bike helmet", "Desert scarf", "Sleeping bag liner", "Sunscreen"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1800,
+      latitude: 31.63,
+      longitude: -7.99,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["cultural"].id }, { id: allTags["africa"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure113.id },
+      { userId: user2.id, adventureId: adventure113.id },
+      { userId: user3.id, adventureId: adventure113.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
