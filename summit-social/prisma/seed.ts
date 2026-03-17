@@ -3731,6 +3731,72 @@ The international expedition vessel carries scientists and specialist guides who
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 64 — Chamonix Vallée Blanche Off-Piste Route
+  // -------------------------------------------------------------------------
+  const adventure64 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-64" },
+    update: {},
+    create: {
+      id: "seed-adventure-64",
+      title: "Chamonix Vallée Blanche Off-Piste Route",
+      description: `The Vallée Blanche is one of the world's great ski descents — 24 kilometres of high-mountain off-piste from the Aiguille du Midi at 3,842m down to Chamonix at 1,035m, threading through crevassed glaciers, seracs, and open powder bowls that feel genuinely remote despite the cable car that drops you in.
+
+The descent begins with the notorious arête — a knife-edge ridge crossed in ski boots, crampons in hand, with a 1,000m drop on each side. Once down onto the glacier the terrain opens up. The classic route tracks through the Géant icefall and across the wide Mer de Glace, but variations into the Envers du Plan couloirs and the Pointe Helbronner add technical spice and solitude.
+
+A certified mountain guide is not optional — this is a glaciated, crevasse-riddled environment where conditions change daily and route-finding experience matters. Rent a guide through the Compagnie des Guides de Chamonix and book well ahead for prime January–March powder windows.
+
+Budget USD 300–500 per person for the guided day, cable car tickets, and lift passes. Spend a few days in Chamonix first to acclimatise and ski resort runs — arriving cold on the Vallée Blanche wastes the experience.`,
+      location: "Aiguille du Midi, Chamonix-Mont-Blanc",
+      country: "France",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 1,
+      coverImageUrl: "https://images.unsplash.com/photo-1548116137-c9ac24e446a9?w=1600&q=80",
+      highlights: [
+        "The arête crossing at 3,842m — knife-edge ridge with 1,000m exposure on both sides",
+        "Géant icefall — ski between house-sized seracs on the upper glacier",
+        "24km continuous descent dropping 2,800m vertical metres",
+        "Mer de Glace — the largest glacier in the French Alps",
+        "First light on Mont Blanc and the Grandes Jorasses from the cable car",
+        "Optional Envers du Plan couloirs for advanced off-piste variation",
+      ],
+      gear: [
+        "Off-piste skis (min 95mm underfoot)",
+        "Avalanche transceiver, probe, and shovel (mandatory)",
+        "Ski crampons and ski mountaineering harness for arête",
+        "Helmet and ski goggles (glacier UV is intense)",
+        "Insulated mid-layer (temperature at 3,800m often -15°C)",
+        "Glacier glasses with side shields",
+        "Emergency bivy and first-aid kit",
+      ],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 45000,
+      latitude: 45.8767,
+      longitude: 6.8872,
+      published: true,
+      userId: user1.id,
+      voteCount: 74,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["europe"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure64.id },
+      { userId: user2.id, adventureId: adventure64.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
