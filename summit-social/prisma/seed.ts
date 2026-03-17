@@ -6567,6 +6567,47 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 112
+  const adventure112 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-112" },
+    update: {},
+    create: {
+      id: "seed-adventure-112",
+      title: "Makalu Base Camp Trek",
+      description: `Makalu, the world's fifth-highest peak at 8,485 m, sits in a seldom-visited corner of eastern Nepal, offering one of the most pristine and challenging trek approaches in the Himalaya. The trail climbs through subtropical forest, rhododendron groves, and high-alpine meadows carpeted with gentians to reach Base Camp at 5,700 m — with jaw-dropping views of Makalu's pyramidal summit and the Barun Glacier. Far fewer trekkers than the Everest or Annapurna circuits means genuine wilderness and authentic encounters with Sherpa communities.`,
+      location: "Tumlingtar",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [
+        "Makalu Base Camp at 5700 m",
+        "Barun Glacier",
+        "Pristine Makalu-Barun National Park",
+        "Rhododendron forest",
+        "Remote Sherpa villages",
+      ],
+      gear: ["High-altitude down jacket", "Crampons", "Ice axe", "Expedition tent", "Acclimatisation medication"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 4200,
+      latitude: 27.89,
+      longitude: 87.09,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["mountains"].id }, { id: allTags["trekking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure112.id },
+      { userId: user3.id, adventureId: adventure112.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
