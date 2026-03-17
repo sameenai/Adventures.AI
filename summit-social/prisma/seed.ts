@@ -5598,6 +5598,69 @@ Best season: June–November for clearest water and calmest conditions. Cyclone 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 93 — SS Thistlegorm Wreck Dive, Gulf of Suez
+  // -------------------------------------------------------------------------
+  const adventure93 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-93" },
+    update: {},
+    create: {
+      id: "seed-adventure-93",
+      title: "SS Thistlegorm Wreck Dive, Gulf of Suez",
+      description: `The SS Thistlegorm is the world's most famous wreck dive. The British cargo ship was sunk by German bombers in October 1941 en route to supply the British Eighth Army in North Africa, and its holds contain an intact wartime cargo: BSA motorcycles still upright on their stands, Bedford lorries, Lee-Enfield rifles, Wellington boots, and railway locomotives that broke through the deck when the stern ammunition magazine exploded.
+
+The wreck lies in 28–32m of clear Red Sea water off Ras Muhammad, accessible from day boats from Sharm el-Sheikh or live-aboards from Hurghada. Despite being the world's most dived wreck (thousands of divers per season), the cargo is remarkably intact — no-touch rules are enforced and the Egyptian marine authorities patrol regularly.
+
+Two dives are the standard — a swim-through of the forward holds to view the motorcycles and cargo, and a deeper dive around the stern explosion site where the hull is broken and the railway engines half-buried in sand. The anchor chain and mast swim-through complete an extraordinary day's diving.
+
+Night dives on the Thistlegorm, when the wreck is almost completely empty of other divers, produce a completely different atmosphere: sleeping glassfish in the holds, hunting lionfish on the deck railing, and the eerie quiet of a ship that history interrupted.`,
+      location: "Strait of Gubal, northern Red Sea, near Sha'ab Ali",
+      country: "Egypt",
+      continent: "Africa",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1552661397-4b6c76ce2c65?w=1600&q=80",
+      highlights: [
+        "BSA motorcycles upright in the hold — exactly as sunk in 1941",
+        "Bedford army lorries with wartime cargo still intact in the cargo bay",
+        "Railway locomotives half-buried in sand at the stern explosion site",
+        "Hold 4 swim-through — glassfish, lionfish, and intact wartime inventory",
+        "Night dive alone on the deck railing — eerie and completely different atmosphere",
+        "Anchor chain ascent and mast swim-through on the second dive",
+      ],
+      gear: [
+        "PADI Advanced Open Water with deep dive speciality (32m bottom depth)",
+        "3mm wetsuit (water 22–27°C)",
+        "Dive torch (mandatory for hold exploration)",
+        "Underwater camera — most photogenic wreck in the world",
+        "Dive computer with nitrox capability if certified",
+        "Reef hook for the current that can be strong on the wreck",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4, 5],
+      estimatedCost: 80000,
+      latitude: 27.8175,
+      longitude: 33.9201,
+      published: true,
+      userId: user3.id,
+      voteCount: 71,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["cultural-immersion"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure93.id },
+      { userId: user3.id, adventureId: adventure93.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
