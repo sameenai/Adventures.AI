@@ -6320,6 +6320,47 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 106
+  const adventure106 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-106" },
+    update: {},
+    create: {
+      id: "seed-adventure-106",
+      title: "Mekong Delta Cycling",
+      description: `The Mekong Delta in southern Vietnam is a labyrinth of rivers, canals, rice paddies, and floating markets that rewards exploration at bicycle pace. This low-key cycling adventure winds through villages where daily life flows on the water — fishermen casting nets at dawn, market boats laden with tropical fruit, children swimming from wooden jetties. The flat terrain makes it accessible to all fitness levels, while the immersive cultural experience and tropical scenery are utterly memorable.`,
+      location: "Can Tho",
+      country: "Vietnam",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: [
+        "Cai Rang floating market",
+        "Rice paddy paths",
+        "Mekong ferry crossings",
+        "Local village homestay",
+        "Tropical fruit orchards",
+      ],
+      gear: ["Lightweight bike", "Breathable clothing", "Sunhat", "Water bottles", "Sandals"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 500,
+      latitude: 10.03,
+      longitude: 105.78,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure106.id },
+      { userId: user2.id, adventureId: adventure106.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
