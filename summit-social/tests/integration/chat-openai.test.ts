@@ -25,8 +25,12 @@ vi.mock("@/lib/db/prisma", () => ({
     user: {
       findUnique: vi.fn().mockResolvedValue({ openAiApiKey: null }),
     },
+    adventure: {
+      findMany: vi.fn().mockResolvedValue([]),
+    },
     itinerary: {
       findUnique: vi.fn().mockResolvedValue(null),
+      create: vi.fn().mockResolvedValue({ id: "auto-itin-1" }),
       update: vi.fn().mockResolvedValue({}),
     },
   },
@@ -140,14 +144,21 @@ describe("POST /api/chat — real OpenAI path", () => {
     expect(text).toContain("Start");
   });
 
-  it("skips history update when no itineraryId", async () => {
+  it("auto-creates an itinerary and persists history even when no itineraryId supplied", async () => {
     mockSession();
     mockCreate.mockResolvedValue(makeAsyncStream(["Done"]));
 
     const response = await chatRoute(makeRequest({ message: "Quick question" }));
     await drainStream(response);
 
-    expect(mockPrismaItinerary.update).not.toHaveBeenCalled();
+    // Route always creates an itinerary record and saves history
+    expect(mockPrismaItinerary.create).toHaveBeenCalled();
+    expect(mockPrismaItinerary.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: "auto-itin-1" },
+        data: expect.objectContaining({ chatHistory: expect.any(Array) }),
+      }),
+    );
   });
 
   it("processes tool calls when finish_reason is tool_calls", async () => {
