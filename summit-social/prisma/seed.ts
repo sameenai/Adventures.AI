@@ -6142,7 +6142,7 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
       published: true,
       userId: user1.id,
       voteCount: 2,
-      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }] },
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }] },
     },
   });
   await prisma.vote.createMany({
@@ -6183,7 +6183,7 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
       published: true,
       userId: user2.id,
       voteCount: 3,
-      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }] },
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }] },
     },
   });
   await prisma.vote.createMany({
@@ -6267,7 +6267,7 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
       published: true,
       userId: user1.id,
       voteCount: 2,
-      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["road-trip"].id }] },
+      tags: { connect: [{ id: allTags["cycling"].id }] },
     },
   });
   await prisma.vote.createMany({
@@ -6350,7 +6350,7 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
       published: true,
       userId: user3.id,
       voteCount: 2,
-      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural"].id }] },
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["culture"].id }] },
     },
   });
   await prisma.vote.createMany({
@@ -6391,7 +6391,7 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
       published: true,
       userId: user1.id,
       voteCount: 3,
-      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural"].id }, { id: allTags["europe"].id }] },
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["culture"].id }, { id: allTags["europe"].id }] },
     },
   });
   await prisma.vote.createMany({
@@ -6555,7 +6555,7 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
       published: true,
       userId: user2.id,
       voteCount: 3,
-      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["winter"].id }] },
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["arctic"].id }] },
     },
   });
   await prisma.vote.createMany({
@@ -6638,7 +6638,7 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
       published: true,
       userId: user1.id,
       voteCount: 3,
-      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["cultural"].id }, { id: allTags["africa"].id }] },
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["culture"].id }] },
     },
   });
   await prisma.vote.createMany({
@@ -6722,7 +6722,7 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
       published: true,
       userId: user3.id,
       voteCount: 2,
-      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["cultural"].id }, { id: allTags["africa"].id }] },
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["culture"].id }] },
     },
   });
   await prisma.vote.createMany({
@@ -6805,7 +6805,7 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
       published: true,
       userId: user2.id,
       voteCount: 3,
-      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural"].id }] },
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["culture"].id }] },
     },
   });
   await prisma.vote.createMany({
@@ -6847,7 +6847,7 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
       published: true,
       userId: user3.id,
       voteCount: 2,
-      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["africa"].id }] },
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }] },
     },
   });
   await prisma.vote.createMany({
