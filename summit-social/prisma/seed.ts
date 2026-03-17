@@ -5984,6 +5984,71 @@ June–August is the prime season. July is peak Swedish holiday month — inner 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 99 — Sea of Cortez Island-Hopping Kayak, Baja California
+  // -------------------------------------------------------------------------
+  const adventure99 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-99" },
+    update: {},
+    create: {
+      id: "seed-adventure-99",
+      title: "Sea of Cortez Island-Hopping Kayak, Baja California Sur",
+      description: `Jacques Cousteau called the Sea of Cortez "the world's aquarium" — a semi-enclosed sea between Baja California and mainland Mexico that contains more marine species than almost anywhere else on earth due to its mix of cold Pacific upwelling and warm tropical water. Kayaking between the Espíritu Santo island group in the southern Sea of Cortez — a 3-hour ferry from La Paz — gives access to sea lion colonies, whale shark snorkelling, manta ray encounters, and deserted white sand beaches with no facilities.
+
+The standard route covers Espíritu Santo and Partida islands: 20–30km of paddling per day on calm water between beaches shaded by cardón cactus and palo verde trees, camping in coves where California sea lions surf in the shore break and bark through the night. The snorkelling off Los Islotes is among the best in Mexico — the resident sea lion colony approaches snorkellers and plays in the bubbles.
+
+Water temperature peaks at 28°C in August–October; winter months (December–March) see 18–22°C with clearer water and reliable whale watching (blue and fin whales in the Cortez). Kayak La Paz and similar operators run 3–7 day guided trips from La Paz with full equipment, food, and camping gear. Independent kayakers can rent from various outfitters.
+
+November–April is the optimal combination of temperatures and whale activity. Summer (June–September) is hot (air 40°C) but whale sharks are present for snorkelling.`,
+      location: "Espíritu Santo Biosphere Reserve, Baja California Sur",
+      country: "Mexico",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1544547006-f0a9c5c6e9d6?w=1600&q=80",
+      highlights: [
+        "Los Islotes sea lion colony — California sea lions playing with snorkellers",
+        "Whale shark snorkelling — up to 12m gentle filter-feeders alongside kayaks (Jun–Oct)",
+        "Blue and fin whale watching from the kayak (December–March)",
+        "Deserted white sand beaches with cardón cactus forest inland",
+        "Manta ray encounters in the deeper channels between islands",
+        "Stargazing from the beach — Sea of Cortez has near-zero light pollution",
+      ],
+      gear: [
+        "Sea kayak with dry storage hatches (guides provide on guided trips)",
+        "Shorty wetsuit or boardshorts — water 18–28°C depending on season",
+        "Snorkel mask and fins for sea lion and whale shark encounters",
+        "Sun protection: hat, SPF 50, UPF clothing — Baja UV is extreme",
+        "Water purification tablets or filter (no fresh water on islands)",
+        "Bear canister or animal-proof food storage (coyotes on Espíritu Santo)",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 180000,
+      latitude: 24.5,
+      longitude: -110.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 45,
+      tags: {
+        connect: [
+          { id: allTags["kayaking"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["island"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure99.id },
+      { userId: user3.id, adventureId: adventure99.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
