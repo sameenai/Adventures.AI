@@ -3,6 +3,7 @@ import { CollectionsPanel } from "@/components/profile/collections-panel";
 import { FollowButton } from "@/components/profile/follow-button";
 import { FollowSuggestions } from "@/components/profile/follow-suggestions";
 import { ProfileHeader } from "@/components/profile/profile-header";
+import { ApiKeyCallout } from "@/components/ui/api-key-callout";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
@@ -65,13 +66,14 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
 
   if (!user) notFound();
 
+  const { openAiApiKey, ...safeUser } = user;
+  const hasApiKey = Boolean(openAiApiKey);
   const isOwnProfile = session?.user?.id === id;
-  const hasApiKey = Boolean(user.openAiApiKey);
 
   // Non-owners only see published adventures
   const visibleAdventures = isOwnProfile
-    ? user.adventures
-    : user.adventures.filter((a) => a.published);
+    ? safeUser.adventures
+    : safeUser.adventures.filter((a) => a.published);
 
   const [isFollowing, collections] = await Promise.all([
     session?.user?.id
@@ -99,50 +101,35 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
   ]);
 
   // Only show bookmarks to the owner of the profile
-  const showBookmarks = isOwnProfile && user.bookmarks.length > 0;
+  const showBookmarks = isOwnProfile && safeUser.bookmarks.length > 0;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-      {isOwnProfile && !hasApiKey && (
-        <div className="mb-6 border border-amber-500/60 bg-amber-500/5 p-5">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="font-display text-xs uppercase tracking-[0.3em] text-amber-500">
-                Unlock AI Trip Planning
-              </p>
-              <p className="mt-2 max-w-xl text-sm leading-relaxed text-stone-400">
-                Add your OpenAI API key to start building personalised, day-by-day itineraries with
-                GPT-4o. Your key is stored privately, never shared, and lets you bypass the monthly
-                session limit.
-              </p>
-            </div>
-            <Link
-              href="/profile/edit#api-key"
-              className="shrink-0 border border-amber-500 bg-amber-500 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
-            >
-              Add API Key
-            </Link>
-          </div>
-        </div>
+      {isOwnProfile && !hasApiKey && safeUser.plan !== "PRO" && (
+        <ApiKeyCallout
+          className="mb-6"
+          title="Unlock AI trip planning"
+          description="Add your OpenAI API key to start building personalised, day-by-day itineraries with GPT-4o. Your key is stored privately, never shared, and lets you bypass the monthly session limit."
+        />
       )}
-      <ProfileHeader user={user} />
+      <ProfileHeader user={safeUser} />
 
       <div className="mt-4 flex items-center gap-6">
         <div className="flex gap-6 font-mono text-xs text-stone-500">
           <span>
-            <span className="text-stone-200">{user._count.adventures}</span> adventures
+            <span className="text-stone-200">{safeUser._count.adventures}</span> adventures
           </span>
           <Link
             href={`/profile/${id}/followers`}
             className="hover:text-amber-500 transition-colors"
           >
-            <span className="text-stone-200">{user._count.followers}</span> followers
+            <span className="text-stone-200">{safeUser._count.followers}</span> followers
           </Link>
           <Link
             href={`/profile/${id}/following`}
             className="hover:text-amber-500 transition-colors"
           >
-            <span className="text-stone-200">{user._count.following}</span> following
+            <span className="text-stone-200">{safeUser._count.following}</span> following
           </Link>
         </div>
         {isOwnProfile ? (
@@ -173,10 +160,10 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       {showBookmarks && (
         <div className="mt-12">
           <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
-            Bucket List · {user.bookmarks.length}
+            Bucket List · {safeUser.bookmarks.length}
           </h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {user.bookmarks.map(({ adventure }) => (
+            {safeUser.bookmarks.map(({ adventure }) => (
               <Link
                 key={adventure.id}
                 href={`/adventures/${adventure.id}`}

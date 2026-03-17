@@ -1,4 +1,5 @@
 import { ChatWindow } from "@/components/chat/chat-window";
+import { ApiKeyCallout } from "@/components/ui/api-key-callout";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
 import { PLANS } from "@/lib/constants";
@@ -55,25 +56,11 @@ export default async function ItineraryPage({
       {session ? (
         <>
           {!isByok && !isPro && (
-            <div className="mt-6 border border-stone-700 bg-stone-900/50 p-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="font-display text-xs uppercase tracking-[0.3em] text-stone-300">
-                    Add your OpenAI API Key to unlock full AI planning
-                  </p>
-                  <p className="mt-1.5 font-mono text-xs leading-relaxed text-stone-500">
-                    Without a key, responses are demo-only. Add your own GPT-4o key in your profile
-                    to get real, personalised itineraries — and bypass the monthly session limit.
-                  </p>
-                </div>
-                <Link
-                  href="/profile/edit#api-key"
-                  className="shrink-0 border border-amber-500 bg-amber-500 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
-                >
-                  Add API Key
-                </Link>
-              </div>
-            </div>
+            <ApiKeyCallout
+              className="mt-6"
+              title="Add your OpenAI API key to unlock full AI planning"
+              description="Without a key, responses are demo-only. Add your own GPT-4o key in your profile to get real, personalised itineraries — and bypass the monthly session limit."
+            />
           )}
           {showCreditBanner && (
             <div
