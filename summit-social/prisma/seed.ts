@@ -6900,6 +6900,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 120
+  const adventure120 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-120" },
+    update: {},
+    create: {
+      id: "seed-adventure-120",
+      title: "Kungsleden Arctic Trail",
+      description: `The Kungsleden (King's Trail) runs 440 km through the heart of Swedish Lapland from Abisko in the north to Hemavan in the south, passing through four national parks including the remote Sarek — arguably Sweden's wildest wilderness. Above the Arctic Circle, the trail crosses open fells, birch forests, and glaciated mountain terrain in a landscape shaped by reindeer herding Sámi people for millennia. STF mountain stations and huts are spaced at intervals, making this one of the world's best-supported long-distance treks, accessible in summer or on cross-country skis in winter.`,
+      location: "Abisko",
+      country: "Sweden",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 22,
+      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      highlights: [
+        "Sarek National Park wilderness",
+        "Kebnekaise — Sweden's highest peak",
+        "Northern lights (autumn)",
+        "Midnight sun (summer)",
+        "Sámi cultural encounters",
+      ],
+      gear: ["Trekking poles", "Waterproof jacket and trousers", "Midges head net", "Camp stove", "Bear canister"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2000,
+      latitude: 68.35,
+      longitude: 18.83,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure120.id },
+      { userId: user2.id, adventureId: adventure120.id },
+      { userId: user3.id, adventureId: adventure120.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
