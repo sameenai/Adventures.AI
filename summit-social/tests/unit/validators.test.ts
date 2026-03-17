@@ -237,7 +237,7 @@ describe("adventureFilterSchema", () => {
   });
 
   it("accepts all valid duration values", () => {
-    for (const duration of ["weekend", "week", "fortnight", "expedition", "lifestyle"]) {
+    for (const duration of ["weekend", "week", "fortnight", "expedition", "peregrination", "lifestyle"]) {
       const result = adventureFilterSchema.safeParse({ duration });
       expect(result.success).toBe(true);
     }

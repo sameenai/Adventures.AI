@@ -2,7 +2,7 @@ import { InfiniteAdventureGrid } from "@/components/adventures/infinite-adventur
 import { SearchFilter } from "@/components/adventures/search-filter";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
-import { CATEGORIES, DIFFICULTIES } from "@/lib/constants";
+import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -37,8 +37,9 @@ export default async function AdventuresPage({
     weekend: { gte: 1, lte: 3 },
     week: { gte: 4, lte: 7 },
     fortnight: { gte: 8, lte: 14 },
-    expedition: { gte: 15, lte: 89 },
-    lifestyle: { gte: 90 },
+    expedition: { gte: 15, lte: 30 },
+    peregrination: { gte: 31, lte: 90 },
+    lifestyle: { gte: 91 },
   } as const;
 
   const where = {
@@ -206,8 +207,9 @@ export default async function AdventuresPage({
               { value: "weekend", label: "Weekend", sub: "1–3 days" },
               { value: "week", label: "Week", sub: "4–7 days" },
               { value: "fortnight", label: "Fortnight", sub: "8–14 days" },
-              { value: "expedition", label: "Expedition", sub: "15–89 days" },
-              { value: "lifestyle", label: "Lifestyle", sub: "90+ days" },
+              { value: "expedition", label: "Expedition", sub: "15–30 days" },
+              { value: "peregrination", label: "Peregrinations", sub: "31–90 days" },
+              { value: "lifestyle", label: "Lifestyle", sub: "91+ days" },
             ] as const
           ).map(({ value, label, sub }) => {
             const active = params.duration === value;
@@ -250,6 +252,30 @@ export default async function AdventuresPage({
                 }`}
               >
                 {diff.label}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Continent quick-filters */}
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+            Continent
+          </span>
+          {CONTINENTS.map((continent) => {
+            const active = params.continent === continent;
+            const href = buildFilterUrl(params, { continent: active ? undefined : continent });
+            return (
+              <Link
+                key={continent}
+                href={href}
+                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                  active
+                    ? "border border-amber-500 text-amber-500"
+                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+                }`}
+              >
+                {continent}
               </Link>
             );
           })}
