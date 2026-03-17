@@ -3797,6 +3797,70 @@ Budget USD 300–500 per person for the guided day, cable car tickets, and lift 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 65 — Niseko Powder Safari, Hokkaido
+  // -------------------------------------------------------------------------
+  const adventure65 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-65" },
+    update: {},
+    create: {
+      id: "seed-adventure-65",
+      title: "Niseko Powder Safari, Hokkaido",
+      description: `Niseko receives an average of 15 metres of snowfall per season — more than almost any other ski resort on earth — and the quality of that snow is legendary. Cold Siberian air picks up moisture crossing the Sea of Japan and dumps it on Hokkaido as ultra-dry, ultra-light powder that skiers and snowboarders have been hunting since the early 2000s.
+
+The resort complex (Grand Hirafu, Hanazono, Annupuri, Village) is well-connected and increasingly high-end, but the real draw is the gate access into the open backcountry trees. When the gates open after a storm cycle, locals and visitors sprint for the powder stashes in the larch forest beneath Annupuri — untouched lines that remain skiable for hours before they're tracked out.
+
+Beyond the resorts, day trips to nearby Furano or the smaller Rusutsu resort break up a longer stay. Combine with a night in Sapporo for ramen, izakaya culture, and the famous snow festival in early February.
+
+Ski season runs late November through late April. Peak powder window is January–February. Flights to Sapporo (New Chitose) then 90-minute bus to Niseko. Accommodation ranges from Japanese ryokan with onsen to European-style ski lodges — book months ahead for the best weeks.`,
+      location: "Niseko, Shiribeshi Subprefecture",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.SKIING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1606857521015-7463af9c8a83?w=1600&q=80",
+      highlights: [
+        "Hokkaido champagne powder — ultra-light, ultra-dry, 15m average annual snowfall",
+        "Backcountry gate access into untouched larch forest powder stashes",
+        "Soaking in outdoor onsen (hot spring) after a full powder day",
+        "Sapporo ramen and izakaya evenings during down days",
+        "Furano day trip for uncrowded Japanese resort skiing",
+        "Night skiing under lights at Grand Hirafu",
+      ],
+      gear: [
+        "Powder skis or snowboard (min 105mm underfoot strongly recommended)",
+        "Avalanche beacon, probe, and shovel for backcountry gate access",
+        "Warm waterproof jacket — Hokkaido cold is genuine (-15°C common)",
+        "Ski helmet and goggles",
+        "IC Suica card for local transport",
+        "Japan adaptor plug (Type A)",
+      ],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 300000,
+      latitude: 42.8048,
+      longitude: 140.6878,
+      published: true,
+      userId: user2.id,
+      voteCount: 61,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["cultural-immersion"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure65.id },
+      { userId: user3.id, adventureId: adventure65.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
