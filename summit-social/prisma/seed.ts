@@ -6278,6 +6278,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 105
+  const adventure105 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-105" },
+    update: {},
+    create: {
+      id: "seed-adventure-105",
+      title: "Grossglockner and Dolomites Cycling",
+      description: `One of the great alpine cycling tours, this route links Austria's highest peak — the Grossglockner — with the pink limestone towers of Italy's Dolomites across some of the most spectacular mountain roads in Europe. Climb the legendary Grossglockner High Alpine Road, descend into the Puster Valley, and tackle the Tre Cime loop before finishing in the shadow of the Marmolada glacier. A tour designed for road cyclists who want to feel small in the presence of vast mountains.`,
+      location: "Zell am See",
+      country: "Austria",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=1600&q=80",
+      highlights: [
+        "Grossglockner High Alpine Road",
+        "Tre Cime di Lavaredo",
+        "Passo Pordoi",
+        "Cortina d'Ampezzo",
+        "Marmolada glacier views",
+      ],
+      gear: ["Road bike", "Bib shorts", "Arm/leg warmers", "Wind jacket", "Cycling computer"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1800,
+      latitude: 47.3,
+      longitude: 12.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure105.id },
+      { userId: user2.id, adventureId: adventure105.id },
+      { userId: user3.id, adventureId: adventure105.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
