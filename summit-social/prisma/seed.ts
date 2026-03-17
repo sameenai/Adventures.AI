@@ -6444,6 +6444,47 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 109
+  const adventure109 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-109" },
+    update: {},
+    create: {
+      id: "seed-adventure-109",
+      title: "Tierra del Fuego Circuit",
+      description: `At the very tip of South America, Tierra del Fuego is a wind-scoured archipelago of glaciers, peat bogs, beech forests, and fjords shared between Chile and Argentina. This expedition circuit treks the remote Dientes de Navarino — the world's southernmost trail — crosses the Beagle Channel, and explores the end-of-the-world town of Ushuaia before venturing into the Patagonian backcountry. Harsh, isolated, and profoundly beautiful — a wilderness that truly feels like the edge of the Earth.`,
+      location: "Ushuaia",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: [
+        "Dientes de Navarino circuit",
+        "Beagle Channel crossing",
+        "Lapataia Bay",
+        "Glacier Martial",
+        "Magellanic penguin colonies",
+      ],
+      gear: ["4-season tent", "Down sleeping bag", "Gaiters", "Trekking poles", "Full waterproofs"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 3500,
+      latitude: -54.8,
+      longitude: -68.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure109.id },
+      { userId: user2.id, adventureId: adventure109.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
