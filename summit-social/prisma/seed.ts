@@ -6733,6 +6733,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 116
+  const adventure116 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-116" },
+    update: {},
+    create: {
+      id: "seed-adventure-116",
+      title: "Canadian Rockies Adventure Week",
+      description: `The Canadian Rockies around Banff and Jasper are a playground of turquoise glacial lakes, soaring limestone peaks, and abundant wildlife — best experienced through multiple disciplines. This action-packed week combines white-water rafting on the Kicking Horse River, via ferrata climbing above Lake Louise, mountain biking the Bow Valley trails, and a multi-day backcountry hike through Yoho National Park, ending at the emerald waters of Lake O'Hara. Canada's outdoor crown jewel, compressed into one unforgettable week.`,
+      location: "Banff",
+      country: "Canada",
+      continent: "North America",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1465056836041-7f43ac27dcb5?w=1600&q=80",
+      highlights: [
+        "Kicking Horse white-water rafting",
+        "Via ferrata above Lake Louise",
+        "Yoho backcountry hike",
+        "Lake O'Hara",
+        "Icefields Parkway drive",
+      ],
+      gear: ["Climbing harness", "Helmet", "Mountain bike", "Dry suit liner", "Bear spray"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: 51.18,
+      longitude: -115.57,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure116.id },
+      { userId: user2.id, adventureId: adventure116.id },
+      { userId: user3.id, adventureId: adventure116.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
