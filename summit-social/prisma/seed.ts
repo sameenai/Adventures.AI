@@ -3861,6 +3861,72 @@ Ski season runs late November through late April. Peak powder window is January�
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 66 — Lyngen Alps Ski Touring, Norway
+  // -------------------------------------------------------------------------
+  const adventure66 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-66" },
+    update: {},
+    create: {
+      id: "seed-adventure-66",
+      title: "Lyngen Alps Ski Touring, Norway",
+      description: `The Lyngen Alps rise almost directly from the sea in Arctic Norway — a 90km peninsula of steep, glaciated peaks descending to fjords. Ski touring here means ascending a 1,500m couloir in the morning, skiing a 45-degree face down to a fishing village, removing your skis to board a local boat, and crossing to the next fjord to do it again.
+
+The unique topography means you can access summit ski lines without snowmobiles or helicopters — just skins, good legs, and the ability to read fjord weather that changes faster than mountain weather anywhere in the Alps. The best lines face north and northeast, sheltered from the prevailing Atlantic systems that can shut down operations for days at a time.
+
+March and April offer the prime window — long daylight hours (18+ hours by late April), stable high-pressure systems, and consolidated snow that allows the most technical descents. The midnight sun makes it possible to ski at 11pm in a surreal pink light.
+
+Bases are the villages of Lyngseidet and Furuflaten. A handful of specialist guiding outfits run week-long trips — book 12+ months ahead. Alternatively, rent a van and explore independently, but carry full avalanche gear and have serious ski mountaineering experience.`,
+      location: "Lyngen Peninsula, Troms",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1550581190-3af14fe29cc1?w=1600&q=80",
+      highlights: [
+        "Ski from Arctic summits directly to the fjord — unique sea-level access",
+        "Midnight sun ski descents in late April — skiing at 11pm in pink light",
+        "Fjord boat crossings between ski lines",
+        "Northern lights visible from camp in March on clear nights",
+        "Remote couloirs and 45-degree north-facing faces rarely skied",
+        "Traditional Norwegian fishing village culture at valley level",
+      ],
+      gear: [
+        "Ski touring setup with 110mm+ powder skis",
+        "Avalanche transceiver, probe, and shovel",
+        "Ski crampons for hard morning crusts",
+        "Dry suit or immersion suit layer for potential water crossings",
+        "Arc'teryx-style hardshell (Arctic wind is relentless)",
+        "Bivy bag and emergency supplies",
+        "Headlamp (March) — redundant in April midnight sun",
+      ],
+      bestMonths: [3, 4],
+      estimatedCost: 350000,
+      latitude: 69.85,
+      longitude: 20.05,
+      published: true,
+      userId: user3.id,
+      voteCount: 49,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["arctic"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["midnight-sun"].id },
+          { id: allTags["alpine"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure66.id },
+      { userId: user3.id, adventureId: adventure66.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
