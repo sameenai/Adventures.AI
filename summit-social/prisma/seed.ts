@@ -4697,6 +4697,71 @@ This is an expedition, not a holiday. Bring everything you need, build in buffer
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 79 — Silk Road Cities: Tashkent to Khiva, Uzbekistan
+  // -------------------------------------------------------------------------
+  const adventure79 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-79" },
+    update: {},
+    create: {
+      id: "seed-adventure-79",
+      title: "Silk Road Cities: Tashkent to Khiva, Uzbekistan",
+      description: `Uzbekistan sits at the heart of the ancient Silk Road, and its four great cities — Tashkent, Samarkand, Bukhara, and Khiva — form one of the great cultural itineraries in the world. Tamerlane's empire left behind an architectural legacy so concentrated and so vivid that even an inattentive traveller is stopped in their tracks: the turquoise domes of the Registan, the mirrored madrassas of Bukhara, the walled medieval city of Khiva.
+
+A fast train (Afrosiyob high-speed rail) connects Tashkent to Samarkand in 2 hours and Samarkand to Bukhara in 1.5 hours. Khiva requires a flight or overnight train from Bukhara. The logical sequence is east to west: Tashkent → Samarkand → Bukhara → Khiva, spending 2 nights in each city.
+
+Uzbekistan has become substantially easier to visit since introducing e-visa access in 2018. English signage has improved in the major tourism sites, but Uzbek and Russian remain dominant languages in local markets. The plov (rice pilaf with lamb and carrots) served at every tablecloth restaurant is among the best food you will eat in Central Asia.
+
+Spring (April–May) and autumn (September–October) offer the best temperatures — summer in the Kyzylkum Desert can exceed 45°C. Budget USD 80–150 per day including accommodation, transport, and meals.`,
+      location: "Tashkent, Samarkand, Bukhara, Khiva",
+      country: "Uzbekistan",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?w=1600&q=80",
+      highlights: [
+        "Registan, Samarkand — three tiled madrassas around a square that stops time",
+        "Kalon minaret, Bukhara — the Pillar of Islam, 47m of intricate brickwork",
+        "Itchan Kala, Khiva — a completely walled medieval city with no modernity inside",
+        "Bibi-Khanym Mosque — Tamerlane's ambitious, crumbling masterpiece",
+        "Chorsu Bazaar, Tashkent — the city's ancient caravanserai market",
+        "Plov ceremony in Samarkand — the national dish cooked in 200-litre kazan pots",
+      ],
+      gear: [
+        "Modest dress (shoulders and knees covered at religious sites)",
+        "Comfortable walking shoes for extensive cobblestone touring",
+        "Cash in USD (ATMs unreliable in smaller towns)",
+        "Portable battery pack — charging infrastructure inconsistent",
+        "Sunscreen and sunhat — desert sun is intense April–September",
+        "Uzbek phrasebook or offline translation app",
+      ],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 120000,
+      latitude: 39.6547,
+      longitude: 66.9758,
+      published: true,
+      userId: user1.id,
+      voteCount: 56,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["desert"].id },
+          { id: allTags["culture"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure79.id },
+      { userId: user1.id, adventureId: adventure79.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
