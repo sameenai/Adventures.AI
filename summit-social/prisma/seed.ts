@@ -5084,6 +5084,70 @@ October (Day of the Dead) and July (Guelaguetza dance festival) are the two cult
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 85 — Pacific Coast Highway, Big Sur to Los Angeles
+  // -------------------------------------------------------------------------
+  const adventure85 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-85" },
+    update: {},
+    create: {
+      id: "seed-adventure-85",
+      title: "Pacific Coast Highway, Big Sur to Los Angeles",
+      description: `Highway 1 along California's central and southern coast is the definitive American road trip — 600km of two-lane blacktop clinging to cliffs above the Pacific, passing through Big Sur's redwood canyons, Hearst Castle's hilltop excess, Santa Barbara's Spanish architecture, and Malibu's surf breaks before the sprawl of Los Angeles eventually absorbs you.
+
+The Big Sur stretch is the heart of the drive: Bixby Bridge arching over a 240m coastal canyon, the Henry Miller Memorial Library perched in the redwoods, Pfeiffer Beach with its purple sand and sea arch, and Julia Pfeiffer Burns State Park where McWay Falls drops directly onto the beach from the cliff above. Camping in the redwoods at Pfeiffer Big Sur State Park is one of the best campsites in America.
+
+South of Big Sur, the tempo shifts: San Simeon for Elephant Seals and Hearst Castle, Morro Bay for seafood and the volcanic plug, San Luis Obispo wine country (Edna Valley), Santa Barbara for fish tacos and beach volleyball, and Ventura's old California downtown before the beach towns of Malibu and the Pacific Coast Highway's final miles into Santa Monica.
+
+Do this drive from north to south to keep the ocean on your right. Allow 7–10 days minimum for the Big Sur to LA stretch. October–November offers the best weather: fog lifts earlier, summer crowds are gone, and the golden coastal scrub is at its best.`,
+      location: "Big Sur to Los Angeles, California",
+      country: "USA",
+      continent: "North America",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EASY,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
+      highlights: [
+        "Bixby Bridge at sunrise — the most photographed bridge in California",
+        "McWay Falls, Julia Pfeiffer Burns — waterfall dropping onto a pristine beach",
+        "Pfeiffer Big Sur State Park redwood camping — coast redwoods 60m tall",
+        "Elephant seal colony at San Simeon — 15,000 seals hauled out on the beach",
+        "Hearst Castle — William Randolph Hearst's outrageous hilltop compound",
+        "Santa Barbara fish tacos and Spanish mission on State Street",
+      ],
+      gear: [
+        "Rental car (manual gearbox makes the coastal curves more engaging)",
+        "California State Park camping reservation (book weeks ahead)",
+        "Layers — Big Sur fog can sit all day even in summer",
+        "Bear canister or keep food locked in car (bears active in redwoods)",
+        "National Park Annual Pass (America the Beautiful — saves at multiple sites)",
+        "Cash for beach parking meters and farm stands",
+      ],
+      bestMonths: [9, 10, 11, 4, 5],
+      estimatedCost: 200000,
+      latitude: 36.0,
+      longitude: -121.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 79,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure85.id },
+      { userId: user1.id, adventureId: adventure85.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
