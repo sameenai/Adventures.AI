@@ -2,7 +2,7 @@ import { ItineraryDaySchema } from "@/lib/ai/parser";
 import { ITINERARY_SYSTEM_PROMPT, buildUserContextPrompt } from "@/lib/ai/prompts";
 import { chatTools } from "@/lib/ai/tools";
 import { authOptions } from "@/lib/auth/config";
-import { RATE_LIMITS } from "@/lib/constants";
+import { PLANS, RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
 import { logger } from "@/lib/logger";
@@ -111,10 +111,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Resolve the OpenAI API key: prefer the user's own key, fall back to the shared app key.
+  // Fetch user record: key, plan, and credit state
   const userRecord = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { openAiApiKey: true },
+    select: { openAiApiKey: true, plan: true, aiCreditsUsed: true, aiCreditsResetAt: true },
   });
   const resolvedApiKey = userRecord?.openAiApiKey ?? process.env.OPENAI_API_KEY ?? null;
 
@@ -130,6 +130,42 @@ export async function POST(request: NextRequest) {
 
   const { message, itineraryId: incomingItineraryId, preferences } = parsed.data;
   const userId = session.user.id;
+
+  // On the first message of a new session, check and consume an AI credit.
+  // Pro users and BYOK users are exempt from the monthly limit.
+  const isByok = Boolean(userRecord?.openAiApiKey);
+  const isPro = userRecord?.plan === "PRO";
+  if (!incomingItineraryId && !isPro && !isByok) {
+    const limit = PLANS.FREE.aiCreditsPerMonth;
+    // Reset counter if we've rolled into a new calendar month
+    const resetAt = userRecord?.aiCreditsResetAt ?? new Date();
+    const now = new Date();
+    const sameMonth =
+      resetAt.getUTCFullYear() === now.getUTCFullYear() &&
+      resetAt.getUTCMonth() === now.getUTCMonth();
+    const creditsUsed = sameMonth ? (userRecord?.aiCreditsUsed ?? 0) : 0;
+
+    if (creditsUsed >= limit) {
+      return NextResponse.json(
+        {
+          error: "Monthly AI session limit reached",
+          code: "UPGRADE_REQUIRED",
+          creditsUsed,
+          creditsLimit: limit,
+        },
+        { status: 402 },
+      );
+    }
+
+    // Increment credit usage (reset counter if new month)
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        aiCreditsUsed: sameMonth ? creditsUsed + 1 : 1,
+        aiCreditsResetAt: sameMonth ? undefined : now,
+      },
+    });
+  }
 
   // Ensure an itinerary record always exists so we can persist chat history from message 1.
   let activeItineraryId = incomingItineraryId;

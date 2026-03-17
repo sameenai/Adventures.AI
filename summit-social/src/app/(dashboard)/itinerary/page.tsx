@@ -1,6 +1,8 @@
 import { ChatWindow } from "@/components/chat/chat-window";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
+import { PLANS } from "@/lib/constants";
+import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 
@@ -14,6 +16,31 @@ export default async function ItineraryPage({
   const session = await getServerSession(authOptions);
   const { prompt } = await searchParams;
 
+  // Fetch credit info for authenticated users
+  let creditsUsed = 0;
+  let isPro = false;
+  let isByok = false;
+  if (session?.user?.id) {
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { plan: true, aiCreditsUsed: true, aiCreditsResetAt: true, openAiApiKey: true },
+    });
+    if (user) {
+      isPro = user.plan === "PRO";
+      isByok = Boolean(user.openAiApiKey);
+      const now = new Date();
+      const resetAt = user.aiCreditsResetAt ?? now;
+      const sameMonth =
+        resetAt.getUTCFullYear() === now.getUTCFullYear() &&
+        resetAt.getUTCMonth() === now.getUTCMonth();
+      creditsUsed = sameMonth ? user.aiCreditsUsed : 0;
+    }
+  }
+
+  const limit = PLANS.FREE.aiCreditsPerMonth;
+  const creditsRemaining = Math.max(0, limit - creditsUsed);
+  const showCreditBanner = session && !isPro && !isByok;
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="border-b border-stone-800 pb-6">
@@ -26,9 +53,45 @@ export default async function ItineraryPage({
       </div>
 
       {session ? (
-        <div className="mt-6 h-[600px] overflow-hidden border border-stone-800">
-          <ChatWindow initialPrompt={prompt} />
-        </div>
+        <>
+          {showCreditBanner && (
+            <div
+              className={`mt-4 flex items-center justify-between border px-4 py-2 ${
+                creditsRemaining === 0
+                  ? "border-red-800/60 bg-red-950/30"
+                  : creditsRemaining === 1
+                    ? "border-amber-700/60 bg-amber-950/20"
+                    : "border-stone-800 bg-stone-900/40"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex gap-1">
+                  {Array.from({ length: limit }).map((_, i) => (
+                    <div
+                      // biome-ignore lint/suspicious/noArrayIndexKey: static indicator dots
+                      key={i}
+                      className={`h-1.5 w-5 ${i < creditsUsed ? "bg-stone-700" : "bg-amber-500"}`}
+                    />
+                  ))}
+                </div>
+                <span className="font-mono text-[10px] text-stone-500">
+                  {creditsRemaining === 0
+                    ? "Monthly sessions used"
+                    : `${creditsRemaining} of ${limit} sessions remaining`}
+                </span>
+              </div>
+              <Link
+                href="/pro"
+                className="font-display text-[10px] uppercase tracking-widest text-amber-500 transition-colors hover:text-amber-400"
+              >
+                Upgrade →
+              </Link>
+            </div>
+          )}
+          <div className="mt-4 h-[600px] overflow-hidden border border-stone-800">
+            <ChatWindow initialPrompt={prompt} />
+          </div>
+        </>
       ) : (
         <div className="mt-16 flex flex-col items-center gap-6 text-center">
           <div className="flex h-16 w-16 items-center justify-center border border-stone-700">
