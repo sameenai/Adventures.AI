@@ -26,6 +26,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
         twitterUrl: true,
         websiteUrl: true,
         plan: true,
+        openAiApiKey: true,
         adventures: {
           orderBy: { voteCount: "desc" },
           include: {
@@ -65,6 +66,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
   if (!user) notFound();
 
   const isOwnProfile = session?.user?.id === id;
+  const hasApiKey = Boolean(user.openAiApiKey);
 
   // Non-owners only see published adventures
   const visibleAdventures = isOwnProfile
@@ -101,6 +103,28 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+      {isOwnProfile && !hasApiKey && (
+        <div className="mb-6 border border-amber-500/60 bg-amber-500/5 p-5">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="font-display text-xs uppercase tracking-[0.3em] text-amber-500">
+                Unlock AI Trip Planning
+              </p>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-stone-400">
+                Add your OpenAI API key to start building personalised, day-by-day itineraries with
+                GPT-4o. Your key is stored privately, never shared, and lets you bypass the monthly
+                session limit.
+              </p>
+            </div>
+            <Link
+              href="/profile/edit#api-key"
+              className="shrink-0 border border-amber-500 bg-amber-500 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
+            >
+              Add API Key
+            </Link>
+          </div>
+        </div>
+      )}
       <ProfileHeader user={user} />
 
       <div className="mt-4 flex items-center gap-6">

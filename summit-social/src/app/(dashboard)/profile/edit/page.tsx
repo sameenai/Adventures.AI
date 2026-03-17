@@ -41,7 +41,7 @@ export default async function ProfileEditPage() {
         </p>
       </div>
       <ProfileEditForm user={profileUser} />
-      <div className="mt-10">
+      <div id="api-key" className="mt-10">
         <OpenAiKeyForm initialHasKey={!!openAiApiKey} initialHint={keyHint} />
       </div>
     </div>
