@@ -103,7 +103,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-      {isOwnProfile && !hasApiKey && (
+      {isOwnProfile && !hasApiKey && user.plan !== "PRO" && (
         <div className="mb-6 border border-amber-500/60 bg-amber-500/5 p-5">
           <div className="flex items-start justify-between gap-4">
             <div>
