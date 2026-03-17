@@ -4505,6 +4505,69 @@ Stay on the Bukit in Pecatu, Padang Padang, or Bingin. Accommodation ranges from
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 76 — Cloud 9 Surf Trip, Siargao, Philippines
+  // -------------------------------------------------------------------------
+  const adventure76 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-76" },
+    update: {},
+    create: {
+      id: "seed-adventure-76",
+      title: "Cloud 9 Surf Trip, Siargao, Philippines",
+      description: `Cloud 9 is the Philippines' most famous wave — a thick, hollow right-hand reef break off the northeast coast of Siargao Island that barrels with mechanical consistency when the September–November typhoon swells arrive. The wave breaks in front of a wooden tower that has become one of the most photographed backdrops in Southeast Asian surfing.
+
+Siargao itself has transformed from a remote fishing island into a relaxed surf destination with enough good food, coconut beaches, and island-hopping options to sustain a two-week stay. The island's main town, General Luna, clusters around the surf zone — boardwalks, coconut water stalls, and surf schools for beginners who stay safely away from the Cloud 9 reef.
+
+Beyond Cloud 9, Siargao has a half-dozen more breaks suited to varying ability levels. Stimpy's, across the channel, offers a mellower option for less experienced surfers. Day trips to Sugba Lagoon, Naked Island, and the Sohoton Cove sea caves provide non-surfing activities for travel partners.
+
+Typhoon season brings the biggest swells (September–November) but also weather risk. February–April offers more stable conditions and smaller but still fun surf. Direct flights to Siargao (SAG) from Manila and Cebu have improved access considerably.`,
+      location: "Cloud 9, General Luna, Siargao Island",
+      country: "Philippines",
+      continent: "Asia",
+      category: Category.SURFING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1520366498724-709889c0c685?w=1600&q=80",
+      highlights: [
+        "Cloud 9 barrel — the iconic hollow right-hand reef in the Philippines",
+        "Wooden surf tower photo backdrop — one of surfing's most recognised images",
+        "Sugba Lagoon — a cathedral of turquoise water inside a hidden cove",
+        "Naked Island and Guyam Island day-trip snorkelling",
+        "Sohoton Cove sea caves and lagoon accessible by bangka boat",
+        "General Luna night market — grilled seafood and San Miguel at sunset",
+      ],
+      gear: [
+        "6'0\"–6'6\" shortboard for cloud 9 when it's 4–6ft",
+        "Mini-mal or longboard for Stimpy's and smaller days",
+        "Boardshorts and rash vest — water 27–30°C year-round",
+        "Reef booties (Cloud 9 is shallow and sharp at low tide)",
+        "Waterproof dry bag for bangka island trips",
+      ],
+      bestMonths: [9, 10, 11, 2, 3, 4],
+      estimatedCost: 100000,
+      latitude: 9.8411,
+      longitude: 126.1558,
+      published: true,
+      userId: user1.id,
+      voteCount: 46,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure76.id },
+      { userId: user1.id, adventureId: adventure76.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
