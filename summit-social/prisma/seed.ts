@@ -4184,6 +4184,71 @@ Lottery entry opens in June each year; demand far exceeds supply. Stay in Mora, 
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 71 — Revelstoke Backcountry Ski Touring, Canada
+  // -------------------------------------------------------------------------
+  const adventure71 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-71" },
+    update: {},
+    create: {
+      id: "seed-adventure-71",
+      title: "Revelstoke Backcountry Ski Touring, Canada",
+      description: `Revelstoke Mountain Resort holds the greatest vertical drop of any ski resort in North America at 1,713m, but the backcountry surrounding the resort dwarfs even this. The Columbia Mountain range behind the town receives between 10–15m of snow annually, deposited by moisture-laden Pacific systems that stall against the peaks, and the touring terrain extends in every direction for hundreds of kilometres.
+
+The Mt. Cartier area above the town, accessible via snowmobile approach or helicopter, offers ski mountaineering on 2,600m peaks with glacier access and 50-degree couloirs. The Frisby Ridge, Durrand Glacier, and Battle Range present multi-day traverse options requiring full glacier travel skills and emergency preparedness in genuinely remote terrain.
+
+For those based in the resort rather than backcountry, Revelstoke's Ripper Bowl and North Bowl areas offer powder access via sidecountry gates. The town itself has evolved from a railroad heritage community into a ski culture hub — the downtown has exceptional food for its size and a culture that still values function over fashion.
+
+Best periods: January–March for deepest snowpack, April for spring corn and longest days. The Rogers Pass area (1.5 hours east) adds world-class ski mountaineering on a UNESCO heritage landscape.`,
+      location: "Revelstoke, British Columbia",
+      country: "Canada",
+      continent: "North America",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1578393097540-7b80c5cf34cd?w=1600&q=80",
+      highlights: [
+        "Greatest resort vertical in North America at 1,713m",
+        "Rogers Pass UNESCO site — legendary ski mountaineering peaks 90 min away",
+        "Durrand Glacier multi-day backcountry traverse",
+        "Mt. Cartier ski mountaineering — 2,600m peak with 50-degree couloirs",
+        "Columbia Mountains snowpack: 10–15m annual snowfall",
+        "Revelstoke's authentic railroad-town culture and outstanding local food scene",
+      ],
+      gear: [
+        "Ski touring setup or powder resort skis",
+        "Full avalanche safety kit",
+        "Snowmobile or helicopter access budget for backcountry approaches",
+        "Crevasse and glacier travel equipment for Durrand variant",
+        "Satellite communicator (SPOT/Garmin inReach) for remote terrain",
+        "Bear canister for multi-day backcountry trips",
+      ],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 280000,
+      latitude: 51.0039,
+      longitude: -118.1957,
+      published: true,
+      userId: user2.id,
+      voteCount: 44,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["mountains"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["multi-day"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure71.id },
+      { userId: user2.id, adventureId: adventure71.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
