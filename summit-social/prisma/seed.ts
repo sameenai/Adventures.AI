@@ -6361,6 +6361,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 107
+  const adventure107 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-107" },
+    update: {},
+    create: {
+      id: "seed-adventure-107",
+      title: "Loire Valley Châteaux Cycle",
+      description: `France's longest river winds through a UNESCO World Heritage valley studded with fairy-tale châteaux, Renaissance gardens, and medieval towns. The Loire à Vélo cycling network offers over 900 km of well-signposted, mostly flat routes connecting iconic châteaux such as Chambord, Chenonceau, and Villandry. Between castles, stop in vineyards producing Muscadet, Sancerre, and Vouvray, and overnight in converted manors and charming gîtes. The perfect blend of culture, cuisine, and gentle cycling.`,
+      location: "Saumur",
+      country: "France",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1467803738586-46b7eb7b16a1?w=1600&q=80",
+      highlights: [
+        "Château de Chambord",
+        "Château de Chenonceau",
+        "Loire wine tasting",
+        "Villandry Renaissance gardens",
+        "Troglodyte cave villages",
+      ],
+      gear: ["Touring bike", "Pannier bags", "Helmet", "French phrasebook", "Wine carrier"],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 900,
+      latitude: 47.26,
+      longitude: 0.08,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure107.id },
+      { userId: user2.id, adventureId: adventure107.id },
+      { userId: user3.id, adventureId: adventure107.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
