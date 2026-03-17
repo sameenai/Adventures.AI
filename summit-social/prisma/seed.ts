@@ -6237,6 +6237,47 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 104
+  const adventure104 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-104" },
+    update: {},
+    create: {
+      id: "seed-adventure-104",
+      title: "Sea to Sea Cycle Route (C2C)",
+      description: `The Sea to Sea (C2C) is Britain's most popular long-distance cycle route, crossing northern England from the Irish Sea at Whitehaven to the North Sea at Sunderland or Tynemouth in around 220 km. The route climbs through the fells of the Lake District and crosses the wild Pennine moors before descending through former pit villages and industrial heritage to the east coast. A perfect mix of dramatic scenery, cultural history, and achievable challenge — most cyclists complete it in three to five days.`,
+      location: "Whitehaven to Sunderland",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=1600&q=80",
+      highlights: [
+        "Lake District fells",
+        "Hartside Pass summit",
+        "Pennine moorland",
+        "Weardale heritage villages",
+        "North Sea finish",
+      ],
+      gear: ["Road or gravel bike", "Panniers", "Waterproof jacket", "Cycling shorts", "Repair kit"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 54.55,
+      longitude: -3.59,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["road-trip"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure104.id },
+      { userId: user2.id, adventureId: adventure104.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
