@@ -4892,6 +4892,70 @@ October–November is the best combination of clear Himalayan views and the Thim
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 82 — Rajasthan Palace and Thar Desert Tour, India
+  // -------------------------------------------------------------------------
+  const adventure82 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-82" },
+    update: {},
+    create: {
+      id: "seed-adventure-82",
+      title: "Rajasthan Palace and Thar Desert Tour, India",
+      description: `Rajasthan is India at its most theatrical — a state where maharajas built pink-stone cities, desert forts that withstood Mughal sieges, and lake palaces that float on the water. The Golden Triangle (Jaipur, Agra, Delhi) barely scratches its surface; the real Rajasthan lies in Jodhpur's blue labyrinth, Jaisalmer's sandstone city rising from the Thar Desert, and Pushkar's ghats around the only sacred lake in the world dedicated to Brahma.
+
+The palace hotels (havelis) that were once the residences of nobility have been converted into some of the most extraordinary accommodation in India — Taj Lake Palace in Udaipur floats on Lake Pichola, SUJAN Jawai is a luxury camp among granite boulders and leopards, and Raas Jodhpur is built into the rock face below Mehrangarh Fort.
+
+A two-week circuit can cover Jaipur (Amber Fort, the Hawa Mahal), Jodhpur (Mehrangarh Fort, blue city lanes), Jaisalmer (desert castle, camel safari into the sand dunes), Udaipur (lake palaces, City Palace), and Pushkar (Brahma temple, camel fair in November). Train connections between all major cities are reliable and comfortable in AC coaches.
+
+November–February is the best season. Holi (March) in Jaipur and Pushkar is an extraordinary cultural experience but requires planning around the chaos.`,
+      location: "Jaipur, Jodhpur, Jaisalmer, Udaipur",
+      country: "India",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?w=1600&q=80",
+      highlights: [
+        "Mehrangarh Fort, Jodhpur — the most impressive fort in Rajasthan above the blue city",
+        "Jaisalmer Desert Camp — camel safari into the Thar dunes at sunset",
+        "Taj Lake Palace, Udaipur — the floating palace hotel on Lake Pichola",
+        "Amber Fort, Jaipur — elephant rides and mirror mosaic halls",
+        "Pushkar Camel Fair (November) — 50,000 camels and the world's largest livestock market",
+        "Thali meals at local dhabas — dal baati churma is the Rajasthani specialty",
+      ],
+      gear: [
+        "Modest dress (temples require covered shoulders and legs)",
+        "Cotton loose-fit clothing — temperatures can exceed 40°C",
+        "Sturdy sandals for fort cobblestones and market lanes",
+        "Anti-malarial medication (consult doctor)",
+        "USD cash for accommodation tips and small merchants",
+        "DSLR or mirrorless camera — Rajasthan is an extraordinary photography subject",
+      ],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 200000,
+      latitude: 26.9124,
+      longitude: 75.7873,
+      published: true,
+      userId: user1.id,
+      voteCount: 71,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["desert"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["culture"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure82.id },
+      { userId: user1.id, adventureId: adventure82.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
