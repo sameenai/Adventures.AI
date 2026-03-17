@@ -17,6 +17,11 @@ model User {
   twitterUrl       String?
   websiteUrl       String?
   openAiApiKey     String?           @db.Text
+  plan             Plan              @default(FREE)
+  stripeCustomerId String?           @unique
+  stripeSubId      String?           @unique
+  aiCreditsUsed    Int               @default(0)
+  aiCreditsResetAt DateTime          @default(now())
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   adventures       Adventure[]
@@ -248,6 +253,11 @@ enum ItineraryStatus {
   PLANNING
   BOOKED
   COMPLETED
+}
+
+enum Plan {
+  FREE
+  PRO
 }
 
 model Notification {
