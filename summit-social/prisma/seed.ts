@@ -5408,6 +5408,70 @@ Drive the circuit in 10–14 days. Hire a campervan from Hobart — Tasmania's c
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 90 — Palau Blue Corner and Blue Hole Dive Safari
+  // -------------------------------------------------------------------------
+  const adventure90 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-90" },
+    update: {},
+    create: {
+      id: "seed-adventure-90",
+      title: "Palau Blue Corner and Blue Hole Dive Safari",
+      description: `Palau, a Micronesian archipelago 800km east of the Philippines, consistently tops best dive destination polls for one reason: the concentration of different dive experiences is extraordinary. Blue Corner is a drift dive along a wall where the current accelerates around the corner, bringing bait fish and the sharks, rays, and large pelagics that hunt them. Blue Hole is an underwater cave system with columns of light dropping through a limestone ceiling. German Channel has resident manta rays. Jellyfish Lake has a population of golden jellyfish evolved to be stingless.
+
+A live-aboard runs the outer reefs and remote sites; land-based diving from Koror accesses the more protected inner reef diving. First-timers typically choose land-based from Koror with day trips on a dive boat; serious divers book 7-day live-aboard packages that access all the sites optimally timed around current and tide.
+
+The Marine Protection Act prohibits collecting any marine organism and enforces strict buoyancy standards. Palau's reefs are in better condition than almost anywhere in the Pacific as a result.
+
+Palau is accessible via Guam, Manila, or Tokyo. Live-aboard packages run USD 2,500–3,500 for 7 days all-inclusive. Land-based diving USD 150–200 per day including 2-3 dives. Best season: October–April with calm conditions and good visibility.`,
+      location: "Palau, Micronesia, Western Pacific",
+      country: "Palau",
+      continent: "Oceania",
+      category: Category.DIVING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: [
+        "Blue Corner drift dive — grey reef and whitetip sharks riding the current",
+        "Blue Hole — columns of light through a limestone cathedral ceiling",
+        "Jellyfish Lake — swimming through millions of stingless golden jellyfish",
+        "German Channel manta ray cleaning station — up-close with oceanic mantas",
+        "WWII wrecks: Iro Maru and Amatsu Maru in 10–30m of water",
+        "Ngercheu Island pristine outer reef — untouched coral gardens",
+      ],
+      gear: [
+        "PADI Open Water certification minimum (Advanced recommended for Blue Corner)",
+        "Reef hook (mandatory for Blue Corner current diving)",
+        "3mm wetsuit — water 28–30°C year-round",
+        "Dive computer",
+        "Mask, fins, BCD, regulator (all rentable in Koror)",
+        "Underwater camera housing for jellyfish and shark photography",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 350000,
+      latitude: 7.5149,
+      longitude: 134.5825,
+      published: true,
+      userId: user3.id,
+      voteCount: 62,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure90.id },
+      { userId: user3.id, adventureId: adventure90.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
