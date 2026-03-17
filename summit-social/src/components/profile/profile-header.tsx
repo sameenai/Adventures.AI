@@ -19,9 +19,16 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
         />
       )}
       <div className="text-center sm:text-left">
-        <h1 className="font-display text-2xl uppercase tracking-widest text-stone-100">
-          {user.name}
-        </h1>
+        <div className="flex items-center gap-3">
+          <h1 className="font-display text-2xl uppercase tracking-widest text-stone-100">
+            {user.name}
+          </h1>
+          {user.plan === "PRO" && (
+            <span className="border border-amber-500 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-amber-500">
+              Pro
+            </span>
+          )}
+        </div>
         {user.bio && <p className="mt-2 max-w-lg text-sm text-stone-400">{user.bio}</p>}
         <div className="mt-3 flex items-center justify-center gap-4 text-sm text-stone-500 sm:justify-start">
           <span>
