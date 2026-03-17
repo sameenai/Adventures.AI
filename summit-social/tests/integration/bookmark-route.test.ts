@@ -6,9 +6,11 @@ vi.mock("@/lib/auth/config", () => ({ authOptions: {} }));
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
     adventure: { findUnique: vi.fn() },
+    user: { findUnique: vi.fn().mockResolvedValue({ plan: "FREE" }) },
     bookmark: {
       upsert: vi.fn(),
       deleteMany: vi.fn(),
+      count: vi.fn().mockResolvedValue(0),
     },
   },
 }));
@@ -22,6 +24,7 @@ import { prisma } from "@/lib/db/prisma";
 
 const mockGetSession = getServerSession as ReturnType<typeof vi.fn>;
 const mockAdventure = prisma.adventure as unknown as Record<string, ReturnType<typeof vi.fn>>;
+const mockUser = prisma.user as unknown as Record<string, ReturnType<typeof vi.fn>>;
 const mockBookmark = prisma.bookmark as unknown as Record<string, ReturnType<typeof vi.fn>>;
 
 function mockSession(userId = "user-1") {
@@ -56,6 +59,8 @@ describe("POST /api/adventures/[id]/bookmark", () => {
   it("upserts bookmark and returns bookmarked=true", async () => {
     mockSession();
     mockAdventure.findUnique.mockResolvedValue({ id: "adv-1" });
+    mockUser.findUnique.mockResolvedValue({ plan: "FREE" });
+    mockBookmark.count.mockResolvedValue(0);
     mockBookmark.upsert.mockResolvedValue({});
     const res = await POST(new Request("http://localhost"), makeParams("adv-1"));
     expect(res.status).toBe(200);
@@ -66,6 +71,29 @@ describe("POST /api/adventures/[id]/bookmark", () => {
         create: expect.objectContaining({ adventureId: "adv-1", userId: "user-1" }),
       }),
     );
+  });
+
+  it("returns 402 when free user has reached bookmark limit", async () => {
+    mockSession();
+    mockAdventure.findUnique.mockResolvedValue({ id: "adv-1" });
+    mockUser.findUnique.mockResolvedValue({ plan: "FREE" });
+    mockBookmark.count.mockResolvedValue(20); // at the limit
+    const res = await POST(new Request("http://localhost"), makeParams("adv-1"));
+    expect(res.status).toBe(402);
+    const data = await res.json();
+    expect(data.code).toBe("UPGRADE_REQUIRED");
+    expect(mockBookmark.upsert).not.toHaveBeenCalled();
+  });
+
+  it("allows pro user to bookmark beyond free limit", async () => {
+    mockSession();
+    mockAdventure.findUnique.mockResolvedValue({ id: "adv-1" });
+    mockUser.findUnique.mockResolvedValue({ plan: "PRO" });
+    mockBookmark.count.mockResolvedValue(50); // well above free limit
+    mockBookmark.upsert.mockResolvedValue({});
+    const res = await POST(new Request("http://localhost"), makeParams("adv-1"));
+    expect(res.status).toBe(200);
+    expect(mockBookmark.upsert).toHaveBeenCalled();
   });
 });
 
