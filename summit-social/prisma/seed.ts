@@ -5020,6 +5020,70 @@ Dry season (November–April) is the standard visiting window. February and Marc
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 84 — Oaxaca Mezcal, Monte Albán and Mixtec Villages, Mexico
+  // -------------------------------------------------------------------------
+  const adventure84 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-84" },
+    update: {},
+    create: {
+      id: "seed-adventure-84",
+      title: "Oaxaca Mezcal, Monte Albán and Mixtec Villages, Mexico",
+      description: `Oaxaca is Mexico's most culturally complex state — eight indigenous groups with distinct languages and traditions, a pre-Columbian Zapotec capital at Monte Albán that rivals any ancient ruin in the Americas, and a food culture so sophisticated that the city hosts the continent's most prestigious culinary school. The mezcal industry here is not the industrialised spirit you find in airport duty-free but a craft distillate produced in village palenques from thirty-plus varieties of wild agave.
+
+Monte Albán sits on an artificially levelled hilltop above the valley — 2,000 years of Zapotec civilisation compressed into plazas, ball courts, and astronomical observation platforms. Arrive at opening time before the tour buses. The valley around Oaxaca City contains more ruins, weaving villages (Teotitlán del Valle), black pottery workshops (San Bartolo Coyotepec), and mezcal production tours (Albarradas, Matatlán) within easy day-trip distance.
+
+Oaxacan food deserves its own itinerary: mole negro (28 ingredients, 3 days to make), tlayudas, chapulines (grasshoppers), and fresh market produce at Mercado Benito Juárez. The chocolate scene — Oaxaca grows its own cacao — justifies daily morning hot chocolate rituals at Chocolate Mayordomo.
+
+October (Day of the Dead) and July (Guelaguetza dance festival) are the two cultural peaks — book accommodation 6 months ahead for both. The rest of the year is excellent and significantly less crowded.`,
+      location: "Oaxaca City and Central Valleys",
+      country: "Mexico",
+      continent: "North America",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1534161369-9cee8b224a87?w=1600&q=80",
+      highlights: [
+        "Monte Albán at sunrise — Zapotec pyramid city on a hilltop with 360-degree views",
+        "Mezcal palenque visit in Matatlán — artisanal production from wild agave",
+        "Day of the Dead in Oaxaca (November 1–2) — marigold altars, family vigils",
+        "Mole negro cooking class — 28 ingredients and the patience of a Oaxacan grandmother",
+        "Teotitlán del Valle weaving village — Zapotec tapestry using natural dyes",
+        "Mercado Benito Juárez — Oaxacan tlayudas and fresh memelas for breakfast",
+      ],
+      gear: [
+        "Comfortable walking shoes for cobblestone streets and site visits",
+        "Light layers — Oaxaca at 1,550m has cool evenings even in summer",
+        "Stomach medication — traveller's diarrhoea common for first-time visitors",
+        "Mexican pesos (USD accepted at major hotels but pesos preferred everywhere)",
+        "Camera for market and village photography (always ask permission)",
+        "Reusable water bottle — bottled water essential, tap not potable",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 90000,
+      latitude: 17.0732,
+      longitude: -96.7266,
+      published: true,
+      userId: user3.id,
+      voteCount: 58,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["culture"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure84.id },
+      { userId: user3.id, adventureId: adventure84.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
