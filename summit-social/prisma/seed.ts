@@ -4249,6 +4249,70 @@ Best periods: January–March for deepest snowpack, April for spring corn and lo
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 72 — Banzai Pipeline Surf Trip, Oahu, Hawaii
+  // -------------------------------------------------------------------------
+  const adventure72 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-72" },
+    update: {},
+    create: {
+      id: "seed-adventure-72",
+      title: "Banzai Pipeline Surf Trip, Oahu, Hawaii",
+      description: `Pipeline on Oahu's North Shore is the most recognised surf break in the world — a shallow-water reef that takes North Pacific swells and turns them into perfectly-cylindrical tubes that break in under two metres of water over a sharp lava shelf. The wave is beautiful from the beach, terrifying from inside the tube.
+
+November through February is the prime season when North Pacific storms generate the groundswells that produce 4–8m Pipeline. The Eddie Aikau invitational, held only when waves exceed 6m at Waimea Bay nearby, occasionally coincides. Sunrise sessions before the crowds (and before the trade winds turn the water surface choppy) are the best tactical choice.
+
+Pipeline is not for beginners or even intermediate surfers — the wave is powerful, the reef is unforgiving, and a hold-down in a big set means genuine risk. Surfers in the lineup at the peak are predominantly professionals and elite amateurs who have served years of apprenticeship at nearby easier breaks like Off the Wall and Sunset. Watch from shore first; many days of a North Shore trip will be spent observing rather than surfing.
+
+Stay in Haleiwa or Waialua — 10–20 minutes from the beach. Rent a car; the North Shore has limited public transport. Budget USD 200–350 per day including accommodation, car, and food.`,
+      location: "Ehukai Beach, North Shore, Oahu",
+      country: "USA",
+      continent: "North America",
+      category: Category.SURFING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1600&q=80",
+      highlights: [
+        "Watching Pipeline from the sand at sunrise — the world's most perfect tube wave",
+        "Possible Eddie Aikau sighting at Waimea Bay on XXL swells",
+        "North Shore shrimp trucks and açaí bowls — Hawaii surf culture food",
+        "Sunset Beach and Backdoor right-handers for advanced surfers",
+        "Triple Crown of Surfing events held November–December annually",
+        "Haleiwa town — the authentic surf culture capital of Hawaii",
+      ],
+      gear: [
+        "6'2\" to 7'0\" step-up shortboard for 4-6ft conditions",
+        "7'0\"+ gun for larger swells (can rent from local shops)",
+        "2mm shorty or spring suit — Hawaii water 24–26°C",
+        "Reef booties (Pipeline reef is unforgiving on feet)",
+        "Surf wax (tropical formula)",
+        "Helmet strongly recommended for tube riding over shallow reef",
+      ],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 250000,
+      latitude: 21.6650,
+      longitude: -158.0540,
+      published: true,
+      userId: user3.id,
+      voteCount: 67,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["island"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure72.id },
+      { userId: user3.id, adventureId: adventure72.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
