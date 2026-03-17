@@ -12,6 +12,8 @@ export function useChat({ itineraryId, initialMessages = [] }: UseChatOptions) {
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+  // Tracks the active itinerary for this session — may be assigned by the server on first message
+  const [activeItineraryId, setActiveItineraryId] = useState<string | undefined>(itineraryId);
 
   const sendMessage = useCallback(
     async (content: string) => {
@@ -31,13 +33,19 @@ export function useChat({ itineraryId, initialMessages = [] }: UseChatOptions) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             message: content,
-            itineraryId,
+            itineraryId: activeItineraryId,
           }),
         });
 
         if (!response.ok) {
           const errData = (await response.json().catch(() => ({}))) as { error?: string };
           throw new Error(errData.error ?? `Chat request failed (${response.status})`);
+        }
+
+        // Capture the itinerary ID the server created or resolved for this session
+        const returnedId = response.headers.get("X-Itinerary-Id");
+        if (returnedId && !activeItineraryId) {
+          setActiveItineraryId(returnedId);
         }
 
         const reader = response.body?.getReader();
@@ -85,8 +93,8 @@ export function useChat({ itineraryId, initialMessages = [] }: UseChatOptions) {
         setIsStreaming(false);
       }
     },
-    [itineraryId],
+    [activeItineraryId],
   );
 
-  return { messages, input, setInput, sendMessage, isStreaming };
+  return { messages, input, setInput, sendMessage, isStreaming, itineraryId: activeItineraryId };
 }

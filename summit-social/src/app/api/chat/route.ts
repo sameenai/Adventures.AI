@@ -17,28 +17,21 @@ type AccumulatedToolCall = {
   function: { name: string; arguments: string };
 };
 
-/** Persist a create_itinerary_day tool call result to the DB. Returns the itinerary ID. */
-async function persistItineraryDay(
-  args: unknown,
-  userId: string,
-  itineraryId: string | undefined,
-): Promise<string | undefined> {
+const STREAMING_HEADERS = {
+  "Content-Type": "text/event-stream",
+  "Cache-Control": "no-cache",
+  Connection: "keep-alive",
+};
+
+/** Persist a create_itinerary_day tool call result to the DB. */
+async function persistItineraryDay(args: unknown, itineraryId: string): Promise<void> {
   const parsed = ItineraryDaySchema.safeParse(args);
-  if (!parsed.success) return itineraryId;
-
-  let resolvedId = itineraryId;
-
-  if (!resolvedId) {
-    const created = await prisma.itinerary.create({
-      data: { title: "Trip Itinerary", chatHistory: [], userId },
-    });
-    resolvedId = created.id;
-  }
+  if (!parsed.success) return;
 
   const { dayNumber, title, description, activities } = parsed.data;
 
   const existing = await prisma.itineraryDay.findFirst({
-    where: { itineraryId: resolvedId, dayNumber },
+    where: { itineraryId, dayNumber },
     select: { id: true },
   });
 
@@ -49,11 +42,55 @@ async function persistItineraryDay(
     });
   } else {
     await prisma.itineraryDay.create({
-      data: { itineraryId: resolvedId, dayNumber, title, description, activities },
+      data: { itineraryId, dayNumber, title, description, activities },
     });
   }
+}
 
-  return resolvedId;
+/** Handle search_adventures tool call — query the DB and return relevant adventures. */
+async function handleSearchAdventures(args: unknown): Promise<string> {
+  try {
+    const a = args as {
+      query?: string;
+      category?: string;
+      continent?: string;
+      difficulty?: string;
+      maxDuration?: number;
+    };
+
+    const results = await prisma.adventure.findMany({
+      where: {
+        published: true,
+        ...(a.category && { category: a.category as never }),
+        ...(a.continent && { continent: a.continent }),
+        ...(a.difficulty && { difficulty: a.difficulty as never }),
+        ...(a.maxDuration && { durationDays: { lte: a.maxDuration } }),
+        ...(a.query && {
+          OR: [
+            { title: { contains: a.query, mode: "insensitive" as const } },
+            { description: { contains: a.query, mode: "insensitive" as const } },
+            { location: { contains: a.query, mode: "insensitive" as const } },
+          ],
+        }),
+      },
+      take: 5,
+      orderBy: { voteCount: "desc" },
+      select: {
+        id: true,
+        title: true,
+        location: true,
+        country: true,
+        category: true,
+        difficulty: true,
+        durationDays: true,
+        description: true,
+      },
+    });
+
+    return JSON.stringify({ success: true, results });
+  } catch {
+    return JSON.stringify({ success: false, results: [] });
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -91,12 +128,24 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { message, itineraryId, preferences } = parsed.data;
+  const { message, itineraryId: incomingItineraryId, preferences } = parsed.data;
+  const userId = session.user.id;
 
+  // Ensure an itinerary record always exists so we can persist chat history from message 1.
+  let activeItineraryId = incomingItineraryId;
+  if (!activeItineraryId) {
+    const title = message.length > 80 ? `${message.slice(0, 77)}…` : message;
+    const created = await prisma.itinerary.create({
+      data: { title, chatHistory: [], userId },
+    });
+    activeItineraryId = created.id;
+  }
+
+  // Load existing chat history.
   let chatHistory: Array<{ role: string; content: string }> = [];
-  if (itineraryId) {
+  if (incomingItineraryId) {
     const itinerary = await prisma.itinerary.findUnique({
-      where: { id: itineraryId, userId: session.user.id },
+      where: { id: incomingItineraryId, userId },
       select: { chatHistory: true },
     });
     if (itinerary?.chatHistory) {
@@ -116,8 +165,10 @@ export async function POST(request: NextRequest) {
   ];
 
   const encoder = new TextEncoder();
+  // Return the itinerary ID in a response header so the client can use it in subsequent messages.
+  const responseHeaders = { ...STREAMING_HEADERS, "X-Itinerary-Id": activeItineraryId };
 
-  // Stream a mock response when no API key is available (app key or user key)
+  // Stream a mock response when no API key is available.
   if (!resolvedApiKey) {
     const mockText = buildMockResponse(message);
     const readable = new ReadableStream({
@@ -130,28 +181,20 @@ export async function POST(request: NextRequest) {
           controller.enqueue(encoder.encode(token));
           await new Promise<void>((r) => setTimeout(r, 18));
         }
-        if (itineraryId) {
-          await prisma.itinerary.update({
-            where: { id: itineraryId },
-            data: {
-              chatHistory: [
-                ...chatHistory,
-                { role: "user", content: message },
-                { role: "assistant", content: fullContent.trim() },
-              ],
-            },
-          });
-        }
+        await prisma.itinerary.update({
+          where: { id: activeItineraryId },
+          data: {
+            chatHistory: [
+              ...chatHistory,
+              { role: "user", content: message },
+              { role: "assistant", content: fullContent.trim() },
+            ],
+          },
+        });
         controller.close();
       },
     });
-    return new NextResponse(readable, {
-      headers: {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        Connection: "keep-alive",
-      },
-    });
+    return new NextResponse(readable, { headers: responseHeaders });
   }
 
   const openaiClient = new OpenAI({ apiKey: resolvedApiKey });
@@ -159,8 +202,6 @@ export async function POST(request: NextRequest) {
   const readable = new ReadableStream({
     async start(controller) {
       let fullContent = "";
-      let resolvedItineraryId = itineraryId;
-      const userId = session.user.id;
 
       try {
         const stream = await openaiClient.chat.completions.create({
@@ -208,14 +249,16 @@ export async function POST(request: NextRequest) {
             if (tc.function.name === "create_itinerary_day") {
               try {
                 const args = JSON.parse(tc.function.arguments) as unknown;
-                resolvedItineraryId = await persistItineraryDay(args, userId, resolvedItineraryId);
+                await persistItineraryDay(args, activeItineraryId);
                 resultContent = JSON.stringify({ success: true });
               } catch (err) {
                 logger.error("create_itinerary_day failed", err);
                 resultContent = JSON.stringify({ success: false, error: "Failed to save day" });
               }
+            } else if (tc.function.name === "search_adventures") {
+              const args = JSON.parse(tc.function.arguments) as unknown;
+              resultContent = await handleSearchAdventures(args);
             } else {
-              // Other tools (search_flights, etc.) return empty success for now
               resultContent = JSON.stringify({ success: true, results: [] });
             }
 
@@ -253,32 +296,30 @@ export async function POST(request: NextRequest) {
         }
 
         // Persist chat history
-        if (resolvedItineraryId) {
-          const updatedHistory = [
-            ...chatHistory,
-            { role: "user", content: message },
-            { role: "assistant", content: fullContent },
-          ];
-          await prisma.itinerary.update({
-            where: { id: resolvedItineraryId },
-            data: { chatHistory: updatedHistory },
-          });
-        }
+        await prisma.itinerary.update({
+          where: { id: activeItineraryId },
+          data: {
+            chatHistory: [
+              ...chatHistory,
+              { role: "user", content: message },
+              { role: "assistant", content: fullContent },
+            ],
+          },
+        });
       } catch (error) {
         logger.error("Streaming error", error);
+        const errMsg =
+          error instanceof Error && error.message.toLowerCase().includes("api key")
+            ? "\n\n⚠️ Invalid OpenAI API key. Please update it in your profile settings."
+            : "\n\n⚠️ Something went wrong connecting to the AI. Please try again.";
+        controller.enqueue(encoder.encode(errMsg));
       } finally {
         controller.close();
       }
     },
   });
 
-  return new NextResponse(readable, {
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-    },
-  });
+  return new NextResponse(readable, { headers: responseHeaders });
 }
 
 function buildMockResponse(message: string): string {
@@ -316,5 +357,5 @@ A challenging 8-hour push to high camp. Elevation gain of ~900 m. Pace yourself 
 
 To search for flights, just tell me your departure airport and travel dates. I can also refine any day in this itinerary — just ask!
 
-*Note: AI trip planner running in demo mode. Connect an OpenAI API key for personalised, real-time itinerary generation.*`;
+*Note: AI trip planner running in demo mode. Add your OpenAI API key in profile settings for full personalised generation.*`;
 }
