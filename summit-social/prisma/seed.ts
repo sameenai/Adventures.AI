@@ -5343,6 +5343,71 @@ May–September is the tourist season; May offers the most daylight and fewest m
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 89 — Tasmania Grand Drive, Australia
+  // -------------------------------------------------------------------------
+  const adventure89 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-89" },
+    update: {},
+    create: {
+      id: "seed-adventure-89",
+      title: "Tasmania Grand Drive, Australia",
+      description: `Tasmania is the most wilderness-intensive state in Australia — 40% of the island is national park or World Heritage Area, and its southwest corner is one of the last intact temperate rainforests on earth. A 10–14 day driving circuit from Hobart clockwise through the Midlands, Freycinet Peninsula, Bay of Fires, Cradle Mountain, the Franklin Gordon Wild Rivers, and Port Arthur brings together landscapes that simply don't exist elsewhere in the Southern Hemisphere.
+
+The Freycinet Peninsula is the easy seduction: Wineglass Bay seen from the lookout is the image that sells Tasmania to the world, and the 3-day circuit walk that covers the full peninsula is one of Australia's finest short hikes. The Bay of Fires in the northeast — white sand beaches with orange lichen-encrusted granite boulders — has no parallel in Australian coastal scenery.
+
+Cradle Mountain, the rugged dolerite peak above the iconic Lake Dove, anchors Tasmania's most accessible alpine walking. The 65km Overland Track (6 days) starts here; day walks around the lake are accessible to non-hikers. To the southwest, the Franklin-Gordon Wild Rivers National Park is wild in the original sense — the proposed Franklin River dam in the 1980s mobilised the modern Australian environmental movement.
+
+Drive the circuit in 10–14 days. Hire a campervan from Hobart — Tasmania's camping infrastructure is excellent and well-maintained. Spring (September–November) offers wildflowers, green hills, and manageable summer visitor numbers.`,
+      location: "Hobart, Freycinet, Cradle Mountain, Southwest Wilderness",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1504108928284-5f5eb3faa40e?w=1600&q=80",
+      highlights: [
+        "Wineglass Bay lookout, Freycinet — the most iconic beach view in Australia",
+        "Bay of Fires — white sand and orange-granite coast with zero development",
+        "Cradle Mountain at dawn — dolerite summit mirrored in Lake Dove",
+        "Overland Track (6-day option) — Tasmania's premier alpine multi-day walk",
+        "MONA, Hobart — David Walsh's underground museum of old and new art",
+        "Salamanca Market, Hobart — Saturday morning institution for local produce",
+      ],
+      gear: [
+        "Campervan or 4WD for gravel road access in the southwest",
+        "Waterproof jacket — Tasmania's weather is genuinely unpredictable",
+        "Warm layers for Cradle Mountain and alpine areas",
+        "Ankle boots or trail runners for day hikes",
+        "National Parks pass (Tasmania charges for all park access)",
+        "Insect repellent for rainforest walking",
+      ],
+      bestMonths: [9, 10, 11, 12, 1, 2, 3],
+      estimatedCost: 220000,
+      latitude: -42.0,
+      longitude: 146.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 53,
+      tags: {
+        connect: [
+          { id: allTags["australia"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["hiking"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure89.id },
+      { userId: user2.id, adventureId: adventure89.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
