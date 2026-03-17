@@ -6525,6 +6525,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 111
+  const adventure111 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-111" },
+    update: {},
+    create: {
+      id: "seed-adventure-111",
+      title: "North Pole Last Degree Ski Expedition",
+      description: `The ultimate polar achievement: skiing the last degree of latitude to the Geographic North Pole, crossing 111 km of drifting Arctic Ocean sea ice. Hauling a pulk sled loaded with all food and equipment, teams navigate pressure ridges, open leads of freezing water, and unpredictable weather in temperatures as low as -40°C. The reward is standing at the very top of the world, surrounded by nothing but ice in every direction. One of the most exclusive adventures on Earth, attempted by only a handful of teams each season.`,
+      location: "89°N Arctic Ocean",
+      country: "International Waters",
+      continent: "Arctic",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1551415923-a2297c7fda79?w=1600&q=80",
+      highlights: [
+        "Geographic North Pole arrival",
+        "Sea ice pressure ridges",
+        "Polar bear encounters",
+        "Midnight sun navigation",
+        "Arctic Ocean crossing",
+      ],
+      gear: ["Polar skis and pulk", "Expedition down suit", "-40°C sleeping bag", "GPS beacon", "Polar rations"],
+      bestMonths: [4, 5],
+      estimatedCost: 25000,
+      latitude: 89.0,
+      longitude: 0.0,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["winter"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure111.id },
+      { userId: user2.id, adventureId: adventure111.id },
+      { userId: user3.id, adventureId: adventure111.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
