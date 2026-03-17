@@ -5725,6 +5725,71 @@ April–November is the prime season. Southern sites (south of Rinca) are calmer
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 95 — Haida Gwaii Outer Islands Sea Kayak, Canada
+  // -------------------------------------------------------------------------
+  const adventure95 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-95" },
+    update: {},
+    create: {
+      id: "seed-adventure-95",
+      title: "Haida Gwaii Outer Islands Sea Kayak, Canada",
+      description: `Haida Gwaii — formerly the Queen Charlotte Islands — is an archipelago 100km off the northern British Columbia coast, separated from the mainland by the treacherous Hecate Strait and belonging to the Haida Nation, whose culture survived here while most of the Pacific Northwest coast was transformed. The outer islands of the Gwaii Haanas National Park Reserve are accessible only by kayak or small boat, and the paddling conditions are among the most demanding on the Pacific Coast.
+
+The classic route through Gwaii Haanas covers 150km over 10–14 days, paddling between uninhabited islands dense with old-growth Sitka spruce, stopping at abandoned Haida village sites (Skedans, Tanu, Ninstints) where mortuary poles still stand in the forest — a UNESCO World Heritage Site. Wildlife is extraordinary: humpback whales surface alongside kayaks, black bears forage the shoreline, and sea otters float in kelp beds throughout.
+
+Open-water crossings up to 10km are necessary on the outer route — plan around weather windows, paddle with a guide on first visits, and carry a VHF radio and EPIRB. The Hecate Strait is notorious; the outer coast less so, but fog and Pacific swells are genuine hazards.
+
+Book guided trips through Archipelago Kayaks or similar qualified operators. July–September is the window; June is possible but cold. Fly to Sandspit via Vancouver.`,
+      location: "Gwaii Haanas National Park Reserve, Haida Gwaii",
+      country: "Canada",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1559521783-1d1599583485?w=1600&q=80",
+      highlights: [
+        "SGang Gwaay (Ninstints) UNESCO village site — standing mortuary poles in old-growth forest",
+        "Humpback whale surfacing alongside kayaks in open water",
+        "Black bear shore foraging — common throughout the archipelago",
+        "Sea otter colonies in kelp beds on the outer coast",
+        "10km open-water crossings with Pacific swell — genuine ocean paddling",
+        "Old-growth Sitka spruce and cedar forest — trees over 1,000 years old",
+      ],
+      gear: [
+        "Sea kayak with bulkheads and deck rigging (usually provided on guided trips)",
+        "5/4mm wetsuit or drysuit (water 10–14°C year-round)",
+        "VHF marine radio and EPIRB for solo paddlers",
+        "Paddling jacket and spray skirt",
+        "Bear canister (bears active on all camping beaches)",
+        "Haida Gwaii National Park Reserve permit (Indigenous cultural site access)",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 400000,
+      latitude: 52.5,
+      longitude: -131.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 36,
+      tags: {
+        connect: [
+          { id: allTags["kayaking"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure95.id },
+      { userId: user2.id, adventureId: adventure95.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
