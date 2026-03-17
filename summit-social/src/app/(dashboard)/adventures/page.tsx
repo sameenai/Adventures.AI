@@ -2,7 +2,7 @@ import { InfiniteAdventureGrid } from "@/components/adventures/infinite-adventur
 import { SearchFilter } from "@/components/adventures/search-filter";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
-import { CATEGORIES, DIFFICULTIES } from "@/lib/constants";
+import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -252,6 +252,30 @@ export default async function AdventuresPage({
                 }`}
               >
                 {diff.label}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Continent quick-filters */}
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+            Continent
+          </span>
+          {CONTINENTS.map((continent) => {
+            const active = params.continent === continent;
+            const href = buildFilterUrl(params, { continent: active ? undefined : continent });
+            return (
+              <Link
+                key={continent}
+                href={href}
+                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                  active
+                    ? "border border-amber-500 text-amber-500"
+                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+                }`}
+              >
+                {continent}
               </Link>
             );
           })}

@@ -172,8 +172,9 @@ describe("GET /api/adventures", () => {
     ["weekend", { gte: 1, lte: 3 }],
     ["week", { gte: 4, lte: 7 }],
     ["fortnight", { gte: 8, lte: 14 }],
-    ["expedition", { gte: 15, lte: 89 }],
-    ["lifestyle", { gte: 90 }],
+    ["expedition", { gte: 15, lte: 30 }],
+    ["peregrination", { gte: 31, lte: 90 }],
+    ["lifestyle", { gte: 91 }],
   ] as const)("applies correct durationDays range for duration=%s", async (duration, expected) => {
     (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
 
