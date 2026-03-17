@@ -5790,6 +5790,70 @@ Book guided trips through Archipelago Kayaks or similar qualified operators. Jul
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 96 — Lake Bled and Soča Valley Kayak, Slovenia
+  // -------------------------------------------------------------------------
+  const adventure96 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-96" },
+    update: {},
+    create: {
+      id: "seed-adventure-96",
+      title: "Lake Bled and Soča Valley Kayak, Slovenia",
+      description: `Slovenia is Europe's outdoor adventure secret — a country the size of Wales with the Julian Alps on its northern border, a turquoise river (the Soča) running through a glacial gorge that looks CGI-rendered, and Lake Bled's island church set against mountains that seem too perfect. Combining a kayak and flat-water paddle on Bled with whitewater kayaking or rafting on the Soča creates a week of varied paddling in extraordinary scenery.
+
+The Soča River runs 138km from Triglav National Park to the Adriatic — the upper section near Bovec is Grade III–IV whitewater suitable for experienced paddlers, while the middle section below Most na Soči offers gentler paddling through gorges. The water is a deep, impossible turquoise caused by glacial minerals and remarkable clarity — visibility to 10m in calm sections.
+
+Lake Bled on a still morning, paddling out to the island that sits at the lake's centre — the only island in Slovenia, with a church that's been the site of pilgrimage for over 1,000 years — is one of the quietest pleasures in European adventure travel. Rent a wooden pletna boat or bring your own kayak.
+
+Combine with hiking on Triglav, Slovenia's only 2,864m peak, and cycling through the Soča Valley for a complete adventure base. Base in Bovec for Soča; Bled for lake access. May–September is the outdoor season.`,
+      location: "Lake Bled and Soča Valley, Julian Alps",
+      country: "Slovenia",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=1600&q=80",
+      highlights: [
+        "Lake Bled island paddle at dawn — mirror-calm water and the church bell",
+        "Soča turquoise gorge — the clearest and most impossibly coloured river in Europe",
+        "Boka Waterfall — 106m plunge into the Soča valley from the cliff",
+        "Triglav National Park — pristine Julian Alps with chamois and golden eagles",
+        "Kozjak Waterfall via the Soča gorge walk — hidden amphitheatre pool",
+        "Kobarid Museum of WWI — Soča front where Hemingway served and wrote",
+      ],
+      gear: [
+        "Sea kayak or touring kayak for Lake Bled flat water",
+        "Whitewater kayak or inflatable raft for Soča rapids (rentable in Bovec)",
+        "5mm wetsuit for Soča (water temperature 10–16°C even in summer)",
+        "Helmet (mandatory for Grade III+ sections of Soča)",
+        "Dry bag for camera and valuables",
+        "Hiking boots for Triglav day walks",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 100000,
+      latitude: 46.3631,
+      longitude: 14.0938,
+      published: true,
+      userId: user3.id,
+      voteCount: 47,
+      tags: {
+        connect: [
+          { id: allTags["kayaking"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["europe"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure96.id },
+      { userId: user3.id, adventureId: adventure96.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
