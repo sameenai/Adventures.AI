@@ -6195,6 +6195,48 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 103
+  const adventure103 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-103" },
+    update: {},
+    create: {
+      id: "seed-adventure-103",
+      title: "Borneo Orangutan Rainforest Safari",
+      description: `The ancient rainforests of Malaysian Borneo shelter the last wild populations of Bornean orangutans along with pygmy elephants, proboscis monkeys, and clouded leopards. This jungle safari navigates the Kinabatangan River by boat at dawn and dusk, ventures into the Danum Valley old-growth forest on guided night walks, and visits the Sepilok rehabilitation centre where orphaned orangutans learn to return to the wild. One of the most biodiverse regions on the planet.`,
+      location: "Sandakan",
+      country: "Malaysia",
+      continent: "Asia",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1544979590-37e9b47eb705?w=1600&q=80",
+      highlights: [
+        "Wild orangutan sightings",
+        "Kinabatangan River boat safari",
+        "Sepilok Orangutan Centre",
+        "Pygmy elephant herds",
+        "Danum Valley night walk",
+      ],
+      gear: ["Waterproof clothing", "Rubber boots", "Insect repellent", "Binoculars", "Dry bags for camera"],
+      bestMonths: [3, 4, 5, 6, 7, 8],
+      estimatedCost: 2600,
+      latitude: 5.84,
+      longitude: 118.12,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure103.id },
+      { userId: user2.id, adventureId: adventure103.id },
+      { userId: user3.id, adventureId: adventure103.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
