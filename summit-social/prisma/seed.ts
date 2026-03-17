@@ -3991,6 +3991,70 @@ Packages are typically week-long all-inclusive affairs run by Tweedsmuir Park Lo
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 68 — Verbier Freeride and Backcountry, Switzerland
+  // -------------------------------------------------------------------------
+  const adventure68 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-68" },
+    update: {},
+    create: {
+      id: "seed-adventure-68",
+      title: "Verbier Freeride and Backcountry, Switzerland",
+      description: `Verbier's Valais backstory: it hosts the Freeride World Tour finals, its terrain is the benchmark against which other resorts are judged, and its après-ski is equally renowned. But beyond the circuit runs and Mont Gelé chair, the serious playground extends into the 4 Vallées — 412km of piste and an interconnected backcountry that links to Nendaz, Veysonnaz, and Thyon.
+
+The Stairway to Heaven off-piste zone, accessible from the Jumbo cable car, gives access to the Swiss-Italian border terrain above 3,000m. The Vallon d'Arby couloir, the Chassoure face, and the Gentianes bowl are legendary powder zones tracked by resort guides and freeriders who wait out storms at the Farinet bar.
+
+Beyond Verbier, the week-long Haute Route from Verbier to Zermatt (or Chamonix in reverse) follows a classic ski mountaineering traverse through the Pennine Alps — five to eight days of glacier travel, hut stays, and summit skiing at altitude. Non-trivial navigation and glacier skills required.
+
+Verbier village is expensive — budget CHF 500–800 per day including accommodation, lift pass, and food. Shoulder weeks in March/April offer better snow and lower prices than peak February.`,
+      location: "Verbier, Valais Canton",
+      country: "Switzerland",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1484557985045-edb9d33cf0e4?w=1600&q=80",
+      highlights: [
+        "Mont Gelé and Attelas — the legendary Freeride World Tour circuit terrain",
+        "Stairway to Heaven off-piste zone above 3,000m",
+        "Chassoure face — classic 1,000m sustained steep descent",
+        "Option to extend to the Verbier–Zermatt Haute Route glacier traverse",
+        "World-class après-ski at the Farinet and Pub Mont Fort",
+        "4 Vallées interconnect — 412km piste with no lift queues midweek",
+      ],
+      gear: [
+        "Freeride or all-mountain skis (100mm+ underfoot)",
+        "Avalanche safety kit (beacon, probe, shovel)",
+        "Multi-layer base system for variable March temperatures",
+        "Ski crampons for hard-snow Haute Route variant",
+        "Glacier glasses and high-factor sunscreen (UV at 3,000m)",
+        "CHF cash for refuge and hut stays",
+      ],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 400000,
+      latitude: 46.0967,
+      longitude: 7.2286,
+      published: true,
+      userId: user2.id,
+      voteCount: 55,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["europe"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure68.id },
+      { userId: user3.id, adventureId: adventure68.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
