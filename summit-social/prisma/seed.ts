@@ -4568,6 +4568,69 @@ Typhoon season brings the biggest swells (September–November) but also weather
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 77 — Hossegor Reef and Beach Break, Landes, France
+  // -------------------------------------------------------------------------
+  const adventure77 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-77" },
+    update: {},
+    create: {
+      id: "seed-adventure-77",
+      title: "Hossegor Reef and Beach Break, Landes, France",
+      description: `Hossegor in the Landes region of southwest France is Europe's surf capital — a beach break and reef combination that receives powerful Atlantic groundswells and turns them into fast, heavy beach-break tubes at La Nord and La Gravière, and a more forgiving reef peak at La Sud. Every September the Quiksilver Pro and Rip Curl Surf Festival bring the WSL Championship Tour to town.
+
+The underwater bathymetry is what makes Hossegor exceptional — a deep offshore canyon focuses Atlantic swells directly onto the sandbanks, producing waves that break with more power and speed than any other beach break in Europe. La Nord in September at 6ft is a legitimate big-wave experience despite being a sandy bottom; La Gravière has produced some of the heaviest barrels ever surfed on European soil.
+
+The town itself is a curious mix of Basque surf culture, pine forest, and serious French cuisine. Landaise food — duck confit, Bayonne ham, local wines from Madiran — is an unexpected bonus. The Basque Country is 40 minutes south, adding Biarritz, tapas bars in San Sebastián, and a completely different cultural register to a two-week trip.
+
+Stay in Capbreton, Hossegor, or Seignosse. Budget EUR 150–250 per day. September is the prime month — the summer crowds have gone but the Atlantic season hasn't yet arrived in earnest.`,
+      location: "Hossegor, Landes",
+      country: "France",
+      continent: "Europe",
+      category: Category.SURFING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1492176273113-2d51f47b23b0?w=1600&q=80",
+      highlights: [
+        "La Gravière beach break — one of the heaviest barrels in European surfing",
+        "Quiksilver Pro France — watch the WSL tour in September",
+        "La Nord on a 6ft Atlantic swell — legitimately powerful surf on sand",
+        "San Sebastián pintxos bars — 40 minutes south across the Spanish border",
+        "Basque Country road trip extension: Biarritz, Pamplona, Bilbao",
+        "Duck confit and Madiran wine — the Landes culinary detour",
+      ],
+      gear: [
+        "4/3mm full suit (water 16–19°C in September–October)",
+        "5'10\"–6'2\" performance shortboard for beach break power",
+        "Booties and hood for winter sessions November onwards",
+        "Earplugs (Hossegor is notorious for swimmer's ear from cold water)",
+        "Leash — La Gravière hold-downs are long, get a 9ft strong leash",
+      ],
+      bestMonths: [9, 10, 11],
+      estimatedCost: 160000,
+      latitude: 43.6667,
+      longitude: -1.4167,
+      published: true,
+      userId: user2.id,
+      voteCount: 41,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["europe"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure77.id },
+      { userId: user2.id, adventureId: adventure77.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
