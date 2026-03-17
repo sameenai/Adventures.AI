@@ -5661,6 +5661,70 @@ Night dives on the Thistlegorm, when the wreck is almost completely empty of oth
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 94 — Komodo Island Dive Safari, Indonesia
+  // -------------------------------------------------------------------------
+  const adventure94 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-94" },
+    update: {},
+    create: {
+      id: "seed-adventure-94",
+      title: "Komodo Island Dive Safari, Indonesia",
+      description: `Komodo National Park in the Flores Sea is where two things happen simultaneously: above the water, Komodo dragons — the world's largest lizard — roam volcanic slopes covered in dry savanna grass; below it, ferocious currents funnel Indian Ocean and Pacific water between the island channels, creating one of the most nutrient-rich and fish-dense marine environments in the world.
+
+The diving here is advanced — sites like Batu Bolong and Tatawa Besar have strong, unpredictable currents that require experience and a good guide. Manta Point on the eastern side of Padar Island is a cleaning station for oceanic manta rays where calm water conditions allow snorkelling with mantas within arm's reach. Crystal Rock and Castle Rock are volcanic pinnacles swept clean by current, covered in sea fans and schooling fish so dense the water turns dark.
+
+Live-aboards departing from Labuan Bajo (accessed via Bali or Lombok) cover the full park in 3–7 days. Land-based day diving from Labuan Bajo reaches the closer sites but misses the remote eastern reefs. The dragon trekking tours on Komodo and Rinca islands combine easily with diving — same boat, same itinerary.
+
+April–November is the prime season. Southern sites (south of Rinca) are calmer in April–October; north sites are better November–March. Budget USD 150–200 per day for land-based, USD 250–450 per day for live-aboard.`,
+      location: "Komodo National Park, West Manggarai",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1600&q=80",
+      highlights: [
+        "Manta Point — snorkel and dive with oceanic manta rays at the cleaning station",
+        "Batu Bolong — a volcanic pinnacle with 80m visibility and wall-to-wall fish",
+        "Komodo dragon trekking on Rinca Island — UNESCO listed predator encounter",
+        "Crystal Rock current diving — schooling barracuda and giant trevally",
+        "Tatawa Besar — pristine hard coral plateau with bumphead parrotfish",
+        "Pink Beach — one of only seven pink-sand beaches in the world",
+      ],
+      gear: [
+        "PADI Advanced Open Water with drift dive experience (currents are powerful)",
+        "3mm wetsuit — water 26–29°C with thermoclines to 24°C",
+        "Surface marker buoy (SMB) — mandatory in current diving",
+        "Reef hook for stationary observation of the manta ray cleaning station",
+        "Underwater camera (visibility can exceed 30m on good days)",
+        "Sun protection — tropical UV on boat decks is intense",
+      ],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10, 11],
+      estimatedCost: 230000,
+      latitude: -8.55,
+      longitude: 119.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 58,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["jungle"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure94.id },
+      { userId: user1.id, adventureId: adventure94.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
