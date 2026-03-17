@@ -4120,6 +4120,70 @@ December–April is the season. The lift doesn't open until the snowpack is safe
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 70 — Vasaloppet 90km Cross-Country Ski Race, Sweden
+  // -------------------------------------------------------------------------
+  const adventure70 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-70" },
+    update: {},
+    create: {
+      id: "seed-adventure-70",
+      title: "Vasaloppet 90km Cross-Country Ski Race, Sweden",
+      description: `The Vasaloppet is the world's oldest and longest cross-country ski race — 90km through the Dalarna forest from Sälen to Mora, run every first Sunday of March since 1922. Up to 15,800 competitors start in waves, following the track Gustav Vasa used to flee into exile in 1520, only to be persuaded to return and lead the Swedish revolt. The race now attracts elite professionals, world-class amateurs, and weekend warriors from 80 countries.
+
+Training for the Vasaloppet is a year-round commitment if you want to finish respectably — the classic technique (diagonal striding and double-poling) requires specific muscle conditioning that running or cycling does not fully replicate. Skate skiing fitness transfers better. First-timers typically aim for the 6-hour mark; elites finish in under 3:40.
+
+The course climbs and descends through snow-laden pine forest on a groomed single track that widens to 8-12 lanes at key sections. Blueberry soup and energy drinks are distributed at checkpoints — the soup is tradition. The final kilometre through Mora with 50,000 spectators lining the street is one of sport's great finishers.
+
+Lottery entry opens in June each year; demand far exceeds supply. Stay in Mora, Borlänge, or at race-package hotels in Sälen. March in Dalarna averages -5°C but can reach -20°C — dress for the low end.`,
+      location: "Sälen to Mora, Dalarna",
+      country: "Sweden",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1531088941-39dbebb3e5c3?w=1600&q=80",
+      highlights: [
+        "90km through Dalarna forest — the world's oldest and longest ski race",
+        "Up to 15,800 simultaneous starters in the mass wave start",
+        "Blueberry soup tradition at mid-race checkpoints",
+        "Final kilometre through Mora with 50,000 spectators lining the course",
+        "Gustav Vasa's historic escape route through the frozen forest",
+        "Elite vs mass participation — finish alongside world-class skiers",
+      ],
+      gear: [
+        "Classic cross-country skis and poles (no skate skiing allowed)",
+        "Race-specific low-friction ski wax matched to forecast temperature",
+        "Lightweight thermal bib and race suit",
+        "Energy gels and electrolyte solution for personal fuelling",
+        "Balaclava and lightweight gloves for the start (-15°C possible)",
+        "Race number and GPS tracker (provided at registration)",
+      ],
+      bestMonths: [3],
+      estimatedCost: 80000,
+      latitude: 61.0,
+      longitude: 14.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 31,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["europe"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["cultural-immersion"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure70.id },
+      { userId: user1.id, adventureId: adventure70.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
