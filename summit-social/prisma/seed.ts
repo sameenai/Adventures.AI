@@ -4956,6 +4956,70 @@ November–February is the best season. Holi (March) in Jaipur and Pushkar is an
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 83 — Luang Prabang Temples and Mekong Slow Boat, Laos
+  // -------------------------------------------------------------------------
+  const adventure83 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-83" },
+    update: {},
+    create: {
+      id: "seed-adventure-83",
+      title: "Luang Prabang Temples and Mekong Slow Boat, Laos",
+      description: `Luang Prabang is Southeast Asia's most perfectly preserved UNESCO heritage town — a narrow peninsula at the confluence of the Mekong and Nam Khan rivers, where 33 golden-roofed temples sit among French colonial villas, Buddhist monks in saffron robes perform the daily alms-giving (tak bat) at dawn, and the night market fills a single street with silk, paper lanterns, and sticky rice in a hundred variations.
+
+The approach matters: the classic arrival is the two-day slow boat from the Thai border at Huay Xai, drifting 300km down the Mekong on a wooden longboat, stopping at villages along the way. It is slow, it is occasionally uncomfortable, and it is one of the great river journeys in Southeast Asia.
+
+Beyond Luang Prabang, the Kuang Si waterfalls (turquoise tiered pools, 30km south), the mysterious Plain of Jars (megalithic stone vessels on a plateau in Phonsavanh), and Vang Vieng's karst limestone canyons extend a two-week Laos itinerary naturally. Budget travel in Laos is genuinely inexpensive — USD 50–80 per day for good guesthouses, local food, and transport.
+
+Dry season (November–April) is the standard visiting window. February and March see the lowest water on the Mekong (slow boat may be cancelled at extreme low water).`,
+      location: "Luang Prabang, Houaphanh and Mekong River",
+      country: "Laos",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1498931299472-f7a63a0ef8c8?w=1600&q=80",
+      highlights: [
+        "Tak bat dawn alms-giving ceremony — monks collecting rice in silence at sunrise",
+        "Mekong slow boat — two days drifting 300km through the jungle",
+        "Kuang Si waterfalls — multi-tiered turquoise pools with rope swings",
+        "Wat Xieng Thong — Luang Prabang's finest temple with mosaic Tree of Life",
+        "Plain of Jars — Bronze Age mystery of 2,000-year-old stone vessels",
+        "Night market silk shopping and Laotian BBQ on the river bend",
+      ],
+      gear: [
+        "Modest dress (long trousers and covered shoulders for temples)",
+        "Lightweight rain jacket (flash showers even in dry season)",
+        "Insect repellent (mosquitoes active at dusk in the jungle)",
+        "US dollars or Thai baht (accepted widely; ATMs available)",
+        "Earplugs for slow boat hammering on wooden planks",
+        "Camera for the alms-giving ceremony (no flash, respectful distance)",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 80000,
+      latitude: 19.8857,
+      longitude: 102.1351,
+      published: true,
+      userId: user2.id,
+      voteCount: 54,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["culture"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure83.id },
+      { userId: user2.id, adventureId: adventure83.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
