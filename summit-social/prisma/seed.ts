@@ -6692,6 +6692,47 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     skipDuplicates: true,
   });
 
+  // Adventure 115
+  const adventure115 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-115" },
+    update: {},
+    create: {
+      id: "seed-adventure-115",
+      title: "Kenya Highlands Horseback and Trek",
+      description: `The Kenyan Highlands offer a rarely visited side of East Africa — green volcanic hills, tea plantations, Maasai community lands, and the dramatic Aberdare Range — best explored on horseback at dawn and on foot through the forest at dusk. Ride across the Laikipia Plateau, visit a Maasai manyatta, track wildlife on guided bush walks, and spend nights at colonial-era farm lodges overlooking the Great Rift Valley. A unique fusion of equestrian adventure and cultural immersion far from the standard safari circuit.`,
+      location: "Nanyuki",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=1600&q=80",
+      highlights: [
+        "Horseback across Laikipia Plateau",
+        "Maasai village visit",
+        "Aberdare forest walk",
+        "Rift Valley sunset views",
+        "Mount Kenya foothills",
+      ],
+      gear: ["Riding boots and helmet", "Trekking boots", "Light merino layers", "Sun protection", "Binoculars"],
+      bestMonths: [1, 2, 6, 7, 8, 9, 10],
+      estimatedCost: 3200,
+      latitude: 0.01,
+      longitude: 37.07,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["cultural"].id }, { id: allTags["africa"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure115.id },
+      { userId: user2.id, adventureId: adventure115.id },
+    ],
+    skipDuplicates: true,
+  });
+
   // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
