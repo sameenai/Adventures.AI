@@ -4827,6 +4827,71 @@ Dry season (October–May) is the best visiting window. Budget USD 100–180 per
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 81 — Bhutan Kingdom Highlights Tour
+  // -------------------------------------------------------------------------
+  const adventure81 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-81" },
+    update: {},
+    create: {
+      id: "seed-adventure-81",
+      title: "Bhutan Kingdom Highlights Tour",
+      description: `Bhutan charges a Sustainable Development Fee (currently USD 200 per night) that effectively limits tourism to those who value depth over volume — and the country it protects is extraordinary. Gross National Happiness is the governing philosophy, carbon-negative forests cover 70% of the land, and the dzongs (fortified monastery-palaces) that crown every valley are architecturally unlike anything else in the Buddhist world.
+
+The Tiger's Nest (Paro Taktsang) is the iconic image — a monastery clinging to a sheer 3,000m cliff face, a 2-hour hike from the valley floor. It is genuinely extraordinary in a way that photographs do not convey. But the Punakha Dzong at the confluence of two rivers, the Gangtey Valley Crane Festival, and the Black Mountains National Park offer equally vivid experiences with fewer crowds.
+
+Bhutan can only be entered via a licensed tour operator, and all visitors must be on a pre-arranged itinerary with a certified guide. This is not restrictive in practice — guides are knowledgeable, the accommodation options have expanded considerably, and the tour structure means you spend time in places you'd never find independently.
+
+October–November is the best combination of clear Himalayan views and the Thimphu Tshechu festival. March–May offers rhododendron blooms across the mountain passes.`,
+      location: "Paro, Thimphu, Punakha, Bumthang",
+      country: "Bhutan",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1604928141064-207cea6f571f?w=1600&q=80",
+      highlights: [
+        "Tiger's Nest Monastery (Paro Taktsang) — cliff-face monastery at 3,120m",
+        "Punakha Dzong — the most beautiful fortress in Bhutan at the river confluence",
+        "Gangtey Valley — wintering ground for the critically endangered black-necked crane",
+        "Thimphu Tshechu — masked dance festival at the national dzong (October)",
+        "Dochula Pass — 108 memorial stupas with views of the Bhutan Himalaya",
+        "Gross National Happiness conversation with a Bhutanese guide",
+      ],
+      gear: [
+        "Comfortable trekking shoes (Tiger's Nest hike is 2 hours each way)",
+        "Modest dress — gho or kira (national dress) not required for tourists",
+        "Warm layers — Thimphu at 2,300m can be cold in October",
+        "Ngultrum cash or Indian rupees (widely accepted)",
+        "Camera with long lens — Himalayan views from Dochula are exceptional",
+        "Travel insurance that covers altitude (Paro airport at 2,235m)",
+      ],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 300000,
+      latitude: 27.4716,
+      longitude: 89.6386,
+      published: true,
+      userId: user3.id,
+      voteCount: 63,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["culture"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure81.id },
+      { userId: user3.id, adventureId: adventure81.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
