@@ -4631,6 +4631,72 @@ Stay in Capbreton, Hossegor, or Seignosse. Budget EUR 150–250 per day. Septemb
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 78 — Skeleton Bay Endless Left, Namibia
+  // -------------------------------------------------------------------------
+  const adventure78 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-78" },
+    update: {},
+    create: {
+      id: "seed-adventure-78",
+      title: "Skeleton Bay Endless Left, Namibia",
+      description: `Skeleton Bay — also known as Donkergat — is arguably the longest and most powerful left-hand point break in the world. On the right swell, the wave runs for over a kilometre along a sandbar formed by the convergence of the Kunene River and the South Atlantic on Namibia's remote northern coast, peeling with mechanical perfection at 30–40km/h. It was virtually unknown outside Namibia until footage of surfer Cory Lopez riding it circulated in 2006.
+
+Access requires a permit from the Namibian government for the Skeleton Coast National Park, a 4WD vehicle, and either a very long drive from Windhoek or a light aircraft flight to a nearby airstrip. The nearest town with services is Swakopmund, 400km south. You'll be camping in the desert with fog rolling off the cold Benguela current and jackals and hyenas circling camp at night.
+
+The wave only works on a specific swell direction, period, and tide combination — perhaps 10–20 sessions per year meet all criteria. Many trips are blanked entirely. When it does fire, however, it is one of the most extraordinary natural phenomena in surfing: a single uninterrupted left that runs from point to point with power that only increases as you ride deeper.
+
+This is an expedition, not a holiday. Bring everything you need, build in buffer days, and accept that you might not surf a single good wave. The desert and the cold Atlantic coast are themselves worth the journey.`,
+      location: "Skeleton Coast, Kunene Region",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.SURFING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1455729552865-3658a5d39692?w=1600&q=80",
+      highlights: [
+        "1km+ unbroken left-hand barrel — possibly the longest point break on earth",
+        "Desert camping on the Skeleton Coast with jackals and fog",
+        "Cold Benguela current marine life — Cape fur seals, dolphins, great white sharks",
+        "Light aircraft approach over the Namib Desert to the remote airstrip",
+        "Skeleton Coast wreck photography — ghost ships on the Namibian shore",
+        "Complete isolation — one of the least-visited surf breaks in the world",
+      ],
+      gear: [
+        "4/3mm full suit minimum (water 14–17°C year-round, cold Benguela current)",
+        "5mm hood and booties for extended sessions",
+        "6'4\"–7'0\" step-up board for powerful, fast wave",
+        "4WD vehicle with full desert recovery kit and 200L water",
+        "Camping kit for 2 weeks: everything self-sufficient",
+        "Namibia national park permit (apply months in advance)",
+        "Satellite phone — no cell coverage in the park",
+      ],
+      bestMonths: [3, 4, 5, 6, 7, 8, 9],
+      estimatedCost: 600000,
+      latitude: -17.5,
+      longitude: 11.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 28,
+      tags: {
+        connect: [
+          { id: allTags["desert"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["expedition"].id },
+          { id: allTags["wildlife"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure78.id },
+      { userId: user3.id, adventureId: adventure78.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
