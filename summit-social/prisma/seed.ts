@@ -5535,6 +5535,69 @@ October–May is the prime season. Summer (June–September) is hot (air and wat
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 92 — Great Barrier Reef Liveaboard, Coral Sea
+  // -------------------------------------------------------------------------
+  const adventure92 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-92" },
+    update: {},
+    create: {
+      id: "seed-adventure-92",
+      title: "Great Barrier Reef Liveaboard, Coral Sea",
+      description: `The Great Barrier Reef is the world's largest coral ecosystem — 2,300km of coral reef, 600 types of coral, 1,500 fish species, and 4,000 mollusk species — stretching along the Queensland coast from the Torres Strait to the Capricorn Group. Visiting from the mainland on day boats gives a surface impression; a liveaboard departing from Cairns or Port Douglas reaches the Outer Barrier Reef and the Coral Sea Ribbon Reefs, where the marine density and coral cover exceed anything accessible on a day trip.
+
+The Ribbon Reefs (numbers 3, 9, and 10) at the northern end of the barrier are the prime liveaboard target — narrow ribbons of reef rising to the surface from the continental shelf edge, with dramatic wall diving, hawksbill turtle density, and the Cod Hole potato cod encounter (enormous 2-metre groupers that eat from divers' hands). Steve's Bommie in the Far North Section has some of the best coral cover on the reef.
+
+The Coral Sea Osprey Reef and Shark Observatory sites add pelagic sharks, Silvertip reef sharks, and the opportunity for night dives that are among the best in the world. Day-trippers never see these sites.
+
+Best season: June–November for clearest water and calmest conditions. Cyclone season (November–April) creates weather risk for offshore sites. 3-night liveaboards from Cairns run USD 600–900; week-long Coral Sea expeditions USD 1,500–2,500.`,
+      location: "Outer Barrier Reef and Coral Sea, North Queensland",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1484291470158-b8f8d608850d?w=1600&q=80",
+      highlights: [
+        "Cod Hole potato cod feeding — 2-metre groupers approaching at arm's length",
+        "Ribbon Reef walls — 40m vertical coral gardens with zero visibility reduction",
+        "Osprey Reef night dive — sleeping whitetip reef sharks and bioluminescent plankton",
+        "Hawksbill sea turtle encounters — highest density on the northern barrier",
+        "Steve's Bommie hard coral gardens — best coral cover on the reef",
+        "Minke whale encounters on the outer ribbon reefs (June–July)",
+      ],
+      gear: [
+        "PADI Open Water minimum; Advanced recommended for wall diving",
+        "3mm shorty or 5mm full suit (water 22–28°C seasonal variation)",
+        "Dive torch for night dives and crevasse exploration",
+        "Reef-safe sunscreen only (chemical sunscreens banned in national parks)",
+        "Underwater camera — photo quality is stunning in the Coral Sea",
+      ],
+      bestMonths: [6, 7, 8, 9, 10, 11],
+      estimatedCost: 200000,
+      latitude: -16.5,
+      longitude: 146.0,
+      published: true,
+      userId: user2.id,
+      voteCount: 64,
+      tags: {
+        connect: [
+          { id: allTags["australia"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure92.id },
+      { userId: user2.id, adventureId: adventure92.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
