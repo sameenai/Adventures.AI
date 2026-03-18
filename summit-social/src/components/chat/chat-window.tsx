@@ -72,7 +72,7 @@ export function ChatWindow({ itineraryId, initialMessages = [], initialPrompt }:
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3" aria-live="polite" aria-atomic="false">
         {messages.length === 0 && (
           <div className="flex h-full items-center justify-center">
             <div className="max-w-sm text-center">
@@ -116,9 +116,11 @@ export function ChatWindow({ itineraryId, initialMessages = [], initialPrompt }:
         <div className="flex gap-2">
           <input
             type="text"
+            name="message"
+            aria-label="Message"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="e.g. 2 weeks trekking in Nepal, budget £3,000..."
+            placeholder="e.g. 2 weeks trekking in Nepal, budget £3,000…"
             className="flex-1 border border-stone-700 bg-stone-900 px-4 py-2 text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
             disabled={isStreaming}
           />
