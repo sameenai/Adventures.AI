@@ -261,15 +261,34 @@ describe("FlightCard", () => {
     expect(screen.getByText("2 stops")).toBeInTheDocument();
   });
 
-  it("renders Book link when deepLink is provided", () => {
+  it("shows Book button in expanded panel when deepLink is provided", () => {
     render(<FlightCard offer={mockOffer} />);
-    const bookLink = screen.getByText("Book").closest("a");
-    expect(bookLink).toHaveAttribute("href", "https://booking.example.com");
+    // Card is collapsed by default — click to expand
+    fireEvent.click(screen.getByText("LHR"));
+    expect(screen.getByText(/Book on British Airways/)).toBeTruthy();
   });
 
-  it("does not render Book link when deepLink is empty", () => {
+  it("shows no-link message in expanded panel when deepLink is empty", () => {
     render(<FlightCard offer={{ ...mockOffer, deepLink: "" }} />);
-    expect(screen.queryByText("Book")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByText("LHR"));
+    expect(screen.getByText(/No booking link/i)).toBeTruthy();
+    expect(screen.queryByText(/Book on/)).toBeNull();
+  });
+
+  it("shows label badge when label prop is provided", () => {
+    render(<FlightCard offer={mockOffer} label="cheapest" />);
+    expect(screen.getByText("Cheapest")).toBeTruthy();
+  });
+
+  it("expands and collapses on repeated clicks", () => {
+    render(<FlightCard offer={mockOffer} />);
+    const firstLhr = screen.getAllByText("LHR")[0];
+    // Expand
+    fireEvent.click(firstLhr);
+    expect(screen.getByText(/Direct route/)).toBeTruthy();
+    // Collapse
+    fireEvent.click(firstLhr);
+    expect(screen.queryByText(/Direct route/)).toBeNull();
   });
 });
 
