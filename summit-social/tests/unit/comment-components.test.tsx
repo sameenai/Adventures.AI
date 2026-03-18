@@ -16,9 +16,10 @@ vi.mock("next/link", () => ({
     <a href={href}>{children}</a>
   ),
 }));
-vi.mock("@/lib/utils", () => ({
-  timeAgo: () => "2 days ago",
-}));
+vi.mock("@/lib/utils", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/utils")>();
+  return { ...actual, timeAgo: () => "2 days ago" };
+});
 
 afterEach(cleanup);
 
@@ -152,7 +153,6 @@ const ownerComment: CommentWithUser = {
 describe("CommentSection — delete", () => {
   beforeEach(() => {
     global.fetch = vi.fn();
-    vi.spyOn(window, "confirm").mockReturnValue(true);
   });
   afterEach(() => {
     vi.restoreAllMocks();
@@ -182,7 +182,7 @@ describe("CommentSection — delete", () => {
     expect(screen.queryByText("Delete")).toBeNull();
   });
 
-  it("removes comment from view after delete", async () => {
+  it("removes comment from view after confirming delete", async () => {
     (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({ ok: true });
     render(
       <CommentSection
@@ -192,6 +192,8 @@ describe("CommentSection — delete", () => {
       />,
     );
     fireEvent.click(screen.getByText("Delete"));
+    // Confirmation modal should now be open
+    fireEvent.click(screen.getByRole("button", { name: /delete comment/i }));
     await waitFor(() => expect(screen.queryByText("Loved it!")).toBeNull());
     expect(global.fetch).toHaveBeenCalledWith(
       `/api/adventures/adv-1/comments/${ownerComment.id}`,
@@ -199,8 +201,7 @@ describe("CommentSection — delete", () => {
     );
   });
 
-  it("does not delete when confirm is cancelled", async () => {
-    vi.spyOn(window, "confirm").mockReturnValue(false);
+  it("does not delete when confirmation modal is cancelled", async () => {
     render(
       <CommentSection
         adventureId="adv-1"
@@ -209,6 +210,9 @@ describe("CommentSection — delete", () => {
       />,
     );
     fireEvent.click(screen.getByText("Delete"));
+    // Cancel in the confirmation modal
+    const cancelBtns = screen.getAllByRole("button", { name: /cancel/i });
+    fireEvent.click(cancelBtns[cancelBtns.length - 1]);
     expect(global.fetch).not.toHaveBeenCalled();
     expect(screen.getByText("Loved it!")).toBeTruthy();
   });

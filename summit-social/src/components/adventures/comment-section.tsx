@@ -1,6 +1,7 @@
 "use client";
 
 import { CommentForm } from "@/components/adventures/comment-form";
+import { Modal } from "@/components/ui/modal";
 import { timeAgo } from "@/lib/utils";
 import type { CommentWithUser } from "@/types";
 import Image from "next/image";
@@ -29,6 +30,7 @@ function CommentBody({
   const [editBody, setEditBody] = useState(comment.body);
   const [body, setBody] = useState(comment.body);
   const [deleting, setDeleting] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [saving, setSaving] = useState(false);
   const [reacted, setReacted] = useState(comment.viewerReacted ?? false);
   const [reactionCount, setReactionCount] = useState(comment._count?.reactions ?? 0);
@@ -69,8 +71,8 @@ function CommentBody({
     setSaving(false);
   };
 
-  const handleDelete = async () => {
-    if (!confirm("Delete this comment?")) return;
+  const confirmDelete = async () => {
+    setConfirmingDelete(false);
     setDeleting(true);
     const res = await fetch(`/api/adventures/${adventureId}/comments/${comment.id}`, {
       method: "DELETE",
@@ -95,7 +97,7 @@ function CommentBody({
           <div className="flex items-baseline gap-2">
             <Link
               href={`/profile/${comment.user.id}`}
-              className="font-mono text-xs text-stone-300 hover:text-amber-500 transition-colors"
+              className="font-mono text-xs text-stone-300 transition-colors hover:text-amber-500"
             >
               {comment.user.name}
             </Link>
@@ -107,6 +109,7 @@ function CommentBody({
           {editing ? (
             <div className="mt-1 space-y-2">
               <textarea
+                aria-label="Edit comment"
                 value={editBody}
                 onChange={(e) => setEditBody(e.target.value)}
                 rows={3}
@@ -117,7 +120,7 @@ function CommentBody({
                   type="button"
                   onClick={handleSave}
                   disabled={saving}
-                  className="border border-amber-500 px-2.5 py-1 font-display text-xs uppercase tracking-widest text-amber-500 hover:bg-amber-500/10 transition-colors disabled:opacity-50"
+                  className="border border-amber-500 px-2.5 py-1 font-display text-xs uppercase tracking-widest text-amber-500 transition-colors hover:bg-amber-500/10 disabled:opacity-50"
                 >
                   {saving ? "…" : "Save"}
                 </button>
@@ -127,7 +130,7 @@ function CommentBody({
                     setEditing(false);
                     setEditBody(body);
                   }}
-                  className="font-mono text-xs text-stone-600 hover:text-stone-400 transition-colors"
+                  className="font-mono text-xs text-stone-600 transition-colors hover:text-stone-400"
                 >
                   Cancel
                 </button>
@@ -137,21 +140,22 @@ function CommentBody({
             <p className="mt-1 text-sm leading-relaxed text-stone-400">{body}</p>
           )}
 
-          <div className="mt-1.5 flex items-center gap-3">
+          <div className="mt-1.5 flex items-center gap-3" aria-live="polite">
             <button
               type="button"
               onClick={handleReact}
               disabled={!currentUserId || reacting}
+              aria-label={`React with thumbs up${reactionCount > 0 ? `, ${reactionCount} reactions` : ""}`}
               className={`flex items-center gap-1 font-mono text-xs transition-colors disabled:cursor-not-allowed ${reacted ? "text-amber-500" : "text-stone-600 hover:text-amber-500"}`}
             >
-              <span>👍</span>
+              <span aria-hidden="true">👍</span>
               {reactionCount > 0 && <span>{reactionCount}</span>}
             </button>
             {currentUserId && !editing && (
               <button
                 type="button"
                 onClick={() => setReplyingTo((v) => !v)}
-                className="font-mono text-xs text-stone-600 hover:text-amber-500 transition-colors"
+                className="font-mono text-xs text-stone-600 transition-colors hover:text-amber-500"
               >
                 {replyingTo ? "Cancel" : "Reply"}
               </button>
@@ -161,15 +165,15 @@ function CommentBody({
                 <button
                   type="button"
                   onClick={() => setEditing(true)}
-                  className="font-mono text-xs text-stone-600 hover:text-stone-400 transition-colors"
+                  className="font-mono text-xs text-stone-600 transition-colors hover:text-stone-400"
                 >
                   Edit
                 </button>
                 <button
                   type="button"
-                  onClick={handleDelete}
+                  onClick={() => setConfirmingDelete(true)}
                   disabled={deleting}
-                  className="font-mono text-xs text-stone-600 hover:text-red-400 transition-colors disabled:opacity-50"
+                  className="font-mono text-xs text-stone-600 transition-colors hover:text-red-400 disabled:opacity-50"
                 >
                   {deleting ? "…" : "Delete"}
                 </button>
@@ -197,7 +201,7 @@ function CommentBody({
                 <div className="flex items-baseline gap-2">
                   <Link
                     href={`/profile/${reply.user.id}`}
-                    className="font-mono text-xs text-stone-300 hover:text-amber-500 transition-colors"
+                    className="font-mono text-xs text-stone-300 transition-colors hover:text-amber-500"
                   >
                     {reply.user.name}
                   </Link>
@@ -219,6 +223,33 @@ function CommentBody({
           )}
         </div>
       )}
+
+      {/* Delete confirmation modal */}
+      <Modal
+        open={confirmingDelete}
+        onClose={() => setConfirmingDelete(false)}
+        title="Delete comment"
+      >
+        <p className="text-sm text-stone-400">
+          Are you sure you want to delete this comment? This cannot be undone.
+        </p>
+        <div className="mt-5 flex justify-end gap-3">
+          <button
+            type="button"
+            onClick={() => setConfirmingDelete(false)}
+            className="border border-stone-700 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-400 transition-colors hover:text-stone-200"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={confirmDelete}
+            className="border border-red-700 bg-red-950/40 px-4 py-2 font-display text-xs uppercase tracking-widest text-red-400 transition-colors hover:bg-red-900/40"
+          >
+            Delete comment
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }
