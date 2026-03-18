@@ -3731,6 +3731,3218 @@ The international expedition vessel carries scientists and specialist guides who
   });
 
   // -------------------------------------------------------------------------
+  // Adventure 64 — Chamonix Vallée Blanche Off-Piste Route
+  // -------------------------------------------------------------------------
+  const adventure64 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-64" },
+    update: {},
+    create: {
+      id: "seed-adventure-64",
+      title: "Chamonix Vallée Blanche Off-Piste Route",
+      description: `The Vallée Blanche is one of the world's great ski descents — 24 kilometres of high-mountain off-piste from the Aiguille du Midi at 3,842m down to Chamonix at 1,035m, threading through crevassed glaciers, seracs, and open powder bowls that feel genuinely remote despite the cable car that drops you in.
+
+The descent begins with the notorious arête — a knife-edge ridge crossed in ski boots, crampons in hand, with a 1,000m drop on each side. Once down onto the glacier the terrain opens up. The classic route tracks through the Géant icefall and across the wide Mer de Glace, but variations into the Envers du Plan couloirs and the Pointe Helbronner add technical spice and solitude.
+
+A certified mountain guide is not optional — this is a glaciated, crevasse-riddled environment where conditions change daily and route-finding experience matters. Rent a guide through the Compagnie des Guides de Chamonix and book well ahead for prime January–March powder windows.
+
+Budget USD 300–500 per person for the guided day, cable car tickets, and lift passes. Spend a few days in Chamonix first to acclimatise and ski resort runs — arriving cold on the Vallée Blanche wastes the experience.`,
+      location: "Aiguille du Midi, Chamonix-Mont-Blanc",
+      country: "France",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 1,
+      coverImageUrl: "https://images.unsplash.com/photo-1548116137-c9ac24e446a9?w=1600&q=80",
+      highlights: [
+        "The arête crossing at 3,842m — knife-edge ridge with 1,000m exposure on both sides",
+        "Géant icefall — ski between house-sized seracs on the upper glacier",
+        "24km continuous descent dropping 2,800m vertical metres",
+        "Mer de Glace — the largest glacier in the French Alps",
+        "First light on Mont Blanc and the Grandes Jorasses from the cable car",
+        "Optional Envers du Plan couloirs for advanced off-piste variation",
+      ],
+      gear: [
+        "Off-piste skis (min 95mm underfoot)",
+        "Avalanche transceiver, probe, and shovel (mandatory)",
+        "Ski crampons and ski mountaineering harness for arête",
+        "Helmet and ski goggles (glacier UV is intense)",
+        "Insulated mid-layer (temperature at 3,800m often -15°C)",
+        "Glacier glasses with side shields",
+        "Emergency bivy and first-aid kit",
+      ],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 45000,
+      latitude: 45.8767,
+      longitude: 6.8872,
+      published: true,
+      userId: user1.id,
+      voteCount: 74,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["europe"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure64.id },
+      { userId: user2.id, adventureId: adventure64.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 65 — Niseko Powder Safari, Hokkaido
+  // -------------------------------------------------------------------------
+  const adventure65 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-65" },
+    update: {},
+    create: {
+      id: "seed-adventure-65",
+      title: "Niseko Powder Safari, Hokkaido",
+      description: `Niseko receives an average of 15 metres of snowfall per season — more than almost any other ski resort on earth — and the quality of that snow is legendary. Cold Siberian air picks up moisture crossing the Sea of Japan and dumps it on Hokkaido as ultra-dry, ultra-light powder that skiers and snowboarders have been hunting since the early 2000s.
+
+The resort complex (Grand Hirafu, Hanazono, Annupuri, Village) is well-connected and increasingly high-end, but the real draw is the gate access into the open backcountry trees. When the gates open after a storm cycle, locals and visitors sprint for the powder stashes in the larch forest beneath Annupuri — untouched lines that remain skiable for hours before they're tracked out.
+
+Beyond the resorts, day trips to nearby Furano or the smaller Rusutsu resort break up a longer stay. Combine with a night in Sapporo for ramen, izakaya culture, and the famous snow festival in early February.
+
+Ski season runs late November through late April. Peak powder window is January–February. Flights to Sapporo (New Chitose) then 90-minute bus to Niseko. Accommodation ranges from Japanese ryokan with onsen to European-style ski lodges — book months ahead for the best weeks.`,
+      location: "Niseko, Shiribeshi Subprefecture",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.SKIING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1606857521015-7463af9c8a83?w=1600&q=80",
+      highlights: [
+        "Hokkaido champagne powder — ultra-light, ultra-dry, 15m average annual snowfall",
+        "Backcountry gate access into untouched larch forest powder stashes",
+        "Soaking in outdoor onsen (hot spring) after a full powder day",
+        "Sapporo ramen and izakaya evenings during down days",
+        "Furano day trip for uncrowded Japanese resort skiing",
+        "Night skiing under lights at Grand Hirafu",
+      ],
+      gear: [
+        "Powder skis or snowboard (min 105mm underfoot strongly recommended)",
+        "Avalanche beacon, probe, and shovel for backcountry gate access",
+        "Warm waterproof jacket — Hokkaido cold is genuine (-15°C common)",
+        "Ski helmet and goggles",
+        "IC Suica card for local transport",
+        "Japan adaptor plug (Type A)",
+      ],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 300000,
+      latitude: 42.8048,
+      longitude: 140.6878,
+      published: true,
+      userId: user2.id,
+      voteCount: 61,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["cultural-immersion"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure65.id },
+      { userId: user3.id, adventureId: adventure65.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 66 — Lyngen Alps Ski Touring, Norway
+  // -------------------------------------------------------------------------
+  const adventure66 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-66" },
+    update: {},
+    create: {
+      id: "seed-adventure-66",
+      title: "Lyngen Alps Ski Touring, Norway",
+      description: `The Lyngen Alps rise almost directly from the sea in Arctic Norway — a 90km peninsula of steep, glaciated peaks descending to fjords. Ski touring here means ascending a 1,500m couloir in the morning, skiing a 45-degree face down to a fishing village, removing your skis to board a local boat, and crossing to the next fjord to do it again.
+
+The unique topography means you can access summit ski lines without snowmobiles or helicopters — just skins, good legs, and the ability to read fjord weather that changes faster than mountain weather anywhere in the Alps. The best lines face north and northeast, sheltered from the prevailing Atlantic systems that can shut down operations for days at a time.
+
+March and April offer the prime window — long daylight hours (18+ hours by late April), stable high-pressure systems, and consolidated snow that allows the most technical descents. The midnight sun makes it possible to ski at 11pm in a surreal pink light.
+
+Bases are the villages of Lyngseidet and Furuflaten. A handful of specialist guiding outfits run week-long trips — book 12+ months ahead. Alternatively, rent a van and explore independently, but carry full avalanche gear and have serious ski mountaineering experience.`,
+      location: "Lyngen Peninsula, Troms",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1550581190-3af14fe29cc1?w=1600&q=80",
+      highlights: [
+        "Ski from Arctic summits directly to the fjord — unique sea-level access",
+        "Midnight sun ski descents in late April — skiing at 11pm in pink light",
+        "Fjord boat crossings between ski lines",
+        "Northern lights visible from camp in March on clear nights",
+        "Remote couloirs and 45-degree north-facing faces rarely skied",
+        "Traditional Norwegian fishing village culture at valley level",
+      ],
+      gear: [
+        "Ski touring setup with 110mm+ powder skis",
+        "Avalanche transceiver, probe, and shovel",
+        "Ski crampons for hard morning crusts",
+        "Dry suit or immersion suit layer for potential water crossings",
+        "Arc'teryx-style hardshell (Arctic wind is relentless)",
+        "Bivy bag and emergency supplies",
+        "Headlamp (March) — redundant in April midnight sun",
+      ],
+      bestMonths: [3, 4],
+      estimatedCost: 350000,
+      latitude: 69.85,
+      longitude: 20.05,
+      published: true,
+      userId: user3.id,
+      voteCount: 49,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["arctic"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["midnight-sun"].id },
+          { id: allTags["alpine"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure66.id },
+      { userId: user3.id, adventureId: adventure66.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 67 — Heli-Skiing Bella Coola Wilderness, Canada
+  // -------------------------------------------------------------------------
+  const adventure67 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-67" },
+    update: {},
+    create: {
+      id: "seed-adventure-67",
+      title: "Heli-Skiing Bella Coola Wilderness, Canada",
+      description: `Bella Coola sits at the end of a glaciated fjord in the Coast Mountains of British Columbia, accessible only by a notoriously steep gravel road or floatplane. The mountains surrounding the valley hold some of the deepest snowpack and most untracked terrain in North America — which is why heli-ski operations here have drawn powder obsessives since the 1990s.
+
+A typical week involves four to six helicopter-accessed runs per day, dropping groups onto ridge spines above tree line before skiing 1,000–1,800m vertical through old-growth cedar and spruce forest to pickup zones. The trees here are different from most heli-ski terrain — massive old-growth with wide spacing, skiing through them like a cathedral.
+
+The snowpack is maritime — heavy and wet by January standards, but settles into a dense, supportive base that holds well into April. The real seasons are February through April when cold high-pressure systems deliver weeks of consistent powder conditions.
+
+Packages are typically week-long all-inclusive affairs run by Tweedsmuir Park Lodge or similar operators, including accommodation, meals, guide, and around 100,000 vertical feet of skiing. Budget USD 8,000–12,000 per person per week. Book 12–18 months in advance.`,
+      location: "Bella Coola Valley, Coast Mountains",
+      country: "Canada",
+      continent: "North America",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1547517023-6546a27fde7b?w=1600&q=80",
+      highlights: [
+        "Old-growth cedar cathedral skiing — massive spaced trees unlike any resort terrain",
+        "100,000+ vertical feet in a week on completely untracked snow",
+        "Helicopter landings on narrow ridge spines above the Bella Coola fjord",
+        "Wild salmon and coastal wilderness immersion from the lodge",
+        "Completely isolated — no other skiers in sight for the entire week",
+        "Glacier descents to sea-level fjord pickups",
+      ],
+      gear: [
+        "Powder skis (115mm+ underfoot) — operator can advise and sometimes rent",
+        "Avalanche transceiver, probe, and shovel (mandatory, guides check)",
+        "Breathable hardshell jacket and bibs",
+        "Liner gloves and gauntlet mittens",
+        "Goggle and helmet",
+        "Personal medications — nearest hospital is hours away",
+      ],
+      bestMonths: [2, 3, 4],
+      estimatedCost: 1000000,
+      latitude: 52.3667,
+      longitude: -126.7667,
+      published: true,
+      userId: user1.id,
+      voteCount: 38,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["expedition"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure67.id },
+      { userId: user1.id, adventureId: adventure67.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 68 — Verbier Freeride and Backcountry, Switzerland
+  // -------------------------------------------------------------------------
+  const adventure68 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-68" },
+    update: {},
+    create: {
+      id: "seed-adventure-68",
+      title: "Verbier Freeride and Backcountry, Switzerland",
+      description: `Verbier's Valais backstory: it hosts the Freeride World Tour finals, its terrain is the benchmark against which other resorts are judged, and its après-ski is equally renowned. But beyond the circuit runs and Mont Gelé chair, the serious playground extends into the 4 Vallées — 412km of piste and an interconnected backcountry that links to Nendaz, Veysonnaz, and Thyon.
+
+The Stairway to Heaven off-piste zone, accessible from the Jumbo cable car, gives access to the Swiss-Italian border terrain above 3,000m. The Vallon d'Arby couloir, the Chassoure face, and the Gentianes bowl are legendary powder zones tracked by resort guides and freeriders who wait out storms at the Farinet bar.
+
+Beyond Verbier, the week-long Haute Route from Verbier to Zermatt (or Chamonix in reverse) follows a classic ski mountaineering traverse through the Pennine Alps — five to eight days of glacier travel, hut stays, and summit skiing at altitude. Non-trivial navigation and glacier skills required.
+
+Verbier village is expensive — budget CHF 500–800 per day including accommodation, lift pass, and food. Shoulder weeks in March/April offer better snow and lower prices than peak February.`,
+      location: "Verbier, Valais Canton",
+      country: "Switzerland",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1484557985045-edb9d33cf0e4?w=1600&q=80",
+      highlights: [
+        "Mont Gelé and Attelas — the legendary Freeride World Tour circuit terrain",
+        "Stairway to Heaven off-piste zone above 3,000m",
+        "Chassoure face — classic 1,000m sustained steep descent",
+        "Option to extend to the Verbier–Zermatt Haute Route glacier traverse",
+        "World-class après-ski at the Farinet and Pub Mont Fort",
+        "4 Vallées interconnect — 412km piste with no lift queues midweek",
+      ],
+      gear: [
+        "Freeride or all-mountain skis (100mm+ underfoot)",
+        "Avalanche safety kit (beacon, probe, shovel)",
+        "Multi-layer base system for variable March temperatures",
+        "Ski crampons for hard-snow Haute Route variant",
+        "Glacier glasses and high-factor sunscreen (UV at 3,000m)",
+        "CHF cash for refuge and hut stays",
+      ],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 400000,
+      latitude: 46.0967,
+      longitude: 7.2286,
+      published: true,
+      userId: user2.id,
+      voteCount: 55,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["europe"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure68.id },
+      { userId: user3.id, adventureId: adventure68.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 69 — La Grave Unpatrolled Ski, Hautes-Alpes
+  // -------------------------------------------------------------------------
+  const adventure69 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-69" },
+    update: {},
+    create: {
+      id: "seed-adventure-69",
+      title: "La Grave Unpatrolled Ski, Hautes-Alpes",
+      description: `La Grave is the anti-resort. One telepherique, no grooming, no ski patrol, no safety nets, no marked runs, no snowmaking. What you get instead is 2,150m of vertical on the north face of La Meije — the last unclimbed major Alpine peak when it was finally summited in 1877 — served by a single gondola that deposits you above the glaciers.
+
+The terrain is entirely natural: glaciers, crevasse fields, couloirs ranging from 35 to 55 degrees, and open snowfields that funnel you through cliff bands and moraine. First-timers typically hire a local guide (essential for your first season); regulars learn the terrain intimately over years. The locals who ski here daily in January are among the best off-piste skiers in Europe.
+
+The village of La Grave has resisted development with impressive stubbornness — a few cafés, a hardware shop, some basic pensions, and the Café de la Meije where the guides and mountain workers drink. No spa, no après-ski, no nightclub. Just skiing and mountains.
+
+December–April is the season. The lift doesn't open until the snowpack is safe — sometimes January. Skiers who come specifically for La Grave's culture stay in the village and ski every day the lift opens.`,
+      location: "La Grave, Hautes-Alpes",
+      country: "France",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1517823249873-f642ddc2b7a4?w=1600&q=80",
+      highlights: [
+        "2,150m unpatrolled vertical on the north face of La Meije",
+        "No grooming, no safety nets — completely natural glaciated terrain",
+        "Couloirs from 35–55 degrees on the Chancel and Girose glaciers",
+        "Café de la Meije — authentic mountain worker culture, no tourists",
+        "La Meije summit views — one of the most dramatic peaks in the French Alps",
+        "Skiing with the La Grave locals — daily riders who know every crevasse",
+      ],
+      gear: [
+        "Expert-level off-piste skis (105mm+)",
+        "Avalanche beacon, probe, shovel (mandatory — no patrol)",
+        "Crevasse rescue knowledge or guided arrangement",
+        "Ski crampons for morning glacial crossings",
+        "Rope team equipment if venturing beyond known routes",
+        "GPS device — the terrain does not have marked runs",
+      ],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 120000,
+      latitude: 45.0475,
+      longitude: 6.3014,
+      published: true,
+      userId: user3.id,
+      voteCount: 42,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["europe"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure69.id },
+      { userId: user3.id, adventureId: adventure69.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 70 — Vasaloppet 90km Cross-Country Ski Race, Sweden
+  // -------------------------------------------------------------------------
+  const adventure70 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-70" },
+    update: {},
+    create: {
+      id: "seed-adventure-70",
+      title: "Vasaloppet 90km Cross-Country Ski Race, Sweden",
+      description: `The Vasaloppet is the world's oldest and longest cross-country ski race — 90km through the Dalarna forest from Sälen to Mora, run every first Sunday of March since 1922. Up to 15,800 competitors start in waves, following the track Gustav Vasa used to flee into exile in 1520, only to be persuaded to return and lead the Swedish revolt. The race now attracts elite professionals, world-class amateurs, and weekend warriors from 80 countries.
+
+Training for the Vasaloppet is a year-round commitment if you want to finish respectably — the classic technique (diagonal striding and double-poling) requires specific muscle conditioning that running or cycling does not fully replicate. Skate skiing fitness transfers better. First-timers typically aim for the 6-hour mark; elites finish in under 3:40.
+
+The course climbs and descends through snow-laden pine forest on a groomed single track that widens to 8-12 lanes at key sections. Blueberry soup and energy drinks are distributed at checkpoints — the soup is tradition. The final kilometre through Mora with 50,000 spectators lining the street is one of sport's great finishers.
+
+Lottery entry opens in June each year; demand far exceeds supply. Stay in Mora, Borlänge, or at race-package hotels in Sälen. March in Dalarna averages -5°C but can reach -20°C — dress for the low end.`,
+      location: "Sälen to Mora, Dalarna",
+      country: "Sweden",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1531088941-39dbebb3e5c3?w=1600&q=80",
+      highlights: [
+        "90km through Dalarna forest — the world's oldest and longest ski race",
+        "Up to 15,800 simultaneous starters in the mass wave start",
+        "Blueberry soup tradition at mid-race checkpoints",
+        "Final kilometre through Mora with 50,000 spectators lining the course",
+        "Gustav Vasa's historic escape route through the frozen forest",
+        "Elite vs mass participation — finish alongside world-class skiers",
+      ],
+      gear: [
+        "Classic cross-country skis and poles (no skate skiing allowed)",
+        "Race-specific low-friction ski wax matched to forecast temperature",
+        "Lightweight thermal bib and race suit",
+        "Energy gels and electrolyte solution for personal fuelling",
+        "Balaclava and lightweight gloves for the start (-15°C possible)",
+        "Race number and GPS tracker (provided at registration)",
+      ],
+      bestMonths: [3],
+      estimatedCost: 80000,
+      latitude: 61.0,
+      longitude: 14.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 31,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["europe"].id },
+          { id: allTags["multi-day"].id },
+          { id: allTags["cultural-immersion"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure70.id },
+      { userId: user1.id, adventureId: adventure70.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 71 — Revelstoke Backcountry Ski Touring, Canada
+  // -------------------------------------------------------------------------
+  const adventure71 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-71" },
+    update: {},
+    create: {
+      id: "seed-adventure-71",
+      title: "Revelstoke Backcountry Ski Touring, Canada",
+      description: `Revelstoke Mountain Resort holds the greatest vertical drop of any ski resort in North America at 1,713m, but the backcountry surrounding the resort dwarfs even this. The Columbia Mountain range behind the town receives between 10–15m of snow annually, deposited by moisture-laden Pacific systems that stall against the peaks, and the touring terrain extends in every direction for hundreds of kilometres.
+
+The Mt. Cartier area above the town, accessible via snowmobile approach or helicopter, offers ski mountaineering on 2,600m peaks with glacier access and 50-degree couloirs. The Frisby Ridge, Durrand Glacier, and Battle Range present multi-day traverse options requiring full glacier travel skills and emergency preparedness in genuinely remote terrain.
+
+For those based in the resort rather than backcountry, Revelstoke's Ripper Bowl and North Bowl areas offer powder access via sidecountry gates. The town itself has evolved from a railroad heritage community into a ski culture hub — the downtown has exceptional food for its size and a culture that still values function over fashion.
+
+Best periods: January–March for deepest snowpack, April for spring corn and longest days. The Rogers Pass area (1.5 hours east) adds world-class ski mountaineering on a UNESCO heritage landscape.`,
+      location: "Revelstoke, British Columbia",
+      country: "Canada",
+      continent: "North America",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1578393097540-7b80c5cf34cd?w=1600&q=80",
+      highlights: [
+        "Greatest resort vertical in North America at 1,713m",
+        "Rogers Pass UNESCO site — legendary ski mountaineering peaks 90 min away",
+        "Durrand Glacier multi-day backcountry traverse",
+        "Mt. Cartier ski mountaineering — 2,600m peak with 50-degree couloirs",
+        "Columbia Mountains snowpack: 10–15m annual snowfall",
+        "Revelstoke's authentic railroad-town culture and outstanding local food scene",
+      ],
+      gear: [
+        "Ski touring setup or powder resort skis",
+        "Full avalanche safety kit",
+        "Snowmobile or helicopter access budget for backcountry approaches",
+        "Crevasse and glacier travel equipment for Durrand variant",
+        "Satellite communicator (SPOT/Garmin inReach) for remote terrain",
+        "Bear canister for multi-day backcountry trips",
+      ],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 280000,
+      latitude: 51.0039,
+      longitude: -118.1957,
+      published: true,
+      userId: user2.id,
+      voteCount: 44,
+      tags: {
+        connect: [
+          { id: allTags["skiing"].id },
+          { id: allTags["mountains"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["multi-day"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure71.id },
+      { userId: user2.id, adventureId: adventure71.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 72 — Banzai Pipeline Surf Trip, Oahu, Hawaii
+  // -------------------------------------------------------------------------
+  const adventure72 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-72" },
+    update: {},
+    create: {
+      id: "seed-adventure-72",
+      title: "Banzai Pipeline Surf Trip, Oahu, Hawaii",
+      description: `Pipeline on Oahu's North Shore is the most recognised surf break in the world — a shallow-water reef that takes North Pacific swells and turns them into perfectly-cylindrical tubes that break in under two metres of water over a sharp lava shelf. The wave is beautiful from the beach, terrifying from inside the tube.
+
+November through February is the prime season when North Pacific storms generate the groundswells that produce 4–8m Pipeline. The Eddie Aikau invitational, held only when waves exceed 6m at Waimea Bay nearby, occasionally coincides. Sunrise sessions before the crowds (and before the trade winds turn the water surface choppy) are the best tactical choice.
+
+Pipeline is not for beginners or even intermediate surfers — the wave is powerful, the reef is unforgiving, and a hold-down in a big set means genuine risk. Surfers in the lineup at the peak are predominantly professionals and elite amateurs who have served years of apprenticeship at nearby easier breaks like Off the Wall and Sunset. Watch from shore first; many days of a North Shore trip will be spent observing rather than surfing.
+
+Stay in Haleiwa or Waialua — 10–20 minutes from the beach. Rent a car; the North Shore has limited public transport. Budget USD 200–350 per day including accommodation, car, and food.`,
+      location: "Ehukai Beach, North Shore, Oahu",
+      country: "USA",
+      continent: "North America",
+      category: Category.SURFING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1600&q=80",
+      highlights: [
+        "Watching Pipeline from the sand at sunrise — the world's most perfect tube wave",
+        "Possible Eddie Aikau sighting at Waimea Bay on XXL swells",
+        "North Shore shrimp trucks and açaí bowls — Hawaii surf culture food",
+        "Sunset Beach and Backdoor right-handers for advanced surfers",
+        "Triple Crown of Surfing events held November–December annually",
+        "Haleiwa town — the authentic surf culture capital of Hawaii",
+      ],
+      gear: [
+        "6'2\" to 7'0\" step-up shortboard for 4-6ft conditions",
+        "7'0\"+ gun for larger swells (can rent from local shops)",
+        "2mm shorty or spring suit — Hawaii water 24–26°C",
+        "Reef booties (Pipeline reef is unforgiving on feet)",
+        "Surf wax (tropical formula)",
+        "Helmet strongly recommended for tube riding over shallow reef",
+      ],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 250000,
+      latitude: 21.6650,
+      longitude: -158.0540,
+      published: true,
+      userId: user3.id,
+      voteCount: 67,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["island"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure72.id },
+      { userId: user3.id, adventureId: adventure72.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 73 — Jeffreys Bay Surfing Expedition, South Africa
+  // -------------------------------------------------------------------------
+  const adventure73 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-73" },
+    update: {},
+    create: {
+      id: "seed-adventure-73",
+      title: "Jeffreys Bay Surfing Expedition, South Africa",
+      description: `Jeffreys Bay — J-Bay to anyone who surfs — is one of the five best point breaks on earth. The wave unzips from Boneyards through Point and on to Kitchen Windows in a single right-hand wall that in prime conditions runs for 800 metres without a section. In July during the WSL Championship Tour event, the world's best surfers compete here. The rest of the year, you share it with travelling surfers and a growing local contingent.
+
+The Agulhas current pushes cold, nutrient-rich water up from the South Atlantic, keeping the water at 14–18°C year-round — cold enough to require a 4/3mm full suit in winter, when the best swells arrive. The beach itself has evolved from a hippie outpost into a decent surf town with good accommodation and restaurants, but hasn't lost its edge entirely.
+
+Beyond J-Bay itself, the Eastern Cape offers remarkable marine wildlife — great white shark diving at Mossel Bay, whale watching from Cape Agulhas (August–November), and the Garden Route national parks within driving distance. A surf trip that combines J-Bay with a broader Eastern Cape road trip makes an exceptional two-week journey.
+
+Fly to Port Elizabeth (now Gqeberha), hire a car, and base yourself in J-Bay for surf. Three to seven days at the break itself is typical before extending the road trip.`,
+      location: "Jeffreys Bay, Eastern Cape",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.SURFING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1531722569936-825d4ebd6dad?w=1600&q=80",
+      highlights: [
+        "Supertubes — the main J-Bay peak, 800m of right-hand wall at its best",
+        "WSL Championship Tour event in July — watch the world's best surf",
+        "Great white shark cage diving at Mossel Bay, 2 hours west",
+        "Southern right whale watching from Cape Agulhas August–November",
+        "Billabong factory outlet — original surf gear at African prices",
+        "Boneyard sessions at sunrise before the onshore wind arrives",
+      ],
+      gear: [
+        "4/3mm full wetsuit (water temperature 14–18°C year-round)",
+        "6'2\"–7'0\" high-performance shortboard for clean point waves",
+        "Booties and gloves for mid-winter sessions",
+        "Surf wax (cold water formula)",
+        "Rash vest for summer sessions when winds warm up",
+      ],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 180000,
+      latitude: -34.0527,
+      longitude: 24.9285,
+      published: true,
+      userId: user1.id,
+      voteCount: 52,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure73.id },
+      { userId: user1.id, adventureId: adventure73.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 74 — Mentawai Islands Surf Charter, West Sumatra
+  // -------------------------------------------------------------------------
+  const adventure74 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-74" },
+    update: {},
+    create: {
+      id: "seed-adventure-74",
+      title: "Mentawai Islands Surf Charter, West Sumatra",
+      description: `The Mentawai Islands host more world-class surf breaks per square kilometre than anywhere else on the planet. HT's, Telescopes, Bank Vaults, Lance's Right, Macaronis — these are names spoken in reverence in every surf shop in the world. They exist because the islands sit directly in the path of Southern Ocean swells generated by storms in the Roaring Forties, funnelled through deep-water channels onto shallow tropical reefs.
+
+A live-aboard charter is the standard way to access the breaks: a boat sleeps 8–14 surfers and moves between spots daily based on swell direction, wind, and crowd avoidance. Trips run 7–14 days. The better boats have air conditioning, fresh meals, surf guides who know the breaks intimately, and enough wax to resupply your entire wetsuit bag.
+
+The surf is serious — hollow, fast, and often over very shallow reef. Macaronis is the forgiving entry point; Bank Vaults and Lance's Right demand experience in heavy, shallow barrels. Surfers averaging 3+ sessions per week at home will typically be challenged in ways they haven't been before.
+
+April through October offers the most consistent Southern Ocean swell. Charter packages typically run USD 3,000–6,000 per person for a 10-day trip, all-inclusive from Padang. Fly to Padang, overnight, then board.`,
+      location: "Mentawai Islands, West Sumatra",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.SURFING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1507697635994-b95a0ac11e27?w=1600&q=80",
+      highlights: [
+        "Macaronis — the perfect right-hand barrel, accessible for strong intermediate surfers",
+        "Bank Vaults — one of the heaviest shallow-water rights on the planet",
+        "Lance's Right — long, fast, peeling point break with multiple sections",
+        "Tropical live-aboard charter life — fresh fish, warm evenings, no crowds",
+        "HT's and Telescopes — two world-class lefts in the same anchorage",
+        "Mentawai tribal culture ashore — one of the last traditional tattoo cultures",
+      ],
+      gear: [
+        "4–6 performance shortboards (bring more than you think — dings happen)",
+        "Boardshorts only — water temperature 28–30°C year-round",
+        "Reef booties (mandatory for shallow-water breaks like Bank Vaults)",
+        "Surf helmet for heavy reef sections",
+        "Seasickness medication for the crossing (bumpy at times)",
+        "Reef first-aid kit including QuikClot and butterfly sutures",
+      ],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 450000,
+      latitude: -1.7,
+      longitude: 99.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 59,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["jungle"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure74.id },
+      { userId: user2.id, adventureId: adventure74.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 75 — Uluwatu Cliff Break Surf Camp, Bali
+  // -------------------------------------------------------------------------
+  const adventure75 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-75" },
+    update: {},
+    create: {
+      id: "seed-adventure-75",
+      title: "Uluwatu Cliff Break Surf Camp, Bali",
+      description: `Uluwatu is where Bali's surf culture concentrates — a left-hand reef break running along the base of dramatic limestone cliffs, accessible only by descending through a sea cave at low tide. The wave is long, consistent, and has multiple take-off zones that accommodate both intermediate and advanced surfers. In the 1970s it was one of the first breaks in Asia to gain international attention; it's been a pilgrimage site ever since.
+
+The Bukit Peninsula below the famous temple holds a cluster of world-class breaks within a short drive of each other: Padang Padang (Kelly Slater's favourite), Bingin (perfect shortboard lefts), Impossible (rarely breaking but extraordinary when it does), and Dreamland for beginners. A week based on the Bukit lets you sample the whole lineup based on swell and tide.
+
+The cliff-top warung restaurants above Uluwatu are legendary — plastic tables, Bintang beers, and a sunset view over the Indian Ocean with the surf far below. The famous Kecak dance at the Uluwatu temple happens every evening at dusk.
+
+Stay on the Bukit in Pecatu, Padang Padang, or Bingin. Accommodation ranges from USD 30 cliff-edge bungalows to boutique boutique villas. Rainy season (November–March) brings offshore winds and cleaner surf; dry season (April–October) offers bigger south swells.`,
+      location: "Uluwatu, Bukit Peninsula, Bali",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.SURFING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1519052726739-bcb1a18b24e4?w=1600&q=80",
+      highlights: [
+        "Uluwatu sea cave entry — paddle out through a limestone cave at low tide",
+        "Padang Padang — a perfect short, hollow tube that requires precise timing",
+        "Bingin right-hander — long, forgiving wall ideal for intermediate progression",
+        "Sunset Kecak fire dance at Uluwatu temple above the break",
+        "Cliff-top warung sunset — Bintang, grilled fish, and the Indian Ocean below",
+        "Dreamland for beginners when the bukit is too big",
+      ],
+      gear: [
+        "5'10\"–6'4\" shortboard for clean reef conditions",
+        "7'0\" mini-mal for Dreamland and learning days",
+        "Boardshorts only — Bali water 27–29°C",
+        "Rash vest or Lycra for sun protection",
+        "Reef booties recommended for Uluwatu and Padang Padang",
+        "Temple sarong (mandatory for Uluwatu temple entrance)",
+      ],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 120000,
+      latitude: -8.8294,
+      longitude: 115.0847,
+      published: true,
+      userId: user3.id,
+      voteCount: 73,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["island"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure75.id },
+      { userId: user3.id, adventureId: adventure75.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 76 — Cloud 9 Surf Trip, Siargao, Philippines
+  // -------------------------------------------------------------------------
+  const adventure76 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-76" },
+    update: {},
+    create: {
+      id: "seed-adventure-76",
+      title: "Cloud 9 Surf Trip, Siargao, Philippines",
+      description: `Cloud 9 is the Philippines' most famous wave — a thick, hollow right-hand reef break off the northeast coast of Siargao Island that barrels with mechanical consistency when the September–November typhoon swells arrive. The wave breaks in front of a wooden tower that has become one of the most photographed backdrops in Southeast Asian surfing.
+
+Siargao itself has transformed from a remote fishing island into a relaxed surf destination with enough good food, coconut beaches, and island-hopping options to sustain a two-week stay. The island's main town, General Luna, clusters around the surf zone — boardwalks, coconut water stalls, and surf schools for beginners who stay safely away from the Cloud 9 reef.
+
+Beyond Cloud 9, Siargao has a half-dozen more breaks suited to varying ability levels. Stimpy's, across the channel, offers a mellower option for less experienced surfers. Day trips to Sugba Lagoon, Naked Island, and the Sohoton Cove sea caves provide non-surfing activities for travel partners.
+
+Typhoon season brings the biggest swells (September–November) but also weather risk. February–April offers more stable conditions and smaller but still fun surf. Direct flights to Siargao (SAG) from Manila and Cebu have improved access considerably.`,
+      location: "Cloud 9, General Luna, Siargao Island",
+      country: "Philippines",
+      continent: "Asia",
+      category: Category.SURFING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1520366498724-709889c0c685?w=1600&q=80",
+      highlights: [
+        "Cloud 9 barrel — the iconic hollow right-hand reef in the Philippines",
+        "Wooden surf tower photo backdrop — one of surfing's most recognised images",
+        "Sugba Lagoon — a cathedral of turquoise water inside a hidden cove",
+        "Naked Island and Guyam Island day-trip snorkelling",
+        "Sohoton Cove sea caves and lagoon accessible by bangka boat",
+        "General Luna night market — grilled seafood and San Miguel at sunset",
+      ],
+      gear: [
+        "6'0\"–6'6\" shortboard for cloud 9 when it's 4–6ft",
+        "Mini-mal or longboard for Stimpy's and smaller days",
+        "Boardshorts and rash vest — water 27–30°C year-round",
+        "Reef booties (Cloud 9 is shallow and sharp at low tide)",
+        "Waterproof dry bag for bangka island trips",
+      ],
+      bestMonths: [9, 10, 11, 2, 3, 4],
+      estimatedCost: 100000,
+      latitude: 9.8411,
+      longitude: 126.1558,
+      published: true,
+      userId: user1.id,
+      voteCount: 46,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure76.id },
+      { userId: user1.id, adventureId: adventure76.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 77 — Hossegor Reef and Beach Break, Landes, France
+  // -------------------------------------------------------------------------
+  const adventure77 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-77" },
+    update: {},
+    create: {
+      id: "seed-adventure-77",
+      title: "Hossegor Reef and Beach Break, Landes, France",
+      description: `Hossegor in the Landes region of southwest France is Europe's surf capital — a beach break and reef combination that receives powerful Atlantic groundswells and turns them into fast, heavy beach-break tubes at La Nord and La Gravière, and a more forgiving reef peak at La Sud. Every September the Quiksilver Pro and Rip Curl Surf Festival bring the WSL Championship Tour to town.
+
+The underwater bathymetry is what makes Hossegor exceptional — a deep offshore canyon focuses Atlantic swells directly onto the sandbanks, producing waves that break with more power and speed than any other beach break in Europe. La Nord in September at 6ft is a legitimate big-wave experience despite being a sandy bottom; La Gravière has produced some of the heaviest barrels ever surfed on European soil.
+
+The town itself is a curious mix of Basque surf culture, pine forest, and serious French cuisine. Landaise food — duck confit, Bayonne ham, local wines from Madiran — is an unexpected bonus. The Basque Country is 40 minutes south, adding Biarritz, tapas bars in San Sebastián, and a completely different cultural register to a two-week trip.
+
+Stay in Capbreton, Hossegor, or Seignosse. Budget EUR 150–250 per day. September is the prime month — the summer crowds have gone but the Atlantic season hasn't yet arrived in earnest.`,
+      location: "Hossegor, Landes",
+      country: "France",
+      continent: "Europe",
+      category: Category.SURFING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1492176273113-2d51f47b23b0?w=1600&q=80",
+      highlights: [
+        "La Gravière beach break — one of the heaviest barrels in European surfing",
+        "Quiksilver Pro France — watch the WSL tour in September",
+        "La Nord on a 6ft Atlantic swell — legitimately powerful surf on sand",
+        "San Sebastián pintxos bars — 40 minutes south across the Spanish border",
+        "Basque Country road trip extension: Biarritz, Pamplona, Bilbao",
+        "Duck confit and Madiran wine — the Landes culinary detour",
+      ],
+      gear: [
+        "4/3mm full suit (water 16–19°C in September–October)",
+        "5'10\"–6'2\" performance shortboard for beach break power",
+        "Booties and hood for winter sessions November onwards",
+        "Earplugs (Hossegor is notorious for swimmer's ear from cold water)",
+        "Leash — La Gravière hold-downs are long, get a 9ft strong leash",
+      ],
+      bestMonths: [9, 10, 11],
+      estimatedCost: 160000,
+      latitude: 43.6667,
+      longitude: -1.4167,
+      published: true,
+      userId: user2.id,
+      voteCount: 41,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["europe"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure77.id },
+      { userId: user2.id, adventureId: adventure77.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 78 — Skeleton Bay Endless Left, Namibia
+  // -------------------------------------------------------------------------
+  const adventure78 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-78" },
+    update: {},
+    create: {
+      id: "seed-adventure-78",
+      title: "Skeleton Bay Endless Left, Namibia",
+      description: `Skeleton Bay — also known as Donkergat — is arguably the longest and most powerful left-hand point break in the world. On the right swell, the wave runs for over a kilometre along a sandbar formed by the convergence of the Kunene River and the South Atlantic on Namibia's remote northern coast, peeling with mechanical perfection at 30–40km/h. It was virtually unknown outside Namibia until footage of surfer Cory Lopez riding it circulated in 2006.
+
+Access requires a permit from the Namibian government for the Skeleton Coast National Park, a 4WD vehicle, and either a very long drive from Windhoek or a light aircraft flight to a nearby airstrip. The nearest town with services is Swakopmund, 400km south. You'll be camping in the desert with fog rolling off the cold Benguela current and jackals and hyenas circling camp at night.
+
+The wave only works on a specific swell direction, period, and tide combination — perhaps 10–20 sessions per year meet all criteria. Many trips are blanked entirely. When it does fire, however, it is one of the most extraordinary natural phenomena in surfing: a single uninterrupted left that runs from point to point with power that only increases as you ride deeper.
+
+This is an expedition, not a holiday. Bring everything you need, build in buffer days, and accept that you might not surf a single good wave. The desert and the cold Atlantic coast are themselves worth the journey.`,
+      location: "Skeleton Coast, Kunene Region",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.SURFING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1455729552865-3658a5d39692?w=1600&q=80",
+      highlights: [
+        "1km+ unbroken left-hand barrel — possibly the longest point break on earth",
+        "Desert camping on the Skeleton Coast with jackals and fog",
+        "Cold Benguela current marine life — Cape fur seals, dolphins, great white sharks",
+        "Light aircraft approach over the Namib Desert to the remote airstrip",
+        "Skeleton Coast wreck photography — ghost ships on the Namibian shore",
+        "Complete isolation — one of the least-visited surf breaks in the world",
+      ],
+      gear: [
+        "4/3mm full suit minimum (water 14–17°C year-round, cold Benguela current)",
+        "5mm hood and booties for extended sessions",
+        "6'4\"–7'0\" step-up board for powerful, fast wave",
+        "4WD vehicle with full desert recovery kit and 200L water",
+        "Camping kit for 2 weeks: everything self-sufficient",
+        "Namibia national park permit (apply months in advance)",
+        "Satellite phone — no cell coverage in the park",
+      ],
+      bestMonths: [3, 4, 5, 6, 7, 8, 9],
+      estimatedCost: 600000,
+      latitude: -17.5,
+      longitude: 11.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 28,
+      tags: {
+        connect: [
+          { id: allTags["desert"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["expedition"].id },
+          { id: allTags["wildlife"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure78.id },
+      { userId: user3.id, adventureId: adventure78.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 79 — Silk Road Cities: Tashkent to Khiva, Uzbekistan
+  // -------------------------------------------------------------------------
+  const adventure79 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-79" },
+    update: {},
+    create: {
+      id: "seed-adventure-79",
+      title: "Silk Road Cities: Tashkent to Khiva, Uzbekistan",
+      description: `Uzbekistan sits at the heart of the ancient Silk Road, and its four great cities — Tashkent, Samarkand, Bukhara, and Khiva — form one of the great cultural itineraries in the world. Tamerlane's empire left behind an architectural legacy so concentrated and so vivid that even an inattentive traveller is stopped in their tracks: the turquoise domes of the Registan, the mirrored madrassas of Bukhara, the walled medieval city of Khiva.
+
+A fast train (Afrosiyob high-speed rail) connects Tashkent to Samarkand in 2 hours and Samarkand to Bukhara in 1.5 hours. Khiva requires a flight or overnight train from Bukhara. The logical sequence is east to west: Tashkent → Samarkand → Bukhara → Khiva, spending 2 nights in each city.
+
+Uzbekistan has become substantially easier to visit since introducing e-visa access in 2018. English signage has improved in the major tourism sites, but Uzbek and Russian remain dominant languages in local markets. The plov (rice pilaf with lamb and carrots) served at every tablecloth restaurant is among the best food you will eat in Central Asia.
+
+Spring (April–May) and autumn (September–October) offer the best temperatures — summer in the Kyzylkum Desert can exceed 45°C. Budget USD 80–150 per day including accommodation, transport, and meals.`,
+      location: "Tashkent, Samarkand, Bukhara, Khiva",
+      country: "Uzbekistan",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?w=1600&q=80",
+      highlights: [
+        "Registan, Samarkand — three tiled madrassas around a square that stops time",
+        "Kalon minaret, Bukhara — the Pillar of Islam, 47m of intricate brickwork",
+        "Itchan Kala, Khiva — a completely walled medieval city with no modernity inside",
+        "Bibi-Khanym Mosque — Tamerlane's ambitious, crumbling masterpiece",
+        "Chorsu Bazaar, Tashkent — the city's ancient caravanserai market",
+        "Plov ceremony in Samarkand — the national dish cooked in 200-litre kazan pots",
+      ],
+      gear: [
+        "Modest dress (shoulders and knees covered at religious sites)",
+        "Comfortable walking shoes for extensive cobblestone touring",
+        "Cash in USD (ATMs unreliable in smaller towns)",
+        "Portable battery pack — charging infrastructure inconsistent",
+        "Sunscreen and sunhat — desert sun is intense April–September",
+        "Uzbek phrasebook or offline translation app",
+      ],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 120000,
+      latitude: 39.6547,
+      longitude: 66.9758,
+      published: true,
+      userId: user1.id,
+      voteCount: 56,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["desert"].id },
+          { id: allTags["culture"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure79.id },
+      { userId: user1.id, adventureId: adventure79.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 80 — Lalibela Rock Churches and Simien Mountains, Ethiopia
+  // -------------------------------------------------------------------------
+  const adventure80 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-80" },
+    update: {},
+    create: {
+      id: "seed-adventure-80",
+      title: "Lalibela Rock Churches and Simien Mountains, Ethiopia",
+      description: `Ethiopia rewards the traveller who goes beyond safari circuits. Lalibela in the Amhara highlands contains eleven rock-hewn churches carved directly into solid volcanic bedrock in the 12th century — an engineering achievement so implausible that medieval Europeans attributed the construction to angels. Bete Giyorgis (St George), the most photographed, descends 12 metres into the earth, its cruciform roof perfectly level with the surrounding ground.
+
+The Simien Mountains National Park, 400km northwest, is an altogether different experience — a shattered plateau of basalt columns and deep escarpments, home to the endemic Gelada baboon (the last grass-eating primate), Ethiopian wolf, and Walia ibex. Trekking here at altitudes above 4,000m to the summit of Ras Dejen, the fourth-highest peak in Africa, is a world-class high-altitude hiking experience largely undiscovered by international visitors.
+
+Combining Lalibela, Gondar (the 17th-century castle compound), and the Simien Mountains in a single two-week itinerary is achievable via domestic flights on Ethiopian Airlines. The cuisine — injera flatbread, doro wot chicken stew, tej honey wine — is excellent and inexpensive throughout.
+
+Dry season (October–May) is the best visiting window. Budget USD 100–180 per day including guides, permits, and accommodation.`,
+      location: "Lalibela and Simien Mountains National Park",
+      country: "Ethiopia",
+      continent: "Africa",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=1600&q=80",
+      highlights: [
+        "Bete Giyorgis — the cruciform rock-hewn church, a UNESCO World Heritage Site",
+        "Orthodox Christian pilgrimage atmosphere of Lalibela — priests in white robes",
+        "Gelada baboon troops at sunrise on the Simien escarpment",
+        "Ras Dejen summit (4,550m) — fourth-highest peak in Africa",
+        "Fasilides Castle complex, Gondar — 17th-century royal enclosure",
+        "Ethiopian coffee ceremony — the ritual preparation and three-cup sequence",
+      ],
+      gear: [
+        "Lightweight hiking boots (Simien trekking on rocky terrain)",
+        "Warm jacket — Simien nights above 3,800m drop to 0°C",
+        "Modest dress for churches (shoulders and legs covered)",
+        "Ethiopian Birr cash (cards unreliable outside Addis)",
+        "Altitude sickness medication (Simien plateau 3,800–4,550m)",
+        "Personal water filter — tap water not potable in rural areas",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 180000,
+      latitude: 12.0321,
+      longitude: 39.0476,
+      published: true,
+      userId: user2.id,
+      voteCount: 48,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["trekking"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure80.id },
+      { userId: user2.id, adventureId: adventure80.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 81 — Bhutan Kingdom Highlights Tour
+  // -------------------------------------------------------------------------
+  const adventure81 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-81" },
+    update: {},
+    create: {
+      id: "seed-adventure-81",
+      title: "Bhutan Kingdom Highlights Tour",
+      description: `Bhutan charges a Sustainable Development Fee (currently USD 200 per night) that effectively limits tourism to those who value depth over volume — and the country it protects is extraordinary. Gross National Happiness is the governing philosophy, carbon-negative forests cover 70% of the land, and the dzongs (fortified monastery-palaces) that crown every valley are architecturally unlike anything else in the Buddhist world.
+
+The Tiger's Nest (Paro Taktsang) is the iconic image — a monastery clinging to a sheer 3,000m cliff face, a 2-hour hike from the valley floor. It is genuinely extraordinary in a way that photographs do not convey. But the Punakha Dzong at the confluence of two rivers, the Gangtey Valley Crane Festival, and the Black Mountains National Park offer equally vivid experiences with fewer crowds.
+
+Bhutan can only be entered via a licensed tour operator, and all visitors must be on a pre-arranged itinerary with a certified guide. This is not restrictive in practice — guides are knowledgeable, the accommodation options have expanded considerably, and the tour structure means you spend time in places you'd never find independently.
+
+October–November is the best combination of clear Himalayan views and the Thimphu Tshechu festival. March–May offers rhododendron blooms across the mountain passes.`,
+      location: "Paro, Thimphu, Punakha, Bumthang",
+      country: "Bhutan",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1604928141064-207cea6f571f?w=1600&q=80",
+      highlights: [
+        "Tiger's Nest Monastery (Paro Taktsang) — cliff-face monastery at 3,120m",
+        "Punakha Dzong — the most beautiful fortress in Bhutan at the river confluence",
+        "Gangtey Valley — wintering ground for the critically endangered black-necked crane",
+        "Thimphu Tshechu — masked dance festival at the national dzong (October)",
+        "Dochula Pass — 108 memorial stupas with views of the Bhutan Himalaya",
+        "Gross National Happiness conversation with a Bhutanese guide",
+      ],
+      gear: [
+        "Comfortable trekking shoes (Tiger's Nest hike is 2 hours each way)",
+        "Modest dress — gho or kira (national dress) not required for tourists",
+        "Warm layers — Thimphu at 2,300m can be cold in October",
+        "Ngultrum cash or Indian rupees (widely accepted)",
+        "Camera with long lens — Himalayan views from Dochula are exceptional",
+        "Travel insurance that covers altitude (Paro airport at 2,235m)",
+      ],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 300000,
+      latitude: 27.4716,
+      longitude: 89.6386,
+      published: true,
+      userId: user3.id,
+      voteCount: 63,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["high-altitude"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["culture"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure81.id },
+      { userId: user3.id, adventureId: adventure81.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 82 — Rajasthan Palace and Thar Desert Tour, India
+  // -------------------------------------------------------------------------
+  const adventure82 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-82" },
+    update: {},
+    create: {
+      id: "seed-adventure-82",
+      title: "Rajasthan Palace and Thar Desert Tour, India",
+      description: `Rajasthan is India at its most theatrical — a state where maharajas built pink-stone cities, desert forts that withstood Mughal sieges, and lake palaces that float on the water. The Golden Triangle (Jaipur, Agra, Delhi) barely scratches its surface; the real Rajasthan lies in Jodhpur's blue labyrinth, Jaisalmer's sandstone city rising from the Thar Desert, and Pushkar's ghats around the only sacred lake in the world dedicated to Brahma.
+
+The palace hotels (havelis) that were once the residences of nobility have been converted into some of the most extraordinary accommodation in India — Taj Lake Palace in Udaipur floats on Lake Pichola, SUJAN Jawai is a luxury camp among granite boulders and leopards, and Raas Jodhpur is built into the rock face below Mehrangarh Fort.
+
+A two-week circuit can cover Jaipur (Amber Fort, the Hawa Mahal), Jodhpur (Mehrangarh Fort, blue city lanes), Jaisalmer (desert castle, camel safari into the sand dunes), Udaipur (lake palaces, City Palace), and Pushkar (Brahma temple, camel fair in November). Train connections between all major cities are reliable and comfortable in AC coaches.
+
+November–February is the best season. Holi (March) in Jaipur and Pushkar is an extraordinary cultural experience but requires planning around the chaos.`,
+      location: "Jaipur, Jodhpur, Jaisalmer, Udaipur",
+      country: "India",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?w=1600&q=80",
+      highlights: [
+        "Mehrangarh Fort, Jodhpur — the most impressive fort in Rajasthan above the blue city",
+        "Jaisalmer Desert Camp — camel safari into the Thar dunes at sunset",
+        "Taj Lake Palace, Udaipur — the floating palace hotel on Lake Pichola",
+        "Amber Fort, Jaipur — elephant rides and mirror mosaic halls",
+        "Pushkar Camel Fair (November) — 50,000 camels and the world's largest livestock market",
+        "Thali meals at local dhabas — dal baati churma is the Rajasthani specialty",
+      ],
+      gear: [
+        "Modest dress (temples require covered shoulders and legs)",
+        "Cotton loose-fit clothing — temperatures can exceed 40°C",
+        "Sturdy sandals for fort cobblestones and market lanes",
+        "Anti-malarial medication (consult doctor)",
+        "USD cash for accommodation tips and small merchants",
+        "DSLR or mirrorless camera — Rajasthan is an extraordinary photography subject",
+      ],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 200000,
+      latitude: 26.9124,
+      longitude: 75.7873,
+      published: true,
+      userId: user1.id,
+      voteCount: 71,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["desert"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["culture"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure82.id },
+      { userId: user1.id, adventureId: adventure82.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 83 — Luang Prabang Temples and Mekong Slow Boat, Laos
+  // -------------------------------------------------------------------------
+  const adventure83 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-83" },
+    update: {},
+    create: {
+      id: "seed-adventure-83",
+      title: "Luang Prabang Temples and Mekong Slow Boat, Laos",
+      description: `Luang Prabang is Southeast Asia's most perfectly preserved UNESCO heritage town — a narrow peninsula at the confluence of the Mekong and Nam Khan rivers, where 33 golden-roofed temples sit among French colonial villas, Buddhist monks in saffron robes perform the daily alms-giving (tak bat) at dawn, and the night market fills a single street with silk, paper lanterns, and sticky rice in a hundred variations.
+
+The approach matters: the classic arrival is the two-day slow boat from the Thai border at Huay Xai, drifting 300km down the Mekong on a wooden longboat, stopping at villages along the way. It is slow, it is occasionally uncomfortable, and it is one of the great river journeys in Southeast Asia.
+
+Beyond Luang Prabang, the Kuang Si waterfalls (turquoise tiered pools, 30km south), the mysterious Plain of Jars (megalithic stone vessels on a plateau in Phonsavanh), and Vang Vieng's karst limestone canyons extend a two-week Laos itinerary naturally. Budget travel in Laos is genuinely inexpensive — USD 50–80 per day for good guesthouses, local food, and transport.
+
+Dry season (November–April) is the standard visiting window. February and March see the lowest water on the Mekong (slow boat may be cancelled at extreme low water).`,
+      location: "Luang Prabang, Houaphanh and Mekong River",
+      country: "Laos",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1498931299472-f7a63a0ef8c8?w=1600&q=80",
+      highlights: [
+        "Tak bat dawn alms-giving ceremony — monks collecting rice in silence at sunrise",
+        "Mekong slow boat — two days drifting 300km through the jungle",
+        "Kuang Si waterfalls — multi-tiered turquoise pools with rope swings",
+        "Wat Xieng Thong — Luang Prabang's finest temple with mosaic Tree of Life",
+        "Plain of Jars — Bronze Age mystery of 2,000-year-old stone vessels",
+        "Night market silk shopping and Laotian BBQ on the river bend",
+      ],
+      gear: [
+        "Modest dress (long trousers and covered shoulders for temples)",
+        "Lightweight rain jacket (flash showers even in dry season)",
+        "Insect repellent (mosquitoes active at dusk in the jungle)",
+        "US dollars or Thai baht (accepted widely; ATMs available)",
+        "Earplugs for slow boat hammering on wooden planks",
+        "Camera for the alms-giving ceremony (no flash, respectful distance)",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 80000,
+      latitude: 19.8857,
+      longitude: 102.1351,
+      published: true,
+      userId: user2.id,
+      voteCount: 54,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["culture"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure83.id },
+      { userId: user2.id, adventureId: adventure83.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 84 — Oaxaca Mezcal, Monte Albán and Mixtec Villages, Mexico
+  // -------------------------------------------------------------------------
+  const adventure84 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-84" },
+    update: {},
+    create: {
+      id: "seed-adventure-84",
+      title: "Oaxaca Mezcal, Monte Albán and Mixtec Villages, Mexico",
+      description: `Oaxaca is Mexico's most culturally complex state — eight indigenous groups with distinct languages and traditions, a pre-Columbian Zapotec capital at Monte Albán that rivals any ancient ruin in the Americas, and a food culture so sophisticated that the city hosts the continent's most prestigious culinary school. The mezcal industry here is not the industrialised spirit you find in airport duty-free but a craft distillate produced in village palenques from thirty-plus varieties of wild agave.
+
+Monte Albán sits on an artificially levelled hilltop above the valley — 2,000 years of Zapotec civilisation compressed into plazas, ball courts, and astronomical observation platforms. Arrive at opening time before the tour buses. The valley around Oaxaca City contains more ruins, weaving villages (Teotitlán del Valle), black pottery workshops (San Bartolo Coyotepec), and mezcal production tours (Albarradas, Matatlán) within easy day-trip distance.
+
+Oaxacan food deserves its own itinerary: mole negro (28 ingredients, 3 days to make), tlayudas, chapulines (grasshoppers), and fresh market produce at Mercado Benito Juárez. The chocolate scene — Oaxaca grows its own cacao — justifies daily morning hot chocolate rituals at Chocolate Mayordomo.
+
+October (Day of the Dead) and July (Guelaguetza dance festival) are the two cultural peaks — book accommodation 6 months ahead for both. The rest of the year is excellent and significantly less crowded.`,
+      location: "Oaxaca City and Central Valleys",
+      country: "Mexico",
+      continent: "North America",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1534161369-9cee8b224a87?w=1600&q=80",
+      highlights: [
+        "Monte Albán at sunrise — Zapotec pyramid city on a hilltop with 360-degree views",
+        "Mezcal palenque visit in Matatlán — artisanal production from wild agave",
+        "Day of the Dead in Oaxaca (November 1–2) — marigold altars, family vigils",
+        "Mole negro cooking class — 28 ingredients and the patience of a Oaxacan grandmother",
+        "Teotitlán del Valle weaving village — Zapotec tapestry using natural dyes",
+        "Mercado Benito Juárez — Oaxacan tlayudas and fresh memelas for breakfast",
+      ],
+      gear: [
+        "Comfortable walking shoes for cobblestone streets and site visits",
+        "Light layers — Oaxaca at 1,550m has cool evenings even in summer",
+        "Stomach medication — traveller's diarrhoea common for first-time visitors",
+        "Mexican pesos (USD accepted at major hotels but pesos preferred everywhere)",
+        "Camera for market and village photography (always ask permission)",
+        "Reusable water bottle — bottled water essential, tap not potable",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 90000,
+      latitude: 17.0732,
+      longitude: -96.7266,
+      published: true,
+      userId: user3.id,
+      voteCount: 58,
+      tags: {
+        connect: [
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["culture"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure84.id },
+      { userId: user3.id, adventureId: adventure84.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 85 — Pacific Coast Highway, Big Sur to Los Angeles
+  // -------------------------------------------------------------------------
+  const adventure85 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-85" },
+    update: {},
+    create: {
+      id: "seed-adventure-85",
+      title: "Pacific Coast Highway, Big Sur to Los Angeles",
+      description: `Highway 1 along California's central and southern coast is the definitive American road trip — 600km of two-lane blacktop clinging to cliffs above the Pacific, passing through Big Sur's redwood canyons, Hearst Castle's hilltop excess, Santa Barbara's Spanish architecture, and Malibu's surf breaks before the sprawl of Los Angeles eventually absorbs you.
+
+The Big Sur stretch is the heart of the drive: Bixby Bridge arching over a 240m coastal canyon, the Henry Miller Memorial Library perched in the redwoods, Pfeiffer Beach with its purple sand and sea arch, and Julia Pfeiffer Burns State Park where McWay Falls drops directly onto the beach from the cliff above. Camping in the redwoods at Pfeiffer Big Sur State Park is one of the best campsites in America.
+
+South of Big Sur, the tempo shifts: San Simeon for Elephant Seals and Hearst Castle, Morro Bay for seafood and the volcanic plug, San Luis Obispo wine country (Edna Valley), Santa Barbara for fish tacos and beach volleyball, and Ventura's old California downtown before the beach towns of Malibu and the Pacific Coast Highway's final miles into Santa Monica.
+
+Do this drive from north to south to keep the ocean on your right. Allow 7–10 days minimum for the Big Sur to LA stretch. October–November offers the best weather: fog lifts earlier, summer crowds are gone, and the golden coastal scrub is at its best.`,
+      location: "Big Sur to Los Angeles, California",
+      country: "USA",
+      continent: "North America",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EASY,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
+      highlights: [
+        "Bixby Bridge at sunrise — the most photographed bridge in California",
+        "McWay Falls, Julia Pfeiffer Burns — waterfall dropping onto a pristine beach",
+        "Pfeiffer Big Sur State Park redwood camping — coast redwoods 60m tall",
+        "Elephant seal colony at San Simeon — 15,000 seals hauled out on the beach",
+        "Hearst Castle — William Randolph Hearst's outrageous hilltop compound",
+        "Santa Barbara fish tacos and Spanish mission on State Street",
+      ],
+      gear: [
+        "Rental car (manual gearbox makes the coastal curves more engaging)",
+        "California State Park camping reservation (book weeks ahead)",
+        "Layers — Big Sur fog can sit all day even in summer",
+        "Bear canister or keep food locked in car (bears active in redwoods)",
+        "National Park Annual Pass (America the Beautiful — saves at multiple sites)",
+        "Cash for beach parking meters and farm stands",
+      ],
+      bestMonths: [9, 10, 11, 4, 5],
+      estimatedCost: 200000,
+      latitude: 36.0,
+      longitude: -121.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 79,
+      tags: {
+        connect: [
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure85.id },
+      { userId: user1.id, adventureId: adventure85.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 86 — Iceland Ring Road Complete Circuit
+  // -------------------------------------------------------------------------
+  const adventure86 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-86" },
+    update: {},
+    create: {
+      id: "seed-adventure-86",
+      title: "Iceland Ring Road Complete Circuit",
+      description: `Route 1, Iceland's Ring Road, circles the entire island in 1,332km — a complete circuit that passes through every major landscape type the country offers: black sand desert, active volcanoes, ice cap, fjord, lava field, waterfall, and geothermal spa. The road is fully paved and well-maintained, making the circuit accessible to ordinary rental vehicles in summer while demanding a 4WD in winter.
+
+The classic highlights are well-documented — Jökulsárlón glacier lagoon and its icebergs, the waterfalls of the east (Skógafoss, Seljalandsfoss, Svartifoss), the Snæfellsnes Peninsula's volcanic glacier, the Westfjords for true wilderness — but the Ring Road's particular joy is the landscape between the highlights: lava deserts that look post-apocalyptic, fjord drives where you share the road with nothing but sheep, and the consistent surprise of Iceland's scale.
+
+Midnight sun in June–July means 24-hour daylight, enabling driving and hiking at any hour. Northern lights season runs September–March, with the darkest windows in October–February providing the best aurora photography.
+
+Rent a campervan in Reykjavik for maximum flexibility — wild camping is legal on most uncultivated land outside national parks. Budget USD 250–400 per day for rental, fuel, food, and camping fees.`,
+      location: "Ring Road, Route 1, Iceland",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1600&q=80",
+      highlights: [
+        "Jökulsárlón glacier lagoon — icebergs calving into a coastal lagoon at the Atlantic",
+        "Skógafoss waterfall — walk behind the 60m curtain of water",
+        "Vatnajökull National Park — Europe's largest glacier by volume",
+        "Northern lights from a darkened campervan in the Westfjords (September–March)",
+        "Midnight sun drive through the East Fjords in June",
+        "Mývatn geothermal area — pseudocraters, boiling mud pools, and cave baths",
+      ],
+      gear: [
+        "4WD campervan (essential for F-roads and winter travel)",
+        "Layered clothing system — Icelandic weather changes hourly",
+        "Waterproof jacket and trousers (guaranteed rain somewhere)",
+        "Aurora forecasting app (Vedur.is is the official service)",
+        "Gravel insurance for rental car (gravel roads are everywhere outside Ring Road)",
+        "Portable camp stove — eating at restaurants is expensive",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 300000,
+      latitude: 64.9631,
+      longitude: -19.0208,
+      published: true,
+      userId: user2.id,
+      voteCount: 82,
+      tags: {
+        connect: [
+          { id: allTags["photography"].id },
+          { id: allTags["volcanic"].id },
+          { id: allTags["glacier"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure86.id },
+      { userId: user2.id, adventureId: adventure86.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 87 — Namibia Desert and Skeleton Coast Self-Drive
+  // -------------------------------------------------------------------------
+  const adventure87 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-87" },
+    update: {},
+    create: {
+      id: "seed-adventure-87",
+      title: "Namibia Desert and Skeleton Coast Self-Drive",
+      description: `Namibia is one of the most visually distinctive countries in the world — the Namib Desert is the world's oldest at 55 million years, its orange-red dunes at Sossusvlei rising 300 metres from white salt pans; the Skeleton Coast is a graveyard of ships and whale bones where the cold Atlantic and the hyper-arid desert meet; and Etosha National Park is a white salt pan safari destination where elephants, lions, and rhinos gather at floodlit waterholes after dark.
+
+The self-drive circuit of 4,000–5,000km takes 14–18 days and is well within the capability of a confident driver in a 4WD: Windhoek → Fish River Canyon → Lüderitz → Sossusvlei → Swakopmund → Skeleton Coast → Etosha → Windhoek. Roads are gravel for large sections but generally well-maintained. Fuel stations are far apart — never miss a fill-up opportunity.
+
+Sossusvlei's Dead Vlei (a white clay pan surrounded by 1,000-year-old camel thorn skeletons against orange dunes) is one of the great photographic landscapes on earth. Arrive at dawn to photograph before the heat haze builds.
+
+June–September is the prime window: dry season, moderate temperatures, and concentrated wildlife at Etosha waterholes. The coast is cold year-round due to the Benguela current.`,
+      location: "Sossusvlei, Skeleton Coast, Etosha, Swakopmund",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1600&q=80",
+      highlights: [
+        "Dead Vlei, Sossusvlei — ancient camel thorn skeletons on white clay, orange dunes",
+        "Big Daddy Dune at sunrise — 325m of perfect Namib desert sand",
+        "Etosha waterhole nights — lions hunting at the floodlit pan after dark",
+        "Cape Cross Seal Reserve — 100,000 Cape fur seals on the Skeleton Coast",
+        "Kolmanskop ghost town — diamond mining town reclaimed by desert sand dunes",
+        "Fish River Canyon — second largest canyon in the world, 160km long",
+      ],
+      gear: [
+        "4WD with high clearance and two spare tyres (gravel roads are hard on rubber)",
+        "50L of water storage (distances between services can exceed 300km)",
+        "GPS offline map (Maps.me or Gaia GPS with Namibia downloaded)",
+        "Recovery kit: traction boards, shovel, tow rope",
+        "Warm clothing — Namib nights and Skeleton Coast fog drop to 10°C",
+        "Binoculars and telephoto lens for Etosha game drives",
+      ],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 350000,
+      latitude: -24.7332,
+      longitude: 15.9423,
+      published: true,
+      userId: user3.id,
+      voteCount: 66,
+      tags: {
+        connect: [
+          { id: allTags["desert"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["safari"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure87.id },
+      { userId: user3.id, adventureId: adventure87.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 88 — North Coast 500, Scottish Highlands
+  // -------------------------------------------------------------------------
+  const adventure88 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-88" },
+    update: {},
+    create: {
+      id: "seed-adventure-88",
+      title: "North Coast 500, Scottish Highlands",
+      description: `The North Coast 500 — Scotland's answer to Route 66 — is a 500-mile loop from Inverness around the northern Highlands, passing through some of the last genuinely wild land in Europe. The route was officially established in 2015 but the landscape it traverses has resisted human domestication for millennia: Torridon's Precambrian sandstone mountains, Assynt's isolated quartzite peaks, Caithness's sea stack coastline, and the Flow Country's vast peat bog are not things you find anywhere else.
+
+The drive itself takes 5–7 days done properly, but a week barely allows stops at each day's obvious highlights. The real value is in slowing down — Applecross village across the dramatic Bealach na Bà pass, the fairy tale castle at Eilean Donan on a still morning, Handa Island's seabird cliffs in summer, and Cape Wrath's lighthouse at the northwest corner of mainland Britain.
+
+Scotland in summer offers 18–20 hours of daylight, making evening hikes into the mountains above wherever you're camped entirely feasible. Wild camping is a legal right in Scotland under the Land Reform Act 2003 — the entire route can be camped for the cost of a bag of coal for the firepit.
+
+May–September is the tourist season; May offers the most daylight and fewest midges. The midges (tiny biting flies) in June–August are a genuine challenge — bring a head net and midge repellent.`,
+      location: "Inverness to Inverness via North Coast, Scotland",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [
+        "Bealach na Bà — one of Britain's most dramatic mountain passes into Applecross",
+        "Eilean Donan Castle at dawn — the most photographed castle in Scotland",
+        "Torridon mountains — Precambrian sandstone ridges above loch and sea",
+        "Cape Wrath — the northwest tip of mainland Britain and its lighthouse",
+        "Handa Island seabird colony — 100,000 great skua and razorbill nesting (summer)",
+        "Wild camping above Loch Assynt — sleeping under the Scottish sky",
+      ],
+      gear: [
+        "Waterproof jacket and trousers (guaranteed rain at some point)",
+        "Midge head net and repellent (June–August essential)",
+        "Wild camping kit — Scotland allows it legally everywhere",
+        "Ordnance Survey maps of the Highlands for day hikes",
+        "Wellies or waterproof hiking boots for bog walking",
+        "Whisky flask — you'll be passing distilleries",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 150000,
+      latitude: 58.2,
+      longitude: -4.8,
+      published: true,
+      userId: user1.id,
+      voteCount: 69,
+      tags: {
+        connect: [
+          { id: allTags["scotland"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["europe"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure88.id },
+      { userId: user1.id, adventureId: adventure88.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 89 — Tasmania Grand Drive, Australia
+  // -------------------------------------------------------------------------
+  const adventure89 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-89" },
+    update: {},
+    create: {
+      id: "seed-adventure-89",
+      title: "Tasmania Grand Drive, Australia",
+      description: `Tasmania is the most wilderness-intensive state in Australia — 40% of the island is national park or World Heritage Area, and its southwest corner is one of the last intact temperate rainforests on earth. A 10–14 day driving circuit from Hobart clockwise through the Midlands, Freycinet Peninsula, Bay of Fires, Cradle Mountain, the Franklin Gordon Wild Rivers, and Port Arthur brings together landscapes that simply don't exist elsewhere in the Southern Hemisphere.
+
+The Freycinet Peninsula is the easy seduction: Wineglass Bay seen from the lookout is the image that sells Tasmania to the world, and the 3-day circuit walk that covers the full peninsula is one of Australia's finest short hikes. The Bay of Fires in the northeast — white sand beaches with orange lichen-encrusted granite boulders — has no parallel in Australian coastal scenery.
+
+Cradle Mountain, the rugged dolerite peak above the iconic Lake Dove, anchors Tasmania's most accessible alpine walking. The 65km Overland Track (6 days) starts here; day walks around the lake are accessible to non-hikers. To the southwest, the Franklin-Gordon Wild Rivers National Park is wild in the original sense — the proposed Franklin River dam in the 1980s mobilised the modern Australian environmental movement.
+
+Drive the circuit in 10–14 days. Hire a campervan from Hobart — Tasmania's camping infrastructure is excellent and well-maintained. Spring (September–November) offers wildflowers, green hills, and manageable summer visitor numbers.`,
+      location: "Hobart, Freycinet, Cradle Mountain, Southwest Wilderness",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1504108928284-5f5eb3faa40e?w=1600&q=80",
+      highlights: [
+        "Wineglass Bay lookout, Freycinet — the most iconic beach view in Australia",
+        "Bay of Fires — white sand and orange-granite coast with zero development",
+        "Cradle Mountain at dawn — dolerite summit mirrored in Lake Dove",
+        "Overland Track (6-day option) — Tasmania's premier alpine multi-day walk",
+        "MONA, Hobart — David Walsh's underground museum of old and new art",
+        "Salamanca Market, Hobart — Saturday morning institution for local produce",
+      ],
+      gear: [
+        "Campervan or 4WD for gravel road access in the southwest",
+        "Waterproof jacket — Tasmania's weather is genuinely unpredictable",
+        "Warm layers for Cradle Mountain and alpine areas",
+        "Ankle boots or trail runners for day hikes",
+        "National Parks pass (Tasmania charges for all park access)",
+        "Insect repellent for rainforest walking",
+      ],
+      bestMonths: [9, 10, 11, 12, 1, 2, 3],
+      estimatedCost: 220000,
+      latitude: -42.0,
+      longitude: 146.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 53,
+      tags: {
+        connect: [
+          { id: allTags["australia"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["hiking"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure89.id },
+      { userId: user2.id, adventureId: adventure89.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 90 — Palau Blue Corner and Blue Hole Dive Safari
+  // -------------------------------------------------------------------------
+  const adventure90 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-90" },
+    update: {},
+    create: {
+      id: "seed-adventure-90",
+      title: "Palau Blue Corner and Blue Hole Dive Safari",
+      description: `Palau, a Micronesian archipelago 800km east of the Philippines, consistently tops best dive destination polls for one reason: the concentration of different dive experiences is extraordinary. Blue Corner is a drift dive along a wall where the current accelerates around the corner, bringing bait fish and the sharks, rays, and large pelagics that hunt them. Blue Hole is an underwater cave system with columns of light dropping through a limestone ceiling. German Channel has resident manta rays. Jellyfish Lake has a population of golden jellyfish evolved to be stingless.
+
+A live-aboard runs the outer reefs and remote sites; land-based diving from Koror accesses the more protected inner reef diving. First-timers typically choose land-based from Koror with day trips on a dive boat; serious divers book 7-day live-aboard packages that access all the sites optimally timed around current and tide.
+
+The Marine Protection Act prohibits collecting any marine organism and enforces strict buoyancy standards. Palau's reefs are in better condition than almost anywhere in the Pacific as a result.
+
+Palau is accessible via Guam, Manila, or Tokyo. Live-aboard packages run USD 2,500–3,500 for 7 days all-inclusive. Land-based diving USD 150–200 per day including 2-3 dives. Best season: October–April with calm conditions and good visibility.`,
+      location: "Palau, Micronesia, Western Pacific",
+      country: "Palau",
+      continent: "Oceania",
+      category: Category.DIVING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: [
+        "Blue Corner drift dive — grey reef and whitetip sharks riding the current",
+        "Blue Hole — columns of light through a limestone cathedral ceiling",
+        "Jellyfish Lake — swimming through millions of stingless golden jellyfish",
+        "German Channel manta ray cleaning station — up-close with oceanic mantas",
+        "WWII wrecks: Iro Maru and Amatsu Maru in 10–30m of water",
+        "Ngercheu Island pristine outer reef — untouched coral gardens",
+      ],
+      gear: [
+        "PADI Open Water certification minimum (Advanced recommended for Blue Corner)",
+        "Reef hook (mandatory for Blue Corner current diving)",
+        "3mm wetsuit — water 28–30°C year-round",
+        "Dive computer",
+        "Mask, fins, BCD, regulator (all rentable in Koror)",
+        "Underwater camera housing for jellyfish and shark photography",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 350000,
+      latitude: 7.5149,
+      longitude: 134.5825,
+      published: true,
+      userId: user3.id,
+      voteCount: 62,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure90.id },
+      { userId: user3.id, adventureId: adventure90.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 91 — Red Sea Liveaboard, Ras Mohammed to Brothers Islands
+  // -------------------------------------------------------------------------
+  const adventure91 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-91" },
+    update: {},
+    create: {
+      id: "seed-adventure-91",
+      title: "Red Sea Liveaboard, Ras Mohammed to Brothers Islands",
+      description: `The Red Sea is one of the world's premier liveaboard diving destinations — warm, clear water, shallow-growing hard coral in superb condition, and a pelagic scene that delivers hammerhead sharks, oceanic whitetips, and thresher sharks at the Brothers Islands and Daedalus Reef. The classic southern liveaboard circuit from Hurghada runs to Ras Mohammed (the submerged tip of the Sinai Peninsula), down the Egyptian coast past Sha'ab Abu Nuhas wreck site, and out to the offshore pinnacles.
+
+The Brothers (El Akhawein) are two tiny rocky islands in the open Red Sea, 60km offshore, that rise from 800m of water. The walls are covered in soft corals and home to schools of barracuda, jacks, and the resident oceanic whitetip sharks that were Jacques Cousteau's favourite Red Sea subject. Daedalus Reef adds hammerheads and schooling hammerhead sharks on the right swell and current.
+
+Liveaboard boats from Hurghada run 7-day circuits year-round. The boats range from basic to comfortable — look for ADORA or WADI GIN quality boats if budget allows. Nitrox is widely available for extending bottom time. Prices run USD 900–1,800 per person for a 7-night all-inclusive liveaboard.
+
+October–May is the prime season. Summer (June–September) is hot (air and water both 30°C+) but still excellent diving.`,
+      location: "Hurghada to Brothers Islands, Red Sea",
+      country: "Egypt",
+      continent: "Africa",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827291-72cdfc29a9f2?w=1600&q=80",
+      highlights: [
+        "Brothers Islands oceanic whitetip sharks — Cousteau's favourite pelagic",
+        "Daedalus Reef hammerhead school — seasonal but spectacular when present",
+        "Sha'ab Abu Nuhas wreck alley — four cargo ships in 18–28m",
+        "Ras Mohammed National Park — pristine coral walls at Sinai's southern tip",
+        "Elphinstone Reef — a vertical wall with 60m+ visibility on calm days",
+        "Liveaboard life — diving 3–4 times daily, sundeck evenings, Red Sea sunsets",
+      ],
+      gear: [
+        "PADI Advanced Open Water minimum (Deep certification for Brothers walls)",
+        "3mm wetsuit (water 22–28°C depending on season)",
+        "Dive computer and dive torch for swim-throughs",
+        "Nitrox certification (strongly recommended for extended bottom time)",
+        "Seasickness medication for the overnight crossing to offshore sites",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4, 5],
+      estimatedCost: 150000,
+      latitude: 26.3667,
+      longitude: 34.2667,
+      published: true,
+      userId: user1.id,
+      voteCount: 57,
+      tags: {
+        connect: [
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure91.id },
+      { userId: user1.id, adventureId: adventure91.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 92 — Great Barrier Reef Liveaboard, Coral Sea
+  // -------------------------------------------------------------------------
+  const adventure92 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-92" },
+    update: {},
+    create: {
+      id: "seed-adventure-92",
+      title: "Great Barrier Reef Liveaboard, Coral Sea",
+      description: `The Great Barrier Reef is the world's largest coral ecosystem — 2,300km of coral reef, 600 types of coral, 1,500 fish species, and 4,000 mollusk species — stretching along the Queensland coast from the Torres Strait to the Capricorn Group. Visiting from the mainland on day boats gives a surface impression; a liveaboard departing from Cairns or Port Douglas reaches the Outer Barrier Reef and the Coral Sea Ribbon Reefs, where the marine density and coral cover exceed anything accessible on a day trip.
+
+The Ribbon Reefs (numbers 3, 9, and 10) at the northern end of the barrier are the prime liveaboard target — narrow ribbons of reef rising to the surface from the continental shelf edge, with dramatic wall diving, hawksbill turtle density, and the Cod Hole potato cod encounter (enormous 2-metre groupers that eat from divers' hands). Steve's Bommie in the Far North Section has some of the best coral cover on the reef.
+
+The Coral Sea Osprey Reef and Shark Observatory sites add pelagic sharks, Silvertip reef sharks, and the opportunity for night dives that are among the best in the world. Day-trippers never see these sites.
+
+Best season: June–November for clearest water and calmest conditions. Cyclone season (November–April) creates weather risk for offshore sites. 3-night liveaboards from Cairns run USD 600–900; week-long Coral Sea expeditions USD 1,500–2,500.`,
+      location: "Outer Barrier Reef and Coral Sea, North Queensland",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1484291470158-b8f8d608850d?w=1600&q=80",
+      highlights: [
+        "Cod Hole potato cod feeding — 2-metre groupers approaching at arm's length",
+        "Ribbon Reef walls — 40m vertical coral gardens with zero visibility reduction",
+        "Osprey Reef night dive — sleeping whitetip reef sharks and bioluminescent plankton",
+        "Hawksbill sea turtle encounters — highest density on the northern barrier",
+        "Steve's Bommie hard coral gardens — best coral cover on the reef",
+        "Minke whale encounters on the outer ribbon reefs (June–July)",
+      ],
+      gear: [
+        "PADI Open Water minimum; Advanced recommended for wall diving",
+        "3mm shorty or 5mm full suit (water 22–28°C seasonal variation)",
+        "Dive torch for night dives and crevasse exploration",
+        "Reef-safe sunscreen only (chemical sunscreens banned in national parks)",
+        "Underwater camera — photo quality is stunning in the Coral Sea",
+      ],
+      bestMonths: [6, 7, 8, 9, 10, 11],
+      estimatedCost: 200000,
+      latitude: -16.5,
+      longitude: 146.0,
+      published: true,
+      userId: user2.id,
+      voteCount: 64,
+      tags: {
+        connect: [
+          { id: allTags["australia"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure92.id },
+      { userId: user2.id, adventureId: adventure92.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 93 — SS Thistlegorm Wreck Dive, Gulf of Suez
+  // -------------------------------------------------------------------------
+  const adventure93 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-93" },
+    update: {},
+    create: {
+      id: "seed-adventure-93",
+      title: "SS Thistlegorm Wreck Dive, Gulf of Suez",
+      description: `The SS Thistlegorm is the world's most famous wreck dive. The British cargo ship was sunk by German bombers in October 1941 en route to supply the British Eighth Army in North Africa, and its holds contain an intact wartime cargo: BSA motorcycles still upright on their stands, Bedford lorries, Lee-Enfield rifles, Wellington boots, and railway locomotives that broke through the deck when the stern ammunition magazine exploded.
+
+The wreck lies in 28–32m of clear Red Sea water off Ras Muhammad, accessible from day boats from Sharm el-Sheikh or live-aboards from Hurghada. Despite being the world's most dived wreck (thousands of divers per season), the cargo is remarkably intact — no-touch rules are enforced and the Egyptian marine authorities patrol regularly.
+
+Two dives are the standard — a swim-through of the forward holds to view the motorcycles and cargo, and a deeper dive around the stern explosion site where the hull is broken and the railway engines half-buried in sand. The anchor chain and mast swim-through complete an extraordinary day's diving.
+
+Night dives on the Thistlegorm, when the wreck is almost completely empty of other divers, produce a completely different atmosphere: sleeping glassfish in the holds, hunting lionfish on the deck railing, and the eerie quiet of a ship that history interrupted.`,
+      location: "Strait of Gubal, northern Red Sea, near Sha'ab Ali",
+      country: "Egypt",
+      continent: "Africa",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1552661397-4b6c76ce2c65?w=1600&q=80",
+      highlights: [
+        "BSA motorcycles upright in the hold — exactly as sunk in 1941",
+        "Bedford army lorries with wartime cargo still intact in the cargo bay",
+        "Railway locomotives half-buried in sand at the stern explosion site",
+        "Hold 4 swim-through — glassfish, lionfish, and intact wartime inventory",
+        "Night dive alone on the deck railing — eerie and completely different atmosphere",
+        "Anchor chain ascent and mast swim-through on the second dive",
+      ],
+      gear: [
+        "PADI Advanced Open Water with deep dive speciality (32m bottom depth)",
+        "3mm wetsuit (water 22–27°C)",
+        "Dive torch (mandatory for hold exploration)",
+        "Underwater camera — most photogenic wreck in the world",
+        "Dive computer with nitrox capability if certified",
+        "Reef hook for the current that can be strong on the wreck",
+      ],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4, 5],
+      estimatedCost: 80000,
+      latitude: 27.8175,
+      longitude: 33.9201,
+      published: true,
+      userId: user3.id,
+      voteCount: 71,
+      tags: {
+        connect: [
+          { id: allTags["bucket-list"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["cultural-immersion"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure93.id },
+      { userId: user3.id, adventureId: adventure93.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 94 — Komodo Island Dive Safari, Indonesia
+  // -------------------------------------------------------------------------
+  const adventure94 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-94" },
+    update: {},
+    create: {
+      id: "seed-adventure-94",
+      title: "Komodo Island Dive Safari, Indonesia",
+      description: `Komodo National Park in the Flores Sea is where two things happen simultaneously: above the water, Komodo dragons — the world's largest lizard — roam volcanic slopes covered in dry savanna grass; below it, ferocious currents funnel Indian Ocean and Pacific water between the island channels, creating one of the most nutrient-rich and fish-dense marine environments in the world.
+
+The diving here is advanced — sites like Batu Bolong and Tatawa Besar have strong, unpredictable currents that require experience and a good guide. Manta Point on the eastern side of Padar Island is a cleaning station for oceanic manta rays where calm water conditions allow snorkelling with mantas within arm's reach. Crystal Rock and Castle Rock are volcanic pinnacles swept clean by current, covered in sea fans and schooling fish so dense the water turns dark.
+
+Live-aboards departing from Labuan Bajo (accessed via Bali or Lombok) cover the full park in 3–7 days. Land-based day diving from Labuan Bajo reaches the closer sites but misses the remote eastern reefs. The dragon trekking tours on Komodo and Rinca islands combine easily with diving — same boat, same itinerary.
+
+April–November is the prime season. Southern sites (south of Rinca) are calmer in April–October; north sites are better November–March. Budget USD 150–200 per day for land-based, USD 250–450 per day for live-aboard.`,
+      location: "Komodo National Park, West Manggarai",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1600&q=80",
+      highlights: [
+        "Manta Point — snorkel and dive with oceanic manta rays at the cleaning station",
+        "Batu Bolong — a volcanic pinnacle with 80m visibility and wall-to-wall fish",
+        "Komodo dragon trekking on Rinca Island — UNESCO listed predator encounter",
+        "Crystal Rock current diving — schooling barracuda and giant trevally",
+        "Tatawa Besar — pristine hard coral plateau with bumphead parrotfish",
+        "Pink Beach — one of only seven pink-sand beaches in the world",
+      ],
+      gear: [
+        "PADI Advanced Open Water with drift dive experience (currents are powerful)",
+        "3mm wetsuit — water 26–29°C with thermoclines to 24°C",
+        "Surface marker buoy (SMB) — mandatory in current diving",
+        "Reef hook for stationary observation of the manta ray cleaning station",
+        "Underwater camera (visibility can exceed 30m on good days)",
+        "Sun protection — tropical UV on boat decks is intense",
+      ],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10, 11],
+      estimatedCost: 230000,
+      latitude: -8.55,
+      longitude: 119.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 58,
+      tags: {
+        connect: [
+          { id: allTags["island"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["jungle"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure94.id },
+      { userId: user1.id, adventureId: adventure94.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 95 — Haida Gwaii Outer Islands Sea Kayak, Canada
+  // -------------------------------------------------------------------------
+  const adventure95 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-95" },
+    update: {},
+    create: {
+      id: "seed-adventure-95",
+      title: "Haida Gwaii Outer Islands Sea Kayak, Canada",
+      description: `Haida Gwaii — formerly the Queen Charlotte Islands — is an archipelago 100km off the northern British Columbia coast, separated from the mainland by the treacherous Hecate Strait and belonging to the Haida Nation, whose culture survived here while most of the Pacific Northwest coast was transformed. The outer islands of the Gwaii Haanas National Park Reserve are accessible only by kayak or small boat, and the paddling conditions are among the most demanding on the Pacific Coast.
+
+The classic route through Gwaii Haanas covers 150km over 10–14 days, paddling between uninhabited islands dense with old-growth Sitka spruce, stopping at abandoned Haida village sites (Skedans, Tanu, Ninstints) where mortuary poles still stand in the forest — a UNESCO World Heritage Site. Wildlife is extraordinary: humpback whales surface alongside kayaks, black bears forage the shoreline, and sea otters float in kelp beds throughout.
+
+Open-water crossings up to 10km are necessary on the outer route — plan around weather windows, paddle with a guide on first visits, and carry a VHF radio and EPIRB. The Hecate Strait is notorious; the outer coast less so, but fog and Pacific swells are genuine hazards.
+
+Book guided trips through Archipelago Kayaks or similar qualified operators. July–September is the window; June is possible but cold. Fly to Sandspit via Vancouver.`,
+      location: "Gwaii Haanas National Park Reserve, Haida Gwaii",
+      country: "Canada",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1559521783-1d1599583485?w=1600&q=80",
+      highlights: [
+        "SGang Gwaay (Ninstints) UNESCO village site — standing mortuary poles in old-growth forest",
+        "Humpback whale surfacing alongside kayaks in open water",
+        "Black bear shore foraging — common throughout the archipelago",
+        "Sea otter colonies in kelp beds on the outer coast",
+        "10km open-water crossings with Pacific swell — genuine ocean paddling",
+        "Old-growth Sitka spruce and cedar forest — trees over 1,000 years old",
+      ],
+      gear: [
+        "Sea kayak with bulkheads and deck rigging (usually provided on guided trips)",
+        "5/4mm wetsuit or drysuit (water 10–14°C year-round)",
+        "VHF marine radio and EPIRB for solo paddlers",
+        "Paddling jacket and spray skirt",
+        "Bear canister (bears active on all camping beaches)",
+        "Haida Gwaii National Park Reserve permit (Indigenous cultural site access)",
+      ],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 400000,
+      latitude: 52.5,
+      longitude: -131.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 36,
+      tags: {
+        connect: [
+          { id: allTags["kayaking"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["remote"].id },
+          { id: allTags["cultural-immersion"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure95.id },
+      { userId: user2.id, adventureId: adventure95.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 96 — Lake Bled and Soča Valley Kayak, Slovenia
+  // -------------------------------------------------------------------------
+  const adventure96 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-96" },
+    update: {},
+    create: {
+      id: "seed-adventure-96",
+      title: "Lake Bled and Soča Valley Kayak, Slovenia",
+      description: `Slovenia is Europe's outdoor adventure secret — a country the size of Wales with the Julian Alps on its northern border, a turquoise river (the Soča) running through a glacial gorge that looks CGI-rendered, and Lake Bled's island church set against mountains that seem too perfect. Combining a kayak and flat-water paddle on Bled with whitewater kayaking or rafting on the Soča creates a week of varied paddling in extraordinary scenery.
+
+The Soča River runs 138km from Triglav National Park to the Adriatic — the upper section near Bovec is Grade III–IV whitewater suitable for experienced paddlers, while the middle section below Most na Soči offers gentler paddling through gorges. The water is a deep, impossible turquoise caused by glacial minerals and remarkable clarity — visibility to 10m in calm sections.
+
+Lake Bled on a still morning, paddling out to the island that sits at the lake's centre — the only island in Slovenia, with a church that's been the site of pilgrimage for over 1,000 years — is one of the quietest pleasures in European adventure travel. Rent a wooden pletna boat or bring your own kayak.
+
+Combine with hiking on Triglav, Slovenia's only 2,864m peak, and cycling through the Soča Valley for a complete adventure base. Base in Bovec for Soča; Bled for lake access. May–September is the outdoor season.`,
+      location: "Lake Bled and Soča Valley, Julian Alps",
+      country: "Slovenia",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=1600&q=80",
+      highlights: [
+        "Lake Bled island paddle at dawn — mirror-calm water and the church bell",
+        "Soča turquoise gorge — the clearest and most impossibly coloured river in Europe",
+        "Boka Waterfall — 106m plunge into the Soča valley from the cliff",
+        "Triglav National Park — pristine Julian Alps with chamois and golden eagles",
+        "Kozjak Waterfall via the Soča gorge walk — hidden amphitheatre pool",
+        "Kobarid Museum of WWI — Soča front where Hemingway served and wrote",
+      ],
+      gear: [
+        "Sea kayak or touring kayak for Lake Bled flat water",
+        "Whitewater kayak or inflatable raft for Soča rapids (rentable in Bovec)",
+        "5mm wetsuit for Soča (water temperature 10–16°C even in summer)",
+        "Helmet (mandatory for Grade III+ sections of Soča)",
+        "Dry bag for camera and valuables",
+        "Hiking boots for Triglav day walks",
+      ],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 100000,
+      latitude: 46.3631,
+      longitude: 14.0938,
+      published: true,
+      userId: user3.id,
+      voteCount: 47,
+      tags: {
+        connect: [
+          { id: allTags["kayaking"].id },
+          { id: allTags["alpine"].id },
+          { id: allTags["europe"].id },
+          { id: allTags["photography"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure96.id },
+      { userId: user3.id, adventureId: adventure96.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 97 — Doubtful Sound Sea Kayak, Fiordland
+  // -------------------------------------------------------------------------
+  const adventure97 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-97" },
+    update: {},
+    create: {
+      id: "seed-adventure-97",
+      title: "Doubtful Sound Sea Kayak, Fiordland",
+      description: `Doubtful Sound is larger, more remote, and less visited than its famous Fiordland neighbour Milford Sound — accessible only by boat across Lake Manapouri and over the Wilmot Pass by road, which keeps day-tripper numbers manageable and the fiord genuinely wild. Paddling a sea kayak through the three arms of the sound, camping on beaches where waterfalls from the rain-soaked bluffs drop directly into the water beside you, is one of the most extraordinary paddling experiences in the Southern Hemisphere.
+
+The fiord's daily rainfall (around 7,000mm per year) creates a permanent fresh-water layer on the surface — this causes the dark tannin-stained water to let almost no light through, creating conditions where deep-water species like black coral live at just 6–10m depth rather than 50m+. Dolphins, bottlenose and dusky, use the fiord year-round; New Zealand fur seals haul out on rocky islands throughout.
+
+Guided 3-day kayak expeditions from Manapouri are the standard format — the logistics of getting equipment over the Wilmot Pass make independent kayaking complex on a first visit. Some operators combine kayaking with overnight cruises on the water.
+
+Fiordland receives rain 200+ days per year — pack fully waterproof everything and accept it with equanimity. The fiord is at its most dramatic in rain: waterfalls appear on every cliff face that was dry an hour before.`,
+      location: "Doubtful Sound, Fiordland National Park",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1600&q=80",
+      highlights: [
+        "Paddling past 1,000m cliff faces with waterfalls in full flood after rain",
+        "Black coral at 6m depth due to the fresh-water light-blocking layer",
+        "Bottlenose dolphin pod escort through the main arm of the sound",
+        "New Zealand fur seal colonies on rocky outcrops",
+        "Camping on a deserted beach deep inside the fiord in total silence",
+        "Milky Fiord arm — the deepest and narrowest finger with dramatic acoustics",
+      ],
+      gear: [
+        "Sea kayak with bulkheads (provided on guided trips)",
+        "Drysuit or 5mm wetsuit — water 12–16°C, rain constant",
+        "Fully waterproof dry bags for sleeping bag and clothing",
+        "Camp stove and cooking supplies for multi-night camping",
+        "Sandfly repellent (Doubtful Sound sandflies are legendary)",
+        "Rain jacket and trousers you don't mind getting soaked",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 150000,
+      latitude: -45.3267,
+      longitude: 166.9833,
+      published: true,
+      userId: user1.id,
+      voteCount: 43,
+      tags: {
+        connect: [
+          { id: allTags["kayaking"].id },
+          { id: allTags["new-zealand"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["remote"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure97.id },
+      { userId: user1.id, adventureId: adventure97.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 98 — Stockholm Archipelago Kayak, Sweden
+  // -------------------------------------------------------------------------
+  const adventure98 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-98" },
+    update: {},
+    create: {
+      id: "seed-adventure-98",
+      title: "Stockholm Archipelago Kayak, Sweden",
+      description: `The Stockholm Archipelago contains 30,000 islands stretching 150km into the Baltic Sea — from the busy inner archipelago accessible by regular ferry from the city, to the remote outer archipelago where the bare granite skerries are visited by sailing boats and kayaks only. Paddling through this landscape in summer, with 18 hours of daylight and water warm enough to swim in, is one of the most accessible multi-day kayak journeys in northern Europe.
+
+The classic kayak route runs from Sandhamn (accessible by ferry from Stockholm) south and east through the Möja and Ornö archipelago groups, camping on the outer islands using Sweden's allemansrätten (Freedom to Roam) law that allows wild camping on any undeveloped land. Daily distances of 15–25km are comfortable in calm conditions; the Baltic can generate wind chop quickly, so weather monitoring matters.
+
+The outer archipelago is genuinely quiet — you may paddle an entire day between Sandhamn and Landsort seeing only one or two other vessels. Fishing villages on larger islands (Möja, Runmarö) sell smoked fish, fresh bread, and ice cream from minimal local shops. The return to Stockholm is by ferry from any of the outer islands.
+
+June–August is the prime season. July is peak Swedish holiday month — inner archipelago islands are busy; the outer is always calm. Budget SEK 500–800 per day for food and campsite fees (many are free under allemansrätten).`,
+      location: "Stockholm Archipelago, Baltic Sea",
+      country: "Sweden",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1478720568477-152d9b5f04b5?w=1600&q=80",
+      highlights: [
+        "Paddling through 30,000-island granite archipelago in midnight sun",
+        "Wild camping on outer skerries under Swedish allemansrätten — no fees, no fences",
+        "Sandhamn village — historic maritime racing hub with summer restaurant culture",
+        "Landsort lighthouse — southernmost point of the archipelago on a tiny island",
+        "Smoked fish directly from fishermen in Möja village harbour",
+        "Baltic swimming at sunset — water 20–22°C in peak summer",
+      ],
+      gear: [
+        "Sea kayak with rudder (Baltic wind chop requires directional control)",
+        "3mm shorty or swimming costume — water up to 22°C in summer",
+        "Wild camping kit (tent, sleeping bag, stove)",
+        "Swedish maritime charts (archipelago navigation)",
+        "VHF radio for weather updates",
+        "Insect repellent (mosquitoes in wooded island camping areas)",
+      ],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 80000,
+      latitude: 59.2833,
+      longitude: 18.8167,
+      published: true,
+      userId: user2.id,
+      voteCount: 39,
+      tags: {
+        connect: [
+          { id: allTags["kayaking"].id },
+          { id: allTags["midnight-sun"].id },
+          { id: allTags["camping"].id },
+          { id: allTags["europe"].id },
+          { id: allTags["solo-travel"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user3.id, adventureId: adventure98.id },
+      { userId: user2.id, adventureId: adventure98.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 99 — Sea of Cortez Island-Hopping Kayak, Baja California
+  // -------------------------------------------------------------------------
+  const adventure99 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-99" },
+    update: {},
+    create: {
+      id: "seed-adventure-99",
+      title: "Sea of Cortez Island-Hopping Kayak, Baja California Sur",
+      description: `Jacques Cousteau called the Sea of Cortez "the world's aquarium" — a semi-enclosed sea between Baja California and mainland Mexico that contains more marine species than almost anywhere else on earth due to its mix of cold Pacific upwelling and warm tropical water. Kayaking between the Espíritu Santo island group in the southern Sea of Cortez — a 3-hour ferry from La Paz — gives access to sea lion colonies, whale shark snorkelling, manta ray encounters, and deserted white sand beaches with no facilities.
+
+The standard route covers Espíritu Santo and Partida islands: 20–30km of paddling per day on calm water between beaches shaded by cardón cactus and palo verde trees, camping in coves where California sea lions surf in the shore break and bark through the night. The snorkelling off Los Islotes is among the best in Mexico — the resident sea lion colony approaches snorkellers and plays in the bubbles.
+
+Water temperature peaks at 28°C in August–October; winter months (December–March) see 18–22°C with clearer water and reliable whale watching (blue and fin whales in the Cortez). Kayak La Paz and similar operators run 3–7 day guided trips from La Paz with full equipment, food, and camping gear. Independent kayakers can rent from various outfitters.
+
+November–April is the optimal combination of temperatures and whale activity. Summer (June–September) is hot (air 40°C) but whale sharks are present for snorkelling.`,
+      location: "Espíritu Santo Biosphere Reserve, Baja California Sur",
+      country: "Mexico",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1544547006-f0a9c5c6e9d6?w=1600&q=80",
+      highlights: [
+        "Los Islotes sea lion colony — California sea lions playing with snorkellers",
+        "Whale shark snorkelling — up to 12m gentle filter-feeders alongside kayaks (Jun–Oct)",
+        "Blue and fin whale watching from the kayak (December–March)",
+        "Deserted white sand beaches with cardón cactus forest inland",
+        "Manta ray encounters in the deeper channels between islands",
+        "Stargazing from the beach — Sea of Cortez has near-zero light pollution",
+      ],
+      gear: [
+        "Sea kayak with dry storage hatches (guides provide on guided trips)",
+        "Shorty wetsuit or boardshorts — water 18–28°C depending on season",
+        "Snorkel mask and fins for sea lion and whale shark encounters",
+        "Sun protection: hat, SPF 50, UPF clothing — Baja UV is extreme",
+        "Water purification tablets or filter (no fresh water on islands)",
+        "Bear canister or animal-proof food storage (coyotes on Espíritu Santo)",
+      ],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 180000,
+      latitude: 24.5,
+      longitude: -110.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 45,
+      tags: {
+        connect: [
+          { id: allTags["kayaking"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["island"].id },
+          { id: allTags["coastal"].id },
+          { id: allTags["camping"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure99.id },
+      { userId: user3.id, adventureId: adventure99.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
+  // Adventure 100 — Masai Mara Big Five Safari, Kenya
+  // -------------------------------------------------------------------------
+  const adventure100 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-100" },
+    update: {},
+    create: {
+      id: "seed-adventure-100",
+      title: "Masai Mara Big Five Safari, Kenya",
+      description: `The Masai Mara is Kenya's premier game reserve — an extension of Tanzania's Serengeti ecosystem that receives the northern leg of the annual Great Migration and hosts the densest concentration of lions in Africa. Big cats are here in numbers that make spotting routine: lion prides on kopjes, cheetah mothers teaching cubs to hunt, leopards draping impala kills from acacia branches. Black rhino, the most endangered of the Big Five, inhabit the Mara Conservancies around the reserve border.
+
+July–October brings the Great Migration — 1.5 million wildebeest, 500,000 zebra, and 250,000 Thomson's gazelle crossing the Mara River from Tanzania in dramatic mass crossings where Nile crocodiles wait in the water. The crossings are unpredictable — herds may hesitate for hours, then cross in minutes. Staying 3+ days maximises the chance of witnessing one.
+
+The Mara Conservancies (Olare Motorogi, Mara Naboisho, Mara North) adjacent to the main reserve charge higher fees but restrict vehicle numbers — you may have a cheetah hunt entirely to yourself rather than surrounded by 15 safari vehicles.
+
+Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Accommodation ranges from luxury tented camps (USD 500–1,000 per night) to budget bandas outside the reserve (USD 80–150). All game drives are in open 4WD vehicles with professional Maasai or trained guides.`,
+      location: "Masai Mara National Reserve, Narok County",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1530973428-5bf2db2e4d71?w=1600&q=80",
+      highlights: [
+        "Great Migration Mara River crossing — crocodile ambush on 1.5M wildebeest (Jul–Oct)",
+        "Lion pride hunting on the Mara Plains — highest lion density in Africa",
+        "Cheetah mother with cubs — Mara Naboisho Conservancy",
+        "Leopard with impala kill in an acacia tree at sunset",
+        "Hot air balloon at dawn — the Mara from 300m at sunrise",
+        "Maasai village visit and cultural afternoon with game drive guide",
+      ],
+      gear: [
+        "Neutral/khaki clothing (bright colours disturb wildlife)",
+        "Binoculars (10x42 minimum for game viewing)",
+        "Long lens camera (300mm minimum for big cat photography)",
+        "Malaria prophylaxis (consult doctor — Kenya malaria risk is real)",
+        "Yellow fever certificate (required for Kenya entry from endemic countries)",
+        "Warm fleece for early morning 6am game drives (10°C in the Mara)",
+      ],
+      bestMonths: [7, 8, 9, 10],
+      estimatedCost: 500000,
+      latitude: -1.4826,
+      longitude: 35.1438,
+      published: true,
+      userId: user1.id,
+      voteCount: 88,
+      tags: {
+        connect: [
+          { id: allTags["safari"].id },
+          { id: allTags["wildlife"].id },
+          { id: allTags["photography"].id },
+          { id: allTags["bucket-list"].id },
+        ],
+      },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure100.id },
+      { userId: user1.id, adventureId: adventure100.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 101
+  const adventure101 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-101" },
+    update: {},
+    create: {
+      id: "seed-adventure-101",
+      title: "Chobe Elephant Safari",
+      description: `Chobe National Park in northern Botswana hosts the largest concentration of elephants on Earth — up to 120,000 during the dry season. This intimate safari combines game drives along the Chobe River floodplains with sunset boat cruises, putting you within metres of breeding herds as they wade into the water to drink and bathe. Lions, leopards, wild dogs, and vast buffalo herds complete the Big Five experience in one of Africa's most wildlife-dense ecosystems.`,
+      location: "Kasane",
+      country: "Botswana",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1549366021-119a7d2f7f35?w=1600&q=80",
+      highlights: [
+        "Elephant herds at Chobe River",
+        "Sunset boat cruise",
+        "Wild dog sightings",
+        "Savuti lion territory",
+        "Night game drives",
+      ],
+      gear: ["Neutral-coloured clothing", "Binoculars", "Telephoto lens", "Insect repellent", "Wide-brimmed hat"],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 3200,
+      latitude: -17.8,
+      longitude: 25.15,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure101.id },
+      { userId: user2.id, adventureId: adventure101.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 102
+  const adventure102 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-102" },
+    update: {},
+    create: {
+      id: "seed-adventure-102",
+      title: "Kruger to Canyon Safari",
+      description: `South Africa's greatest safari road trip links Kruger National Park — home to the densest Big Five population in the world — with the dramatic Blyde River Canyon, the third largest canyon on Earth. Travel from open bushveld game drives at dawn to canyon viewpoints at sunset, with stops at panoramic vantage points, ancient Bourke's Luck Potholes, and lush escarpment forests along the Panorama Route. A versatile adventure combining wildlife, geology, and scenery in one sweep.`,
+      location: "Kruger National Park",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600&q=80",
+      highlights: [
+        "Big Five game drives",
+        "Blyde River Canyon panoramas",
+        "Bourke's Luck Potholes",
+        "Leopard Creek border camp",
+        "God's Window viewpoint",
+      ],
+      gear: ["Safari clothing", "Binoculars", "Camera with zoom", "Sunscreen", "Comfortable walking shoes"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2800,
+      latitude: -24.0,
+      longitude: 31.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure102.id },
+      { userId: user2.id, adventureId: adventure102.id },
+      { userId: user3.id, adventureId: adventure102.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 103
+  const adventure103 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-103" },
+    update: {},
+    create: {
+      id: "seed-adventure-103",
+      title: "Borneo Orangutan Rainforest Safari",
+      description: `The ancient rainforests of Malaysian Borneo shelter the last wild populations of Bornean orangutans along with pygmy elephants, proboscis monkeys, and clouded leopards. This jungle safari navigates the Kinabatangan River by boat at dawn and dusk, ventures into the Danum Valley old-growth forest on guided night walks, and visits the Sepilok rehabilitation centre where orphaned orangutans learn to return to the wild. One of the most biodiverse regions on the planet.`,
+      location: "Sandakan",
+      country: "Malaysia",
+      continent: "Asia",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1544979590-37e9b47eb705?w=1600&q=80",
+      highlights: [
+        "Wild orangutan sightings",
+        "Kinabatangan River boat safari",
+        "Sepilok Orangutan Centre",
+        "Pygmy elephant herds",
+        "Danum Valley night walk",
+      ],
+      gear: ["Waterproof clothing", "Rubber boots", "Insect repellent", "Binoculars", "Dry bags for camera"],
+      bestMonths: [3, 4, 5, 6, 7, 8],
+      estimatedCost: 2600,
+      latitude: 5.84,
+      longitude: 118.12,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure103.id },
+      { userId: user2.id, adventureId: adventure103.id },
+      { userId: user3.id, adventureId: adventure103.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 104
+  const adventure104 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-104" },
+    update: {},
+    create: {
+      id: "seed-adventure-104",
+      title: "Sea to Sea Cycle Route (C2C)",
+      description: `The Sea to Sea (C2C) is Britain's most popular long-distance cycle route, crossing northern England from the Irish Sea at Whitehaven to the North Sea at Sunderland or Tynemouth in around 220 km. The route climbs through the fells of the Lake District and crosses the wild Pennine moors before descending through former pit villages and industrial heritage to the east coast. A perfect mix of dramatic scenery, cultural history, and achievable challenge — most cyclists complete it in three to five days.`,
+      location: "Whitehaven to Sunderland",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=1600&q=80",
+      highlights: [
+        "Lake District fells",
+        "Hartside Pass summit",
+        "Pennine moorland",
+        "Weardale heritage villages",
+        "North Sea finish",
+      ],
+      gear: ["Road or gravel bike", "Panniers", "Waterproof jacket", "Cycling shorts", "Repair kit"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 54.55,
+      longitude: -3.59,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure104.id },
+      { userId: user2.id, adventureId: adventure104.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 105
+  const adventure105 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-105" },
+    update: {},
+    create: {
+      id: "seed-adventure-105",
+      title: "Grossglockner and Dolomites Cycling",
+      description: `One of the great alpine cycling tours, this route links Austria's highest peak — the Grossglockner — with the pink limestone towers of Italy's Dolomites across some of the most spectacular mountain roads in Europe. Climb the legendary Grossglockner High Alpine Road, descend into the Puster Valley, and tackle the Tre Cime loop before finishing in the shadow of the Marmolada glacier. A tour designed for road cyclists who want to feel small in the presence of vast mountains.`,
+      location: "Zell am See",
+      country: "Austria",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=1600&q=80",
+      highlights: [
+        "Grossglockner High Alpine Road",
+        "Tre Cime di Lavaredo",
+        "Passo Pordoi",
+        "Cortina d'Ampezzo",
+        "Marmolada glacier views",
+      ],
+      gear: ["Road bike", "Bib shorts", "Arm/leg warmers", "Wind jacket", "Cycling computer"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1800,
+      latitude: 47.3,
+      longitude: 12.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure105.id },
+      { userId: user2.id, adventureId: adventure105.id },
+      { userId: user3.id, adventureId: adventure105.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 106
+  const adventure106 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-106" },
+    update: {},
+    create: {
+      id: "seed-adventure-106",
+      title: "Mekong Delta Cycling",
+      description: `The Mekong Delta in southern Vietnam is a labyrinth of rivers, canals, rice paddies, and floating markets that rewards exploration at bicycle pace. This low-key cycling adventure winds through villages where daily life flows on the water — fishermen casting nets at dawn, market boats laden with tropical fruit, children swimming from wooden jetties. The flat terrain makes it accessible to all fitness levels, while the immersive cultural experience and tropical scenery are utterly memorable.`,
+      location: "Can Tho",
+      country: "Vietnam",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: [
+        "Cai Rang floating market",
+        "Rice paddy paths",
+        "Mekong ferry crossings",
+        "Local village homestay",
+        "Tropical fruit orchards",
+      ],
+      gear: ["Lightweight bike", "Breathable clothing", "Sunhat", "Water bottles", "Sandals"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 500,
+      latitude: 10.03,
+      longitude: 105.78,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["culture"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure106.id },
+      { userId: user2.id, adventureId: adventure106.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 107
+  const adventure107 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-107" },
+    update: {},
+    create: {
+      id: "seed-adventure-107",
+      title: "Loire Valley Châteaux Cycle",
+      description: `France's longest river winds through a UNESCO World Heritage valley studded with fairy-tale châteaux, Renaissance gardens, and medieval towns. The Loire à Vélo cycling network offers over 900 km of well-signposted, mostly flat routes connecting iconic châteaux such as Chambord, Chenonceau, and Villandry. Between castles, stop in vineyards producing Muscadet, Sancerre, and Vouvray, and overnight in converted manors and charming gîtes. The perfect blend of culture, cuisine, and gentle cycling.`,
+      location: "Saumur",
+      country: "France",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1467803738586-46b7eb7b16a1?w=1600&q=80",
+      highlights: [
+        "Château de Chambord",
+        "Château de Chenonceau",
+        "Loire wine tasting",
+        "Villandry Renaissance gardens",
+        "Troglodyte cave villages",
+      ],
+      gear: ["Touring bike", "Pannier bags", "Helmet", "French phrasebook", "Wine carrier"],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 900,
+      latitude: 47.26,
+      longitude: 0.08,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["culture"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure107.id },
+      { userId: user2.id, adventureId: adventure107.id },
+      { userId: user3.id, adventureId: adventure107.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 108
+  const adventure108 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-108" },
+    update: {},
+    create: {
+      id: "seed-adventure-108",
+      title: "Alps 2 Ocean Cycle Trail",
+      description: `New Zealand's Alps 2 Ocean trail is a 301 km journey from the foot of Aoraki/Mount Cook — the country's highest peak — down through the Mackenzie Basin, past turquoise glacial lakes, and along braided rivers to the Pacific Ocean at Oamaru. The trail passes through high-country sheep stations, along old hydro canals, and through the Waitaki Valley wine country before descending to the Victorian port town famous for its little blue penguins. A scenic, mostly off-road ride through the heart of the South Island.`,
+      location: "Aoraki/Mount Cook",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: [
+        "Aoraki/Mount Cook views",
+        "Lake Tekapo turquoise waters",
+        "Mackenzie Basin high country",
+        "Waitaki Valley vineyards",
+        "Oamaru blue penguin colony",
+      ],
+      gear: ["Mountain bike", "Cycling gloves", "Merino base layer", "Sunscreen", "Panniers"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 1100,
+      latitude: -43.74,
+      longitude: 170.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure108.id },
+      { userId: user3.id, adventureId: adventure108.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 109
+  const adventure109 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-109" },
+    update: {},
+    create: {
+      id: "seed-adventure-109",
+      title: "Tierra del Fuego Circuit",
+      description: `At the very tip of South America, Tierra del Fuego is a wind-scoured archipelago of glaciers, peat bogs, beech forests, and fjords shared between Chile and Argentina. This expedition circuit treks the remote Dientes de Navarino — the world's southernmost trail — crosses the Beagle Channel, and explores the end-of-the-world town of Ushuaia before venturing into the Patagonian backcountry. Harsh, isolated, and profoundly beautiful — a wilderness that truly feels like the edge of the Earth.`,
+      location: "Ushuaia",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: [
+        "Dientes de Navarino circuit",
+        "Beagle Channel crossing",
+        "Lapataia Bay",
+        "Glacier Martial",
+        "Magellanic penguin colonies",
+      ],
+      gear: ["4-season tent", "Down sleeping bag", "Gaiters", "Trekking poles", "Full waterproofs"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 3500,
+      latitude: -54.8,
+      longitude: -68.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure109.id },
+      { userId: user2.id, adventureId: adventure109.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 110
+  const adventure110 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-110" },
+    update: {},
+    create: {
+      id: "seed-adventure-110",
+      title: "Congo River Canoe Journey",
+      description: `The Congo River is the world's second largest by water volume and the deepest river on Earth. This remarkable expedition paddles a section of the lower Congo through dense equatorial rainforest, stopping at riverside villages accessible only by water, watching forest elephants at salt licks, and camping under skies undimmed by light pollution. The region is raw, remote, and utterly unlike anywhere else — a journey into one of the last true wilderness frontiers on the planet.`,
+      location: "Kinshasa",
+      country: "Democratic Republic of the Congo",
+      continent: "Africa",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1600&q=80",
+      highlights: [
+        "Dense equatorial rainforest",
+        "Riverside village encounters",
+        "Forest elephants",
+        "Night sky camping",
+        "Congo River rapids",
+      ],
+      gear: ["Expedition kayak or canoe", "Dry bags", "Water purification", "Malaria prophylaxis", "Satellite communicator"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 4500,
+      latitude: -4.3,
+      longitude: 15.3,
+      published: true,
+      userId: user1.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["jungle"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user2.id, adventureId: adventure110.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 111
+  const adventure111 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-111" },
+    update: {},
+    create: {
+      id: "seed-adventure-111",
+      title: "North Pole Last Degree Ski Expedition",
+      description: `The ultimate polar achievement: skiing the last degree of latitude to the Geographic North Pole, crossing 111 km of drifting Arctic Ocean sea ice. Hauling a pulk sled loaded with all food and equipment, teams navigate pressure ridges, open leads of freezing water, and unpredictable weather in temperatures as low as -40°C. The reward is standing at the very top of the world, surrounded by nothing but ice in every direction. One of the most exclusive adventures on Earth, attempted by only a handful of teams each season.`,
+      location: "89°N Arctic Ocean",
+      country: "International Waters",
+      continent: "Arctic",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1551415923-a2297c7fda79?w=1600&q=80",
+      highlights: [
+        "Geographic North Pole arrival",
+        "Sea ice pressure ridges",
+        "Polar bear encounters",
+        "Midnight sun navigation",
+        "Arctic Ocean crossing",
+      ],
+      gear: ["Polar skis and pulk", "Expedition down suit", "-40°C sleeping bag", "GPS beacon", "Polar rations"],
+      bestMonths: [4, 5],
+      estimatedCost: 25000,
+      latitude: 89.0,
+      longitude: 0.0,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["arctic"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure111.id },
+      { userId: user2.id, adventureId: adventure111.id },
+      { userId: user3.id, adventureId: adventure111.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 112
+  const adventure112 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-112" },
+    update: {},
+    create: {
+      id: "seed-adventure-112",
+      title: "Makalu Base Camp Trek",
+      description: `Makalu, the world's fifth-highest peak at 8,485 m, sits in a seldom-visited corner of eastern Nepal, offering one of the most pristine and challenging trek approaches in the Himalaya. The trail climbs through subtropical forest, rhododendron groves, and high-alpine meadows carpeted with gentians to reach Base Camp at 5,700 m — with jaw-dropping views of Makalu's pyramidal summit and the Barun Glacier. Far fewer trekkers than the Everest or Annapurna circuits means genuine wilderness and authentic encounters with Sherpa communities.`,
+      location: "Tumlingtar",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [
+        "Makalu Base Camp at 5700 m",
+        "Barun Glacier",
+        "Pristine Makalu-Barun National Park",
+        "Rhododendron forest",
+        "Remote Sherpa villages",
+      ],
+      gear: ["High-altitude down jacket", "Crampons", "Ice axe", "Expedition tent", "Acclimatisation medication"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 4200,
+      latitude: 27.89,
+      longitude: 87.09,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["mountains"].id }, { id: allTags["trekking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure112.id },
+      { userId: user3.id, adventureId: adventure112.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 113
+  const adventure113 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-113" },
+    update: {},
+    create: {
+      id: "seed-adventure-113",
+      title: "Morocco Atlas to Sahara Multi-Sport",
+      description: `Morocco in miniature: this multi-sport adventure crosses the full sweep of the country's landscapes in a single journey, from the snow-dusted peaks of the High Atlas to the orange dunes of the Sahara. Trek to a Berber village above the snowline, mountain bike across hammada stone desert, ride a camel to a Saharan camp for a night under the stars, then 4x4 through dramatic gorges back to the imperial city of Marrakech. A sensory overload of colour, culture, and adventure packed into a single tour.`,
+      location: "Marrakech",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1529963183134-61a90db47eaf?w=1600&q=80",
+      highlights: [
+        "High Atlas Berber village trek",
+        "Sahara dune camp",
+        "Camel ride at sunset",
+        "Todra Gorge 4x4",
+        "Marrakech medina",
+      ],
+      gear: ["Trekking boots", "Mountain bike helmet", "Desert scarf", "Sleeping bag liner", "Sunscreen"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1800,
+      latitude: 31.63,
+      longitude: -7.99,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["culture"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure113.id },
+      { userId: user2.id, adventureId: adventure113.id },
+      { userId: user3.id, adventureId: adventure113.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 114
+  const adventure114 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-114" },
+    update: {},
+    create: {
+      id: "seed-adventure-114",
+      title: "New Zealand South Island Grand Traverse",
+      description: `New Zealand's South Island packs extraordinary diversity into a relatively small area — volcanic geothermal fields, ancient glaciers, fiords, golden beaches, and the Southern Alps all within a day's travel of each other. This grand traverse combines kayaking Milford Sound, hiking the Routeburn Track, mountain biking the Old Ghost Road, and surfing at Raglan in a single end-to-end adventure that showcases the full range of terrain on offer. The ultimate multi-sport sampler of the world's adventure capital.`,
+      location: "Queenstown",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=1600&q=80",
+      highlights: [
+        "Milford Sound kayaking",
+        "Routeburn Track",
+        "Old Ghost Road mountain bike",
+        "Bungee jump at Kawarau",
+        "Abel Tasman sea kayaking",
+      ],
+      gear: ["Kayak paddle jacket", "Mountain bike", "Hiking poles", "Wetsuit", "Merino wool layers"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 3800,
+      latitude: -45.03,
+      longitude: 168.66,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure114.id },
+      { userId: user2.id, adventureId: adventure114.id },
+      { userId: user3.id, adventureId: adventure114.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 115
+  const adventure115 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-115" },
+    update: {},
+    create: {
+      id: "seed-adventure-115",
+      title: "Kenya Highlands Horseback and Trek",
+      description: `The Kenyan Highlands offer a rarely visited side of East Africa — green volcanic hills, tea plantations, Maasai community lands, and the dramatic Aberdare Range — best explored on horseback at dawn and on foot through the forest at dusk. Ride across the Laikipia Plateau, visit a Maasai manyatta, track wildlife on guided bush walks, and spend nights at colonial-era farm lodges overlooking the Great Rift Valley. A unique fusion of equestrian adventure and cultural immersion far from the standard safari circuit.`,
+      location: "Nanyuki",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=1600&q=80",
+      highlights: [
+        "Horseback across Laikipia Plateau",
+        "Maasai village visit",
+        "Aberdare forest walk",
+        "Rift Valley sunset views",
+        "Mount Kenya foothills",
+      ],
+      gear: ["Riding boots and helmet", "Trekking boots", "Light merino layers", "Sun protection", "Binoculars"],
+      bestMonths: [1, 2, 6, 7, 8, 9, 10],
+      estimatedCost: 3200,
+      latitude: 0.01,
+      longitude: 37.07,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["culture"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure115.id },
+      { userId: user2.id, adventureId: adventure115.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 116
+  const adventure116 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-116" },
+    update: {},
+    create: {
+      id: "seed-adventure-116",
+      title: "Canadian Rockies Adventure Week",
+      description: `The Canadian Rockies around Banff and Jasper are a playground of turquoise glacial lakes, soaring limestone peaks, and abundant wildlife — best experienced through multiple disciplines. This action-packed week combines white-water rafting on the Kicking Horse River, via ferrata climbing above Lake Louise, mountain biking the Bow Valley trails, and a multi-day backcountry hike through Yoho National Park, ending at the emerald waters of Lake O'Hara. Canada's outdoor crown jewel, compressed into one unforgettable week.`,
+      location: "Banff",
+      country: "Canada",
+      continent: "North America",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1465056836041-7f43ac27dcb5?w=1600&q=80",
+      highlights: [
+        "Kicking Horse white-water rafting",
+        "Via ferrata above Lake Louise",
+        "Yoho backcountry hike",
+        "Lake O'Hara",
+        "Icefields Parkway drive",
+      ],
+      gear: ["Climbing harness", "Helmet", "Mountain bike", "Dry suit liner", "Bear spray"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: 51.18,
+      longitude: -115.57,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure116.id },
+      { userId: user2.id, adventureId: adventure116.id },
+      { userId: user3.id, adventureId: adventure116.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 117
+  const adventure117 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-117" },
+    update: {},
+    create: {
+      id: "seed-adventure-117",
+      title: "Kumano Kodo Pilgrimage",
+      description: `The Kumano Kodo is a network of ancient pilgrimage routes through the Kii Peninsula in southern Japan, one of only two UNESCO World Heritage trail systems in the world (the other being the Camino de Santiago). The paths wind through sacred cedar forests, past moss-covered stone lanterns, and between three Grand Shrines of Kumano, where Japanese emperors have walked for over a millennium. Overnight in traditional minshuku guesthouses, bathe in forest onsen, and absorb the deep spiritual atmosphere of this mountain pilgrimage.`,
+      location: "Tanabe",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: [
+        "Nakahechi main route",
+        "Three Grand Shrines of Kumano",
+        "Sacred cedar forests",
+        "Traditional minshuku stays",
+        "Forest onsen baths",
+      ],
+      gear: ["Waterproof hiking boots", "Trekking poles", "Rain jacket", "Pilgrim staff (kongō-tsue)", "Small backpack"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 1800,
+      latitude: 33.73,
+      longitude: 135.37,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["culture"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure117.id },
+      { userId: user2.id, adventureId: adventure117.id },
+      { userId: user3.id, adventureId: adventure117.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 118
+  const adventure118 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-118" },
+    update: {},
+    create: {
+      id: "seed-adventure-118",
+      title: "Drakensberg Grand Traverse",
+      description: `The Drakensberg Grand Traverse is South Africa's ultimate trekking challenge — a 220 km high-route along the rooftop of the Drakensberg escarpment, largely above 3,000 m, crossing from Cathedral Peak to Bushman's Nek in around 14 days. The route traverses a UNESCO World Heritage Site of outstanding beauty, passing Bushman rock art galleries, soaring basalt pinnacles, deep valleys carved by waterfalls, and rolling highland meadows filled with proteas and crane lilies. A demanding and remote wild camp experience through one of Africa's most spectacular mountain ranges.`,
+      location: "Cathedral Peak",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600&q=80",
+      highlights: [
+        "Amphitheatre and Tugela Falls",
+        "Bushman rock art galleries",
+        "Rhino Peak summit",
+        "High-altitude meadows",
+        "Wilderness wild camping",
+      ],
+      gear: ["4-season tent", "30°C sleeping bag", "Trekking poles", "Navigation compass", "Water filter"],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 2200,
+      latitude: -28.93,
+      longitude: 29.23,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure118.id },
+      { userId: user2.id, adventureId: adventure118.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 119
+  const adventure119 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-119" },
+    update: {},
+    create: {
+      id: "seed-adventure-119",
+      title: "GR10 Pyrenees Traverse",
+      description: `The GR10 is France's great Pyrenean high route, traversing the entire mountain range from the Atlantic at Hendaye to the Mediterranean at Banyuls-sur-Mer along 866 km of mountain trail. The route stays on the French side of the border, passing through Basque country, the Hautes-Pyrénées, and Catalan foothills, with dramatic ascents over glacially sculpted cols and descents into villages famous for their cassoulet and Armagnac. Most trekkers complete the full traverse in six to eight weeks, though the route can be tackled in stages across multiple seasons.`,
+      location: "Hendaye",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 50,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [
+        "Lac de Gaube and Vignemale",
+        "Cirque de Gavarnie",
+        "Basque country villages",
+        "Bagnères-de-Luchon thermal baths",
+        "Mediterranean finish at Banyuls",
+      ],
+      gear: ["Lightweight tent", "Trekking poles", "Waterproof boots", "Gaiters", "French IGN maps"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: 43.37,
+      longitude: -1.78,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure119.id },
+      { userId: user2.id, adventureId: adventure119.id },
+      { userId: user3.id, adventureId: adventure119.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // Adventure 120
+  const adventure120 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-120" },
+    update: {},
+    create: {
+      id: "seed-adventure-120",
+      title: "Kungsleden Arctic Trail",
+      description: `The Kungsleden (King's Trail) runs 440 km through the heart of Swedish Lapland from Abisko in the north to Hemavan in the south, passing through four national parks including the remote Sarek — arguably Sweden's wildest wilderness. Above the Arctic Circle, the trail crosses open fells, birch forests, and glaciated mountain terrain in a landscape shaped by reindeer herding Sámi people for millennia. STF mountain stations and huts are spaced at intervals, making this one of the world's best-supported long-distance treks, accessible in summer or on cross-country skis in winter.`,
+      location: "Abisko",
+      country: "Sweden",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 22,
+      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      highlights: [
+        "Sarek National Park wilderness",
+        "Kebnekaise — Sweden's highest peak",
+        "Northern lights (autumn)",
+        "Midnight sun (summer)",
+        "Sámi cultural encounters",
+      ],
+      gear: ["Trekking poles", "Waterproof jacket and trousers", "Midges head net", "Camp stove", "Bear canister"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2000,
+      latitude: 68.35,
+      longitude: 18.83,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({
+    data: [
+      { userId: user1.id, adventureId: adventure120.id },
+      { userId: user2.id, adventureId: adventure120.id },
+      { userId: user3.id, adventureId: adventure120.id },
+    ],
+    skipDuplicates: true,
+  });
+
+  // -------------------------------------------------------------------------
   // AI-generated itineraries (one per adventure, showcasing the planner)
   // -------------------------------------------------------------------------
 
