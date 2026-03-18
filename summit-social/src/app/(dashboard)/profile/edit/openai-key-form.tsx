@@ -110,6 +110,7 @@ export function OpenAiKeyForm({ initialHasKey, initialHint }: OpenAiKeyFormProps
         <form onSubmit={handleSave} className="flex items-start gap-3">
           <input
             type="password"
+            aria-label="OpenAI API key"
             value={keyInput}
             onChange={(e) => setKeyInput(e.target.value)}
             placeholder="sk-..."
@@ -127,8 +128,10 @@ export function OpenAiKeyForm({ initialHasKey, initialHint }: OpenAiKeyFormProps
         </form>
       )}
 
-      {error && <p className="font-mono text-xs text-red-400">{error}</p>}
-      {success && <p className="font-mono text-xs text-emerald-500">{success}</p>}
+      <div aria-live="polite">
+        {error && <p className="font-mono text-xs text-red-400">{error}</p>}
+        {success && <p className="font-mono text-xs text-emerald-500">{success}</p>}
+      </div>
     </div>
   );
 }
