@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import "@/lib/env";
 import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Lora, Space_Mono, Teko } from "next/font/google";
 import { Providers } from "./providers";
 
@@ -32,10 +32,24 @@ export const metadata: Metadata = {
   description: APP_DESCRIPTION,
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0a0908",
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${teko.variable} ${lora.variable} ${spaceMono.variable}`}>
+    <html
+      lang="en"
+      className={`${teko.variable} ${lora.variable} ${spaceMono.variable}`}
+      style={{ colorScheme: "dark" }}
+    >
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-amber-500 focus:text-stone-950 focus:font-display focus:text-xs focus:uppercase focus:tracking-widest"
+        >
+          Skip to main content
+        </a>
         <Providers>{children}</Providers>
       </body>
     </html>
