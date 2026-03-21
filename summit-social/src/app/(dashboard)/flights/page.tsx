@@ -27,7 +27,9 @@ export default function FlightsPage() {
   const [destination, setDestination] = useState(searchParams.get("to") ?? "");
   const [departureDate, setDepartureDate] = useState(searchParams.get("dep") ?? "");
   const [returnDate, setReturnDate] = useState(searchParams.get("ret") ?? "");
-  const [passengers, setPassengers] = useState(Number(searchParams.get("pax") ?? 1));
+  const [passengers, setPassengers] = useState(
+    Math.max(1, Math.min(9, Number(searchParams.get("pax")) || 1)),
+  );
   const [cabinClass, setCabinClass] = useState<CabinClass>(
     (searchParams.get("class") as CabinClass) ?? "economy",
   );
