@@ -58,6 +58,8 @@ export function SearchFilter() {
       <div className="relative flex-1 min-w-[200px]">
         <input
           type="search"
+          name="search"
+          aria-label="Search adventures"
           value={inputValue}
           placeholder="Search adventures…"
           onChange={handleSearchChange}
@@ -68,9 +70,12 @@ export function SearchFilter() {
         )}
       </div>
       <select
+        name="sortBy"
+        aria-label="Sort adventures by"
         value={sortBy}
         onChange={(e) => update("sortBy", e.target.value)}
         className="border border-stone-700 bg-stone-900 px-3 py-2 font-mono text-xs text-stone-300 focus:border-amber-500 focus:outline-none"
+        style={{ colorScheme: "dark" }}
       >
         <option value="votes">Most Voted</option>
         <option value="trending">Trending</option>

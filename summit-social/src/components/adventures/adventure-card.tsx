@@ -22,7 +22,7 @@ export function AdventureCard({
   const difficulty = DIFFICULTY_MAP.get(adventure.difficulty);
 
   return (
-    <div className="group relative border border-stone-800 bg-stone-950 overflow-hidden transition-all duration-300 hover:border-amber-800/60">
+    <div className="group relative border border-stone-800 bg-stone-950 overflow-hidden transition-colors duration-300 hover:border-amber-800/60">
       {/* Left accent bar colored by difficulty */}
       <div
         className={cn(

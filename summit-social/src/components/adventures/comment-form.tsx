@@ -58,6 +58,8 @@ export function CommentForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-2">
       <textarea
+        name="body"
+        aria-label="Comment"
         value={body}
         onChange={(e) => setBody(e.target.value)}
         placeholder={placeholder}

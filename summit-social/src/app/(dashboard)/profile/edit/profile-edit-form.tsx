@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface ProfileEditFormProps {
   user: {
@@ -23,6 +23,17 @@ export function ProfileEditForm({ user }: ProfileEditFormProps) {
   const [websiteUrl, setWebsiteUrl] = useState(user.websiteUrl ?? "");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const dirtyRef = useRef(false);
+
+  useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      if (!dirtyRef.current) return;
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,6 +53,7 @@ export function ProfileEditForm({ user }: ProfileEditFormProps) {
         return;
       }
 
+      dirtyRef.current = false;
       router.push(`/profile/${user.id}`);
       router.refresh();
     } catch {
@@ -63,8 +75,13 @@ export function ProfileEditForm({ user }: ProfileEditFormProps) {
         <input
           id="name"
           type="text"
+          name="name"
+          autoComplete="name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            dirtyRef.current = true;
+            setName(e.target.value);
+          }}
           maxLength={100}
           className="w-full border border-stone-700 bg-stone-900 px-4 py-2.5 font-mono text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
           placeholder="Your name"
@@ -80,8 +97,12 @@ export function ProfileEditForm({ user }: ProfileEditFormProps) {
         </label>
         <textarea
           id="bio"
+          name="bio"
           value={bio}
-          onChange={(e) => setBio(e.target.value)}
+          onChange={(e) => {
+            dirtyRef.current = true;
+            setBio(e.target.value);
+          }}
           maxLength={500}
           rows={4}
           className="w-full border border-stone-700 bg-stone-900 px-4 py-2.5 font-mono text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30 resize-none"
@@ -101,8 +122,13 @@ export function ProfileEditForm({ user }: ProfileEditFormProps) {
           <input
             id="instagram"
             type="url"
+            name="instagramUrl"
+            autoComplete="url"
             value={instagramUrl}
-            onChange={(e) => setInstagramUrl(e.target.value)}
+            onChange={(e) => {
+              dirtyRef.current = true;
+              setInstagramUrl(e.target.value);
+            }}
             className="w-full border border-stone-700 bg-stone-900 px-4 py-2.5 font-mono text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
             placeholder="https://instagram.com/yourhandle"
           />
@@ -114,8 +140,13 @@ export function ProfileEditForm({ user }: ProfileEditFormProps) {
           <input
             id="twitter"
             type="url"
+            name="twitterUrl"
+            autoComplete="url"
             value={twitterUrl}
-            onChange={(e) => setTwitterUrl(e.target.value)}
+            onChange={(e) => {
+              dirtyRef.current = true;
+              setTwitterUrl(e.target.value);
+            }}
             className="w-full border border-stone-700 bg-stone-900 px-4 py-2.5 font-mono text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
             placeholder="https://x.com/yourhandle"
           />
@@ -127,8 +158,13 @@ export function ProfileEditForm({ user }: ProfileEditFormProps) {
           <input
             id="website"
             type="url"
+            name="websiteUrl"
+            autoComplete="url"
             value={websiteUrl}
-            onChange={(e) => setWebsiteUrl(e.target.value)}
+            onChange={(e) => {
+              dirtyRef.current = true;
+              setWebsiteUrl(e.target.value);
+            }}
             className="w-full border border-stone-700 bg-stone-900 px-4 py-2.5 font-mono text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/30"
             placeholder="https://yoursite.com"
           />

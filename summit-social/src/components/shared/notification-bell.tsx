@@ -63,6 +63,7 @@ export function NotificationBell() {
         type="button"
         onClick={handleOpen}
         aria-label="Notifications"
+        aria-expanded={open}
         className="relative flex items-center text-stone-500 hover:text-stone-300 transition-colors"
       >
         <svg
@@ -99,7 +100,7 @@ export function NotificationBell() {
               </button>
             )}
           </div>
-          <div className="max-h-80 overflow-y-auto">
+          <div className="max-h-80 overflow-y-auto overscroll-contain">
             {loading ? (
               <p className="px-4 py-6 text-center font-mono text-xs text-stone-600">Loading…</p>
             ) : notifications.length === 0 ? (

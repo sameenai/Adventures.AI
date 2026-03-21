@@ -71,7 +71,7 @@ export function LeaderboardTable({ entries }: LeaderboardTableProps) {
                   {difficulty?.label}
                 </td>
                 <td className="px-4 py-3 text-right font-mono text-sm font-bold text-stone-300">
-                  {entry.adventure.voteCount.toLocaleString()}
+                  {new Intl.NumberFormat("en").format(entry.adventure.voteCount)}
                 </td>
                 <td className="px-4 py-3 text-center">
                   <TrendArrow trend={entry.trend} />

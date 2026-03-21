@@ -4,6 +4,7 @@ import { FlightComparison } from "@/components/flights/flight-comparison";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useFlightSearch } from "@/hooks/useFlightSearch";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 type CabinClass = "economy" | "premium_economy" | "business" | "first";
@@ -19,18 +20,33 @@ const ADVENTURE_ROUTES = [
 
 export default function FlightsPage() {
   const { offers, loading, error, search } = useFlightSearch();
-  const [origin, setOrigin] = useState("");
-  const [destination, setDestination] = useState("");
-  const [departureDate, setDepartureDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
-  const [passengers, setPassengers] = useState(1);
-  const [cabinClass, setCabinClass] = useState<CabinClass>("economy");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [origin, setOrigin] = useState(searchParams.get("from") ?? "");
+  const [destination, setDestination] = useState(searchParams.get("to") ?? "");
+  const [departureDate, setDepartureDate] = useState(searchParams.get("dep") ?? "");
+  const [returnDate, setReturnDate] = useState(searchParams.get("ret") ?? "");
+  const [passengers, setPassengers] = useState(
+    Math.max(1, Math.min(9, Number(searchParams.get("pax")) || 1)),
+  );
+  const [cabinClass, setCabinClass] = useState<CabinClass>(
+    (searchParams.get("class") as CabinClass) ?? "economy",
+  );
   const [hasSearched, setHasSearched] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (origin && destination && departureDate) {
       setHasSearched(true);
+      const params = new URLSearchParams();
+      params.set("from", origin);
+      params.set("to", destination);
+      params.set("dep", departureDate);
+      if (returnDate) params.set("ret", returnDate);
+      params.set("pax", String(passengers));
+      params.set("class", cabinClass);
+      router.push(`/flights?${params.toString()}`, { scroll: false });
       search({
         origin: origin.toUpperCase(),
         destination: destination.toUpperCase(),
@@ -56,6 +72,8 @@ export default function FlightsPage() {
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <Input
             label="From"
+            name="origin"
+            autoComplete="off"
             placeholder="LHR"
             value={origin}
             onChange={(e) => setOrigin(e.target.value.toUpperCase())}
@@ -64,6 +82,8 @@ export default function FlightsPage() {
           />
           <Input
             label="To"
+            name="destination"
+            autoComplete="off"
             placeholder="KTM"
             value={destination}
             onChange={(e) => setDestination(e.target.value.toUpperCase())}
@@ -73,6 +93,8 @@ export default function FlightsPage() {
           <Input
             label="Departure"
             type="date"
+            name="departureDate"
+            autoComplete="off"
             value={departureDate}
             onChange={(e) => setDepartureDate(e.target.value)}
             required
@@ -80,6 +102,8 @@ export default function FlightsPage() {
           <Input
             label="Return"
             type="date"
+            name="returnDate"
+            autoComplete="off"
             value={returnDate}
             onChange={(e) => setReturnDate(e.target.value)}
           />
@@ -96,7 +120,7 @@ export default function FlightsPage() {
               <button
                 type="button"
                 onClick={() => setPassengers((p) => Math.max(1, p - 1))}
-                className="px-3 font-mono text-stone-400 hover:text-stone-200 transition-colors"
+                className="px-3 font-mono text-stone-400 transition-colors hover:text-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
                 aria-label="Decrease passengers"
               >
                 −
@@ -107,7 +131,7 @@ export default function FlightsPage() {
               <button
                 type="button"
                 onClick={() => setPassengers((p) => Math.min(9, p + 1))}
-                className="px-3 font-mono text-stone-400 hover:text-stone-200 transition-colors"
+                className="px-3 font-mono text-stone-400 transition-colors hover:text-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
                 aria-label="Increase passengers"
               >
                 +
@@ -125,9 +149,11 @@ export default function FlightsPage() {
             </label>
             <select
               id="cabin-class"
+              name="cabinClass"
               value={cabinClass}
               onChange={(e) => setCabinClass(e.target.value as CabinClass)}
               className="border border-stone-700 bg-stone-900 px-3 py-2 font-mono text-sm text-stone-200 focus:border-amber-500 focus:outline-none"
+              style={{ colorScheme: "dark" }}
             >
               <option value="economy">Economy</option>
               <option value="premium_economy">Premium Economy</option>

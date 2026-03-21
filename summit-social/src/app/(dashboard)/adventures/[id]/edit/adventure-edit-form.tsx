@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import type { Adventure, Tag } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const MONTH_NAMES = [
   "Jan",
@@ -35,6 +35,7 @@ function TagInput({ value, onChange }: { value: string[]; onChange: (v: string[]
       <div className="flex gap-2">
         <input
           type="text"
+          aria-label="Add tag"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={(e) => {
@@ -50,7 +51,7 @@ function TagInput({ value, onChange }: { value: string[]; onChange: (v: string[]
         <button
           type="button"
           onClick={add}
-          className="border border-stone-700 px-3 py-2 font-display text-xs uppercase tracking-widest text-stone-400 hover:text-stone-200 transition-colors"
+          className="border border-stone-700 px-3 py-2 font-display text-xs uppercase tracking-widest text-stone-400 transition-colors hover:text-stone-200"
         >
           Add
         </button>
@@ -66,6 +67,7 @@ function TagInput({ value, onChange }: { value: string[]; onChange: (v: string[]
               <button
                 type="button"
                 onClick={() => onChange(value.filter((t) => t !== tag))}
+                aria-label={`Remove tag ${tag}`}
                 className="text-stone-600 hover:text-red-400"
               >
                 ×
@@ -114,6 +116,7 @@ function ListInput({
       <div className="flex gap-2">
         <input
           type="text"
+          aria-label="Add item"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={(e) => {
@@ -165,6 +168,17 @@ export function AdventureEditForm({ adventure }: AdventureEditFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [enhancing, setEnhancing] = useState(false);
+  const dirtyRef = useRef(false);
+
+  useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      if (!dirtyRef.current) return;
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, []);
 
   const [form, setForm] = useState({
     title: adventure.title,
@@ -188,8 +202,10 @@ export function AdventureEditForm({ adventure }: AdventureEditFormProps) {
     tags: adventure.tags.map((t) => t.name),
   });
 
-  const set = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) =>
+  const set = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) => {
+    dirtyRef.current = true;
     setForm((f) => ({ ...f, [key]: value }));
+  };
 
   const toggleMonth = (m: number) =>
     set(
@@ -251,6 +267,7 @@ export function AdventureEditForm({ adventure }: AdventureEditFormProps) {
         setError(data.error ?? "Failed to save changes.");
         return;
       }
+      dirtyRef.current = false;
       router.push(`/adventures/${adventure.id}`);
       router.refresh();
     } catch {

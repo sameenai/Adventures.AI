@@ -4,6 +4,7 @@ import { NotificationBell } from "@/components/shared/notification-bell";
 import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useState } from "react";
 
 const NAV_LINKS = [
   { href: "/adventures", label: "Explore" },
@@ -19,6 +20,7 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const { data: session } = useSession();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-stone-800/80 bg-stone-950/98 backdrop-blur-md">
@@ -58,14 +60,14 @@ export function Navbar() {
               </Link>
               <Link
                 href={`/profile/${session.user.id}`}
-                className="font-display text-xs uppercase tracking-widest text-stone-400 hover:text-amber-500 transition-colors"
+                className="hidden font-display text-xs uppercase tracking-widest text-stone-400 transition-colors hover:text-amber-500 sm:block"
               >
                 {session.user.name ?? session.user.email}
               </Link>
               <button
                 type="button"
                 onClick={() => signOut()}
-                className="font-display text-xs uppercase tracking-widest text-stone-600 hover:text-stone-300 transition-colors"
+                className="hidden font-display text-xs uppercase tracking-widest text-stone-600 transition-colors hover:text-stone-300 sm:block"
               >
                 Sign out
               </button>
@@ -82,8 +84,80 @@ export function Navbar() {
               </Link>
             </>
           )}
+          {/* Hamburger — mobile only */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
+            className="flex flex-col items-center justify-center gap-1 p-1 text-stone-400 transition-colors hover:text-stone-200 md:hidden"
+          >
+            {mobileOpen ? (
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
         </div>
       </nav>
+
+      {/* Mobile nav drawer */}
+      {mobileOpen && (
+        <div
+          id="mobile-nav"
+          className="border-t border-stone-800 bg-stone-950 px-4 pb-4 pt-3 md:hidden"
+        >
+          <nav className="flex flex-col gap-0.5">
+            {NAV_LINKS.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                className="py-2 font-display text-xs uppercase tracking-widest text-stone-400 transition-colors hover:text-amber-500"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+          {session && (
+            <div className="mt-3 flex items-center justify-between border-t border-stone-800 pt-3">
+              <Link
+                href={`/profile/${session.user.id}`}
+                onClick={() => setMobileOpen(false)}
+                className="font-display text-xs uppercase tracking-widest text-stone-400 hover:text-amber-500"
+              >
+                {session.user.name ?? session.user.email}
+              </Link>
+              <button
+                type="button"
+                onClick={() => signOut()}
+                className="font-display text-xs uppercase tracking-widest text-stone-600 hover:text-stone-300 transition-colors"
+              >
+                Sign out
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </header>
   );
 }

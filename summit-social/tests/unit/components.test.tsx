@@ -253,14 +253,14 @@ describe("VoteButton", () => {
     expect(screen.getByText("42")).toBeInTheDocument();
   });
 
-  it("shows different title when not voted", () => {
+  it("shows different aria-label when not voted", () => {
     render(<VoteButton adventureId="adv-1" voteCount={10} hasVoted={false} />);
-    expect(screen.getByTitle("Vote")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Vote" })).toBeInTheDocument();
   });
 
-  it("shows remove vote title when already voted", () => {
+  it("shows remove vote aria-label when already voted", () => {
     render(<VoteButton adventureId="adv-1" voteCount={10} hasVoted={true} />);
-    expect(screen.getByTitle("Remove vote")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Remove vote" })).toBeInTheDocument();
   });
 
   it("is disabled when disabled prop is true", () => {
@@ -271,11 +271,11 @@ describe("VoteButton", () => {
     expect(button).toBeDisabled();
   });
 
-  it("shows sign in title when disabled", () => {
+  it("shows sign in aria-label when disabled", () => {
     render(
       <VoteButton adventureId="adv-1" voteCount={10} hasVoted={false} disabled={true} />,
     );
-    expect(screen.getByTitle("Sign in to vote")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Sign in to vote" })).toBeInTheDocument();
   });
 
   it("calls fetch when clicked", async () => {

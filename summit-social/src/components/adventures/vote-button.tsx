@@ -31,7 +31,7 @@ export function VoteButton({ adventureId, voteCount, hasVoted, disabled }: VoteB
           disabled && "cursor-not-allowed opacity-40",
           isPending && "opacity-60",
         )}
-        title={disabled ? "Sign in to vote" : voted ? "Remove vote" : "Vote"}
+        aria-label={disabled ? "Sign in to vote" : voted ? "Remove vote" : "Vote"}
       >
         <svg
           className={cn("h-3.5 w-3.5", voted && "fill-current")}
