@@ -91,10 +91,10 @@ export default async function AdventuresPage({
           where,
           orderBy:
             sortBy === "newest"
-              ? { createdAt: "desc" as const }
+              ? [{ createdAt: "desc" as const }, { id: "asc" as const }]
               : sortBy === "duration"
-                ? { durationDays: "asc" as const }
-                : { voteCount: "desc" as const },
+                ? [{ durationDays: "asc" as const }, { id: "asc" as const }]
+                : [{ voteCount: "desc" as const }, { id: "asc" as const }],
           take: PAGE_SIZE + 1,
           include,
         }),
@@ -102,7 +102,24 @@ export default async function AdventuresPage({
 
   const hasMore = rawAdventures.length > PAGE_SIZE;
   const adventures = hasMore ? rawAdventures.slice(0, PAGE_SIZE) : rawAdventures;
-  const nextCursor = hasMore ? adventures[adventures.length - 1].id : undefined;
+
+  let nextCursor: string | undefined;
+  if (hasMore) {
+    const last = adventures[adventures.length - 1];
+    if (sortBy === "newest") {
+      nextCursor = Buffer.from(
+        JSON.stringify({ c: last.createdAt.toISOString(), id: last.id }),
+      ).toString("base64url");
+    } else if (sortBy === "duration") {
+      nextCursor = Buffer.from(JSON.stringify({ d: last.durationDays, id: last.id })).toString(
+        "base64url",
+      );
+    } else {
+      nextCursor = Buffer.from(JSON.stringify({ v: last.voteCount, id: last.id })).toString(
+        "base64url",
+      );
+    }
+  }
 
   let votedIds: string[] = [];
   let bookmarkedIds: string[] = [];
@@ -301,14 +318,12 @@ export default async function AdventuresPage({
             currentUserId={session?.user?.id}
             votedAdventureIds={votedIds}
             bookmarkedAdventureIds={bookmarkedIds}
-            queryParams={{
-              category: params.category,
-              continent: params.continent,
-              difficulty: params.difficulty,
-              duration: params.duration,
-              search: params.search,
-              sortBy: params.sortBy,
-            }}
+            category={params.category}
+            continent={params.continent}
+            difficulty={params.difficulty}
+            duration={params.duration}
+            search={params.search}
+            sortBy={params.sortBy}
           />
         </div>
       </div>

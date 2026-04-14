@@ -404,7 +404,7 @@ describe("InfiniteAdventureGrid", () => {
         initialAdventures={[makeAdventure("adv-1"), makeAdventure("adv-2")]}
         votedAdventureIds={[]}
         bookmarkedAdventureIds={[]}
-        queryParams={{}}
+        
       />,
     );
     expect(screen.getAllByTestId("adventure-card")).toHaveLength(2);
@@ -416,7 +416,7 @@ describe("InfiniteAdventureGrid", () => {
         initialAdventures={[]}
         votedAdventureIds={[]}
         bookmarkedAdventureIds={[]}
-        queryParams={{}}
+        
       />,
     );
     expect(screen.getByText(/no adventures found/i)).toBeTruthy();
@@ -428,7 +428,7 @@ describe("InfiniteAdventureGrid", () => {
         initialAdventures={[makeAdventure("adv-1")]}
         votedAdventureIds={[]}
         bookmarkedAdventureIds={[]}
-        queryParams={{}}
+        
       />,
     );
     expect(screen.getByText(/all adventures loaded/i)).toBeTruthy();
