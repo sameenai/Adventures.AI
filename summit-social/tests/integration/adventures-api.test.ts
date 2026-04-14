@@ -89,6 +89,7 @@ const sampleAdventure = {
   difficulty: "MODERATE",
   durationDays: 10,
   voteCount: 5,
+  createdAt: new Date("2024-01-01T00:00:00.000Z"),
   userId: "user-1",
   published: true,
   coverImageUrl: "https://example.com/img.jpg",
@@ -125,7 +126,10 @@ describe("GET /api/adventures", () => {
     const data = await response.json();
 
     expect(data.items).toHaveLength(20);
-    expect(data.nextCursor).toBe("adv-19");
+    // cursor is now a compound keyset cursor (base64url-encoded JSON)
+    const decoded = JSON.parse(Buffer.from(data.nextCursor, "base64url").toString("utf8"));
+    expect(decoded.id).toBe("adv-19");
+    expect(typeof decoded.v).toBe("number");
   });
 
   it("returns 400 for invalid filter params", async () => {
@@ -156,7 +160,7 @@ describe("GET /api/adventures", () => {
     await getAdventures(makeRequest("http://localhost/api/adventures?sortBy=newest"));
 
     const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
-    expect(call.orderBy).toEqual({ createdAt: "desc" });
+    expect(call.orderBy).toEqual([{ createdAt: "desc" }, { id: "asc" }]);
   });
 
   it("orders by durationDays asc when sortBy=duration", async () => {
@@ -165,7 +169,7 @@ describe("GET /api/adventures", () => {
     await getAdventures(makeRequest("http://localhost/api/adventures?sortBy=duration"));
 
     const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
-    expect(call.orderBy).toEqual({ durationDays: "asc" });
+    expect(call.orderBy).toEqual([{ durationDays: "asc" }, { id: "asc" }]);
   });
 
   it.each([
@@ -196,14 +200,23 @@ describe("GET /api/adventures", () => {
     expect(call.where.OR[2]).toMatchObject({ location: { contains: "nepal", mode: "insensitive" } });
   });
 
-  it("passes cursor and skip to prisma when ?cursor= is provided", async () => {
+  it("applies keyset where condition to prisma when ?cursor= is provided", async () => {
     (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
 
-    await getAdventures(makeRequest("http://localhost/api/adventures?cursor=adv-5"));
+    // Build a valid compound cursor for votes sort: { v: 3, id: "adv-5" }
+    const cursorToken = Buffer.from(JSON.stringify({ v: 3, id: "adv-5" })).toString("base64url");
+    await getAdventures(
+      makeRequest(`http://localhost/api/adventures?cursor=${cursorToken}`),
+    );
 
     const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
-    expect(call.cursor).toEqual({ id: "adv-5" });
-    expect(call.skip).toBe(1);
+    // No prisma-level cursor/skip — pagination is done via WHERE OR conditions
+    expect(call.cursor).toBeUndefined();
+    expect(call.skip).toBeUndefined();
+    expect(call.where.OR).toEqual([
+      { voteCount: { lt: 3 } },
+      { voteCount: 3, id: { gt: "adv-5" } },
+    ]);
   });
 });
 
