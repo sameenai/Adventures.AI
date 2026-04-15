@@ -9690,6 +9690,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure204.id }, { userId: user2.id, adventureId: adventure204.id }], skipDuplicates: true });
 
+
+  // Adventure 205
+  const adventure205 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-205" },
+    update: {},
+    create: {
+      id: "seed-adventure-205",
+      title: "Fiji Multi-Island Surf Trip",
+      description: `Fiji has the world's most consistent surf, with Cloudbreak at Tavarua producing the longest, most powerful left-hand barrel in the Southern Hemisphere. The Mamanuca and Yasawa island chains offer surf breaks at every level from Restaurants (gentle reef fun) to Cloudbreak (expert only). Combine charter boat access to empty reef passes, island village kava ceremonies, and above-water bure accommodation for a surf trip that goes well beyond the surf.`,
+      location: "Nadi",
+      country: "Fiji",
+      continent: "Oceania",
+      category: Category.SURFING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1455729552865-3658a5d39692?w=1600&q=80",
+      highlights: ["Cloudbreak at Tavarua", "Restaurants beginner reef", "Kava ceremony", "Yasawa island villages", "Namotu Left"],
+      gear: ["Shortboard and fun board", "Reef booties", "Wetsuit rash top", "Sun protection", "GoPro mount"],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 5000,
+      latitude: -17.71,
+      longitude: 177.45,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["bucket-list"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure205.id }, { userId: user2.id, adventureId: adventure205.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
