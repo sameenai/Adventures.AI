@@ -13801,6 +13801,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure341.id }, { userId: user2.id, adventureId: adventure341.id }], skipDuplicates: true });
 
+
+  // Adventure 342
+  const adventure342 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-342" },
+    update: {},
+    create: {
+      id: "seed-adventure-342",
+      title: "Kamchatka Volcano Trek",
+      description: `Kamchatka in the Russian Far East has the highest concentration of active volcanoes on Earth, with 29 of the 160 volcanoes currently active and Klyuchevskaya Sopka the highest active volcano in the Northern Hemisphere at 4,750 metres. Helicopter access to remote volcano groups allows multi-day camping on volcanic caldera rims with thermal hot springs for bathing. Brown bears are so abundant that every group requires an armed ranger escort in the field.`,
+      location: "Petropavlovsk-Kamchatsky",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Klyuchevskaya highest active volcano 4750m", "29 active volcanoes in one region", "Brown bear armed escort mandatory", "Volcanic hot spring bathing", "Valley of Geysers helicopter access"],
+      gear: ["Volcanic gas mask", "Crampons glacier ice", "Expedition tent windproof", "Russian visa required", "Bear repellent spray"],
+      bestMonths: [7, 8],
+      estimatedCost: 4000,
+      latitude: 53.05,
+      longitude: 158.65,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["volcanic"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure342.id }, { userId: user2.id, adventureId: adventure342.id }, { userId: user3.id, adventureId: adventure342.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
