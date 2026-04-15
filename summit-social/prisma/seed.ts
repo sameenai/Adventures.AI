@@ -10530,6 +10530,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure232.id }, { userId: user2.id, adventureId: adventure232.id }], skipDuplicates: true });
 
+
+  // Adventure 233
+  const adventure233 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-233" },
+    update: {},
+    create: {
+      id: "seed-adventure-233",
+      title: "British Columbia Coast Trek",
+      description: `The North Coast Trail on the northern tip of Vancouver Island runs 43 km between San Josef Bay and Shushartie Bay through old-growth Sitka spruce and western red cedar rainforest, with bear grass meadows, isolated sea stacks, and black sand beaches. The trail is genuinely challenging — muddy, rooted, and sometimes requiring rope-assisted descents — and accessible only by floatplane or water taxi. Black bears are common; cougars have been sighted. This is the Canadian coast at its most raw.`,
+      location: "Port Hardy",
+      country: "Canada",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Old-growth cedar rainforest", "Isolated sea stack beaches", "Black bear encounters", "Floatplane access", "Pacific storm coast"],
+      gear: ["Waterproof everything", "Bear canister", "Sturdy boots", "Tarp", "Bear spray"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1800,
+      latitude: 50.7,
+      longitude: -127.49,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure233.id }, { userId: user2.id, adventureId: adventure233.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
