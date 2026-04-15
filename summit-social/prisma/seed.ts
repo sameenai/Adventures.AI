@@ -7501,6 +7501,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure131.id }, { userId: user2.id, adventureId: adventure131.id }, { userId: user3.id, adventureId: adventure131.id }], skipDuplicates: true });
 
+
+  // Adventure 132
+  const adventure132 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-132" },
+    update: {},
+    create: {
+      id: "seed-adventure-132",
+      title: "Drakensberg Grand Traverse",
+      description: `The Drakensberg Grand Traverse is a 220 km route along the summit plateau and escarpment of the uKhahlamba Drakensberg in South Africa, from Sentinel Peak to Cathedral Peak. The route stays mostly above 3,000 m on the Lesotho border, with the basalt escarpment dropping 1,000 m sheer to the KwaZulu-Natal foothills. San rock art shelters dot the lower valleys. Navigation in mist is difficult; this is for experienced mountain travellers.`,
+      location: "Sentinel Peak",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Amphitheatre escarpment", "Tugela Falls", "San rock art", "Lesotho plateau", "Cathedral Peak finale"],
+      gear: ["Navigation equipment", "Cold weather gear", "Shelter for all conditions", "Water filter", "Emergency beacon"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1200,
+      latitude: -28.74,
+      longitude: 28.89,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure132.id }, { userId: user2.id, adventureId: adventure132.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
