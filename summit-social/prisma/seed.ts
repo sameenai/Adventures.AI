@@ -13981,6 +13981,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure347.id }, { userId: user2.id, adventureId: adventure347.id }], skipDuplicates: true });
 
+
+  // Adventure 348
+  const adventure348 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-348" },
+    update: {},
+    create: {
+      id: "seed-adventure-348",
+      title: "Patagonia Dientes Circuit, Chile",
+      description: `The Dientes de Navarino circuit on Navarino Island in Chilean Patagonia is the southernmost trekking circuit in the world, circling the jagged black peaks of the Dientes range with views over the Beagle Channel to Tierra del Fuego. The five-day route has no maintained infrastructure and requires cross-country navigation through peat bogs, lenga beech forest, and granite boulder fields. Wind speeds of 100 kilometres per hour are routine and the weather changes in minutes.`,
+      location: "Puerto Williams",
+      country: "Chile",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Southernmost trekking circuit world", "Dientes peaks 1000m granite spires", "Beagle Channel views to Tierra del Fuego", "Zero infrastructure navigation required", "Puerto Williams world southernmost city"],
+      gear: ["Navigation GPS and topo maps", "Wind-rated 4-season tent", "Gaiters for peat bogs", "Trekking poles scrambling", "Emergency PLB locator beacon"],
+      bestMonths: [12, 1, 2],
+      estimatedCost: 800,
+      latitude: -54.93,
+      longitude: -67.61,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure348.id }, { userId: user2.id, adventureId: adventure348.id }, { userId: user3.id, adventureId: adventure348.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
