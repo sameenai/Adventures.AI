@@ -8340,6 +8340,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure159.id }, { userId: user2.id, adventureId: adventure159.id }], skipDuplicates: true });
 
+
+  // Adventure 160
+  const adventure160 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-160" },
+    update: {},
+    create: {
+      id: "seed-adventure-160",
+      title: "Amazon River Journey",
+      description: `Travelling the Amazon from Iquitos in Peru to Belém on the Atlantic coast of Brazil — 3,700 km on slow cargo boats and jungle lodges — is among the most immersive journeys on earth. Pink river dolphins surface alongside the boat, sloths hang from cecropia trees at the waterline, caimans glow in headtorch light, and the scale of the forest — 5.5 million sq km — reduces everything else to perspective. The slow boat from Leticia to Manaus takes 5–7 days; hammock space is cheap.`,
+      location: "Iquitos",
+      country: "Peru",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Pink river dolphins", "Piranha fishing", "Jungle lodge nights", "Leticia-Manaus hammock boat", "Belém do Pará"],
+      gear: ["Hammock", "Mosquito net", "Malaria prophylaxis", "Water purification", "Waterproof bags"],
+      bestMonths: [6, 7, 8, 9, 10, 11],
+      estimatedCost: 4500,
+      latitude: -3.74,
+      longitude: -73.25,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure160.id }, { userId: user2.id, adventureId: adventure160.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
