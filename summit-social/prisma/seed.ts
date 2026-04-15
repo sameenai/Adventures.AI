@@ -15121,6 +15121,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure385.id }, { userId: user2.id, adventureId: adventure385.id }], skipDuplicates: true });
 
+
+  // Adventure 386
+  const adventure386 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-386" },
+    update: {},
+    create: {
+      id: "seed-adventure-386",
+      title: "Peruvian Jungle Mountain Bike Descent",
+      description: `The Death Road descent in Bolivia near La Paz descends 3,600 metres in 64 kilometres from the Andean altiplano to the Amazon basin cloud forest, but the similar Lares and Abra Malaga descents above Ollantaytambo in Peru are less crowded and equally spectacular. The Maras salt pans and Moray Inca terracing en route provide Inca archaeology alongside the adrenaline descent. Local bikes are provided by several operators in Pisac and Ollantaytambo.`,
+      location: "Ollantaytambo",
+      country: "Peru",
+      continent: "South America",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Abra Malaga 4350m descent start", "Maras salt pans Inca engineering", "Moray agricultural terracing circles", "3600m descent to cloud forest", "Sacred Valley Inca culture route"],
+      gear: ["Mountain bike full suspension", "Helmet and knee pads", "Warm top for cold summit", "Cycling gloves", "Camera mount handlebar"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 400,
+      latitude: -13.26,
+      longitude: -72.26,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure386.id }, { userId: user2.id, adventureId: adventure386.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
