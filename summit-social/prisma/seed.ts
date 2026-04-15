@@ -9420,6 +9420,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure195.id }, { userId: user2.id, adventureId: adventure195.id }], skipDuplicates: true });
 
+
+  // Adventure 196
+  const adventure196 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-196" },
+    update: {},
+    create: {
+      id: "seed-adventure-196",
+      title: "Via Alpina Green Route",
+      description: `The Via Alpina Green Route traverses the entire Alpine arc from Trieste to Monaco in 161 stages and 2,500 km across 5 countries — Slovenia, Austria, Germany, Liechtenstein, Switzerland, and France — staying entirely in the mountains from the Julian Alps to the Maritime Alps. Most trekkers take the summer to walk a section; completing the full route requires a dedicated season. Mountain huts, alpine meadows, and the entire Alpine ecosystem.`,
+      location: "Trieste",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 90,
+      coverImageUrl: "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=1600&q=80",
+      highlights: ["Julian Alps Slovenia", "Zugspitze approach Germany", "Swiss Alpine passes", "Maritime Alps finale", "161-stage circuit"],
+      gear: ["Lightweight trekking kit", "Hut sleeping sheet", "Navigation tools", "Multi-country currency", "Long-distance mindset"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 8000,
+      latitude: 45.65,
+      longitude: 13.77,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["expedition"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure196.id }, { userId: user2.id, adventureId: adventure196.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
