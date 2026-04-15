@@ -15181,6 +15181,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure387.id }, { userId: user2.id, adventureId: adventure387.id }], skipDuplicates: true });
 
+
+  // Adventure 388
+  const adventure388 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-388" },
+    update: {},
+    create: {
+      id: "seed-adventure-388",
+      title: "Great Himalaya Trail Nepal",
+      description: `The Great Himalaya Trail is the longest and highest trekking route on Earth, traversing Nepal from Kanchenjunga to Hilsa near the Tibet border over 1,700 kilometres and over 100,000 metres of total ascent. Fewer than 100 people have completed the full high route, which passes through every restricted zone in Nepal including Dolpo, Mustang, and Nar Phu. The low alternative route is still an extraordinary journey but the high route remains one of the world's great unfinished ambitions.`,
+      location: "Taplejung",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 120,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["1700km longest trekking route Earth", "100 completions all time record low", "Kanchenjunga to Humla traverse", "All Nepal restricted zones combined", "100000m cumulative ascent"],
+      gear: ["Full expedition support system", "Multiple restricted area permits", "Satellite communicator essential", "Four-season mountain tent", "Three to four month supplies planning"],
+      bestMonths: [3, 4, 5, 9, 10],
+      estimatedCost: 15000,
+      latitude: 27.7,
+      longitude: 87.99,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure388.id }, { userId: user2.id, adventureId: adventure388.id }, { userId: user3.id, adventureId: adventure388.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
