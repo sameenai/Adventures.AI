@@ -7981,6 +7981,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure147.id }, { userId: user2.id, adventureId: adventure147.id }, { userId: user3.id, adventureId: adventure147.id }], skipDuplicates: true });
 
+
+  // Adventure 148
+  const adventure148 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-148" },
+    update: {},
+    create: {
+      id: "seed-adventure-148",
+      title: "Okavango Delta Mokoro Safari",
+      description: `The Okavango Delta in Botswana is the world's largest inland delta — 15,000 sq km of permanently flooded waterways, papyrus channels, and palm-covered islands teeming with elephant, hippo, crocodile, lion, leopard, and 500 bird species. A mokoro (dugout canoe) safari poled by a local guide through the lily-covered channels is an utterly silent, intimate way to experience wildlife at water level. Camping on remote islands under the stars completes the picture.`,
+      location: "Maun",
+      country: "Botswana",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Mokoro channel paddling", "Elephant herds at water", "Night lion encounters", "Island bush camping", "500+ bird species"],
+      gear: ["Quick-dry clothing", "Binoculars", "Camera with zoom", "Headtorch", "Antimalarials"],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 4200,
+      latitude: -19.98,
+      longitude: 23.42,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure148.id }, { userId: user2.id, adventureId: adventure148.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
