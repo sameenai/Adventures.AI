@@ -7291,6 +7291,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure124.id }, { userId: user2.id, adventureId: adventure124.id }, { userId: user3.id, adventureId: adventure124.id }], skipDuplicates: true });
 
+
+  // Adventure 125
+  const adventure125 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-125" },
+    update: {},
+    create: {
+      id: "seed-adventure-125",
+      title: "Camino Primitivo",
+      description: `The oldest and most rugged of the Camino de Santiago routes, the Primitivo runs 320 km from Oviedo across the Cantabrian Mountains to Santiago de Compostela. It was walked by King Alfonso II in the 9th century and remains the most challenging of the main caminos, with sustained climbs, muddy forest paths, and far fewer pilgrims than the French Way. Rain is near-certain; the solitude is the reward.`,
+      location: "Oviedo",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=1600&q=80",
+      highlights: ["Asturian mountain passes", "O Cádavo viewpoint", "Fonsagrada medieval village", "Lugo Roman walls", "Cathedral de Santiago"],
+      gear: ["Broken-in boots", "Trekking poles", "Rain cover", "Blister kit", "Pilgrim credential"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1400,
+      latitude: 43.36,
+      longitude: -5.84,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["camino"].id }, { id: allTags["trekking"].id }, { id: allTags["europe"].id }, { id: allTags["solo-travel"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure125.id }, { userId: user2.id, adventureId: adventure125.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
