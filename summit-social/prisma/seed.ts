@@ -7591,6 +7591,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure134.id }, { userId: user2.id, adventureId: adventure134.id }, { userId: user3.id, adventureId: adventure134.id }], skipDuplicates: true });
 
+
+  // Adventure 135
+  const adventure135 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-135" },
+    update: {},
+    create: {
+      id: "seed-adventure-135",
+      title: "Mont Blanc Summit via Normal Route",
+      description: `The ascent of Mont Blanc via the Voie Normale from Les Houches to the summit at 4,808 m is the most-attempted serious alpine objective in the world — and it kills more climbers than any other peak in the Alps. The route is not technical but the altitude, objective hazard from seracs on the Bosses Ridge, and rapidly changing weather make this a genuine mountaineering undertaking. Acclimatise on the Aiguilles before attempting.`,
+      location: "Chamonix",
+      country: "France",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["4,808m summit", "Goûter Hut stay", "Grand Couloir crossing", "Bosses Ridge sunrise", "Chamonix descent view"],
+      gear: ["Crampons", "Ice axe", "Harness and rope", "High-altitude boots", "Down suit"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 3500,
+      latitude: 45.83,
+      longitude: 6.86,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["alpine"].id }, { id: allTags["bucket-list"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure135.id }, { userId: user2.id, adventureId: adventure135.id }, { userId: user3.id, adventureId: adventure135.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
