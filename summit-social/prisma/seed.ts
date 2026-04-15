@@ -7801,6 +7801,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure141.id }, { userId: user2.id, adventureId: adventure141.id }], skipDuplicates: true });
 
+
+  // Adventure 142
+  const adventure142 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-142" },
+    update: {},
+    create: {
+      id: "seed-adventure-142",
+      title: "Sri Lanka Coast to Coast",
+      description: `A 900 km cycling loop of Sri Lanka from Colombo takes in the Cultural Triangle of Sigiriya, Polonnaruwa and Anuradhapura, the cool tea estates of Nuwara Eliya, the surf town of Arugam Bay, and the whale-watching coast near Mirissa. Traffic is challenging in the cities; the hill country roads are steep, beautiful, and relatively quiet. The food — hopper breakfasts, kottu roti, fresh coconut — is a constant highlight.`,
+      location: "Colombo",
+      country: "Sri Lanka",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?w=1600&q=80",
+      highlights: ["Sigiriya Lion Rock", "Nuwara Eliya tea estates", "Arugam Bay surf", "Whale watching Mirissa", "Ancient temple circuit"],
+      gear: ["Touring bike", "Panniers", "Helmet", "Repair kit", "Sun protection"],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 2000,
+      latitude: 6.93,
+      longitude: 79.85,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure142.id }, { userId: user2.id, adventureId: adventure142.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
