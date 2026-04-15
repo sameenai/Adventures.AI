@@ -13771,6 +13771,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure340.id }, { userId: user2.id, adventureId: adventure340.id }], skipDuplicates: true });
 
+
+  // Adventure 341
+  const adventure341 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-341" },
+    update: {},
+    create: {
+      id: "seed-adventure-341",
+      title: "Papua Indonesia Bird of Paradise Quest",
+      description: `West Papua in Indonesian New Guinea is the heartland of the most spectacular birds on Earth, the birds of paradise, with 41 species concentrated in primary forest accessible from Sorong and Manokwari. Arfak Mountains sunrise hikes to observe the Vogelkop bowerbird's elaborate bower construction and the Wilson bird of paradise at dawn leks are experiences that have attracted naturalists since Alfred Russel Wallace first described them in 1869. Cenderawasih Bay adds whale shark snorkelling.`,
+      location: "Sorong",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["41 bird of paradise species habitat", "Vogelkop bowerbird elaborate display", "Arfak Mountains endemic wildlife", "Cenderawasih Bay whale sharks", "Alfred Russel Wallace historic route"],
+      gear: ["Binoculars 10x42 minimum", "Camera 600mm telephoto lens", "Malaria prophylaxis", "Rubber jungle boots", "Papua special autonomy permit"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 2500,
+      latitude: -0.88,
+      longitude: 131.27,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure341.id }, { userId: user2.id, adventureId: adventure341.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
