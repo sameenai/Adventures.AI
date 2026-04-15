@@ -10590,6 +10590,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure234.id }, { userId: user2.id, adventureId: adventure234.id }], skipDuplicates: true });
 
+
+  // Adventure 235
+  const adventure235 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-235" },
+    update: {},
+    create: {
+      id: "seed-adventure-235",
+      title: "Rocky Mountain High Route",
+      description: `The Wind River High Route in Wyoming is a 100 km off-trail traverse of the Wind River Range — the most continuous wilderness in the lower 48 states — from Big Sandy Lodge to Elkhart Park, staying above 3,000 m throughout and crossing 10 passes without a maintained trail. Navigation by map and compass, boulder-hopping on persistent talus, and fishing for cutthroat trout in untouched alpine lakes make this the definitive American wilderness experience.`,
+      location: "Pinedale",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Cirque of the Towers", "Knife Point Glacier", "Off-trail navigation", "Cutthroat trout fishing", "Wind River Range solitude"],
+      gear: ["Navigation tools (no trail)", "Lightweight tent", "Fishing licence and rod", "Bear canister", "Microspikes (early season)"],
+      bestMonths: [7, 8],
+      estimatedCost: 1500,
+      latitude: 42.87,
+      longitude: -109.86,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["camping"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure235.id }, { userId: user2.id, adventureId: adventure235.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
