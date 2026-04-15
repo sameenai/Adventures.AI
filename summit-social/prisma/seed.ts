@@ -294,6 +294,7 @@ Acclimatisation is everything. Arrive in Nairobi or Dar es Salaam at least two d
     "trekking",
     "via-ferrata",
     "diving",
+    "sailing",
   ];
   const extraTags = await Promise.all(
     extraTagNames.map((name) =>
@@ -15900,6 +15901,876 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     },
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure411.id }, { userId: user2.id, adventureId: adventure411.id }], skipDuplicates: true });
+
+
+  // Adventure 412
+  const adventure412 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-412" },
+    update: {},
+    create: {
+      id: "seed-adventure-412",
+      title: "Tierra del Fuego to Antarctica Sail",
+      description: `Sailing the Drake Passage from Ushuaia to the Antarctic Peninsula on a traditional expedition yacht is among the most romantic and challenging ocean journeys available to adventurous travellers. The 1,000-kilometre crossing through the world's most powerful ocean current can be glassy or violent, and the sense of arrival into Antarctic waters among tabular icebergs and albatross is overwhelming. Small yacht expeditions allow exploration of remote bays and channels inaccessible to large ships.`,
+      location: "Ushuaia",
+      country: "Argentina",
+      continent: "Antarctica",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Drake Passage world roughest ocean", "Tabular iceberg fields Antarctic entry", "Small yacht remote bay access", "Penguin colony zodiac landings", "Wandering albatross continuous escort"],
+      gear: ["Offshore sailing gear", "Seasickness medication strong", "Polar layering system", "Waterproof expedition kit", "Personal PLB locator"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 6000,
+      latitude: -63,
+      longitude: -60,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["sailing"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure412.id }, { userId: user2.id, adventureId: adventure412.id }, { userId: user3.id, adventureId: adventure412.id }], skipDuplicates: true });
+
+
+  // Adventure 413
+  const adventure413 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-413" },
+    update: {},
+    create: {
+      id: "seed-adventure-413",
+      title: "New Zealand Fiordland Kayaking",
+      description: `Milford Sound and Doubtful Sound in Fiordland National Park offer sea kayaking through the most dramatic fjord scenery in the Southern Hemisphere, with waterfalls plunging directly into the salt water from 1,200-metre cliffs. Doubtful Sound requires a boat crossing of Lake Manapouri and a bus over Wilmot Pass to reach, ensuring far fewer visitors than Milford. Bottlenose dolphins and New Zealand fur seals regularly approach kayakers.`,
+      location: "Te Anau",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Doubtful Sound remote kayak access", "1200m cliff waterfall paddle", "Bottlenose dolphin play sessions", "New Zealand fur seal haul-outs", "Fiordland UNESCO World Heritage"],
+      gear: ["Sea kayak with spray skirt", "Wetsuit cold southern water", "Waterproof dry bags", "VHF radio weather alerts", "Fiordland weather preparation"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 900,
+      latitude: -45.42,
+      longitude: 167.72,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["new-zealand"].id }, { id: allTags["coastal"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure413.id }, { userId: user2.id, adventureId: adventure413.id }, { userId: user3.id, adventureId: adventure413.id }], skipDuplicates: true });
+
+
+  // Adventure 414
+  const adventure414 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-414" },
+    update: {},
+    create: {
+      id: "seed-adventure-414",
+      title: "Alps Haute Route Ski Traverse",
+      description: `The classic Haute Route from Chamonix to Zermatt is the most celebrated ski mountaineering traverse in the Alps, covering 120 kilometres over seven days through high-altitude glacier terrain passing beneath the greatest peaks in Europe. The route crosses Col du Chardonnet, Col de la Mitre, and the Pigne d'Arolla before the dramatic Stockje descent to Zermatt with the Matterhorn appearing on the horizon. Hut-to-hut accommodation in comfortable Alpine refuges makes this accessible for competent skiers.`,
+      location: "Chamonix",
+      country: "France",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Classic Chamonix to Zermatt seven days", "Matterhorn appearance Stockje descent", "Col du Chardonnet 3323m crossing", "Pigne d'Arolla summit 3796m", "Hut-to-hut glacier skiing"],
+      gear: ["Ski touring bindings and skins", "Rope harness crampons glacier", "Avalanche transceiver probe shovel", "Guide strongly recommended", "SAC hut booking advance"],
+      bestMonths: [3, 4],
+      estimatedCost: 2500,
+      latitude: 46,
+      longitude: 7,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure414.id }, { userId: user2.id, adventureId: adventure414.id }, { userId: user3.id, adventureId: adventure414.id }], skipDuplicates: true });
+
+
+  // Adventure 415
+  const adventure415 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-415" },
+    update: {},
+    create: {
+      id: "seed-adventure-415",
+      title: "Banff to Jasper Cycling",
+      description: `The Icefields Parkway between Banff and Jasper is widely considered the world's most scenic highway, and cycling its 232 kilometres beside turquoise glacial lakes, past the Columbia Icefield, and through valleys where elk and mountain goats graze creates an unforgettable Canadian Rockies experience. The Athabasca Glacier is accessible by a short walk from the Icefield Discovery Centre, and Peyto Lake's wolf-shaped shoreline viewed from above is one of Canada's iconic images.`,
+      location: "Banff",
+      country: "Canada",
+      continent: "North America",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Columbia Icefield Athabasca Glacier", "Peyto Lake turquoise wolf shape", "Elk and mountain goat daily wildlife", "Bow Summit 2088m highest Parkway", "Jasper dark sky preserve night"],
+      gear: ["Road or gravel bicycle", "Bear spray cycling", "Bear canister camp food", "Helmet and cycling computer", "Camping gear or hotel booking"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 800,
+      latitude: 51.17,
+      longitude: -115.57,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure415.id }, { userId: user2.id, adventureId: adventure415.id }, { userId: user3.id, adventureId: adventure415.id }], skipDuplicates: true });
+
+
+  // Adventure 416
+  const adventure416 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-416" },
+    update: {},
+    create: {
+      id: "seed-adventure-416",
+      title: "Wild Atlantic Way Cycling",
+      description: `Ireland's Wild Atlantic Way traces 2,500 kilometres of the western Atlantic coastline from Malin Head in Donegal to Mizen Head in Cork, passing the Cliffs of Moher, the Burren limestone pavement, and the island communities of the Aran Islands. Cycling the full route takes 3-4 weeks through a landscape where Celtic culture, traditional Irish music in pub sessions, and the most dramatic coastal scenery in Europe create a uniquely Irish adventure. The Dingle Peninsula and Connemara sections are particularly spectacular.`,
+      location: "Malin Head",
+      country: "Ireland",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 28,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Cliffs of Moher 214m Atlantic face", "Aran Islands traditional culture ferry", "Connemara bog and mountain scenery", "Traditional Irish music pub sessions", "Dingle Peninsula coastal drama"],
+      gear: ["Touring bicycle waterproofed", "Rain jacket Ireland always rain", "Panniers mud guards", "Irish euro cash rural pubs", "Warm layers year round"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1500,
+      latitude: 55.37,
+      longitude: -7.39,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure416.id }, { userId: user2.id, adventureId: adventure416.id }], skipDuplicates: true });
+
+
+  // Adventure 417
+  const adventure417 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-417" },
+    update: {},
+    create: {
+      id: "seed-adventure-417",
+      title: "Mekong River Journey",
+      description: `The Mekong River flowing from the Tibetan Plateau through six countries to the South China Sea is one of Asia's great river journeys, and the slowboat from Huay Xai to Luang Prabang in Laos remains the most atmospheric section. The two-day wooden boat journey through jungle-clad limestone gorges stops at riverside villages where Buddhist monks collect alms at dawn. The Golden Triangle where Thailand, Myanmar, and Laos meet at the river's bend is historically resonant.`,
+      location: "Huay Xai",
+      country: "Laos",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Slowboat two-day Mekong journey", "Luang Prabang UNESCO monks alms", "Pak Ou Buddha Caves 4000 statues", "Golden Triangle historic opium trade", "Irrawaddy dolphin river sightings"],
+      gear: ["Sun protection long boat days", "Light clothing tropical humidity", "Water purification tablets", "Laos kip cash", "Camera river light"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 400,
+      latitude: 20.27,
+      longitude: 100.43,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["kayaking"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure417.id }, { userId: user2.id, adventureId: adventure417.id }], skipDuplicates: true });
+
+
+  // Adventure 418
+  const adventure418 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-418" },
+    update: {},
+    create: {
+      id: "seed-adventure-418",
+      title: "Corsican Granite Climbing",
+      description: `Corsica offers exceptional granite climbing in the Bavella Towers, where needle-like aiguilles of orange granite rise from pine forests above the Col de Bavella. The multi-pitch routes from grade 4 to 7c offer sea view climbing at its finest, and the Via Ferrata du Trou de la Bombe provides a thrilling assisted route. The coastal calanques near Bonifacio offer deep water soloing above turquoise water for experienced free climbers.`,
+      location: "Porto Vecchio",
+      country: "France",
+      continent: "Europe",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Bavella Towers orange granite needles", "Multi-pitch sea view climbing", "Via Ferrata Trou de la Bombe", "Bonifacio coastal deep water solo", "Mediterranean pine forest approach"],
+      gear: ["Rock climbing harness and shoes", "Rope and quickdraws", "Via ferrata lanyard set", "Sun protection granite reflection", "Car access Col de Bavella"],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 800,
+      latitude: 41.57,
+      longitude: 9.26,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["scrambling"].id }, { id: allTags["via-ferrata"].id }, { id: allTags["island"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure418.id }, { userId: user2.id, adventureId: adventure418.id }], skipDuplicates: true });
+
+
+  // Adventure 419
+  const adventure419 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-419" },
+    update: {},
+    create: {
+      id: "seed-adventure-419",
+      title: "Oman Desert and Wadi Trek",
+      description: `Oman's Hajar Mountains contain some of the most dramatic trekking terrain in the Middle East, with wadis descending from the high Jebel Akhdar Green Mountain plateau through slot canyons to the desert below. The Wadi Ghul, Oman's Grand Canyon, drops 1,000 metres to the Ghul village below the rim. The traditional falaj water channel irrigation system of the mountain villages is a UNESCO-recognised engineering achievement dating to antiquity.`,
+      location: "Muscat",
+      country: "Oman",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Wadi Ghul Oman Grand Canyon 1000m", "Jebel Akhdar rose water village", "Ancient falaj water channel UNESCO", "Musandam fjords northern Oman", "Wadi Shab swimming gorge"],
+      gear: ["Desert sun protection", "Water sandals wadi swimming", "Warm layers Jebel Akhdar cool", "Modest dress cultural respect", "4WD rental required some areas"],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 1200,
+      latitude: 23.61,
+      longitude: 58.59,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["gorge"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure419.id }, { userId: user2.id, adventureId: adventure419.id }], skipDuplicates: true });
+
+
+  // Adventure 420
+  const adventure420 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-420" },
+    update: {},
+    create: {
+      id: "seed-adventure-420",
+      title: "Kerguelen Islands Expedition",
+      description: `The Kerguelen Islands in the southern Indian Ocean are among the most remote places on Earth, accessible only by the French resupply vessel Marion Dufresne four times per year. The archipelago of 300 islands hosts millions of king penguins, elephant seals, and wandering albatrosses on a landscape of basalt mountains, glaciers, and sub-Antarctic tussock grass. The Cook Glacier and the volcanic Mount Ross at 1,850 metres are the main trekking objectives on this extraordinary French overseas territory.`,
+      location: "Port-aux-Francais",
+      country: "France",
+      continent: "Antarctica",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 28,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Most remote French territory world", "Million king penguin colony", "Marion Dufresne supply ship access", "Cook Glacier sub-Antarctic trek", "Wandering albatross nesting colony"],
+      gear: ["Extreme southern ocean clothing", "Permit French Terres Australes", "Expedition fully self-sufficient", "Survival training recommended", "Marion Dufresne booking 2 years ahead"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 8000,
+      latitude: -49.35,
+      longitude: 70.22,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure420.id }, { userId: user2.id, adventureId: adventure420.id }, { userId: user3.id, adventureId: adventure420.id }], skipDuplicates: true });
+
+
+  // Adventure 421
+  const adventure421 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-421" },
+    update: {},
+    create: {
+      id: "seed-adventure-421",
+      title: "Iceland Midnight Sun Cycling",
+      description: `Cycling Iceland during the summer solstice window from late June to mid-July allows continuous daylight riding, with the ability to cycle at 2am under golden Arctic light with virtually no other traffic. The Ring Road circuit of Iceland covers 1,332 kilometres through lava fields, waterfalls, glaciers, and geothermal areas including the Myvatn lake region. The additional Westfjords peninsula adds the most dramatic fjord scenery and puffin colonies.`,
+      location: "Reykjavik",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Midnight sun 24-hour cycling", "Ring Road 1332km complete circuit", "Westfjords puffin cliff colonies", "Myvatn lake geothermal midge swarm", "Vatnajokull glacier Europe largest"],
+      gear: ["Touring bicycle panniers", "Rain gear constant Iceland weather", "Windproof jacket 100kmh gusts", "Sleep mask midnight sun", "Repair kit volcanic roads"],
+      bestMonths: [6, 7],
+      estimatedCost: 2000,
+      latitude: 64.14,
+      longitude: -21.95,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["europe"].id }, { id: allTags["volcanic"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure421.id }, { userId: user2.id, adventureId: adventure421.id }], skipDuplicates: true });
+
+
+  // Adventure 422
+  const adventure422 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-422" },
+    update: {},
+    create: {
+      id: "seed-adventure-422",
+      title: "Peru Choquequirao Trek",
+      description: `Choquequirao is often called the other Machu Picchu, an Inca citadel abandoned at Spanish conquest and not excavated until the 20th century, accessible only on foot after a two-day approach from Cachora. The descent and ascent of 1,500 metres to the Apurimac River and back makes this one of the most demanding day hikes in Peru, but the site itself is visited by fewer than 50 people per day compared to Machu Picchu's 3,000. The planned cable car would change this forever.`,
+      location: "Cachora",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Other Machu Picchu 50 visitors per day", "1500m Apurimac gorge descent", "Llama terraces Inca agriculture", "Cloud forest condor sightings", "No cable car access yet"],
+      gear: ["Trekking poles steep descent", "High altitude camping gear", "Altitude medication 3000m", "Local guide strongly advised", "5 days food self-sufficient"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: -13.54,
+      longitude: -72.85,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure422.id }, { userId: user2.id, adventureId: adventure422.id }, { userId: user3.id, adventureId: adventure422.id }], skipDuplicates: true });
+
+
+  // Adventure 423
+  const adventure423 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-423" },
+    update: {},
+    create: {
+      id: "seed-adventure-423",
+      title: "Armenia Silk Road Trek",
+      description: `Armenia's ancient landscapes of volcanic mountains, medieval monasteries carved into cliff faces, and the world's oldest winery at Areni contain 6,000 years of continuous civilisation in an area smaller than Belgium. The Transcaucasian Trail through Dilijan National Park passes old-growth forest harbouring lynx, and the high route to Aragats volcano at 4,090 metres provides views over Mount Ararat in Turkey. The monasteries of Noravank, Tatev, and Geghard represent Armenian Christian architecture at its finest.`,
+      location: "Yerevan",
+      country: "Armenia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Geghard cave monastery UNESCO", "Aragats volcano 4090m Armenia highest", "Areni 6000-year winery history", "Tatev monastery world longest cable car", "Transcaucasian Trail new route"],
+      gear: ["Trekking boots rocky volcanic", "Warm layers mountain evenings", "Armenian dram cash", "Camera monastery photography", "Online maps downloaded"],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 600,
+      latitude: 40.18,
+      longitude: 44.51,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure423.id }, { userId: user2.id, adventureId: adventure423.id }], skipDuplicates: true });
+
+
+  // Adventure 424
+  const adventure424 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-424" },
+    update: {},
+    create: {
+      id: "seed-adventure-424",
+      title: "Coral Sea Liveaboard Diving",
+      description: `The Coral Sea off Queensland's barrier reef edge contains some of the world's most pristine deepwater reef systems, including Osprey Reef with its North Horn shark feeding site and the wreck diving of the Coral Sea's WWII battlefields. The M/V Spirit of Freedom liveaboard route covers the outer Ribbon Reefs and Cod Hole where potato cod approach divers. The deepwater visibility exceeds 40 metres and the remoteness means coral cover approaching pre-human baselines.`,
+      location: "Cairns",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Osprey Reef North Horn shark feeding", "Potato cod approach divers 1m", "WWII Coral Sea wreck diving", "40m plus visibility outer reef", "Outer Ribbon Reef pristine coral"],
+      gear: ["Advanced open water", "Nitrox certification helpful", "Underwater camera housing", "Wetsuit 3mm", "Liveaboard sea legs"],
+      bestMonths: [7, 8, 9, 10, 11],
+      estimatedCost: 2500,
+      latitude: -16.9,
+      longitude: 145.77,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["australia"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure424.id }, { userId: user2.id, adventureId: adventure424.id }], skipDuplicates: true });
+
+
+  // Adventure 425
+  const adventure425 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-425" },
+    update: {},
+    create: {
+      id: "seed-adventure-425",
+      title: "Snowdonia Winter Mountaineering",
+      description: `Snowdonia in winter transforms from a popular walking destination to a genuine mountaineering arena, with Snowdon's Trinity Face and the Y Glyderau ridges providing Scottish-grade winter climbing on Welsh rock. Tryfan's North Buttress and the Cwm Bochlwyd approach to Bristly Ridge offer Grade II and III winter routes that test ice axe and crampon technique in accessible conditions. The Red Dragon Inn at Pen y Pass provides classic mountaineers' accommodation.`,
+      location: "Capel Curig",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Tryfan North Buttress Grade II winter", "Bristly Ridge winter scramble", "Y Glyderau Cantilever Stone frozen", "Welsh winter maritime conditions", "Llanberis Pass climbing culture"],
+      gear: ["Winter ice axe 50cm", "12-point crampons", "Helmet mandatory", "Navigation winter OS map", "Emergency bivouac"],
+      bestMonths: [12, 1, 2],
+      estimatedCost: 400,
+      latitude: 53.12,
+      longitude: -3.97,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["scotland"].id }, { id: allTags["alpine"].id }, { id: allTags["scrambling"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure425.id }, { userId: user2.id, adventureId: adventure425.id }], skipDuplicates: true });
+
+
+  // Adventure 426
+  const adventure426 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-426" },
+    update: {},
+    create: {
+      id: "seed-adventure-426",
+      title: "Sahara Desert Camel Trek",
+      description: `A camel trek deep into the Erg Chebbi or Erg Chigaga dune systems of the Moroccan Sahara allows nights sleeping under open stars on the highest dunes in North Africa, where the silence is absolute and the dawn light turns the sand from rose to orange. The Tuareg guide tradition of navigating by star position across the apparently featureless ergs keeps ancient knowledge alive. Multi-day treks reach the most remote oases and rock art sites far from the tourist circuit.`,
+      location: "Merzouga",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Erg Chebbi 150m dunes Sahara", "Tuareg star navigation tradition", "Camel riding desert crossing", "Dawn dune photography light", "Prehistoric rock art remote sites"],
+      gear: ["Desert head covering", "Warm sleeping bag cold nights", "Camel riding padding", "Camera tripod dawn", "Cash Moroccan dirham"],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 400,
+      latitude: 31.08,
+      longitude: -4.01,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["horse-trekking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure426.id }, { userId: user2.id, adventureId: adventure426.id }, { userId: user3.id, adventureId: adventure426.id }], skipDuplicates: true });
+
+
+  // Adventure 427
+  const adventure427 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-427" },
+    update: {},
+    create: {
+      id: "seed-adventure-427",
+      title: "Pacific Northwest Trail",
+      description: `The Pacific Northwest Trail crosses 1,900 kilometres from Glacier National Park in Montana to Olympic National Park on the Pacific coast of Washington, traversing the Northern Rockies, North Cascades, and Olympic Mountains. The trail crosses the Continental Divide at Marias Pass and the rugged Pasayten Wilderness where grizzly bears, mountain lions, and wolverines share the backcountry. The final section through the Hoh Rainforest to the Pacific Ocean ends at Shi Shi Beach.`,
+      location: "Browning",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 55,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Glacier to Pacific Ocean traverse", "North Cascades wilderness solitude", "Hoh Rainforest old growth Pacific", "Pasayten grizzly bear country", "Shi Shi Beach Olympic coast finish"],
+      gear: ["Bear canister required", "Glacier travel crampons", "Washington permit required", "Satellite communicator", "Resupply at Oroville and Mazama"],
+      bestMonths: [7, 8],
+      estimatedCost: 3000,
+      latitude: 48.55,
+      longitude: -113,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["thru-hike"].id }, { id: allTags["mountains"].id }, { id: allTags["camping"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure427.id }, { userId: user2.id, adventureId: adventure427.id }], skipDuplicates: true });
+
+
+  // Adventure 428
+  const adventure428 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-428" },
+    update: {},
+    create: {
+      id: "seed-adventure-428",
+      title: "Zanele Trail South Africa",
+      description: `The Drakensberg range in KwaZulu-Natal forms the highest escarpment in southern Africa, with Thaba-Ntlenyana at 3,482 metres the highest peak south of Kilimanjaro and Mount Kenya. The Amphitheatre wall in Royal Natal National Park drops 1,000 metres in a 5-kilometre arc, and the Tugela Falls at 948 metres is the world's second-highest waterfall. The multi-day Giants Cup Trail through the southern Drakensberg offers the finest combination of scenery and accessibility.`,
+      location: "Bergville",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Amphitheatre 1000m wall Royal Natal", "Tugela Falls 948m second highest world", "Giants Cup Trail five days southern", "San Bushman rock art 3000 years old", "Lammergeier bearded vulture soaring"],
+      gear: ["Hiking boots mountain terrain", "Warm layers altitude cold nights", "Rain jacket afternoon storms", "Permits KZN parks required", "Water filter mountain streams"],
+      bestMonths: [9, 10, 11, 4, 5],
+      estimatedCost: 600,
+      latitude: -28.69,
+      longitude: 29.28,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure428.id }, { userId: user2.id, adventureId: adventure428.id }], skipDuplicates: true });
+
+
+  // Adventure 429
+  const adventure429 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-429" },
+    update: {},
+    create: {
+      id: "seed-adventure-429",
+      title: "Thailand Limestone Sea Kayaking",
+      description: `The limestone karst seascapes of Phang Nga Bay and the Ang Thong Marine National Park near Ko Samui offer world-class sea kayaking through sea caves accessible only at certain tide conditions, into hidden hongs or lagoons completely enclosed by karst walls where ecosystems evolve in isolation. Phang Nga Bay's James Bond Island has become over-visited by longtail boats, but the adjacent caves of Tham Lod and the Khao Tapu area remain accessible by kayak before tourist season crowds arrive.`,
+      location: "Krabi",
+      country: "Thailand",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Sea cave hong lagoon access at tide", "Ang Thong Marine Park 42 islands", "Limestone karst paddling", "Phang Nga Bay James Bond Island", "Bioluminescent plankton night kayak"],
+      gear: ["Sea kayak", "Dry bag electronics", "Tidal chart essential caves", "Snorkel set lagoons", "Reef shoes sharp limestone"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 500,
+      latitude: 8.09,
+      longitude: 98.91,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure429.id }, { userId: user2.id, adventureId: adventure429.id }, { userId: user3.id, adventureId: adventure429.id }], skipDuplicates: true });
+
+
+  // Adventure 430
+  const adventure430 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-430" },
+    update: {},
+    create: {
+      id: "seed-adventure-430",
+      title: "Azores Island Volcano Trek",
+      description: `The Azores archipelago in the mid-Atlantic Ocean sit directly on the Mid-Atlantic Ridge where the Eurasian and North American tectonic plates pull apart, creating nine volcanic islands with hydrothermal hot springs, calderas filled with turquoise crater lakes, and the chance to observe sperm whales from shore. The summit of Pico volcano at 2,351 metres is the highest point in Portugal and the second most prominent island summit in the Atlantic. Multi-day island-hopping by ferry and cycling adds scale.`,
+      location: "Ponta Delgada",
+      country: "Portugal",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Pico Volcano 2351m highest Portugal", "Sete Cidades twin crater lakes", "Sperm whale watching April-October", "Furnas hot spring geothermal cooking", "Flores waterfalls Atlantic wilderness"],
+      gear: ["Hiking boots volcanic terrain", "Rain gear Atlantic unpredictable", "Whale watching binoculars", "Island ferry timetable", "Warm layers summit"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 1200,
+      latitude: 37.74,
+      longitude: -25.67,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["volcanic"].id }, { id: allTags["island"].id }, { id: allTags["hiking"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure430.id }, { userId: user2.id, adventureId: adventure430.id }], skipDuplicates: true });
+
+
+  // Adventure 431
+  const adventure431 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-431" },
+    update: {},
+    create: {
+      id: "seed-adventure-431",
+      title: "Mongolia Nadaam Horse Race",
+      description: `The Mongolian horse race at Naadam is not a professional event but a cross-country race of 15 to 30 kilometres ridden by children aged 5 to 13, who select the best horses from the herd and race without saddles across the open steppe. Witnessing the arrival at the finish line where the winning horse is celebrated with traditional songs and the losers are similarly honoured creates one of the world's most extraordinary sporting spectacles. The provincial Naadam races away from Ulaanbaatar are more authentic.`,
+      location: "Kharkhorin",
+      country: "Mongolia",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Child jockey cross-country 30km race", "Traditional horse worship ceremony", "Mongolian wrestling Mongolian style", "Karakorum ancient capital adjacent", "Erdene Zuu Monastery UNESCO nearby"],
+      gear: ["Camera telephoto horse racing", "Layered steppe weather variable", "Mongolian cash", "Sleeping bag ger camp", "No experience needed spectating"],
+      bestMonths: [7],
+      estimatedCost: 700,
+      latitude: 47.21,
+      longitude: 102.83,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["horse-trekking"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure431.id }, { userId: user2.id, adventureId: adventure431.id }], skipDuplicates: true });
+
+
+  // Adventure 432
+  const adventure432 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-432" },
+    update: {},
+    create: {
+      id: "seed-adventure-432",
+      title: "Namibia Skeleton Coast Drive",
+      description: `The Skeleton Coast of northern Namibia earned its name from the bleached whale and seal bones that lined the shore before the whaling industry collapsed and from the sailors who perished on this fog-bound, current-swept coast. The restricted northern section of the Skeleton Coast National Park requires a permit and fly-in access, while the southern section around Torra Bay provides access to desert-adapted lion, desert elephant, and massive Cape fur seal colonies of 100,000 animals.`,
+      location: "Swakopmund",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["100000 Cape fur seal colony", "Desert-adapted lion population", "Shipwreck graveyard Atlantic coast", "Sandwich Harbour flamingo lake", "Fly-in north restricted zone access"],
+      gear: ["4WD essential remote desert", "Fog and cold Atlantic layers", "Camera wildlife telephoto", "Fuel reserve 200 litres", "Skeleton Coast permit"],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 3000,
+      latitude: -22.68,
+      longitude: 14.53,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["desert"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure432.id }, { userId: user2.id, adventureId: adventure432.id }], skipDuplicates: true });
+
+
+  // Adventure 433
+  const adventure433 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-433" },
+    update: {},
+    create: {
+      id: "seed-adventure-433",
+      title: "Japan Winter Onsen to Onsen Trek",
+      description: `The Yuzawa onsen region in Niigata prefecture and the Nozawa Onsen village in Nagano offer the finest combination of deep powder skiing, mountain village culture, and traditional hot spring bathing in Japan. The Zao backcountry offers unique juhyo snow monsters where trees are encased in wind-sculpted ice formations. Walking between onsen villages in a yukata bathrobe following ancient rotenburo outdoor bath paths connects Japanese winter culture at its most authentic.`,
+      location: "Nozawa Onsen",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.SKIING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Juhyo ice monster sculptures Zao", "Nozawa Onsen free communal baths", "Hokkaido Niseko deep powder skiing", "Rotenburo outdoor hot spring night", "Ryokan kaiseki dinner sake"],
+      gear: ["Ski or snowboard equipment", "Yukata bathrobe ryokan", "Yen cash traditional inns", "Ski helmet powder conditions", "Waterproof ski pants"],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 2500,
+      latitude: 36.93,
+      longitude: 138.46,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure433.id }, { userId: user2.id, adventureId: adventure433.id }, { userId: user3.id, adventureId: adventure433.id }], skipDuplicates: true });
+
+
+  // Adventure 434
+  const adventure434 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-434" },
+    update: {},
+    create: {
+      id: "seed-adventure-434",
+      title: "Matterhorn View Circuit",
+      description: `The Haute Route from Zermatt around the Matterhorn through Arolla to Verbier is the finest pedestrian circuit in the Alps, passing within viewing distance of the Matterhorn for three successive days of dramatically changing perspectives. The Zermatt to Zinal via the Schoenbielhut covers 35 kilometres with 2,500 metres of climbing past glaciers and below the 4,478-metre Matterhorn's south ridge. The Rothorn cable car and Schwarzsee provide optional cable assistance.`,
+      location: "Zermatt",
+      country: "Switzerland",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Matterhorn 4478m three-day visual drama", "Schoenbielhut Matterhorn glacier view", "Zermatt car-free village stay", "Gorner Glacier viewpoint", "Monte Rosa massif backdrop"],
+      gear: ["Mountain hiking boots", "Hiking poles", "Glacier glasses UV", "Swiss franc cash huts", "Early start weather window"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1500,
+      latitude: 46.02,
+      longitude: 7.75,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure434.id }, { userId: user2.id, adventureId: adventure434.id }, { userId: user3.id, adventureId: adventure434.id }], skipDuplicates: true });
+
+
+  // Adventure 435
+  const adventure435 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-435" },
+    update: {},
+    create: {
+      id: "seed-adventure-435",
+      title: "Indonesia Sumatra Orangutan Trek",
+      description: `The Gunung Leuser National Park in northern Sumatra is one of two remaining wild orangutan habitats, with the Bukit Lawang rehabilitation centre offering multi-day jungle treks to encounter wild orangutans in the canopy above. The trek through lowland dipterocarp rainforest also passes Thomas leaf monkeys, Sumatran gibbons, and the world's largest flower, the Rafflesia arnoldii which blooms briefly and reeks of rotting flesh. The critically endangered Sumatran tiger and rhino inhabit the deeper forest.`,
+      location: "Medan",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Wild orangutan canopy encounters", "Rafflesia arnoldii world largest flower", "Thomas leaf monkey jungle canopy", "Gunung Leuser national park", "Sumatra tiger habitat deep forest"],
+      gear: ["Rubber jungle boots", "Insect repellent DEET", "Malaria prophylaxis", "Waterproof dry bag", "Camera tree canopy light"],
+      bestMonths: [3, 4, 5, 8, 9, 10],
+      estimatedCost: 700,
+      latitude: 3.55,
+      longitude: 98.68,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["safari"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure435.id }, { userId: user2.id, adventureId: adventure435.id }, { userId: user3.id, adventureId: adventure435.id }], skipDuplicates: true });
+
+
+  // Adventure 436
+  const adventure436 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-436" },
+    update: {},
+    create: {
+      id: "seed-adventure-436",
+      title: "Svalbard Summer Hiking",
+      description: `Svalbard in the Arctic summer offers 24-hour daylight hiking across tundra carpeted in Arctic flowers between July and August, with polar bear encounters requiring rifle-carrying guides beyond Longyearbyen. The Longyear Valley glacier hike, the Platafjellet ridge walk above Barentsburg, and the boat-accessed Pyramiden Soviet ghost town create an extraordinary combination of natural and Cold War heritage. Reinsdyrflya nature reserve provides the world's most accessible high Arctic landscape.`,
+      location: "Longyearbyen",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Midnight sun 24-hour Arctic hiking", "Polar bear rifle escort requirement", "Pyramiden Soviet ghost town", "Arctic tundra summer flowers", "Glacier day hike Longyear Valley"],
+      gear: ["Rifle guide mandatory outside town", "Windproof Arctic clothing", "Midnight sun eye mask camp", "Gaiters tundra terrain", "Camera Arctic wildlife"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 2000,
+      latitude: 78.22,
+      longitude: 15.65,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["arctic"].id }, { id: allTags["hiking"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure436.id }, { userId: user2.id, adventureId: adventure436.id }], skipDuplicates: true });
+
+
+  // Adventure 437
+  const adventure437 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-437" },
+    update: {},
+    create: {
+      id: "seed-adventure-437",
+      title: "India Ladakh Cycling",
+      description: `Cycling from Manali to Leh over the Rohtang and Baralacha La passes in the Indian Himalaya provides one of the world's most spectacular high-altitude road cycling journeys, reaching a maximum elevation of 5,328 metres at the Baralacha La. The 475-kilometre route takes seven to nine days and passes through the lunar landscapes of Sarchu, the Zingzingbar pass, and the Buddhist monasteries of the Indus Valley. The combination of altitude, road quality, and mountain scenery is unparalleled.`,
+      location: "Manali",
+      country: "India",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Baralacha La 5328m highest cycling point", "Sarchu lunar landscape high plateau", "475km Manali to Leh route", "Hemis monastery Buddhist culture", "Indus Valley desert cycling"],
+      gear: ["Mountain bicycle low gearing", "Altitude medication 5000m", "Cold weather cycling kit", "Panniers expedition loaded", "Satellite emergency device"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: 32.24,
+      longitude: 77.19,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure437.id }, { userId: user2.id, adventureId: adventure437.id }], skipDuplicates: true });
+
+
+  // Adventure 438
+  const adventure438 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-438" },
+    update: {},
+    create: {
+      id: "seed-adventure-438",
+      title: "Palawan Island Kayaking Philippines",
+      description: `Palawan Island in the western Philippines is consistently rated among the world's best islands, with the Bacuit Archipelago around El Nido containing 45 limestone islands with secret lagoons and pristine coral reefs accessible only by kayak through low cave entrances at high tide. The Tubbataha Reef UNESCO World Heritage site in the Sulu Sea, accessible by liveaboard from Puerto Princesa, has some of Asia's best shark diving including the largest school of hammerheads outside the Galapagos.`,
+      location: "El Nido",
+      country: "Philippines",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Big Lagoon El Nido secret cave entry", "Tubbataha hammerhead shark schools", "Barracuda Lake thermocline diving", "Secret Beach El Nido kayak access", "Bacuit Archipelago 45 limestone islands"],
+      gear: ["Sea kayak paddles", "Snorkel set lagoon", "Tidal chart cave entries", "Sun protection tropical", "Camera waterproof lagoon"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 11.19,
+      longitude: 119.39,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["diving"].id }, { id: allTags["coastal"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure438.id }, { userId: user2.id, adventureId: adventure438.id }, { userId: user3.id, adventureId: adventure438.id }], skipDuplicates: true });
+
+
+  // Adventure 439
+  const adventure439 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-439" },
+    update: {},
+    create: {
+      id: "seed-adventure-439",
+      title: "Nepal Mustang Annapurna Trek",
+      description: `The Nar Phu Valley trek in the Annapurna Conservation Area accesses a restricted zone even more remote than Upper Mustang, with villages that have had minimal contact with outside culture until the route opened in 2002. The double passes of Kang La at 5,320 metres and the descent into the Manang Valley connecting to the classic Annapurna Circuit create an extraordinary extension. The Tibetan plateau landscapes of Nar and Phu villages at 4,200 metres feel completely otherworldly.`,
+      location: "Besisahar",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Nar Phu restricted zone minimal visitors", "Kang La pass 5320 metres", "Ancient villages 4200m altitude", "Phu village cliffside monastery", "Annapurna Circuit connection"],
+      gear: ["Nar Phu special permit required", "Expedition sleeping bag", "Altitude medicine kit", "High pass crampons optional", "Full camping gear"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1800,
+      latitude: 28.73,
+      longitude: 84.13,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure439.id }, { userId: user2.id, adventureId: adventure439.id }], skipDuplicates: true });
+
+
+  // Adventure 440
+  const adventure440 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-440" },
+    update: {},
+    create: {
+      id: "seed-adventure-440",
+      title: "New Zealand Abel Tasman Kayaking",
+      description: `The Abel Tasman Coast Track is New Zealand's most popular Great Walk, and kayaking the 51-kilometre coastal route past golden sand beaches, granite headlands, and fur seal colonies allows camping on beaches inaccessible to walkers. The combination of sea kayaking and coastline hiking creates a flexible itinerary across the track's three to five days. The Tonga Island Marine Reserve at the northern end of the track protects the largest New Zealand fur seal colony in the South Island.`,
+      location: "Marahau",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Golden sand beach coastal kayaking", "Tonga Island fur seal colony", "Abel Tasman National Park water taxi", "Combined kayak and walk itinerary", "Sandy Bay Seal Colony snorkelling"],
+      gear: ["Sea kayak single or double", "Dry bag", "DOC campsite booking", "Sun protection", "Sandflies protection"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 500,
+      latitude: -40.9,
+      longitude: 172.89,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["new-zealand"].id }, { id: allTags["coastal"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure440.id }, { userId: user2.id, adventureId: adventure440.id }, { userId: user3.id, adventureId: adventure440.id }], skipDuplicates: true });
 
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
