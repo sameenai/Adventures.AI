@@ -9630,6 +9630,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure202.id }, { userId: user2.id, adventureId: adventure202.id }, { userId: user3.id, adventureId: adventure202.id }], skipDuplicates: true });
 
+
+  // Adventure 203
+  const adventure203 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-203" },
+    update: {},
+    create: {
+      id: "seed-adventure-203",
+      title: "Easter Island Discovery",
+      description: `Easter Island (Rapa Nui) sits 3,500 km off the Chilean coast in the southeast Pacific — the most remote inhabited island on earth — and hosts 900 moai statues carved from volcanic tuff and placed on ceremonial ahu platforms across a 163 sq km landscape. Walking the circuit of the island in 4 days reveals the quarry at Rano Raraku where 400 unfinished statues remain, the ceremonial village of Orongo, and cliff-top views over endless Pacific.`,
+      location: "Hanga Roa",
+      country: "Chile",
+      continent: "South America",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=1600&q=80",
+      highlights: ["Rano Raraku moai quarry", "Ahu Tongariki 15 moai", "Orongo ceremonial village", "Anakena beach", "Island circuit walk"],
+      gear: ["Sun protection extreme", "Light hiking shoes", "Camera", "Rapa Nui national park pass", "Spanish phrasebook"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 3000,
+      latitude: -27.11,
+      longitude: -109.37,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["island"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure203.id }, { userId: user2.id, adventureId: adventure203.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
