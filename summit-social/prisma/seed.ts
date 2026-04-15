@@ -13471,6 +13471,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure330.id }, { userId: user2.id, adventureId: adventure330.id }], skipDuplicates: true });
 
+
+  // Adventure 331
+  const adventure331 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-331" },
+    update: {},
+    create: {
+      id: "seed-adventure-331",
+      title: "Austrian Alps Hochkonig Circuit",
+      description: `The Hochkonig massif in the Austrian Salzburger Land offers a classic four-day Alpine circuit passing through high plateau meadows still grazed by cattle, with panoramic views over the Dachstein and Berchtesgaden Alps. The Arthurhaus to Matrashaus hut traverse crosses the summit plateau at 2,941 metres across a karst limestone landscape. Comfortable mountain huts serving Kasnocker cheese dumplings and Kaiserschmarrn make this accessible Alpine trekking.`,
+      location: "Maria Alm",
+      country: "Austria",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Hochkonig summit plateau 2941m", "Alpine hut Austrian food culture", "Dachstein panoramic views", "High meadow cattle grazing", "Salzburg city start optional"],
+      gear: ["Mountain boots", "Hut booking advance July August", "Trekking poles", "Warm layers summit plateau", "Rain jacket Alps weather variable"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: 47.42,
+      longitude: 13.08,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure331.id }, { userId: user2.id, adventureId: adventure331.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
