@@ -10290,6 +10290,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure224.id }, { userId: user2.id, adventureId: adventure224.id }], skipDuplicates: true });
 
+
+  // Adventure 225
+  const adventure225 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-225" },
+    update: {},
+    create: {
+      id: "seed-adventure-225",
+      title: "Karakoram Highway Cycle",
+      description: `The Karakoram Highway from Islamabad to Kashgar in China is one of the world's highest paved international roads, crossing the Khunjerab Pass at 4,693 m through the Karakoram, Himalayan, and Hindu Kush ranges simultaneously. Cycling this road passes under the second and twelfth highest mountains in the world (K2 from Concordia is a separate trek), through the Hunza Valley with its apricot orchards and ancient Silk Road forts, and over the pass into Xinjiang.`,
+      location: "Islamabad",
+      country: "Pakistan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Hunza Valley apricot season", "Khunjerab Pass 4,693m", "Passu Cones mountain view", "Kashgar Sunday market", "K2 visible from highway"],
+      gear: ["Mountain touring bike", "Panniers", "Altitude medication", "Tent (wild camping)", "Pakistan SIM"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: 33.72,
+      longitude: 73.04,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure225.id }, { userId: user2.id, adventureId: adventure225.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
