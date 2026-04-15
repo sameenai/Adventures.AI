@@ -13231,6 +13231,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure322.id }, { userId: user2.id, adventureId: adventure322.id }], skipDuplicates: true });
 
+
+  // Adventure 323
+  const adventure323 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-323" },
+    update: {},
+    create: {
+      id: "seed-adventure-323",
+      title: "Namib Desert Ultramarathon Trek",
+      description: `The Namib Desert along Namibia's Skeleton Coast is the world's oldest desert, with dunes at Sossusvlei rising 325 metres above the orange-red plains. Walking the dune crests at dawn before the wind erases yesterday's tracks and descending to Deadvlei's white clay pan ringed by 900-year-old dead camel thorn trees is a singular desert photography experience. Multi-day desert treks into the remote northern Namib require guide support and carry water.`,
+      location: "Sesriem",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Dune 45 sunrise 325m orange dune", "Deadvlei white clay 900-year trees", "Skeleton Coast shipwrecks", "Oryx and springbok desert adapted wildlife", "Milky Way desert night skies"],
+      gear: ["Desert sun protection factor 50", "10 litre water carry minimum", "Gaiters for sand", "Dawn hiking essential heat", "Camera wide angle"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1800,
+      latitude: -24.74,
+      longitude: 15.77,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["desert"].id }, { id: allTags["photography"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure323.id }, { userId: user2.id, adventureId: adventure323.id }, { userId: user3.id, adventureId: adventure323.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
