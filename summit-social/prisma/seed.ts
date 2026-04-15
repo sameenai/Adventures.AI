@@ -14971,6 +14971,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure380.id }, { userId: user2.id, adventureId: adventure380.id }, { userId: user3.id, adventureId: adventure380.id }], skipDuplicates: true });
 
+
+  // Adventure 381
+  const adventure381 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-381" },
+    update: {},
+    create: {
+      id: "seed-adventure-381",
+      title: "Czech Republic Elbe Sandstone Cycling",
+      description: `The Elbe Sandstone Mountains straddling the Czech-German border contain the most bizarre erosion-sculpted rock towers in Central Europe, with hundreds of vertical sandstone pillars rising from pine forest between Dresden and the Bohemian Switzerland National Park. Cycling the Elbe River trail from Prague through Decin to Dresden follows the river through spectacular gorge scenery that inspired the German Romantic painters. The Pravcicka Brana natural sandstone arch is the largest in Europe at 32 metres wide.`,
+      location: "Prague",
+      country: "Czech Republic",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Pravcicka Brana largest European sandstone arch", "Bohemian Switzerland National Park towers", "Elbe River trail Prague to Dresden", "Saxon Switzerland German side extension", "Deutsche Romantik landscape paintings"],
+      gear: ["Touring bicycle", "Rain jacket Central Europe", "Ferry crossings several", "Bike carrier rail backup", "Czech koruna and euros"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 50.09,
+      longitude: 14.43,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["gorge"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure381.id }, { userId: user2.id, adventureId: adventure381.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
