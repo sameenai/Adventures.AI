@@ -10830,6 +10830,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure242.id }, { userId: user2.id, adventureId: adventure242.id }], skipDuplicates: true });
 
+
+  // Adventure 243
+  const adventure243 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-243" },
+    update: {},
+    create: {
+      id: "seed-adventure-243",
+      title: "GR11 Pyrenean Traverse",
+      description: `The GR11 traverses the entire Spanish side of the Pyrenees from Cabo Higuer on the Bay of Biscay to Cap de Creus on the Mediterranean — 800 km through the Spanish national parks of Ordesa, Aigüestortes, and Cadí, staying almost entirely in Spain rather than the mixed-country approach of the Haute Route. The GR11 is well-marked, well-serviced with refugios, and follows the valley floors and passes in approximately equal measure. A classic European long trail.`,
+      location: "Cabo Higuer",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 45,
+      coverImageUrl: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=1600&q=80",
+      highlights: ["Ordesa Canyon", "Aigüestortes lakes", "Aneto highest pass", "Mediterranean finish", "Pyrenean chamois"],
+      gear: ["Trekking poles", "Boots", "Refugio sleeping sheet", "Navigation tools", "Spanish phrasebook"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 5000,
+      latitude: 43.38,
+      longitude: -1.79,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["thru-hike"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure243.id }, { userId: user2.id, adventureId: adventure243.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
