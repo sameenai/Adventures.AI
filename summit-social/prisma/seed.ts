@@ -11910,6 +11910,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure278.id }, { userId: user2.id, adventureId: adventure278.id }], skipDuplicates: true });
 
+
+  // Adventure 279
+  const adventure279 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-279" },
+    update: {},
+    create: {
+      id: "seed-adventure-279",
+      title: "Laos Gibbon Experience Ziplines",
+      description: `The Gibbon Experience in the Bokeo Nature Reserve in northwestern Laos combines zipline travel through the jungle canopy with treehouse sleeping to minimise ground impact. Guests travel between treehouses built 30 metres above the forest floor on steel cables up to 500 metres long, moving through the territory of the endangered black-crested gibbon. Dawn serenades of gibbon calls and sleeping above the clouds define this unique adventure.`,
+      location: "Huay Xai",
+      country: "Laos",
+      continent: "Asia",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Treehouse sleeping 30m above forest floor", "Zipline network through jungle canopy", "Black-crested gibbon dawn calls", "Bokeo Nature Reserve conservation", "River crossing by zipline"],
+      gear: ["Sturdy closed-toe shoes", "Insect repellent", "Lightweight dry bag", "Head torch", "Nothing valuable"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 280,
+      latitude: 20.27,
+      longitude: 100.43,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure279.id }, { userId: user2.id, adventureId: adventure279.id }, { userId: user3.id, adventureId: adventure279.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
