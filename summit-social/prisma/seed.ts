@@ -9330,6 +9330,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure192.id }, { userId: user2.id, adventureId: adventure192.id }], skipDuplicates: true });
 
+
+  // Adventure 193
+  const adventure193 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-193" },
+    update: {},
+    create: {
+      id: "seed-adventure-193",
+      title: "Wadi Rum Desert Traverse",
+      description: `Wadi Rum is the largest wadi in Jordan — a valley of red and orange sandstone rising in monumental jebels (mountains) over a vast flat desert floor, where Lawrence of Arabia camped and where the Martian landscape draws film crews from around the world. A 5-day trek crosses the interior on foot with a Bedouin guide, sleeping in black goat-hair tents and waking to silence. The rock climbing at Jebel Rum is world-class; the sunsets are simply impossible.`,
+      location: "Wadi Rum",
+      country: "Jordan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Bedouin camp nights", "Jebel Rum monolith", "Lawrence's Spring", "Desert sunset colours", "Star sky from open desert"],
+      gear: ["Light loose clothing", "Sun protection", "Headtorch", "Cash (Jordan dinars)", "Scarf for sand"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 1200,
+      latitude: 29.57,
+      longitude: 35.42,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure193.id }, { userId: user2.id, adventureId: adventure193.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
