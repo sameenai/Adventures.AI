@@ -7681,6 +7681,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure137.id }, { userId: user2.id, adventureId: adventure137.id }], skipDuplicates: true });
 
+
+  // Adventure 138
+  const adventure138 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-138" },
+    update: {},
+    create: {
+      id: "seed-adventure-138",
+      title: "Inca Trail to Machu Picchu",
+      description: `The classic 4-day Inca Trail covers 43 km from the Urubamba Valley to the Sun Gate above Machu Picchu, crossing three high passes including Dead Woman's Pass at 4,215 m. The route passes Inca ruins, cloud forest, and alpine tundra before the theatrical reveal of the citadel from the Inti Punku — the Sun Gate — at dawn. Permits are strictly capped at 500 per day; book six months in advance or lose your place.`,
+      location: "Cusco",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=1600&q=80",
+      highlights: ["Machu Picchu Sun Gate arrival", "Dead Woman's Pass", "Inca ruins en route", "Cloud forest", "Llamas at sunrise"],
+      gear: ["Layering system", "Altitude medication", "Trekking poles", "Rain cover", "Altitude snacks"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2200,
+      latitude: -13.16,
+      longitude: -72.55,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["bucket-list"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure138.id }, { userId: user2.id, adventureId: adventure138.id }, { userId: user3.id, adventureId: adventure138.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
