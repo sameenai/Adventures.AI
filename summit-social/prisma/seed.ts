@@ -10860,6 +10860,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure243.id }, { userId: user2.id, adventureId: adventure243.id }], skipDuplicates: true });
 
+
+  // Adventure 244
+  const adventure244 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-244" },
+    update: {},
+    create: {
+      id: "seed-adventure-244",
+      title: "Okhotsk Sea Ice Walk",
+      description: `The drift ice of the Sea of Okhotsk reaches the coast of Hokkaido near Abashiri and Shiretoko Peninsula each winter — the southernmost drift ice in the Northern Hemisphere — and walking on it in late February to March with icebreaker cruise access is a uniquely Japanese experience. The Shiretoko Peninsula, UNESCO World Heritage, extends into the ice floes and hosts Steller's sea eagles, white-tailed eagles, and the rare Blakiston's fish owl in the forest behind the ice.`,
+      location: "Abashiri",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Walking on drift ice", "Icebreaker cruise", "Steller's sea eagle", "Blakiston's fish owl", "Shiretoko Wilderness"],
+      gear: ["Dry suit or immersion suit", "Ice microspikes", "Camera telephoto", "Extreme cold kit", "Waterproof boots"],
+      bestMonths: [2, 3],
+      estimatedCost: 2500,
+      latitude: 44.02,
+      longitude: 144.28,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["expedition"].id }, { id: allTags["island"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure244.id }, { userId: user2.id, adventureId: adventure244.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
