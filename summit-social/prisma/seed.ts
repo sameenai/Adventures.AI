@@ -11700,6 +11700,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure271.id }, { userId: user2.id, adventureId: adventure271.id }, { userId: user3.id, adventureId: adventure271.id }], skipDuplicates: true });
 
+
+  // Adventure 272
+  const adventure272 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-272" },
+    update: {},
+    create: {
+      id: "seed-adventure-272",
+      title: "Greek Island Hiking - Sporades Arc",
+      description: `The Sporades islands of Skopelos, Alonnisos, and Skyros offer exceptional mule-track hiking through Mediterranean maquis above turquoise waters. Alonnisos is the centre of Europe's largest marine protected area, and its ancient trails lead to abandoned medieval villages. The combination of superb swimming, fresh seafood, and well-waymarked trails makes this ideal for those seeking a gentler European hiking experience.`,
+      location: "Skiathos",
+      country: "Greece",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Alonnisos marine park snorkelling", "Byzantine mule track network", "Abandoned kastro village ruins", "Traditional fishing harbour tavernas", "Sporades wildlife Eleonora's falcon"],
+      gear: ["Light hiking shoes", "Snorkel set", "Sun protection", "Ferry timetable", "Greek phrasebook"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 1200,
+      latitude: 39.16,
+      longitude: 23.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["coastal"].id }, { id: allTags["island"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure272.id }, { userId: user2.id, adventureId: adventure272.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
