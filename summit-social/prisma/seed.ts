@@ -8700,6 +8700,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure171.id }, { userId: user2.id, adventureId: adventure171.id }], skipDuplicates: true });
 
+
+  // Adventure 172
+  const adventure172 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-172" },
+    update: {},
+    create: {
+      id: "seed-adventure-172",
+      title: "Wrangell-St. Elias Packraft",
+      description: `Wrangell-St. Elias National Park in Alaska is the largest in the US — six times the size of Yellowstone — and a multi-day packraft expedition through the Chitina River corridor combines glacier hiking, wild river paddling, and grizzly bear country in a landscape of active volcanoes and the world's largest subpolar glaciers. No maintained trails, no infrastructure. All travel is self-supported wilderness adventure.`,
+      location: "McCarthy",
+      country: "United States",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Chitina River paddling", "Root Glacier walk-in", "Grizzly bear country", "Nabesna volcanic area", "True wilderness solitude"],
+      gear: ["Packraft", "Whitewater paddle", "Glacier travel kit", "Bear spray and canister", "Emergency beacon"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 5000,
+      latitude: 61.43,
+      longitude: -142.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["kayaking"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure172.id }, { userId: user2.id, adventureId: adventure172.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
