@@ -11580,6 +11580,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure267.id }, { userId: user2.id, adventureId: adventure267.id }, { userId: user3.id, adventureId: adventure267.id }], skipDuplicates: true });
 
+
+  // Adventure 268
+  const adventure268 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-268" },
+    update: {},
+    create: {
+      id: "seed-adventure-268",
+      title: "Pacific Crest Trail - Sierra Nevada Section",
+      description: `The Sierra Nevada section of the Pacific Crest Trail from Kennedy Meadows to Tuolumne Meadows covers the most dramatic 500 kilometres of the entire 4,300-kilometre trail. The route crosses Forester Pass at 4,009 metres (the highest point on the PCT), traverses the John Muir Trail, and passes through Kings Canyon, Sequoia, and Yosemite National Parks. This is the definitive American long-distance hiking experience at its most spectacular.`,
+      location: "Kennedy Meadows",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Forester Pass at 4009 metres highest PCT point", "Kings Canyon and Sequoia wilderness", "John Muir Trail junction", "Evolution Basin granite lakes", "Tuolumne Meadows Yosemite"],
+      gear: ["Bear canister required", "Ultralight backpacking kit", "Ice axe for early season", "PCTA permit", "Satellite communicator"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 2500,
+      latitude: 36.07,
+      longitude: -118.12,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["thru-hike"].id }, { id: allTags["mountains"].id }, { id: allTags["camping"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure268.id }, { userId: user2.id, adventureId: adventure268.id }, { userId: user3.id, adventureId: adventure268.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
