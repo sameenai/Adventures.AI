@@ -12661,6 +12661,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure303.id }, { userId: user2.id, adventureId: adventure303.id }, { userId: user3.id, adventureId: adventure303.id }], skipDuplicates: true });
 
+
+  // Adventure 304
+  const adventure304 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-304" },
+    update: {},
+    create: {
+      id: "seed-adventure-304",
+      title: "Dolomites Alta Via 1",
+      description: `The Alta Via 1 is the premier long-distance route through the Italian Dolomites, connecting Lago di Braies to Belluno in 120 kilometres along a series of dramatic ridgelines, via ferrata sections, and Alpine rifugios serving polenta and red wine at 2,700 metres. The orange limestone towers of the Tre Cime di Lavaredo, Marmolada, and Civetta appear in sequence along the route. The combination of extraordinary scenery and comfortable hut accommodation makes this the ideal introduction to Alpine trekking.`,
+      location: "Lago di Braies",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Tre Cime di Lavaredo iconic towers", "Rifugio hut-to-hut accommodation", "Marmolada glacier views", "Via ferrata sections with fixed cables", "Dolomiti UNESCO World Heritage"],
+      gear: ["Via ferrata set harness and lanyard", "Hiking poles", "Mountain hut booking in advance", "Mountain boots with ankle support", "Rifugio sleeping sheet"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1500,
+      latitude: 46.69,
+      longitude: 12.08,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["europe"].id }, { id: allTags["via-ferrata"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure304.id }, { userId: user2.id, adventureId: adventure304.id }, { userId: user3.id, adventureId: adventure304.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
