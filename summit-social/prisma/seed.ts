@@ -15361,6 +15361,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure393.id }, { userId: user2.id, adventureId: adventure393.id }, { userId: user3.id, adventureId: adventure393.id }], skipDuplicates: true });
 
+
+  // Adventure 394
+  const adventure394 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-394" },
+    update: {},
+    create: {
+      id: "seed-adventure-394",
+      title: "Sulawesi Toraja Cultural Trek",
+      description: `The Toraja highlands of Sulawesi in Indonesia maintain one of the world's most elaborate death cult traditions, with funeral ceremonies involving the sacrifice of water buffalo on a scale that can cost a family years of savings. The traditional tongkonan boat-shaped houses with their soaring curved roofs and the cliff-face burial sites of tau-tau effigies are unique to this culture. Trekking between villages during funeral season allows respectful participation in ceremonies that are genuinely central to Torajan identity.`,
+      location: "Makassar",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Buffalo sacrifice funeral ceremony", "Tongkonan boat-roof architecture", "Cliff burial tau-tau effigies", "Tana Toraja highland scenery", "Funeral season July August best visits"],
+      gear: ["Modest dress funeral ceremonies", "Camera with cultural sensitivity", "Indonesian rupiah cash gifts", "Mountain terrain footwear", "Sulawesi local guide"],
+      bestMonths: [7, 8],
+      estimatedCost: 800,
+      latitude: -2.96,
+      longitude: 119.85,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure394.id }, { userId: user2.id, adventureId: adventure394.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
