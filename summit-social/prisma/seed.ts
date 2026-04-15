@@ -10260,6 +10260,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure223.id }, { userId: user2.id, adventureId: adventure223.id }], skipDuplicates: true });
 
+
+  // Adventure 224
+  const adventure224 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-224" },
+    update: {},
+    create: {
+      id: "seed-adventure-224",
+      title: "Otter Trail South Africa",
+      description: `The Otter Trail is South Africa's oldest and most oversubscribed hiking trail — 42 km along the Garden Route coastline from Storms River Mouth to Nature's Valley, crossing 11 rivers (some requiring swimming) through dense indigenous coastal forest of Outeniqua yellowwood and milkwood trees. Cape clawless otters, Knysna loeries, and dolphins surfing the shore swell are the companions. Permit bookings open 12 months in advance and close within hours.`,
+      location: "Storms River",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["River estuary crossings", "Cape clawless otters", "Knysna loerie", "Coastal forest canopy", "Nature's Valley finish"],
+      gear: ["Waterproof bags (river crossings)", "Hiking boots", "Snacks and self-catering kit", "Permit (book 12 months ahead)", "Dry bags"],
+      bestMonths: [3, 4, 5, 6, 7, 8, 9, 10, 11],
+      estimatedCost: 800,
+      latitude: -33.99,
+      longitude: 23.89,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure224.id }, { userId: user2.id, adventureId: adventure224.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
