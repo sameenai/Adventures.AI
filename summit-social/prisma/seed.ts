@@ -9240,6 +9240,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure189.id }, { userId: user2.id, adventureId: adventure189.id }], skipDuplicates: true });
 
+
+  // Adventure 190
+  const adventure190 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-190" },
+    update: {},
+    create: {
+      id: "seed-adventure-190",
+      title: "Australian Outback Walk",
+      description: `The Larapinta Trail runs 230 km along the backbone of the West MacDonnell Ranges from Alice Springs to Mount Sonder, through ancient quartzite ranges, red gorges, and desert waterholes where black-footed rock wallabies come to drink at dusk. The trail is dry — carry 6 litres minimum between water caches — and remote. Walking in June–August brings mild days and cold nights; April–May and September–October offer wildflower colour. Aboriginal Arrernte country requires cultural awareness.`,
+      location: "Alice Springs",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Mount Sonder summit", "Ormiston Gorge waterhole", "Wallaby sightings at dusk", "Desert red rock landscape", "Alice Springs start"],
+      gear: ["6L+ water carry capacity", "Sun protection extreme", "Lightweight tent", "Insulation for cold nights", "Satellite communicator"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1500,
+      latitude: -23.7,
+      longitude: 133.88,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["australia"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure190.id }, { userId: user2.id, adventureId: adventure190.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
