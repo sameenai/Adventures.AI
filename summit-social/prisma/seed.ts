@@ -9270,6 +9270,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure190.id }, { userId: user2.id, adventureId: adventure190.id }], skipDuplicates: true });
 
+
+  // Adventure 191
+  const adventure191 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-191" },
+    update: {},
+    create: {
+      id: "seed-adventure-191",
+      title: "Socotra Island Trekking",
+      description: `Socotra Island in the Arabian Sea is the Galápagos of the Indian Ocean — 37% of its plant species are found nowhere else on earth, including the extraordinary Dragon Blood Tree with its umbrella canopy, the frankincense trees, and the bottle-shaped Desert Rose. The island has basic tourism infrastructure and requires a Yemeni visa (current access via flights from Abu Dhabi). Trekking the interior plateau and coastal dunes is the way to experience the alien vegetation.`,
+      location: "Hadibo",
+      country: "Yemen",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Dragon Blood Trees", "Desert Rose succulent forests", "Dihamri Marine Reserve", "Detwah lagoon", "Nomadic herder encounters"],
+      gear: ["Light summer clothing", "Sun protection extreme", "Cash only (no ATMs)", "Water purification", "Wind protection"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 2500,
+      latitude: 12.64,
+      longitude: 54.01,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure191.id }, { userId: user2.id, adventureId: adventure191.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
