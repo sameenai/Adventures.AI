@@ -8490,6 +8490,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure164.id }, { userId: user2.id, adventureId: adventure164.id }], skipDuplicates: true });
 
+
+  // Adventure 165
+  const adventure165 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-165" },
+    update: {},
+    create: {
+      id: "seed-adventure-165",
+      title: "Ethiopian Simien Mountains Trek",
+      description: `The Simien Mountains of northern Ethiopia are an eroded basalt plateau dissected into dramatic table mountains, with escarpments dropping 1,500 m to the Sudanese lowlands. The park is one of the last habitats for the Gelada baboon — troops of 1,000 graze the cliff-edge meadows — as well as the Ethiopian wolf and Walia ibex. The 5-day circuit from Sankaber to Ras Dashen, Ethiopia's highest peak at 4,550 m, combines serious altitude with extraordinary wildlife.`,
+      location: "Gondar",
+      country: "Ethiopia",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Gelada baboon herds", "Ras Dashen summit 4,550m", "Escarpment cliff views", "Ethiopian wolf", "Walia ibex"],
+      gear: ["Layering system", "Altitude medication", "Trekking poles", "Sleeping bag (cold nights)", "Scout mandatory"],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 1500,
+      latitude: 13.25,
+      longitude: 38.28,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["wildlife"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure165.id }, { userId: user2.id, adventureId: adventure165.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
