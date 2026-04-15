@@ -13591,6 +13591,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure334.id }, { userId: user2.id, adventureId: adventure334.id }, { userId: user3.id, adventureId: adventure334.id }], skipDuplicates: true });
 
+
+  // Adventure 335
+  const adventure335 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-335" },
+    update: {},
+    create: {
+      id: "seed-adventure-335",
+      title: "Tasmania Overland Track",
+      description: `The Overland Track from Cradle Mountain to Lake St Clair is Australia's most iconic multi-day walk, traversing 65 kilometres of alpine moorland and ancient rainforest in Tasmania's central highlands. The dolerite columns of Cradle Mountain rising above glacially-scoured Dove Lake have become the symbol of Australian wilderness. Side trip diversions to Mount Ossa, Tasmania's highest peak at 1,617 metres, and the pristine Kia Ora lagoon reward those who take time.`,
+      location: "Cradle Mountain",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Cradle Mountain iconic dolerite columns", "Mount Ossa 1617m Tasmania highest", "Ancient pencil pine rainforest", "Wombat and Tasmanian devil sightings", "Lake St Clair deepest lake Australia"],
+      gear: ["Tasmanian Parks hut booking required", "Rain gear Tasmania always wet", "Gaiters boardwalk mud", "Bear box for food", "Warm layers even January"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 800,
+      latitude: -41.64,
+      longitude: 145.94,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["australia"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure335.id }, { userId: user2.id, adventureId: adventure335.id }, { userId: user3.id, adventureId: adventure335.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
