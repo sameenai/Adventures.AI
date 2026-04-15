@@ -11760,6 +11760,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure273.id }, { userId: user2.id, adventureId: adventure273.id }], skipDuplicates: true });
 
+
+  // Adventure 274
+  const adventure274 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-274" },
+    update: {},
+    create: {
+      id: "seed-adventure-274",
+      title: "Lofoten Islands Sea Kayaking",
+      description: `The Lofoten archipelago above the Arctic Circle in Norway offers world-class sea kayaking through a dramatic landscape of jagged peaks rising directly from the sea. Paddling between fishing villages where stockfish still dries on wooden racks, passing sea eagles overhead and glimpsing orca fins in winter, this is Scandinavian adventure at its most iconic. The midnight sun illuminates the mountains in amber and rose from June to July.`,
+      location: "Svolvaer",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Midnight sun paddling", "Sea eagle sightings overhead", "Traditional fishing village culture", "Trollfjord narrow gorge", "Orca whale watching in season"],
+      gear: ["Sea kayak with spray skirt", "Dry suit", "VHF radio", "Navigation charts", "Tow rope"],
+      bestMonths: [6, 7],
+      estimatedCost: 1500,
+      latitude: 68.23,
+      longitude: 14.57,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["coastal"].id }, { id: allTags["arctic"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure274.id }, { userId: user2.id, adventureId: adventure274.id }, { userId: user3.id, adventureId: adventure274.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
