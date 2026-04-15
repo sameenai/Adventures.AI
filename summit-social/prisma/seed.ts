@@ -7381,6 +7381,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure127.id }, { userId: user2.id, adventureId: adventure127.id }, { userId: user3.id, adventureId: adventure127.id }], skipDuplicates: true });
 
+
+  // Adventure 128
+  const adventure128 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-128" },
+    update: {},
+    create: {
+      id: "seed-adventure-128",
+      title: "Great Ocean Walk",
+      description: `The Great Ocean Walk runs 104 km along Victoria's rugged southern coastline from Apollo Bay to the Twelve Apostles, with the option to finish at Johanna Beach. The trail traverses cliff-tops with Southern Ocean surf thundering below, descends to isolated beaches accessible only on foot, and passes through coastal heathland and temperate rainforest. Koalas are common in the tall gum trees; southern right whales are visible from the headlands in winter.`,
+      location: "Apollo Bay",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Twelve Apostles", "Aire River crossing", "Princetown wetlands", "Koala spotting", "Sunset from Cape Otway"],
+      gear: ["Hiking boots", "Tent and sleeping system", "Water filter", "Bear canister equivalent", "Sun protection"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 900,
+      latitude: -38.75,
+      longitude: 143.67,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["australia"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure128.id }, { userId: user2.id, adventureId: adventure128.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
