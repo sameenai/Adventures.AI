@@ -11070,6 +11070,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure250.id }, { userId: user2.id, adventureId: adventure250.id }], skipDuplicates: true });
 
+
+  // Adventure 251
+  const adventure251 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-251" },
+    update: {},
+    create: {
+      id: "seed-adventure-251",
+      title: "Manaslu Circuit Trek",
+      description: `The Manaslu Circuit circumnavigates the world's eighth-highest mountain through remote Nubri and Tsum valleys. The route crosses the Larkya La pass at 5,106 metres, offering close views of Manaslu's sweeping ice faces. Traditional Tibetan Buddhist culture pervades every village along the way.`,
+      location: "Arughat Bazaar",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Larkya La pass at 5106 metres", "Restricted area permit zone", "Tibetan Buddhist monasteries", "Manaslu north face views", "Remote Nubri valley villages"],
+      gear: ["Expedition down sleeping bag", "Trekking poles", "Crampons for icy pass", "Altitude sickness medication", "Layered insulation system"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1800,
+      latitude: 28.55,
+      longitude: 84.56,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure251.id }, { userId: user2.id, adventureId: adventure251.id }, { userId: user3.id, adventureId: adventure251.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
