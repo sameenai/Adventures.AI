@@ -9870,6 +9870,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure210.id }, { userId: user2.id, adventureId: adventure210.id }], skipDuplicates: true });
 
+
+  // Adventure 211
+  const adventure211 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-211" },
+    update: {},
+    create: {
+      id: "seed-adventure-211",
+      title: "Greenland Icesheet Traverse",
+      description: `Crossing the Greenland Ice Sheet on skis from Kangerlussuaq on the west coast to Isortoq on the east coast — or the Nansen Route from Ammassalik — is a 3-week polar expedition on an ice sheet 1.8 km thick and 2,500 km long. The surface is flat but wind-blasted sastrugi make progress exhausting; white-outs are disorientating; temperatures drop to -40°C. Each team is fully self-supported with pulk sleds. This is a bucket-list polar traverse.`,
+      location: "Kangerlussuaq",
+      country: "Greenland",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 25,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Greenland Ice Sheet crossing", "Polar sunset from ice", "Sastrugi ice landscape", "Complete self-sufficiency", "East coast fjord arrival"],
+      gear: ["Ski touring kit", "Pulk sled", "Polar sleeping bag -40°C", "Satellite communicator", "Wind-proof expedition tent"],
+      bestMonths: [4, 5, 6],
+      estimatedCost: 15000,
+      latitude: 67.01,
+      longitude: -50.69,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure211.id }, { userId: user2.id, adventureId: adventure211.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
