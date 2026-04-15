@@ -11460,6 +11460,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure263.id }, { userId: user2.id, adventureId: adventure263.id }], skipDuplicates: true });
 
+
+  // Adventure 264
+  const adventure264 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-264" },
+    update: {},
+    create: {
+      id: "seed-adventure-264",
+      title: "Ausangate Circuit, Peru",
+      description: `The Ausangate Circuit in the Cordillera Vilcanota south of Cusco is one of South America's most spectacular high-altitude treks, circling Ausangate peak at 6,384 metres through a landscape of turquoise glacial lakes, red and yellow mineral springs, and vicuna herds. The route crosses four passes above 5,000 metres and passes through Quechua herding communities where alpaca wool weaving is still practised. The adjacent Rainbow Mountain has become famous, but this circuit remains the authentic experience.`,
+      location: "Tinqui",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Four passes above 5000 metres", "Ausangate peak at 6384 metres", "Mineral hot springs at high camp", "Vicuna and alpaca herds", "Quechua weaving community visits"],
+      gear: ["High altitude sleeping bag", "Warm base layers", "Altitude sickness medication", "Trekking poles", "Waterproof hiking boots"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: -13.78,
+      longitude: -71.22,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure264.id }, { userId: user2.id, adventureId: adventure264.id }, { userId: user3.id, adventureId: adventure264.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
