@@ -12000,6 +12000,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure281.id }, { userId: user2.id, adventureId: adventure281.id }], skipDuplicates: true });
 
+
+  // Adventure 282
+  const adventure282 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-282" },
+    update: {},
+    create: {
+      id: "seed-adventure-282",
+      title: "West Coast Trail, Canada",
+      description: `The West Coast Trail on Vancouver Island's Pacific coast was originally built as a lifeline rescue route for shipwrecked sailors on the Graveyard of the Pacific. Today it is one of Canada's most challenging and rewarding multi-day coastal routes, requiring ladder climbing, cable car crossings, and surf beach navigation over 75 kilometres. Ancient Quu'as West Coast Trail passes through Nuu-chah-nulth First Nations territory.`,
+      location: "Port Renfrew",
+      country: "Canada",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["75km wild Pacific coast route", "Cable car and ladder crossings", "Ancient Sitka spruce forest", "Tidal surf beach navigation", "Sea lions wolves and bears"],
+      gear: ["Tide tables essential", "Waterproof bags", "Bear canister", "River sandals for crossings", "Parks Canada permit"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: 48.55,
+      longitude: -124.55,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["remote"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure282.id }, { userId: user2.id, adventureId: adventure282.id }, { userId: user3.id, adventureId: adventure282.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
