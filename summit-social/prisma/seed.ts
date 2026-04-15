@@ -7411,6 +7411,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure128.id }, { userId: user2.id, adventureId: adventure128.id }], skipDuplicates: true });
 
+
+  // Adventure 129
+  const adventure129 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-129" },
+    update: {},
+    create: {
+      id: "seed-adventure-129",
+      title: "Corsica GR20",
+      description: `The GR20 is Europe's toughest long-distance trail — 180 km across the mountainous spine of Corsica from Calenzana in the north to Conca in the south, with 13,000 m of total ascent. The northern section in particular involves serious scrambling, fixed chains, and boulder fields that have humbled many experienced hikers. The reward is the most dramatic mountain scenery in the Mediterranean, with granite peaks, glacial lakes, and the scent of the maquis.`,
+      location: "Calenzana",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 15,
+      coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1600&q=80",
+      highlights: ["Monte Cinto ridge", "Lac de Nino", "Brèche de Capitellu", "Bavella Needles", "Conca village finish"],
+      gear: ["Trail running shoes or approach shoes", "Trekking poles", "Via ferrata gloves", "Lightweight tent", "Emergency bivouac"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1600,
+      latitude: 42.5,
+      longitude: 8.88,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["scrambling"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure129.id }, { userId: user2.id, adventureId: adventure129.id }, { userId: user3.id, adventureId: adventure129.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
