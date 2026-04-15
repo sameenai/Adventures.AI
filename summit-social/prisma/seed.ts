@@ -13291,6 +13291,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure324.id }, { userId: user2.id, adventureId: adventure324.id }], skipDuplicates: true });
 
+
+  // Adventure 325
+  const adventure325 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-325" },
+    update: {},
+    create: {
+      id: "seed-adventure-325",
+      title: "Silk Road Cycling Uzbekistan",
+      description: `Cycling the Uzbek section of the Silk Road connects Tashkent with Samarkand and Bukhara through a landscape dotted with the turquoise domes of Timurid architecture that ruled the medieval world. Samarkand's Registan Square with its three madrassas is one of the most magnificent ensembles of Islamic architecture anywhere, reached after a long day cycling the Fergana Valley. The desert crossings between oasis cities require water carrying and careful planning.`,
+      location: "Tashkent",
+      country: "Uzbekistan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Registan Square Timurid architecture", "Bukhara medieval old city", "Fergana Valley silk production", "Aral Sea environmental disaster site", "Uzbek plov and tea culture"],
+      gear: ["Touring bicycle", "Desert water carry 5 litres", "Modest dress cultural respect", "Uzbek visa on arrival", "Offline maps"],
+      bestMonths: [3, 4, 9, 10],
+      estimatedCost: 700,
+      latitude: 41.3,
+      longitude: 69.24,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["desert"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure325.id }, { userId: user2.id, adventureId: adventure325.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
