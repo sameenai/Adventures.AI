@@ -11040,6 +11040,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure249.id }, { userId: user2.id, adventureId: adventure249.id }, { userId: user3.id, adventureId: adventure249.id }], skipDuplicates: true });
 
+
+  // Adventure 250
+  const adventure250 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-250" },
+    update: {},
+    create: {
+      id: "seed-adventure-250",
+      title: "Sahara Ahaggar Plateau Trek",
+      description: `The Ahaggar Mountains in southern Algeria rise from the Sahara desert in extraordinary volcanic plugs and serrated basalt ridges, reaching 2,918 m at Mount Tahat — the highest point in Algeria. This is the traditional homeland of the Tuareg, and trekking the plateaus and canyons of the Parc National de l'Ahaggar requires a Tuareg guide from Tamanrasset. The rock art at Tassili n'Ajjer depicts animals extinct in the Sahara for 5,000 years. This is the Sahara at its most profound.`,
+      location: "Tamanrasset",
+      country: "Algeria",
+      continent: "Africa",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Ahaggar volcanic massif", "Tassili prehistoric rock art", "Tuareg guide culture", "Mount Tahat summit", "Sahara silence at maximum"],
+      gear: ["10L water per day", "Sun protection extreme", "Wind protection", "Guide mandatory", "Algerian visa"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 3500,
+      latitude: 22.78,
+      longitude: 5.52,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure250.id }, { userId: user2.id, adventureId: adventure250.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
