@@ -14521,6 +14521,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure365.id }, { userId: user2.id, adventureId: adventure365.id }, { userId: user3.id, adventureId: adventure365.id }], skipDuplicates: true });
 
+
+  // Adventure 366
+  const adventure366 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-366" },
+    update: {},
+    create: {
+      id: "seed-adventure-366",
+      title: "Peru Nazca Lines Flight and Desert Trek",
+      description: `The Nazca Lines in southern Peru are geoglyphs drawn by the Nasca culture between 500 BCE and 500 CE, visible in their true form only from the air. Light aircraft flights over the hummingbird, spider, astronaut, and condor figures, each hundreds of metres across, provide the most mysterious and intriguing overhead views on Earth. The surrounding Atacama-like desert plateau offers multi-day trekking to the ancient Cahuachi ceremonial complex.`,
+      location: "Nazca",
+      country: "Peru",
+      continent: "South America",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Nazca Lines aerial view 2000-year geoglyphs", "Hummingbird spider condor figures", "Cahuachi ceremonial complex", "Pampa Colorada red desert", "Maria Reiche archaeologist legacy"],
+      gear: ["Motion sickness medication aircraft", "Desert sun protection", "Camera aerial photography", "Binoculars viewing tower", "Lightweight desert kit"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: -14.73,
+      longitude: -75.13,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["desert"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure366.id }, { userId: user2.id, adventureId: adventure366.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
