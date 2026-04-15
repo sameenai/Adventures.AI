@@ -12931,6 +12931,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure312.id }, { userId: user2.id, adventureId: adventure312.id }, { userId: user3.id, adventureId: adventure312.id }], skipDuplicates: true });
 
+
+  // Adventure 313
+  const adventure313 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-313" },
+    update: {},
+    create: {
+      id: "seed-adventure-313",
+      title: "Iceland Winter Ice Climbing",
+      description: `Iceland in winter transforms the dramatic waterfalls of the interior into frozen curtains of ice that attract climbers from around the world. Skogafoss, Seljalandsfoss, and the inland Kirkjufell ice pillars provide a range of difficulties from beginner to WI5 technical mixed routes. Northern lights viewings from ice climbing camps and the raw subarctic atmosphere make this one of Europe's most exciting winter adventure experiences.`,
+      location: "Reykjavik",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Frozen waterfall climbing Skogafoss", "Northern lights from ice camp", "WI2 to WI5 grade range", "Glacial cave climbing Vatnajokull", "Midnight winter sun phenomena"],
+      gear: ["Ice tools double technical axes", "Front-point crampons", "Belay device and ropes", "Thermal mountaineering gloves", "Headlamp for early starts"],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 1400,
+      latitude: 64.14,
+      longitude: -21.95,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["glacier"].id }, { id: allTags["europe"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure313.id }, { userId: user2.id, adventureId: adventure313.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
