@@ -14251,6 +14251,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure356.id }, { userId: user2.id, adventureId: adventure356.id }], skipDuplicates: true });
 
+
+  // Adventure 357
+  const adventure357 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-357" },
+    update: {},
+    create: {
+      id: "seed-adventure-357",
+      title: "Lesotho Mountain Kingdom Pony Trek",
+      description: `Lesotho is the only country in the world entirely above 1,000 metres, and its highland plateau accessed from Semonkong and Mokhotlong offers genuine horse trekking through remote Basotho villages where ponies are the primary transport. The 192-metre Maletsunyane Falls, one of Africa's highest single-drop waterfalls, is accessible by pony trek from Semonkong. The Basotho cultural tradition of wearing blankets and conical hats remains vibrant in the mountains.`,
+      location: "Maseru",
+      country: "Lesotho",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Maletsunyane Falls 192m highest Africa single drop", "Basotho blanket and hat culture", "Highest country world entirely 1000m", "Sani Pass 4x4 highest paved road Africa", "Remote village pony overnight stays"],
+      gear: ["Riding experience helpful", "Basotho blanket local purchase", "Warm layers altitude evenings", "Waterproof rain Southern Africa", "Lesotho visa on arrival SA passport"],
+      bestMonths: [9, 10, 11],
+      estimatedCost: 500,
+      latitude: -29.31,
+      longitude: 27.48,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["horse-trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure357.id }, { userId: user2.id, adventureId: adventure357.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
