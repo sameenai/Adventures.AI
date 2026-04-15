@@ -14791,6 +14791,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure374.id }, { userId: user2.id, adventureId: adventure374.id }, { userId: user3.id, adventureId: adventure374.id }], skipDuplicates: true });
 
+
+  // Adventure 375
+  const adventure375 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-375" },
+    update: {},
+    create: {
+      id: "seed-adventure-375",
+      title: "Myanmar Inle Lake Cycling",
+      description: `Inle Lake in the Shan Hills of central Myanmar is a vast shallow lake where the Intha people live on floating villages, tend floating gardens, and fish using a distinctive one-legged rowing style. Cycling the surrounding hills visits silver-smithing workshops, lotus silk weaving centres in Inpawkhon, and the Kakku pagoda field of 2,478 ancient stupas in the countryside east of the lake. The five-day Shan Hills trekking route from Kalaw to Inle Lake passes through minority hill tribe villages.`,
+      location: "Taunggyi",
+      country: "Myanmar",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Intha one-legged rowing tradition", "Floating garden agriculture unique", "Kakku 2478 ancient stupas", "Lotus silk weaving Inpawkhon", "Kalaw to Inle five-day trek option"],
+      gear: ["Mountain bike", "Modest dress Buddhist sites", "Sun protection", "Burmese kyat cash", "Rain jacket afternoon"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 600,
+      latitude: 20.59,
+      longitude: 97.03,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure375.id }, { userId: user2.id, adventureId: adventure375.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
