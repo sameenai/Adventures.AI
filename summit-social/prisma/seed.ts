@@ -9720,6 +9720,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure205.id }, { userId: user2.id, adventureId: adventure205.id }], skipDuplicates: true });
 
+
+  // Adventure 206
+  const adventure206 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-206" },
+    update: {},
+    create: {
+      id: "seed-adventure-206",
+      title: "Masoala Peninsula Trek",
+      description: `The Masoala Peninsula in northeast Madagascar is the largest primary rainforest reserve in Madagascar and the richest biodiversity hotspot in the Indian Ocean — home to 11 lemur species, the helmet vanga, red ruffed lemurs, and the iridescent comet moth. Getting there involves a boat from Maroantsetra; moving through the park involves local guides and basic forest camps. The peninsula's bay-side beaches are among the most isolated in the Indian Ocean.`,
+      location: "Maroantsetra",
+      country: "Madagascar",
+      continent: "Africa",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Red ruffed lemurs", "Helmet vanga birdwatching", "Comet moth", "Masoala rainforest interior", "Bay of Antongil humpbacks"],
+      gear: ["Lightweight jungle clothes", "Waterproof bags", "Malaria prophylaxis", "Leech socks", "Binoculars"],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 3500,
+      latitude: -15.43,
+      longitude: 49.74,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["island"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure206.id }, { userId: user2.id, adventureId: adventure206.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
