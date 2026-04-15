@@ -12871,6 +12871,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure310.id }, { userId: user2.id, adventureId: adventure310.id }, { userId: user3.id, adventureId: adventure310.id }], skipDuplicates: true });
 
+
+  // Adventure 311
+  const adventure311 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-311" },
+    update: {},
+    create: {
+      id: "seed-adventure-311",
+      title: "Tibetan Kailash Kora",
+      description: `Mount Kailash in western Tibet is the most sacred mountain on Earth for four religions - Hindu, Buddhist, Jain and Bon - and no climber has ever stood on its summit or been given permission to attempt it. The 52-kilometre kora circumambulation at altitudes of 4,600 to 5,630 metres is undertaken by thousands of pilgrims annually, many prostrating the full circuit over weeks. The north face reflects in the holy Manasarovar and Rakshastal lakes below.`,
+      location: "Darchen",
+      country: "China",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Most sacred mountain four religions", "Dolma La pass 5630 metres", "Manasarovar holy lake reflection", "Prostrating pilgrims Buddhist practice", "Himalayas most remote sacred site"],
+      gear: ["High altitude sleeping bag", "Tibet permit organised tour", "Altitude acclimatisation Lhasa", "Trekking poles for pass", "Cold weather down layers"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: 31.07,
+      longitude: 81.31,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure311.id }, { userId: user2.id, adventureId: adventure311.id }, { userId: user3.id, adventureId: adventure311.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
