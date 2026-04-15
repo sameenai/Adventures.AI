@@ -8370,6 +8370,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure160.id }, { userId: user2.id, adventureId: adventure160.id }], skipDuplicates: true });
 
+
+  // Adventure 161
+  const adventure161 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-161" },
+    update: {},
+    create: {
+      id: "seed-adventure-161",
+      title: "Skeleton Coast Expedition",
+      description: `The Skeleton Coast of Namibia runs 500 km of fog-shrouded Atlantic desert coastline from the Kunene River to Swakopmund, one of the most inhospitable and eerily beautiful landscapes on earth. Shipwrecks rust in the dunes, Cape fur seals crowd rocky points in their tens of thousands, and desert-adapted lions and elephants survive in this extreme environment. Access to the northern zone requires permits or a fly-in safari; the southern section is reachable by 4WD.`,
+      location: "Skeleton Coast",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Desert-adapted lions", "Cape fur seal colonies", "Shipwrecks in dunes", "Fly-in camp access", "Kunene River"],
+      gear: ["4WD", "Recovery equipment", "Fuel reserves", "Water supplies", "Sat phone"],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 7000,
+      latitude: -20,
+      longitude: 13,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure161.id }, { userId: user2.id, adventureId: adventure161.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
