@@ -7891,6 +7891,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure144.id }, { userId: user2.id, adventureId: adventure144.id }, { userId: user3.id, adventureId: adventure144.id }], skipDuplicates: true });
 
+
+  // Adventure 145
+  const adventure145 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-145" },
+    update: {},
+    create: {
+      id: "seed-adventure-145",
+      title: "Great Barrier Reef Liveaboard",
+      description: `A 7-day liveaboard on the Great Barrier Reef's Coral Sea and Ribbon Reefs delivers up to 25 dives at sites inaccessible from shore — Osprey Reef with its oceanic whitetip sharks and vertical wall diving, the Cod Hole where large potato cod approach divers expecting a feed, and Pixie Pinnacle's psychedelic soft coral gardens. Night diving reveals octopus, cuttlefish, and flatworms that hide during the day.`,
+      location: "Cairns",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Osprey Reef wall diving", "Cod Hole potato cod", "Coral Sea visibility", "Night diving", "Ribbon Reefs coral gardens"],
+      gear: ["Open Water minimum", "Wetsuit 3mm", "SMB", "Dive torch for nights", "Underwater camera"],
+      bestMonths: [6, 7, 8, 9, 10, 11],
+      estimatedCost: 3200,
+      latitude: -16.92,
+      longitude: 145.78,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["wildlife"].id }, { id: allTags["australia"].id }, { id: allTags["island"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure145.id }, { userId: user2.id, adventureId: adventure145.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
