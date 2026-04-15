@@ -15211,6 +15211,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure388.id }, { userId: user2.id, adventureId: adventure388.id }, { userId: user3.id, adventureId: adventure388.id }], skipDuplicates: true });
 
+
+  // Adventure 389
+  const adventure389 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-389" },
+    update: {},
+    create: {
+      id: "seed-adventure-389",
+      title: "South Island New Zealand Road Trip",
+      description: `The South Island of New Zealand is perhaps the world's best compact adventure destination, fitting glaciers, fjords, alpine peaks, turquoise lakes, and whale-watching into a single 14-day circuit. The route from Christchurch via Mount Cook and the Aoraki glaciers, down to Fiordland and Milford Sound, then north through Queenstown and the Otago wine country to Nelson covers every major landscape. Freedom camping in designated spots connects independent travellers with the landscape.`,
+      location: "Christchurch",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EASY,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Milford Sound Mitre Peak reflection", "Franz Josef Glacier walk", "Aoraki Mount Cook highest NZ 3724m", "Queenstown adventure sports hub", "Kaikoura sperm whale watching"],
+      gear: ["Campervan or rental car", "Freedom camping kit", "Great Walk advance booking", "Rain gear South Island variable", "NZ driving licence"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 3000,
+      latitude: -43.53,
+      longitude: 172.64,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["new-zealand"].id }, { id: allTags["glacier"].id }, { id: allTags["bucket-list"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure389.id }, { userId: user2.id, adventureId: adventure389.id }, { userId: user3.id, adventureId: adventure389.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
