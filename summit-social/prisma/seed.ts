@@ -15871,6 +15871,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure410.id }, { userId: user2.id, adventureId: adventure410.id }], skipDuplicates: true });
 
+
+  // Adventure 411
+  const adventure411 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-411" },
+    update: {},
+    create: {
+      id: "seed-adventure-411",
+      title: "Andaman Islands Sea Kayaking",
+      description: `The Andaman Islands in the Bay of Bengal contain some of Asia's most pristine coral reefs, accessible from Havelock Island where turquoise water meets white sand in conditions that rival the Maldives but with a fraction of the visitors. Sea kayaking between the uninhabited outer islands allows camping on beaches where turtles nest and bioluminescence lights the night surf. The Jarawa tribal reserve in North Andaman protects one of the world's last uncontacted peoples.`,
+      location: "Port Blair",
+      country: "India",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Radhanagar Beach Asia finest white sand", "Bioluminescent night paddling", "Havelock coral snorkelling 30m vis", "Jarawa tribal reserve observation", "Turtle nesting beach camps"],
+      gear: ["Sea kayak", "Snorkel set", "Reef shoes coral", "Insect repellent evenings", "Indian permit Inner Islands"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 11.67,
+      longitude: 92.73,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["diving"].id }, { id: allTags["coastal"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure411.id }, { userId: user2.id, adventureId: adventure411.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
