@@ -13621,6 +13621,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure335.id }, { userId: user2.id, adventureId: adventure335.id }, { userId: user3.id, adventureId: adventure335.id }], skipDuplicates: true });
 
+
+  // Adventure 336
+  const adventure336 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-336" },
+    update: {},
+    create: {
+      id: "seed-adventure-336",
+      title: "South Georgia Island Expedition",
+      description: `South Georgia Island in the Southern Ocean is one of the world's great wildlife spectacles, with 300,000 king penguins at St Andrews Bay, 150,000 elephant seals, and the nesting grounds of the wandering albatross with its 3.5-metre wingspan. The island is reachable only by expedition yacht from the Falkland Islands or as part of an Antarctic cruise. Ernest Shackleton's grave at Grytviken and the whaling station ruins add historical gravitas.`,
+      location: "Grytviken",
+      country: "South Georgia",
+      continent: "Antarctica",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["300000 king penguin colony St Andrews Bay", "Wandering albatross 3.5m wingspan nesting", "Shackleton grave Grytviken", "150000 elephant seals", "Whaling station ghost town"],
+      gear: ["Expedition ship or yacht", "Waterproof landings gear", "Camera 500mm wildlife lens", "Seasickness medication", "Cold weather layering"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 10000,
+      latitude: -54.28,
+      longitude: -36.51,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure336.id }, { userId: user2.id, adventureId: adventure336.id }, { userId: user3.id, adventureId: adventure336.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
