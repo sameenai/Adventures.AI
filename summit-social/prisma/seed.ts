@@ -9990,6 +9990,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure214.id }, { userId: user2.id, adventureId: adventure214.id }], skipDuplicates: true });
 
+
+  // Adventure 215
+  const adventure215 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-215" },
+    update: {},
+    create: {
+      id: "seed-adventure-215",
+      title: "Stikine River Raft",
+      description: `The Stikine River cuts through the Coast Mountains of British Columbia in the deepest navigable canyon in North America — the Grand Canyon of the Stikine — inaccessible except by river. The 90 km traverse between Telegraph Creek and Wrangell crosses Class IV–V whitewater in a glacially carved corridor with 2,000 m walls rising directly from the water. Eagles, bears, and mountain goats are constant companions. Self-supported rafting only; no outfitter access.`,
+      location: "Telegraph Creek",
+      country: "Canada",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Grand Canyon of the Stikine", "Class V whitewater", "2,000m canyon walls", "Grizzly bear country", "Eagle colony watching"],
+      gear: ["Raft or hardshell kayak", "Class V experience required", "Dry suits", "First aid kit", "Satellite communicator"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 5000,
+      latitude: 57.91,
+      longitude: -131.14,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["remote"].id }, { id: allTags["gorge"].id }, { id: allTags["expedition"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure215.id }, { userId: user2.id, adventureId: adventure215.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
