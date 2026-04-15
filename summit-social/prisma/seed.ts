@@ -14401,6 +14401,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure361.id }, { userId: user2.id, adventureId: adventure361.id }, { userId: user3.id, adventureId: adventure361.id }], skipDuplicates: true });
 
+
+  // Adventure 362
+  const adventure362 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-362" },
+    update: {},
+    create: {
+      id: "seed-adventure-362",
+      title: "Tanzania Kilimanjaro Lemosho Route",
+      description: `The Lemosho Route is the finest approach to Kilimanjaro's 5,895-metre Uhuru Peak, entering the mountain from the remote Londorossi Gate on the western flank and spending eight days traversing the mountain's full ecological zones. The route passes through montane forest, moorland, alpine desert, and finally the Arctic zone of the summit crater. The Lava Tower acclimatisation at 4,600 metres is critical to summit success on what appears deceptively gentle from Amboseli.`,
+      location: "Moshi",
+      country: "Tanzania",
+      continent: "Africa",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Uhuru Peak 5895m Africa highest", "Lemosho eight-day acclimatisation route", "Lava Tower acclimatisation camp 4600m", "Glacier remnants Kibo caldera", "Four ecological zones single mountain"],
+      gear: ["Summit night headlamp and extra batteries", "Gaiters for summit snow", "Down jacket summit attempt", "Altitude sickness medication Diamox", "Trekking poles two required"],
+      bestMonths: [1, 2, 3, 6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: -3.07,
+      longitude: 37.35,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["high-altitude"].id }, { id: allTags["bucket-list"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure362.id }, { userId: user2.id, adventureId: adventure362.id }, { userId: user3.id, adventureId: adventure362.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
