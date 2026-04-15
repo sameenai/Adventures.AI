@@ -10620,6 +10620,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure235.id }, { userId: user2.id, adventureId: adventure235.id }], skipDuplicates: true });
 
+
+  // Adventure 236
+  const adventure236 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-236" },
+    update: {},
+    create: {
+      id: "seed-adventure-236",
+      title: "Okinawa Island Diving",
+      description: `Okinawa's Kerama Islands, 35 km west of Naha, are considered one of Japan's finest dive destinations — visibility regularly exceeds 30 m, coral coverage is among the highest in Japan, and hammerhead sharks gather at Yonaguni Island's rocky seamounts from December to April. The underwater ruins at Yonaguni — rectangular stone formations at 25 m debated as natural or ancient — add an archaeological dimension unique in world diving. Manta rays at Ishigaki's Manta Scramble are reliable from spring.`,
+      location: "Naha",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Yonaguni underwater ruins", "Hammerhead sharks Yonaguni", "Ishigaki manta rays", "Kerama Island coral", "Okinawan culture and food"],
+      gear: ["Open Water minimum", "Wetsuit 3mm", "SMB", "Dive computer", "Underwater camera"],
+      bestMonths: [12, 1, 2, 3, 4, 5],
+      estimatedCost: 3000,
+      latitude: 26.21,
+      longitude: 127.68,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["photography"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure236.id }, { userId: user2.id, adventureId: adventure236.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
