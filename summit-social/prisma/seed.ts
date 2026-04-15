@@ -11280,6 +11280,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure257.id }, { userId: user2.id, adventureId: adventure257.id }], skipDuplicates: true });
 
+
+  // Adventure 258
+  const adventure258 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-258" },
+    update: {},
+    create: {
+      id: "seed-adventure-258",
+      title: "Spiti Valley Motorcycle Journey",
+      description: `Spiti Valley in the Indian Himalaya is a high-altitude cold desert accessed by two dramatically different mountain passes, Rohtang and Kunzum La. The route through Kaza, Pin Valley, and Kibber village winds past ancient Buddhist monasteries perched on eroded cliffs above the turquoise Spiti River. This is one of India's most rewarding motorcycle journeys, combining lunar landscapes with living Himalayan culture.`,
+      location: "Manali",
+      country: "India",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Kunzum La pass at 4590 metres", "Key Monastery 1000-year-old gompa", "Pin Valley National Park", "Kibber village highest motorable village", "Rohtang Pass crossing"],
+      gear: ["Motorcycle and riding gear", "Altitude sickness medication", "Warm layers for night camps", "Tool kit and puncture repair", "Offline maps"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: 32.24,
+      longitude: 78.07,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure258.id }, { userId: user2.id, adventureId: adventure258.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
