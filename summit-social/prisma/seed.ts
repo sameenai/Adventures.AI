@@ -7711,6 +7711,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure138.id }, { userId: user2.id, adventureId: adventure138.id }, { userId: user3.id, adventureId: adventure138.id }], skipDuplicates: true });
 
+
+  // Adventure 139
+  const adventure139 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-139" },
+    update: {},
+    create: {
+      id: "seed-adventure-139",
+      title: "Patagonia Ice Cap Traverse",
+      description: `The Northern Patagonian Ice Cap traverse is one of the last great blank spots in alpine adventure — a 100 km ski traverse across the second largest ice cap outside the poles, with no roads, no huts, and no rescue infrastructure. Teams fly in by ski-equipped plane to the Monte San Valentín area and navigate crevassed plateau ice to reach Cochrane. Full expedition planning required; weather windows are brief and infrequent.`,
+      location: "Cochrane",
+      country: "Chile",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 25,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Northern Ice Cap crossing", "Monte San Valentín approach", "Crevassed glacier navigation", "Remote Patagonian fjords", "True wilderness"],
+      gear: ["Ski touring kit", "Crevasse rescue equipment", "Expedition tent", "Pulk sled", "Satellite communicator"],
+      bestMonths: [11, 12, 1],
+      estimatedCost: 12000,
+      latitude: -47.3,
+      longitude: -73,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["skiing"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure139.id }, { userId: user2.id, adventureId: adventure139.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
