@@ -15811,6 +15811,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure408.id }, { userId: user2.id, adventureId: adventure408.id }, { userId: user3.id, adventureId: adventure408.id }], skipDuplicates: true });
 
+
+  // Adventure 409
+  const adventure409 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-409" },
+    update: {},
+    create: {
+      id: "seed-adventure-409",
+      title: "British Columbia Powder Skiing",
+      description: `The Powder Highway of southeastern British Columbia connects the ski resorts of Revelstoke, Kicking Horse, Whitewater, and Red Mountain in a corridor that receives the deepest and lightest powder snowfall in North America. Revelstoke Mountain Resort has North America's greatest vertical drop at 1,713 metres, and the cat skiing and heli-skiing operations above allow access to completely untracked terrain. The Selkirk and Purcell mountain wilderness is incomparable.`,
+      location: "Revelstoke",
+      country: "Canada",
+      continent: "North America",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Revelstoke 1713m North America greatest vertical", "Heli-skiing untracked Selkirk powder", "Powder Highway four resort circuit", "Kicking Horse wild terrain", "Cat skiing Selkirk Tangiers"],
+      gear: ["Expert ski ability required", "Avalanche rescue kit mandatory", "Powder skis 110mm minimum", "Ski helmet", "Layered merino and down"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 4000,
+      latitude: 51,
+      longitude: -118.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure409.id }, { userId: user2.id, adventureId: adventure409.id }, { userId: user3.id, adventureId: adventure409.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
