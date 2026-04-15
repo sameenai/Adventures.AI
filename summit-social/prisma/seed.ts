@@ -9210,6 +9210,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure188.id }, { userId: user2.id, adventureId: adventure188.id }, { userId: user3.id, adventureId: adventure188.id }], skipDuplicates: true });
 
+
+  // Adventure 189
+  const adventure189 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-189" },
+    update: {},
+    create: {
+      id: "seed-adventure-189",
+      title: "Elburz Mountains Ski Tour",
+      description: `The Alborz range north of Tehran rises to over 5,600 m at Mount Damavand, the world's highest volcano, and offers extraordinary ski touring on snow that is consistently deep, dry, and cold from December to April. The Dizin resort at 3,600 m offers lift-accessed off-piste; the Damavand approach involves a 2-day tour on crampons and skis to a crater-rim summit. The contrast between Tehran's urban sprawl and the pristine alpine world one hour away is remarkable.`,
+      location: "Tehran",
+      country: "Iran",
+      continent: "Asia",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Mount Damavand 5,610m", "Dizin resort off-piste", "Dry powder snow", "Tochal ski area", "Persian hospitality"],
+      gear: ["Ski touring kit", "Crampons for Damavand", "Avalanche safety equipment", "Layering system", "Visa documents"],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 2500,
+      latitude: 35.76,
+      longitude: 51.41,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountaineering"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure189.id }, { userId: user2.id, adventureId: adventure189.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
