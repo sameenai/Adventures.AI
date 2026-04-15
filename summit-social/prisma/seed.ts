@@ -14371,6 +14371,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure360.id }, { userId: user2.id, adventureId: adventure360.id }, { userId: user3.id, adventureId: adventure360.id }], skipDuplicates: true });
 
+
+  // Adventure 361
+  const adventure361 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-361" },
+    update: {},
+    create: {
+      id: "seed-adventure-361",
+      title: "Maldives Atoll Diving Liveaboard",
+      description: `A liveaboard diving safari through the North and South Male Atolls, Ari Atoll, and the remote Baa Atoll UNESCO Biosphere Reserve provides access to the best dive sites in the Indian Ocean from a single vessel. The Manta Point at Baa Atoll concentrates up to 200 manta rays in the feeding aggregation during May to November, and hammerhead sharks patrol the deep channels of Rasdhoo. Night diving in the Maldives reveals bio-luminescent plankton and sleeping sharks.`,
+      location: "Male",
+      country: "Maldives",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["200 manta ray feeding aggregation Baa", "Hammerhead shark Rasdhoo channel", "Bio-luminescent night diving", "Whale shark encounters outer atolls", "Pristine coral 30m visibility"],
+      gear: ["Advanced open water", "Nitrox certification recommended", "Underwater wide-angle camera", "Wetsuit 3mm", "Dive computer"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 3000,
+      latitude: 3.2,
+      longitude: 73.22,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure361.id }, { userId: user2.id, adventureId: adventure361.id }, { userId: user3.id, adventureId: adventure361.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
