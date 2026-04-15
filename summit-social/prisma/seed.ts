@@ -13141,6 +13141,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure319.id }, { userId: user2.id, adventureId: adventure319.id }, { userId: user3.id, adventureId: adventure319.id }], skipDuplicates: true });
 
+
+  // Adventure 320
+  const adventure320 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-320" },
+    update: {},
+    create: {
+      id: "seed-adventure-320",
+      title: "Costa Rica Jungle to Coast Traverse",
+      description: `The Corcovado National Park on the Osa Peninsula is described by National Geographic as the most biologically intense place on Earth, with the highest density of primary jungle remaining in Central America. A week-long traverse from Los Patos ranger station to Sirena biological station and out to Carate beach passes through territory where tapirs, jaguars, four species of monkey, and scarlet macaws share the same forest. The Sirena station is reachable only on foot or by small plane.`,
+      location: "Puerto Jimenez",
+      country: "Costa Rica",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Jaguar tapir and four monkey species", "Scarlet macaw nesting colonies", "Sirena biological station isolation", "Pacific beach camp to jungle return", "Highest biodiversity Central America"],
+      gear: ["Rubber jungle boots waterproof", "Malaria prevention", "Wildlife identification guide", "Corcovado National Park permit", "Bear box for food at camp"],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 800,
+      latitude: 8.53,
+      longitude: -83.56,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["trekking"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure320.id }, { userId: user2.id, adventureId: adventure320.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
