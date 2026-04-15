@@ -14461,6 +14461,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure363.id }, { userId: user2.id, adventureId: adventure363.id }], skipDuplicates: true });
 
+
+  // Adventure 364
+  const adventure364 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-364" },
+    update: {},
+    create: {
+      id: "seed-adventure-364",
+      title: "Canoeing the Boundary Waters",
+      description: `The Boundary Waters Canoe Area Wilderness in Minnesota contains over 1,000 lakes connected by historic portage routes used by Ojibwe peoples and French Canadian voyageurs for centuries. Paddling point-to-point routes over a week, carrying the canoe over short land bridges between lakes, and camping on granite shorelines where wolves howl at night creates the quintessential North American wilderness experience. No motorboats are permitted in most of the wilderness.`,
+      location: "Ely",
+      country: "United States",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["1000 portage-connected lakes", "Wolf howling night camps", "Loon and osprey wilderness birds", "Voyageur historic canoe routes", "Permit-controlled visitor numbers"],
+      gear: ["Canoe and paddles", "Portage yoke", "BWCAW permit advance purchase", "Bear canister", "Water filter"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 47.9,
+      longitude: -91.86,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["camping"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure364.id }, { userId: user2.id, adventureId: adventure364.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
