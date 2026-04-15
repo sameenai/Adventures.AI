@@ -15691,6 +15691,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure404.id }, { userId: user2.id, adventureId: adventure404.id }], skipDuplicates: true });
 
+
+  // Adventure 405
+  const adventure405 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-405" },
+    update: {},
+    create: {
+      id: "seed-adventure-405",
+      title: "Himalayan Rivers Kayaking",
+      description: `The Kali Gandaki River descending from Upper Mustang through the world's deepest gorge offers Class IV and V whitewater kayaking through an extraordinary geological cross-section of the Himalaya. The Sun Kosi river in Nepal is the most popular multi-day commercial rafting river, covering 270 kilometres in nine days from Dolalghat to Chatra with sustained rapids through jungle gorges. Nepal has seventeen major rivers draining the Himalaya, offering the world's finest river adventure spectrum.`,
+      location: "Kathmandu",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Kali Gandaki deepest gorge world kayak", "Sun Kosi 270km nine-day descent", "Class V rapids in Himalayan gorge", "Jungle camp beach nights", "Himalayan scenery from river level"],
+      gear: ["Kayak or raft", "Dry suit cold glacial water", "Helmet and PFD", "Waterproof dry bags all gear", "Rescue throw bag"],
+      bestMonths: [10, 11, 3, 4],
+      estimatedCost: 800,
+      latitude: 27.71,
+      longitude: 85.31,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["gorge"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure405.id }, { userId: user2.id, adventureId: adventure405.id }, { userId: user3.id, adventureId: adventure405.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
