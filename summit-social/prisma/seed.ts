@@ -12781,6 +12781,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure307.id }, { userId: user2.id, adventureId: adventure307.id }], skipDuplicates: true });
 
+
+  // Adventure 308
+  const adventure308 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-308" },
+    update: {},
+    create: {
+      id: "seed-adventure-308",
+      title: "Madagascar Lemur Trek",
+      description: `Madagascar has been isolated from Africa for 88 million years and has evolved an entirely unique fauna including over 100 lemur species found nowhere else on Earth. The Andasibe-Mantadia National Park near Antananarivo contains indri lemurs whose haunting territorial calls echo through the forest at dawn. The Ankarana Tsingy de Bemaraha reserve presents a surreal landscape of razor-sharp limestone pinnacles rising 70 metres from the forest floor.`,
+      location: "Antananarivo",
+      country: "Madagascar",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Indri lemur dawn calls Andasibe", "Tsingy limestone pinnacle forests", "100 lemur species found only here", "Fossa Madagascar apex predator", "Avenue of the Baobabs iconic trees"],
+      gear: ["Binoculars for lemur spotting", "Camera telephoto lens", "Malaria prophylaxis", "Comfortable trekking footwear", "Mosquito net"],
+      bestMonths: [7, 8, 9, 10],
+      estimatedCost: 2500,
+      latitude: -18.91,
+      longitude: 47.54,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure308.id }, { userId: user2.id, adventureId: adventure308.id }, { userId: user3.id, adventureId: adventure308.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
