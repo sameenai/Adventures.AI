@@ -12180,6 +12180,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure287.id }, { userId: user2.id, adventureId: adventure287.id }, { userId: user3.id, adventureId: adventure287.id }], skipDuplicates: true });
 
+
+  // Adventure 288
+  const adventure288 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-288" },
+    update: {},
+    create: {
+      id: "seed-adventure-288",
+      title: "Africa Cycling - Cairo to Cape Town",
+      description: `The Cairo to Cape Town cycling route is considered the greatest cycling challenge in Africa, covering over 12,000 kilometres through ten countries from the Pyramids to the Cape of Good Hope. The route passes through the Nubian desert, Ethiopian highlands, East African Rift Valley, and Malawian lakeshore before entering southern Africa. The Tour d'Afrique organised race attracts over a hundred cyclists annually, but independent riders have their own extraordinary experience.`,
+      location: "Cairo",
+      country: "Egypt",
+      continent: "Africa",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 120,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Cairo Pyramids start point", "Nile valley cycling first week", "Ethiopian highland climbs", "Rift Valley lake camps", "Cape of Good Hope finish"],
+      gear: ["Touring bicycle and spare parts", "Multi-entry visas arranged", "Expedition budget for four months", "Panniers waterproofed", "Malaria prophylaxis"],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 6000,
+      latitude: 30.04,
+      longitude: 31.23,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["expedition"].id }, { id: allTags["safari"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure288.id }, { userId: user2.id, adventureId: adventure288.id }, { userId: user3.id, adventureId: adventure288.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
