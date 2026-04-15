@@ -15571,6 +15571,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure400.id }, { userId: user2.id, adventureId: adventure400.id }, { userId: user3.id, adventureId: adventure400.id }], skipDuplicates: true });
 
+
+  // Adventure 401
+  const adventure401 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-401" },
+    update: {},
+    create: {
+      id: "seed-adventure-401",
+      title: "Patagonia Fitz Roy Trek",
+      description: `The Fitz Roy massif in Los Glaciares National Park is one of the world's most dramatic mountain landscapes, with the granite towers of Cerro Fitz Roy and Cerro Torre rising sheer from the Patagonian steppe. The trek from El Chalten to Laguna de los Tres gains 800 metres to stand directly below the 3,359-metre needle at sunrise. The legendary Patagonian winds can make progress feel impossible, but the rewards are among the finest mountain views on Earth.`,
+      location: "El Chalten",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Fitz Roy granite tower sunrise reflection", "Cerro Torre needle 3128m", "Laguna de los Tres turquoise lake", "Patagonian condor soaring", "Los Glaciares National Park"],
+      gear: ["Windproof jacket 100kmh gusts", "Trekking poles mandatory", "Waterproof trousers", "Gaiters boulder field", "Warm hat and gloves"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 600,
+      latitude: -49.33,
+      longitude: -72.89,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["bucket-list"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure401.id }, { userId: user2.id, adventureId: adventure401.id }, { userId: user3.id, adventureId: adventure401.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
