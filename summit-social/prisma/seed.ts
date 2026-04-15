@@ -13831,6 +13831,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure342.id }, { userId: user2.id, adventureId: adventure342.id }, { userId: user3.id, adventureId: adventure342.id }], skipDuplicates: true });
 
+
+  // Adventure 343
+  const adventure343 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-343" },
+    update: {},
+    create: {
+      id: "seed-adventure-343",
+      title: "Seychelles Island Kayaking",
+      description: `The Seychelles inner islands of Praslin, La Digue, and the coral atolls of Aldabra contain some of the world's most pristine tropical ecosystems, accessible by sea kayak through crystal-clear water over living coral. Aldabra Atoll UNESCO World Heritage site has the world's largest population of giant Aldabra tortoises, and the marine environment is largely untouched. La Digue's Anse Source d'Argent with its granite boulders and turquoise water is the world's most photographed beach.`,
+      location: "Mahe",
+      country: "Seychelles",
+      continent: "Africa",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Anse Source d'Argent granite beach", "Aldabra giant tortoise colony", "Coco de Mer unique palm forest", "Seychelles warbler endemic bird", "Coral reef snorkelling"],
+      gear: ["Sea kayak", "Snorkel set", "Reef-safe sunscreen", "Underwater camera", "Seychelles rupee cash"],
+      bestMonths: [4, 5, 10, 11],
+      estimatedCost: 3000,
+      latitude: -4.67,
+      longitude: 55.49,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure343.id }, { userId: user2.id, adventureId: adventure343.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
