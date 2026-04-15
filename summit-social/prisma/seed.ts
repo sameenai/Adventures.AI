@@ -8430,6 +8430,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure162.id }, { userId: user2.id, adventureId: adventure162.id }], skipDuplicates: true });
 
+
+  // Adventure 163
+  const adventure163 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-163" },
+    update: {},
+    create: {
+      id: "seed-adventure-163",
+      title: "Spitsbergen Polar Bear Safari",
+      description: `Svalbard at 78° North is the world's most accessible Arctic wilderness — a high-Arctic archipelago of glaciers, polar bears, walrus, and Arctic foxes reachable by scheduled flight from Tromsø. Summer brings the midnight sun and boat expeditions into drift ice where polar bears hunt. Winter brings the blue twilight of polar night and the northern lights. Armed guide requirement means most access is via guided expedition.`,
+      location: "Longyearbyen",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1531166936337-7c912a4589a7?w=1600&q=80",
+      highlights: ["Polar bear encounters", "Glacier boat expeditions", "Walrus haul-outs", "Arctic fox", "Midnight sun (or polar night)"],
+      gear: ["Expedition cold-weather kit", "Flotation suit (boat trips)", "Layers (minimum -20°C capable)", "Camera telephoto", "Waterproof boots"],
+      bestMonths: [3, 4, 6, 7, 8],
+      estimatedCost: 5500,
+      latitude: 78.22,
+      longitude: 15.63,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["expedition"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure163.id }, { userId: user2.id, adventureId: adventure163.id }, { userId: user3.id, adventureId: adventure163.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
