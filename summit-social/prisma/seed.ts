@@ -7561,6 +7561,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure133.id }, { userId: user2.id, adventureId: adventure133.id }], skipDuplicates: true });
 
+
+  // Adventure 134
+  const adventure134 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-134" },
+    update: {},
+    create: {
+      id: "seed-adventure-134",
+      title: "Appalachian Trail Thru-Hike",
+      description: `The Appalachian Trail stretches 3,540 km from Springer Mountain in Georgia to Mount Katahdin in Maine, traversing 14 states and taking 5–7 months to complete. It is the world's most hiked long-distance trail, with a culture entirely its own — trail names, trail magic, and the peculiar mathematics of daily mileage obsession. About 1 in 4 thru-hikers who start in Georgia make it to Katahdin. The rest still have a story.`,
+      location: "Springer Mountain",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 160,
+      coverImageUrl: "https://images.unsplash.com/photo-1489659639091-8b687bc4386e?w=1600&q=80",
+      highlights: ["Katahdin summit finale", "Shenandoah National Park", "White Mountains", "Trail magic culture", "14-state traverse"],
+      gear: ["Ultralight shelter", "Water filter", "Trekking poles", "Zero-drop trail runners", "Resupply strategy"],
+      bestMonths: [3, 4],
+      estimatedCost: 8000,
+      latitude: 34.63,
+      longitude: -84.19,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["thru-hike"].id }, { id: allTags["trekking"].id }, { id: allTags["bucket-list"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure134.id }, { userId: user2.id, adventureId: adventure134.id }, { userId: user3.id, adventureId: adventure134.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
