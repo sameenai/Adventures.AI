@@ -8400,6 +8400,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure161.id }, { userId: user2.id, adventureId: adventure161.id }], skipDuplicates: true });
 
+
+  // Adventure 162
+  const adventure162 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-162" },
+    update: {},
+    create: {
+      id: "seed-adventure-162",
+      title: "Borneo Orangutan Trek",
+      description: `The rainforests of Borneo — spanning Sabah, Sarawak, and Kalimantan — harbour wild orangutans accessible on foot in Danum Valley, Deramakot Forest Reserve, and the Kinabatangan River. Proboscis monkeys with their extraordinary noses, pygmy elephants, and hornbills complete the jungle cast. Danum Valley requires a lodge booking and is strict about access; the Kinabatangan is accessible by boat from Sukau, where river safaris reveal orangutans feeding in riverine forest.`,
+      location: "Lahad Datu",
+      country: "Malaysia",
+      continent: "Asia",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Wild orangutan sightings", "Danum Valley primary forest", "Kinabatangan river safari", "Pygmy elephants", "Hornbill species"],
+      gear: ["Lightweight clothes", "Waterproof boots", "Insect repellent", "Binoculars", "Camera"],
+      bestMonths: [3, 4, 7, 8],
+      estimatedCost: 3000,
+      latitude: 4.93,
+      longitude: 117.33,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure162.id }, { userId: user2.id, adventureId: adventure162.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
