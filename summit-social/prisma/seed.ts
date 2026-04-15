@@ -15151,6 +15151,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure386.id }, { userId: user2.id, adventureId: adventure386.id }], skipDuplicates: true });
 
+
+  // Adventure 387
+  const adventure387 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-387" },
+    update: {},
+    create: {
+      id: "seed-adventure-387",
+      title: "Senegal Sine Saloum Delta Kayak",
+      description: `The Sine Saloum Delta in central Senegal is a vast mangrove-and-sandbank labyrinth where the Serer people have lived on shell midden islands for 3,000 years. Kayaking between the Serer villages visits their traditional architecture, their oyster farming on mangrove roots, and the evening ceremonies of the griots. The delta attracts enormous flocks of flamingos and pelicans, and the offshore Saloum Islands marine national park protects dolphin pods. This is West Africa at its most quietly magnificent.`,
+      location: "Kaolack",
+      country: "Senegal",
+      continent: "Africa",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Serer shell midden island villages", "Mangrove kayaking 3000 year history", "Flamingo and pelican flocks", "Griot drum music ceremony", "Dolphin encounters marine park"],
+      gear: ["Sea kayak", "Lightweight quick-dry clothing", "Malaria prophylaxis Senegal", "French phrasebook", "Camera mangrove light"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 700,
+      latitude: 13.77,
+      longitude: -15.88,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure387.id }, { userId: user2.id, adventureId: adventure387.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
