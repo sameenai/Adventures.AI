@@ -15091,6 +15091,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure384.id }, { userId: user2.id, adventureId: adventure384.id }, { userId: user3.id, adventureId: adventure384.id }], skipDuplicates: true });
 
+
+  // Adventure 385
+  const adventure385 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-385" },
+    update: {},
+    create: {
+      id: "seed-adventure-385",
+      title: "New South Wales Coastal Walk",
+      description: `The Sydney to Wollongong Coastal Walk connects Sydney's Royal National Park and a series of clifftop tracks along 140 kilometres of NSW coast with views of the Tasman Sea. The Grand Pacific Drive section includes the Sea Cliff Bridge, a cantilevered coastal road over the Pacific. The Royal National Park coastal track passes through heath, rainforest gullies, and Aboriginal engravings, making this a surprisingly wild walk within two hours of the largest city in Australia.`,
+      location: "Sydney",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Royal National Park coastal heathland", "Sea Cliff Bridge cantilevered Pacific", "Aboriginal rock engravings", "Wollongong Sea Cathedral cliffs", "Clifftop walking Tasman Sea views"],
+      gear: ["Lightweight hiking footwear", "Sunscreen Australian UV intense", "Swimming kit for ocean pools", "Water 2 litres", "Rain jacket sudden storms"],
+      bestMonths: [3, 4, 9, 10, 11],
+      estimatedCost: 300,
+      latitude: -33.84,
+      longitude: 151.21,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["australia"].id }, { id: allTags["coastal"].id }, { id: allTags["hiking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure385.id }, { userId: user2.id, adventureId: adventure385.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
