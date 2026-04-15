@@ -14341,6 +14341,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure359.id }, { userId: user2.id, adventureId: adventure359.id }, { userId: user3.id, adventureId: adventure359.id }], skipDuplicates: true });
 
+
+  // Adventure 360
+  const adventure360 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-360" },
+    update: {},
+    create: {
+      id: "seed-adventure-360",
+      title: "Kenai Peninsula Sea Kayaking",
+      description: `The Kenai Fjords National Park on Alaska's Kenai Peninsula offers world-class sea kayaking through a landscape of tidewater glaciers calving icebergs directly into the ocean. Paddling within earshot of Aialik Glacier's thunderous calving, past sleeping sea otters and Steller sea lion colonies, and camping on beaches shared with brown bears is the definitive Alaskan sea kayak experience. The park is accessible from Seward and contains 40 glaciers fed by the Harding Icefield.`,
+      location: "Seward",
+      country: "United States",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Aialik Glacier calving icebergs", "Sea otter rafts sleeping", "Steller sea lion haul-out", "Brown bear beach camping", "Harding Icefield 40 glaciers"],
+      gear: ["Sea kayak with dry suit", "Tow rope and VHF radio", "Bear spray and electric fence", "Cold water rescue training", "Waterproof charts"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1800,
+      latitude: 59.84,
+      longitude: -149.44,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["arctic"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure360.id }, { userId: user2.id, adventureId: adventure360.id }, { userId: user3.id, adventureId: adventure360.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
