@@ -10770,6 +10770,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure240.id }, { userId: user2.id, adventureId: adventure240.id }, { userId: user3.id, adventureId: adventure240.id }], skipDuplicates: true });
 
+
+  // Adventure 241
+  const adventure241 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-241" },
+    update: {},
+    create: {
+      id: "seed-adventure-241",
+      title: "Iceland Volcanic Interior Trek",
+      description: `The Highlands of Iceland — accessible only in summer when the F-roads open — are the emptiest landscape in Europe. The Fjallabak Reserve and Sprengisandur highland route cross black lava plateaus, active geothermal areas, and the vast Hofsjökull and Langjökull ice caps. The interior has no huts in some sections; navigation across featureless lava desert requires GPS. This is the Iceland no tourist bus reaches.`,
+      location: "Reykjavik",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Sprengisandur volcanic desert", "Hofsjökull ice cap", "Landmannalaugar hot springs", "Askja caldera", "No tourist infrastructure"],
+      gear: ["4WD or backpacking kit", "GPS navigation", "River fording capability", "Emergency shelter", "Water filter"],
+      bestMonths: [7, 8],
+      estimatedCost: 3000,
+      latitude: 64.13,
+      longitude: -19.02,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["volcanic"].id }, { id: allTags["remote"].id }, { id: allTags["glacier"].id }, { id: allTags["arctic"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure241.id }, { userId: user2.id, adventureId: adventure241.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
