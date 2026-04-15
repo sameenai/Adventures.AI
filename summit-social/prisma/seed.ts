@@ -13201,6 +13201,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure321.id }, { userId: user2.id, adventureId: adventure321.id }, { userId: user3.id, adventureId: adventure321.id }], skipDuplicates: true });
 
+
+  // Adventure 322
+  const adventure322 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-322" },
+    update: {},
+    create: {
+      id: "seed-adventure-322",
+      title: "Altai Republic Horse Trek, Russia",
+      description: `The Altai Republic in southern Siberia is where Russia, Kazakhstan, Mongolia and China meet at the Tabyn-Bogdo-Ola massif. Horse trekking through the Chulyshman valley and over the Katu-Yaryk pass, a near-vertical descent to the Altai plateau, passes through one of Russia's most spectacular and least-visited landscapes. The region is sacred to the indigenous Altai people and contains thousands of ancient burial kurgans.`,
+      location: "Gorno-Altaysk",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Katu-Yaryk vertical pass descent", "Chulyshman river valley", "Ancient burial kurgan mounds", "Teletskoye lake Russia deepest", "Altai shaman culture visits"],
+      gear: ["Horse riding experience helpful", "Warm layers Siberian nights", "Waterproof tent", "Russian visa", "Offline maps"],
+      bestMonths: [7, 8],
+      estimatedCost: 1000,
+      latitude: 51.96,
+      longitude: 85.96,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["horse-trekking"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure322.id }, { userId: user2.id, adventureId: adventure322.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
