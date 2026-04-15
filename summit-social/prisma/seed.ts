@@ -13441,6 +13441,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure329.id }, { userId: user2.id, adventureId: adventure329.id }], skipDuplicates: true });
 
+
+  // Adventure 330
+  const adventure330 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-330" },
+    update: {},
+    create: {
+      id: "seed-adventure-330",
+      title: "Orinoco Delta Dugout Canoe",
+      description: `The Orinoco Delta in eastern Venezuela contains a maze of over 40 river channels spreading across 22,000 square kilometres of tropical wetland where the Warao people have lived on stilted palafito houses above the river since pre-Columbian times. Navigating by dugout canoe through flooded igapo forest to reach remote Warao communities and witness their tradition of palm weaving and fishing is a journey into a largely unchanged pre-industrial world. Pink river dolphins and anacondas are regular sightings.`,
+      location: "Tucupita",
+      country: "Venezuela",
+      continent: "South America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Warao indigenous stilt village stays", "Pink river dolphin encounters", "Anaconda igapo forest sightings", "Orinoco 40-channel delta maze", "Sunset egret and scarlet ibis flocks"],
+      gear: ["Insect repellent heavy duty", "Malaria prophylaxis essential", "Dry bags all electronics", "Light hammock for sleeping", "Water purification"],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 500,
+      latitude: 9.06,
+      longitude: -62.05,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure330.id }, { userId: user2.id, adventureId: adventure330.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
