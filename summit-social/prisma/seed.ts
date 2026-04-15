@@ -13021,6 +13021,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure315.id }, { userId: user2.id, adventureId: adventure315.id }, { userId: user3.id, adventureId: adventure315.id }], skipDuplicates: true });
 
+
+  // Adventure 316
+  const adventure316 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-316" },
+    update: {},
+    create: {
+      id: "seed-adventure-316",
+      title: "Morocco Atlas Mountains Trek",
+      description: `The High Atlas Mountains south of Marrakech contain the highest peak in North Africa, Jebel Toubkal at 4,167 metres, accessible via the classic Toubkal Circuit through Berber villages that maintain traditional architecture and agriculture above 2,000 metres. The mule-track descent through Imlil valley passes terraced barley fields and walnut orchards. Combined with a night in a desert kasbah in the Dades Valley, this is Morocco's finest mountain experience.`,
+      location: "Imlil",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Toubkal 4167m highest North Africa", "Berber village guest house stays", "Mule track ancient trade route", "Tizi n Toubkal pass 3940m", "Marrakech medina start and finish"],
+      gear: ["Mountain boots summit ice winter", "Warm layers summit wind", "Daypack summit day", "Berber guide hire Imlil", "Crampons January to April"],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 500,
+      latitude: 31.13,
+      longitude: -7.92,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure316.id }, { userId: user2.id, adventureId: adventure316.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
