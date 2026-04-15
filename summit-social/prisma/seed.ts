@@ -9810,6 +9810,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure208.id }, { userId: user2.id, adventureId: adventure208.id }], skipDuplicates: true });
 
+
+  // Adventure 209
+  const adventure209 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-209" },
+    update: {},
+    create: {
+      id: "seed-adventure-209",
+      title: "Trollfjord Kayak Norway",
+      description: `Trollfjord is perhaps the most dramatic fjord in Norway — 2 km long and barely 100 m wide, enclosed by vertical walls of gabbro rising 1,000 m on each side, accessible only by boat. Kayaking into Trollfjord at dusk, when the rock walls reflect in still water and sea eagles patrol the cliff tops, is one of the defining fjord experiences in Scandinavia. The base is Svolvær in the Lofoten Islands; week-long circumnavigation of Austvågøya island is the full circuit.`,
+      location: "Svolvær",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Trollfjord approach", "Sea eagle encounters", "Lofoten islands scenery", "Midnight sun kayaking", "Svolvær fishing village"],
+      gear: ["Sea kayak", "Dry suit", "VHF radio", "Tidal atlas", "Camping kit"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 2500,
+      latitude: 68.24,
+      longitude: 14.57,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["europe"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["photography"].id }, { id: allTags["coastal"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure209.id }, { userId: user2.id, adventureId: adventure209.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
