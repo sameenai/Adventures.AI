@@ -8880,6 +8880,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure177.id }, { userId: user2.id, adventureId: adventure177.id }], skipDuplicates: true });
 
+
+  // Adventure 178
+  const adventure178 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-178" },
+    update: {},
+    create: {
+      id: "seed-adventure-178",
+      title: "Yellowstone Winter Snowshoe",
+      description: `Visiting Yellowstone in winter transforms the world's first national park into a silent, steam-filled landscape of geysers erupting through snow, bison standing in thermal hot spots to keep warm, and wolves hunting elk across snow-covered valleys. Snowshoe access to the interior is by snowcoach from West Yellowstone; the Old Faithful area, Mammoth Hot Springs terraces, and Lamar Valley wolf watching are the key experiences. The park is almost entirely yours.`,
+      location: "West Yellowstone",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Old Faithful in snow", "Wolf spotting Lamar Valley", "Bison thermal pools", "Mammoth terraces", "Winter silence"],
+      gear: ["Snowshoes", "Cold weather kit -30°C", "Binoculars", "Microspikes", "Wool base layers"],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 2500,
+      latitude: 44.66,
+      longitude: -110.83,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure178.id }, { userId: user2.id, adventureId: adventure178.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
