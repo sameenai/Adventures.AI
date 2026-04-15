@@ -7771,6 +7771,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure140.id }, { userId: user2.id, adventureId: adventure140.id }], skipDuplicates: true });
 
+
+  // Adventure 141
+  const adventure141 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-141" },
+    update: {},
+    create: {
+      id: "seed-adventure-141",
+      title: "Mekong River Cycle",
+      description: `Cycling the Mekong from the Golden Triangle in northern Thailand to the Mekong Delta in Vietnam covers roughly 4,500 km through five countries — Thailand, Laos, Cambodia, and Vietnam — on roads varying from smooth tarmac to dusty jungle track. The river is the constant companion, a brown presence swelling in monsoon and shrinking in dry season. This is a fully self-planned tour; no agencies, just the river and the road.`,
+      location: "Chiang Rai",
+      country: "Thailand",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 60,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: ["Golden Triangle", "Luang Prabang monks", "4000 Islands (Si Phan Don)", "Phnom Penh riverfront", "Mekong Delta canals"],
+      gear: ["Expedition touring bike", "Panniers", "Chainstay cover", "Water purification", "Spare cables and spokes"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 5000,
+      latitude: 20.28,
+      longitude: 99.88,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure141.id }, { userId: user2.id, adventureId: adventure141.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
