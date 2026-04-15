@@ -12571,6 +12571,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure300.id }, { userId: user2.id, adventureId: adventure300.id }, { userId: user3.id, adventureId: adventure300.id }], skipDuplicates: true });
 
+
+  // Adventure 301
+  const adventure301 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-301" },
+    update: {},
+    create: {
+      id: "seed-adventure-301",
+      title: "Iceland Laugavegur Trail",
+      description: `The Laugavegur trail from Landmannalaugar to Thorsmork is Iceland's iconic multi-day trekking route, crossing a landscape of rainbow rhyolite mountains, obsidian lava fields, glaciers, and geothermal hot springs in 55 kilometres. Natural hot spring bathing is built into the journey, with pools at Landmannalaugar offering post-hike soaks in 38-degree water. The optional Fimmvorduhals continuation crosses two active volcanic fissures from the 2010 Eyjafjallajokull eruption.`,
+      location: "Landmannalaugar",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Rainbow rhyolite mountain colours", "Natural geothermal hot spring soaks", "Eyjafjallajokull 2010 lava fields", "Thorsmork birch forest oasis", "River crossings without bridges"],
+      gear: ["Trekking poles for river crossings", "Waterproof boots", "Hut sleeping bag liner", "Rain jacket windproof", "Gaiters"],
+      bestMonths: [7, 8],
+      estimatedCost: 900,
+      latitude: 63.99,
+      longitude: -19.07,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["europe"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure301.id }, { userId: user2.id, adventureId: adventure301.id }, { userId: user3.id, adventureId: adventure301.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
