@@ -11310,6 +11310,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure258.id }, { userId: user2.id, adventureId: adventure258.id }], skipDuplicates: true });
 
+
+  // Adventure 259
+  const adventure259 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-259" },
+    update: {},
+    create: {
+      id: "seed-adventure-259",
+      title: "Markha Valley Trek",
+      description: `The Markha Valley trek in Ladakh crosses two high passes and follows the Markha River through a remote gorge flanked by Buddhist gompas and chortens. The route crosses Ganda La at 4,973 metres and Kongmaru La at 5,220 metres, with Kang Yatze peak dominating the horizon throughout. Homestays in traditional Ladakhi homes provide warm hospitality above 4,000 metres.`,
+      location: "Leh",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Kongmaru La pass at 5220 metres", "Kang Yatze peak views 6400m", "Markha village gompa", "Traditional Ladakhi homestays", "Hemis National Park wildlife"],
+      gear: ["Trekking poles", "Down jacket", "Sun protection factor 50", "Water purification", "Acclimatisation schedule"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 34.15,
+      longitude: 77.58,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure259.id }, { userId: user2.id, adventureId: adventure259.id }, { userId: user3.id, adventureId: adventure259.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
