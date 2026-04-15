@@ -8190,6 +8190,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure154.id }, { userId: user2.id, adventureId: adventure154.id }], skipDuplicates: true });
 
+
+  // Adventure 155
+  const adventure155 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-155" },
+    update: {},
+    create: {
+      id: "seed-adventure-155",
+      title: "Iceland Ring Road",
+      description: `Iceland's Route 1 circumnavigates the entire island in 1,332 km, passing glaciers calving into lagoons, geysers erupting on schedule, black sand beaches with seal colonies, and the northern lights when darkness finally returns in September. The Westfjords detour adds the most dramatic fjord scenery in Europe and the remote Hornstrandir nature reserve. A campervan in July means 24-hour daylight; September brings aurora and autumn colour to the birch woods.`,
+      location: "Reykjavik",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EASY,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1548449112-96a38a643324?w=1600&q=80",
+      highlights: ["Jökulsárlón glacier lagoon", "Geysir eruptions", "Black sand beach seals", "Northern lights", "Westfjords detour"],
+      gear: ["Rental 4WD or campervan", "Warm layers", "Rain gear", "Aurora alarm app", "Good coffee thermos"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: 64.13,
+      longitude: -21.83,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["photography"].id }, { id: allTags["volcanic"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["solo-travel"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure155.id }, { userId: user2.id, adventureId: adventure155.id }, { userId: user3.id, adventureId: adventure155.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
