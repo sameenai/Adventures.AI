@@ -8820,6 +8820,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure175.id }, { userId: user2.id, adventureId: adventure175.id }, { userId: user3.id, adventureId: adventure175.id }], skipDuplicates: true });
 
+
+  // Adventure 176
+  const adventure176 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-176" },
+    update: {},
+    create: {
+      id: "seed-adventure-176",
+      title: "Aosta Valley Via Ferrata Circuit",
+      description: `The Aosta Valley in the Italian Alps is the via ferrata capital of the world — iron rungs, stemples, and wire ropes bolted into impossibly sheer granite faces allow access to summit ridges that would otherwise require serious rock climbing. The Ferrata degli Alpini above Courmayeur, the Ferrata del Cervino on Monte Rosa, and the spectacular Ferrata Recoaro in the Brenta group are all within reach of a week-long circuit based at valley campsites.`,
+      location: "Courmayeur",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=1600&q=80",
+      highlights: ["Ferrata degli Alpini", "Mont Blanc approach views", "Iron rung cliff traverses", "Alpine refugio lunches", "Courmayeur village"],
+      gear: ["Via ferrata set (lanyard + harness)", "Helmet", "Gloves", "Approach shoes", "Headlamp"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2200,
+      latitude: 45.79,
+      longitude: 6.98,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["via-ferrata"].id }, { id: allTags["alpine"].id }, { id: allTags["mountaineering"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure176.id }, { userId: user2.id, adventureId: adventure176.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
