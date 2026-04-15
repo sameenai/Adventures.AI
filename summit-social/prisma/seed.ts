@@ -9930,6 +9930,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure212.id }, { userId: user2.id, adventureId: adventure212.id }], skipDuplicates: true });
 
+
+  // Adventure 213
+  const adventure213 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-213" },
+    update: {},
+    create: {
+      id: "seed-adventure-213",
+      title: "Kungsleden Southern Section",
+      description: `The southern Kungsleden from Hemavan to Ammarnäs (78 km, 5 days) passes through some of the quietest wilderness in Europe — old-growth birch forest, open fells patrolled by golden eagles, brown bears foraging the bilberry hillsides, and rivers running tea-brown over granite boulders. This section has fewer hikers than the iconic northern Abisko-Kebnekaise stretch and the mountain station infrastructure is simpler and more personal.`,
+      location: "Hemavan",
+      country: "Sweden",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      highlights: ["Lappland old-growth birch", "Golden eagle sightings", "Bear country walking", "Ammarnäs mountain station", "Tärnaby lake views"],
+      gear: ["Midges head net", "Waterproof boots", "Trekking poles", "Layering system", "Bear awareness"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1400,
+      latitude: 65.86,
+      longitude: 15.08,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["europe"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure213.id }, { userId: user2.id, adventureId: adventure213.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
