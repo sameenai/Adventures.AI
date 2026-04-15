@@ -7321,6 +7321,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure125.id }, { userId: user2.id, adventureId: adventure125.id }], skipDuplicates: true });
 
+
+  // Adventure 126
+  const adventure126 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-126" },
+    update: {},
+    create: {
+      id: "seed-adventure-126",
+      title: "Haute Route Chamonix to Zermatt",
+      description: `The Walker's Haute Route covers 180 km and 12,000 m of ascent between two of the Alps' most iconic towns, staying high on the ridgelines between the Swiss and French Alps. The route passes through the Val d'Hérens, crosses the Col de Torrent, and descends to Zermatt with the Matterhorn pyramid filling the final day's horizon. This is a serious mountain trail — navigation skills required.`,
+      location: "Chamonix",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      highlights: ["Fenêtre d'Arpette", "Col de Torrent", "Zermatt Matterhorn arrival", "Arolla glacier", "Alpine hut dinners"],
+      gear: ["Alpine boots", "Ice axe (early season)", "Navigation tools", "Emergency bivouac", "Trekking poles"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 2800,
+      latitude: 45.92,
+      longitude: 6.87,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["alpine"].id }, { id: allTags["glacier"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure126.id }, { userId: user2.id, adventureId: adventure126.id }, { userId: user3.id, adventureId: adventure126.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
