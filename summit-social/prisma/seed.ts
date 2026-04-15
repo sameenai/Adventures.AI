@@ -15451,6 +15451,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure396.id }, { userId: user2.id, adventureId: adventure396.id }], skipDuplicates: true });
 
+
+  // Adventure 397
+  const adventure397 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-397" },
+    update: {},
+    create: {
+      id: "seed-adventure-397",
+      title: "Hawaiian Volcanoes Lava Trek",
+      description: `The Hawaii Volcanoes National Park on the Big Island contains the world's most active shield volcano, Kilauea, with active lava flows periodically entering the ocean and creating new land in real time. The chain of craters road descends from the Kilauea caldera to the coast past ancient lava fields and the Holei Sea Arch. The Kilauea Iki crater crossing walks across the hardened 1959 lava lake floor that holds the energy of a 580-metre-tall eruption column.`,
+      location: "Hilo",
+      country: "United States",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Active Kilauea lava flow ocean entry", "Kilauea Iki crater floor walk", "Halemaumau volcanic caldera", "Chain of Craters 2000-year lava", "Lava tube Thurston skylight"],
+      gear: ["Gas mask for sulphur dioxide", "Closed toe shoes lava sharp", "Rain jacket volcano weather", "Water 2 litres", "Rangers check active flow access"],
+      bestMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      estimatedCost: 500,
+      latitude: 19.42,
+      longitude: -155.29,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["volcanic"].id }, { id: allTags["hiking"].id }, { id: allTags["photography"].id }, { id: allTags["island"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure397.id }, { userId: user2.id, adventureId: adventure397.id }, { userId: user3.id, adventureId: adventure397.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
