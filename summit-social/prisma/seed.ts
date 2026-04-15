@@ -10950,6 +10950,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure246.id }, { userId: user2.id, adventureId: adventure246.id }], skipDuplicates: true });
 
+
+  // Adventure 247
+  const adventure247 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-247" },
+    update: {},
+    create: {
+      id: "seed-adventure-247",
+      title: "Cerro Aconcagua Summit",
+      description: `Aconcagua (6,961 m) is the highest peak in the Americas and the highest summit outside Asia — a non-technical ascent by the Normal Route but requiring full acclimatisation, high-altitude camping at four camps, and 18+ days on the mountain including weather days. The Horcones Valley approach from Mendoza is straightforward; the mountain is a serious altitude undertaking with storms that can pin teams at Camp 3 for days. The summit view from the Roof of the Americas is earned.`,
+      location: "Mendoza",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=1600&q=80",
+      highlights: ["6,961m roof of the Americas", "Plaza de Mulas base camp", "Canaleta summit gully", "Mercedario and Tupungato views", "Mendoza wine finish"],
+      gear: ["High-altitude boots", "Down suit", "Crampons", "Sleeping bag -40°C", "Expedition tent"],
+      bestMonths: [12, 1, 2],
+      estimatedCost: 7000,
+      latitude: -32.65,
+      longitude: -70.01,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["high-altitude"].id }, { id: allTags["8000m"].id }, { id: allTags["bucket-list"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure247.id }, { userId: user2.id, adventureId: adventure247.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
