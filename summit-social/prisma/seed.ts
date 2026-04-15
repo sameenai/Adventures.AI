@@ -7201,6 +7201,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure121.id }, { userId: user2.id, adventureId: adventure121.id }, { userId: user3.id, adventureId: adventure121.id }], skipDuplicates: true });
 
+
+  // Adventure 122
+  const adventure122 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-122" },
+    update: {},
+    create: {
+      id: "seed-adventure-122",
+      title: "Milford Track",
+      description: `Dubbed the finest walk in the world since 1908, the Milford Track threads 54 km through Fiordland National Park from the head of Lake Te Anau to the world-famous Milford Sound. The route passes through ancient rainforest, crosses the MacKinnon Pass at 1,154 m, and descends to the Sutherland Falls — New Zealand's tallest at 580 m. Rain is constant and glorious; pack accordingly and embrace the moss.`,
+      location: "Fiordland",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["MacKinnon Pass views", "Sutherland Falls", "Milford Sound arrival", "Ancient rainforest", "Glow-worm caves"],
+      gear: ["Waterproof everything", "Gaiters", "Hut footwear", "Insect repellent", "Dry bags"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 1800,
+      latitude: -44.98,
+      longitude: 167.93,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["new-zealand"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure122.id }, { userId: user2.id, adventureId: adventure122.id }, { userId: user3.id, adventureId: adventure122.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
