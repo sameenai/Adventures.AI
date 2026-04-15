@@ -14041,6 +14041,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure349.id }, { userId: user2.id, adventureId: adventure349.id }, { userId: user3.id, adventureId: adventure349.id }], skipDuplicates: true });
 
+
+  // Adventure 350
+  const adventure350 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-350" },
+    update: {},
+    create: {
+      id: "seed-adventure-350",
+      title: "Romania Transylvanian Alps Trek",
+      description: `The Fagaras Mountains in the Transylvanian Alps form the highest and wildest range in the Romanian Carpathians, with Moldoveanu peak at 2,544 metres the highest point in the country. The main ridge traverse covers 70 kilometres above 2,000 metres with dramatic limestone karst formations, glacial cirques, and the chance to spot lynx, chamois, and brown bear. The Transylvania Brukenthal museum in Sibiu and Bran Castle add culture to the mountain experience.`,
+      location: "Sibiu",
+      country: "Romania",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Moldoveanu peak 2544m Romania highest", "Brown bear lynx chamois wildlife", "70km ridge traverse above 2000m", "Glacial cirque lakes Capra Balea", "Bran Castle Dracula tourism"],
+      gear: ["Mountain tent plateau camping", "Trekking poles", "Navigation old maps inaccurate", "Bear spray", "Warm layers even July"],
+      bestMonths: [7, 8],
+      estimatedCost: 500,
+      latitude: 45.8,
+      longitude: 24.15,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure350.id }, { userId: user2.id, adventureId: adventure350.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
