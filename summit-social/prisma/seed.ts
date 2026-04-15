@@ -8280,6 +8280,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure157.id }, { userId: user2.id, adventureId: adventure157.id }], skipDuplicates: true });
 
+
+  // Adventure 158
+  const adventure158 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-158" },
+    update: {},
+    create: {
+      id: "seed-adventure-158",
+      title: "Japan Pilgrimage Shikoku 88",
+      description: `The Shikoku Henro is an 1,200 km walking pilgrimage circling the island of Shikoku, visiting 88 Buddhist temples associated with the monk Kūkai (Kōbō Daishi). Pilgrims walk in white robes carrying a wooden staff, believed to embody the spirit of Kōbō Daishi himself. The route takes 30–60 days depending on pace and includes mountain sections, coastal paths, and city temple visits. The culture of osetai — gifts of food and money given to pilgrims — is extraordinary.`,
+      location: "Tokushima",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 45,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: ["88 temple circuit", "White pilgrim robe", "Osetai gift culture", "Cape Muroto", "Mount Tsurugi climb"],
+      gear: ["Walking staff", "White pilgrim robe", "Temple book for stamps", "Minimalist pack", "Blister care"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 3500,
+      latitude: 34.07,
+      longitude: 134.56,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["trekking"].id }, { id: allTags["solo-travel"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure158.id }, { userId: user2.id, adventureId: adventure158.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
