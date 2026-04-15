@@ -14221,6 +14221,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure355.id }, { userId: user2.id, adventureId: adventure355.id }, { userId: user3.id, adventureId: adventure355.id }], skipDuplicates: true });
 
+
+  // Adventure 356
+  const adventure356 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-356" },
+    update: {},
+    create: {
+      id: "seed-adventure-356",
+      title: "Trans-Siberian Train Journey",
+      description: `The Trans-Siberian Railway from Moscow to Vladivostok spans 9,289 kilometres across eleven time zones on a week-long journey through birch forests, the Mongolian border, and the shores of Lake Baikal. Taking the Transmongolian branch through Ulaanbaatar and into Beijing adds a desert crossing and Buddhist culture to what is the world's longest continuous railway journey. The experience of watching Russia transform across seven days from a train window is philosophically grand.`,
+      location: "Moscow",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["9289km longest railway journey world", "Lake Baikal platform stop", "Transmongolian Beijing branch option", "Russian culture dining car", "Eleven time zones seven days"],
+      gear: ["Sleeping bag own liner", "Platzkart class local experience", "Russian phrasebook", "Entertainment offline content", "Healthy food own supply"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1200,
+      latitude: 55.75,
+      longitude: 37.62,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure356.id }, { userId: user2.id, adventureId: adventure356.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
