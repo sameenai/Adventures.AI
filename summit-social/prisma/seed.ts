@@ -11640,6 +11640,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure269.id }, { userId: user2.id, adventureId: adventure269.id }], skipDuplicates: true });
 
+
+  // Adventure 270
+  const adventure270 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-270" },
+    update: {},
+    create: {
+      id: "seed-adventure-270",
+      title: "Wrangell-St. Elias Backpack",
+      description: `Wrangell-St. Elias National Park is the largest national park in the United States, encompassing four major mountain ranges with nine of America's sixteen highest peaks. The Chitistone and Nizina canyon routes follow Native Athabascan travel corridors through a wilderness larger than Switzerland. Grizzly bears, Dall sheep, and wolverines share the tundra above the historic Kennecott copper mines.`,
+      location: "McCarthy",
+      country: "United States",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Largest US national park no maintained trails", "Chitistone canyon 1000m walls", "Kennecott copper mine ghost town", "Nabesna glacier crossing", "Grizzly bear and Dall sheep"],
+      gear: ["Bear electric fence", "Satellite communicator", "River crossing dry bags", "Packraft for stream crossings", "Bear spray"],
+      bestMonths: [7, 8],
+      estimatedCost: 2200,
+      latitude: 61.43,
+      longitude: -142.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure270.id }, { userId: user2.id, adventureId: adventure270.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
