@@ -8160,6 +8160,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure153.id }, { userId: user2.id, adventureId: adventure153.id }], skipDuplicates: true });
 
+
+  // Adventure 154
+  const adventure154 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-154" },
+    update: {},
+    create: {
+      id: "seed-adventure-154",
+      title: "Pacific Coast Highway Road Trip",
+      description: `Highway 1 from Vancouver to the Mexican border traces the Pacific coastline for 2,400 km — through Olympic National Park and Oregon's crater-lake forests, past Big Sur's cliff-hugging turns and sea-lion rocks, into the Malibu surf culture and San Diego's perfect climate. Campgrounds book out for summer; the shoulder seasons of April–May and September–October offer emptier roads and dramatic light.`,
+      location: "Vancouver",
+      country: "United States",
+      continent: "North America",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EASY,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
+      highlights: ["Big Sur coastline", "Olympic National Park", "Crater Lake", "Point Reyes seals", "San Francisco Golden Gate"],
+      gear: ["Reliable vehicle", "Camping kit", "Cooler", "Good speakers", "US national parks pass"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 4000,
+      latitude: 49.25,
+      longitude: -123.12,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["coastal"].id }, { id: allTags["camping"].id }, { id: allTags["photography"].id }, { id: allTags["solo-travel"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure154.id }, { userId: user2.id, adventureId: adventure154.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
