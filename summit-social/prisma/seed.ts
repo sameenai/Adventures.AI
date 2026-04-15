@@ -15661,6 +15661,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure403.id }, { userId: user2.id, adventureId: adventure403.id }], skipDuplicates: true });
 
+
+  // Adventure 404
+  const adventure404 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-404" },
+    update: {},
+    create: {
+      id: "seed-adventure-404",
+      title: "Lappland Reindeer Migration Trek",
+      description: `Following the Sami reindeer herders of Swedish Lappland during the spring migration from winter forest pastures to the high fjell is one of the most authentic cultural encounters in Scandinavia. The snowscooter-assisted migration covers hundreds of kilometres, and spending days with a Sami family learning traditional ecological knowledge connects visitors to 10,000 years of Arctic herding culture. The midnight sun illuminates the reindeer columns moving north.`,
+      location: "Jokkmokk",
+      country: "Sweden",
+      continent: "Europe",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Sami herder family cultural stay", "Reindeer migration thousands strong", "Midnight sun Arctic spring light", "Traditional joik singing ceremony", "Reindeer slaughter autumn seasonal"],
+      gear: ["Warm Arctic clothing minus 10", "Snow boots insulated", "Camera wide angle migrations", "Sami traditional clothing gift", "Swedish krona"],
+      bestMonths: [4, 5],
+      estimatedCost: 1500,
+      latitude: 66.6,
+      longitude: 19.83,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["arctic"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure404.id }, { userId: user2.id, adventureId: adventure404.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
