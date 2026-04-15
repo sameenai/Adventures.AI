@@ -8041,6 +8041,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure149.id }, { userId: user2.id, adventureId: adventure149.id }, { userId: user3.id, adventureId: adventure149.id }], skipDuplicates: true });
 
+
+  // Adventure 150
+  const adventure150 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-150" },
+    update: {},
+    create: {
+      id: "seed-adventure-150",
+      title: "Chamonix Freeride Season",
+      description: `Chamonix is the freeride capital of the Alps — the Vallée Blanche glacier descent, the Grands Montets couloirs, and the off-piste terrain accessible from the Aiguille du Midi cable car represent the pinnacle of European ski touring and freeride. The combination of high-altitude terrain, consistent snowpack from November to April, and easy access to the mountains via cable car makes this unlike any resort-based skiing experience. Avalanche awareness is mandatory.`,
+      location: "Chamonix",
+      country: "France",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Vallée Blanche descent", "Grands Montets couloirs", "Aiguille du Midi cable car", "Off-piste guide days", "Chamonix après"],
+      gear: ["Freeride skis", "Avalanche transceiver, probe, shovel", "Ski touring skins", "Helmet", "Powder pants"],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 3500,
+      latitude: 45.92,
+      longitude: 6.87,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure150.id }, { userId: user2.id, adventureId: adventure150.id }, { userId: user3.id, adventureId: adventure150.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
