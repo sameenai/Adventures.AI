@@ -9300,6 +9300,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure191.id }, { userId: user2.id, adventureId: adventure191.id }], skipDuplicates: true });
 
+
+  // Adventure 192
+  const adventure192 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-192" },
+    update: {},
+    create: {
+      id: "seed-adventure-192",
+      title: "Tour de Mont Blanc Running",
+      description: `Running the Tour du Mont Blanc (the Ultra-Trail du Mont Blanc course) in 5 days — rather than the hiker's 11 — is one of the most accessible ultra-endurance challenges in the mountains. The 170 km circuit with 10,000 m of gain is split into 30–40 km days with rifugio nights. No technical terrain, but sustained effort at altitude. September after the UTMB race sees the trails quieter and the larch forests turning gold.`,
+      location: "Chamonix",
+      country: "France",
+      continent: "Europe",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["UTMB course", "Three-country traverse", "September larch colour", "Rifugio Bonatti", "Chamonix start and finish"],
+      gear: ["Trail running shoes", "Poles (optional)", "Lightweight pack", "Navigation watch", "Mandatory safety kit"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 2000,
+      latitude: 45.92,
+      longitude: 6.87,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["multi-sport"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure192.id }, { userId: user2.id, adventureId: adventure192.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
