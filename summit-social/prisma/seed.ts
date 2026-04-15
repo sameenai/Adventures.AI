@@ -9480,6 +9480,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure197.id }, { userId: user2.id, adventureId: adventure197.id }], skipDuplicates: true });
 
+
+  // Adventure 198
+  const adventure198 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-198" },
+    update: {},
+    create: {
+      id: "seed-adventure-198",
+      title: "Lost Coast Trail",
+      description: `The Lost Coast of northern California is one of the few sections of the US Pacific Coast inaccessible by road — the terrain was too steep and the population too sparse for Highway 1 to penetrate. The 35 km King Range trail runs between Mattole Beach and Shelter Cove along a coastline of tidal rocks, sea stacks, black sand beaches, and old-growth Douglas fir forest. Timing is critical — the tidal flats impassable at high tide. Plan around the tidal tables.`,
+      location: "Petrolia",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Black sand beaches", "Tidal rock hopping", "Sea lion haul-outs", "King Range old growth forest", "Zero road access"],
+      gear: ["Tidal tables (mandatory)", "Waterproof boots", "Bear canister", "Camping kit", "Lightweight pack"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 600,
+      latitude: 40.32,
+      longitude: -124.28,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["camping"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure198.id }, { userId: user2.id, adventureId: adventure198.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
