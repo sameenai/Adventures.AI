@@ -10800,6 +10800,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure241.id }, { userId: user2.id, adventureId: adventure241.id }], skipDuplicates: true });
 
+
+  // Adventure 242
+  const adventure242 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-242" },
+    update: {},
+    create: {
+      id: "seed-adventure-242",
+      title: "Spain Picos de Europa",
+      description: `The Picos de Europa are a compact limestone massif on the northern coast of Spain — only 40 km from the Bay of Biscay coast, rising to 2,648 m at Torre Cerredo. The famous Cares Gorge walk (24 km, mostly flat, carved into the canyon wall) is the accessible classic; the high mountain circuits from Fuente Dé cable car deliver scrambling on karst limestone with chamois and griffon vultures. The towns of Potes and Cangas de Onís are charming bases.`,
+      location: "Potes",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=1600&q=80",
+      highlights: ["Cares Gorge canyon path", "Torre Cerredo views", "Chamois (rebeco)", "Fuente Dé cable car", "Spanish mountain food"],
+      gear: ["Hiking boots", "Trekking poles", "Map (complex terrain)", "Waterproof jacket", "Sun protection"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1200,
+      latitude: 43.15,
+      longitude: -4.73,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["gorge"].id }, { id: allTags["europe"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure242.id }, { userId: user2.id, adventureId: adventure242.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
