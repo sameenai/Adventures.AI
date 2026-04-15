@@ -15541,6 +15541,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure399.id }, { userId: user2.id, adventureId: adventure399.id }], skipDuplicates: true });
 
+
+  // Adventure 400
+  const adventure400 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-400" },
+    update: {},
+    create: {
+      id: "seed-adventure-400",
+      title: "Kamchatka Whale Watching Kayak",
+      description: `The waters off Kamchatka's Pacific coast contain the greatest density of humpback, fin, and grey whales in the North Pacific, with orca super-pods hunting in the bays during July and August. Sea kayaking from Petropavlovsk-Kamchatsky into Avacha Bay and south toward the Zhupanova River encounters whale, sea otter, and Steller sea lion in a landscape of smoking volcanoes visible from the water. The remoteness ensures encounters are undisturbed by commercial whale watching.`,
+      location: "Petropavlovsk-Kamchatsky",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Orca super-pod hunting encounters", "Smoking volcano paddle backdrop", "Humpback fin grey whale density", "Sea otter and sea lion colonies", "Russian permit wilderness access"],
+      gear: ["Sea kayak dry suit", "Bear spray coastal bears", "Russian Far East permit", "Satellite communicator", "Emergency flares"],
+      bestMonths: [7, 8],
+      estimatedCost: 3500,
+      latitude: 53.05,
+      longitude: 158.65,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["wildlife"].id }, { id: allTags["volcanic"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure400.id }, { userId: user2.id, adventureId: adventure400.id }, { userId: user3.id, adventureId: adventure400.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
