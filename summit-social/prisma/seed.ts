@@ -13651,6 +13651,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure336.id }, { userId: user2.id, adventureId: adventure336.id }, { userId: user3.id, adventureId: adventure336.id }], skipDuplicates: true });
 
+
+  // Adventure 337
+  const adventure337 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-337" },
+    update: {},
+    create: {
+      id: "seed-adventure-337",
+      title: "Ethiopian Omo Valley Tribal Journey",
+      description: `The Omo Valley in southwest Ethiopia is one of the last places on Earth where multiple tribal groups maintain ancient body decoration and cultural practices largely unchanged by modernity. The Mursi women with their lip plates, the Hamer bull jumping initiation ceremony, and the Karo cliff-side villages overlooking the Omo River represent a living anthropological treasure. The weekly markets at Turmi and Dimeka bring different tribes together in spectacular cultural exchange.`,
+      location: "Arba Minch",
+      country: "Ethiopia",
+      continent: "Africa",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Mursi lip plate women ceremony", "Hamer bull jumping initiation", "Karo Omo cliff village art", "Turmi weekly tribal market", "Arbore and Benna cultural visits"],
+      gear: ["4WD transport required", "Birr cash for photo permits", "Malaria prophylaxis", "Dust protection face cover", "Respectful cultural photography approach"],
+      bestMonths: [10, 11, 12, 1, 2],
+      estimatedCost: 1500,
+      latitude: 5.57,
+      longitude: 37.55,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["safari"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure337.id }, { userId: user2.id, adventureId: adventure337.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
