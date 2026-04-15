@@ -13531,6 +13531,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure332.id }, { userId: user2.id, adventureId: adventure332.id }], skipDuplicates: true });
 
+
+  // Adventure 333
+  const adventure333 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-333" },
+    update: {},
+    create: {
+      id: "seed-adventure-333",
+      title: "Sierra Nevada de Santa Marta Ascent",
+      description: `The Sierra Nevada de Santa Marta in northern Colombia rises from Caribbean beaches to the 5,700-metre twin summits of Pico Colon and Pico Simon Bolivar in only 42 kilometres, the fastest elevation gain from sea to summit anywhere on Earth. The approach through the indigenous Arhuaco and Kogui territory is controlled by community permits and guided ascents only. The summit glacier is retreating but the high-altitude paramo landscape is extraordinary.`,
+      location: "Santa Marta",
+      country: "Colombia",
+      continent: "South America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Fastest sea to summit elevation gain Earth", "Pico Colon 5700m Caribbean backdrop", "Arhuaco indigenous sacred territory", "Caribbean coastal jungle approach", "Paramo ecosystems high altitude"],
+      gear: ["Technical mountaineering gear", "Indigenous territory permit", "Tropical to alpine layering", "Glacier crampons", "Acclimatisation Bogota required"],
+      bestMonths: [12, 1, 2],
+      estimatedCost: 2500,
+      latitude: 10.83,
+      longitude: -73.68,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["expedition"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure333.id }, { userId: user2.id, adventureId: adventure333.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
