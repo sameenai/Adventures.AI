@@ -8220,6 +8220,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure155.id }, { userId: user2.id, adventureId: adventure155.id }, { userId: user3.id, adventureId: adventure155.id }], skipDuplicates: true });
 
+
+  // Adventure 156
+  const adventure156 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-156" },
+    update: {},
+    create: {
+      id: "seed-adventure-156",
+      title: "Pamir Highway",
+      description: `The Pamir Highway (M41) from Osh in Kyrgyzstan to Dushanbe in Tajikistan is the second-highest highway in the world, crossing the Pamir plateau at elevations consistently above 4,000 m through some of the emptiest landscape in Asia. Yak herders, Soviet-era infrastructure, and the deep blue of Karakul Lake at 3,900 m alongside the Chinese border provide the backdrop for what cyclists and motorcyclists rate among the world's greatest road adventures.`,
+      location: "Osh",
+      country: "Kyrgyzstan",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
+      highlights: ["Karakul Lake", "Wakhan Corridor", "Murgab Tajik market", "Yurt homestays", "Afghan mountains across the Panj"],
+      gear: ["4WD or motorcycle", "Fuel cans (sparse filling stations)", "Cold weather kit", "US dollars cash", "Altitude medication"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2800,
+      latitude: 40.53,
+      longitude: 72.79,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure156.id }, { userId: user2.id, adventureId: adventure156.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
