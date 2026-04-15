@@ -10380,6 +10380,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure227.id }, { userId: user2.id, adventureId: adventure227.id }], skipDuplicates: true });
 
+
+  // Adventure 228
+  const adventure228 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-228" },
+    update: {},
+    create: {
+      id: "seed-adventure-228",
+      title: "El Caminito del Rey",
+      description: `El Caminito del Rey (The King's Little Path) is a 7.7 km walkway pinned along the vertical walls of the Málaga gorges of El Chorro — originally built for hydroelectric workers in 1905 and restored in 2015 after years of closure following fatal accidents. The route traverses two gorges — Desfiladero de los Gaitanes and Desfiladero de Gaitanejo — on a 1 m-wide pathway with sheer drops below and the rock face inches from your shoulder. Book online; it sells out.`,
+      location: "Málaga",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=1600&q=80",
+      highlights: ["El Chorro gorge path", "Gaitanes vertical walls", "Reservoir views", "Historical worker route", "Málaga base"],
+      gear: ["Hiking shoes", "Helmet provided", "No vertigo", "Water", "Sunscreen"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 500,
+      latitude: 36.93,
+      longitude: -4.79,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["gorge"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure228.id }, { userId: user2.id, adventureId: adventure228.id }, { userId: user3.id, adventureId: adventure228.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
