@@ -10050,6 +10050,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure216.id }, { userId: user2.id, adventureId: adventure216.id }, { userId: user3.id, adventureId: adventure216.id }], skipDuplicates: true });
 
+
+  // Adventure 217
+  const adventure217 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-217" },
+    update: {},
+    create: {
+      id: "seed-adventure-217",
+      title: "Atlas Mountains Trek",
+      description: `Jebel Toubkal (4,167 m) is the highest peak in North Africa and in the Atlas Mountains south of Marrakech. The 2-day ascent from Imlil via the Toubkal Refuge is straightforward in summer; winter conditions with ice and snow make crampons and ice axe necessary. Combine the summit with a 5-day circuit of the Toubkal massif via the Azzaden Valley and Tizi n'Ouanoums pass, sleeping in traditional Berber gîtes and eating tagine with mountain herbs.`,
+      location: "Imlil",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Toubkal summit 4,167m", "Berber gîte hospitality", "Azzaden Valley views", "Marrakech arrival", "Atlas wildflower meadows"],
+      gear: ["Crampons (winter/spring)", "Ice axe (winter)", "Layering system", "Trekking poles", "Sun protection"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 1200,
+      latitude: 31.07,
+      longitude: -7.92,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure217.id }, { userId: user2.id, adventureId: adventure217.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
