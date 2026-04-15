@@ -13051,6 +13051,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure316.id }, { userId: user2.id, adventureId: adventure316.id }], skipDuplicates: true });
 
+
+  // Adventure 317
+  const adventure317 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-317" },
+    update: {},
+    create: {
+      id: "seed-adventure-317",
+      title: "New Guinea Kokoda Track",
+      description: `The Kokoda Track in Papua New Guinea follows the World War II trail across the Owen Stanley Range through which Australian and Papuan forces repulsed the Japanese advance on Port Moresby in 1942. The 96-kilometre route crosses seven major mountain ranges at over 2,000 metres through dense jungle in some of the most difficult terrain on Earth. Carrying a heavy pack over the same ground in honour of the soldiers who fought there is an intensely moving pilgrimage.`,
+      location: "Port Moresby",
+      country: "Papua New Guinea",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["WWII Australian army trail 1942", "96km across Owen Stanley Range", "Battle site memorials along route", "Papua New Guinea jungle encounter", "Kokoda village traditional welcome"],
+      gear: ["Jungle boots mandatory leeches", "Water purification tablets", "Malaria prophylaxis", "Porter hire strongly recommended", "Kokoda Track Authority permit"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1800,
+      latitude: -8.88,
+      longitude: 147.49,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure317.id }, { userId: user2.id, adventureId: adventure317.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
