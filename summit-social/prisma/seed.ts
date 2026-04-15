@@ -9000,6 +9000,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure181.id }, { userId: user2.id, adventureId: adventure181.id }], skipDuplicates: true });
 
+
+  // Adventure 182
+  const adventure182 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-182" },
+    update: {},
+    create: {
+      id: "seed-adventure-182",
+      title: "Papua New Guinea Kokoda Track",
+      description: `The Kokoda Track is a 96 km mountain trail across the Owen Stanley Range of Papua New Guinea, following the route of the 1942 Second World War campaign where Australian forces fought to halt the Japanese advance. The terrain — steep, jungle-clad ridges in intense tropical heat and humidity — is relentless. The track is as much a pilgrimage of military history as it is an adventure; every village has a war story, and porters carry both your pack and the oral history.`,
+      location: "Port Moresby",
+      country: "Papua New Guinea",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["WWII battlefield sites", "Owen Stanley Range ridges", "Kokoda village memorial", "Papua New Guinea culture", "Tropical forest immersion"],
+      gear: ["Lightweight trek clothes", "Waterproof boots", "Malaria prophylaxis", "Electrolytes", "Porter engagement"],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 2800,
+      latitude: -9.44,
+      longitude: 147.18,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure182.id }, { userId: user2.id, adventureId: adventure182.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
