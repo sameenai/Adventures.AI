@@ -11010,6 +11010,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure248.id }, { userId: user2.id, adventureId: adventure248.id }], skipDuplicates: true });
 
+
+  // Adventure 249
+  const adventure249 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-249" },
+    update: {},
+    create: {
+      id: "seed-adventure-249",
+      title: "Antarctica Expedition Cruise",
+      description: `An expedition cruise to the Antarctic Peninsula is the most extreme mainstream adventure travel destination on earth — 11 days aboard an ice-strengthened vessel from Ushuaia to the peninsula, landing by Zodiac on beaches with 10,000 chinstrap and gentoo penguins, approaching humpback whales from open inflatable boats, and crossing the Drake Passage twice. Nothing in travel prepares you for the scale and silence of Antarctica. Camping on the ice is the optional upgrade.`,
+      location: "Ushuaia",
+      country: "Argentina",
+      continent: "Antarctica",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 11,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Penguin colony landings", "Humpback whale encounters", "Drake Passage crossing", "Antarctic ice camping", "Complete polar silence"],
+      gear: ["Waterproof expedition kit", "Flotation suit Zodiac", "Waterproof boots", "Camera telephoto", "Seasickness medication"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 10000,
+      latitude: -54.8,
+      longitude: -68.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure249.id }, { userId: user2.id, adventureId: adventure249.id }, { userId: user3.id, adventureId: adventure249.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
