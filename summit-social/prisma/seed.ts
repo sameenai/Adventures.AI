@@ -15721,6 +15721,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure405.id }, { userId: user2.id, adventureId: adventure405.id }, { userId: user3.id, adventureId: adventure405.id }], skipDuplicates: true });
 
+
+  // Adventure 406
+  const adventure406 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-406" },
+    update: {},
+    create: {
+      id: "seed-adventure-406",
+      title: "Caucasus Georgia Mountain Trek",
+      description: `The Greater Caucasus Range in northern Georgia contains some of the finest trekking terrain in Europe, with the Svaneti region's mediaeval defensive towers rising from permanent glacier-fed streams below 5,000-metre peaks including Shkhara at 5,193 metres. The Mestia to Ushguli trek passes through villages recognised as UNESCO World Heritage Sites where the tower-building tradition continues. The Georgian hospitality tradition of toasting guests with Rkatsiteli wine is inseparable from any visit.`,
+      location: "Mestia",
+      country: "Georgia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Ushguli UNESCO highest inhabited Europe 2200m", "Shkhara 5193m Caucasus glacier views", "Svan defensive towers medieval heritage", "Georgian wine and khachapuri culture", "Mestia to Ushguli classic four days"],
+      gear: ["Trekking poles", "Rain jacket Caucasus unpredictable", "Guesthouse booking advance July", "Georgian lari cash", "Warm layers altitude"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 500,
+      latitude: 43.05,
+      longitude: 42.73,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure406.id }, { userId: user2.id, adventureId: adventure406.id }, { userId: user3.id, adventureId: adventure406.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
