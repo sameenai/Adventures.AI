@@ -10980,6 +10980,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure247.id }, { userId: user2.id, adventureId: adventure247.id }], skipDuplicates: true });
 
+
+  // Adventure 248
+  const adventure248 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-248" },
+    update: {},
+    create: {
+      id: "seed-adventure-248",
+      title: "Bibbulmun Track",
+      description: `The Bibbulmun Track runs 1,000 km through the forests and coastline of Western Australia's south-west from Kalamunda near Perth to Albany on the Southern Ocean. The route passes through jarrah, karri, and tingle forests — some of the world's tallest flowering trees — past wetlands with black swans and southern boobook owls, over granite outcrops, and along isolated beaches where sea eagles fish. The three-sided timber shelters (waugals) are spaced at 18–25 km intervals.`,
+      location: "Kalamunda",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 55,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Valley of the Giants tingle trees", "Pemberton karri forest", "Southern Ocean cliff coast", "Black swan wetlands", "Albany finish"],
+      gear: ["Tent or hut kit", "Water filter", "Snake gaiters", "Blister kit", "Resupply strategy"],
+      bestMonths: [8, 9, 10, 11],
+      estimatedCost: 5500,
+      latitude: -31.97,
+      longitude: 116.05,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["thru-hike"].id }, { id: allTags["trekking"].id }, { id: allTags["australia"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure248.id }, { userId: user2.id, adventureId: adventure248.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
