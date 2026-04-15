@@ -13381,6 +13381,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure327.id }, { userId: user2.id, adventureId: adventure327.id }, { userId: user3.id, adventureId: adventure327.id }], skipDuplicates: true });
 
+
+  // Adventure 328
+  const adventure328 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-328" },
+    update: {},
+    create: {
+      id: "seed-adventure-328",
+      title: "Flores Island Trek, Indonesia",
+      description: `The island of Flores in eastern Indonesia is home to Kelimutu volcano, whose three summit crater lakes change colour independently from turquoise to blood red to black due to volcanic mineral activity. The trek from Bajawa through traditional Ngada villages with their megalithic stone altars and ancestral spirit houses leads to the coast through terraced rice fields. The Flores sea offshore contains some of the best diving in the world at the Komodo National Park.`,
+      location: "Labuan Bajo",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Kelimutu three colour-changing crater lakes", "Ngada megalithic village culture", "Komodo dragon Rinca Island", "Labuan Bajo diving manta rays", "Traditional ikat weaving villages"],
+      gear: ["Hiking boots volcanic terrain", "Snorkel Komodo reefs", "Insect repellent humid jungle", "Modest dress village visits", "Camera tripod dawn Kelimutu"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: -8.52,
+      longitude: 121,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["island"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure328.id }, { userId: user2.id, adventureId: adventure328.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
