@@ -14071,6 +14071,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure350.id }, { userId: user2.id, adventureId: adventure350.id }], skipDuplicates: true });
 
+
+  // Adventure 351
+  const adventure351 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-351" },
+    update: {},
+    create: {
+      id: "seed-adventure-351",
+      title: "Colombia Coffee Region Cycling",
+      description: `The Coffee Cultural Landscape of Antioquia and Caldas in central Colombia is a UNESCO World Heritage Site where steep-sided volcanic mountains are covered in a patchwork of coffee plantations worked by generations of paisa farming families. Cycling between traditional finca farms on unpaved byroads, participating in coffee harvest in October-November and learning the cupping process from skilled tasters makes this a cultural and culinary cycling journey. Salento and Jardin are the most charming historic towns.`,
+      location: "Medellin",
+      country: "Colombia",
+      continent: "South America",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Coffee harvest participation October", "UNESCO Coffee Cultural Landscape", "Valle de Cocora wax palms 60m tall", "Traditional finca farmhouse stays", "Salento colonial architecture"],
+      gear: ["Mountain bike for byroads", "Rain jacket afternoon storms", "Coffee cupping kit travel size", "Spanish phrasebook helpful", "Sun protection"],
+      bestMonths: [12, 1, 2, 6, 7],
+      estimatedCost: 600,
+      latitude: 4.57,
+      longitude: -75.02,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure351.id }, { userId: user2.id, adventureId: adventure351.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
