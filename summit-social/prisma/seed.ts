@@ -10500,6 +10500,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure231.id }, { userId: user2.id, adventureId: adventure231.id }], skipDuplicates: true });
 
+
+  // Adventure 232
+  const adventure232 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-232" },
+    update: {},
+    create: {
+      id: "seed-adventure-232",
+      title: "Sahel Overland",
+      description: `The West African Sahel — the semi-arid transition zone from the Sahara to the savannas — stretches 5,400 km from Senegal to Chad and has been traversed by overlanders since the 1960s trans-Africa rallies. By 4WD from Dakar across Mali, Burkina Faso, Niger, and into Nigeria, the route passes Dogon cliff villages, Fulani cattle camps, and the ancient mud mosques of Djenné. Logistics are complex; political situations change; this is for experienced overland travellers.`,
+      location: "Dakar",
+      country: "Senegal",
+      continent: "Africa",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Djenné mud mosque", "Dogon cliff villages", "Sahara-Sahel transition", "Fulani cattle drives", "Niger River in flood"],
+      gear: ["4WD expedition vehicle", "Fuel reserves", "Water filtration", "Medical kit", "Multi-country insurance"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 8000,
+      latitude: 14.69,
+      longitude: -17.44,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["safari"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure232.id }, { userId: user2.id, adventureId: adventure232.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
