@@ -10920,6 +10920,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure245.id }, { userId: user2.id, adventureId: adventure245.id }], skipDuplicates: true });
 
+
+  // Adventure 246
+  const adventure246 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-246" },
+    update: {},
+    create: {
+      id: "seed-adventure-246",
+      title: "Fiordland Packrafting",
+      description: `Packrafting the remote river valleys of Fiordland National Park in New Zealand — inflating a 2.5 kg raft to cross the Dusky Sound, float the Arthur River, or descend the Seaforth to the sea — opens up wilderness that is physically inaccessible by foot or boat alone. Fiordland receives up to 8 m of rain per year; the rivers flood rapidly and dramatically. Floatplane access, river knowledge, and self-rescue skills are prerequisites. The reward is primeval rainforest with no other human presence.`,
+      location: "Te Anau",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Dusky Sound wilderness", "Arthur River descent", "Floatplane access", "Fiordland rainforest", "No other humans"],
+      gear: ["Packraft + paddle", "Dry suit", "Self-rescue kit", "Emergency beacon", "Waterproof everything"],
+      bestMonths: [1, 2, 3, 11, 12],
+      estimatedCost: 4500,
+      latitude: -45.41,
+      longitude: 167.72,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["new-zealand"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure246.id }, { userId: user2.id, adventureId: adventure246.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
