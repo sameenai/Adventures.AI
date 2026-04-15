@@ -14551,6 +14551,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure366.id }, { userId: user2.id, adventureId: adventure366.id }], skipDuplicates: true });
 
+
+  // Adventure 367
+  const adventure367 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-367" },
+    update: {},
+    create: {
+      id: "seed-adventure-367",
+      title: "Tanzania Selous Walking Safari",
+      description: `The Selous Game Reserve is Africa's largest protected area and one of the continent's best walking safari destinations, with armed ranger escorts allowing foot approaches to game that vehicles cannot reach. The seasonal Rufiji River network creates extraordinary wildlife concentrations including the highest hippo density in Africa, wild dogs, and the Great Elephant population. The remote boatcamp safaris along the Rufiji's channels offer multi-day canoe wildlife encounters.`,
+      location: "Dar es Salaam",
+      country: "Tanzania",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Walking safari armed ranger escort", "Rufiji River hippo density Africa", "African wild dog rare sightings", "Boatcamp canoe safari channels", "Remote camps no roads"],
+      gear: ["Khaki neutral clothes", "Safari hat sun protection", "Binoculars 8x42", "Camera telephoto lens", "Waterproof for boat safaris"],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 4000,
+      latitude: -9.6,
+      longitude: 37.4,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure367.id }, { userId: user2.id, adventureId: adventure367.id }, { userId: user3.id, adventureId: adventure367.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
