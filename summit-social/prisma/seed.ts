@@ -15001,6 +15001,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure381.id }, { userId: user2.id, adventureId: adventure381.id }], skipDuplicates: true });
 
+
+  // Adventure 382
+  const adventure382 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-382" },
+    update: {},
+    create: {
+      id: "seed-adventure-382",
+      title: "Namibia Fish River Canyon Trek",
+      description: `The Fish River Canyon in southern Namibia is Africa's largest canyon and one of the world's most dramatic hiking destinations, with a 160-kilometre unsealed gorge route over four to five days through a primordial landscape of ancient rock formations. The hike requires a doctor's fitness certificate and is only permitted May to September due to extreme summer heat. The orange and purple Precambrian gneiss walls rise 550 metres above the dry river bed.`,
+      location: "Ai-Ais Hot Springs",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Africa largest canyon 160km gorge", "550m Precambrian gneiss canyon walls", "Doctor fitness certificate required", "Hot spring pool finish Ai-Ais", "Leopard and klipspringer canyon wildlife"],
+      gear: ["Fitness certificate obligatory", "5 litres water per day", "River sandals crossing", "Self-guided permit required", "Emergency satellite phone"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 700,
+      latitude: -27.97,
+      longitude: 17.64,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["gorge"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure382.id }, { userId: user2.id, adventureId: adventure382.id }, { userId: user3.id, adventureId: adventure382.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
