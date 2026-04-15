@@ -13711,6 +13711,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure338.id }, { userId: user2.id, adventureId: adventure338.id }, { userId: user3.id, adventureId: adventure338.id }], skipDuplicates: true });
 
+
+  // Adventure 339
+  const adventure339 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-339" },
+    update: {},
+    create: {
+      id: "seed-adventure-339",
+      title: "Yukon River Canoe Expedition",
+      description: `Paddling 700 kilometres of the Yukon River from Whitehorse to Dawson City follows the route of the 1898 Klondike Gold Rush stampeders through pristine boreal wilderness where moose outnumber humans. The Five Finger Rapids and the ghost town of Fort Selkirk, abandoned in 1950 and now preserved in wilderness silence, are highlights of a journey through pre-industrial North America. Grizzly bears, bald eagles, and salmon runs are daily wildlife encounters.`,
+      location: "Whitehorse",
+      country: "Canada",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Klondike Gold Rush 1898 route", "Fort Selkirk abandoned 1950 ghost town", "Five Finger Rapids Class III", "Midnight sun 24-hour paddling", "Grizzly bear and moose wildlife"],
+      gear: ["Canoe and paddle", "Dry bags expedition", "Bear spray and fence", "Satellite communicator", "Fishing rod salmon"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1200,
+      latitude: 60.72,
+      longitude: -135.05,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure339.id }, { userId: user2.id, adventureId: adventure339.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
