@@ -14431,6 +14431,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure362.id }, { userId: user2.id, adventureId: adventure362.id }, { userId: user3.id, adventureId: adventure362.id }], skipDuplicates: true });
 
+
+  // Adventure 363
+  const adventure363 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-363" },
+    update: {},
+    create: {
+      id: "seed-adventure-363",
+      title: "Baltics Cycling - Tallinn to Riga",
+      description: `Cycling from Tallinn to Riga through Estonia and Latvia covers 400 kilometres of Baltic coastal forest, ancient amber-strewn beaches, and UNESCO-listed medieval city centres. The route passes through Lahemaa National Park with its manor houses and fishing villages, the white sand Cape Kolka at the junction of the Gulf of Riga and Baltic Sea, and the Art Nouveau capital of Riga with its 700 decorated facades. The Baltic Way human chain in 1989 created history along much of this route.`,
+      location: "Tallinn",
+      country: "Estonia",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Tallinn medieval old town UNESCO", "Riga Art Nouveau 700 facades", "Cape Kolka wild amber beach", "Lahemaa National Park manor houses", "Baltic Way 1989 independence chain"],
+      gear: ["Touring bicycle", "Ferry Tallinn Helsinki optional", "Rain jacket Baltic weather", "Cycling computer", "Hotel advance booking Riga"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: 59.44,
+      longitude: 24.75,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure363.id }, { userId: user2.id, adventureId: adventure363.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
