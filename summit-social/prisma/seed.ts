@@ -15241,6 +15241,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure389.id }, { userId: user2.id, adventureId: adventure389.id }, { userId: user3.id, adventureId: adventure389.id }], skipDuplicates: true });
 
+
+  // Adventure 390
+  const adventure390 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-390" },
+    update: {},
+    create: {
+      id: "seed-adventure-390",
+      title: "Mongolia Naadam Festival Horse Trek",
+      description: `Mongolia's Naadam Festival in July celebrates the three manly games of wrestling, archery, and horse racing in the open steppe, with the most authentic celebrations away from Ulaanbaatar in provincial aimag centres. Combining Naadam attendance with a horse trek through the Orkhon Valley UNESCO site, with its ancient Karakorum ruins and the Orkhon Waterfall, creates the definitive Mongolian summer journey. Staying with nomadic herder families in gers provides authentic cultural immersion.`,
+      location: "Ulaanbaatar",
+      country: "Mongolia",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Naadam Festival three manly games July", "Orkhon Valley UNESCO ancient Karakorum", "Nomadic ger family stays", "Orkhon Waterfall basalt gorge", "Khangai Mountains horse trekking"],
+      gear: ["Riding clothes comfortable", "Warm layers steppe cold nights", "Mongolian togrog cash", "Translation app offline", "Camera wide angle steppe"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 47.92,
+      longitude: 106.92,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["horse-trekking"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure390.id }, { userId: user2.id, adventureId: adventure390.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
