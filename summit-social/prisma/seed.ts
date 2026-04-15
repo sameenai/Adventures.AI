@@ -15331,6 +15331,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure392.id }, { userId: user2.id, adventureId: adventure392.id }], skipDuplicates: true });
 
+
+  // Adventure 393
+  const adventure393 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-393" },
+    update: {},
+    create: {
+      id: "seed-adventure-393",
+      title: "Kluane National Park Traverse",
+      description: `Kluane National Park in Canada's Yukon contains the largest non-polar icefields in the world, with the Kluane Icefield covering 8,500 square kilometres. The classic St Elias traverse from Kluane Lake to the Pacific at Yakutat is a ski mountaineering expedition covering 200 kilometres of glacier with Mount Logan at 5,959 metres, Canada's highest peak, accessible as a diversion. This is serious wilderness requiring full self-sufficiency.`,
+      location: "Haines Junction",
+      country: "Canada",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Kluane Icefield 8500km world largest", "Mount Logan 5959m Canada highest", "200km glacier ski traverse", "Grizzly and Dall sheep sightings", "Yakutat Pacific coast finish"],
+      gear: ["Expedition ski touring setup", "Crevasse rescue equipment", "Polar tent expedition", "Mountain Rescue float plane backup", "Satellite two-way communicator"],
+      bestMonths: [4, 5],
+      estimatedCost: 8000,
+      latitude: 60.75,
+      longitude: -137.51,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["skiing"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure393.id }, { userId: user2.id, adventureId: adventure393.id }, { userId: user3.id, adventureId: adventure393.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
