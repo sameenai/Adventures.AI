@@ -14311,6 +14311,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure358.id }, { userId: user2.id, adventureId: adventure358.id }, { userId: user3.id, adventureId: adventure358.id }], skipDuplicates: true });
 
+
+  // Adventure 359
+  const adventure359 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-359" },
+    update: {},
+    create: {
+      id: "seed-adventure-359",
+      title: "Hokkaido Winter Wildlife Safari",
+      description: `Hokkaido in northern Japan in winter is the best place in the world to observe red-crowned cranes dancing in the snow, Steller sea eagles perched on ice floes on the Shiretoko Peninsula, and the red-faced Japanese macaques bathing in outdoor hot springs at Jigokudani. The drift ice on the Okhotsk Sea at Abashiri offers icebreaker cruises from late January. The combination of extraordinary wildlife, powder skiing at Niseko, and rotenburo outdoor hot springs makes Hokkaido a winter paradise.`,
+      location: "Kushiro",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Red-crowned crane snow dance Akan", "Steller sea eagle ice floe perches", "Okhotsk Sea drift ice icebreaker", "Snow monkey Jigokudani hot spring", "Niseko world class powder ski"],
+      gear: ["Camera 500mm telephoto wildlife", "Extreme cold weather system", "Winter driving tyres rental car", "Rotenburo bathing kit", "Warm base layers"],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 2500,
+      latitude: 43,
+      longitude: 144.38,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["skiing"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure359.id }, { userId: user2.id, adventureId: adventure359.id }, { userId: user3.id, adventureId: adventure359.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
