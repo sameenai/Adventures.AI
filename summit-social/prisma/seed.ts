@@ -15511,6 +15511,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure398.id }, { userId: user2.id, adventureId: adventure398.id }], skipDuplicates: true });
 
+
+  // Adventure 399
+  const adventure399 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-399" },
+    update: {},
+    create: {
+      id: "seed-adventure-399",
+      title: "Tierra del Fuego End of World Trek",
+      description: `The Tierra del Fuego National Park at the southern tip of Argentina contains the End of the World Trail reaching Bahia Lapataia, the southernmost road in the world, through sub-Antarctic lenga beech forest where condors soar. The Cerro Guanaco day hike above Lago Fagnano reveals views of the Beagle Channel and Chilean islands stretching toward Cape Horn. The combination of dramatic maritime scenery, sub-Antarctic ecology, and the emotional finality of being at the world's end creates a profound atmosphere.`,
+      location: "Ushuaia",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Bahia Lapataia southernmost road sign", "Beagle Channel view to Cape Horn", "Condor soaring lenga beech forest", "Cerro Guanaco summit view 970m", "End of the World Post Office stamp"],
+      gear: ["Waterproof jacket Patagonian storms", "Trekking poles muddy trail", "Layered merino wool", "Gaiters lenga forest mud", "Warm hat wind"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 600,
+      latitude: -54.8,
+      longitude: -68.3,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["camping"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure399.id }, { userId: user2.id, adventureId: adventure399.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
