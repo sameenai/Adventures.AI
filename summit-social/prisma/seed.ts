@@ -12090,6 +12090,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure284.id }, { userId: user2.id, adventureId: adventure284.id }], skipDuplicates: true });
 
+
+  // Adventure 285
+  const adventure285 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-285" },
+    update: {},
+    create: {
+      id: "seed-adventure-285",
+      title: "Trolltunga Hike, Norway",
+      description: `Trolltunga, the Troll's Tongue, is a horizontal rock ledge that juts out 700 metres above Lake Ringedalsvatnet in western Norway, creating one of the world's most dramatic photography spots. The 22-kilometre return hike gains 800 metres of elevation through birch forest and over open alpine terrain. The two-hour queue for photos at the tip in summer is bypassed completely by starting before dawn.`,
+      location: "Odda",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Trolltunga ledge 700m above fjord", "Ringedalsvatnet turquoise lake", "Alpine plateau scenery", "Wild camping on plateau", "Dawn start to avoid crowds"],
+      gear: ["Hiking boots with ankle support", "Rain jacket", "Headlamp for early start", "Snacks and water 4 litres", "Emergency bivouac"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 400,
+      latitude: 60.12,
+      longitude: 6.74,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure285.id }, { userId: user2.id, adventureId: adventure285.id }, { userId: user3.id, adventureId: adventure285.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
