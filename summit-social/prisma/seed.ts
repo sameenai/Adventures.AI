@@ -11790,6 +11790,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure274.id }, { userId: user2.id, adventureId: adventure274.id }, { userId: user3.id, adventureId: adventure274.id }], skipDuplicates: true });
 
+
+  // Adventure 275
+  const adventure275 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-275" },
+    update: {},
+    create: {
+      id: "seed-adventure-275",
+      title: "Finland Lakeland Canoe Route",
+      description: `Finland's Lakeland region contains nearly 200,000 lakes connected by rivers, channels, and short portages into one of the world's great canoe touring networks. The Blue Highway crosses from Heinola to Joensuu over 500 kilometres through primeval forests of pine and birch where elk and ospreys are daily sightings. Remote wilderness camping is legal everywhere under Everyman's Right, and the silence of the Finnish forest is profound.`,
+      location: "Heinola",
+      country: "Finland",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["200000 interconnected lake system", "Everyman Right wild camping", "Midnight sun June canoe days", "Elk and osprey wildlife", "Traditional smoke sauna culture"],
+      gear: ["Touring canoe", "Portage cart", "Waterproof dry bags", "Fishing rod", "Finnish sauna towel"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 800,
+      latitude: 61.2,
+      longitude: 26.03,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["camping"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure275.id }, { userId: user2.id, adventureId: adventure275.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
