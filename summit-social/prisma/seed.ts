@@ -8940,6 +8940,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure179.id }, { userId: user2.id, adventureId: adventure179.id }], skipDuplicates: true });
 
+
+  // Adventure 180
+  const adventure180 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-180" },
+    update: {},
+    create: {
+      id: "seed-adventure-180",
+      title: "Kimberley Coast Expedition",
+      description: `The Kimberley coast of Western Australia is one of the most remote and dramatic coastlines on earth — 2,500 km of sandstone gorges, waterfalls that flow direct into the sea in the wet season, Aboriginal rock art sites accessible only by boat, and saltwater crocodiles on every beach. Expedition yachts or small cruise vessels navigate the horizontal waterfalls (a tidal hydraulic unlike anything else on the planet) and the Montgomery Reef tidal emergence.`,
+      location: "Broome",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Horizontal Falls", "Montgomery Reef tidal emergence", "Aboriginal rock art", "King George Falls", "Crocodile spotting"],
+      gear: ["Sandfly protection", "Water shoes", "Snorkelling kit", "Sun protection extreme", "Croc-awareness briefing"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 8000,
+      latitude: -17.96,
+      longitude: 122.23,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["coastal"].id }, { id: allTags["australia"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure180.id }, { userId: user2.id, adventureId: adventure180.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
