@@ -9510,6 +9510,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure198.id }, { userId: user2.id, adventureId: adventure198.id }], skipDuplicates: true });
 
+
+  // Adventure 199
+  const adventure199 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-199" },
+    update: {},
+    create: {
+      id: "seed-adventure-199",
+      title: "Pyrenees Haute Route",
+      description: `The Pyrenees Haute Route is the high-level traverse of the Pyrenees from the Atlantic near Hendaye to the Mediterranean at Banyuls-sur-Mer — 800 km of mountain walking at altitude, mostly in Spain with regular dips into France. The route passes the volcanic Gavarnie cirque (the largest in Europe), the granite towers of the Aiguilles d'Ansabère, the remote Ordesa canyon, and the summit of Aneto (3,404 m), the highest point in the Pyrenees.`,
+      location: "Hendaye",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 40,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Cirque de Gavarnie", "Aneto summit 3,404m", "Ordesa canyon", "Aiguilles d'Ansabère", "Mediterranean finish at Banyuls"],
+      gear: ["Navigation tools", "Bivouac capability", "Crampons (early season Aneto)", "Trekking poles", "French-Spanish phrasebook"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 4500,
+      latitude: 43.37,
+      longitude: -1.77,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["thru-hike"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure199.id }, { userId: user2.id, adventureId: adventure199.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
