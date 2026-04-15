@@ -8550,6 +8550,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure166.id }, { userId: user2.id, adventureId: adventure166.id }], skipDuplicates: true });
 
+
+  // Adventure 167
+  const adventure167 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-167" },
+    update: {},
+    create: {
+      id: "seed-adventure-167",
+      title: "Via Francigena Italy",
+      description: `The Via Francigena is the ancient pilgrim road from Canterbury to Rome — 1,000 km of the Italian section alone runs from the Gran San Bernardo Pass through Tuscany and Lazio to St Peter's Basilica. The route passes through Siena's Piazza del Campo, the Crete Senesi lunar landscape, the medieval towers of San Gimignano, and thermal baths at Bagno Vignoni. This is gentle cultural walking at its finest, staying in abbeys and agriturismo.`,
+      location: "Aosta",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?w=1600&q=80",
+      highlights: ["Siena Piazza del Campo", "Crete Senesi landscape", "San Gimignano towers", "Bagno Vignoni hot springs", "St Peter's arrival"],
+      gear: ["Comfortable walking shoes", "Pilgrim credential book", "Lightweight pack", "Italian phrasebook", "Sunscreen"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 3000,
+      latitude: 45.74,
+      longitude: 7.32,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["camino"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["europe"].id }, { id: allTags["solo-travel"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure167.id }, { userId: user2.id, adventureId: adventure167.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
