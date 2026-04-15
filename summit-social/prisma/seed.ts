@@ -14941,6 +14941,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure379.id }, { userId: user2.id, adventureId: adventure379.id }], skipDuplicates: true });
 
+
+  // Adventure 380
+  const adventure380 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-380" },
+    update: {},
+    create: {
+      id: "seed-adventure-380",
+      title: "Turkmenistan Desert and Crater",
+      description: `The Darvaza Gas Crater in Turkmenistan, the Door to Hell, has been burning continuously since Soviet engineers accidentally ignited a natural gas pocket in 1971 and the 70-metre-wide crater has burned ever since. The surrounding Karakum Desert tour from Ashgabat, the world's whitest capital city with its forest of marble buildings, passes through sand dunes, yurt camps, and the dramatic Yangykala Canyon. Turkmenistan is one of the world's most isolated countries with strict visa and guide requirements.`,
+      location: "Ashgabat",
+      country: "Turkmenistan",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Darvaza Gas Crater burning since 1971", "Ashgabat white marble city", "Karakum Desert sand dune camping", "Yangykala Canyon pink sandstone", "Merv ancient Silk Road oasis"],
+      gear: ["Mandatory Turkmen guide", "Visa letter of invitation required", "Desert heat kit", "Camera night photography crater", "Cash only no cards"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1500,
+      latitude: 40.54,
+      longitude: 58.43,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["desert"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure380.id }, { userId: user2.id, adventureId: adventure380.id }, { userId: user3.id, adventureId: adventure380.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
