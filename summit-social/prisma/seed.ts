@@ -7351,6 +7351,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure126.id }, { userId: user2.id, adventureId: adventure126.id }, { userId: user3.id, adventureId: adventure126.id }], skipDuplicates: true });
 
+
+  // Adventure 127
+  const adventure127 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-127" },
+    update: {},
+    create: {
+      id: "seed-adventure-127",
+      title: "Annapurna Circuit",
+      description: `The Annapurna Circuit is Nepal's great loop trek — 160–230 km depending on route variants — circling the Annapurna massif and crossing the Thorong La pass at 5,416 m. The diversity is the draw: subtropical jungle at 800 m gives way to Tibetan plateau landscapes at 4,000 m, passing the sacred Muktinath temple and the dramatic Kali Gandaki Gorge, the world's deepest. The tea-house network is excellent; the scenery is without parallel.`,
+      location: "Besisahar",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Thorong La pass", "Kali Gandaki Gorge", "Muktinath temple", "Poon Hill sunrise", "Manang plateau"],
+      gear: ["Down jacket", "Altitude medication", "Sleeping bag liner", "Trekking poles", "Gaiters"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 1800,
+      latitude: 28.39,
+      longitude: 84.37,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["bucket-list"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure127.id }, { userId: user2.id, adventureId: adventure127.id }, { userId: user3.id, adventureId: adventure127.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
