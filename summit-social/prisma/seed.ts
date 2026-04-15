@@ -13321,6 +13321,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure325.id }, { userId: user2.id, adventureId: adventure325.id }], skipDuplicates: true });
 
+
+  // Adventure 326
+  const adventure326 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-326" },
+    update: {},
+    create: {
+      id: "seed-adventure-326",
+      title: "Faroe Islands Hiking",
+      description: `The Faroe Islands in the North Atlantic between Norway and Iceland offer dramatic sea cliff hiking on islands where the wind is omnipresent and the light changes every few minutes. Slaettaratindur, the highest point at 882 metres, can be climbed on a clear day for views across all eighteen main islands. The classic village of Gasadalur with its waterfall flowing directly into the Atlantic ocean is accessible via a restored mountain path through a dramatic tunnel.`,
+      location: "Torshavn",
+      country: "Faroe Islands",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Gasadalur waterfall into Atlantic", "Drangarnir sea stack arches", "Slaettaratindur highest point 882m", "Puffin and gannet colonies", "Layered basalt sea cliffs"],
+      gear: ["Windproof jacket essential always", "Waterproof trousers", "Gaiters boggy terrain", "Navigation for fog", "Layered merino wool"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1500,
+      latitude: 62.01,
+      longitude: -6.77,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["coastal"].id }, { id: allTags["photography"].id }, { id: allTags["island"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure326.id }, { userId: user2.id, adventureId: adventure326.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
