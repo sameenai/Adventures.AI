@@ -7861,6 +7861,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure143.id }, { userId: user2.id, adventureId: adventure143.id }], skipDuplicates: true });
 
+
+  // Adventure 144
+  const adventure144 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-144" },
+    update: {},
+    create: {
+      id: "seed-adventure-144",
+      title: "Galápagos Diving Expedition",
+      description: `The Galápagos Islands offer the most dramatic macro and mega-fauna diving on earth — hammerhead sharks school in their hundreds at Darwin and Wolf, whale sharks cruise the deep channel at Wolf, and manta rays barrel-roll in cleaning stations. Fur seals play in the shallows and marine iguanas graze on the sea floor. Liveaboard access to the northern islands of Darwin and Wolf is the only way to experience the best sites; book 6–12 months in advance.`,
+      location: "Galápagos Islands",
+      country: "Ecuador",
+      continent: "South America",
+      category: Category.DIVING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Hammerhead shark schools", "Whale shark encounters", "Marine iguanas", "Darwin Arch", "Manta cleaning stations"],
+      gear: ["Advanced Open Water minimum", "Wetsuit 5mm", "SMB", "Dive computer", "Underwater camera"],
+      bestMonths: [6, 7, 8, 9, 10, 11],
+      estimatedCost: 5500,
+      latitude: -0.95,
+      longitude: -90.97,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["bucket-list"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure144.id }, { userId: user2.id, adventureId: adventure144.id }, { userId: user3.id, adventureId: adventure144.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
