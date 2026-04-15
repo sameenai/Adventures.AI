@@ -12721,6 +12721,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure305.id }, { userId: user2.id, adventureId: adventure305.id }], skipDuplicates: true });
 
+
+  // Adventure 306
+  const adventure306 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-306" },
+    update: {},
+    create: {
+      id: "seed-adventure-306",
+      title: "Tanzania Zanzibar Spice Tour Cycling",
+      description: `Cycling through Zanzibar Stone Town's labyrinthine Arab-Indian quarter and out into the spice plantations of the interior connects the island's history as the world's main clove producer with its Swahili coastal culture. The north coast road to Nungwi passes through villages where dhow building has continued unchanged for centuries, and the turquoise waters fringing the sand are among the clearest in the Indian Ocean. Spice farm visits explain the Portuguese and Omani colonial botanical legacy.`,
+      location: "Stone Town",
+      country: "Tanzania",
+      continent: "Africa",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Stone Town UNESCO World Heritage", "Clove and vanilla spice farm visits", "Traditional dhow building workshops", "Nungwi beach turquoise water", "Swahili culture food markets"],
+      gear: ["Comfortable touring bicycle", "Modest dress for village visits", "Beach gear for coastal stops", "Snorkel for coral reefs", "Swahili phrasebook"],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 800,
+      latitude: -6.16,
+      longitude: 39.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure306.id }, { userId: user2.id, adventureId: adventure306.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
