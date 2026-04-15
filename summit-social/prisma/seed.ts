@@ -11400,6 +11400,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure261.id }, { userId: user2.id, adventureId: adventure261.id }], skipDuplicates: true });
 
+
+  // Adventure 262
+  const adventure262 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-262" },
+    update: {},
+    create: {
+      id: "seed-adventure-262",
+      title: "Wakhan Corridor Trek",
+      description: `The Wakhan Corridor is one of the world's most remote and historically significant mountain corridors, a narrow strip of Afghan territory flanked by Tajikistan, Pakistan, and China. Accessible from the Tajik side, the route passes Wakhi villages whose inhabitants have maintained ancient Silk Road traditions for centuries. The Big Pamir plateau at 4,000 metres offers views into Afghanistan and encounters with nomadic Kyrgyz herders.`,
+      location: "Ishkashim",
+      country: "Tajikistan",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Big Pamir plateau at 4000 metres", "Wakhi and Kyrgyz cultural encounters", "Ancient Silk Road route", "Views into four countries", "Zorkul Lake wildlife reserve"],
+      gear: ["Four-season tent", "Expedition sleeping bag", "Horse rental for supplies", "Satellite phone", "Water purification system"],
+      bestMonths: [7, 8],
+      estimatedCost: 2500,
+      latitude: 37.49,
+      longitude: 72.78,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure262.id }, { userId: user2.id, adventureId: adventure262.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
