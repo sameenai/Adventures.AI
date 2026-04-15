@@ -8460,6 +8460,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure163.id }, { userId: user2.id, adventureId: adventure163.id }, { userId: user3.id, adventureId: adventure163.id }], skipDuplicates: true });
 
+
+  // Adventure 164
+  const adventure164 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-164" },
+    update: {},
+    create: {
+      id: "seed-adventure-164",
+      title: "Faroe Islands Coastal Hiking",
+      description: `The Faroe Islands — 18 volcanic islands between Norway and Iceland — offer some of the most dramatic coastal hiking in Europe, with vertiginous cliffs over the Atlantic, waterfalls falling directly into the sea, and turf-roofed villages accessible only on foot. The Slættaratindur ridge, Gásadalur waterfall trail, and the Hornið ridge above Enniberg (the world's highest sea cliffs at 754 m) are standout routes. The light in the Faroes is unlike anywhere else on earth.`,
+      location: "Tórshavn",
+      country: "Faroe Islands",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1600&q=80",
+      highlights: ["Enniberg sea cliffs", "Gásadalur waterfall", "Sørvágsvatn lake over sea", "Slættaratindur summit", "Turf-roofed village Saksun"],
+      gear: ["Waterproof jacket", "Hiking poles", "Layers", "Strong footwear", "Wind protection"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: 62,
+      longitude: -6.79,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["coastal"].id }, { id: allTags["island"].id }, { id: allTags["photography"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure164.id }, { userId: user2.id, adventureId: adventure164.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
