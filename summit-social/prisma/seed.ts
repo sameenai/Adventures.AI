@@ -11370,6 +11370,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure260.id }, { userId: user2.id, adventureId: adventure260.id }, { userId: user3.id, adventureId: adventure260.id }], skipDuplicates: true });
 
+
+  // Adventure 261
+  const adventure261 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-261" },
+    update: {},
+    create: {
+      id: "seed-adventure-261",
+      title: "Fann Mountains Traverse, Tajikistan",
+      description: `The Fann Mountains in western Tajikistan are a hidden alpine gem with dramatic peaks, turquoise lakes, and virtually no tourist infrastructure. The classic traverse links the Seven Lakes chain with high-altitude passes and culminates near Iskanderkul, the jewel-blue lake that Alexander the Great supposedly discovered. This is Central Asia trekking at its most raw and rewarding.`,
+      location: "Penjakent",
+      country: "Tajikistan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Seven Lakes turquoise chain", "Iskanderkul lake of Alexander the Great", "Chimtarga peak at 5489 metres", "Dushakha pass crossing", "Authentic Tajik hospitality"],
+      gear: ["Camping stove and fuel", "Water filter", "Trekking poles", "Mountain tent", "Navigational compass"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 900,
+      latitude: 39.33,
+      longitude: 68.21,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure261.id }, { userId: user2.id, adventureId: adventure261.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
