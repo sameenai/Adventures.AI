@@ -10740,6 +10740,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure239.id }, { userId: user2.id, adventureId: adventure239.id }], skipDuplicates: true });
 
+
+  // Adventure 240
+  const adventure240 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-240" },
+    update: {},
+    create: {
+      id: "seed-adventure-240",
+      title: "Raja Ampat Liveaboard Diving",
+      description: `Raja Ampat in West Papua, Indonesia, sits at the heart of the Coral Triangle — 75% of the world's known coral species, 1,400+ fish species, and the densest marine biodiversity on earth. Liveaboard diving reaches the unmissable sites: the pygmy seahorses of Mioskon, the manta rays of Cape Kri, the walking sharks at Misool, and the baitball at Melissa's Garden. Above water, the karst limestone islands are among the world's most extraordinary seascapes.`,
+      location: "Sorong",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Coral Triangle biodiversity", "Manta ray feeding", "Walking sharks", "Pygmy seahorses", "Karst island landscape"],
+      gear: ["Open Water minimum", "Wetsuit 3mm", "SMB", "Macro lens", "Dive computer"],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 4500,
+      latitude: -0.86,
+      longitude: 130.52,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure240.id }, { userId: user2.id, adventureId: adventure240.id }, { userId: user3.id, adventureId: adventure240.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
