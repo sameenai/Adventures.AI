@@ -12691,6 +12691,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure304.id }, { userId: user2.id, adventureId: adventure304.id }, { userId: user3.id, adventureId: adventure304.id }], skipDuplicates: true });
 
+
+  // Adventure 305
+  const adventure305 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-305" },
+    update: {},
+    create: {
+      id: "seed-adventure-305",
+      title: "Trans-Himalayan Winter Ski Tour",
+      description: `Ski touring in the Zanskar and Lahaul ranges of the Indian Himalaya during winter offers extreme isolation and world-class powder above 4,000 metres with virtually no other skiers present. The legendary Drang-Drung glacier above Kargil provides a 15-kilometre descent that challenges even expert ski mountaineers. This is considered one of the last truly wild ski mountaineering frontiers, with new routes being established each season.`,
+      location: "Manali",
+      country: "India",
+      continent: "Asia",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Drang-Drung glacier 15km descent", "Zero other skiers complete isolation", "Himalayan winter wilderness", "New route potential frontier", "Altitude 4000m powder skiing"],
+      gear: ["Ski mountaineering skis and skins", "Avalanche beacon probe shovel", "High altitude cold weather system", "Satellite communicator", "Mountain guide essential"],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 3000,
+      latitude: 32.24,
+      longitude: 77.19,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["expedition"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure305.id }, { userId: user2.id, adventureId: adventure305.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
