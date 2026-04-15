@@ -9390,6 +9390,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure194.id }, { userId: user2.id, adventureId: adventure194.id }], skipDuplicates: true });
 
+
+  // Adventure 195
+  const adventure195 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-195" },
+    update: {},
+    create: {
+      id: "seed-adventure-195",
+      title: "Iditarod Trail Dog Sled",
+      description: `The Iditarod Trail — 1,600 km from Anchorage to Nome across Alaska's frozen interior — is best known as the world's toughest sled dog race, but the trail is also accessible for supported expeditions and ski touring from Knik to Skwentna in the southern sections. Mushing even a short distance with a 12-dog team through boreal forest and tundra silence is a transport experience unlike any other on earth. The Yukon Quest route from Fairbanks is the alternative.`,
+      location: "Anchorage",
+      country: "United States",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      highlights: ["Dog sled experience", "Alaskan interior tundra", "Aurora borealis", "Nome finish (race spectator)", "Susitna River ice crossing"],
+      gear: ["Arctic cold weather kit", "Sled (guided provision)", "Glacier glasses", "Balaclava", "Emergency bivouac"],
+      bestMonths: [2, 3, 4],
+      estimatedCost: 8000,
+      latitude: 61.22,
+      longitude: -149.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["arctic"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure195.id }, { userId: user2.id, adventureId: adventure195.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
