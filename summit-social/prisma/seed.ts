@@ -7831,6 +7831,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure142.id }, { userId: user2.id, adventureId: adventure142.id }], skipDuplicates: true });
 
+
+  // Adventure 143
+  const adventure143 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-143" },
+    update: {},
+    create: {
+      id: "seed-adventure-143",
+      title: "Scottish Islands Kayak Expedition",
+      description: `A 500 km sea kayak expedition along Scotland's west coast from the Mull of Kintyre to Cape Wrath, crossing to the Hebridean islands of Islay, Jura, Colonsay, Mull, Skye, and the Summer Isles. The Atlantic swell, tidal races, and unpredictable weather make this serious expedition paddling. Compensation comes in the form of white-sand beaches deserted except for seals, puffins nesting on sea stacks, and the aurora australis on clear nights.`,
+      location: "Mull of Kintyre",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Hebrides island crossings", "Corryvreckan whirlpool passage", "Puffin sea stacks", "Cape Wrath finish", "Wild camping beaches"],
+      gear: ["Sea kayak", "Paddle float", "VHF radio", "Dry suit", "Tidal atlas"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 4000,
+      latitude: 55.31,
+      longitude: -5.78,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["scotland"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure143.id }, { userId: user2.id, adventureId: adventure143.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
