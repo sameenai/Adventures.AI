@@ -14821,6 +14821,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure375.id }, { userId: user2.id, adventureId: adventure375.id }], skipDuplicates: true });
 
+
+  // Adventure 376
+  const adventure376 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-376" },
+    update: {},
+    create: {
+      id: "seed-adventure-376",
+      title: "Catalan Pyrenees GR11 Trek",
+      description: `The GR11 Transpirenaica traverses the full length of the Spanish Pyrenees from the Mediterranean at Cabo de Creus to the Atlantic at Hondarribia, covering 820 kilometres entirely on the Spanish side of the watershed. The Catalan Pyrenees section through the Aiguestortes i Estany de Sant Maurici National Park passes through glacial lakes surrounded by 3,000-metre granite peaks. This is a less-crowded alternative to the Haute Route Pyrenean on the French side.`,
+      location: "Cap de Creus",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 45,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["820km Mediterranean to Atlantic traverse", "Aiguestortes National Park glacial lakes", "Aneto 3404m highest Pyrenees peak", "Catalan and Aragonese mountain culture", "Ordesa Canyon spectacular gorge"],
+      gear: ["Tent for remote sections", "Refugi hut booking", "Trekking poles", "Rain jacket regular storms", "GPS offline navigation"],
+      bestMonths: [7, 8],
+      estimatedCost: 2000,
+      latitude: 42.32,
+      longitude: 3.32,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["thru-hike"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure376.id }, { userId: user2.id, adventureId: adventure376.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
