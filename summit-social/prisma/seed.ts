@@ -14191,6 +14191,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure354.id }, { userId: user2.id, adventureId: adventure354.id }, { userId: user3.id, adventureId: adventure354.id }], skipDuplicates: true });
 
+
+  // Adventure 355
+  const adventure355 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-355" },
+    update: {},
+    create: {
+      id: "seed-adventure-355",
+      title: "New Zealand Tongariro Alpine Crossing",
+      description: `The Tongariro Alpine Crossing is New Zealand's most popular day walk and one of the world's finest volcano treks, crossing between the active cones of Mount Ngauruhoe and Tongariro through a landscape of emerald crater lakes, steam vents, and red lava scree. The 19.4-kilometre route gains 800 metres to the Red Crater at 1,886 metres before descending past the Emerald Lakes to the Ketetahi hot springs. The mountains are sacred to Maori and form the backdrop for Lord of the Rings.`,
+      location: "Whakapapa Village",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 1,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Emerald Lakes volcanic crater lakes", "Red Crater 1886m lava landscape", "Mount Ngauruhoe Lord of the Rings", "Active steam vents crossing route", "Tongariro National Park UNESCO"],
+      gear: ["Layered clothing for all weather", "Waterproof boots traction", "Early start 7am recommended", "Navigation in cloud common", "Emergency clothing layer"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 150,
+      latitude: -39.13,
+      longitude: 175.56,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["new-zealand"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure355.id }, { userId: user2.id, adventureId: adventure355.id }, { userId: user3.id, adventureId: adventure355.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
