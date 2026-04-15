@@ -12901,6 +12901,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure311.id }, { userId: user2.id, adventureId: adventure311.id }, { userId: user3.id, adventureId: adventure311.id }], skipDuplicates: true });
 
+
+  // Adventure 312
+  const adventure312 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-312" },
+    update: {},
+    create: {
+      id: "seed-adventure-312",
+      title: "Alaska Range Ski Mountaineering",
+      description: `The Alaska Range in the spring ski mountaineering season offers world-class ski descents from peaks accessible by ski plane from Talkeetna. The Kahiltna Glacier base camp at 2,200 metres provides access to Denali's West Buttress but also dozens of skiable couloirs and faces on peaks like Mount Hunter and Mount Foraker. Flat light and crevasse navigation demand expert glacier travel skills.`,
+      location: "Talkeetna",
+      country: "United States",
+      continent: "North America",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Ski plane access Kahiltna Glacier", "Mount Hunter and Foraker ski lines", "Denali base camp 24-hour daylight", "Alaska Range premier ski terrain", "Whiteout glacier navigation"],
+      gear: ["Ski mountaineering bindings", "Glacier rope travel system", "Ski plane reservation Talkeetna", "High camp tent expedition", "Crevasse rescue kit"],
+      bestMonths: [4, 5],
+      estimatedCost: 5000,
+      latitude: 62.32,
+      longitude: -150.44,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["glacier"].id }, { id: allTags["expedition"].id }, { id: allTags["mountaineering"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure312.id }, { userId: user2.id, adventureId: adventure312.id }, { userId: user3.id, adventureId: adventure312.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
