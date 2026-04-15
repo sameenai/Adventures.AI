@@ -15061,6 +15061,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure383.id }, { userId: user2.id, adventureId: adventure383.id }], skipDuplicates: true });
 
+
+  // Adventure 384
+  const adventure384 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-384" },
+    update: {},
+    create: {
+      id: "seed-adventure-384",
+      title: "Norwegian Fjord Kayaking",
+      description: `Kayaking the Sognefjord and its tributary arms including the Naeroyfjord UNESCO World Heritage Site allows access to waterfalls, traditional stave church villages, and sheer 1,000-metre cliff faces from water level in conditions that can go from glassy to dangerous within hours. The Flam Railway and Aurlandsfjord combination creates a classic circuit combining hiking, kayaking, and Norway's most spectacular train journey. The Naeroyfjord narrows to 250 metres at its tightest point.`,
+      location: "Flam",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Naeroyfjord 250m narrowest UNESCO fjord", "Stave church Borgund 12th century", "1000m sheer cliff waterfall kayak approach", "Flam Railway mountain descent", "Porpoise and seal fjord wildlife"],
+      gear: ["Sea kayak with spray skirt", "Tidal and weather awareness", "Dry suit cold fjord water", "VHF radio", "Fjord kayak certification"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 1200,
+      latitude: 60.86,
+      longitude: 7.12,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure384.id }, { userId: user2.id, adventureId: adventure384.id }, { userId: user3.id, adventureId: adventure384.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
