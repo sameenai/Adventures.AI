@@ -15751,6 +15751,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure406.id }, { userId: user2.id, adventureId: adventure406.id }, { userId: user3.id, adventureId: adventure406.id }], skipDuplicates: true });
 
+
+  // Adventure 407
+  const adventure407 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-407" },
+    update: {},
+    create: {
+      id: "seed-adventure-407",
+      title: "Okinawa Diving - Kerama Islands",
+      description: `The Kerama Islands 40 kilometres west of Okinawa have some of the clearest water on Earth with visibility regularly exceeding 30 metres, and the Kerama Blue colour of the water is so distinctive it has given its name to a specific shade in Japanese aesthetics. Humpback whales visit the Kerama Straits to calve between January and March, and the coral reef quality at Zamami and Tokashiki islands is largely undamaged. The hammerhead shark aggregation at nearby Yonaguni adds diving depth.`,
+      location: "Naha",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Kerama Blue world famous visibility 30m", "Humpback whale winter calving Jan-Mar", "Zamami island pristine coral", "Yonaguni hammerhead sharks option", "Traditional Ryukyu Kingdom culture"],
+      gear: ["Open water certification", "Wetsuit 5mm cooler months", "Underwater camera wide angle", "Dive computer", "Ferry to Kerama islands"],
+      bestMonths: [1, 2, 3, 10, 11, 12],
+      estimatedCost: 1500,
+      latitude: 26.21,
+      longitude: 127.68,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure407.id }, { userId: user2.id, adventureId: adventure407.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
