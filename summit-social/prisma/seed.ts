@@ -12991,6 +12991,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure314.id }, { userId: user2.id, adventureId: adventure314.id }], skipDuplicates: true });
 
+
+  // Adventure 315
+  const adventure315 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-315" },
+    update: {},
+    create: {
+      id: "seed-adventure-315",
+      title: "Tonga Humpback Whale Swimming",
+      description: `Tonga is one of the only places in the world where swimming with humpback whales is legally permitted, during the July-October breeding season when mothers bring their calves to the warm Vava'u lagoon. The 15-metre whales move with extraordinary grace beneath the surface, and calves sometimes approach swimmers with open curiosity. Strict regulations limit group sizes to ensure minimal disturbance, and the encounters are among the most moving wildlife experiences available.`,
+      location: "Neihafu",
+      country: "Tonga",
+      continent: "Oceania",
+      category: Category.DIVING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Swimming with humpback whales legally", "Mother and calf encounters", "Vava'u limestone sea caves", "Tonga traditional kava ceremonies", "World class snorkelling reefs"],
+      gear: ["Snorkel and fins", "Wetsuit 3mm", "Underwater camera housing", "No scuba fins not permitted", "Patience for encounters"],
+      bestMonths: [7, 8, 9, 10],
+      estimatedCost: 2000,
+      latitude: -18.65,
+      longitude: -173.99,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure315.id }, { userId: user2.id, adventureId: adventure315.id }, { userId: user3.id, adventureId: adventure315.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
