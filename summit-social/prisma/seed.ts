@@ -14851,6 +14851,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure376.id }, { userId: user2.id, adventureId: adventure376.id }], skipDuplicates: true });
 
+
+  // Adventure 377
+  const adventure377 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-377" },
+    update: {},
+    create: {
+      id: "seed-adventure-377",
+      title: "Borneo Kinabalu Summit",
+      description: `Mount Kinabalu in Sabah is the highest peak in Southeast Asia at 4,095 metres and one of the world's most accessible high-altitude climbs, requiring no technical equipment but significant fitness for the two-day ascent and descent. The summit plateau of Low's Peak provides views over the South China Sea and the Borneo jungle below. The mountain has unique plant communities including carnivorous Nepenthes pitcher plants found only on its slopes.`,
+      location: "Kota Kinabalu",
+      country: "Malaysia",
+      continent: "Asia",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["4095m highest Southeast Asia", "Nepenthes pitcher plants endemic", "Low's Peak South China Sea views", "Via Ferrata optional steep descent", "Mountain hostel Laban Rata"],
+      gear: ["Warm layers cold summit", "Headlamp dawn start 2am", "Gloves summit rocks", "Kinabalu National Park permit", "Descent poles knees"],
+      bestMonths: [3, 4, 5, 8, 9],
+      estimatedCost: 400,
+      latitude: 6.07,
+      longitude: 116.55,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["jungle"].id }, { id: allTags["via-ferrata"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure377.id }, { userId: user2.id, adventureId: adventure377.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
