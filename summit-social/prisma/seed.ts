@@ -15841,6 +15841,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure409.id }, { userId: user2.id, adventureId: adventure409.id }, { userId: user3.id, adventureId: adventure409.id }], skipDuplicates: true });
 
+
+  // Adventure 410
+  const adventure410 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-410" },
+    update: {},
+    create: {
+      id: "seed-adventure-410",
+      title: "Greek Epirus Vikos Gorge",
+      description: `The Vikos Gorge in the Pindus Mountains of northwestern Greece is the world's deepest gorge in proportion to its width, with walls rising 900 metres above the Voidomatis River. The 12-kilometre gorge walk from Monodendri to Vikos village passes through the Zagori stone-built villages with their arched Venetian bridges that have been declared a UNESCO protected cultural landscape. The river springs that feed the gorge from underground aquifers are impossibly blue and cold.`,
+      location: "Konitsa",
+      country: "Greece",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["World deepest gorge width ratio", "900m walls Voidomatis River", "Zagori stone village UNESCO", "Venetian arched bridges", "Blue spring pools gorge bottom"],
+      gear: ["Hiking boots river sections", "Trekking poles steep descent", "Water filter gorge springs", "Camera wide angle", "Layers cool gorge microclimate"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 500,
+      latitude: 39.88,
+      longitude: 20.74,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["gorge"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure410.id }, { userId: user2.id, adventureId: adventure410.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
