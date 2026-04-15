@@ -13081,6 +13081,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure317.id }, { userId: user2.id, adventureId: adventure317.id }], skipDuplicates: true });
 
+
+  // Adventure 318
+  const adventure318 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-318" },
+    update: {},
+    create: {
+      id: "seed-adventure-318",
+      title: "Antarctica Peninsula Expedition",
+      description: `The Antarctic Peninsula is the most accessible part of Antarctica, a jagged finger of mountains and glaciers pointing toward South America across the Drake Passage. Zodiac landings among penguin colonies of 500,000 birds, whale watching from the ship deck, and optional kayaking through brash ice among sleeping leopard seals define this unforgettable journey. The 14-day expedition from Ushuaia includes 48-hour Drake Passage crossings each way.`,
+      location: "Ushuaia",
+      country: "Argentina",
+      continent: "Antarctica",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["500000 penguin colony landings", "Leopard seal ice kayaking", "Drake Passage 48-hour crossing", "Antarctic landscape pure wilderness", "Whale watching humpback and orca"],
+      gear: ["Expedition parka and waterproof trousers provided", "Seasickness medication Drake", "Waterproof camera housing", "Layered thermal system", "Gumboots Zodiac landings"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 8000,
+      latitude: -62,
+      longitude: -58.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure318.id }, { userId: user2.id, adventureId: adventure318.id }, { userId: user3.id, adventureId: adventure318.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
