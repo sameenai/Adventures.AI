@@ -9120,6 +9120,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure185.id }, { userId: user2.id, adventureId: adventure185.id }], skipDuplicates: true });
 
+
+  // Adventure 186
+  const adventure186 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-186" },
+    update: {},
+    create: {
+      id: "seed-adventure-186",
+      title: "Outer Hebrides Cycling",
+      description: `The Hebridean Way runs 300 km from Vatersay in the south to the Butt of Lewis in the north, cycling the string of islands connected by causeways through the wildest Atlantic seascape in Europe. The Western Isles have 6,000 years of human history layered under the surface — Callanish Standing Stones, Dun Carloway broch, and the black houses of Arnol — and beaches of white shell sand and turquoise water that would pass for the Caribbean if the temperature were 20° warmer.`,
+      location: "Vatersay",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Callanish Standing Stones", "Luskentyre beach", "Harris Tweed mill visit", "Dun Carloway broch", "Butt of Lewis lighthouse"],
+      gear: ["Touring bike", "Panniers", "Waterproof kit", "Wind jacket", "Midges head net"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1800,
+      latitude: 57.08,
+      longitude: -7.54,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["island"].id }, { id: allTags["scotland"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure186.id }, { userId: user2.id, adventureId: adventure186.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
