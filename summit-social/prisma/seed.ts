@@ -8760,6 +8760,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure173.id }, { userId: user2.id, adventureId: adventure173.id }], skipDuplicates: true });
 
+
+  // Adventure 174
+  const adventure174 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-174" },
+    update: {},
+    create: {
+      id: "seed-adventure-174",
+      title: "Tierra del Fuego Kayak",
+      description: `Paddling the Beagle Channel and the inner fjords of Tierra del Fuego is one of the most remote sea kayak expeditions available outside of polar regions — conditions include tidal races, glacial calving, williwaw squalls that can reach 100 km/h with zero warning, and water cold enough to kill in minutes. The reward is the Darwin Range in winter light, Magellanic penguins on shore, and the knowledge that Fitzroy and Darwin passed these same channels.`,
+      location: "Ushuaia",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Beagle Channel paddling", "Magellanic penguins", "Glacier ice approach", "Darwin Range views", "Williwaw weather experience"],
+      gear: ["Expedition sea kayak", "Dry suit mandatory", "VHF radio", "Tow rope", "Emergency flares"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 5000,
+      latitude: -54.8,
+      longitude: -68.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure174.id }, { userId: user2.id, adventureId: adventure174.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
