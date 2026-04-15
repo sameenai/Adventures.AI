@@ -11130,6 +11130,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure252.id }, { userId: user2.id, adventureId: adventure252.id }], skipDuplicates: true });
 
+
+  // Adventure 253
+  const adventure253 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-253" },
+    update: {},
+    create: {
+      id: "seed-adventure-253",
+      title: "Upper Dolpo Trek",
+      description: `Upper Dolpo is one of Nepal's most restricted and extraordinary trekking destinations, a high-altitude Tibetan plateau world virtually untouched by modernity. The route passes through Shey Phoksundo National Park and the crystal blue lake, then crosses multiple passes above 5,000 metres to reach the sacred Shey Gompa. Peter Matthiessen immortalised this landscape in The Snow Leopard.`,
+      location: "Juphal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 25,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Shey Phoksundo turquoise lake", "Shey Gompa crystal mountain monastery", "Snow leopard habitat", "Ancient Bon religion villages", "Kang La pass at 5360 metres"],
+      gear: ["Expedition tent and sleeping system", "Full camp kitchen setup", "Portable altitude oximeter", "Satellite communicator", "Cold weather base layers"],
+      bestMonths: [9, 10],
+      estimatedCost: 4500,
+      latitude: 29.1,
+      longitude: 82.96,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure253.id }, { userId: user2.id, adventureId: adventure253.id }, { userId: user3.id, adventureId: adventure253.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
