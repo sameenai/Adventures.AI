@@ -10560,6 +10560,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure233.id }, { userId: user2.id, adventureId: adventure233.id }], skipDuplicates: true });
 
+
+  // Adventure 234
+  const adventure234 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-234" },
+    update: {},
+    create: {
+      id: "seed-adventure-234",
+      title: "Nepal Kanchenjunga Trek",
+      description: `Kanchenjunga (8,586 m), the world's third-highest mountain, is the most remote and least-visited of Nepal's 8,000 m peaks — a 3-week trek just to reach its base camps. The north and south base camp circuit passes through intact rhododendron and bamboo forest still harbouring red pandas and snow leopards, through Tibetan-influenced villages at the Taplejung headwaters, and to the stupendous Yalung Glacier viewpoint beneath the south face. Restricted area permit required.`,
+      location: "Taplejung",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?w=1600&q=80",
+      highlights: ["Kanchenjunga south face", "Red panda sightings", "Snow leopard territory", "Yalung Glacier", "North base camp 5,143m"],
+      gear: ["Expedition sleeping system", "Layering for -20°C nights", "Altitude medication", "Trekking poles", "Restricted area permit"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 4000,
+      latitude: 27.71,
+      longitude: 87.86,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure234.id }, { userId: user2.id, adventureId: adventure234.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
