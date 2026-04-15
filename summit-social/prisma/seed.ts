@@ -14611,6 +14611,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure368.id }, { userId: user2.id, adventureId: adventure368.id }, { userId: user3.id, adventureId: adventure368.id }], skipDuplicates: true });
 
+
+  // Adventure 369
+  const adventure369 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-369" },
+    update: {},
+    create: {
+      id: "seed-adventure-369",
+      title: "Amazon River Source to Sea",
+      description: `Tracing the Amazon River from its source at Lake Vilafro in the Peruvian Andes to the Atlantic delta is one of the greatest river journeys on Earth, descending from 5,000 metres to sea level over 6,400 kilometres through the world's largest rainforest. The upper Apurimac section requires whitewater kayaking or rafting skills, while the main Amazon is navigated by local cargo boats and motorised canoes between Iquitos and Belem. Wildlife sightings include pink river dolphins, anacondas, and jaguars.`,
+      location: "Arequipa",
+      country: "Peru",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 60,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["6400km world longest river journey", "Source to sea complete traverse", "Pink river dolphin daily sightings", "Iquitos jungle city no road access", "Atlantic delta Marajo Island finish"],
+      gear: ["Packraft for upper river sections", "Malaria prophylaxis", "Water filter all sources", "Expedition budget two months", "Satellite communicator remote areas"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 5000,
+      latitude: -15.5,
+      longitude: -72,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["kayaking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure369.id }, { userId: user2.id, adventureId: adventure369.id }, { userId: user3.id, adventureId: adventure369.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
