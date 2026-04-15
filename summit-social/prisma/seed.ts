@@ -14731,6 +14731,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure372.id }, { userId: user2.id, adventureId: adventure372.id }], skipDuplicates: true });
 
+
+  // Adventure 373
+  const adventure373 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-373" },
+    update: {},
+    create: {
+      id: "seed-adventure-373",
+      title: "Iceland Off-Road Highlands F-Road",
+      description: `The Icelandic highlands F-roads are only accessible by high-clearance 4WD vehicles for three months of the year and pass through surreal volcanic landscapes of obsidian fields, coloured rhyolite mountains, and the vast Langisjor lake. The Kjolur route between Hvitarvatn and Hveravellir crosses the highland plateau used by outlaws who evaded the law for centuries in this borderless wilderness. No services exist for hundreds of kilometres.`,
+      location: "Reykjavik",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Landmannalaugar multicolour mountains", "Hveravellir geothermal spring camp", "Kjolur outlaw historical route", "River fording mandatory F-roads", "Aurora borealis September"],
+      gear: ["4WD high clearance mandatory", "Recovery boards sand ladders", "Extra fuel 100 litre minimum", "Satellite communicator", "River depth pole"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 2000,
+      latitude: 64.9,
+      longitude: -18.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["remote"].id }, { id: allTags["volcanic"].id }, { id: allTags["photography"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure373.id }, { userId: user2.id, adventureId: adventure373.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
