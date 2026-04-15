@@ -12961,6 +12961,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure313.id }, { userId: user2.id, adventureId: adventure313.id }], skipDuplicates: true });
 
+
+  // Adventure 314
+  const adventure314 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-314" },
+    update: {},
+    create: {
+      id: "seed-adventure-314",
+      title: "Gobi Desert Camel Trek",
+      description: `The Gobi Desert in southern Mongolia is not a sand desert but a vast gravel and rock plateau dotted with dramatic dune seas, dinosaur fossil beds, and remote Mongolian herder families living as their ancestors did for centuries. The Khongoryn Els sand dunes are the largest in Mongolia at 100 metres high and 100 kilometres long, producing a deep musical roar when the wind blows across the crest. Camel trekking between ger camps covers ground impossible on foot.`,
+      location: "Dalanzadgad",
+      country: "Mongolia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Khongoryn Els singing sand dunes", "Dinosaur fossil beds Flaming Cliffs", "Bactrian camel riding tradition", "Ger hospitality nomadic families", "Yol Valley ice canyon"],
+      gear: ["Camel riding padding", "Desert sun protection", "Warm layers cold nights", "Offline navigation", "Cash only remote areas"],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 900,
+      latitude: 43.57,
+      longitude: 104.43,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["horse-trekking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure314.id }, { userId: user2.id, adventureId: adventure314.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
