@@ -7531,6 +7531,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure132.id }, { userId: user2.id, adventureId: adventure132.id }], skipDuplicates: true });
 
+
+  // Adventure 133
+  const adventure133 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-133" },
+    update: {},
+    create: {
+      id: "seed-adventure-133",
+      title: "West Highland Way",
+      description: `Scotland's first and most famous long-distance path runs 154 km from Milngavie on the outskirts of Glasgow to Fort William beneath Ben Nevis. The route passes Loch Lomond's wooded eastern shore, crosses the bleak Rannoch Moor, descends through the glens of Glencoe, and finishes in the shadow of Britain's highest mountain. Midges from June to August are genuinely terrible. The Ceilidh at the end makes up for everything.`,
+      location: "Milngavie",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Loch Lomond shore path", "Rannoch Moor crossing", "Glencoe valley", "Devil's Staircase", "Ben Nevis backdrop"],
+      gear: ["Waterproof jacket and trousers", "Midges head net", "Hiking boots", "Trekking poles", "Pub map"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 1100,
+      latitude: 55.94,
+      longitude: -4.33,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["scotland"].id }, { id: allTags["europe"].id }, { id: allTags["solo-travel"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure133.id }, { userId: user2.id, adventureId: adventure133.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
