@@ -13111,6 +13111,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure318.id }, { userId: user2.id, adventureId: adventure318.id }, { userId: user3.id, adventureId: adventure318.id }], skipDuplicates: true });
 
+
+  // Adventure 319
+  const adventure319 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-319" },
+    update: {},
+    create: {
+      id: "seed-adventure-319",
+      title: "Camino Primitivo, Spain",
+      description: `The Camino Primitivo is the original Way of Saint James, walked by King Alfonso II in 830 AD, predating all other Camino routes by several centuries. The 320-kilometre route from Oviedo to Santiago de Compostela crosses the Cantabrian mountains and Galician hills on a route that is harder and wilder than the Camino Frances. The mountain section through Puerto del Palo pass and the eucalyptus forests of Galicia offer dramatic contrasts.`,
+      location: "Oviedo",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Oldest Camino route 830 AD Alfonso II", "Cantabrian mountain crossing", "Puerto del Palo 1150m pass", "Galician eucalyptus forest paths", "Santiago de Compostela cathedral arrival"],
+      gear: ["Hiking poles", "Pilgrim credential stamping", "Rain jacket Galicia always wet", "Blister prevention kit", "Shell symbol for credencial"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 900,
+      latitude: 43.36,
+      longitude: -5.85,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["camino"].id }, { id: allTags["hiking"].id }, { id: allTags["europe"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure319.id }, { userId: user2.id, adventureId: adventure319.id }, { userId: user3.id, adventureId: adventure319.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
