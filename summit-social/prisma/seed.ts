@@ -11100,6 +11100,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure251.id }, { userId: user2.id, adventureId: adventure251.id }, { userId: user3.id, adventureId: adventure251.id }], skipDuplicates: true });
 
+
+  // Adventure 252
+  const adventure252 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-252" },
+    update: {},
+    create: {
+      id: "seed-adventure-252",
+      title: "Kanchenjunga Base Camp Trek",
+      description: `Nepal's most remote major trek leads to the base camps of Kanchenjunga, the world's third-highest peak at 8,586 metres. The trail passes through dense rhododendron forests and yak pastures before reaching the glacial moraines below the mountain. Both north and south base camps can be combined into a challenging loop.`,
+      location: "Taplejung",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 22,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Kanchenjunga north and south base camps", "Pristine Ghunsa valley", "Rhododendron and magnolia forests", "Yak herder pastures at Lhonak", "Untouched wilderness with minimal trekkers"],
+      gear: ["4-season sleeping bag", "Water purification tablets", "Emergency bivouac shelter", "Trekking poles", "High-altitude gaiters"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 2400,
+      latitude: 27.7,
+      longitude: 87.99,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["8000m"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure252.id }, { userId: user2.id, adventureId: adventure252.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
