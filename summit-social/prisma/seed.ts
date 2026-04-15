@@ -9150,6 +9150,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure186.id }, { userId: user2.id, adventureId: adventure186.id }], skipDuplicates: true });
 
+
+  // Adventure 187
+  const adventure187 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-187" },
+    update: {},
+    create: {
+      id: "seed-adventure-187",
+      title: "Rwenzori Mountains Trek",
+      description: `The Rwenzori Mountains — Africa's Mountains of the Moon straddling the Uganda-DRC border — are a UNESCO World Heritage site and one of the most unusual landscapes on earth. Giant lobelias and groundsels, some over 6 m tall, crowd the valleys; the summit zone of Mount Stanley (5,109 m) is perpetually glaciated at the equator. The 7-day Central Circuit visits all the high camps and the glaciers that are visibly retreating each year. A guide and porter are mandatory.`,
+      location: "Kasese",
+      country: "Uganda",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Mount Stanley 5,109m", "Giant lobelia forest", "Equatorial glaciers", "Scott Elliott Pass", "Bujuku Lake"],
+      gear: ["Waterproof everything", "Crampons (summit attempt)", "Down jacket", "Gaiters", "Trekking poles"],
+      bestMonths: [12, 1, 2, 6, 7, 8],
+      estimatedCost: 2500,
+      latitude: 0.37,
+      longitude: 29.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure187.id }, { userId: user2.id, adventureId: adventure187.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
