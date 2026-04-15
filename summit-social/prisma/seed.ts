@@ -11850,6 +11850,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure276.id }, { userId: user2.id, adventureId: adventure276.id }, { userId: user3.id, adventureId: adventure276.id }], skipDuplicates: true });
 
+
+  // Adventure 277
+  const adventure277 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-277" },
+    update: {},
+    create: {
+      id: "seed-adventure-277",
+      title: "Kumano Kodo Pilgrimage, Japan",
+      description: `The Kumano Kodo is a network of ancient pilgrimage routes in the Kii Peninsula that have been walked for over 1,000 years, connecting the imperial capital Kyoto with the three Grand Shrines of Kumano. The Nakahechi route is the most historic section, passing through cedar forest and small onsen villages where pilgrims have sought purification since the Heian period. The route shares UNESCO World Heritage status with the Camino de Santiago.`,
+      location: "Tanabe",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["UNESCO World Heritage pilgrimage route", "Nachi waterfall Japan highest", "Kumano Hongu Taisha Grand Shrine", "Traditional onsen hot spring villages", "Ancient cedar forest paths"],
+      gear: ["Hiking poles", "Traditional pilgrim white shirt", "Rain cover for pack", "Onsen bathing kit", "Japanese phrasebook"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1500,
+      latitude: 33.73,
+      longitude: 135.38,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }, { id: allTags["camino"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure277.id }, { userId: user2.id, adventureId: adventure277.id }, { userId: user3.id, adventureId: adventure277.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
