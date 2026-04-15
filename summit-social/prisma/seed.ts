@@ -8970,6 +8970,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure180.id }, { userId: user2.id, adventureId: adventure180.id }], skipDuplicates: true });
 
+
+  // Adventure 181
+  const adventure181 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-181" },
+    update: {},
+    create: {
+      id: "seed-adventure-181",
+      title: "Balkans Mountain Traverse",
+      description: `Walking the Via Dinarica — the unofficial long trail traversing the Dinaric Alps from Slovenian Triglav to Albanian Mount Korab — covers 1,200 km through eight countries, connecting the Julian Alps, Croatian karst, Bosnian war-memory landscapes, Montenegro's Durmitor, Kosovo's Rugova, North Macedonia's Galicica, and Albanian peaks. The infrastructure is sparse but the hospitality of mountain communities across former Yugoslavia is extraordinary.`,
+      location: "Ljubljana",
+      country: "Slovenia",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 60,
+      coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1600&q=80",
+      highlights: ["Mount Triglav", "Durmitor Black Lake", "Kotor Bay view", "Rugova Gorge", "Korab summit Albania"],
+      gear: ["Navigation tools", "Camping kit", "Multiple country visas checked", "Language phrasebooks", "Cash (remote areas)"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 4000,
+      latitude: 46.05,
+      longitude: 14.51,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["europe"].id }, { id: allTags["mountains"].id }, { id: allTags["camping"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure181.id }, { userId: user2.id, adventureId: adventure181.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
