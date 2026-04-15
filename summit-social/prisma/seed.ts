@@ -13921,6 +13921,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure345.id }, { userId: user2.id, adventureId: adventure345.id }, { userId: user3.id, adventureId: adventure345.id }], skipDuplicates: true });
 
+
+  // Adventure 346
+  const adventure346 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-346" },
+    update: {},
+    create: {
+      id: "seed-adventure-346",
+      title: "Chilkoot Pass Historic Trail",
+      description: `The Chilkoot Pass trail from Dyea Alaska to Bennett Lake in the Yukon follows the exact route that 30,000 Klondike Gold Rush stampeders climbed in 1898 in continuous human chains up the notorious Golden Staircase. At the top of the pass at 1,067 metres, artefacts from 1898 still lie abandoned in the arctic tundra exactly where exhausted miners dropped them. The three-day route crosses from the USA into Canada at the summit.`,
+      location: "Dyea",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["1898 Gold Rush artefacts in situ", "Golden Staircase chain ascent route", "USA Canada border crossing on foot", "Sheep Camp historic campsite", "Lake Bennett historic railway end point"],
+      gear: ["Parks Canada permit", "Bear canister required", "Waterproof everything", "Ice axe snow season", "Passport for border crossing"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 600,
+      latitude: 59.6,
+      longitude: -135.35,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["camping"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure346.id }, { userId: user2.id, adventureId: adventure346.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
