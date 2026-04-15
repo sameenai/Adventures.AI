@@ -13171,6 +13171,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure320.id }, { userId: user2.id, adventureId: adventure320.id }], skipDuplicates: true });
 
+
+  // Adventure 321
+  const adventure321 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-321" },
+    update: {},
+    create: {
+      id: "seed-adventure-321",
+      title: "Corsica GR20 Trail",
+      description: `The GR20 crosses Corsica from Calenzana to Conca along the island's granite spine, widely regarded as Europe's toughest long-distance trail. The route traverses jagged ridgelines above 2,000 metres, scrambles over polished rock slabs, and passes through chestnut forests and maquis scrubland. The northern section through the Cirque de la Solitude was re-routed after a 2015 rockfall but remains technical and demanding.`,
+      location: "Calenzana",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 15,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Europe toughest long-distance trail", "Granite ridge scrambling above 2000m", "Monte Cinto summit 2706m", "Bergerie hut shepherd cheese tasting", "Mediterranean maquis fragrance"],
+      gear: ["Via ferrata harness for chains", "Trekking poles", "Gaiters", "Mountain hut sleeping sheet", "1.5 litre minimum water carry"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 900,
+      latitude: 42.51,
+      longitude: 8.85,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["scrambling"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure321.id }, { userId: user2.id, adventureId: adventure321.id }, { userId: user3.id, adventureId: adventure321.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
