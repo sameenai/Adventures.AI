@@ -10080,6 +10080,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure217.id }, { userId: user2.id, adventureId: adventure217.id }], skipDuplicates: true });
 
+
+  // Adventure 218
+  const adventure218 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-218" },
+    update: {},
+    create: {
+      id: "seed-adventure-218",
+      title: "Kinabalu Summit Climb",
+      description: `Mount Kinabalu in Sabah, Borneo, is the highest peak in Southeast Asia at 4,095 m and one of the world's great botanical mountains — the Park protects 5,000 plant species including 800 orchid species, 9 species of pitcher plant, and the world's largest flower, Rafflesia. The two-day summit climb from Timpohon Gate via the Laban Rata guesthouse is well-organised and popular; early booking is essential. The granite summit plateau at dawn is extraordinary.`,
+      location: "Kota Kinabalu",
+      country: "Malaysia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1600&q=80",
+      highlights: ["Summit plateau at 4,095m", "Low's Peak sunrise", "Pitcher plants", "Rafflesia bloom (seasonal)", "Borneo wildlife in the park"],
+      gear: ["Hiking boots", "Warm layers (summit night)", "Head torch", "Gloves", "Summit permit (pre-book)"],
+      bestMonths: [3, 4, 5, 6, 7, 8, 9],
+      estimatedCost: 800,
+      latitude: 6.08,
+      longitude: 116.55,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure218.id }, { userId: user2.id, adventureId: adventure218.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
