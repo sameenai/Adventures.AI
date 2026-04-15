@@ -11340,6 +11340,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure259.id }, { userId: user2.id, adventureId: adventure259.id }, { userId: user3.id, adventureId: adventure259.id }], skipDuplicates: true });
 
+
+  // Adventure 260
+  const adventure260 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-260" },
+    update: {},
+    create: {
+      id: "seed-adventure-260",
+      title: "Chadar Trek - Frozen Zanskar River",
+      description: `The Chadar trek follows the frozen Zanskar River through an impossibly deep gorge in Ladakh during the brief winter window when the river becomes walkable ice. Temperatures can plunge to minus 35 degrees Celsius, and trekkers sleep in shallow caves carved from frozen waterfalls. This extraordinary journey is the traditional winter supply route for Zanskar villages cut off by snow.`,
+      location: "Chilling",
+      country: "India",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Walking on frozen Zanskar River", "Cave camping at minus 30 celsius", "Sheer 300m canyon walls", "Frozen waterfall formations", "Zanskar village cultural immersion"],
+      gear: ["Arctic expedition sleeping bag minus 40", "Microspike ice traction", "Balaclava and pogies", "Down suit", "Chemical hand warmers"],
+      bestMonths: [1, 2],
+      estimatedCost: 800,
+      latitude: 33.76,
+      longitude: 76.81,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["arctic"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure260.id }, { userId: user2.id, adventureId: adventure260.id }, { userId: user3.id, adventureId: adventure260.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
