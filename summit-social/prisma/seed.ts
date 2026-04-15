@@ -10650,6 +10650,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure236.id }, { userId: user2.id, adventureId: adventure236.id }], skipDuplicates: true });
 
+
+  // Adventure 237
+  const adventure237 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-237" },
+    update: {},
+    create: {
+      id: "seed-adventure-237",
+      title: "Sub-Antarctic Islands Voyage",
+      description: `The sub-Antarctic islands south of New Zealand — Auckland, Campbell, Antipodes, Bounty, and Snares — are among the least-visited places on earth and the most important seabird and marine mammal breeding grounds in the Southern Hemisphere. A permit expedition vessel visit lands by Zodiac on island coastlines thick with Hooker's sea lions, southern elephant seals, wandering albatrosses with 3 m wingspans, and yellow-eyed penguins. New Zealand permits are heavily restricted.`,
+      location: "Bluff",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Wandering albatross nesting", "Hooker's sea lion beaches", "Yellow-eyed penguins", "Southern Ocean swells", "Most restricted access in NZ"],
+      gear: ["Waterproof expedition kit", "Flotation suit Zodiac", "Seasickness medication", "Camera telephoto", "Warm layering"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 12000,
+      latitude: -50.5,
+      longitude: 166.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure237.id }, { userId: user2.id, adventureId: adventure237.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
