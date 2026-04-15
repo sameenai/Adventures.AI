@@ -14881,6 +14881,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure377.id }, { userId: user2.id, adventureId: adventure377.id }], skipDuplicates: true });
 
+
+  // Adventure 378
+  const adventure378 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-378" },
+    update: {},
+    create: {
+      id: "seed-adventure-378",
+      title: "Ganges Source Trek, India",
+      description: `The Gangotri Glacier in the Garhwal Himalaya is the source of the Ganges River, considered the holiest river in Hinduism, and the approach to Gaumukh at 4,023 metres is one of India's most sacred trekking routes. The glacier snout has retreated 22 kilometres since 1780 and is visibly retreating during any multi-year comparison. The extension to Tapovan meadow at 4,463 metres below the Shivling peak is one of India's finest trekking destinations.`,
+      location: "Gangotri",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Gaumukh glacier Ganges source 4023m", "Shivling peak 6543m Tapovan meadow", "Sacred Hindu pilgrimage route", "Retreating glacier climate change", "Bhojbasa camp riverside"],
+      gear: ["Warm layers altitude cold", "Glacier approach crampons optional", "High altitude medication", "Gangotri National Park permit", "Reverent dress Hindu pilgrims"],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 500,
+      latitude: 30.99,
+      longitude: 79.07,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure378.id }, { userId: user2.id, adventureId: adventure378.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
