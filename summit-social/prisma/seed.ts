@@ -15481,6 +15481,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure397.id }, { userId: user2.id, adventureId: adventure397.id }, { userId: user3.id, adventureId: adventure397.id }], skipDuplicates: true });
 
+
+  // Adventure 398
+  const adventure398 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-398" },
+    update: {},
+    create: {
+      id: "seed-adventure-398",
+      title: "East Africa Rift Valley Cycling",
+      description: `Cycling the East African Rift Valley from Nairobi to Addis Ababa follows one of the most dramatic geological features on Earth, the trench created as Africa tears itself apart at 7 millimetres per year. The route passes through the flamingo lakes of Nakuru, Lake Turkana the Jade Sea of Kenya, and the Ethiopian Omo Valley with its tribal diversity. The volcanic escarpments and alkaline lakes create extraordinary cycling scenery through some of the world's most geologically active terrain.`,
+      location: "Nairobi",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 28,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Rift Valley geological split Africa", "Nakuru flamingo lake millions", "Turkana Jade Sea remote north", "Omo Valley tribal diversity", "Ethiopian highlands 3000m climb"],
+      gear: ["Touring bicycle expedition loaded", "Malaria prophylaxis East Africa", "Panniers waterproof", "Ethiopia Ethiopia visa advance", "Emergency water filter"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: -1.29,
+      longitude: 36.82,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["expedition"].id }, { id: allTags["safari"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure398.id }, { userId: user2.id, adventureId: adventure398.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
