@@ -15421,6 +15421,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure395.id }, { userId: user2.id, adventureId: adventure395.id }, { userId: user3.id, adventureId: adventure395.id }], skipDuplicates: true });
 
+
+  // Adventure 396
+  const adventure396 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-396" },
+    update: {},
+    create: {
+      id: "seed-adventure-396",
+      title: "Amur River Border Canoe, Russia",
+      description: `The Amur River forms the 4,444-kilometre border between Russia and China, flowing through the least-developed region of both countries from the Mongolian border to the Sea of Okhotsk. Canoeing the Russian bank through Khabarovsk and the Nanai indigenous fishing communities passes through Siberian tiger and Amur leopard habitat in the Sikhote-Alin UNESCO Biosphere Reserve. The river's seasonal flooding creates the richest Siberian wetland ecosystem.`,
+      location: "Blagoveshchensk",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["4444km Russia China border river", "Amur tiger and leopard habitat", "Nanai indigenous fishing culture", "Sikhote-Alin UNESCO biodiversity", "Khabarovsk city reach mid-point"],
+      gear: ["Expedition canoe", "Bear spray Siberian bears", "Russian Far East permits", "Satellite communicator", "Self-sufficient expedition gear"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 3000,
+      latitude: 50.28,
+      longitude: 127.53,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure396.id }, { userId: user2.id, adventureId: adventure396.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
