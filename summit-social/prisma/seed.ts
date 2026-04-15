@@ -13681,6 +13681,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure337.id }, { userId: user2.id, adventureId: adventure337.id }], skipDuplicates: true });
 
+
+  // Adventure 338
+  const adventure338 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-338" },
+    update: {},
+    create: {
+      id: "seed-adventure-338",
+      title: "Pamir Highway Cycling",
+      description: `The Pamir Highway from Osh to Dushanbe is one of the world's great cycling routes, climbing to over 4,600 metres on the roof of the world through Tajikistan's Gorno-Badakhshan region. The road runs alongside the Panj River that forms the border with Afghanistan, with small Afghan villages visible across the water. Wakhan Valley detours and Yashilkul lake are highlights of a route that has attracted adventure cyclists for decades.`,
+      location: "Osh",
+      country: "Kyrgyzstan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Ak-Baital pass 4655m highest point", "Afghan border Panj River views", "Wakhan Valley side trip", "Yashilkul lake high altitude", "Murghab Pamiri market town"],
+      gear: ["Touring bicycle low gearing", "Panniers full expedition load", "Cold weather night camping", "Tajik GBAO permit required", "Water filter remote sections"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1200,
+      latitude: 40.53,
+      longitude: 72.79,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure338.id }, { userId: user2.id, adventureId: adventure338.id }, { userId: user3.id, adventureId: adventure338.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
