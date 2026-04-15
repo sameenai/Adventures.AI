@@ -14761,6 +14761,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure373.id }, { userId: user2.id, adventureId: adventure373.id }], skipDuplicates: true });
 
+
+  // Adventure 374
+  const adventure374 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-374" },
+    update: {},
+    create: {
+      id: "seed-adventure-374",
+      title: "Zambia Victoria Falls Canoe Safari",
+      description: `Canoeing the upper Zambezi River above Victoria Falls through the Mana Pools-adjacent wilderness offers some of the most thrilling and intimate wildlife encounters in Africa, with hippos, crocodiles, and elephants encountered from an open Canadian canoe at water level. The sunset paddles with elephants drinking metres away and hippo snorts from beneath the surface are uniquely adrenaline-charged. The 111-metre Victoria Falls themselves are viewable from the Zambian side on foot.`,
+      location: "Livingstone",
+      country: "Zambia",
+      continent: "Africa",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Hippo and crocodile canoe encounters", "Elephant drinking metres from boat", "Victoria Falls 111m spray column", "Upper Zambezi floodplain sunset", "African fish eagle calls"],
+      gear: ["Expert guide mandatory hippo risk", "Quick-dry clothes", "Sun protection intense", "Camera floating case", "Malaria prophylaxis"],
+      bestMonths: [7, 8, 9, 10],
+      estimatedCost: 1500,
+      latitude: -17.85,
+      longitude: 25.86,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["wildlife"].id }, { id: allTags["safari"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure374.id }, { userId: user2.id, adventureId: adventure374.id }, { userId: user3.id, adventureId: adventure374.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
