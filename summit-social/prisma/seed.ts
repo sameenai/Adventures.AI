@@ -11940,6 +11940,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure279.id }, { userId: user2.id, adventureId: adventure279.id }, { userId: user3.id, adventureId: adventure279.id }], skipDuplicates: true });
 
+
+  // Adventure 280
+  const adventure280 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-280" },
+    update: {},
+    create: {
+      id: "seed-adventure-280",
+      title: "New Zealand Heaphy Track",
+      description: `The Heaphy Track crosses Kahurangi National Park from the Golden Bay coast to the West Coast in a route that passes through tussock-covered tablelands, goblin forests of ancient beech, and palm-fringed beaches where the Tasman Sea pounds limestone cliffs. This is New Zealand's longest Great Walk at 78 kilometres, crossing five distinct ecological zones. The remoteness and variety make it New Zealand's most biodiverse tramp.`,
+      location: "Collingwood",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Nikau palm forest on the West Coast", "Gouland Downs tussock plateau", "Kohaihai beach camp site", "Five ecological zones in one walk", "Limestone cliffs and seal colonies"],
+      gear: ["DOC hut booking required", "Sandfly protection", "Waterproof pack liner", "Gaiters for mud", "Hut sleeping bag"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 400,
+      latitude: -40.97,
+      longitude: 172.42,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["new-zealand"].id }, { id: allTags["coastal"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure280.id }, { userId: user2.id, adventureId: adventure280.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
