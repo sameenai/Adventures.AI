@@ -10680,6 +10680,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure237.id }, { userId: user2.id, adventureId: adventure237.id }], skipDuplicates: true });
 
+
+  // Adventure 238
+  const adventure238 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-238" },
+    update: {},
+    create: {
+      id: "seed-adventure-238",
+      title: "Tateyama Kurobe Alpine Route",
+      description: `The Tateyama Kurobe Alpine Route traverses the Northern Japan Alps from Toyama on the Sea of Japan to Nagano in the interior, crossing at 2,450 m through the Tateyama mountain complex by a succession of cable cars, trolley buses, and ropeways — with a section on foot across the caldera at Murodo. In late April to May, the route cuts through snow walls up to 20 m high. Mount Tateyama (3,015 m) is one of Japan's three holy mountains.`,
+      location: "Toyama",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["20m snow wall corridor", "Tateyama holy mountain", "Murodo caldera walk", "Kurobe Dam", "Alpine wildflowers (June)"],
+      gear: ["Hiking boots", "Warm layers", "Microspikes (spring)", "Camera", "Japan Rail Pass"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1500,
+      latitude: 36.57,
+      longitude: 137.62,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["alpine"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure238.id }, { userId: user2.id, adventureId: adventure238.id }, { userId: user3.id, adventureId: adventure238.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
