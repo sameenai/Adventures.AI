@@ -8850,6 +8850,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure176.id }, { userId: user2.id, adventureId: adventure176.id }], skipDuplicates: true });
 
+
+  // Adventure 177
+  const adventure177 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-177" },
+    update: {},
+    create: {
+      id: "seed-adventure-177",
+      title: "Rinjani Summit Trek",
+      description: `Mount Rinjani (3,726 m) on Lombok is Indonesia's second-highest volcano and the most dramatic summit on Bali's doorstep. The standard 3-day trek circles the caldera rim, descends to the crater lake Segara Anak, and ascends the steep final cone to the summit crater. Views at dawn from the rim extend over Bali, Sumbawa, and the Java Sea. The trek requires good fitness; the crater descent involves long, sandy slopes that reward momentum.`,
+      location: "Sembalun",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1600&q=80",
+      highlights: ["Segara Anak crater lake", "Summit caldera sunrise", "Hot springs in crater", "Multi-island views", "Sembalun highland start"],
+      gear: ["Trekking poles", "Warm jacket (cold summit night)", "Head torch", "Good boots", "Rain cover"],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 600,
+      latitude: -8.41,
+      longitude: 116.46,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["high-altitude"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure177.id }, { userId: user2.id, adventureId: adventure177.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
