@@ -9540,6 +9540,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure199.id }, { userId: user2.id, adventureId: adventure199.id }], skipDuplicates: true });
 
+
+  // Adventure 200
+  const adventure200 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-200" },
+    update: {},
+    create: {
+      id: "seed-adventure-200",
+      title: "Nanda Devi Sanctuary Trek",
+      description: `The Nanda Devi Sanctuary in the Garhwal Himalaya of Uttarakhand is one of the world's most restricted wilderness areas — surrounded by a ring of peaks above 6,000 m, the inner sanctuary can only be visited with special permits and under strict quota. The approach from Lata village via the Rishi Gorge is famous as one of the most demanding approach treks in the Himalaya. Nanda Devi herself at 7,816 m is the second-highest peak in India.`,
+      location: "Joshimath",
+      country: "India",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 25,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Nanda Devi 7,816m", "Rishi Gorge approach", "Sanctuary restricted interior", "Himalayan flora sanctuary", "Garhwal village culture"],
+      gear: ["Expedition sleeping system", "High-altitude boots", "Rishi Gorge technical climbing gear", "Altitude medication", "Special permit documentation"],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 6000,
+      latitude: 30.56,
+      longitude: 79.57,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["mountaineering"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["8000m"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure200.id }, { userId: user2.id, adventureId: adventure200.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
