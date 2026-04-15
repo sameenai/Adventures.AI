@@ -11670,6 +11670,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure270.id }, { userId: user2.id, adventureId: adventure270.id }], skipDuplicates: true });
 
+
+  // Adventure 271
+  const adventure271 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-271" },
+    update: {},
+    create: {
+      id: "seed-adventure-271",
+      title: "Gates of the Arctic Traverse",
+      description: `Gates of the Arctic National Park sits entirely above the Arctic Circle in Alaska and contains no roads, no maintained trails, and no facilities whatsoever. The classic traverse follows the North Fork of the Koyukuk River through the Brooks Range passes that Robert Marshall first explored and named in the 1930s. Caribou migrations of tens of thousands of animals can be witnessed during the September traverse.`,
+      location: "Bettles",
+      country: "United States",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Entirely above Arctic Circle", "No trails zero infrastructure", "Brooks Range mountain wilderness", "September caribou migration", "Midnight sun and aurora borealis"],
+      gear: ["Float plane charter", "Packraft", "Satellite communicator", "Tundra-rated sleeping bag", "Grizzly bear spray and fence"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 4000,
+      latitude: 67.78,
+      longitude: -153.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure271.id }, { userId: user2.id, adventureId: adventure271.id }, { userId: user3.id, adventureId: adventure271.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
