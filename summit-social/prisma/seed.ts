@@ -13561,6 +13561,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure333.id }, { userId: user2.id, adventureId: adventure333.id }], skipDuplicates: true });
 
+
+  // Adventure 334
+  const adventure334 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-334" },
+    update: {},
+    create: {
+      id: "seed-adventure-334",
+      title: "Baja California Whale Watching Kayak",
+      description: `Every winter, grey whales migrate 10,000 miles from the Arctic to the warm Baja California lagoons of San Ignacio and Magdalena Bay to give birth and nurse their calves. These are the only places in the world where wild grey whales approach small boats and allow humans to touch them, engaging in what researchers call friendly whale behaviour. Sea kayaking the lagoon shores and sleeping under desert stars while whale songs fill the night is unforgettable.`,
+      location: "Guerrero Negro",
+      country: "Mexico",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Friendly grey whale interactions", "San Ignacio Lagoon UNESCO site", "Mother and calf whale nursing", "Desert shore camp under stars", "Baja peninsula wildlife"],
+      gear: ["Kayak provided", "Warm layers for cool lagoon mornings", "Binoculars for whale spotting", "Camera water-resistant", "Respect wildlife distance protocol"],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 900,
+      latitude: 27.97,
+      longitude: -114.05,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure334.id }, { userId: user2.id, adventureId: adventure334.id }, { userId: user3.id, adventureId: adventure334.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
