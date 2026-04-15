@@ -14641,6 +14641,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure369.id }, { userId: user2.id, adventureId: adventure369.id }, { userId: user3.id, adventureId: adventure369.id }], skipDuplicates: true });
 
+
+  // Adventure 370
+  const adventure370 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-370" },
+    update: {},
+    create: {
+      id: "seed-adventure-370",
+      title: "Kimberley Gorge Walk, Australia",
+      description: `The Kimberley region of Western Australia contains some of the oldest exposed rock on Earth, with billion-year-old Precambrian sandstone forming spectacular gorges that glow orange at dawn. The El Questro Wilderness Park and Purnululu National Park Bungle Bungles with their beehive striped domes are the signature landscapes of this vast and ancient terrain. The Gibb River Road 660-kilometre unsealed track accesses remote gorge swimming holes only reachable by 4WD.`,
+      location: "Kununurra",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Bungle Bungles beehive domes", "Gibb River Road 660km unsealed", "Ancient billion-year Precambrian rock", "Freshwater crocodile gorge swimming", "Boab tree ancient landscape"],
+      gear: ["4WD with recovery gear", "Snakebite kit", "Water 20 litres per day heat", "UHF radio", "GPS satellite navigation"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 2000,
+      latitude: -15.77,
+      longitude: 128.73,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["australia"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["gorge"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure370.id }, { userId: user2.id, adventureId: adventure370.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
