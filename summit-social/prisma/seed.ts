@@ -13951,6 +13951,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure346.id }, { userId: user2.id, adventureId: adventure346.id }], skipDuplicates: true });
 
+
+  // Adventure 347
+  const adventure347 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-347" },
+    update: {},
+    create: {
+      id: "seed-adventure-347",
+      title: "Komodo Island Dragon Trek",
+      description: `Komodo Island in the Indonesian archipelago is home to the world's largest lizard, the Komodo dragon, which reaches 3 metres in length and hunts deer, pigs, and occasionally humans using venom-laced saliva. Trekking the island's three routes with a park ranger allows close encounters with these prehistoric predators in their natural habitat. The surrounding Komodo National Park waters contain some of the most biodiverse coral reefs in the world, with manta ray cleaning stations at Manta Point.`,
+      location: "Labuan Bajo",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Komodo dragon 3m close encounters", "Manta ray cleaning station diving", "Pink Beach coral reef snorkelling", "Dragon nesting area paluarium", "Rinca Island more accessible option"],
+      gear: ["Ranger escort mandatory no solo", "Hiking shoes", "Snorkel set marine park", "Camera zoom lens dragon portraits", "Boat transfer Labuan Bajo"],
+      bestMonths: [4, 5, 6, 7, 8],
+      estimatedCost: 500,
+      latitude: -8.55,
+      longitude: 119.47,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["diving"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure347.id }, { userId: user2.id, adventureId: adventure347.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
