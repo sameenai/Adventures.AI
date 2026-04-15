@@ -10410,6 +10410,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure228.id }, { userId: user2.id, adventureId: adventure228.id }, { userId: user3.id, adventureId: adventure228.id }], skipDuplicates: true });
 
+
+  // Adventure 229
+  const adventure229 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-229" },
+    update: {},
+    create: {
+      id: "seed-adventure-229",
+      title: "Leh to Manali Motorcycle",
+      description: `The Leh-Manali Highway is one of the world's great motorcycle journeys — 428 km across the Himalayan high plateau through five passes including Tanglang La at 5,328 m, the second-highest motorable pass in the world. The road is open only from June to early October; outside this window, snow closes all access. Riding through Tibetan Buddhist landscapes at altitude, camping at Sarchu (4,290 m), and descending into the Kullu valley via the Rohtang Pass is a week of unforgettable riding.`,
+      location: "Leh",
+      country: "India",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
+      highlights: ["Tanglang La pass 5,328m", "Sarchu plateau camping", "Enfield Royal (hire)", "Ladakhi monastery stops", "Manali descent"],
+      gear: ["Motorcycle licence", "Helmet", "Altitude medication", "Warm riding kit", "Basic repair kit"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1800,
+      latitude: 34.16,
+      longitude: 77.58,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure229.id }, { userId: user2.id, adventureId: adventure229.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
