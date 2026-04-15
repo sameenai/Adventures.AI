@@ -15271,6 +15271,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure390.id }, { userId: user2.id, adventureId: adventure390.id }], skipDuplicates: true });
 
+
+  // Adventure 391
+  const adventure391 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-391" },
+    update: {},
+    create: {
+      id: "seed-adventure-391",
+      title: "Isla Espiritu Santo Kayaking, Mexico",
+      description: `Isla Espiritu Santo in the Sea of Cortez, which Jacques Cousteau called the world's aquarium, is a UNESCO biosphere reserve accessible by sea kayak from La Paz. The island's sea lion colony allows snorkelling with California sea lions that approach with playful curiosity, and the underwater landscape mirrors the extraordinary terrestrial scenery of Baja California's desert mountains. Blue-footed boobies, frigate birds, and hammerhead sharks patrol the outer reefs.`,
+      location: "La Paz",
+      country: "Mexico",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Sea lion snorkelling encounters", "Sea of Cortez world aquarium", "Blue-footed booby nesting colony", "Hammerhead shark outer reef", "Desert island beach camping"],
+      gear: ["Sea kayak and dry bag", "Snorkel set", "Reef-safe sunscreen", "Dry suit colder months", "Camp stove minimal leave"],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 700,
+      latitude: 24.1,
+      longitude: -110.35,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["diving"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure391.id }, { userId: user2.id, adventureId: adventure391.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
