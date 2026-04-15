@@ -8011,6 +8011,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure148.id }, { userId: user2.id, adventureId: adventure148.id }], skipDuplicates: true });
 
+
+  // Adventure 149
+  const adventure149 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-149" },
+    update: {},
+    create: {
+      id: "seed-adventure-149",
+      title: "Gorilla Trekking Bwindi",
+      description: `Bwindi Impenetrable Forest in southwest Uganda harbours half the world's remaining mountain gorillas — roughly 460 individuals in around 40 habituated groups. Trekking to spend the permitted one hour with a gorilla family is among the most powerful wildlife encounters on earth. The trek itself through dense rainforest on steep, muddy slopes takes 30 minutes to 6 hours depending on where the gorillas rested. Permits sell out months ahead at USD 700 each.`,
+      location: "Bwindi",
+      country: "Uganda",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?w=1600&q=80",
+      highlights: ["Mountain gorilla face-to-face", "Silverback encounter", "Bwindi rainforest", "Golden monkey trek", "Volcanoes NP option"],
+      gear: ["Waterproof boots", "Gardening gloves for nettles", "Neutral clothing", "Long sleeves", "Camera"],
+      bestMonths: [1, 2, 6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: -1.07,
+      longitude: 29.68,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure149.id }, { userId: user2.id, adventureId: adventure149.id }, { userId: user3.id, adventureId: adventure149.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
