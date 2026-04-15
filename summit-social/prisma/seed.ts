@@ -293,6 +293,7 @@ Acclimatisation is everything. Arrive in Nairobi or Dar es Salaam at least two d
     "thru-hike",
     "trekking",
     "via-ferrata",
+    "diving",
   ];
   const extraTags = await Promise.all(
     extraTagNames.map((name) =>
@@ -12209,6 +12210,366 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     },
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure288.id }, { userId: user2.id, adventureId: adventure288.id }, { userId: user3.id, adventureId: adventure288.id }], skipDuplicates: true });
+
+
+  // Adventure 289
+  const adventure289 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-289" },
+    update: {},
+    create: {
+      id: "seed-adventure-289",
+      title: "Caribbean Diving - Turks and Caicos Wall",
+      description: `The Turks and Caicos Islands sit on the edge of the third-largest coral reef system in the world, with vertical walls dropping thousands of feet into the Columbus Passage. The legendary Wall at Providenciales descends from 10 metres to beyond 600 metres, draped with black coral and patrolled by reef and silky sharks. French Cay and West Caicos offer pristine sites visited by whale sharks between February and April.`,
+      location: "Providenciales",
+      country: "Turks and Caicos Islands",
+      continent: "North America",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Vertical wall diving to 600 metres", "Whale shark encounters Feb-Apr", "Reef shark and silky shark populations", "Third largest coral reef world", "Crystal clear 30m visibility"],
+      gear: ["Advanced open water certification", "Dive computer", "Wide-angle underwater lens", "Wetsuit 3mm", "Mask fins BCD"],
+      bestMonths: [2, 3, 4, 5, 11, 12],
+      estimatedCost: 2200,
+      latitude: 21.77,
+      longitude: -72.26,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure289.id }, { userId: user2.id, adventureId: adventure289.id }], skipDuplicates: true });
+
+
+  // Adventure 290
+  const adventure290 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-290" },
+    update: {},
+    create: {
+      id: "seed-adventure-290",
+      title: "Micronesia Blue Hole Diving - Palau",
+      description: `Palau's dive sites rank consistently among the top five in the world, with the Blue Corner wall dive seeing hundreds of grey reef sharks and Napoleon wrasse gathering in the current. The Jellyfish Lake is a landlocked marine lake where two species of stingless jellyfish have evolved since being isolated from the ocean 12,000 years ago, numbering up to five million individuals. The WWII shipwrecks of Helmet Wreck and Iro Maru add historical depth.`,
+      location: "Koror",
+      country: "Palau",
+      continent: "Oceania",
+      category: Category.DIVING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Blue Corner grey reef shark aggregation", "Jellyfish Lake stingless jellyfish millions", "WWII shipwreck diving", "Manta ray cleaning station", "Rock Island marine protected area"],
+      gear: ["Advanced open water", "Reef hook for current diving", "Dive computer", "Underwater wide-angle lens", "Snorkel for Jellyfish Lake"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 2500,
+      latitude: 7.34,
+      longitude: 134.47,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure290.id }, { userId: user2.id, adventureId: adventure290.id }, { userId: user3.id, adventureId: adventure290.id }], skipDuplicates: true });
+
+
+  // Adventure 291
+  const adventure291 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-291" },
+    update: {},
+    create: {
+      id: "seed-adventure-291",
+      title: "Borneo Headhunter's Trail",
+      description: `The Headhunter's Trail follows an ancient Iban war route from Limbang in Sarawak across the watershed into Sabah through the heart of Borneo's Crocker Range. The route passes through longhouse communities where traditional woodcarving and weaving continue, and the jungle contains proboscis monkeys, pygmy elephants, and wild orangutans. This is one of the few routes in Borneo that still requires guide navigation through unmarked primary forest.`,
+      location: "Limbang",
+      country: "Malaysia",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ancient Iban headhunter war route", "Iban longhouse community stays", "Wild orangutan and proboscis monkey", "Untouched primary Borneo rainforest", "Sabah Sarawak border crossing"],
+      gear: ["Jungle boots with leeches protection", "Parang machete", "Water purification", "Malaria prophylaxis", "Waterproof dry bags"],
+      bestMonths: [3, 4, 5, 6],
+      estimatedCost: 1400,
+      latitude: 4.76,
+      longitude: 115.74,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["jungle"].id }, { id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure291.id }, { userId: user2.id, adventureId: adventure291.id }], skipDuplicates: true });
+
+
+  // Adventure 292
+  const adventure292 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-292" },
+    update: {},
+    create: {
+      id: "seed-adventure-292",
+      title: "Greenland Ice Cap Ski Traverse",
+      description: `Crossing the Greenland Ice Cap from Kangerlussuaq to Sisimiut is one of the world's great polar ski journeys, covering 550 kilometres on the world's second-largest ice sheet at altitudes up to 2,500 metres. The route follows the Nansen historic track from 1888 on skis with pulks loaded with three weeks of supplies. White-out conditions, katabatic winds, and polar cold make this a serious polar expedition.`,
+      location: "Kangerlussuaq",
+      country: "Greenland",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 24,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Second largest ice sheet on Earth", "550km unsupported traverse", "Nansen 1888 historic route", "Polar white-out navigation", "Sisimiut coastal Greenland finish"],
+      gear: ["Pulk sled 40kg supplies", "Polar tent double-wall", "Cross-country skis with skins", "Satellite communicator", "Polar expedition clothing system"],
+      bestMonths: [4, 5],
+      estimatedCost: 8000,
+      latitude: 66.99,
+      longitude: -50.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["arctic"].id }, { id: allTags["skiing"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure292.id }, { userId: user2.id, adventureId: adventure292.id }, { userId: user3.id, adventureId: adventure292.id }], skipDuplicates: true });
+
+
+  // Adventure 293
+  const adventure293 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-293" },
+    update: {},
+    create: {
+      id: "seed-adventure-293",
+      title: "Sri Lanka Coastal Cycle",
+      description: `Cycling the Sri Lankan coast from Colombo to Jaffna via the Cultural Triangle passes ancient temple complexes, colonial Dutch forts, and spice plantations in a country that packs extraordinary cultural density into a small island. The central highlands section through Kandy and Ella requires climbing tea plantation roads above 2,000 metres. Sri Lanka's post-war renewal makes this one of Asia's most rewarding cycle touring destinations.`,
+      location: "Colombo",
+      country: "Sri Lanka",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Sigiriya rock fortress UNESCO site", "Ella highland tea plantation roads", "Ancient Anuradhapura kingdom ruins", "Blue whale watching off Mirissa", "Jaffna Tamil culture peninsula"],
+      gear: ["Touring bicycle with racks", "Buddhist temple entrance sarong", "Rain gear monsoon season", "Cycling computer", "Repair kit"],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 900,
+      latitude: 6.93,
+      longitude: 79.85,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["coastal"].id }, { id: allTags["island"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure293.id }, { userId: user2.id, adventureId: adventure293.id }], skipDuplicates: true });
+
+
+  // Adventure 294
+  const adventure294 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-294" },
+    update: {},
+    create: {
+      id: "seed-adventure-294",
+      title: "Jordan Desert Hiking - Wadi Rum Circuit",
+      description: `The Wadi Rum desert in southern Jordan is a vast sandstone and granite landscape of towering red pillars and sweeping dunescapes that Lawrence of Arabia called the most magnificent place on Earth. Multi-day trekking circuits through Wadi Rum traverse ancient Nabataean camel routes between Bedouin camps where tea is always offered beneath the stars. The Jebel Rum massif and Burdah Rock Bridge are iconic objectives on the longer routes.`,
+      location: "Wadi Rum Village",
+      country: "Jordan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Burdah Rock Bridge scramble 80m high", "Bedouin camp stargazing", "Lawrence of Arabia film sites", "Nabataean petroglyphs rock art", "Jebel Rum highest summit 1754m"],
+      gear: ["Desert hiking boots", "Sun protection system", "Sleeping bag for cold nights", "Head torch", "Sahara scarf"],
+      bestMonths: [10, 11, 3, 4],
+      estimatedCost: 500,
+      latitude: 29.58,
+      longitude: 35.42,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["desert"].id }, { id: allTags["camping"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure294.id }, { userId: user2.id, adventureId: adventure294.id }, { userId: user3.id, adventureId: adventure294.id }], skipDuplicates: true });
+
+
+  // Adventure 295
+  const adventure295 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-295" },
+    update: {},
+    create: {
+      id: "seed-adventure-295",
+      title: "Mongolia Eagle Hunters Journey",
+      description: `The Kazakh eagle hunters of western Mongolia's Bayan-Ulgii province have practised berkutchi eagle hunting for over 4,000 years, training golden eagles to hunt foxes and rabbits on horseback across the Altai steppe. Staying with a hunting family during the autumn migration and witnessing the training of an immature eagle is one of the most extraordinary cultural encounters available anywhere. The annual Golden Eagle Festival in Ulgii brings all hunters together in October.`,
+      location: "Ulgii",
+      country: "Mongolia",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Eagle hunting with Kazakh berkutchi masters", "Golden Eagle Festival October Ulgii", "Altai Mountain steppe horseback", "Kazakh ger hospitality", "Eagle training ceremony observation"],
+      gear: ["Warm winter layers October", "Camera telephoto lens", "Horseback riding experience", "Mongolian translation app", "Gifts for hosting families"],
+      bestMonths: [9, 10],
+      estimatedCost: 1200,
+      latitude: 48.97,
+      longitude: 89.97,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["horse-trekking"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure295.id }, { userId: user2.id, adventureId: adventure295.id }], skipDuplicates: true });
+
+
+  // Adventure 296
+  const adventure296 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-296" },
+    update: {},
+    create: {
+      id: "seed-adventure-296",
+      title: "Himalayan Bike Descent - Mustang",
+      description: `The Upper Mustang restricted area in Nepal preserves the last remnant of the ancient Lo Kingdom, with its Tibetan-style cave cities, medieval walled town of Lo Manthang, and completely arid landscape unlike anywhere else in Nepal. Descending by mountain bike from the high desert plateau at 3,800 metres through the Kali Gandaki gorge, the world's deepest valley, is a unique adventure combining restricted zone access with technical riding.`,
+      location: "Jomsom",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Lo Manthang medieval walled city", "Restricted area permit zone", "World's deepest Kali Gandaki gorge", "Tibetan cave city ruins 3000 years old", "Annapurna and Dhaulagiri views"],
+      gear: ["Full suspension mountain bike", "Upper Mustang permit 500 USD", "Warm desert layers", "Bike tool kit", "Satellite emergency device"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 1500,
+      latitude: 29.18,
+      longitude: 83.97,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure296.id }, { userId: user2.id, adventureId: adventure296.id }], skipDuplicates: true });
+
+
+  // Adventure 297
+  const adventure297 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-297" },
+    update: {},
+    create: {
+      id: "seed-adventure-297",
+      title: "Dogsledding - Svalbard Wilderness",
+      description: `Svalbard at 78 degrees north offers authentic Arctic dogsledding through a wilderness landscape of glaciers, frozen fjords, and polar bear habitat. Spring expeditions from Longyearbyen cover up to 30 kilometres per day through the high Arctic light, with overnight stays in heated wilderness tents. Polar bears roam freely here and rifle-carrying guides are mandatory outside settlements.`,
+      location: "Longyearbyen",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Arctic dogsledding 78 degrees north", "Polar bear habitat patrol", "Spring Arctic light photography", "Glacier and frozen fjord traverse", "Polar night and aurora winter option"],
+      gear: ["Arctic clothing provided", "Down sleeping bag minus 40", "Camera cold-weather protection", "Passport EU rules apply", "No experience required"],
+      bestMonths: [3, 4],
+      estimatedCost: 2800,
+      latitude: 78.22,
+      longitude: 15.65,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["arctic"].id }, { id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure297.id }, { userId: user2.id, adventureId: adventure297.id }, { userId: user3.id, adventureId: adventure297.id }], skipDuplicates: true });
+
+
+  // Adventure 298
+  const adventure298 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-298" },
+    update: {},
+    create: {
+      id: "seed-adventure-298",
+      title: "Cook Islands Sea Kayaking",
+      description: `The Cook Islands in the South Pacific offer some of the world's finest sea kayaking in the protected lagoons of Aitutaki and Rarotonga, with visibility of 30 metres to the coral below and virtually no boat traffic. The uninhabited motu islets of Aitutaki lagoon can only be reached by paddle, and camping is permitted on some, allowing private tropical island experiences. The outer islands of Mangaia and Mitiaro offer rugged coastal exploration on traditional coral limestone makatea terrain.`,
+      location: "Rarotonga",
+      country: "Cook Islands",
+      continent: "Oceania",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Aitutaki lagoon 30m visibility paddling", "Private motu island camping", "Tropical coral garden snorkelling", "Polynesian navigation tradition", "One Foot Island uninhabited paradise"],
+      gear: ["Sea kayak and paddle", "Snorkel set", "Reef shoes", "Dry bag", "Sunscreen reef-safe"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 2000,
+      latitude: -21.23,
+      longitude: -159.78,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["diving"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure298.id }, { userId: user2.id, adventureId: adventure298.id }], skipDuplicates: true });
+
+
+  // Adventure 299
+  const adventure299 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-299" },
+    update: {},
+    create: {
+      id: "seed-adventure-299",
+      title: "Scottish Highland High Route",
+      description: `The Scottish Highland High Route follows the watershed ridges and high passes of the Scottish Highlands from Aviemore to Torridon in a 160-kilometre route entirely above the valleys. The Cairngorm plateau, Grey Corries, Kintail Five Sisters, and Torridon quartzite peaks form the backbone of this serious off-trail mountaineering traverse. Scotland's Munros, hills above 3,000 feet, provide a lifetime of mountain challenges for peak baggers.`,
+      location: "Aviemore",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Cairngorm plateau Britain highest plateau", "Kintail Five Sisters ridge traverse", "Torridon 750m quartzite faces", "Off-trail navigation required", "Ben Nevis via CMD Arete option"],
+      gear: ["Navigation compass and OS maps", "Winter ice axe and crampons", "Mountain tent windproof", "Gaiter system for heather", "Emergency bivouac shelter"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 57.19,
+      longitude: -3.83,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["scotland"].id }, { id: allTags["mountains"].id }, { id: allTags["scrambling"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure299.id }, { userId: user2.id, adventureId: adventure299.id }], skipDuplicates: true });
+
+
+  // Adventure 300
+  const adventure300 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-300" },
+    update: {},
+    create: {
+      id: "seed-adventure-300",
+      title: "Peru Amazon Headwaters Expedition",
+      description: `The Madre de Dios drainage in southeastern Peru contains the most biodiverse region on Earth, with Manu National Park UNESCO Biosphere Reserve recording more bird species than the entire continental United States. Canoe journeys from Atalaya down remote tributaries pass through territory where some indigenous communities maintain voluntary isolation. The transition from Andean cloud forest at 3,500 metres to Amazon lowland at 300 metres within a single journey is biologically staggering.`,
+      location: "Cusco",
+      country: "Peru",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Manu National Park highest biodiversity", "Harpy eagle jaguar sightings", "Cloud forest to Amazon descent", "Indigenous community visits", "Oxbow lake caiman and giant otters"],
+      gear: ["Malaria prophylaxis essential", "Waterproof dry bags", "Rubber jungle boots", "Binoculars wildlife spotting", "Yellow fever vaccination"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2000,
+      latitude: -13.52,
+      longitude: -71.98,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure300.id }, { userId: user2.id, adventureId: adventure300.id }, { userId: user3.id, adventureId: adventure300.id }], skipDuplicates: true });
 
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
