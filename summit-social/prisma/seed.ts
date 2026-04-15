@@ -14131,6 +14131,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure352.id }, { userId: user2.id, adventureId: adventure352.id }], skipDuplicates: true });
 
+
+  // Adventure 353
+  const adventure353 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-353" },
+    update: {},
+    create: {
+      id: "seed-adventure-353",
+      title: "Namibia Desert Elephant Safari",
+      description: `The desert-adapted elephants of Namibia's Kunene region in the Skeleton Coast hinterland have evolved uniquely over centuries to survive in an environment that receives less than 50 millimetres of annual rainfall. These elephants are significantly different in behaviour and physiology from African savanna elephants, with larger feet and flatter backs that allow them to cover 70 kilometres daily searching for water. Finding them on foot with a Himba tracker is one of Africa's most exclusive safari experiences.`,
+      location: "Palmwag",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Desert-adapted unique elephant population", "Himba tracker cultural encounter", "Skeleton Coast remote desert", "Black rhino night tracking", "Star-filled Namibian desert skies"],
+      gear: ["4WD safari vehicle", "Desert khaki clothing", "Binoculars 8x42", "Camera telephoto wildlife", "Satellite phone emergency"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: -19.9,
+      longitude: 13.96,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure353.id }, { userId: user2.id, adventureId: adventure353.id }, { userId: user3.id, adventureId: adventure353.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
