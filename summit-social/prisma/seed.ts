@@ -13861,6 +13861,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure343.id }, { userId: user2.id, adventureId: adventure343.id }], skipDuplicates: true });
 
+
+  // Adventure 344
+  const adventure344 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-344" },
+    update: {},
+    create: {
+      id: "seed-adventure-344",
+      title: "Snowdonia Mountain Running",
+      description: `Snowdonia in North Wales contains Britain's finest mountain running terrain outside Scotland, with the classic Snowdon Horseshoe offering 8 kilometres of knife-edge ridge running above 900 metres in Crib Goch, Snowdon summit, and Lliwedd. The Welsh 3000s challenge covers all 15 Welsh peaks above 3,000 feet in a single day run covering 48 kilometres. Descents on grass-covered slopes and cwm-bottom tarns define this uniquely Welsh mountain experience.`,
+      location: "Llanberis",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Crib Goch knife-edge arete", "Snowdon summit 1085m highest Wales", "Welsh 3000s 15 peaks challenge", "Cwm Idwal glacial cirque", "Y Glyderau traverse scramble"],
+      gear: ["Trail running shoes", "Navigation OS map 1:25000", "Emergency bivouac", "Rain jacket always", "Head torch dawn starts"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 300,
+      latitude: 53.12,
+      longitude: -4.07,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountains"].id }, { id: allTags["scrambling"].id }, { id: allTags["multi-sport"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure344.id }, { userId: user2.id, adventureId: adventure344.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
