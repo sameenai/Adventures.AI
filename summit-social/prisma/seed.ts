@@ -10170,6 +10170,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure220.id }, { userId: user2.id, adventureId: adventure220.id }], skipDuplicates: true });
 
+
+  // Adventure 221
+  const adventure221 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-221" },
+    update: {},
+    create: {
+      id: "seed-adventure-221",
+      title: "Senja Island Norway Hiking",
+      description: `Senja, Norway's second-largest island, combines the Lofoten Islands' dramatic scenery with almost none of the crowds — jagged peaks dropping to fjords on the west and gentle agricultural slopes on the east, Arctic terns diving over fishing villages, and the midnight sun painting everything gold from May to July. The Segla summit hike (638 m) is the iconic route; the Husfjellet ridge walk is the quieter alternative. Eagles and orca in Øksfjorden complete the picture.`,
+      location: "Skaland",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1600&q=80",
+      highlights: ["Segla summit views", "Midnight sun fjord light", "Arctic tern diving", "Orca spotting (winter)", "Empty trails"],
+      gear: ["Hiking boots", "Waterproof jacket", "Warm layers", "Camera telephoto", "Midges protection"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2000,
+      latitude: 69.23,
+      longitude: 17.52,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["island"].id }, { id: allTags["europe"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure221.id }, { userId: user2.id, adventureId: adventure221.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
