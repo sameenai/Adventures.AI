@@ -9600,6 +9600,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure201.id }, { userId: user2.id, adventureId: adventure201.id }, { userId: user3.id, adventureId: adventure201.id }], skipDuplicates: true });
 
+
+  // Adventure 202
+  const adventure202 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-202" },
+    update: {},
+    create: {
+      id: "seed-adventure-202",
+      title: "Bolivia Altiplano Salt Flat Trek",
+      description: `Crossing the Salar de Uyuni — 10,582 sq km of perfectly flat salt at 3,656 m — on foot over three days is one of the most disorientating experiences in travel: no horizon, no shadow, no depth, just white. The edge effects of the salt flat's geometric polygon cracks, the Isla Incahuasi cactus island in the middle, and the mirror effect after light rain transform the landscape repeatedly. Nights camping on the salt under the Milky Way at altitude are unforgettable.`,
+      location: "Uyuni",
+      country: "Bolivia",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Salar mirror effect after rain", "Isla Incahuasi cactus", "Salt flat camping at night", "Coloured lagoons Eduardo Avaroa", "Flamingo breeding lakes"],
+      gear: ["Sun protection (reflected UV severe)", "Sunglasses polarised", "Altitude medication", "Wind layers", "Water purification"],
+      bestMonths: [1, 2, 3, 11, 12],
+      estimatedCost: 1200,
+      latitude: -20.46,
+      longitude: -66.83,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["desert"].id }, { id: allTags["high-altitude"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure202.id }, { userId: user2.id, adventureId: adventure202.id }, { userId: user3.id, adventureId: adventure202.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
