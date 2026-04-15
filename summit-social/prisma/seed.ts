@@ -8910,6 +8910,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure178.id }, { userId: user2.id, adventureId: adventure178.id }], skipDuplicates: true });
 
+
+  // Adventure 179
+  const adventure179 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-179" },
+    update: {},
+    create: {
+      id: "seed-adventure-179",
+      title: "Bhutan Snowman Trek",
+      description: `The Snowman Trek is considered one of the world's hardest treks — 30 days and 30 passes above 4,500 m crossing the remote north of Bhutan from Laya to Lunana and out to Bumthang. With 11 passes above 5,000 m, constant risk of snowstorm, and no rescue infrastructure, this is genuinely expedition-grade. Less than 500 people complete it per year. Bhutan's tourism levy (USD 250/day minimum) applies; book a licensed operator.`,
+      location: "Paro",
+      country: "Bhutan",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Gangkhar Puensum view (unclimbed)", "Lunana remote villages", "11 passes above 5,000m", "Yak herder culture", "Complete Bhutanese wilderness"],
+      gear: ["Expedition sleeping bag", "Down suit", "Trekking poles", "High-altitude boots", "Altitude medication"],
+      bestMonths: [9, 10],
+      estimatedCost: 12000,
+      latitude: 27.43,
+      longitude: 89.88,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["8000m"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure179.id }, { userId: user2.id, adventureId: adventure179.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
