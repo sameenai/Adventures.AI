@@ -13261,6 +13261,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure323.id }, { userId: user2.id, adventureId: adventure323.id }, { userId: user3.id, adventureId: adventure323.id }], skipDuplicates: true });
 
+
+  // Adventure 324
+  const adventure324 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-324" },
+    update: {},
+    create: {
+      id: "seed-adventure-324",
+      title: "Ladakh Zanskar Valley Trek",
+      description: `The Zanskar Valley trek from Padum to Leh via the Zanskar Gorge is one of the most challenging and rewarding routes in the Indian Himalaya, following a river gorge that is impassable for most of the year. The 170-kilometre route over the Singi La pass at 5,059 metres and through the dramatic narrow canyon descends through a landscape unchanged for centuries. The remote Stongde and Karsha monasteries cling to cliff faces above the valley.`,
+      location: "Padum",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Singi La pass 5059 metres", "Zanskar Gorge narrow canyon", "Stongde Monastery cliff face", "Remote valley cut off by snow", "Zanskar River frozen crossing winter"],
+      gear: ["High altitude sleeping bag", "Trekking poles", "Altitude medication", "Guide required remote sections", "Water purification"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 900,
+      latitude: 33.46,
+      longitude: 77,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure324.id }, { userId: user2.id, adventureId: adventure324.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
