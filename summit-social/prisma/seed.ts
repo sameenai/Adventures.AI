@@ -8101,6 +8101,276 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure151.id }, { userId: user2.id, adventureId: adventure151.id }, { userId: user3.id, adventureId: adventure151.id }], skipDuplicates: true });
 
+
+  // Adventure 152
+  const adventure152 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-152" },
+    update: {},
+    create: {
+      id: "seed-adventure-152",
+      title: "Pipeline North Shore Surfing",
+      description: `The Banzai Pipeline on Oahu's North Shore breaks over a shallow reef to produce the world's most photogenic — and most dangerous — surf break. The hollow left-hand barrel reaches 6–8 m in peak season and has claimed more lives than any other surfbreak. This is for expert surfers only; beginners can watch from the beach as the world's best compete in the Eddie Aikau and Pipe Masters events between November and February.`,
+      location: "Haleiwa",
+      country: "United States",
+      continent: "North America",
+      category: Category.SURFING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1455729552865-3658a5d39692?w=1600&q=80",
+      highlights: ["Banzai Pipeline barrel", "Eddie Aikau contest", "Sunset Beach", "North Shore shrimp trucks", "Waimea Bay jump"],
+      gear: ["Shortboard 6ft2 minimum", "Reef boots", "Helmet (optional but wise)", "Leash", "Sunscreen SPF50"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 3000,
+      latitude: 21.66,
+      longitude: -158.05,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["island"].id }, { id: allTags["photography"].id }, { id: allTags["coastal"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure152.id }, { userId: user2.id, adventureId: adventure152.id }, { userId: user3.id, adventureId: adventure152.id }], skipDuplicates: true });
+
+
+  // Adventure 153
+  const adventure153 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-153" },
+    update: {},
+    create: {
+      id: "seed-adventure-153",
+      title: "Mentawai Islands Surf Charter",
+      description: `The Mentawai Islands off the west coast of Sumatra host some of the world's most perfect surf breaks — HT's, Lances Right, Macaronis, and Rifles deliver long, hollow waves that break with mechanical consistency over shallow tropical reef. A 7-day liveaboard puts 6–8 breaks within easy reach, moving with the swell and anchoring away from other boats. This is intermediate to advanced surfing in a genuinely remote tropical island setting.`,
+      location: "Padang",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.SURFING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1600&q=80",
+      highlights: ["Macaronis perfection", "HT's barrels", "Lances Right length", "Island village visits", "Tropical reef fish"],
+      gear: ["Shortboard and mid-length", "Reef booties", "Wetsuit top (optional)", "Sun protection", "Reef-safe sunscreen"],
+      bestMonths: [4, 5, 6, 7, 8],
+      estimatedCost: 3800,
+      latitude: -2.06,
+      longitude: 99.09,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure153.id }, { userId: user2.id, adventureId: adventure153.id }], skipDuplicates: true });
+
+
+  // Adventure 154
+  const adventure154 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-154" },
+    update: {},
+    create: {
+      id: "seed-adventure-154",
+      title: "Pacific Coast Highway Road Trip",
+      description: `Highway 1 from Vancouver to the Mexican border traces the Pacific coastline for 2,400 km — through Olympic National Park and Oregon's crater-lake forests, past Big Sur's cliff-hugging turns and sea-lion rocks, into the Malibu surf culture and San Diego's perfect climate. Campgrounds book out for summer; the shoulder seasons of April–May and September–October offer emptier roads and dramatic light.`,
+      location: "Vancouver",
+      country: "United States",
+      continent: "North America",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EASY,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
+      highlights: ["Big Sur coastline", "Olympic National Park", "Crater Lake", "Point Reyes seals", "San Francisco Golden Gate"],
+      gear: ["Reliable vehicle", "Camping kit", "Cooler", "Good speakers", "US national parks pass"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 4000,
+      latitude: 49.25,
+      longitude: -123.12,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["coastal"].id }, { id: allTags["camping"].id }, { id: allTags["photography"].id }, { id: allTags["solo-travel"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure154.id }, { userId: user2.id, adventureId: adventure154.id }], skipDuplicates: true });
+
+
+  // Adventure 155
+  const adventure155 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-155" },
+    update: {},
+    create: {
+      id: "seed-adventure-155",
+      title: "Iceland Ring Road",
+      description: `Iceland's Route 1 circumnavigates the entire island in 1,332 km, passing glaciers calving into lagoons, geysers erupting on schedule, black sand beaches with seal colonies, and the northern lights when darkness finally returns in September. The Westfjords detour adds the most dramatic fjord scenery in Europe and the remote Hornstrandir nature reserve. A campervan in July means 24-hour daylight; September brings aurora and autumn colour to the birch woods.`,
+      location: "Reykjavik",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EASY,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1548449112-96a38a643324?w=1600&q=80",
+      highlights: ["Jökulsárlón glacier lagoon", "Geysir eruptions", "Black sand beach seals", "Northern lights", "Westfjords detour"],
+      gear: ["Rental 4WD or campervan", "Warm layers", "Rain gear", "Aurora alarm app", "Good coffee thermos"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: 64.13,
+      longitude: -21.83,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["photography"].id }, { id: allTags["volcanic"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["solo-travel"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure155.id }, { userId: user2.id, adventureId: adventure155.id }, { userId: user3.id, adventureId: adventure155.id }], skipDuplicates: true });
+
+
+  // Adventure 156
+  const adventure156 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-156" },
+    update: {},
+    create: {
+      id: "seed-adventure-156",
+      title: "Pamir Highway",
+      description: `The Pamir Highway (M41) from Osh in Kyrgyzstan to Dushanbe in Tajikistan is the second-highest highway in the world, crossing the Pamir plateau at elevations consistently above 4,000 m through some of the emptiest landscape in Asia. Yak herders, Soviet-era infrastructure, and the deep blue of Karakul Lake at 3,900 m alongside the Chinese border provide the backdrop for what cyclists and motorcyclists rate among the world's greatest road adventures.`,
+      location: "Osh",
+      country: "Kyrgyzstan",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
+      highlights: ["Karakul Lake", "Wakhan Corridor", "Murgab Tajik market", "Yurt homestays", "Afghan mountains across the Panj"],
+      gear: ["4WD or motorcycle", "Fuel cans (sparse filling stations)", "Cold weather kit", "US dollars cash", "Altitude medication"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2800,
+      latitude: 40.53,
+      longitude: 72.79,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure156.id }, { userId: user2.id, adventureId: adventure156.id }], skipDuplicates: true });
+
+
+  // Adventure 157
+  const adventure157 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-157" },
+    update: {},
+    create: {
+      id: "seed-adventure-157",
+      title: "Silk Road Journey",
+      description: `The ancient Silk Road from Xi'an to Istanbul traces 7,000 km of trade routes through China's Gobi Desert, Central Asian steppes, Persian caravanserais, and Anatolian highlands. By a combination of train, bus, and shared taxi, the journey moves through Dunhuang's Mogao Caves, Uzbekistan's Registan Square, Turkmenistan's Gates of Hell, and Iranian bazaars where saffron and pistachios overflow in technicolour piles.`,
+      location: "Xi'an",
+      country: "China",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 45,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: ["Mogao Caves Dunhuang", "Registan Square Samarkand", "Gates of Hell Darvaza", "Iranian bazaars", "Istanbul Grand Bazaar"],
+      gear: ["Modest clothing", "Visa documentation", "Offline maps", "Stomach medication", "USD cash"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 5000,
+      latitude: 34.34,
+      longitude: 108.94,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }, { id: allTags["solo-travel"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure157.id }, { userId: user2.id, adventureId: adventure157.id }], skipDuplicates: true });
+
+
+  // Adventure 158
+  const adventure158 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-158" },
+    update: {},
+    create: {
+      id: "seed-adventure-158",
+      title: "Japan Pilgrimage Shikoku 88",
+      description: `The Shikoku Henro is an 1,200 km walking pilgrimage circling the island of Shikoku, visiting 88 Buddhist temples associated with the monk Kūkai (Kōbō Daishi). Pilgrims walk in white robes carrying a wooden staff, believed to embody the spirit of Kōbō Daishi himself. The route takes 30–60 days depending on pace and includes mountain sections, coastal paths, and city temple visits. The culture of osetai — gifts of food and money given to pilgrims — is extraordinary.`,
+      location: "Tokushima",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 45,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: ["88 temple circuit", "White pilgrim robe", "Osetai gift culture", "Cape Muroto", "Mount Tsurugi climb"],
+      gear: ["Walking staff", "White pilgrim robe", "Temple book for stamps", "Minimalist pack", "Blister care"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 3500,
+      latitude: 34.07,
+      longitude: 134.56,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["trekking"].id }, { id: allTags["solo-travel"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure158.id }, { userId: user2.id, adventureId: adventure158.id }], skipDuplicates: true });
+
+
+  // Adventure 159
+  const adventure159 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-159" },
+    update: {},
+    create: {
+      id: "seed-adventure-159",
+      title: "Trans-Siberian Railway",
+      description: `The Trans-Siberian Railway is the longest railway on earth — 9,289 km from Moscow to Vladivostok, crossing 8 time zones, the Ural Mountains, the vast Western Siberian plain, Lake Baikal (the world's deepest lake), and the Russian Far East over 7 days in one continuous run or 3 weeks with stops. The Mongolian branch via Ulaanbaatar and Beijing adds the Gobi Desert crossing and the most dramatic scenery. Bring books, vodka, and patience.`,
+      location: "Moscow",
+      country: "Russia",
+      continent: "Europe",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1494522855154-9297ac14b55f?w=1600&q=80",
+      highlights: ["Lake Baikal ice walk (winter)", "Ulaanbaatar Mongolia", "Gobi Desert crossing", "Vladivostok Pacific finish", "Siberian taiga forests"],
+      gear: ["Sleeping bag liner", "Train slippers", "Instant noodles (serious)", "USD and local currencies", "Books — many"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 4000,
+      latitude: 55.75,
+      longitude: 37.62,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["solo-travel"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure159.id }, { userId: user2.id, adventureId: adventure159.id }], skipDuplicates: true });
+
+
+  // Adventure 160
+  const adventure160 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-160" },
+    update: {},
+    create: {
+      id: "seed-adventure-160",
+      title: "Amazon River Journey",
+      description: `Travelling the Amazon from Iquitos in Peru to Belém on the Atlantic coast of Brazil — 3,700 km on slow cargo boats and jungle lodges — is among the most immersive journeys on earth. Pink river dolphins surface alongside the boat, sloths hang from cecropia trees at the waterline, caimans glow in headtorch light, and the scale of the forest — 5.5 million sq km — reduces everything else to perspective. The slow boat from Leticia to Manaus takes 5–7 days; hammock space is cheap.`,
+      location: "Iquitos",
+      country: "Peru",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Pink river dolphins", "Piranha fishing", "Jungle lodge nights", "Leticia-Manaus hammock boat", "Belém do Pará"],
+      gear: ["Hammock", "Mosquito net", "Malaria prophylaxis", "Water purification", "Waterproof bags"],
+      bestMonths: [6, 7, 8, 9, 10, 11],
+      estimatedCost: 4500,
+      latitude: -3.74,
+      longitude: -73.25,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure160.id }, { userId: user2.id, adventureId: adventure160.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
