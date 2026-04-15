@@ -13351,6 +13351,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure326.id }, { userId: user2.id, adventureId: adventure326.id }], skipDuplicates: true });
 
+
+  // Adventure 327
+  const adventure327 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-327" },
+    update: {},
+    create: {
+      id: "seed-adventure-327",
+      title: "Halong Bay Kayaking, Vietnam",
+      description: `Kayaking through Halong Bay's 1,969 limestone karst islands in a single or double sea kayak allows access to hidden lagoons, caves, and floating fishing villages inaccessible to large tourist boats. The interior lagoons of Hang Toi dark cave and the floating pearl farming communities are best reached at dawn before other vessels arrive. A three-day live-aboard kayaking trip combining paddling, swimming, and squid fishing at night is the definitive experience.`,
+      location: "Ha Long City",
+      country: "Vietnam",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["1969 limestone karst islands", "Hidden lagoon cave access", "Floating fishing village visits", "Squid fishing at night", "UNESCO World Heritage kayaking"],
+      gear: ["Sea kayak provided", "Dry bag", "Waterproof camera", "Quick-dry clothing", "Sandals reef shoes"],
+      bestMonths: [10, 11, 12, 3, 4],
+      estimatedCost: 350,
+      latitude: 20.91,
+      longitude: 107.18,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["coastal"].id }, { id: allTags["island"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure327.id }, { userId: user2.id, adventureId: adventure327.id }, { userId: user3.id, adventureId: adventure327.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
