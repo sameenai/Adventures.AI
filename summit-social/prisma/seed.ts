@@ -14491,6 +14491,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure364.id }, { userId: user2.id, adventureId: adventure364.id }], skipDuplicates: true });
 
+
+  // Adventure 365
+  const adventure365 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-365" },
+    update: {},
+    create: {
+      id: "seed-adventure-365",
+      title: "Dolomiti Superski Touring",
+      description: `The Dolomiti Superski area in northeastern Italy connects 12 ski areas and 1,200 kilometres of marked pistes through the extraordinary orange rock landscapes of the UNESCO Dolomites. The Sella Ronda circuit tours the Sella massif over 40 kilometres on marked pistes achievable in a day by intermediate skiers with 16,000 metres of total ascent via lifts. The Marmolada glacier offers the only glacier skiing in the Dolomites and the highest point at 3,342 metres.`,
+      location: "Corvara",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Sella Ronda 40km circuit one day", "1200km pisted ski area", "Marmolada glacier skiing 3342m", "Dolomites UNESCO backdrop", "Alta Badia Ladin culture cuisine"],
+      gear: ["Ski or snowboard", "Dolomiti Superski pass", "Mountain goggles", "Helmet", "Resort accommodation"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 2500,
+      latitude: 46.56,
+      longitude: 11.87,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure365.id }, { userId: user2.id, adventureId: adventure365.id }, { userId: user3.id, adventureId: adventure365.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
