@@ -7441,6 +7441,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure129.id }, { userId: user2.id, adventureId: adventure129.id }, { userId: user3.id, adventureId: adventure129.id }], skipDuplicates: true });
 
+
+  // Adventure 130
+  const adventure130 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-130" },
+    update: {},
+    create: {
+      id: "seed-adventure-130",
+      title: "John Muir Trail",
+      description: `The John Muir Trail runs 340 km from Yosemite Valley to the summit of Mount Whitney, the highest point in the contiguous United States at 4,421 m. The route passes through the High Sierra — granite domes, sapphire lakes, and meadows carpeted with wildflowers — crossing 10 passes above 3,350 m. Bear canisters are required. Permits are a lottery nightmare; apply in February for summer travel.`,
+      location: "Yosemite Valley",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Half Dome permit", "Evolution Basin", "Muir Pass", "Whitney summit", "Guitar Lake campsite"],
+      gear: ["Bear canister", "Water filter", "Microspikes (early season)", "Trekking poles", "Lightweight tent"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1500,
+      latitude: 37.74,
+      longitude: -119.57,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["thru-hike"].id }, { id: allTags["high-altitude"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure130.id }, { userId: user2.id, adventureId: adventure130.id }, { userId: user3.id, adventureId: adventure130.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
