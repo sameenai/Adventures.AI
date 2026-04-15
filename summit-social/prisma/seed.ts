@@ -15601,6 +15601,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure401.id }, { userId: user2.id, adventureId: adventure401.id }, { userId: user3.id, adventureId: adventure401.id }], skipDuplicates: true });
 
+
+  // Adventure 402
+  const adventure402 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-402" },
+    update: {},
+    create: {
+      id: "seed-adventure-402",
+      title: "Okavango Delta Mokoro Safari",
+      description: `The Okavango Delta in Botswana is the world's largest inland delta, a vast wetland oasis in the heart of the Kalahari Desert where flood waters from Angola spread across 15,000 square kilometres. A traditional mokoro dugout canoe safari through papyrus channels offers silent close approaches to elephants drinking, hippos surfacing, and fish eagles swooping. The dry season concentrates wildlife on permanent islands accessible only from the water.`,
+      location: "Maun",
+      country: "Botswana",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mokoro dugout canoe papyrus channels", "Elephant approach metres from canoe", "Wild dog and lion island camps", "African fish eagle calls at dawn", "Chief Island exclusive concession"],
+      gear: ["Neutral colours safari", "Binoculars 8x42", "Camera telephoto", "Insect repellent", "Malaria prophylaxis"],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 3500,
+      latitude: -19.98,
+      longitude: 23.41,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["kayaking"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure402.id }, { userId: user2.id, adventureId: adventure402.id }, { userId: user3.id, adventureId: adventure402.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
