@@ -11820,6 +11820,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure275.id }, { userId: user2.id, adventureId: adventure275.id }], skipDuplicates: true });
 
+
+  // Adventure 276
+  const adventure276 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-276" },
+    update: {},
+    create: {
+      id: "seed-adventure-276",
+      title: "Mont Blanc Ultra-Trail Preparation Circuit",
+      description: `The Tour du Mont Blanc is the iconic 170-kilometre circuit around western Europe's highest massif, passing through France, Italy, and Switzerland in a continuous high-mountain loop. The route crosses eleven major passes and gains over 10,000 metres of total elevation, passing through Chamonix, Courmayeur, and Champex. The annual UTMB race follows this route, but the classic 10-day walking version allows full immersion in alpine culture.`,
+      location: "Chamonix",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Three-country circuit France Italy Switzerland", "Ten high mountain passes", "Chamonix valley glacier views", "Refuge hut-to-hut accommodation", "Mont Blanc 4808m summit views"],
+      gear: ["Trail running poles", "Mountain refuges booking", "Gaiters", "Rain jacket", "Hut sleeping sheet"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1200,
+      latitude: 45.92,
+      longitude: 6.87,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure276.id }, { userId: user2.id, adventureId: adventure276.id }, { userId: user3.id, adventureId: adventure276.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
