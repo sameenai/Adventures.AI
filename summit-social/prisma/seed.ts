@@ -12120,6 +12120,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure285.id }, { userId: user2.id, adventureId: adventure285.id }, { userId: user3.id, adventureId: adventure285.id }], skipDuplicates: true });
 
+
+  // Adventure 286
+  const adventure286 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-286" },
+    update: {},
+    create: {
+      id: "seed-adventure-286",
+      title: "Rwenzori Mountains Trek, Uganda",
+      description: `The Rwenzori Mountains on the Uganda-DRC border are Ptolemy's Mountains of the Moon, the legendary source of the Nile, shrouded in cloud and draped with bizarre Afroalpine vegetation. The central circuit passes through zones of giant heather, groundsels the size of trees, and lobelia forests dripping with moss, before reaching the glaciated peaks of Margherita at 5,109 metres. This is the most botanically extraordinary mountain trek in the world.`,
+      location: "Kasese",
+      country: "Uganda",
+      continent: "Africa",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Giant heather trees 10 metres high", "Margherita Peak 5109m third Africa", "Equatorial glaciers rapidly retreating", "Unique Afroalpine plant zones", "Mountains of the Moon mythology"],
+      gear: ["Waterproof everything mud ubiquitous", "Gaiters up to the knee", "Ice axe and crampons for summit", "Altitude sleeping bag", "Anti-fungal foot treatment"],
+      bestMonths: [12, 1, 2, 6, 7, 8],
+      estimatedCost: 1800,
+      latitude: 0.37,
+      longitude: 29.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["jungle"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure286.id }, { userId: user2.id, adventureId: adventure286.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
