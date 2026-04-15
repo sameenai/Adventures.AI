@@ -10710,6 +10710,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure238.id }, { userId: user2.id, adventureId: adventure238.id }, { userId: user3.id, adventureId: adventure238.id }], skipDuplicates: true });
 
+
+  // Adventure 239
+  const adventure239 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-239" },
+    update: {},
+    create: {
+      id: "seed-adventure-239",
+      title: "Carpathian Bear Country Trek",
+      description: `The Romanian Carpathians have the highest density of brown bears in Europe — an estimated 6,000 animals in the mountain forests of Transylvania and Moldavia. Trekking the 1,500 km Via Carpatica long trail from Slovakia through Poland and Ukraine into Romania follows the ridge of the Carpathian arc through bear, wolf, and lynx territory on trails that are still largely unmarked and require navigation. Village guesthouses, forest ranger huts, and wild camping are the accommodation.`,
+      location: "Brasov",
+      country: "Romania",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1600&q=80",
+      highlights: ["Brown bear encounters", "Wolf and lynx territory", "Fagaras mountain ridge", "Retezat National Park", "Carpathian wildflower meadows"],
+      gear: ["Bear spray", "Navigation tools", "Tent", "Layering system", "Water filter"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: 45.65,
+      longitude: 25.61,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["wildlife"].id }, { id: allTags["europe"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure239.id }, { userId: user2.id, adventureId: adventure239.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
