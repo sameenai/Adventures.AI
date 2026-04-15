@@ -10470,6 +10470,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure230.id }, { userId: user2.id, adventureId: adventure230.id }], skipDuplicates: true });
 
+
+  // Adventure 231
+  const adventure231 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-231" },
+    update: {},
+    create: {
+      id: "seed-adventure-231",
+      title: "Torres del Paine Circuit",
+      description: `The full Torres del Paine Circuit (the O, not just the W) adds the back side of the Paine Massif to the classic W Trek — 130 km total, taking in the remote Campamento Paso, the Torres del Paine north face, and the Los Perros glacier passage in a 9-day loop. The back side is dramatically emptier than the W, with Andean condors riding thermals above glacial lakes and the massif's granite towers seen from angles no photograph has captured. Weather is genuinely dangerous; refugios non-existent.`,
+      location: "Puerto Natales",
+      country: "Chile",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Torres back face", "Los Perros glacier", "Andean condors", "John Gardner Pass", "Back-circuit solitude"],
+      gear: ["4-season tent", "Wind-proof everything", "Trekking poles", "Gaiters", "Emergency communication"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 2800,
+      latitude: -51.73,
+      longitude: -72.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }, { id: allTags["camping"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure231.id }, { userId: user2.id, adventureId: adventure231.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
