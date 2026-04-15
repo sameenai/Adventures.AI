@@ -12751,6 +12751,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure306.id }, { userId: user2.id, adventureId: adventure306.id }], skipDuplicates: true });
 
+
+  // Adventure 307
+  const adventure307 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-307" },
+    update: {},
+    create: {
+      id: "seed-adventure-307",
+      title: "Yakushima Forest Trek, Japan",
+      description: `Yakushima Island in southern Japan contains cryptomeria cedar trees over 2,000 years old, including the legendary Jomon Sugi estimated at 7,200 years, making it the oldest living tree in Japan. The interior mountain of Miyanoura-dake at 1,936 metres is the highest point in Kyushu and is covered in gnarled ancient forest that inspired the forest landscapes of Studio Ghibli's Princess Mononoke. The island receives 10,000 millimetres of rain annually and the moss-covered forest has an otherworldly quality.`,
+      location: "Miyanoura Port",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Jomon Sugi cedar 7200 years old", "Princess Mononoke forest inspiration", "Miyanoura-dake 1936m island summit", "Rainforest deer and flying squirrels", "UNESCO World Heritage ancient cedar"],
+      gear: ["Waterproof everything always raining", "Hiking boots with grip", "Mosquito repellent", "Warm layers summit winds", "Photography rain covers"],
+      bestMonths: [3, 4, 9, 10, 11],
+      estimatedCost: 600,
+      latitude: 30.33,
+      longitude: 130.53,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["jungle"].id }, { id: allTags["island"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure307.id }, { userId: user2.id, adventureId: adventure307.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
