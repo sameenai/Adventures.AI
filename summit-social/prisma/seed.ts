@@ -8580,6 +8580,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure167.id }, { userId: user2.id, adventureId: adventure167.id }], skipDuplicates: true });
 
+
+  // Adventure 168
+  const adventure168 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-168" },
+    update: {},
+    create: {
+      id: "seed-adventure-168",
+      title: "Svalbard Ski Touring",
+      description: `Ski touring in Svalbard's high-Arctic wilderness in April — when the sun returns but the temperature remains deep-winter cold — is one of the most adventurous ski experiences in the world. Routes from Longyearbyen explore glaciated valleys, cross the Nordenskiöld Glacier, and traverse sea ice with polar bear escort (guides carry rifles). The ice quality in April is excellent; the light at high Arctic spring is magical.`,
+      location: "Longyearbyen",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Arctic glacier skiing", "Polar bear encounters on ski", "Sea ice traverses", "24-hour daylight in April", "Svalbard ice fjord"],
+      gear: ["Ski touring kit", "Polar expedition sleeping bag", "Rifle guide required", "Polar tent", "Avalanche safety kit"],
+      bestMonths: [3, 4, 5],
+      estimatedCost: 5500,
+      latitude: 78.22,
+      longitude: 15.63,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["arctic"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure168.id }, { userId: user2.id, adventureId: adventure168.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
