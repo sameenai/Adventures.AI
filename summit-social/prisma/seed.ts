@@ -14281,6 +14281,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure357.id }, { userId: user2.id, adventureId: adventure357.id }], skipDuplicates: true });
 
+
+  // Adventure 358
+  const adventure358 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-358" },
+    update: {},
+    create: {
+      id: "seed-adventure-358",
+      title: "North Patagonia Carretera Austral Cycling",
+      description: `The Carretera Austral, Chile Route 7, is the most spectacular cycling route in South America, running 1,240 kilometres through Patagonian wilderness that can only be accessed by this single dirt road. The route passes the marble caves of Puerto Rio Tranquilo, the Queulat Hanging Glacier, and the turquoise Rio Cochamo valley before reaching Villa O'Higgins at road's end. Multiple ferry crossings and dirt road sections with river fords make this a genuine expedition.`,
+      location: "Puerto Montt",
+      country: "Chile",
+      continent: "South America",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 25,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Marble caves Puerto Rio Tranquilo", "Queulat Hanging Glacier viewpoint", "Cochamo valley Yosemite of Chile", "Ferry crossings multiple fjords", "Villa O'Higgins road end remoteness"],
+      gear: ["Touring bike with full expedition load", "Panniers waterproof", "Puncture repair kit extensive", "Rain gear constant Patagonian rain", "Ferry timetables and cash"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1500,
+      latitude: -41.47,
+      longitude: -72.93,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure358.id }, { userId: user2.id, adventureId: adventure358.id }, { userId: user3.id, adventureId: adventure358.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
