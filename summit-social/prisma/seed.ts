@@ -11190,6 +11190,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure254.id }, { userId: user2.id, adventureId: adventure254.id }], skipDuplicates: true });
 
+
+  // Adventure 255
+  const adventure255 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-255" },
+    update: {},
+    create: {
+      id: "seed-adventure-255",
+      title: "Karakoram Highway Cycling",
+      description: `The Karakoram Highway is one of the world's most spectacular cycling routes, crossing the Khunjerab Pass at 4,693 metres on the China-Pakistan border. The road follows ancient Silk Road caravan routes through the Hunza Valley past Rakaposhi and Nanga Parbat. The combination of engineering audacity and mountain grandeur makes this a legendary adventure cycling journey.`,
+      location: "Islamabad",
+      country: "Pakistan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Khunjerab Pass at 4693 metres", "Hunza Valley apricot orchards", "Rakaposhi north face views", "Ancient Silk Road history", "Attabad Lake turquoise waters"],
+      gear: ["Touring bicycle with low gearing", "Panniers and rear rack", "Altitude sickness pills", "Windproof cycling jacket", "Repair kit and spare tubes"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1200,
+      latitude: 36.84,
+      longitude: 74.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure255.id }, { userId: user2.id, adventureId: adventure255.id }, { userId: user3.id, adventureId: adventure255.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
