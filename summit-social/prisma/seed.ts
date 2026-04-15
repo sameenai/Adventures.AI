@@ -9900,6 +9900,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure211.id }, { userId: user2.id, adventureId: adventure211.id }], skipDuplicates: true });
 
+
+  // Adventure 212
+  const adventure212 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-212" },
+    update: {},
+    create: {
+      id: "seed-adventure-212",
+      title: "Copper Canyon Trekking",
+      description: `The Copper Canyon (Barrancas del Cobre) in Chihuahua, Mexico, is a network of six canyons deeper and broader than the Grand Canyon — up to 1,879 m deep and 150 km wide — carved by six rivers draining the Sierra Tarahumara. The Tarahumara (Rarámuri) people have lived in cave dwellings and scattered ranchos across the canyon for millennia and are famous for long-distance barefoot running. The Chepe train from Los Mochis to Chihuahua City is the iconic journey.`,
+      location: "Creel",
+      country: "Mexico",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=1600&q=80",
+      highlights: ["Batopilas canyon descent", "Tarahumara community visit", "Chepe railway journey", "Divisadero viewpoint", "Urique river canyon floor"],
+      gear: ["Hiking boots", "Sun protection", "Water (canyon is hot)", "Trekking poles", "Spanish phrasebook"],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 1500,
+      latitude: 27.74,
+      longitude: -107.64,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["gorge"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure212.id }, { userId: user2.id, adventureId: adventure212.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
