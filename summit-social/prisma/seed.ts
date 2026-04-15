@@ -11610,6 +11610,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure268.id }, { userId: user2.id, adventureId: adventure268.id }, { userId: user3.id, adventureId: adventure268.id }], skipDuplicates: true });
 
+
+  // Adventure 269
+  const adventure269 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-269" },
+    update: {},
+    create: {
+      id: "seed-adventure-269",
+      title: "Continental Divide Trail - Wind River Range",
+      description: `The Wind River Range section of the Continental Divide Trail crosses Wyoming's most remote and spectacular mountain range, with over 40 named peaks above 4,000 metres and the largest glaciated area in the American Rockies. The Cirque of the Towers and Stroud Peak are iconic destinations along this high alpine route above treeline. This off-trail wilderness demands strong navigation skills and rewards with complete solitude.`,
+      location: "Pinedale",
+      country: "United States",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Cirque of the Towers granite spires", "Fremont Peak at 4190 metres", "Largest Rocky Mountain glaciers", "Above-treeline route for days", "Bighorn sheep and moose sightings"],
+      gear: ["Topo maps and navigation compass", "Bear canister", "Ice axe", "Ultralight tent", "Water filter"],
+      bestMonths: [7, 8],
+      estimatedCost: 800,
+      latitude: 42.77,
+      longitude: -109.86,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["thru-hike"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure269.id }, { userId: user2.id, adventureId: adventure269.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
