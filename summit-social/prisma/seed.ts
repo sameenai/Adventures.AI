@@ -14011,6 +14011,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure348.id }, { userId: user2.id, adventureId: adventure348.id }, { userId: user3.id, adventureId: adventure348.id }], skipDuplicates: true });
 
+
+  // Adventure 349
+  const adventure349 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-349" },
+    update: {},
+    create: {
+      id: "seed-adventure-349",
+      title: "Socotra Island Walk, Yemen",
+      description: `Socotra Island in the Arabian Sea has been isolated for six million years and contains 800 endemic plant species including the Dragon Blood Tree with its unmistakable umbrella canopy and crimson sap. The island's alien landscape was used as a stand-in for the planet Pandora in concept art for Avatar. Trekking between Bedouin communities on the plateau and camping under Dragon Blood Trees is accessible via Egypt or Jordan during the narrow weather windows.`,
+      location: "Hadibo",
+      country: "Yemen",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Dragon Blood Tree endemic alien landscape", "800 endemic plant species 35 percent", "Socotra cormorant seabird colonies", "Bedouin nomad cultural encounter", "Diksam plateau ancient forest"],
+      gear: ["Yemen visa complex logistics", "Desert water carry", "Accommodation in Bedouin camps", "Camera botanical photography", "Travel insurance Yemen advisory"],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 2000,
+      latitude: 12.63,
+      longitude: 54.02,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["remote"].id }, { id: allTags["island"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure349.id }, { userId: user2.id, adventureId: adventure349.id }, { userId: user3.id, adventureId: adventure349.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
