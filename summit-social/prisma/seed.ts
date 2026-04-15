@@ -14671,6 +14671,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure370.id }, { userId: user2.id, adventureId: adventure370.id }], skipDuplicates: true });
 
+
+  // Adventure 371
+  const adventure371 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-371" },
+    update: {},
+    create: {
+      id: "seed-adventure-371",
+      title: "Albania Accursed Mountains Trek",
+      description: `The Accursed Mountains or Bjeshket e Namuna in northern Albania are one of Europe's last remaining wild mountain frontiers, with glacially carved peaks above 2,600 metres and traditional Gheg Albanian villages maintaining the ancient kanun code of honour. The Peaks of the Balkans trail circuit connecting Albania, Kosovo, and Montenegro covers 192 kilometres through stunning scenery with almost no tourist infrastructure. The mountain villages offer authentic hospitality that elsewhere in Europe has been commercialised.`,
+      location: "Shkodra",
+      country: "Albania",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Peaks of the Balkans 192km circuit", "Albania Kosovo Montenegro three countries", "Valbona to Theth crossing 1800m pass", "Traditional guesthouse fli hospitality", "Proclaimed Europe last wild mountain"],
+      gear: ["Tent as backup rural guesthouses", "Cash Albanian lek Kosovo euro", "Navigation offline maps", "Hiking boots rocky terrain", "Warm layers altitude"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 500,
+      latitude: 42.07,
+      longitude: 19.51,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure371.id }, { userId: user2.id, adventureId: adventure371.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
