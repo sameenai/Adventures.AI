@@ -12631,6 +12631,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure302.id }, { userId: user2.id, adventureId: adventure302.id }], skipDuplicates: true });
 
+
+  // Adventure 303
+  const adventure303 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-303" },
+    update: {},
+    create: {
+      id: "seed-adventure-303",
+      title: "Bhutan Snowman Trek",
+      description: `The Snowman Trek in Bhutan is consistently ranked among the world's most challenging high-altitude treks, crossing eleven passes above 4,500 metres and spending three weeks in zones where no villages exist and resupply is impossible. Only about 25% of trekkers who start actually complete the full 35-day route from Paro to Sephu, due to altitude sickness, weather, and sheer difficulty. The traverse of the Lunana district passes through Bhutan's most remote inhabited valley.`,
+      location: "Paro",
+      country: "Bhutan",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 35,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Eleven passes above 4500 metres", "Lunana remotest inhabited valley", "25 percent completion rate", "Bhutan 250 USD daily tourism fee", "Gangkhar Puensum views highest unclimbed mountain"],
+      gear: ["Expedition horse support required", "Full camping system", "Mandatory Bhutanese guide", "High altitude sleeping bag", "Emergency altitude medication"],
+      bestMonths: [9, 10],
+      estimatedCost: 9000,
+      latitude: 27.43,
+      longitude: 89.41,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure303.id }, { userId: user2.id, adventureId: adventure303.id }, { userId: user3.id, adventureId: adventure303.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
