@@ -10200,6 +10200,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure221.id }, { userId: user2.id, adventureId: adventure221.id }], skipDuplicates: true });
 
+
+  // Adventure 222
+  const adventure222 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-222" },
+    update: {},
+    create: {
+      id: "seed-adventure-222",
+      title: "Flores Island Hiking",
+      description: `Flores in eastern Indonesia is the gateway to Komodo National Park and the home of Mount Kelimutu — three crater lakes that change colour independently between turquoise, black, and deep red depending on volcanic chemistry. The lake colours shift seasonally; dawn visits catch the mist lifting from the caldera. Walking the Bajawa plateau reveals traditional Ngada villages with conical men's houses and shrine ancestor poles; the road from Labuan Bajo to Ende passes extraordinary volcanic scenery.`,
+      location: "Labuan Bajo",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1600&q=80",
+      highlights: ["Kelimutu crater lakes", "Komodo dragon encounter", "Ngada traditional villages", "Bajawa volcanic plateau", "Manta ray snorkelling"],
+      gear: ["Hiking boots", "Snorkelling kit", "Sun protection", "Light clothing", "Camera"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1500,
+      latitude: -8.46,
+      longitude: 120.01,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure222.id }, { userId: user2.id, adventureId: adventure222.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
