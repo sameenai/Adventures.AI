@@ -7471,6 +7471,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure130.id }, { userId: user2.id, adventureId: adventure130.id }, { userId: user3.id, adventureId: adventure130.id }], skipDuplicates: true });
 
+
+  // Adventure 131
+  const adventure131 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-131" },
+    update: {},
+    create: {
+      id: "seed-adventure-131",
+      title: "Dolomites Alta Via 1",
+      description: `The Alta Via 1 traverses the Dolomites from Lago di Braies to Belluno over 120 km, crossing the dramatic Fanes and Puez plateaus, the Civetta wall, and the Zoldo valley. The Dolomites are UNESCO World Heritage and the pale rock towers glow orange-pink at sunrise in a spectacle called enrosadira. Mountain refugios serve polenta and Aperol spritz at altitude.`,
+      location: "Lago di Braies",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=1600&q=80",
+      highlights: ["Lago di Braies", "Fanes plateau", "Civetta east face", "Enrosadira alpenglow", "Rifugio dinners"],
+      gear: ["Sturdy hiking boots", "Trekking poles", "Refugio sleeping sheet", "Sun protection", "Light layers"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1800,
+      latitude: 46.69,
+      longitude: 12.08,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure131.id }, { userId: user2.id, adventureId: adventure131.id }, { userId: user3.id, adventureId: adventure131.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
