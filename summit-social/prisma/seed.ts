@@ -8610,6 +8610,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure168.id }, { userId: user2.id, adventureId: adventure168.id }], skipDuplicates: true });
 
+
+  // Adventure 169
+  const adventure169 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-169" },
+    update: {},
+    create: {
+      id: "seed-adventure-169",
+      title: "Quebrada Humahuaca Cultural Trek",
+      description: `The Quebrada de Humahuaca in Argentina's Jujuy province is a UNESCO World Heritage canyon running north from Jujuy city for 155 km into the Bolivian altiplano. Pre-Inca fortresses, colonial churches painted in local red-and-ochre pigments, the Fourteen Colours Hill of Cerro de los Siete Colores, and the carnival at Humahuaca town make this a cultural and visual feast. Altitude from 2,000–3,400 m; acclimatise in Jujuy first.`,
+      location: "Jujuy",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=1600&q=80",
+      highlights: ["Cerro de los Siete Colores", "Tilcara Pucará fortress", "Carnival procession", "Salinas Grandes salt flat", "Iruya village walk"],
+      gear: ["Sun protection (high altitude UV)", "Altitude medication", "Light layers", "Good camera", "Pesos cash"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1200,
+      latitude: -23.19,
+      longitude: -65.3,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }, { id: allTags["desert"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure169.id }, { userId: user2.id, adventureId: adventure169.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
