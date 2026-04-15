@@ -11490,6 +11490,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure264.id }, { userId: user2.id, adventureId: adventure264.id }, { userId: user3.id, adventureId: adventure264.id }], skipDuplicates: true });
 
+
+  // Adventure 265
+  const adventure265 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-265" },
+    update: {},
+    create: {
+      id: "seed-adventure-265",
+      title: "Cordillera Real Traverse, Bolivia",
+      description: `The Cordillera Real forms the spectacular eastern backbone of the Bolivian Andes, with seventeen peaks above 5,000 metres accessible from La Paz. The Condoriri Circuit passes beneath hanging glaciers and electric-blue glacial lakes before crossing the high ridge at 5,000 metres with panoramic views toward the Amazon basin. Bolivian mountaineering culture is concentrated here, with numerous 6,000-metre peaks accessible to acclimatised trekkers.`,
+      location: "La Paz",
+      country: "Bolivia",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Condoriri mountain group reflections", "Seventeen peaks above 5000 metres", "Chearoco and Chiar Apu views", "Glacial turquoise lakes", "High-altitude bolivian wildlife"],
+      gear: ["Ice axe for summit attempts", "Crampons", "Altitude acclimatisation kit", "Expedition sleeping bag", "Layered cold-weather system"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 500,
+      latitude: -16.4,
+      longitude: -68.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure265.id }, { userId: user2.id, adventureId: adventure265.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
