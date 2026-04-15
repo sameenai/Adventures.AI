@@ -7951,6 +7951,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure146.id }, { userId: user2.id, adventureId: adventure146.id }, { userId: user3.id, adventureId: adventure146.id }], skipDuplicates: true });
 
+
+  // Adventure 147
+  const adventure147 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-147" },
+    update: {},
+    create: {
+      id: "seed-adventure-147",
+      title: "Serengeti Migration Safari",
+      description: `The great wildebeest migration is the largest movement of land animals on earth — 1.5 million wildebeest, 200,000 zebra, and 400,000 gazelle circling the Serengeti-Masai Mara ecosystem in a year-round cycle. The river crossings at the Mara River, when thousands of wildebeest plunge through crocodile-infested water, are among the most dramatic wildlife spectacles anywhere. Timing is everything: July–October for the Mara crossings.`,
+      location: "Serengeti",
+      country: "Tanzania",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1600&q=80",
+      highlights: ["Mara River crossings", "Lion pride hunts", "Big Five", "Hot air balloon at dawn", "Ngorongoro Crater"],
+      gear: ["Neutral clothing (no bright colours)", "Binoculars", "Long lens camera", "Sunscreen", "Malaria prophylaxis"],
+      bestMonths: [7, 8, 9, 10],
+      estimatedCost: 5500,
+      latitude: -2.33,
+      longitude: 34.83,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["bucket-list"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure147.id }, { userId: user2.id, adventureId: adventure147.id }, { userId: user3.id, adventureId: adventure147.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
