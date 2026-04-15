@@ -8250,6 +8250,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure156.id }, { userId: user2.id, adventureId: adventure156.id }], skipDuplicates: true });
 
+
+  // Adventure 157
+  const adventure157 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-157" },
+    update: {},
+    create: {
+      id: "seed-adventure-157",
+      title: "Silk Road Journey",
+      description: `The ancient Silk Road from Xi'an to Istanbul traces 7,000 km of trade routes through China's Gobi Desert, Central Asian steppes, Persian caravanserais, and Anatolian highlands. By a combination of train, bus, and shared taxi, the journey moves through Dunhuang's Mogao Caves, Uzbekistan's Registan Square, Turkmenistan's Gates of Hell, and Iranian bazaars where saffron and pistachios overflow in technicolour piles.`,
+      location: "Xi'an",
+      country: "China",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 45,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: ["Mogao Caves Dunhuang", "Registan Square Samarkand", "Gates of Hell Darvaza", "Iranian bazaars", "Istanbul Grand Bazaar"],
+      gear: ["Modest clothing", "Visa documentation", "Offline maps", "Stomach medication", "USD cash"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 5000,
+      latitude: 34.34,
+      longitude: 108.94,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }, { id: allTags["solo-travel"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure157.id }, { userId: user2.id, adventureId: adventure157.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
