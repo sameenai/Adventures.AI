@@ -7171,6 +7171,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     ],
   });
 
+
+  // Adventure 121
+  const adventure121 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-121" },
+    update: {},
+    create: {
+      id: "seed-adventure-121",
+      title: "Laugavegur Trail",
+      description: `Iceland's most celebrated multi-day trek links the geothermal highlands of Landmannalaugar with the lush valley of Þórsmörk across 55 km of raw volcanic terrain. The route crosses obsidian lava fields still steaming from geothermal vents, traverses snowfields year-round, descends into vivid rhyolite mountains streaked in rust, ochre, and lime green, and fords glacial rivers that run milky with glacial silt. Huts bookable via Ferðafélag Íslands — reserve six months ahead for July.`,
+      location: "Landmannalaugar",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Rhyolite mountains", "Geothermal hot springs", "Glacial river crossings", "Þórsmörk forest", "Midnight twilight"],
+      gear: ["Waterproof boots", "Trekking poles", "Warm layers", "River sandals", "Hut sleeping bag liner"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1200,
+      latitude: 63.98,
+      longitude: -19.05,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure121.id }, { userId: user2.id, adventureId: adventure121.id }, { userId: user3.id, adventureId: adventure121.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
