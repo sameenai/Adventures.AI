@@ -15781,6 +15781,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure407.id }, { userId: user2.id, adventureId: adventure407.id }], skipDuplicates: true });
 
+
+  // Adventure 408
+  const adventure408 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-408" },
+    update: {},
+    create: {
+      id: "seed-adventure-408",
+      title: "Andean Salt Flat Drive, Bolivia",
+      description: `The Salar de Uyuni in Bolivia is the world's largest salt flat at 10,582 square kilometres, sitting at 3,656 metres on the Altiplano and creating a mirror reflection of the sky in the wet season that makes the horizon disappear. The surrounding Eduardo Avaroa Andean Fauna National Reserve contains the Eduardo Avaroa volcanoes, blood-red Laguna Colorada flamingo lake, and the steaming Sol de Manana geysers at 4,850 metres. This is one of South America's most extraordinary landscapes.`,
+      location: "Uyuni",
+      country: "Bolivia",
+      continent: "South America",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Salar de Uyuni mirror reflection wet season", "Laguna Colorada flamingo blood red", "Sol de Manana geysers 4850m dawn", "Isla Incahuasi cactus island centre", "Stargazing high altitude no light"],
+      gear: ["4WD tour essential", "Altitude medication 3650m", "Warm layers freezing nights", "Dawn photography kit", "Sunglasses salt flat glare"],
+      bestMonths: [1, 2, 3, 11, 12],
+      estimatedCost: 400,
+      latitude: -20.13,
+      longitude: -67.49,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["photography"].id }, { id: allTags["high-altitude"].id }, { id: allTags["desert"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure408.id }, { userId: user2.id, adventureId: adventure408.id }, { userId: user3.id, adventureId: adventure408.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
