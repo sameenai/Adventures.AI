@@ -11520,6 +11520,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure265.id }, { userId: user2.id, adventureId: adventure265.id }], skipDuplicates: true });
 
+
+  // Adventure 266
+  const adventure266 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-266" },
+    update: {},
+    create: {
+      id: "seed-adventure-266",
+      title: "Quilotoa Loop, Ecuador",
+      description: `The Quilotoa Loop circles a magnificent volcanic caldera lake in the Ecuadorian Andes through indigenous Kichwa villages that have maintained traditional agricultural practices for centuries. The crater rim at 3,914 metres offers vertiginous views into the emerald green lake 250 metres below. This independently walkable multi-day route connects a chain of weekend markets in different villages.`,
+      location: "Latacunga",
+      country: "Ecuador",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Quilotoa crater lake emerald green", "Kichwa indigenous village markets", "Ingas highland farmland scenery", "Tigua naif art galleries", "Sigchos and Chugchilan village stays"],
+      gear: ["Lightweight day pack", "Rain jacket", "Hiking boots", "Cash for accommodation", "Altitude awareness kit"],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 250,
+      latitude: -0.86,
+      longitude: -78.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["volcanic"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure266.id }, { userId: user2.id, adventureId: adventure266.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
