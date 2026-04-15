@@ -14911,6 +14911,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure378.id }, { userId: user2.id, adventureId: adventure378.id }], skipDuplicates: true });
 
+
+  // Adventure 379
+  const adventure379 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-379" },
+    update: {},
+    create: {
+      id: "seed-adventure-379",
+      title: "Crete E4 European Path Trek",
+      description: `The E4 European Long Distance Path crosses the entire island of Crete from Kissamos in the west to Zakros in the east over 320 kilometres, passing through the White Mountains and Samaria Gorge, the longest gorge in Europe at 18 kilometres. The route traverses wild plateaus covered in Cretan herbs including oregano, thyme, and dittany, and passes through remote mountain villages where the endemic Cretan wild goat, the kri-kri, can be spotted on cliffsides. The Gorge of Samaria descends 1,200 metres in 18 kilometres.`,
+      location: "Kissamos",
+      country: "Greece",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Samaria Gorge longest Europe 18km", "Cretan wild kri-kri goat sightings", "White Mountains 2453m summit", "E4 pan-European trail section", "Ancient Minoan archaeological sites"],
+      gear: ["Trekking poles gorge descent", "Lightweight boots summer", "Rain jacket White Mountains", "Water 2 litres minimum", "Greek phrasebook"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 800,
+      latitude: 35.5,
+      longitude: 24.04,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["europe"].id }, { id: allTags["gorge"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure379.id }, { userId: user2.id, adventureId: adventure379.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
