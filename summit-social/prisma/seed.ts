@@ -8670,6 +8670,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure170.id }, { userId: user2.id, adventureId: adventure170.id }], skipDuplicates: true });
 
+
+  // Adventure 171
+  const adventure171 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-171" },
+    update: {},
+    create: {
+      id: "seed-adventure-171",
+      title: "Corsica Sea Kayak",
+      description: `Paddling the 1,000 km coastline of Corsica by sea kayak takes 6–8 weeks and reveals the island's true character — cliffs inaccessible from land, hidden sea caves echoing with swell, turquoise coves with transparent water, and wild camping on beaches shared only with loggerhead turtles. The west coast is rougher and more dramatic; the east coast is calmer and more agricultural. Winds from the Mistral and Libeccio can pin you in a cove for days.`,
+      location: "Bastia",
+      country: "France",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 40,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Scandola Nature Reserve", "Girolata hidden cove", "Bonifacio sea caves", "Loggerhead turtle encounters", "Calanques de Piana"],
+      gear: ["Sea kayak with rudder", "Paddle float", "VHF radio", "Dry bags", "Tidal and wind forecasting"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: 42.7,
+      longitude: 9.45,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure171.id }, { userId: user2.id, adventureId: adventure171.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
