@@ -10230,6 +10230,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure222.id }, { userId: user2.id, adventureId: adventure222.id }], skipDuplicates: true });
 
+
+  // Adventure 223
+  const adventure223 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-223" },
+    update: {},
+    create: {
+      id: "seed-adventure-223",
+      title: "Lofoten Islands Winter Hike",
+      description: `The Lofoten Islands in winter — from November to March — offer dramatic mountain scenery under the northern lights, the chance to ski directly from peaks into fjords (the Lofoten phenomenon of 'skreien', dry powder over steep sea-slope terrain), and the extraordinary experience of hiking across empty beaches at -10°C with aurora dancing overhead. Svolvær Goat (Svolværgeita) is the technical twin-summit that defines the islands' silhouette.`,
+      location: "Svolvær",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1600&q=80",
+      highlights: ["Northern lights", "Svolvær Goat summit", "Arctic beach landscapes", "Skrei cod season villages", "Sea-to-summit skiing"],
+      gear: ["Winter hiking boots", "Crampons", "Head torch", "Aurora alert app", "Cold weather layering"],
+      bestMonths: [1, 2, 3, 11, 12],
+      estimatedCost: 2500,
+      latitude: 68.23,
+      longitude: 14.57,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["arctic"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }, { id: allTags["skiing"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure223.id }, { userId: user2.id, adventureId: adventure223.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
