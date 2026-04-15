@@ -13741,6 +13741,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure339.id }, { userId: user2.id, adventureId: adventure339.id }], skipDuplicates: true });
 
+
+  // Adventure 340
+  const adventure340 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-340" },
+    update: {},
+    create: {
+      id: "seed-adventure-340",
+      title: "Jordan Desert to Dead Sea Cycling",
+      description: `Cycling the King's Highway from Madaba to Petra combines the greatest concentration of archaeological sites in the Middle East with dramatic Jordanian desert scenery. The route passes through Wadi Mujib the Grand Canyon of Jordan, ancient Nabataean Petra accessible only on foot through the Siq gorge, and the red desert of Wadi Rum. Descending from 1,700 metres to the Dead Sea at 430 metres below sea level provides one of the world's most extreme elevation drops on a bicycle.`,
+      location: "Madaba",
+      country: "Jordan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Petra Nabataean Treasury approach", "Dead Sea minus 430m sea level finish", "Wadi Mujib canyon cycle descent", "King's Highway 3000-year-old route", "Wadi Rum red desert views"],
+      gear: ["Touring bicycle", "Desert sun protection", "Rear rack and panniers", "Jordan Pass tourist sites access", "Warm layers desert nights"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 900,
+      latitude: 31.72,
+      longitude: 35.79,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure340.id }, { userId: user2.id, adventureId: adventure340.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
