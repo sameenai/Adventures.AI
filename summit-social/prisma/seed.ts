@@ -7651,6 +7651,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure136.id }, { userId: user2.id, adventureId: adventure136.id }, { userId: user3.id, adventureId: adventure136.id }], skipDuplicates: true });
 
+
+  // Adventure 137
+  const adventure137 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-137" },
+    update: {},
+    create: {
+      id: "seed-adventure-137",
+      title: "Denali West Buttress",
+      description: `Denali (6,190 m) is North America's highest peak and the West Buttress route is its standard line, taking climbers from the Kahiltna Glacier base camp through fixed camps at 4,335 m and 5,240 m to the summit ridge. The mountain is fully self-supported — teams haul sleds with food and fuel for 3 weeks. Cold reaches -50°C with windchill. The Alaska Range landscape is among the most otherworldly on the planet.`,
+      location: "Talkeetna",
+      country: "United States",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      highlights: ["6,190m summit", "Kahiltna Glacier ski-in", "14,200ft camp ice wall", "Alaska Range panorama", "NPS ranger station"],
+      gear: ["Expedition sleeping bag -40°C", "Double boots", "Sled", "Wands", "High camp stove"],
+      bestMonths: [5, 6],
+      estimatedCost: 9000,
+      latitude: 63.07,
+      longitude: -151,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["mountaineering"].id }, { id: allTags["8000m"].id }, { id: allTags["remote"].id }, { id: allTags["arctic"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure137.id }, { userId: user2.id, adventureId: adventure137.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
