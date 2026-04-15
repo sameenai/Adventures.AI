@@ -8520,6 +8520,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure165.id }, { userId: user2.id, adventureId: adventure165.id }], skipDuplicates: true });
 
+
+  // Adventure 166
+  const adventure166 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-166" },
+    update: {},
+    create: {
+      id: "seed-adventure-166",
+      title: "Kyrgyzstan Horse Trekking",
+      description: `Kyrgyzstan's Tian Shan mountains offer horse trekking through high-altitude jailoos (summer pastures) where nomadic herding families still move their flocks between valleys seasonally. Routes from Karakol into the Terskey Alatau ranges or from Naryn into the Song Kul plateau cross high passes above 4,000 m, reach ice-cold alpine lakes, and end each night in a yurt with fermented mare's milk and mutton. No technical riding experience needed; the horses know the terrain.`,
+      location: "Karakol",
+      country: "Kyrgyzstan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
+      highlights: ["Song Kul lake at 3,016m", "Yurt homestay dinners", "High mountain passes", "Nomad family encounters", "Tian Shan panoramas"],
+      gear: ["Riding trousers", "Layers for altitude cold", "Waterproof jacket", "Camera", "Nomadic patience"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1400,
+      latitude: 42.49,
+      longitude: 78.39,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["horse-trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure166.id }, { userId: user2.id, adventureId: adventure166.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
