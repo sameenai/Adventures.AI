@@ -10440,6 +10440,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure229.id }, { userId: user2.id, adventureId: adventure229.id }], skipDuplicates: true });
 
+
+  // Adventure 230
+  const adventure230 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-230" },
+    update: {},
+    create: {
+      id: "seed-adventure-230",
+      title: "Aeolian Islands Sea Kayak",
+      description: `The seven Aeolian Islands north of Sicily — Lipari, Vulcano, Stromboli, Salina, Filicudi, Alicudi, and Panarea — form an active volcanic archipelago accessible by sea kayak from Milazzo. Paddling between islands takes advantage of the thermal winds and the reliable summer calm to cross channels up to 22 km. Stromboli's permanent eruption (every 15–20 minutes) is best viewed from the sea at night; Vulcano's fumarole beach is a sulphurous natural spa.`,
+      location: "Milazzo",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Stromboli night eruption view", "Vulcano fumarole spa beach", "Salina island green landscape", "Inter-island channel crossings", "Sicilian seafood at anchorage"],
+      gear: ["Sea kayak", "Camping kit", "VHF radio", "Wind forecasting", "Waterproof maps"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: 38.23,
+      longitude: 15.22,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["volcanic"].id }, { id: allTags["europe"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure230.id }, { userId: user2.id, adventureId: adventure230.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
