@@ -13411,6 +13411,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure328.id }, { userId: user2.id, adventureId: adventure328.id }], skipDuplicates: true });
 
+
+  // Adventure 329
+  const adventure329 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-329" },
+    update: {},
+    create: {
+      id: "seed-adventure-329",
+      title: "Scottish Islands Sailing Voyage",
+      description: `Sailing the Hebridean Islands of the Scottish west coast navigates some of the most dramatic coastal scenery in Europe, with sea lochs, tidal races, and remote anchorages accessible only by boat. The route from Oban north through the Sound of Mull, past Ardnamurchan lighthouse and through the Small Isles to Skye offers week-long itineraries combining sailing, hillwalking, and whisky distillery visits. The Atlantic weather demands experienced seamanship.`,
+      location: "Oban",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Ardnamurchan most westerly British mainland", "Sound of Mull tidal passage", "Rum Eigg Muck Coll remote islands", "Isle of Skye Cuillin ridge backdrop", "Whisky distillery island visits"],
+      gear: ["Sailing qualification RYA", "Foul weather offshore gear", "Tidal atlas Hebrides", "VHF radio", "Anchor and chain for remote bays"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 2000,
+      latitude: 56.41,
+      longitude: -5.47,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["scotland"].id }, { id: allTags["coastal"].id }, { id: allTags["island"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure329.id }, { userId: user2.id, adventureId: adventure329.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
