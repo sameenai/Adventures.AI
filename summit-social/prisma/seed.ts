@@ -7741,6 +7741,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure139.id }, { userId: user2.id, adventureId: adventure139.id }], skipDuplicates: true });
 
+
+  // Adventure 140
+  const adventure140 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-140" },
+    update: {},
+    create: {
+      id: "seed-adventure-140",
+      title: "Transylvanian Highlands Cycling",
+      description: `A 500 km cycle tour through Transylvania's fortified Saxon villages, bear-patrolled forests, and Carpathian mountain passes — from Brasov to Cluj-Napoca via Sighisoara and Sibiu. The roads are quiet, the medieval architecture is extraordinary, and the locals are among the most hospitable in Europe. Brown bears genuinely roam these forests; ask locals about recent sightings before cycling forest sections at dusk.`,
+      location: "Brasov",
+      country: "Romania",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Sighisoara medieval citadel", "Bran Castle (Dracula's)", "Fagaras Mountains backdrop", "Saxon fortified churches", "Bear forest trails"],
+      gear: ["Touring bike", "Panniers", "Bear spray", "Repair kit", "EU health card"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1200,
+      latitude: 45.65,
+      longitude: 25.61,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["europe"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure140.id }, { userId: user2.id, adventureId: adventure140.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
