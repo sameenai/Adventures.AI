@@ -13891,6 +13891,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure344.id }, { userId: user2.id, adventureId: adventure344.id }], skipDuplicates: true });
 
+
+  // Adventure 345
+  const adventure345 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-345" },
+    update: {},
+    create: {
+      id: "seed-adventure-345",
+      title: "Atacama Desert Stargazing Trek",
+      description: `The Atacama Desert in northern Chile is the driest non-polar desert on Earth and has the clearest skies in the world, with the ESO Very Large Telescope complex on Cerro Paranal operating at the limits of human astronomical knowledge. Multi-day trekking from San Pedro de Atacama through the Valle de la Luna, geysers of El Tatio at 4,320 metres, and the altiplano salt flats combines dramatic landscape with the most extraordinary night sky on the planet.`,
+      location: "San Pedro de Atacama",
+      country: "Chile",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Clearest night skies on Earth", "El Tatio geysers 4320m dawn", "Valle de la Luna landscape", "Flamingo altiplano salt lake", "VLT telescope tour Cerro Paranal"],
+      gear: ["Desert sun protection", "Warm layers altitude nights", "Wide-angle lens for Milky Way", "Altitude sickness medication", "Water 3 litres minimum"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 800,
+      latitude: -22.91,
+      longitude: -68.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["desert"].id }, { id: allTags["photography"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure345.id }, { userId: user2.id, adventureId: adventure345.id }, { userId: user3.id, adventureId: adventure345.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
