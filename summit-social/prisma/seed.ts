@@ -12030,6 +12030,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure282.id }, { userId: user2.id, adventureId: adventure282.id }, { userId: user3.id, adventureId: adventure282.id }], skipDuplicates: true });
 
+
+  // Adventure 283
+  const adventure283 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-283" },
+    update: {},
+    create: {
+      id: "seed-adventure-283",
+      title: "Mount Kenya Technical Climb",
+      description: `Mount Kenya's twin summits of Batian and Nelion are technical rock and ice climbs requiring rope and crampon work at 5,199 and 5,188 metres respectively, while the non-technical Point Lenana at 4,985 metres rewards high-altitude trekkers. The mountain straddles the equator at 17,053 feet and has a dramatically compressed ecology from equatorial rainforest to permanent glaciers in only a few vertical kilometres. The Lewis Glacier has shrunk by 90% since 1900.`,
+      location: "Nanyuki",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Equatorial glacier climbing", "Batian summit at 5199 metres", "Lewis Glacier shrinking since 1900", "Giant lobelia and groundsel zones", "Vertical ecology equatorial to arctic"],
+      gear: ["Technical climbing harness", "Ice axes and crampons", "Altitude acclimatisation schedule", "Rock climbing helmet", "Rope 50 metres"],
+      bestMonths: [1, 2, 7, 8],
+      estimatedCost: 1200,
+      latitude: -0.15,
+      longitude: 37.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure283.id }, { userId: user2.id, adventureId: adventure283.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
