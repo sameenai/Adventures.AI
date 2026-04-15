@@ -11160,6 +11160,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure253.id }, { userId: user2.id, adventureId: adventure253.id }, { userId: user3.id, adventureId: adventure253.id }], skipDuplicates: true });
 
+
+  // Adventure 254
+  const adventure254 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-254" },
+    update: {},
+    create: {
+      id: "seed-adventure-254",
+      title: "Rolwaling Valley Trek",
+      description: `Rolwaling is one of Nepal's most sacred and seldom-visited valleys, protected by its difficult access and restricted permit requirements. The 19-kilometre-long valley leads toward Tashi Lapcha pass at 5,755 metres, the classic route connecting to the Khumbu region. Dramatic peaks including Gauri Shankar and Menlungtse tower above the narrow gorge.`,
+      location: "Charikot",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Tashi Lapcha high pass at 5755 metres", "Sacred Rolwaling valley", "Gauri Shankar peak views", "Remote Buddhist monasteries", "Tsho Rolpa glacial lake"],
+      gear: ["Technical ice axe", "Harness and crampons", "Fixed rope ascenders", "High camp sleeping bag", "Waterproof mountaineering boots"],
+      bestMonths: [5, 10],
+      estimatedCost: 3200,
+      latitude: 27.86,
+      longitude: 86.08,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure254.id }, { userId: user2.id, adventureId: adventure254.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
