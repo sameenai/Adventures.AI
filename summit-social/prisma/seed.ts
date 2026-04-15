@@ -9840,6 +9840,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure209.id }, { userId: user2.id, adventureId: adventure209.id }], skipDuplicates: true });
 
+
+  // Adventure 210
+  const adventure210 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-210" },
+    update: {},
+    create: {
+      id: "seed-adventure-210",
+      title: "Canyonlands Canyoneering",
+      description: `The canyon country of southern Utah — Canyonlands, Capitol Reef, and the remote Escalante canyons — offers world-class canyoneering: slot canyons sculpted by water into sinuous grooves of Navajo sandstone, rappels into ankle-deep water, and narrows where shoulders brush both walls. The most technical canyons in the Zion Narrows and Buckskin Gulch require permits and experience; the Peek-a-Boo and Spooky slots near Escalante need only a topo map and good judgment.`,
+      location: "Moab",
+      country: "United States",
+      continent: "North America",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Zion Narrows wade", "Buckskin Gulch slot", "Peek-a-Boo loop", "Rappel drops", "Desert arch photography"],
+      gear: ["Wetsuit (water canyons)", "Canyoneering shoes", "Rappel device and harness", "Dry bag", "Flood forecast check"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 1800,
+      latitude: 38.57,
+      longitude: -109.55,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["desert"].id }, { id: allTags["gorge"].id }, { id: allTags["photography"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure210.id }, { userId: user2.id, adventureId: adventure210.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
