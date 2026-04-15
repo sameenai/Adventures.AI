@@ -8640,6 +8640,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure169.id }, { userId: user2.id, adventureId: adventure169.id }], skipDuplicates: true });
 
+
+  // Adventure 170
+  const adventure170 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-170" },
+    update: {},
+    create: {
+      id: "seed-adventure-170",
+      title: "Morocco Sahara Camel Trek",
+      description: `A camel trek from M'Hamid into the Erg Chigaga — Morocco's remotest and most untouched dune field, 55 km from the last road — takes three days and two nights in the full silence of the deep desert. Arriving at the caravanserai camp as the sun sets behind 100 m dunes turns the whole landscape gold, then pink, then purple. Stars at this longitude and altitude are extraordinary. This is the real Sahara, not the day-tripper dunes.`,
+      location: "M'Hamid el Ghizlane",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Erg Chigaga dunes", "Camel riding at sunset", "Desert star nights", "Berber camp dinner", "Silence of the Sahara"],
+      gear: ["Loose cotton layers", "Sun protection", "Headscarf for sand", "Headtorch", "Small daypack"],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 29.83,
+      longitude: -5.72,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure170.id }, { userId: user2.id, adventureId: adventure170.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
