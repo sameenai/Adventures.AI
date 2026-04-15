@@ -11220,6 +11220,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure255.id }, { userId: user2.id, adventureId: adventure255.id }, { userId: user3.id, adventureId: adventure255.id }], skipDuplicates: true });
 
+
+  // Adventure 256
+  const adventure256 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-256" },
+    update: {},
+    create: {
+      id: "seed-adventure-256",
+      title: "K2 Base Camp Trek",
+      description: `The trek to K2 base camp in the Karakoram is widely considered the world's greatest trekking objective, ending beneath the savage pyramid of the world's second-highest mountain. The Baltoro Glacier route passes Concordia, the throne room of the mountain gods, where K2, Broad Peak, and the Gasherbrums converge in an unparalleled cirque. Over 60 kilometres of glacier walking make this a true expedition undertaking.`,
+      location: "Askole",
+      country: "Pakistan",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 22,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["K2 base camp at 5150 metres", "Concordia junction of four 8000m peaks", "Baltoro Glacier 60km traverse", "Trango Towers rock walls", "Broad Peak and Gasherbrums views"],
+      gear: ["Glacier travel crampons", "Ice axe", "Rope and harness", "Expedition sleeping bag to minus 20", "Trekking poles"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 4000,
+      latitude: 35.88,
+      longitude: 76.51,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["8000m"].id }, { id: allTags["glacier"].id }, { id: allTags["mountaineering"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure256.id }, { userId: user2.id, adventureId: adventure256.id }, { userId: user3.id, adventureId: adventure256.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
