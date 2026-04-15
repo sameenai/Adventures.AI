@@ -11250,6 +11250,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure256.id }, { userId: user2.id, adventureId: adventure256.id }, { userId: user3.id, adventureId: adventure256.id }], skipDuplicates: true });
 
+
+  // Adventure 257
+  const adventure257 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-257" },
+    update: {},
+    create: {
+      id: "seed-adventure-257",
+      title: "Nanga Parbat Rupal Face Trek",
+      description: `The Rupal face of Nanga Parbat presents the highest mountain wall on Earth, rising over 4,600 metres from the valley floor to the summit at 8,125 metres. The trek through the Rupal Valley offers a completely different perspective from the more-visited Fairy Meadows on the Diamir side. Remote villages, wildflower meadows, and jaw-dropping exposure to the face make this one of Pakistan's finest routes.`,
+      location: "Tarashing",
+      country: "Pakistan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Highest mountain face on Earth 4600m wall", "Mazeno high camp viewpoint", "Rupal valley wildflower meadows", "Remote Herligkoffer base camp", "Nanga Parbat summit views at 8125m"],
+      gear: ["Hiking boots", "Trekking poles", "Down sleeping bag", "Water filter", "Sun protection"],
+      bestMonths: [7, 8],
+      estimatedCost: 900,
+      latitude: 35.22,
+      longitude: 74.59,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure257.id }, { userId: user2.id, adventureId: adventure257.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
