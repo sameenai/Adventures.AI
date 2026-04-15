@@ -15631,6 +15631,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure402.id }, { userId: user2.id, adventureId: adventure402.id }, { userId: user3.id, adventureId: adventure402.id }], skipDuplicates: true });
 
+
+  // Adventure 403
+  const adventure403 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-403" },
+    update: {},
+    create: {
+      id: "seed-adventure-403",
+      title: "Kalymnos Sport Climbing",
+      description: `Kalymnos in the Dodecanese archipelago of Greece has become the most popular sport climbing destination in Europe, with over 3,500 bolted routes on the island's orange and grey limestone walls above the Aegean Sea. The climbing is world-class from beginner to 9a grade, and the traditional Greek culture of the island including sponge diving heritage and fresh octopus drying on taverna lines adds context. The classic sector of Kastri offers 100-metre routes with views over the sea.`,
+      location: "Kalymnos Town",
+      country: "Greece",
+      continent: "Europe",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["3500 bolted routes 5a to 9a range", "Kastri sector sea view climbing", "Sponge diving cultural heritage", "Telendos island opposite views", "Fresh octopus taverna after climbing"],
+      gear: ["Sport climbing harness and shoes", "12 quickdraws minimum", "Belay device and rope 70m", "Chalk bag", "Sun protection approach walks"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 900,
+      latitude: 36.95,
+      longitude: 26.98,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["scrambling"].id }, { id: allTags["island"].id }, { id: allTags["europe"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure403.id }, { userId: user2.id, adventureId: adventure403.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
