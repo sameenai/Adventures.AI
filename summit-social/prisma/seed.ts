@@ -9030,6 +9030,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure182.id }, { userId: user2.id, adventureId: adventure182.id }], skipDuplicates: true });
 
+
+  // Adventure 183
+  const adventure183 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-183" },
+    update: {},
+    create: {
+      id: "seed-adventure-183",
+      title: "Namibia Desert Trek",
+      description: `A 5-day self-supported trek through the Namib-Naukluft National Park — from the ancient Sossusvlei dunes through the calcrete plains and granite inselbergs of the Naukluft to the Olive Trail — crosses the world's oldest desert in its least-visited corner. Dead acacia trees bleached white against orange dunes, gemsbok leaving lone tracks across clay pans, and stars unpolluted for 1,000 km in any direction make this an austere, beautiful experience.`,
+      location: "Sesriem",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Sossusvlei dead vlei dawn", "Naukluft massif", "Gemsbok herds", "Desert star sky", "Olive Trail circuit"],
+      gear: ["10L water minimum per day", "Sun protection extreme", "Lightweight shelterr", "Navigation tools", "Minimal weight"],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 1800,
+      latitude: -24.69,
+      longitude: 15.34,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure183.id }, { userId: user2.id, adventureId: adventure183.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
