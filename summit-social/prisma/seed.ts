@@ -13501,6 +13501,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure331.id }, { userId: user2.id, adventureId: adventure331.id }], skipDuplicates: true });
 
+
+  // Adventure 332
+  const adventure332 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-332" },
+    update: {},
+    create: {
+      id: "seed-adventure-332",
+      title: "Papua New Guinea Sepik River Journey",
+      description: `The Sepik River in northern Papua New Guinea is the cultural and spiritual heartland of Melanesian art, where crocodile clan villages carve extraordinary spirit houses adorned with ancestor carvings that have influenced 20th-century Western art. Travelling by motorised canoe for a week between villages, watching ceremonial initiation dances and acquiring hand-carved masks directly from the carvers, is a journey into one of the world's most artistically vital living cultures.`,
+      location: "Wewak",
+      country: "Papua New Guinea",
+      continent: "Oceania",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
+      highlights: ["Sepik River spirit house carvings", "Crocodile initiation scarification ceremony", "Haus Tambaran ancestral art", "Malaria tablets PNG mandatory", "Mask and artefact direct purchase"],
+      gear: ["Malaria prophylaxis", "Insect repellent deet", "Waterproof dry bags", "PNG kina cash only", "Modest clothing village protocol"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 2000,
+      latitude: -3.55,
+      longitude: 143.63,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["jungle"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure332.id }, { userId: user2.id, adventureId: adventure332.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
