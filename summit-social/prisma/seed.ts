@@ -9180,6 +9180,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure187.id }, { userId: user2.id, adventureId: adventure187.id }], skipDuplicates: true });
 
+
+  // Adventure 188
+  const adventure188 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-188" },
+    update: {},
+    create: {
+      id: "seed-adventure-188",
+      title: "Iceland Winter Ice Cave",
+      description: `The crystal blue ice caves that form each winter inside the Vatnajökull glacier in southeast Iceland are one of nature's most extraordinary interiors — curved walls of ancient glacial ice in every shade of blue, from pale aquamarine to deep cobalt, with black volcanic ash layers recording past eruptions. Caves form between October and March and are guided-access only. Combine with the Jökulsárlón glacial lagoon where icebergs float silently to the black sand Diamond Beach.`,
+      location: "Jökulsárlón",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Blue crystal ice cave interior", "Jökulsárlón glacier lagoon", "Diamond Beach icebergs", "Northern lights", "Skaftafell ice walk"],
+      gear: ["Micro-spikes provided", "Warm layers", "Waterproof boots", "Camera", "Aurora alert app"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 2500,
+      latitude: 64.05,
+      longitude: -16.18,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["glacier"].id }, { id: allTags["photography"].id }, { id: allTags["arctic"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure188.id }, { userId: user2.id, adventureId: adventure188.id }, { userId: user3.id, adventureId: adventure188.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
