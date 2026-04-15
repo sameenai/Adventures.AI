@@ -7261,6 +7261,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure123.id }, { userId: user2.id, adventureId: adventure123.id }, { userId: user3.id, adventureId: adventure123.id }], skipDuplicates: true });
 
+
+  // Adventure 124
+  const adventure124 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-124" },
+    update: {},
+    create: {
+      id: "seed-adventure-124",
+      title: "Everest Base Camp Trek",
+      description: `The pilgrimage to Everest Base Camp at 5,364 m follows the Dudh Kosi valley through Sherpa villages, Buddhist monasteries, and rhododendron forests before ascending to the Khumbu Glacier and the crowded, electric base camp itself. The real prize is Kala Patthar — the 5,545 m viewpoint where the full south face of Everest fills the frame. Acclimatise carefully; altitude sickness ends more trips than any other factor.`,
+      location: "Khumbu",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?w=1600&q=80",
+      highlights: ["Kala Patthar sunrise", "Namche Bazaar rest day", "Thyangboche monastery", "Khumbu Glacier", "Everest south face"],
+      gear: ["Layering system", "Sleeping bag -20°C", "Altitude medication", "Trekking poles", "Down jacket"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2500,
+      latitude: 27.99,
+      longitude: 86.92,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["8000m"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure124.id }, { userId: user2.id, adventureId: adventure124.id }, { userId: user3.id, adventureId: adventure124.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
