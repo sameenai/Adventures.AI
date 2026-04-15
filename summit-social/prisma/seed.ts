@@ -10140,6 +10140,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure219.id }, { userId: user2.id, adventureId: adventure219.id }, { userId: user3.id, adventureId: adventure219.id }], skipDuplicates: true });
 
+
+  // Adventure 220
+  const adventure220 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-220" },
+    update: {},
+    create: {
+      id: "seed-adventure-220",
+      title: "Sahara Erg Chebbi Run",
+      description: `A 250 km multi-stage running race through the Moroccan Sahara — the Marathon des Sables format — carries each runner's food and equipment on their back for 6 days through the Erg Chebbi dunes, rocky hamadas, dry riverbeds, and oasis palmeries. Each stage between 20 km and 80 km (the 'long stage') must be completed before dark. Over 1,000 runners from 40+ countries share a profound experience of physical and mental challenge in one of the world's most beautiful landscapes.`,
+      location: "Ouarzazate",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["250km self-supported running", "Erg Chebbi dune crossing", "Long stage night survival", "Bivouac tent community", "Sahara silence at 3am"],
+      gear: ["Ultralight mandatory kit list", "7 days food", "Gaiters (sand)", "Trail running shoes (local sand-adapted)", "Emergency kit"],
+      bestMonths: [4],
+      estimatedCost: 4500,
+      latitude: 30.93,
+      longitude: -6.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["desert"].id }, { id: allTags["bucket-list"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure220.id }, { userId: user2.id, adventureId: adventure220.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
