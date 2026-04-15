@@ -9060,6 +9060,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure183.id }, { userId: user2.id, adventureId: adventure183.id }], skipDuplicates: true });
 
+
+  // Adventure 184
+  const adventure184 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-184" },
+    update: {},
+    create: {
+      id: "seed-adventure-184",
+      title: "Cotswold Way Walking",
+      description: `The Cotswold Way is 164 km from Chipping Campden to Bath along the western escarpment of the Cotswolds, passing honey-stone villages built from local oolitic limestone, Iron Age hill forts, beech-wood ridge paths, and the spectacular Cleeve Hill and Haresfield Beacon. It is quintessential English long-distance walking — gentle enough for beginners, varied enough to satisfy experienced walkers, and finishable with a Roman bath and a gin and tonic.`,
+      location: "Chipping Campden",
+      country: "United Kingdom",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=1600&q=80",
+      highlights: ["Bourton-on-the-Water", "Cleeve Hill views", "Bath Roman finish", "Haresfield Beacon", "Cotswold limestone villages"],
+      gear: ["Walking boots", "Waterproof jacket", "Trekking poles optional", "B&B accommodation list", "OS map"],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 900,
+      latitude: 52.05,
+      longitude: -1.77,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["europe"].id }, { id: allTags["hiking"].id }, { id: allTags["solo-travel"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure184.id }, { userId: user2.id, adventureId: adventure184.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
