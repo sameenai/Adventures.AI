@@ -14101,6 +14101,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure351.id }, { userId: user2.id, adventureId: adventure351.id }], skipDuplicates: true });
 
+
+  // Adventure 352
+  const adventure352 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-352" },
+    update: {},
+    create: {
+      id: "seed-adventure-352",
+      title: "Tierra del Fuego Ski Touring",
+      description: `Ski touring in Tierra del Fuego from Ushuaia accesses some of the most dramatic and least-visited off-piste terrain in the Southern Hemisphere, with runs through the Martial Range descending directly to the Beagle Channel. The Cerro Castor ski resort is the world's southernmost ski area, but the real prizes are the untouched couloirs and faces accessible only on touring skis. Skiing in June means nearly round-the-clock winter darkness at 55 degrees south.`,
+      location: "Ushuaia",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["World southernmost ski resort Cerro Castor", "Beagle Channel descent views", "Condor and Andean fox sightings", "Wild terrain untouched powder", "End of the World atmosphere"],
+      gear: ["Ski touring bindings and skins", "Avalanche beacon probe shovel", "Cold weather expedition system", "Crampons for icier slopes", "Mountain guide for wild terrain"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 2000,
+      latitude: -54.8,
+      longitude: -68.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["expedition"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure352.id }, { userId: user2.id, adventureId: adventure352.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
