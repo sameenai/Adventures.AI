@@ -11730,6 +11730,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure272.id }, { userId: user2.id, adventureId: adventure272.id }], skipDuplicates: true });
 
+
+  // Adventure 273
+  const adventure273 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-273" },
+    update: {},
+    create: {
+      id: "seed-adventure-273",
+      title: "Via Dinarica, Bosnia and Herzegovina",
+      description: `The Via Dinarica is a pioneering long-distance route through the Dinaric Alps connecting Slovenia to Albania through some of Europe's most remote mountain communities. The Bosnian section through the Prenj massif and Sutjeska National Park offers genuine wilderness, pristine rivers, and a chance to experience a region still emerging from the shadow of its recent conflict. Primeval Perucica Forest contains trees over 300 years old.`,
+      location: "Mostar",
+      country: "Bosnia and Herzegovina",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Prenj massif 2155m summit", "Sutjeska primeval forest 300-year trees", "Neretva river valley scenery", "War history cultural depth", "Authentic mountain villages"],
+      gear: ["Trekking poles", "Mountain tent", "Navigation compass", "Blister prevention kit", "Cash for rural guesthouses"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 43.34,
+      longitude: 17.81,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure273.id }, { userId: user2.id, adventureId: adventure273.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
