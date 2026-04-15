@@ -9090,6 +9090,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure184.id }, { userId: user2.id, adventureId: adventure184.id }], skipDuplicates: true });
 
+
+  // Adventure 185
+  const adventure185 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-185" },
+    update: {},
+    create: {
+      id: "seed-adventure-185",
+      title: "Atacama Salt Flats Cycling",
+      description: `Cycling from San Pedro de Atacama through the Salar de Atacama — the world's driest desert and largest lithium deposit — to the Bolivian salt flats of Uyuni combines dramatic desert scenery with extreme altitude. The route crosses geysers at dawn, flamingo lagoons tinted pink at sunset, and the infinite white mirror of the Uyuni salt flat. Roads are rough; altitude from 3,500–5,000 m demands acclimatisation. Winds in the afternoon are fierce.`,
+      location: "San Pedro de Atacama",
+      country: "Chile",
+      continent: "South America",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Salar de Atacama", "Uyuni salt flat Bolivia", "Geysers del Tatio at dawn", "Flamingo lagoons", "Atacama stargazing"],
+      gear: ["Mountain bike (fat tyres preferred)", "Panniers", "Altitude medication", "Sun protection extreme", "Down jacket for nights"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 2200,
+      latitude: -22.91,
+      longitude: -68.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["desert"].id }, { id: allTags["high-altitude"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure185.id }, { userId: user2.id, adventureId: adventure185.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
