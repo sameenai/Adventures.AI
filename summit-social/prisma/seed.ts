@@ -15391,6 +15391,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure394.id }, { userId: user2.id, adventureId: adventure394.id }], skipDuplicates: true });
 
+
+  // Adventure 395
+  const adventure395 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-395" },
+    update: {},
+    create: {
+      id: "seed-adventure-395",
+      title: "Alpine Cycling - Marmotte Sportive",
+      description: `The La Marmotte is one of cycling's legendary Gran Fondo sportive events, covering 174 kilometres and 5,000 metres of climbing through four major Alpine passes including Alpe d'Huez with its 21 numbered bends famous from the Tour de France. The route from Bourg d'Oisans climbs the Glandon, Telegraphe, and Galibier before the iconic Alpe d'Huez finish. Thousands of amateur cyclists attempt this benchmark Alpine cycling challenge every July.`,
+      location: "Bourg d'Oisans",
+      country: "France",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Alpe d'Huez 21 bends Tour de France", "Galibier 2645m highest grand pass", "5000m climbing 174km route", "Marmotte Gran Fondo entry ballot", "Col du Telegraphe and Croix de Fer"],
+      gear: ["Road bike lightweight carbon", "Cycling computer with power meter", "Multiple energy gels and bars", "Knee warmers cold descents", "Cycling shoes clipless"],
+      bestMonths: [7],
+      estimatedCost: 700,
+      latitude: 45.05,
+      longitude: 6.03,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure395.id }, { userId: user2.id, adventureId: adventure395.id }, { userId: user3.id, adventureId: adventure395.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
