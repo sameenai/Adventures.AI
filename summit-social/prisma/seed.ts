@@ -9750,6 +9750,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure206.id }, { userId: user2.id, adventureId: adventure206.id }], skipDuplicates: true });
 
+
+  // Adventure 207
+  const adventure207 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-207" },
+    update: {},
+    create: {
+      id: "seed-adventure-207",
+      title: "Traverse of the Angels",
+      description: `The Traverse of the Angels (Traversata degli Angeli) is a 7-day high-level route across the Apuan Alps in Tuscany — an unusual mountain range of white Carrara marble rising directly above the Ligurian coast, where marble quarries expose raw white cliffs visible from the sea. The traverse links via ferrata, ridge paths, and mountain rifugi, with views simultaneously inland to the Apennines and out to sea.`,
+      location: "Carrara",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=1600&q=80",
+      highlights: ["Marble quarry landscapes", "Rifugio Carrara", "Apuan ridge traverses", "Ligurian Sea views", "Monte Pisanino summit"],
+      gear: ["Hiking boots", "Via ferrata kit", "Trekking poles", "Map and compass", "Italian-English dictionary"],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 1500,
+      latitude: 44.08,
+      longitude: 10.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["via-ferrata"].id }, { id: allTags["europe"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure207.id }, { userId: user2.id, adventureId: adventure207.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
