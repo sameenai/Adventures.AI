@@ -14581,6 +14581,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure367.id }, { userId: user2.id, adventureId: adventure367.id }, { userId: user3.id, adventureId: adventure367.id }], skipDuplicates: true });
 
+
+  // Adventure 368
+  const adventure368 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-368" },
+    update: {},
+    create: {
+      id: "seed-adventure-368",
+      title: "Switzerland Jungfrau Region Ski Touring",
+      description: `The Jungfrau region above Grindelwald and Lauterbrunnen contains the most iconic Alpine scenery in Switzerland, with the Eiger North Face's famous routes visible from ski touring circuits above 3,000 metres. The Haute Route from Verbier to Zermatt is the most celebrated ski mountaineering traverse in the Alps, covering seven days of glacier travel through high passes between some of the biggest peaks in Europe. Hut-to-hut staying provides warmth and Swiss mountain food.`,
+      location: "Grindelwald",
+      country: "Switzerland",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Eiger North Face views above 3000m", "Haute Route Verbier to Zermatt", "Glacier skiing Jungfraujoch", "Swiss alpine hut cuisine", "Matterhorn approach views"],
+      gear: ["Ski mountaineering setup", "Rope harness crampons glacier", "Avalanche rescue kit", "Swiss Alpine Club hut card", "Guide for Haute Route"],
+      bestMonths: [3, 4],
+      estimatedCost: 3000,
+      latitude: 46.62,
+      longitude: 8.04,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure368.id }, { userId: user2.id, adventureId: adventure368.id }, { userId: user3.id, adventureId: adventure368.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
