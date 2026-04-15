@@ -8130,6 +8130,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     },
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure152.id }, { userId: user2.id, adventureId: adventure152.id }, { userId: user3.id, adventureId: adventure152.id }], skipDuplicates: true });
+
+  // Adventure 153
+  const adventure153 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-153" },
+    update: {},
+    create: {
+      id: "seed-adventure-153",
+      title: "Mentawai Islands Surf Charter",
+      description: `The Mentawai Islands off the west coast of Sumatra host some of the world's most perfect surf breaks — HT's, Lances Right, Macaronis, and Rifles deliver long, hollow waves that break with mechanical consistency over shallow tropical reef. A 7-day liveaboard puts 6–8 breaks within easy reach, moving with the swell and anchoring away from other boats. This is intermediate to advanced surfing in a genuinely remote tropical island setting.`,
+      location: "Padang",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.SURFING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1600&q=80",
+      highlights: ["Macaronis perfection", "HT's barrels", "Lances Right length", "Island village visits", "Tropical reef fish"],
+      gear: ["Shortboard and mid-length", "Reef booties", "Wetsuit top (optional)", "Sun protection", "Reef-safe sunscreen"],
+      bestMonths: [4, 5, 6, 7, 8],
+      estimatedCost: 3800,
+      latitude: -2.06,
+      longitude: 99.09,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure153.id }, { userId: user2.id, adventureId: adventure153.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
