@@ -12601,6 +12601,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure301.id }, { userId: user2.id, adventureId: adventure301.id }, { userId: user3.id, adventureId: adventure301.id }], skipDuplicates: true });
 
+
+  // Adventure 302
+  const adventure302 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-302" },
+    update: {},
+    create: {
+      id: "seed-adventure-302",
+      title: "Iran Alborz Mountain Ski Touring",
+      description: `The Alborz Mountains north of Tehran contain some of the finest ski touring in Asia, with Tochal mountain gondola reaching 3,815 metres and Damavand, the highest peak in the Middle East at 5,610 metres, offering a demanding ski mountaineering objective above Tehran's smog. The Iranian ski culture is thriving and welcoming, with a surprising number of ski resorts at Dizin and Shemshak operating on weekends. Ski touring to Damavand's crater is a serious high-altitude ski mountaineering objective.`,
+      location: "Tehran",
+      country: "Iran",
+      continent: "Asia",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Damavand 5610m highest Middle East ski", "Tehran visible from 5000m summit", "Dizin ski resort Asia best conditions", "Tochal gondola 3815m overnight hut", "Crater lake summit views"],
+      gear: ["Ski mountaineering skis", "Skins and crampons", "Altitude medication", "Iranian visa in advance", "Mountain guide required Damavand"],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 1500,
+      latitude: 35.96,
+      longitude: 52.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure302.id }, { userId: user2.id, adventureId: adventure302.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
