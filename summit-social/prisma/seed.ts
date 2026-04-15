@@ -10350,6 +10350,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure226.id }, { userId: user2.id, adventureId: adventure226.id }], skipDuplicates: true });
 
+
+  // Adventure 227
+  const adventure227 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-227" },
+    update: {},
+    create: {
+      id: "seed-adventure-227",
+      title: "Xinjiang Wilderness Traverse",
+      description: `The Kanas Lake region in northern Xinjiang, on the border of Russia, Mongolia, and Kazakhstan, contains some of the most pristine and least-visited boreal wilderness in Asia — Mongolian-style steppe, Siberian taiga forest, and the deep blue of Kanas Lake, which local Tuvan herders believe contains a sea monster. Trekking from Hemu village through the forests and over the passes requires Chinese permits and a guide; autumn colour in late September is extraordinary.`,
+      location: "Burqin",
+      country: "China",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80",
+      highlights: ["Kanas Lake", "Hemu Tuvan village", "Autumn taiga colour", "Altai Mountains crossing", "Semi-nomadic herder culture"],
+      gear: ["Layering system", "Waterproof boots", "Tent (remote camping)", "Chinese SIM", "Permit documentation"],
+      bestMonths: [8, 9, 10],
+      estimatedCost: 2500,
+      latitude: 47,
+      longitude: 87,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["wildlife"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure227.id }, { userId: user2.id, adventureId: adventure227.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
