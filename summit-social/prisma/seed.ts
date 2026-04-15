@@ -12841,6 +12841,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure309.id }, { userId: user2.id, adventureId: adventure309.id }], skipDuplicates: true });
 
+
+  // Adventure 310
+  const adventure310 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-310" },
+    update: {},
+    create: {
+      id: "seed-adventure-310",
+      title: "Venezuelan Tepui Climbing",
+      description: `The tepuis of Venezuela are the flat-topped sandstone table mountains that inspired Arthur Conan Doyle's Lost World, with vertical walls of black Roraima sandstone rising over 2,000 metres from the surrounding savanna. Angel Falls, the world's highest uninterrupted waterfall at 979 metres, plunges from Auyantepui in Canaima National Park. The summit plateau of Roraima contains unique endemic carnivorous plants and crystals in a dreamlike mist-shrouded landscape.`,
+      location: "Santa Elena de Uairen",
+      country: "Venezuela",
+      continent: "South America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Roraima summit endemic carnivorous plants", "Angel Falls 979m world highest waterfall", "Lost World inspiration plateau landscape", "Pemon indigenous guide required", "Quartz crystal summit fields"],
+      gear: ["Waterproof tent and gear", "Climbing harness for gully sections", "Rain jacket constant mist summit", "Permits Canaima National Park", "4WD transport to trailhead"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 1200,
+      latitude: 5.16,
+      longitude: -61.03,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["jungle"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure310.id }, { userId: user2.id, adventureId: adventure310.id }, { userId: user3.id, adventureId: adventure310.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
