@@ -10320,6 +10320,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure225.id }, { userId: user2.id, adventureId: adventure225.id }], skipDuplicates: true });
 
+
+  // Adventure 226
+  const adventure226 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-226" },
+    update: {},
+    create: {
+      id: "seed-adventure-226",
+      title: "Overland Track Tasmania",
+      description: `The Overland Track crosses the Tasmanian Wilderness World Heritage Area from Cradle Mountain to Lake St Clair over 65 km and 6 days, through alpine moorland, glacial lakes, ancient Huon pine forests, and the summit of Mount Ossa (1,617 m), Tasmania's highest peak. The walk is genuinely remote — no road access for the central 5 days. Side trips to Barn Bluff, Pelion West, and the waterfalls of the Narcissus River add days and rewards.`,
+      location: "Cradle Mountain",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Cradle Mountain sunrise", "Mount Ossa summit 1,617m", "Wombat and wallaby", "Huon pine ancient forest", "Lake St Clair finish"],
+      gear: ["Tent (huts limited)", "Warm layers (alpine conditions)", "Waterproof everything", "Fuel stove", "Bear canister equivalent"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 1200,
+      latitude: -41.65,
+      longitude: 145.95,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["australia"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure226.id }, { userId: user2.id, adventureId: adventure226.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
