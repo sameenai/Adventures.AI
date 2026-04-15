@@ -9360,6 +9360,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure193.id }, { userId: user2.id, adventureId: adventure193.id }], skipDuplicates: true });
 
+
+  // Adventure 194
+  const adventure194 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-194" },
+    update: {},
+    create: {
+      id: "seed-adventure-194",
+      title: "Azores Multi-Island Trek",
+      description: `The nine volcanic islands of the Azores in the mid-Atlantic are connected by ferry and short hops, offering a week of crater lake hikes, whale watching, geothermal pools, and dramatic coastal paths. Sete Cidades on São Miguel — two lakes in a single caldera, one blue and one green — is the icon; Pico's volcanic cone at 2,351 m is the challenge. The whale watching from Faial is considered among the best in the world.`,
+      location: "Ponta Delgada",
+      country: "Portugal",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1600&q=80",
+      highlights: ["Sete Cidades crater lakes", "Pico volcano summit", "Whale watching Faial", "Caldeira do Faial", "Furnas geothermal valley"],
+      gear: ["Hiking boots", "Waterproof jacket", "Layers", "Snorkelling kit", "Island hopping schedule"],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 2500,
+      latitude: 37.74,
+      longitude: -25.67,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["island"].id }, { id: allTags["volcanic"].id }, { id: allTags["europe"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure194.id }, { userId: user2.id, adventureId: adventure194.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
