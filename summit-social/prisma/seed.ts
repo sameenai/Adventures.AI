@@ -11550,6 +11550,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure266.id }, { userId: user2.id, adventureId: adventure266.id }], skipDuplicates: true });
 
+
+  // Adventure 267
+  const adventure267 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-267" },
+    update: {},
+    create: {
+      id: "seed-adventure-267",
+      title: "Ciudad Perdida Trek, Colombia",
+      description: `The trek to Ciudad Perdida, the Lost City of the Tayrona people, winds through Sierra Nevada de Santa Marta jungle for four to six days to reach a pre-Columbian city that predates Machu Picchu by over 600 years. The route crosses the Rio Buritaca numerous times and climbs over 1,200 stone steps carved by the Tayrona into the jungle hillside. Indigenous Kogi, Arhuaco and Wiwa communities still consider this site sacred.`,
+      location: "Santa Marta",
+      country: "Colombia",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["1260 stone steps to Lost City", "Tayrona civilisation ruins 800 AD", "Sierra Nevada jungle crossing", "River crossings through gorge", "Kogi indigenous guide stories"],
+      gear: ["Lightweight jungle kit", "River-crossing sandals", "Hammock and mosquito net", "Insect repellent", "Water purification"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 350,
+      latitude: 11.03,
+      longitude: -73.92,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure267.id }, { userId: user2.id, adventureId: adventure267.id }, { userId: user3.id, adventureId: adventure267.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
