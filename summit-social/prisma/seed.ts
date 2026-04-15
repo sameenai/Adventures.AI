@@ -7921,6 +7921,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure145.id }, { userId: user2.id, adventureId: adventure145.id }], skipDuplicates: true });
 
+
+  // Adventure 146
+  const adventure146 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-146" },
+    update: {},
+    create: {
+      id: "seed-adventure-146",
+      title: "Cocos Island Shark Dive",
+      description: `Cocos Island, 550 km off the Pacific coast of Costa Rica, is perhaps the world's best shark-diving destination — a submerged seamount that aggregates scalloped hammerheads in groups of hundreds, plus tiger sharks, silky sharks, and the occasional whale shark. The island is national park; access is strictly liveaboard only, with 5–6 day passages from Puntarenas. Strong currents require Advanced Open Water and experience.`,
+      location: "Puntarenas",
+      country: "Costa Rica",
+      continent: "North America",
+      category: Category.DIVING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=1600&q=80",
+      highlights: ["Hammerhead schools", "Tiger shark encounters", "Mantas at Alcyone", "Cocos Island rainforest", "Oceanic whiteetip sharks"],
+      gear: ["Advanced certification", "Wetsuit 5mm", "Current hook", "SMB mandatory", "Underwater camera"],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 6500,
+      latitude: 5.54,
+      longitude: -87.06,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["bucket-list"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure146.id }, { userId: user2.id, adventureId: adventure146.id }, { userId: user3.id, adventureId: adventure146.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
