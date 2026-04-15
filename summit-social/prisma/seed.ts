@@ -7231,6 +7231,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure122.id }, { userId: user2.id, adventureId: adventure122.id }, { userId: user3.id, adventureId: adventure122.id }], skipDuplicates: true });
 
+
+  // Adventure 123
+  const adventure123 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-123" },
+    update: {},
+    create: {
+      id: "seed-adventure-123",
+      title: "Mont Blanc Tour",
+      description: `The Tour du Mont Blanc circumnavigates the highest peak in the Alps over 170 km and 10,000 m of ascent, crossing through France, Italy, and Switzerland in 11 days. The route connects alpine villages, rifugios, and dramatic cols, with the Aiguille du Midi cable car offering an optional close-up of the massif's serac-draped north face. Start in Chamonix, finish with cold beer on the same terrace.`,
+      location: "Chamonix",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 11,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Three-country traverse", "Col du Bonhomme", "Rifugio Bonatti", "Champex sunset", "Chamonix finish"],
+      gear: ["Trail runners or boots", "Trekking poles", "Lightweight shelter", "Sun protection", "French phrasebook"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2200,
+      latitude: 45.92,
+      longitude: 6.87,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure123.id }, { userId: user2.id, adventureId: adventure123.id }, { userId: user3.id, adventureId: adventure123.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
