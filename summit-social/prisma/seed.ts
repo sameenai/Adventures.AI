@@ -10110,6 +10110,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure218.id }, { userId: user2.id, adventureId: adventure218.id }], skipDuplicates: true });
 
+
+  // Adventure 219
+  const adventure219 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-219" },
+    update: {},
+    create: {
+      id: "seed-adventure-219",
+      title: "Perito Moreno Glacier Trek",
+      description: `The Perito Moreno glacier in Los Glaciares National Park is one of the few glaciers in the world that is not retreating — it advances at 2 m per day and periodically creates an ice dam across the Brazo Rico channel, which then breaks spectacularly. Ice trekking on the glacier surface with crampons takes you across a blue-white world of seracs, moulins, and crevasses that calve into the turquoise lake with thunder. The catwalks opposite offer free viewing; the ice trek is the upgrade.`,
+      location: "El Calafate",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Glacier ice trekking", "Calving ice wall", "Brazo Rico dam formation", "Seracs and moulins", "Blue ice photography"],
+      gear: ["Crampons provided", "Waterproof boots", "Wind jacket", "Gloves", "Camera"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1800,
+      latitude: -50.5,
+      longitude: -73.05,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["glacier"].id }, { id: allTags["photography"].id }, { id: allTags["expedition"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure219.id }, { userId: user2.id, adventureId: adventure219.id }, { userId: user3.id, adventureId: adventure219.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
