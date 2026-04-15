@@ -14701,6 +14701,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure371.id }, { userId: user2.id, adventureId: adventure371.id }], skipDuplicates: true });
 
+
+  // Adventure 372
+  const adventure372 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-372" },
+    update: {},
+    create: {
+      id: "seed-adventure-372",
+      title: "Bhutan Cultural Dzong Trek",
+      description: `Bhutan's eastern dzong trail connects the fortress monasteries of Trongsa, Bumthang, and the remote Mongar district through valleys that very few international visitors reach. The Bumthang Cultural Trek passes through the Ura Valley with its unique Ura festival and the Kurjey Lhakhang monastery where Guru Rinpoche meditated. Bhutan's Gross National Happiness philosophy is most visible in these eastern villages where mobile phone coverage is non-existent.`,
+      location: "Thimphu",
+      country: "Bhutan",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1530178662788-3be1a7c55749?w=1600&q=80",
+      highlights: ["Trongsa Dzong fortress monastery", "Kurjey Lhakhang Guru Rinpoche cave", "Ura Festival masked dance", "Gross National Happiness villages", "Black-necked crane Phobjikha Valley"],
+      gear: ["Bhutan 250 USD daily fee", "Warm layers altitude evenings", "Camera with cultural respect", "Layered modest dress dzong visits", "Licensed guide mandatory"],
+      bestMonths: [3, 4, 9, 10, 11],
+      estimatedCost: 4000,
+      latitude: 27.47,
+      longitude: 89.64,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure372.id }, { userId: user2.id, adventureId: adventure372.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
