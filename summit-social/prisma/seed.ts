@@ -15031,6 +15031,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure382.id }, { userId: user2.id, adventureId: adventure382.id }, { userId: user3.id, adventureId: adventure382.id }], skipDuplicates: true });
 
+
+  // Adventure 383
+  const adventure383 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-383" },
+    update: {},
+    create: {
+      id: "seed-adventure-383",
+      title: "Marquesas Islands Sailing",
+      description: `The Marquesas Archipelago 1,400 kilometres northeast of Tahiti is the most remote inhabited island group in the world, reachable only by the freighter Aranui or by private yacht on a 3,000-kilometre ocean passage from Panama. The dramatic basalt valleys of Nuku Hiva and Hiva Oa contain some of the largest tiki statues in Polynesia, and the interior jungle valleys remain largely unexplored. Herman Melville's Typee and Paul Gauguin's final paintings were inspired by these islands.`,
+      location: "Nuku Hiva",
+      country: "French Polynesia",
+      continent: "Oceania",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Most remote inhabited islands world", "Ancient Marquesan tiki statues", "Gauguin final paintings Hiva Oa", "3000km Pacific passage yacht", "Typee Valley Melville jungle"],
+      gear: ["Offshore sailing experience", "3000km passage provisions", "Dinghy shore landings", "French Polynesia clearance papers", "Tropical diving kit snorkel"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 5000,
+      latitude: -8.9,
+      longitude: -140.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["island"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure383.id }, { userId: user2.id, adventureId: adventure383.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
