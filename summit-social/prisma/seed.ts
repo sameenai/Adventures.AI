@@ -8310,6 +8310,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure158.id }, { userId: user2.id, adventureId: adventure158.id }], skipDuplicates: true });
 
+
+  // Adventure 159
+  const adventure159 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-159" },
+    update: {},
+    create: {
+      id: "seed-adventure-159",
+      title: "Trans-Siberian Railway",
+      description: `The Trans-Siberian Railway is the longest railway on earth — 9,289 km from Moscow to Vladivostok, crossing 8 time zones, the Ural Mountains, the vast Western Siberian plain, Lake Baikal (the world's deepest lake), and the Russian Far East over 7 days in one continuous run or 3 weeks with stops. The Mongolian branch via Ulaanbaatar and Beijing adds the Gobi Desert crossing and the most dramatic scenery. Bring books, vodka, and patience.`,
+      location: "Moscow",
+      country: "Russia",
+      continent: "Europe",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1494522855154-9297ac14b55f?w=1600&q=80",
+      highlights: ["Lake Baikal ice walk (winter)", "Ulaanbaatar Mongolia", "Gobi Desert crossing", "Vladivostok Pacific finish", "Siberian taiga forests"],
+      gear: ["Sleeping bag liner", "Train slippers", "Instant noodles (serious)", "USD and local currencies", "Books — many"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 4000,
+      latitude: 55.75,
+      longitude: 37.62,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["solo-travel"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure159.id }, { userId: user2.id, adventureId: adventure159.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
