@@ -8790,6 +8790,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure174.id }, { userId: user2.id, adventureId: adventure174.id }], skipDuplicates: true });
 
+
+  // Adventure 175
+  const adventure175 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-175" },
+    update: {},
+    create: {
+      id: "seed-adventure-175",
+      title: "Tongariro Alpine Crossing",
+      description: `The Tongariro Alpine Crossing is widely regarded as the best one-day walk in New Zealand — 19.4 km across the volcanic landscape of Tongariro National Park, past the emerald and blue Tongariro lakes, over the South Crater, and around the flanks of Mount Ngauruhoe (better known as Mount Doom). The crossing starts at Mangatepopo and ends at Ketetahi; the middle section requires good fitness and appropriate weather. Check volcanic activity alerts before going.`,
+      location: "Tongariro",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 1,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Tongariro Lakes", "Mount Ngauruhoe (Mount Doom)", "South Crater", "Steam vents", "Ketetahi descent"],
+      gear: ["Waterproof jacket", "Hiking boots", "Warm layers", "Trekking poles", "Extra water"],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 200,
+      latitude: -39.13,
+      longitude: 175.64,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["new-zealand"].id }, { id: allTags["hiking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure175.id }, { userId: user2.id, adventureId: adventure175.id }, { userId: user3.id, adventureId: adventure175.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
