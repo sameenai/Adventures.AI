@@ -7621,6 +7621,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure135.id }, { userId: user2.id, adventureId: adventure135.id }, { userId: user3.id, adventureId: adventure135.id }], skipDuplicates: true });
 
+
+  // Adventure 136
+  const adventure136 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-136" },
+    update: {},
+    create: {
+      id: "seed-adventure-136",
+      title: "Matterhorn North Face",
+      description: `The Matterhorn (4,478 m) is the most recognisable mountain silhouette on earth and the Hörnli Ridge — its northeast arête — is the standard route. The climb involves 1,200 m of mixed rock and ice with considerable route-finding challenge and objective rockfall hazard, particularly above the Hörnli Hut. A private guide is strongly recommended for all but the most experienced alpinists. The summit view west into Italy and east to the Swiss Alps is unforgettable.`,
+      location: "Zermatt",
+      country: "Switzerland",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 2,
+      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      highlights: ["4,478m Matterhorn summit", "Hörnli Hut bivouac", "Italian border summit cross", "Zermatt car-free village", "Gorner Glacier approach"],
+      gear: ["Alpine boots", "Crampons", "Ice axe", "Harness and 60m rope", "Helmet"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 4500,
+      latitude: 45.97,
+      longitude: 7.66,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["alpine"].id }, { id: allTags["bucket-list"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure136.id }, { userId: user2.id, adventureId: adventure136.id }, { userId: user3.id, adventureId: adventure136.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
