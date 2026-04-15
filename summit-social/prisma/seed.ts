@@ -12150,6 +12150,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure286.id }, { userId: user2.id, adventureId: adventure286.id }], skipDuplicates: true });
 
+
+  // Adventure 287
+  const adventure287 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-287" },
+    update: {},
+    create: {
+      id: "seed-adventure-287",
+      title: "Trans-Siberian Cycling Expedition",
+      description: `Cycling the full Trans-Siberian route from Vladivostok to Moscow covers over 10,000 kilometres through the taiga forests, steppe grasslands, and Siberian cities that span eleven time zones. The route passes through the remote Buryat Buddhist regions around Lake Baikal and crosses the Ural Mountains, the traditional boundary between Europe and Asia. This is the ultimate long-distance cycling challenge in terms of sheer distance and logistical complexity.`,
+      location: "Vladivostok",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 90,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["10000km across eleven time zones", "Lake Baikal world deepest lake", "Ural Mountains Europe-Asia boundary", "Buryat Buddhist temple stays", "Trans-Siberian railway parallel route"],
+      gear: ["Touring bicycle fully loaded", "Expedition tent", "Bear spray Siberian wildlife", "Russian SIM card", "Comprehensive tool kit"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 3000,
+      latitude: 43.12,
+      longitude: 131.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure287.id }, { userId: user2.id, adventureId: adventure287.id }, { userId: user3.id, adventureId: adventure287.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
