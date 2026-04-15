@@ -11430,6 +11430,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure262.id }, { userId: user2.id, adventureId: adventure262.id }], skipDuplicates: true });
 
+
+  // Adventure 263
+  const adventure263 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-263" },
+    update: {},
+    create: {
+      id: "seed-adventure-263",
+      title: "Tian Shan Kyrgyz Circuit",
+      description: `Kyrgyzstan's Tian Shan mountains offer world-class trekking through a country where nomadic culture remains alive on summer jailoo pastures dotted with yurts. The classic Ak-Suu traverse in the Terskey Ala-Too range crosses five high passes above 3,800 metres and descends into valleys where you can sleep in family yurts and drink fermented mare's milk. The route culminates near Song Kol lake.`,
+      location: "Karakol",
+      country: "Kyrgyzstan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Ak-Suu traverse five high passes", "Nomadic yurt stays", "Fermented mare's milk tradition", "Terskey Ala-Too granite peaks", "Song Kol high-altitude lake"],
+      gear: ["Mountain tent", "Trekking poles", "Warm sleeping bag", "Horse hire option", "Cash only areas"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: 42.49,
+      longitude: 78.39,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure263.id }, { userId: user2.id, adventureId: adventure263.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
