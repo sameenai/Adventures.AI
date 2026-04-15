@@ -14161,6 +14161,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure353.id }, { userId: user2.id, adventureId: adventure353.id }, { userId: user3.id, adventureId: adventure353.id }], skipDuplicates: true });
 
+
+  // Adventure 354
+  const adventure354 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-354" },
+    update: {},
+    create: {
+      id: "seed-adventure-354",
+      title: "Annapurna Circuit Classic",
+      description: `The Annapurna Circuit is one of Nepal's great trekking classics, circumnavigating the Annapurna massif through dramatically contrasting landscapes from subtropical forests to Tibetan plateau. The Thorong La pass at 5,416 metres is the high point, and the descent to Muktinath with its eternal flame and sacred yatras completes one of the world's finest long-distance mountain journeys. The recently completed paved road has changed parts of the route but the high sections remain spectacular.`,
+      location: "Besisahar",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Thorong La pass 5416 metres", "Muktinath sacred flame eternal fire", "Manang acclimatisation village", "Poon Hill sunrise panorama", "Kali Gandaki world deepest gorge"],
+      gear: ["High altitude sleeping bag", "Trekking poles", "Acclimatisation schedule", "ACAP permit and TIMS card", "Down jacket for high camp"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1200,
+      latitude: 28.37,
+      longitude: 84.39,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure354.id }, { userId: user2.id, adventureId: adventure354.id }, { userId: user3.id, adventureId: adventure354.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
