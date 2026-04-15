@@ -15301,6 +15301,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure391.id }, { userId: user2.id, adventureId: adventure391.id }], skipDuplicates: true });
 
+
+  // Adventure 392
+  const adventure392 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-392" },
+    update: {},
+    create: {
+      id: "seed-adventure-392",
+      title: "Hungarian Thermal Bike Tour",
+      description: `Hungary has over 1,000 thermal springs and the greatest density of medicinal spas in Europe, accessible by bicycle along the Danube Cycle Path and across the Great Hungarian Plain. The Tokaj wine region along the Tisza River produces the legendary Tokaji Aszu wine from noble rot grapes, and cycling through the vineyards in September during harvest provides authentic Hungarian rural culture. Budapest's Szechenyi thermal bath is the world's largest medicinal bath complex.`,
+      location: "Budapest",
+      country: "Hungary",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Szechenyi thermal bath world largest", "Tokaj Aszu wine harvest September", "Danube Cycle Path international route", "Puszta Great Plain traditional herders", "Hungarian horsemen csikos display"],
+      gear: ["Touring bicycle", "Swimwear thermal pools", "Wine carrier panniers", "Hungarian forint", "Rain jacket Pannonian Plains"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 600,
+      latitude: 47.49,
+      longitude: 19.04,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["europe"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure392.id }, { userId: user2.id, adventureId: adventure392.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
