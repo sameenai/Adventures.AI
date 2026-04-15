@@ -11970,6 +11970,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure280.id }, { userId: user2.id, adventureId: adventure280.id }], skipDuplicates: true });
 
+
+  // Adventure 281
+  const adventure281 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-281" },
+    update: {},
+    create: {
+      id: "seed-adventure-281",
+      title: "New Zealand Paparoa Track",
+      description: `The Paparoa Track is New Zealand's newest Great Walk, opened in 2019 as a tribute to the 29 men who died in the Pike River Mine disaster in 2010. The route traverses the Paparoa Range and passes the historic Brunner Mine site on the West Coast, combining mountain panoramas with industrial heritage. Mountain bike use is permitted alongside trampers, making this the only Great Walk accessible to cyclists.`,
+      location: "Westport",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Newest New Zealand Great Walk 2019", "Pike River Mine memorial", "Paparoa Range panoramas", "Mountain biking permitted", "West Coast rainforest"],
+      gear: ["Mountain bike optional", "DOC hut booking", "Rain gear essential", "Sandfly protection", "Navigation app"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 350,
+      latitude: -42.04,
+      longitude: 171.63,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["new-zealand"].id }, { id: allTags["hiking"].id }, { id: allTags["cycling"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure281.id }, { userId: user2.id, adventureId: adventure281.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
