@@ -10020,6 +10020,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure215.id }, { userId: user2.id, adventureId: adventure215.id }], skipDuplicates: true });
 
+
+  // Adventure 216
+  const adventure216 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-216" },
+    update: {},
+    create: {
+      id: "seed-adventure-216",
+      title: "Fitz Roy Massif Trek",
+      description: `The Fitz Roy massif in Los Glaciares National Park near El Chaltén is Patagonia's most dramatic granite terrain — a vertical world of towers and needles that inspired the Patagonia clothing logo. The base camp hike to Laguna de los Tres offers the iconic reflection of Monte Fitz Roy (3,405 m) in ice-cold water. Multiday circuits reach the Hielo Continental from the west; via ferrata access to the base of the Supercanaleta is for climbers only.`,
+      location: "El Chaltén",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Laguna de los Tres reflection", "Fitz Roy sunrise alpenglow", "Cerro Torre approach", "El Chaltén trekking village", "Patagonian condors"],
+      gear: ["Wind layers (essential)", "Waterproof jacket and trousers", "Trekking poles", "Warm sleeping bag", "Gaiters"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 2500,
+      latitude: -49.33,
+      longitude: -72.89,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure216.id }, { userId: user2.id, adventureId: adventure216.id }, { userId: user3.id, adventureId: adventure216.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
