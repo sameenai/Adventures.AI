@@ -11880,6 +11880,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure277.id }, { userId: user2.id, adventureId: adventure277.id }, { userId: user3.id, adventureId: adventure277.id }], skipDuplicates: true });
 
+
+  // Adventure 278
+  const adventure278 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-278" },
+    update: {},
+    create: {
+      id: "seed-adventure-278",
+      title: "Vietnam Northern Loop Motorcycle",
+      description: `The northern Vietnam loop through Ha Giang, Dong Van, and the Lung Cu border area passes through the most dramatic karst mountain scenery in Southeast Asia. The Dong Van Karst Plateau Geopark UNESCO site contains fossilised coral formations 400-500 million years old, and the Sunday markets of Bac Ha and Can Cau draw hill tribe communities in full traditional dress. This is a genuine frontier road trip along China's border.`,
+      location: "Ha Giang",
+      country: "Vietnam",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
+      highlights: ["Dong Van Karst Plateau UNESCO Geopark", "Lung Cu border post marker", "H'mong and Dao hill tribe markets", "Ma Pi Leng mountain pass", "Nho Que river emerald gorge"],
+      gear: ["Automatic scooter", "Rain poncho", "Offline maps downloaded", "Helmet with visor", "Motorbike permit"],
+      bestMonths: [10, 11, 12, 3, 4],
+      estimatedCost: 400,
+      latitude: 23.22,
+      longitude: 105.04,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure278.id }, { userId: user2.id, adventureId: adventure278.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
