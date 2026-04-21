@@ -28895,6 +28895,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure844.id }, { userId: user2.id, adventureId: adventure844.id }, { userId: user3.id, adventureId: adventure844.id }], skipDuplicates: true });
 
+
+  // Adventure 845
+  const adventure845 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-845" },
+    update: {},
+    create: {
+      id: "seed-adventure-845",
+      title: "Jordan Wadi Rum Desert Trekking",
+      description: `Trek through Wadi Rum — the Valley of the Moon — a vast sandstone and granite wilderness in southern Jordan, camping with Bedouin guides in a landscape that served as the backdrop for Lawrence of Arabia and The Martian. Multi-day traverses link hidden canyons, sandstone arches, and inscriptions from 2,000 years of human passage. Nights are spent in Bedouin goat-hair tents or under the stars on open sand; the quality of the darkness here is extraordinary. Combine with Petra (1 hour by car) for the complete Jordanian desert experience.`,
+      location: "Wadi Rum, Ma'an Governorate, Jordan",
+      country: "Jordan",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 29.6,
+      longitude: 35.4,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure845.id }, { userId: user2.id, adventureId: adventure845.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
