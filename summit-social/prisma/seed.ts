@@ -24395,6 +24395,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure694.id }, { userId: user2.id, adventureId: adventure694.id }, { userId: user3.id, adventureId: adventure694.id }], skipDuplicates: true });
 
+
+  // Adventure 695
+  const adventure695 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-695" },
+    update: {},
+    create: {
+      id: "seed-adventure-695",
+      title: "Chile Huilo Huilo Bioreserve",
+      description: `The Huilo Huilo Biological Reserve in the Chilean Lake District protects a vast swath of valdivian temperate rainforest, one of the rarest forest types on earth. Trekking through cathedral forests of coigues and alerce trees over 3000 years old, kayaking alongside chungungo river otters, and searching for the pudú, the world's smallest deer, creates a forest adventure of extraordinary biological richness. Volcano Mocho-Choshuenco provides a volcanic backdrop.`,
+      location: "Los Lagos, Chile",
+      country: "Chile",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Alerce tree 3000 years old cathedral forest", "Puda world's smallest deer forest endemic", "Huilo Huilo Falls waterfall canyon natural", "Volcano Mocho-Choshuenco climb crater option", "River otter chungungo family group fishing"],
+      gear: ["Waterproof boots valdivian rain wet daily", "Rain jacket Patagonian north constant damp", "Binoculars forest wildlife dense canopy", "Insect repellent forest mosquito evening", "Camera wide angle forest light filtering"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 900,
+      latitude: -39.87,
+      longitude: -71.85,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure695.id }, { userId: user2.id, adventureId: adventure695.id }, { userId: user3.id, adventureId: adventure695.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
