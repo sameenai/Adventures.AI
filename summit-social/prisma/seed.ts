@@ -29735,6 +29735,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure872.id }, { userId: user2.id, adventureId: adventure872.id }], skipDuplicates: true });
 
+
+  // Adventure 873
+  const adventure873 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-873" },
+    update: {},
+    create: {
+      id: "seed-adventure-873",
+      title: "Myanmar Hkakabo Razi Trekking Approach",
+      description: `Trek toward Hkakabo Razi (5,881 m) — Southeast Asia's highest peak, on the China-Myanmar-India tri-border — through the Putao basin and the remote Adung Long Valley in Myanmar's Kachin state. The trek involves 12-15 days through jungle and rhododendron forest before reaching alpine terrain. The mountain itself requires a serious mountaineering expedition; many visitors trek to the base camp zone rather than attempting a summit. Political and logistical conditions in northern Myanmar change frequently; this is currently one of the most difficult adventure destinations to access.`,
+      location: "Kachin State, Myanmar",
+      country: "Myanmar",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11],
+      estimatedCost: 1000,
+      latitude: 28.3,
+      longitude: 97.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["mountaineering"].id }, { id: allTags["jungle"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure873.id }, { userId: user2.id, adventureId: adventure873.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
