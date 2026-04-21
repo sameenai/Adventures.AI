@@ -19894,6 +19894,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure544.id }, { userId: user2.id, adventureId: adventure544.id }, { userId: user3.id, adventureId: adventure544.id }], skipDuplicates: true });
 
+
+  // Adventure 545
+  const adventure545 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-545" },
+    update: {},
+    create: {
+      id: "seed-adventure-545",
+      title: "Pakistan K2 Base Camp Trek",
+      description: `The approach to K2 base camp at 5100m is one of the great mountaineering pilgrimages, following the Baltoro Glacier past a concentration of 8000m peaks unmatched anywhere on earth. Concordia sits at the junction of multiple glaciers surrounded by K2, Broad Peak, and the Gasherbrums. The Baltoro Glacier crossing requires genuine mountaineering competence in an environment where conditions change rapidly.`,
+      location: "Karakoram, Pakistan",
+      country: "Pakistan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Concordia 8000m peak concentration unmatched", "K2 Savage Mountain 8611m base camp view", "Baltoro Glacier 60km approach moraine navigation", "Broad Peak Gasherbrum base camp side trek", "Trango Towers sheer granite vertical perspective"],
+      gear: ["Crampons Baltoro Glacier ice sections", "Acclimatization profile strict Concordia", "Karakoram weather window limited July August", "LO permit Pakistan government mountain", "High altitude sleeping bag minus 25"],
+      bestMonths: [7, 8],
+      estimatedCost: 3500,
+      latitude: 35.88,
+      longitude: 76.51,
+      published: true,
+      userId: user1.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["glacier"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure545.id }, { userId: user2.id, adventureId: adventure545.id }, { userId: user3.id, adventureId: adventure545.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
