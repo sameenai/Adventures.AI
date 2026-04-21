@@ -20284,6 +20284,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure557.id }, { userId: user2.id, adventureId: adventure557.id }, { userId: user3.id, adventureId: adventure557.id }], skipDuplicates: true });
 
+
+  // Adventure 558
+  const adventure558 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-558" },
+    update: {},
+    create: {
+      id: "seed-adventure-558",
+      title: "Greenland Kayak West Coast",
+      description: `Paddling the west coast of Greenland through Disko Bay brings kayakers into the calving zone of the Sermeq Kujalleq glacier, which produces 10% of all Greenlandic icebergs. Kayaking through cathedral forests of ice with humpback whales surfacing beside the kayak and Inuit kayaking heritage all around creates an experience connecting the human past with an urgent present as the ice retreats.`,
+      location: "West Greenland",
+      country: "Greenland",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ilulissat Icefjord UNESCO iceberg cathedral", "Sermeq Kujalleq calving glacier active front", "Humpback whale surfacing kayak proximity", "Disko Bay pack ice navigation spring", "Greenlandic Inuit kayak culture heritage"],
+      gear: ["Sea kayak cold Arctic water technique", "Drysuit Arctic immersion survival", "VHF radio iceberg navigation safety", "Spray skirt rough water calving wave", "Bear spray polar bear coastal territory"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 3500,
+      latitude: 69.22,
+      longitude: -51.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["arctic"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure558.id }, { userId: user2.id, adventureId: adventure558.id }, { userId: user3.id, adventureId: adventure558.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
