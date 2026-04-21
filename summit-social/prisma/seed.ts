@@ -21664,6 +21664,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure603.id }, { userId: user2.id, adventureId: adventure603.id }, { userId: user3.id, adventureId: adventure603.id }], skipDuplicates: true });
 
+
+  // Adventure 604
+  const adventure604 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-604" },
+    update: {},
+    create: {
+      id: "seed-adventure-604",
+      title: "Philippines Palawan Island Kayak",
+      description: `Palawan's Bacuit Archipelago around El Nido is a labyrinth of limestone karst islands, hidden lagoons, and coral reef snorkeling that represents the Philippines at its most pristine. Sea kayaking between islands accesses secret lagoons impossible for tour boats, including the Big and Small Lagoons at El Nido accessible only through narrow cliff gaps at low tide. Dugong sightings in the seagrass beds complete a perfect tropical kayaking week.`,
+      location: "Palawan, Philippines",
+      country: "Philippines",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Big Lagoon El Nido secret cave entrance kayak", "Small Lagoon shimmer turquoise cliff enclosed", "Dugong seagrass bed Tubbataha approach", "Barracuda Lake saltwater freshwater interface", "Puerto Princesa Underground River UNESCO"],
+      gear: ["Kayak hire El Nido local operator", "Waterproof bag all electronics lagoon", "Reef safe sunscreen coral protection", "Snorkel mask fin set carried", "Life jacket open crossings mandatory"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 600,
+      latitude: 11.18,
+      longitude: 119.42,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["diving"].id }, { id: allTags["coastal"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure604.id }, { userId: user2.id, adventureId: adventure604.id }, { userId: user3.id, adventureId: adventure604.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
