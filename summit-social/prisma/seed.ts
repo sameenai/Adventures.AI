@@ -28235,6 +28235,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure822.id }, { userId: user2.id, adventureId: adventure822.id }], skipDuplicates: true });
 
+
+  // Adventure 823
+  const adventure823 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-823" },
+    update: {},
+    create: {
+      id: "seed-adventure-823",
+      title: "Chile Carretera Austral Cycling",
+      description: `Cycle the Carretera Austral — Chile's legendary southern highway stretching 1,240 km from Puerto Montt to Villa O'Higgins through some of the emptiest Patagonian wilderness on Earth. The road passes fjords, temperate rainforests, hanging glaciers, and turquoise glacial rivers. Traffic is minimal outside of summer; gravel sections are rough and demanding but negotiable on a loaded touring bike. The ferry crossings at Hornopiren and Puerto Yungay break the route into manageable sections. This is one of the great cycling adventures in the Americas.`,
+      location: "Carretera Austral, Patagonia, Chile",
+      country: "Chile",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 25,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: -44,
+      longitude: -73,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["road-trip"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure823.id }, { userId: user2.id, adventureId: adventure823.id }, { userId: user3.id, adventureId: adventure823.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
