@@ -26855,6 +26855,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure776.id }, { userId: user2.id, adventureId: adventure776.id }], skipDuplicates: true });
 
+
+  // Adventure 777
+  const adventure777 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-777" },
+    update: {},
+    create: {
+      id: "seed-adventure-777",
+      title: "Peru Choquequirao Trek",
+      description: `Reach the most remote major Inca site in Peru on foot — Choquequirao, perched on a ridge above the Apurimac Canyon, is accessible only by a gruelling 4-day return trek involving 3,000 m of descent and re-ascent. The site itself dwarfs Machu Picchu in scale but receives a fraction of the visitors. The trail passes through subtropical cloud forest, crosses the roaring Apurimac river, and climbs through terraced agricultural sectors still being excavated by archaeologists. A proposed cable car remains controversial.`,
+      location: "Apurimac Region, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -13.5,
+      longitude: -72.7,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure777.id }, { userId: user2.id, adventureId: adventure777.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
