@@ -19954,6 +19954,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure546.id }, { userId: user2.id, adventureId: adventure546.id }, { userId: user3.id, adventureId: adventure546.id }], skipDuplicates: true });
 
+
+  // Adventure 547
+  const adventure547 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-547" },
+    update: {},
+    create: {
+      id: "seed-adventure-547",
+      title: "Bhutan Snowman Trek",
+      description: `The Snowman Trek is consistently ranked as the world's hardest trekking route, 30 days crossing 11 passes above 5000m through Bhutan's most remote northern districts. Only a few dozen trekkers complete it each year due to the 5600m Rinchen Zoe La pass, yak herder hospitality as the only accommodation, and weather windows that close without warning. This is the test of tests in high-altitude trekking.`,
+      location: "Bhutan Himalayas",
+      country: "Bhutan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Rinchen Zoe La pass 5600m highest Bhutan", "30-day complete traverse no shortcuts", "Yak herder camp tent only accommodation", "Lunana district northernmost inhabited Bhutan", "Tiger's Nest Paro monastery final descent"],
+      gear: ["High altitude sleeping bag minus 25", "Yak hire remote camp load transport", "11 high passes acclimatization protocol strict", "Bhutan permit government daily fee", "Expedition doctor altitude illness team"],
+      bestMonths: [9, 10],
+      estimatedCost: 8000,
+      latitude: 28,
+      longitude: 90,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure547.id }, { userId: user2.id, adventureId: adventure547.id }, { userId: user3.id, adventureId: adventure547.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
