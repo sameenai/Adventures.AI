@@ -28715,6 +28715,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure838.id }, { userId: user2.id, adventureId: adventure838.id }], skipDuplicates: true });
 
+
+  // Adventure 839
+  const adventure839 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-839" },
+    update: {},
+    create: {
+      id: "seed-adventure-839",
+      title: "Mozambique Pemba and Quirimbas Diving",
+      description: `The Quirimbas Archipelago in northern Mozambique — 32 coral islands scattered across 250 km of Indian Ocean coastline — offers pristine diving on reefs that have seen minimal fishing pressure for decades. Dugong and whale shark sightings are regular; the humpback whale migration passes July to October. Ibo Island at the southern end of the archipelago is a crumbling Portuguese colonial gem with 16th-century fortifications and resident metalworkers maintaining ancient craft traditions. Pemba is the jumping-off point by light aircraft or dhow.`,
+      location: "Quirimbas Archipelago, Mozambique",
+      country: "Mozambique",
+      continent: "Unknown",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -12.3,
+      longitude: 40.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["africa"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure839.id }, { userId: user2.id, adventureId: adventure839.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
