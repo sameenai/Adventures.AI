@@ -20404,6 +20404,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure561.id }, { userId: user2.id, adventureId: adventure561.id }, { userId: user3.id, adventureId: adventure561.id }], skipDuplicates: true });
 
+
+  // Adventure 562
+  const adventure562 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-562" },
+    update: {},
+    create: {
+      id: "seed-adventure-562",
+      title: "Tasmania Southwest Wilderness",
+      description: `The Southwest Wilderness of Tasmania is one of the largest temperate wilderness areas in the southern hemisphere, accessible only by float plane or arduous multi-week foot traverse. Ancient Huon pines over 2000 years old, the southern ocean cliffs of the Southwest Cape, and the trackless Federation Peak massif combine in a destination of extraordinary primeval wildness. This is bushwalking at its most serious.`,
+      location: "Southwest National Park, Tasmania",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Federation Peak 1224m exposed scramble circuit", "Huon pine 2000-year-old living relic forest", "Southwest Cape southern ocean wilderness end", "Port Davey inlet remote float plane access", "Undiscovered valleys no human footprint months"],
+      gear: ["Float plane charter Southwest access", "Full self-sufficiency 14-day food supply", "Compass navigation trackless wilderness", "Flood gear permanent southwest rainfall", "Satellite phone emergency evacuation"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 3500,
+      latitude: -43.5,
+      longitude: 146.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["australia"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure562.id }, { userId: user2.id, adventureId: adventure562.id }, { userId: user3.id, adventureId: adventure562.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
