@@ -31415,6 +31415,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure928.id }], skipDuplicates: true });
 
+
+  // Adventure 929
+  const adventure929 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-929" },
+    update: {},
+    create: {
+      id: "seed-adventure-929",
+      title: "Greenland Arctic Circle Trail",
+      description: `Walk the Arctic Circle Trail — 160 km from Kangerlussuaq to Sisimiut across the Greenlandic tundra, one of the longest established wilderness routes above the Arctic Circle — in 8-12 days through a landscape with no infrastructure, no trees, and no human habitation between start and end. Musk oxen and arctic fox are encountered regularly. River crossings require cold-water wading. Kangerlussuaq is accessible by direct flight from Copenhagen; Sisimiut is a genuine Greenlandic town of 5,500 people with a remarkable craft tradition and dog sled culture.`,
+      location: "West Greenland",
+      country: "West Greenland",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 67,
+      longitude: -50.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure929.id }, { userId: user2.id, adventureId: adventure929.id }, { userId: user3.id, adventureId: adventure929.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
