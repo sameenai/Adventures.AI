@@ -28295,6 +28295,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure824.id }], skipDuplicates: true });
 
+
+  // Adventure 825
+  const adventure825 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-825" },
+    update: {},
+    create: {
+      id: "seed-adventure-825",
+      title: "Croatia Dalmatian Coast Sea Kayaking",
+      description: `Paddle the Dalmatian islands of the Croatian Adriatic — a fractured coastline of over 1,000 islands, uninhabited islets, sea caves, and medieval walled towns like Dubrovnik, Hvar, and Korcula accessible from the water. The multi-day kayak tour follows the outer island chain where boat traffic is limited and wild camping is still possible on uninhabited islets. The Adriatic is warm and calm in the mornings; afternoon thermal winds (maestral) can build quickly. The route passes through some of the clearest seawater in the Mediterranean.`,
+      location: "Dalmatian Coast, Croatia",
+      country: "Croatia",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 1000,
+      latitude: 43.5,
+      longitude: 16.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["diving"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure825.id }, { userId: user2.id, adventureId: adventure825.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
