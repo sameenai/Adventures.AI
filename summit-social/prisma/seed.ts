@@ -27545,6 +27545,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure799.id }, { userId: user2.id, adventureId: adventure799.id }, { userId: user3.id, adventureId: adventure799.id }], skipDuplicates: true });
 
+
+  // Adventure 800
+  const adventure800 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-800" },
+    update: {},
+    create: {
+      id: "seed-adventure-800",
+      title: "Japan Northern Alps Winter Ski Touring",
+      description: `Ski tour through the Japanese Northern Alps (Hida Mountains) on the deep Hokuriku snowpack that buries mountain huts to their rooflines each winter. The traverse from Hakuba to Tateyama over the Shiro-uma massif and the Tateyama Kurobe Alpine Route is one of Japan's great winter journeys. Japanese mountain huts (sanso) provide simple but warm accommodation. The powder snow in the Japanese Alps is among the lightest and driest in the world due to the Sea of Japan effect; backcountry skiing around Hakuba and Nozawa has become internationally acclaimed.`,
+      location: "Northern Alps, Japan",
+      country: "Japan",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 36.7,
+      longitude: 137.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["alpine"].id }, { id: allTags["multi-day"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure800.id }, { userId: user2.id, adventureId: adventure800.id }, { userId: user3.id, adventureId: adventure800.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
