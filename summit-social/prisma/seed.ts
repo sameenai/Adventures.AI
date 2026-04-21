@@ -32255,6 +32255,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure956.id }, { userId: user2.id, adventureId: adventure956.id }, { userId: user3.id, adventureId: adventure956.id }], skipDuplicates: true });
 
+
+  // Adventure 957
+  const adventure957 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-957" },
+    update: {},
+    create: {
+      id: "seed-adventure-957",
+      title: "Madagascar Isalo National Park Trekking",
+      description: `Trek through Isalo National Park — a dramatic sandstone massif in south-central Madagascar, eroded into canyons, arches, and gorges that contain permanent natural swimming pools fed by year-round springs surrounded by endemic Pachypodium palms and ring-tailed lemur troops. The park's oasis-like quality in the midst of dry Mahafaly plateau country makes it extraordinary. The Canyons circuit takes 2-3 days; the longer routes to the summit plateau take 4-5 days with overnight camping. The Bara people have carved rock tombs into the sandstone cliffs for centuries.`,
+      location: "Isalo National Park, Ihorombe Region, Madagascar",
+      country: "Madagascar",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -22.4,
+      longitude: 45.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure957.id }, { userId: user2.id, adventureId: adventure957.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
