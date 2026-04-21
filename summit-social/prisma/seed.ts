@@ -29255,6 +29255,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure856.id }, { userId: user2.id, adventureId: adventure856.id }], skipDuplicates: true });
 
+
+  // Adventure 857
+  const adventure857 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-857" },
+    update: {},
+    create: {
+      id: "seed-adventure-857",
+      title: "Costa Rica Osa Peninsula Diving and Surfing",
+      description: `The Osa Peninsula — described by National Geographic as the most biologically intense place on Earth — combines world-class surfing at Pavones and Matapalo with exceptional diving in the Cano Island Biological Reserve. Cano Island is a protected marine area 20 km offshore where hammerhead sharks, whale sharks, manta rays, and enormous schools of fish aggregate around a rocky seamount. On shore, scarlet macaws, tapirs, and all four monkey species found in Costa Rica inhabit the Corcovado National Park forest. A remote, complete adventure destination.`,
+      location: "Osa Peninsula, Puntarenas, Costa Rica",
+      country: "Costa Rica",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 8.5,
+      longitude: -83.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["surfing"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure857.id }, { userId: user2.id, adventureId: adventure857.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
