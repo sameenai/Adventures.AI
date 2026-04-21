@@ -27905,6 +27905,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure811.id }, { userId: user2.id, adventureId: adventure811.id }], skipDuplicates: true });
 
+
+  // Adventure 812
+  const adventure812 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-812" },
+    update: {},
+    create: {
+      id: "seed-adventure-812",
+      title: "Spain Picos de Europa Traverse",
+      description: `Traverse the Picos de Europa — Spain's first national park and a compact massif of sheer limestone towers rising to 2,650 m just 20 km from the Cantabrian coast. The Ruta del Cares (Cares Gorge) is the most famous walk in Spain, carved into a vertical cliff face above a roaring river. Longer traverses link refugios across the three massifs through chamois-inhabited terrain accessible only in summer. The contrast between alpine summits and green coastal valleys within a single day's walking is unique in Europe.`,
+      location: "Picos de Europa, Asturias, Spain",
+      country: "Spain",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 43.2,
+      longitude: -4.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["scrambling"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure812.id }, { userId: user2.id, adventureId: adventure812.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
