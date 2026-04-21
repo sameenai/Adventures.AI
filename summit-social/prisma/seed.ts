@@ -19504,6 +19504,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure531.id }, { userId: user2.id, adventureId: adventure531.id }, { userId: user3.id, adventureId: adventure531.id }], skipDuplicates: true });
 
+
+  // Adventure 532
+  const adventure532 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-532" },
+    update: {},
+    create: {
+      id: "seed-adventure-532",
+      title: "Canadian Rockies Backcountry Skiing",
+      description: `The Canadian Rockies receive some of North America's lightest powder snow, and the backcountry terrain accessed from Banff, Lake Louise, and Jasper is among the continent's finest. Ski touring through the Columbia Icefield, helicopter skiing in the Cariboos, and hut-to-hut traverses deliver experiences far beyond any resort. Grizzly tracks in fresh snow and avalanche debris fields are constant reminders of the stakes.`,
+      location: "Banff and Jasper, Canada",
+      country: "Canada",
+      continent: "North America",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Columbia Icefield ski tour glaciated plateau", "Cariboo heli-skiing deepest powder Canada", "Mount Assiniboine hut circuit wilderness", "Grizzly track fresh powder morning reveal", "Lake Louise backcountry larch meadow autumn"],
+      gear: ["Avalanche transceiver probe shovel mandatory", "Ski touring binding AT setup", "Beacon signal transmit receive practice", "Hut booking advance Banff backcountry", "Wilderness first aid training essential"],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 3000,
+      latitude: 51.49,
+      longitude: -116.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure532.id }, { userId: user2.id, adventureId: adventure532.id }, { userId: user3.id, adventureId: adventure532.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
