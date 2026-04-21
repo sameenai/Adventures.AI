@@ -28265,6 +28265,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure823.id }, { userId: user2.id, adventureId: adventure823.id }, { userId: user3.id, adventureId: adventure823.id }], skipDuplicates: true });
 
+
+  // Adventure 824
+  const adventure824 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-824" },
+    update: {},
+    create: {
+      id: "seed-adventure-824",
+      title: "India Dzukou Valley Trek — Nagaland Flower Valley",
+      description: `Trek into the Dzukou Valley — a high-altitude grassland and flower valley at 2,400 m on the Nagaland-Manipur border, known for the endemic Dzukou lily that blooms in spectacular masses in July. The valley is reached by a steep 4-hour ascent from either Viswema or Zakhama villages. Overnight camping in the valley shelter is part of the experience; the return next day via a different ridge gives panoramic views of distant Kohima. The Naga people who tend this landscape have one of the most distinctive warrior cultures in Asia.`,
+      location: "Dzukou Valley, Nagaland, India",
+      country: "India",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 10, 11, 12],
+      estimatedCost: 1000,
+      latitude: 25.5,
+      longitude: 94.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["hiking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure824.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
