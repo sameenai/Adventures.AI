@@ -26315,6 +26315,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure758.id }, { userId: user2.id, adventureId: adventure758.id }, { userId: user3.id, adventureId: adventure758.id }], skipDuplicates: true });
 
+
+  // Adventure 759
+  const adventure759 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-759" },
+    update: {},
+    create: {
+      id: "seed-adventure-759",
+      title: "Indonesia Bromo Semeru Trek",
+      description: `Mount Bromo is an active volcano within the vast Tengger caldera in East Java, approached across a sea of volcanic sand by horseback or on foot at dawn. Mount Semeru at 3676m is Java's highest peak and the sacred cosmic axis of Hinduism, an active volcano requiring a 2-day summit climb through thick cloud forest and volcanic scree above the timberline. Together they form Java's ultimate volcanic trekking circuit.`,
+      location: "East Java, Indonesia",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Bromo crater active smoking sunrise Tengger", "Sea of sand horseback dawn Tengger caldera", "Semeru 3676m Java highest active summit", "Ranu Kumbolo lake 2400m campsite reflection", "Semeru eruption active summit smoke plume"],
+      gear: ["Gas mask sulphur Bromo crater edge approach", "Volcanic terrain boots ankle support rocky", "Down jacket Semeru summit cold 3676m", "Guide Semeru mandatory permit regulation", "Head torch pre-dawn start Bromo horse ride"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 400,
+      latitude: -7.94,
+      longitude: 112.95,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["photography"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure759.id }, { userId: user2.id, adventureId: adventure759.id }, { userId: user3.id, adventureId: adventure759.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
