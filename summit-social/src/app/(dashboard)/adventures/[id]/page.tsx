@@ -222,351 +222,397 @@ export default async function AdventureDetailPage({ params }: Props) {
     "Dec",
   ];
 
+  const pageUrl = `${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/adventures/${adventure.id}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    name: adventure.title,
+    description: adventure.description.slice(0, 500),
+    image: adventure.coverImageUrl,
+    url: pageUrl,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: adventure.location,
+      addressCountry: adventure.country,
+    },
+    ...(adventure.latitude &&
+      adventure.longitude && {
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: adventure.latitude,
+          longitude: adventure.longitude,
+        },
+      }),
+    ...(adventure.estimatedCost && {
+      offers: {
+        "@type": "Offer",
+        price: adventure.estimatedCost,
+        priceCurrency: "USD",
+      },
+    }),
+    touristType: adventure.category.replace(/_/g, " "),
+  };
+
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-      {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-2 font-mono text-xs text-stone-600">
-        <Link href="/adventures" className="hover:text-amber-500 transition-colors">
-          Adventures
-        </Link>
-        <span>/</span>
-        <span className="text-stone-400">{adventure.title}</span>
-      </nav>
+    <>
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: static server-generated JSON-LD, no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <nav className="mb-6 flex items-center gap-2 font-mono text-xs text-stone-600">
+          <Link href="/adventures" className="hover:text-amber-500 transition-colors">
+            Adventures
+          </Link>
+          <span>/</span>
+          <span className="text-stone-400">{adventure.title}</span>
+        </nav>
 
-      {/* Hero image */}
-      <div className="relative aspect-[21/9] overflow-hidden border border-stone-800">
-        <Image
-          src={adventure.coverImageUrl}
-          alt={adventure.title}
-          fill
-          className="object-cover brightness-75"
-          priority
-          sizes="(max-width: 1024px) 100vw, 1024px"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6">
-          <div className="flex items-center gap-3">
-            <span className="font-display text-xs uppercase tracking-[0.35em] text-amber-500">
-              {adventure.category.replace(/_/g, " ")}
-            </span>
-            {adventure.id.startsWith("seed-") && (
-              <span className="border border-stone-600 px-2 py-0.5 font-display text-xs uppercase tracking-widest text-stone-500">
-                Demo
+        {/* Hero image */}
+        <div className="relative aspect-[21/9] overflow-hidden border border-stone-800">
+          <Image
+            src={adventure.coverImageUrl}
+            alt={adventure.title}
+            fill
+            className="object-cover brightness-75"
+            priority
+            sizes="(max-width: 1024px) 100vw, 1024px"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div className="flex items-center gap-3">
+              <span className="font-display text-xs uppercase tracking-[0.35em] text-amber-500">
+                {adventure.category.replace(/_/g, " ")}
               </span>
-            )}
-          </div>
-          <h1 className="mt-1 font-display text-3xl uppercase tracking-widest text-stone-100 sm:text-5xl">
-            {adventure.title}
-          </h1>
-          <p className="mt-2 font-mono text-sm text-stone-400">
-            {adventure.location} · {adventure.country}
-          </p>
-        </div>
-      </div>
-
-      {/* Stats bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone-800 py-4">
-        <div className="flex flex-wrap items-center gap-6 font-mono text-xs">
-          <span className={difficulty?.color ?? "text-stone-400"}>{difficulty?.label}</span>
-          <span className="text-stone-500">{pluralise(adventure.durationDays, "day")}</span>
-          <span className="text-stone-500">{adventure.continent}</span>
-          {adventure.estimatedCost && (
-            <span className="text-stone-500">~{formatPrice(adventure.estimatedCost)} est.</span>
-          )}
-          <ViewCounter
-            adventureId={adventure.id}
-            isAuthor={session?.user?.id === adventure.user.id}
-          />
-        </div>
-        <div className="flex items-center gap-3">
-          {session?.user?.id === adventure.user.id && (
-            <Link
-              href={`/adventures/${adventure.id}/edit`}
-              className="border border-stone-700 px-3 py-1.5 font-display text-xs uppercase tracking-widest text-stone-400 hover:text-stone-200 transition-colors"
-            >
-              Edit
-            </Link>
-          )}
-          <BookmarkButton
-            adventureId={adventure.id}
-            isBookmarked={isBookmarked}
-            disabled={!session?.user?.id}
-          />
-          <ShareButtons
-            title={adventure.title}
-            url={`${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/adventures/${adventure.id}`}
-          />
-          <VoteButton
-            adventureId={adventure.id}
-            voteCount={adventure.voteCount}
-            hasVoted={hasVoted}
-            disabled={!session?.user?.id}
-          />
-        </div>
-      </div>
-
-      <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Main content */}
-        <div className="lg:col-span-2 space-y-8">
-          {/* Description */}
-          <section>
-            <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-              Overview
-            </h2>
-            <p className="text-sm leading-relaxed text-stone-400 whitespace-pre-line">
-              {adventure.description}
+              {adventure.id.startsWith("seed-") && (
+                <span className="border border-stone-600 px-2 py-0.5 font-display text-xs uppercase tracking-widest text-stone-500">
+                  Demo
+                </span>
+              )}
+            </div>
+            <h1 className="mt-1 font-display text-3xl uppercase tracking-widest text-stone-100 sm:text-5xl">
+              {adventure.title}
+            </h1>
+            <p className="mt-2 font-mono text-sm text-stone-400">
+              {adventure.location} · {adventure.country}
             </p>
-          </section>
+          </div>
+        </div>
 
-          {/* Highlights */}
-          {adventure.highlights.length > 0 && (
+        {/* Stats bar */}
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone-800 py-4">
+          <div className="flex flex-wrap items-center gap-6 font-mono text-xs">
+            <span className={difficulty?.color ?? "text-stone-400"}>{difficulty?.label}</span>
+            <span className="text-stone-500">{pluralise(adventure.durationDays, "day")}</span>
+            <span className="text-stone-500">{adventure.continent}</span>
+            {adventure.estimatedCost && (
+              <span className="text-stone-500">~{formatPrice(adventure.estimatedCost)} est.</span>
+            )}
+            <ViewCounter
+              adventureId={adventure.id}
+              isAuthor={session?.user?.id === adventure.user.id}
+            />
+          </div>
+          <div className="flex items-center gap-3">
+            {session?.user?.id === adventure.user.id && (
+              <Link
+                href={`/adventures/${adventure.id}/edit`}
+                className="border border-stone-700 px-3 py-1.5 font-display text-xs uppercase tracking-widest text-stone-400 hover:text-stone-200 transition-colors"
+              >
+                Edit
+              </Link>
+            )}
+            <BookmarkButton
+              adventureId={adventure.id}
+              isBookmarked={isBookmarked}
+              disabled={!session?.user?.id}
+            />
+            <ShareButtons
+              title={adventure.title}
+              url={`${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/adventures/${adventure.id}`}
+            />
+            <VoteButton
+              adventureId={adventure.id}
+              voteCount={adventure.voteCount}
+              hasVoted={hasVoted}
+              disabled={!session?.user?.id}
+            />
+          </div>
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {/* Main content */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Description */}
             <section>
               <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                Highlights
+                Overview
               </h2>
-              <ul className="space-y-2">
-                {adventure.highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-3 text-sm text-stone-400">
-                    <span className="mt-1 h-1.5 w-1.5 shrink-0 bg-amber-500" />
-                    {h}
-                  </li>
-                ))}
-              </ul>
+              <p className="text-sm leading-relaxed text-stone-400 whitespace-pre-line">
+                {adventure.description}
+              </p>
             </section>
-          )}
 
-          {/* Map */}
-          {(markers.length > 0 || adventure.gpxTrackUrl) && (
+            {/* Highlights */}
+            {adventure.highlights.length > 0 && (
+              <section>
+                <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                  Highlights
+                </h2>
+                <ul className="space-y-2">
+                  {adventure.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-3 text-sm text-stone-400">
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 bg-amber-500" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Map */}
+            {(markers.length > 0 || adventure.gpxTrackUrl) && (
+              <section>
+                <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                  {adventure.gpxTrackUrl ? "Route" : "Location"}
+                </h2>
+                <MapView
+                  markers={markers}
+                  gpxTrackUrl={adventure.gpxTrackUrl ?? undefined}
+                  className="h-[280px]"
+                />
+              </section>
+            )}
+
+            {/* Comments */}
             <section>
-              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                {adventure.gpxTrackUrl ? "Route" : "Location"}
+              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
+                {pluralise(totalCommentCount, "Comment")}
               </h2>
-              <MapView
-                markers={markers}
-                gpxTrackUrl={adventure.gpxTrackUrl ?? undefined}
-                className="h-[280px]"
+              {session?.user?.id ? (
+                <div className="mb-6">
+                  <CommentForm adventureId={adventure.id} />
+                </div>
+              ) : (
+                <p className="mb-6 font-mono text-xs text-stone-600">
+                  <Link href="/login" className="text-amber-500 hover:text-amber-400">
+                    Sign in
+                  </Link>{" "}
+                  to leave a comment.
+                </p>
+              )}
+              <CommentSection
+                adventureId={adventure.id}
+                comments={commentsWithReactions}
+                currentUserId={session?.user?.id ?? null}
               />
             </section>
-          )}
-
-          {/* Comments */}
-          <section>
-            <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
-              {pluralise(totalCommentCount, "Comment")}
-            </h2>
-            {session?.user?.id ? (
-              <div className="mb-6">
-                <CommentForm adventureId={adventure.id} />
-              </div>
-            ) : (
-              <p className="mb-6 font-mono text-xs text-stone-600">
-                <Link href="/login" className="text-amber-500 hover:text-amber-400">
-                  Sign in
-                </Link>{" "}
-                to leave a comment.
-              </p>
-            )}
-            <CommentSection
-              adventureId={adventure.id}
-              comments={commentsWithReactions}
-              currentUserId={session?.user?.id ?? null}
-            />
-          </section>
-        </div>
-
-        {/* Sidebar */}
-        <div className="space-y-6">
-          {/* Gear */}
-          {adventure.gear.length > 0 && (
-            <div className="border border-stone-800 p-5">
-              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                Gear List
-              </h3>
-              <ul className="space-y-2">
-                {adventure.gear.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-2 font-mono text-xs text-stone-400"
-                  >
-                    <span className="h-px w-3 bg-stone-700" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Best months */}
-          {adventure.bestMonths.length > 0 && (
-            <div className="border border-stone-800 p-5">
-              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                Best Months
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
-                {MONTH_NAMES.map((name, i) => {
-                  const active = adventure.bestMonths.includes(i + 1);
-                  return (
-                    <span
-                      key={name}
-                      className={`font-mono text-xs px-2 py-1 ${
-                        active
-                          ? "bg-amber-500/10 text-amber-500 border border-amber-500/30"
-                          : "text-stone-700 border border-stone-900"
-                      }`}
-                    >
-                      {name}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Tags */}
-          {adventure.tags.length > 0 && (
-            <div className="border border-stone-800 p-5">
-              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                Tags
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {adventure.tags.map((tag) => (
-                  <Link
-                    key={tag.id}
-                    href={`/adventures?tag=${encodeURIComponent(tag.name)}`}
-                    className="border border-stone-800 px-2 py-0.5 font-mono text-xs text-stone-500 hover:border-amber-500/50 hover:text-amber-500 transition-colors"
-                  >
-                    {tag.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Author */}
-          <div className="border border-stone-800 p-5">
-            <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-              Posted by
-            </h3>
-            <Link href={`/profile/${adventure.user.id}`} className="flex items-center gap-3 group">
-              {adventure.user.avatarUrl && (
-                <Image
-                  src={adventure.user.avatarUrl}
-                  alt={adventure.user.name ?? ""}
-                  width={40}
-                  height={40}
-                  className="border border-stone-700"
-                />
-              )}
-              <div>
-                <p className="font-mono text-sm text-stone-200 group-hover:text-amber-500 transition-colors">
-                  {adventure.user.name}
-                </p>
-                {adventure.user.bio && (
-                  <p className="mt-0.5 text-xs text-stone-600 line-clamp-2">{adventure.user.bio}</p>
-                )}
-              </div>
-            </Link>
           </div>
 
-          {/* Album gallery */}
-          {adventure.albumUrl && (
-            <div className="border border-stone-800 p-5">
-              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                Photo Album
-              </h3>
-              <a
-                href={adventure.albumUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 font-mono text-xs text-amber-500 hover:text-amber-400 transition-colors"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-4 w-4 fill-none stroke-current stroke-2 shrink-0"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                  />
-                </svg>
-                View photos on{" "}
-                {adventure.albumPlatform
-                  ? adventure.albumPlatform
-                      .replace("_", " ")
-                      .replace(/\b\w/g, (c) => c.toUpperCase())
-                  : "external site"}
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-3 w-3 fill-none stroke-current stroke-2"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                  />
-                </svg>
-              </a>
-            </div>
-          )}
-
-          {/* Related adventures */}
-          {relatedAdventures.length > 0 && (
-            <div className="border border-stone-800 p-5">
-              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                More {adventure.category.replace(/_/g, " ")}
-              </h3>
-              <ul className="space-y-3">
-                {relatedAdventures.map((rel) => {
-                  const relDifficulty = DIFFICULTY_MAP.get(rel.difficulty);
-                  return (
-                    <li key={rel.id}>
-                      <Link href={`/adventures/${rel.id}`} className="flex items-start gap-3 group">
-                        <div className="relative h-12 w-16 shrink-0 overflow-hidden border border-stone-800">
-                          <Image
-                            src={rel.coverImageUrl}
-                            alt={rel.title}
-                            fill
-                            className="object-cover brightness-75 group-hover:brightness-90 transition-all"
-                            sizes="64px"
-                          />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="font-mono text-xs text-stone-200 group-hover:text-amber-500 transition-colors line-clamp-2 leading-relaxed">
-                            {rel.title}
-                          </p>
-                          <p className="mt-0.5 font-mono text-xs text-stone-600">
-                            {rel.location} ·{" "}
-                            <span className={relDifficulty?.color}>{relDifficulty?.label}</span>
-                          </p>
-                        </div>
-                      </Link>
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Gear */}
+            {adventure.gear.length > 0 && (
+              <div className="border border-stone-800 p-5">
+                <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                  Gear List
+                </h3>
+                <ul className="space-y-2">
+                  {adventure.gear.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-center gap-2 font-mono text-xs text-stone-400"
+                    >
+                      <span className="h-px w-3 bg-stone-700" />
+                      {item}
                     </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
+                  ))}
+                </ul>
+              </div>
+            )}
 
-          {/* Plan this trip CTA */}
-          <div className="border border-amber-500/20 bg-amber-500/5 p-5">
-            <h3 className="font-display text-xs uppercase tracking-[0.35em] text-amber-500 mb-2">
-              Plan This Trip
-            </h3>
-            <p className="text-xs leading-relaxed text-stone-500 mb-4">
-              Use the AI Trip Planner to build a day-by-day itinerary inspired by this adventure.
-            </p>
-            <Link
-              href={`/itinerary?prompt=${encodeURIComponent(`Plan a trip inspired by "${adventure.title}" in ${adventure.location}, ${adventure.country}. Duration: ${adventure.durationDays} days, difficulty: ${adventure.difficulty.toLowerCase()}.`)}`}
-              className="block w-full border border-amber-500 bg-amber-500 py-2 text-center font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
-            >
-              Open Planner
-            </Link>
+            {/* Best months */}
+            {adventure.bestMonths.length > 0 && (
+              <div className="border border-stone-800 p-5">
+                <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                  Best Months
+                </h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {MONTH_NAMES.map((name, i) => {
+                    const active = adventure.bestMonths.includes(i + 1);
+                    return (
+                      <span
+                        key={name}
+                        className={`font-mono text-xs px-2 py-1 ${
+                          active
+                            ? "bg-amber-500/10 text-amber-500 border border-amber-500/30"
+                            : "text-stone-700 border border-stone-900"
+                        }`}
+                      >
+                        {name}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Tags */}
+            {adventure.tags.length > 0 && (
+              <div className="border border-stone-800 p-5">
+                <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                  Tags
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {adventure.tags.map((tag) => (
+                    <Link
+                      key={tag.id}
+                      href={`/adventures?tag=${encodeURIComponent(tag.name)}`}
+                      className="border border-stone-800 px-2 py-0.5 font-mono text-xs text-stone-500 hover:border-amber-500/50 hover:text-amber-500 transition-colors"
+                    >
+                      {tag.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Author */}
+            <div className="border border-stone-800 p-5">
+              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                Posted by
+              </h3>
+              <Link
+                href={`/profile/${adventure.user.id}`}
+                className="flex items-center gap-3 group"
+              >
+                {adventure.user.avatarUrl && (
+                  <Image
+                    src={adventure.user.avatarUrl}
+                    alt={adventure.user.name ?? ""}
+                    width={40}
+                    height={40}
+                    className="border border-stone-700"
+                  />
+                )}
+                <div>
+                  <p className="font-mono text-sm text-stone-200 group-hover:text-amber-500 transition-colors">
+                    {adventure.user.name}
+                  </p>
+                  {adventure.user.bio && (
+                    <p className="mt-0.5 text-xs text-stone-600 line-clamp-2">
+                      {adventure.user.bio}
+                    </p>
+                  )}
+                </div>
+              </Link>
+            </div>
+
+            {/* Album gallery */}
+            {adventure.albumUrl && (
+              <div className="border border-stone-800 p-5">
+                <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                  Photo Album
+                </h3>
+                <a
+                  href={adventure.albumUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-mono text-xs text-amber-500 hover:text-amber-400 transition-colors"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4 fill-none stroke-current stroke-2 shrink-0"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                    />
+                  </svg>
+                  View photos on{" "}
+                  {adventure.albumPlatform
+                    ? adventure.albumPlatform
+                        .replace("_", " ")
+                        .replace(/\b\w/g, (c) => c.toUpperCase())
+                    : "external site"}
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-3 w-3 fill-none stroke-current stroke-2"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                    />
+                  </svg>
+                </a>
+              </div>
+            )}
+
+            {/* Related adventures */}
+            {relatedAdventures.length > 0 && (
+              <div className="border border-stone-800 p-5">
+                <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                  More {adventure.category.replace(/_/g, " ")}
+                </h3>
+                <ul className="space-y-3">
+                  {relatedAdventures.map((rel) => {
+                    const relDifficulty = DIFFICULTY_MAP.get(rel.difficulty);
+                    return (
+                      <li key={rel.id}>
+                        <Link
+                          href={`/adventures/${rel.id}`}
+                          className="flex items-start gap-3 group"
+                        >
+                          <div className="relative h-12 w-16 shrink-0 overflow-hidden border border-stone-800">
+                            <Image
+                              src={rel.coverImageUrl}
+                              alt={rel.title}
+                              fill
+                              className="object-cover brightness-75 group-hover:brightness-90 transition-all"
+                              sizes="64px"
+                            />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="font-mono text-xs text-stone-200 group-hover:text-amber-500 transition-colors line-clamp-2 leading-relaxed">
+                              {rel.title}
+                            </p>
+                            <p className="mt-0.5 font-mono text-xs text-stone-600">
+                              {rel.location} ·{" "}
+                              <span className={relDifficulty?.color}>{relDifficulty?.label}</span>
+                            </p>
+                          </div>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            {/* Plan this trip CTA */}
+            <div className="border border-amber-500/20 bg-amber-500/5 p-5">
+              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-amber-500 mb-2">
+                Plan This Trip
+              </h3>
+              <p className="text-xs leading-relaxed text-stone-500 mb-4">
+                Use the AI Trip Planner to build a day-by-day itinerary inspired by this adventure.
+              </p>
+              <Link
+                href={`/itinerary?prompt=${encodeURIComponent(`Plan a trip inspired by "${adventure.title}" in ${adventure.location}, ${adventure.country}. Duration: ${adventure.durationDays} days, difficulty: ${adventure.difficulty.toLowerCase()}.`)}`}
+                className="block w-full border border-amber-500 bg-amber-500 py-2 text-center font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
+              >
+                Open Planner
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
