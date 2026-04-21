@@ -32345,6 +32345,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure959.id }, { userId: user2.id, adventureId: adventure959.id }, { userId: user3.id, adventureId: adventure959.id }], skipDuplicates: true });
 
+
+  // Adventure 960
+  const adventure960 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-960" },
+    update: {},
+    create: {
+      id: "seed-adventure-960",
+      title: "France Vanoise National Park Ski Traverse",
+      description: `Ski traverse the Vanoise massif — France's first national park, a high plateau between the Tarentaise and Maurienne valleys connecting Pralognan-la-Vanoise and Bonneval-sur-Arc over 4-6 days through glaciated terrain above 3,000 m. The route visits Refuge du Plan du Lac, Refuge de la Fesse, and the Col de la Vanoise in the heart of the ibex reserve that gave the park its core conservation purpose. The approach from Val d'Isere or Les Arcs connects with the wider Three Valleys ski touring network. A satisfying and technically achievable alpine ski tour.`,
+      location: "Vanoise National Park, Savoie, France",
+      country: "France",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 45.3,
+      longitude: 6.8,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure960.id }, { userId: user2.id, adventureId: adventure960.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
