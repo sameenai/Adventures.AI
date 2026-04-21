@@ -24725,6 +24725,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure705.id }, { userId: user2.id, adventureId: adventure705.id }, { userId: user3.id, adventureId: adventure705.id }], skipDuplicates: true });
 
+
+  // Adventure 706
+  const adventure706 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-706" },
+    update: {},
+    create: {
+      id: "seed-adventure-706",
+      title: "Nepal Island Peak Climb",
+      description: `Island Peak at 6189m is Nepal's most popular trekking peak, positioned in the heart of the Khumbu Valley like a white island above the surrounding moraines when viewed from Dingboche. The summit lies at the head of a glaciated ridge with a final section of fixed ropes and ice face on the headwall. The combination with the Everest Base Camp trek makes Island Peak the most complete Khumbu high-altitude experience available.`,
+      location: "Khumbu, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Island Peak 6189m Nepal trekking peak summit", "Everest Base Camp combination ultimate circuit", "Chhukung Ri 5546m acclimatization climb", "Lhotse south face dramatic view from summit", "Khumbu Glacier moraine Island Peak approach"],
+      gear: ["Crampons ice axe headwall technical summit", "High altitude sleeping bag minus 20 Chhukung", "Acclimatization EBC trek prior schedule", "Climbing permit Nepal trekking peak fee", "Guide mandatory Island Peak technical route"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2800,
+      latitude: 27.92,
+      longitude: 86.93,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["multi-day"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure706.id }, { userId: user2.id, adventureId: adventure706.id }, { userId: user3.id, adventureId: adventure706.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
