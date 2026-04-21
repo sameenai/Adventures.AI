@@ -22174,6 +22174,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure620.id }, { userId: user2.id, adventureId: adventure620.id }, { userId: user3.id, adventureId: adventure620.id }], skipDuplicates: true });
 
+
+  // Adventure 621
+  const adventure621 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-621" },
+    update: {},
+    create: {
+      id: "seed-adventure-621",
+      title: "Italy Via degli Dei Trek",
+      description: `The Via degli Dei, Way of the Gods, crosses the Tuscan-Emilian Apennines from Bologna to Florence through chestnut forests, Etruscan hill settlements, and medieval monastery paths. The 130-kilometre route connects Italy's two greatest cultural capitals on foot through a landscape of gentle hills and profound history, passing Monte Adone and the sanctuary of Monte Sole with its WWII partisan memorial significance.`,
+      location: "Apennines, Italy",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Bologna to Florence cultural capital connection", "Etruscan hill settlement ancient pathway", "Monte Sole partisan WWII memorial poignant", "Chestnut forest Apennine autumn October", "Florence Duomo cathedral arrival via hike"],
+      gear: ["Comfortable hiking shoes Apennine terrain", "Rain jacket Apennine climate variable", "Waymarks red white blazed route easy", "Village accommodation book advance", "Food provision village shop gaps route"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 500,
+      latitude: 44.16,
+      longitude: 11.26,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["europe"].id }, { id: allTags["multi-day"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure621.id }, { userId: user2.id, adventureId: adventure621.id }, { userId: user3.id, adventureId: adventure621.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
