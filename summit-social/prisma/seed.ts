@@ -28175,6 +28175,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure820.id }, { userId: user2.id, adventureId: adventure820.id }, { userId: user3.id, adventureId: adventure820.id }], skipDuplicates: true });
 
+
+  // Adventure 821
+  const adventure821 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-821" },
+    update: {},
+    create: {
+      id: "seed-adventure-821",
+      title: "Sweden Arctic Dogsled Self-Drive Tour",
+      description: `Drive your own team of Siberian and Alaskan huskies through the Swedish Lapland wilderness north of the Arctic Circle — following frozen river tracks, through birch forest, and across open fells under the aurora borealis. The Swedish Lapland dogsledding centres around Jukkasjarvi and Kiruna offer 3-7 day expeditions with small groups of 4-6 participants, each mushing their own team. No prior experience required. Nights at wilderness cabins heated by wood stove; temperature can drop to -30C.`,
+      location: "Lapland, Sweden",
+      country: "Sweden",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 68,
+      longitude: 20.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["arctic"].id }, { id: allTags["expedition"].id }, { id: allTags["camping"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure821.id }, { userId: user2.id, adventureId: adventure821.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
