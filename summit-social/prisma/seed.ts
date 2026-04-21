@@ -27935,6 +27935,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure812.id }, { userId: user2.id, adventureId: adventure812.id }], skipDuplicates: true });
 
+
+  // Adventure 813
+  const adventure813 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-813" },
+    update: {},
+    create: {
+      id: "seed-adventure-813",
+      title: "Myanmar Inle Lake Kayaking and Cycling",
+      description: `Explore Inle Lake — a shallow highland lake at 880 m in the Shan Hills — by kayak, weaving between floating gardens tended by Intha fishermen who row with one leg wrapped around an oar. The lake district contains dozens of Shan, Pa-O, and Danu villages accessible only by water or unpaved track. Cycling between villages through bamboo forests, tea plantations, and pagoda-dotted hillsides completes the picture. Political conditions in Myanmar require up-to-date travel advisory checks before visiting.`,
+      location: "Inle Lake, Shan State, Myanmar",
+      country: "Myanmar",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EASY,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: 20.5,
+      longitude: 96.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-sport"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure813.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
