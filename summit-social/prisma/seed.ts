@@ -26135,6 +26135,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure752.id }, { userId: user2.id, adventureId: adventure752.id }, { userId: user3.id, adventureId: adventure752.id }], skipDuplicates: true });
 
+
+  // Adventure 753
+  const adventure753 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-753" },
+    update: {},
+    create: {
+      id: "seed-adventure-753",
+      title: "Norway Hardangerfjord Winter Ski",
+      description: `The Hardanger Plateau is Norway's largest mountain plateau and the site of some of the country's finest cross-country and ski touring terrain. The annual Skarverennet race covers 36 kilometres of plateau at 1200m altitude, while guided multi-day tours from Finse station reach the Hardangerjokulen glacier capped by the plateau. The Blamo river valley from Myrdal on the spectacular Flam railway provides a classic descent into the fjord below.`,
+      location: "Hardanger, Norway",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Hardangerjokulen glacier plateau ski tour", "Finse Flam descent dramatic valley Flam railway", "Skarverennet annual cross-country ski race", "Hardanger plateau vast open spring skiing", "Voringsfoss waterfall fjord descent viewpoint"],
+      gear: ["Nordic cross-country ski touring setup", "Avalanche safety plateau winter stability", "Layers minus 15 plateau wind chill", "Hut DNT network reservation advance", "GPS navigation white-out plateau skill"],
+      bestMonths: [3, 4, 5],
+      estimatedCost: 1200,
+      latitude: 60.62,
+      longitude: 7.52,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["europe"].id }, { id: allTags["midnight-sun"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure753.id }, { userId: user2.id, adventureId: adventure753.id }, { userId: user3.id, adventureId: adventure753.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
