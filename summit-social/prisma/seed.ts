@@ -24365,6 +24365,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure693.id }, { userId: user2.id, adventureId: adventure693.id }, { userId: user3.id, adventureId: adventure693.id }], skipDuplicates: true });
 
+
+  // Adventure 694
+  const adventure694 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-694" },
+    update: {},
+    create: {
+      id: "seed-adventure-694",
+      title: "Balkan Mountains E4 Trail",
+      description: `The E4 European long-distance trail crosses Bulgaria from the Danube to the Aegean through the Balkan range and Rhodope Mountains, one of the most complete wilderness hiking routes in southeastern Europe. Vitosha mountain above Sofia, Rila with Bulgaria's highest peak Musala at 2925m, and the monumental rock formation of Belogradchik provide the landmarks of a Balkans trekking journey through cultures of Byzantine, Ottoman, and Soviet overlap.`,
+      location: "Bulgaria",
+      country: "Bulgaria",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Musala 2925m Bulgaria highest Rila summit", "Rila Seven Lakes cirque glacial staircase", "Vitosha mountain Sofia city backdrop hike", "Belogradchik dramatic rock formations fortress", "Rhodope mountain cave Prohodna eye of God"],
+      gear: ["Mountain boots Bulgarian terrain rocky", "Rain jacket Balkan summer afternoon storm", "Hut mountain refuges reserve advance", "Bulgarian lev cash remote village", "Map offline app E4 trail navigation"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 500,
+      latitude: 42.5,
+      longitude: 24.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["multi-day"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure694.id }, { userId: user2.id, adventureId: adventure694.id }, { userId: user3.id, adventureId: adventure694.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
