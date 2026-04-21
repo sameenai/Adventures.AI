@@ -33065,6 +33065,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure983.id }, { userId: user2.id, adventureId: adventure983.id }], skipDuplicates: true });
 
+
+  // Adventure 984
+  const adventure984 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-984" },
+    update: {},
+    create: {
+      id: "seed-adventure-984",
+      title: "Iran Yazd Desert Cycling",
+      description: `Cycle between the ancient desert cities of central Iran — Yazd, Isfahan, and Shiraz — through the Dasht-e Kavir salt desert on roads lined with qanat-fed gardens and wind towers (badgirs) that have cooled buildings without electricity for 2,000 years. Iranian hospitality transforms a cycling tour into a series of unprompted invitations; the kindness extended to foreign cyclists in this country is legendary among touring cyclists. Yazd's mud-brick old city — the oldest continuously inhabited city in the world — is a UNESCO site of extraordinary atmosphere.`,
+      location: "Yazd Province, Iran",
+      country: "Iran",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 31.9,
+      longitude: 54.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["road-trip"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure984.id }, { userId: user2.id, adventureId: adventure984.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
