@@ -25895,6 +25895,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure744.id }, { userId: user2.id, adventureId: adventure744.id }, { userId: user3.id, adventureId: adventure744.id }], skipDuplicates: true });
 
+
+  // Adventure 745
+  const adventure745 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-745" },
+    update: {},
+    create: {
+      id: "seed-adventure-745",
+      title: "Indonesia Raja Ampat Diving",
+      description: `Raja Ampat is consistently rated the world's best dive destination for biodiversity, containing 75% of all known coral species and over 1300 species of reef fish within an area of 50,000 square kilometres of islands. Walking sharks, wobbegong carpet sharks, and mantas are the headline species, but the sheer density of colour and life on every reef exceeds any other diving destination on earth. The karst limestone island landscape above water is equally extraordinary.`,
+      location: "Raja Ampat, West Papua",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["75% world coral species Raja Ampat record", "Walking shark epaulette catshark reef unique", "Wobbegong carpet shark bottom camouflage", "Mantas Dampier Strait cleaning station regular", "1300 reef fish species single dive count"],
+      gear: ["Dive certification minimum open water required", "Liveaboard 10-day outer island access", "Underwater camera strobe wide angle essential", "Entry fee conservation contribution required", "3mm wetsuit Coral Triangle warm water"],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 3500,
+      latitude: -0.23,
+      longitude: 130.52,
+      published: true,
+      userId: user1.id,
+      voteCount: 12,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure745.id }, { userId: user2.id, adventureId: adventure745.id }, { userId: user3.id, adventureId: adventure745.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
