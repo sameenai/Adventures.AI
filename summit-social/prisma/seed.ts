@@ -24305,6 +24305,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure691.id }, { userId: user2.id, adventureId: adventure691.id }, { userId: user3.id, adventureId: adventure691.id }], skipDuplicates: true });
 
+
+  // Adventure 692
+  const adventure692 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-692" },
+    update: {},
+    create: {
+      id: "seed-adventure-692",
+      title: "Argentina Aconcagua Summit Attempt",
+      description: `Aconcagua at 6962m is the highest peak in the Western and Southern Hemispheres and the highest of the Seven Summits outside Asia. The Normal Route from Plaza de Mulas base camp is a non-technical high-altitude climb, but the altitude is everything, and the permanent accommodation at base camp supports a sophisticated expedition infrastructure. Success rates average around 40% due to the extreme altitude and notorious Viento Blanco white winds.`,
+      location: "Mendoza, Argentina",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Aconcagua 6962m Americas highest summit", "Viento Blanco white wind weather survival", "Plaza de Mulas 4370m base camp high city", "Independence Hut 6370m highest basic shelter", "Stone Sentinel 6600m summit final approach"],
+      gear: ["Double boots plastic high altitude mandatory", "Down suit sleeping system minus 40 night", "Permit Argentine government USD fee", "Acclimatization programme strict 21-day", "Dexamethasone altitude emergency injection"],
+      bestMonths: [12, 1, 2],
+      estimatedCost: 4000,
+      latitude: -32.65,
+      longitude: -70.01,
+      published: true,
+      userId: user1.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure692.id }, { userId: user2.id, adventureId: adventure692.id }, { userId: user3.id, adventureId: adventure692.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
