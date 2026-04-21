@@ -22264,6 +22264,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure623.id }, { userId: user2.id, adventureId: adventure623.id }, { userId: user3.id, adventureId: adventure623.id }], skipDuplicates: true });
 
+
+  // Adventure 624
+  const adventure624 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-624" },
+    update: {},
+    create: {
+      id: "seed-adventure-624",
+      title: "Borneo Kinabalu Summit Climb",
+      description: `Mount Kinabalu at 4095m is the highest peak between the Himalayas and New Guinea, a granite massif rising abruptly from the Borneo rainforest. The two-day summit route via Laban Rata rest house involves a pre-dawn scramble up fixed ropes on the Low's Gully rim to the summit plateau. The botanical diversity of the mountain, with over 600 orchid species and carnivorous pitcher plants, makes the approach as remarkable as the summit.`,
+      location: "Sabah, Malaysian Borneo",
+      country: "Malaysia",
+      continent: "Asia",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Summit plateau Low's Peak 4095m Borneo highest", "Pitcher plant world's largest species discovery", "Orchid 600 species endemic floral diversity", "Pre-dawn rope climb summit approach dramatic", "Laban Rata rest house altitude views overnight"],
+      gear: ["Permit advance booking Kinabalu essential", "Head torch pre-dawn summit approach", "Warm layers summit 4000m cold wind", "Trekking poles descent rocky granite", "Guide mandatory permit regulations Sabah"],
+      bestMonths: [3, 4, 5, 7, 8, 9],
+      estimatedCost: 800,
+      latitude: 6.07,
+      longitude: 116.56,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["mountains"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure624.id }, { userId: user2.id, adventureId: adventure624.id }, { userId: user3.id, adventureId: adventure624.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
