@@ -27965,6 +27965,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure813.id }], skipDuplicates: true });
 
+
+  // Adventure 814
+  const adventure814 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-814" },
+    update: {},
+    create: {
+      id: "seed-adventure-814",
+      title: "Kyrgyzstan Tien Shan High Lakes Trek",
+      description: `Trek through the Central Tien Shan Mountains of Kyrgyzstan — a wilderness of glacier-fed turquoise lakes, alpine meadows grazed by herds of yak and sheep, and jagged 5,000+ m summits that appear unexpectedly around valley bends. The Karakol region and Terskey Ala-Too range offer some of the finest trekking in Central Asia with minimal tourist infrastructure. Homestays in yurt camps provide food and accommodation; horses can be hired to carry gear. The region borders China's Xinjiang province at the Khan Tengri massif.`,
+      location: "Karakol Region, Kyrgyzstan",
+      country: "Kyrgyzstan",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 42.5,
+      longitude: 78.4,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure814.id }, { userId: user2.id, adventureId: adventure814.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
