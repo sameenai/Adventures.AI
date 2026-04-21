@@ -29375,6 +29375,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure860.id }, { userId: user2.id, adventureId: adventure860.id }], skipDuplicates: true });
 
+
+  // Adventure 861
+  const adventure861 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-861" },
+    update: {},
+    create: {
+      id: "seed-adventure-861",
+      title: "Nepal Rara Lake Trekking — Remote Northwest",
+      description: `Trek to Rara Lake — Nepal's largest lake at 2,990 m in the remote Karnali region — through dense pine and spruce forests that support Himalayan black bears, red pandas, and hundreds of bird species. The northwest of Nepal receives a fraction of the trekking traffic of the Khumbu and Annapurna regions; the trail system between Jumla and Rara involves high passes and traditional Jumli villages. A flight from Kathmandu to Jumla is required; the trek takes 6-8 days return. The lake changes colour through the day from turquoise to deep blue.`,
+      location: "Rara National Park, Karnali, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 29.5,
+      longitude: 82.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure861.id }, { userId: user2.id, adventureId: adventure861.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
