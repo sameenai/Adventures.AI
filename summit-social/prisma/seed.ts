@@ -20974,6 +20974,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure580.id }, { userId: user2.id, adventureId: adventure580.id }, { userId: user3.id, adventureId: adventure580.id }], skipDuplicates: true });
 
+
+  // Adventure 581
+  const adventure581 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-581" },
+    update: {},
+    create: {
+      id: "seed-adventure-581",
+      title: "Pantanal Jaguar Safari",
+      description: `The Pantanal is the world's largest tropical wetland and the best place on earth to see jaguars. The Porto Jofre area at the end of the Transpantaneira Highway concentrates jaguars along the Cuiaba River during the dry season, with sightings virtually guaranteed from boat safaris. Giant anteaters, tapirs, hyacinth macaws, and giant river otters make this the most wildlife-dense safari outside Africa.`,
+      location: "Mato Grosso, Brazil",
+      country: "Brazil",
+      continent: "South America",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Jaguar sighting Cuiaba River bank guaranteed", "Giant river otter family group hunting daily", "Giant anteater foraging termite mound field", "Hyacinth macaw colony blue sky colour", "Caiman count thousands Pantanal water edge"],
+      gear: ["Telephoto lens 500mm minimum jaguar", "Boat safari operator Porto Jofre required", "Transpantaneira road 4WD dry season only", "Sun protection river safari open boat", "Binoculars secondary bird wildlife scan"],
+      bestMonths: [7, 8, 9, 10],
+      estimatedCost: 2800,
+      latitude: -17.37,
+      longitude: -56.77,
+      published: true,
+      userId: user1.id,
+      voteCount: 11,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["jungle"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure581.id }, { userId: user2.id, adventureId: adventure581.id }, { userId: user3.id, adventureId: adventure581.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
