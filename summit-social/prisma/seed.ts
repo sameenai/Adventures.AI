@@ -20764,6 +20764,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure573.id }, { userId: user2.id, adventureId: adventure573.id }, { userId: user3.id, adventureId: adventure573.id }], skipDuplicates: true });
 
+
+  // Adventure 574
+  const adventure574 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-574" },
+    update: {},
+    create: {
+      id: "seed-adventure-574",
+      title: "Zambia Lower Zambezi Canoe",
+      description: `Multi-day canoe safaris on the Lower Zambezi River are the most intimate way to experience Africa's wildlife. Canadian canoes drift past hippo-thick channels, elephants feeding on river banks, and buffalo herds crossing at fords. Overnight bush camps are pitched on sandbanks, and the absence of engines means buffalo can be heard breathing as they drink ten metres away. This is Africa's finest waterborne safari experience.`,
+      location: "Lower Zambezi, Zambia",
+      country: "Zambia",
+      continent: "Africa",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Hippo pod canoe threading channel safe guide", "Elephant herd river bank feeding metre", "Buffalo sandbank midnight camp encounter", "Carmine bee-eater cliff colony colour explosion", "Lower Zambezi National Park pristine corridor"],
+      gear: ["Life jacket mandatory hippo current", "Dry bag all gear crocodile splash", "Guide mandatory safety river wildlife", "Malaria prophylaxis Zambezi Valley high risk", "Head torch camp night sounds orientation"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: -15.64,
+      longitude: 29.34,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure574.id }, { userId: user2.id, adventureId: adventure574.id }, { userId: user3.id, adventureId: adventure574.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
