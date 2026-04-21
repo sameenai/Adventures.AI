@@ -32465,6 +32465,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure963.id }, { userId: user2.id, adventureId: adventure963.id }], skipDuplicates: true });
 
+
+  // Adventure 964
+  const adventure964 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-964" },
+    update: {},
+    create: {
+      id: "seed-adventure-964",
+      title: "Austria Grossglockner High Alpine Road Cycling",
+      description: `Cycle the Grossglockner High Alpine Road — the highest paved mountain road in Austria and one of Europe's most famous alpine drives — from Heiligenblut on the south side to Zell am See, climbing to the Edelweisserspitze viewpoint at 2,571 m with panoramic views of the Grossglockner (3,798 m), Austria's highest peak. The 48 km of climbing road is closed in winter but opens late May; cyclists must pay the road toll unless entering before 6am on non-peak days. The road surface is perfect; the gradient is consistent and demanding.`,
+      location: "Grossglockner, Carinthia, Austria",
+      country: "Austria",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 47.1,
+      longitude: 12.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["alpine"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure964.id }, { userId: user2.id, adventureId: adventure964.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
