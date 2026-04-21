@@ -16982,6 +16982,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure447.id }, { userId: user2.id, adventureId: adventure447.id }], skipDuplicates: true });
 
+
+  // Adventure 448
+  const adventure448 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-448" },
+    update: {},
+    create: {
+      id: "seed-adventure-448",
+      title: "Skeleton Coast Fly-In Safari",
+      description: `The restricted northern Skeleton Coast zone in Namibia is accessible only by light aircraft from Windhoek, and the camps there are limited to 8 guests at a time in the most exclusive wilderness experience in Africa. Desert-adapted lion prides hunt Cape fur seals on the beach, brown hyena patrol the foggy shoreline, and the remoteness is complete. The Hoarusib River clay castles and the Hartmann Valley desert elephant encounters make this the definitive African desert safari.`,
+      location: "Windhoek",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      highlights: ["Desert lion hunting seals on beach", "Fly-in only access 8 guests maximum", "Hartmann Valley desert elephants", "Hoarusib clay castle formations", "Brown hyena coastal scavenging"],
+      gear: ["Fly-in everything provided", "Camera telephoto wildlife", "Binoculars 10x42", "Neutral safari clothing", "Sun protection intense"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 7000,
+      latitude: -19,
+      longitude: 12.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["desert"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure448.id }, { userId: user2.id, adventureId: adventure448.id }, { userId: user3.id, adventureId: adventure448.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
