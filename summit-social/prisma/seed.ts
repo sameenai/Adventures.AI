@@ -24185,6 +24185,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure687.id }, { userId: user2.id, adventureId: adventure687.id }, { userId: user3.id, adventureId: adventure687.id }], skipDuplicates: true });
 
+
+  // Adventure 688
+  const adventure688 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-688" },
+    update: {},
+    create: {
+      id: "seed-adventure-688",
+      title: "Russia Altai Republic Trek",
+      description: `The Altai Republic in Siberia borders Mongolia, Kazakhstan, and China at the junction of four countries and is one of Russia's most beautiful and least visited highland regions. Belukha Mountain at 4506m is the highest peak in Siberia outside the Caucasus, and the approach through the Katun and Chuya river valleys passes Scythian burial mounds, Altai shamanic sacred sites, and White Berd wildlife sanctuaries.`,
+      location: "Altai Republic, Russia",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Belukha Mountain 4506m Siberia Altai summit", "Katun River turquoise Siberian waterway", "Scythian kurgans burial mounds steppe", "Altai shamanic sacred site Ukok plateau", "Snow leopard habitat remote Altai gorge"],
+      gear: ["Visa Russia advance multiple entry", "High altitude gear Belukha 4506m cold", "Permits sacred sites Ukok plateau required", "Guide local Altai navigation culture", "Food supply remote Altai valley camps"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 2000,
+      latitude: 51.5,
+      longitude: 86,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure688.id }, { userId: user2.id, adventureId: adventure688.id }, { userId: user3.id, adventureId: adventure688.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
