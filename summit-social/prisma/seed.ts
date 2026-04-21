@@ -26705,6 +26705,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure771.id }, { userId: user2.id, adventureId: adventure771.id }, { userId: user3.id, adventureId: adventure771.id }], skipDuplicates: true });
 
+
+  // Adventure 772
+  const adventure772 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-772" },
+    update: {},
+    create: {
+      id: "seed-adventure-772",
+      title: "Colombia Coffee Region Cycling",
+      description: `Cycle through the Zona Cafetera — Colombia's World Heritage coffee landscape of steep hillsides terraced with plantations, colonial towns, and colourful bamboo-architecture fincas. The route connects Manizales, Salento, Armenia, and the Valle de Cocora where wax palms (Colombia's national tree) tower 60 m above cloud forest. Roads are quiet by regional standards and the cycling community in Colombia is passionate and welcoming. Medellin and Cali are 3-4 hours away for major services.`,
+      location: "Eje Cafetero, Colombia",
+      country: "Colombia",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1, 2, 7, 8],
+      estimatedCost: 1000,
+      latitude: 4.5,
+      longitude: -75.7,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["jungle"].id }, { id: allTags["road-trip"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure772.id }, { userId: user2.id, adventureId: adventure772.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
