@@ -23884,6 +23884,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure677.id }, { userId: user2.id, adventureId: adventure677.id }, { userId: user3.id, adventureId: adventure677.id }], skipDuplicates: true });
 
+
+  // Adventure 678
+  const adventure678 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-678" },
+    update: {},
+    create: {
+      id: "seed-adventure-678",
+      title: "Chile Aysén Kayak Expedition",
+      description: `The Aysén fjords of Chilean Patagonia are one of the world's least explored kayaking regions, a labyrinth of channels, glaciers, and temperate rainforest accessible only by boat or kayak. The region receives 4000mm of rain annually, and the kayaking demands experience in rough conditions and self-sufficient camping in a wilderness where other humans are days away. The reward is a pristine fjord landscape rivaling Norway in drama with far fewer visitors.`,
+      location: "Aysén Region, Chile",
+      country: "Chile",
+      continent: "South America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Queulat hanging glacier fjord descent spray", "Aysen fjord iceberg navigation kayak", "Puma tracks beach remote coastal sighting", "Chilean dolphin endemic coastal species", "Rain forest primary coastal Valdivian"],
+      gear: ["Sea kayak heavy water expedition Atlantic", "Drysuit Chilean fjord hypothermia risk", "Self-rescue certification advanced kayak", "10-day food supply remote fjord section", "Satellite communicator Iridium emergency"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 4000,
+      latitude: -45.57,
+      longitude: -72.7,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure678.id }, { userId: user2.id, adventureId: adventure678.id }, { userId: user3.id, adventureId: adventure678.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
