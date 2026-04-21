@@ -24755,6 +24755,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure706.id }, { userId: user2.id, adventureId: adventure706.id }, { userId: user3.id, adventureId: adventure706.id }], skipDuplicates: true });
 
+
+  // Adventure 707
+  const adventure707 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-707" },
+    update: {},
+    create: {
+      id: "seed-adventure-707",
+      title: "Brazil Chapada dos Veadeiros",
+      description: `The Chapada dos Veadeiros National Park in Goias preserves the cerrado savanna ecosystem of the central Brazilian plateau, a biodiverse landscape of waterfalls, canyons, and crystal-clear rivers on ancient quartzite rock that glistens with quartz crystals. The park's energetic reputation and alignment with solstice energy lines have made it a centre for mystical tourism alongside genuine wilderness trekking. The Sao Miguel waterfalls are among Brazil's finest.`,
+      location: "Goias, Brazil",
+      country: "Brazil",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Sao Miguel Falls tiered crystal clear canyon", "Quartz crystal rock formation geological wonder", "Cerrado savanna biodiversity South America", "Night sky cerrado plateau star viewing dark", "Carioquinhas waterfall natural pool swimming"],
+      gear: ["Hiking boots rocky quartzite trail", "Sun protection cerrado plateau UV exposed", "Water purification park stream reliable", "Guide mandatory some park sections", "Swimwear waterfall pool compulsory"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 400,
+      latitude: -14.09,
+      longitude: -47.51,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure707.id }, { userId: user2.id, adventureId: adventure707.id }, { userId: user3.id, adventureId: adventure707.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
