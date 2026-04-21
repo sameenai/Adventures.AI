@@ -22714,6 +22714,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure638.id }, { userId: user2.id, adventureId: adventure638.id }, { userId: user3.id, adventureId: adventure638.id }], skipDuplicates: true });
 
+
+  // Adventure 639
+  const adventure639 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-639" },
+    update: {},
+    create: {
+      id: "seed-adventure-639",
+      title: "Nepal Helambu Valley Circuit",
+      description: `The Helambu Valley north of Kathmandu is the most accessible Himalayan trekking destination in Nepal, a circuit through Sherpa villages, apple orchards, and rhododendron forests without the crowds of the Annapurna or Everest regions. Gosaikunda Sacred Lake at 4380m is the spiritual centrepiece, a Hindu pilgrimage site where Lord Shiva is believed to have formed the lake with his trident. The Laurebina Pass connects the lake with the Helambu valley below.`,
+      location: "Helambu, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Gosaikunda Sacred Lake 4380m Shiva mythology", "Laurebina Pass 4609m Helambu connection", "Sherpa village apple orchard autumn harvest", "Rhododendron Langtang Valley pink April bloom", "Day trip Kathmandu Valley accessible short"],
+      gear: ["TIMS permit Helambu valley registration", "Warm layers Laurebina Pass 4609m cold", "Trekking poles descent rhododendron roots", "Tea house route advance booking shoulder", "Altitude acclimatization Kathmandu 1400m base"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 600,
+      latitude: 28,
+      longitude: 85.57,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure639.id }, { userId: user2.id, adventureId: adventure639.id }, { userId: user3.id, adventureId: adventure639.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
