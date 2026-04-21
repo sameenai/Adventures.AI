@@ -31625,6 +31625,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure935.id }, { userId: user2.id, adventureId: adventure935.id }, { userId: user3.id, adventureId: adventure935.id }], skipDuplicates: true });
 
+
+  // Adventure 936
+  const adventure936 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-936" },
+    update: {},
+    create: {
+      id: "seed-adventure-936",
+      title: "Namibia Skeleton Coast Cycling",
+      description: `Cycle the Skeleton Coast — one of the most desolate coastlines in the world, where the cold Benguela current drives Atlantic fog deep inland and created a graveyard of shipwrecks on the beaches — from Swakopmund north to Terrace Bay through the Skeleton Coast Park. The sand tracks between the beaches require fat-tyred bikes or bikepacking rigs; the distance from the outside world is extreme. Nights camping on the beach between mountains of fog, lichen-covered rocks, and the sound of breaking waves on a beach where nobody has walked in weeks.`,
+      location: "Skeleton Coast, Namibia",
+      country: "Namibia",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -20.5,
+      longitude: 13,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["africa"].id }, { id: allTags["desert"].id }, { id: allTags["coastal"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure936.id }, { userId: user2.id, adventureId: adventure936.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
