@@ -24035,6 +24035,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure682.id }, { userId: user2.id, adventureId: adventure682.id }, { userId: user3.id, adventureId: adventure682.id }], skipDuplicates: true });
 
+
+  // Adventure 683
+  const adventure683 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-683" },
+    update: {},
+    create: {
+      id: "seed-adventure-683",
+      title: "Bolivia Yungas Road Cycling",
+      description: `The North Yungas Road from La Paz to Coroico descends 3600 metres through cloud forest to the subtropical Yungas valley on the most thrilling and terrifying downhill mountain bike route in the world, formerly known as the Death Road. The narrow unpaved track clings to a cliff face with no guardrails and thousand-metre drops into the valley below. Operators now provide high-quality mountain bikes and safety equipment for this adrenaline-fueled descent.`,
+      location: "Yungas, Bolivia",
+      country: "Bolivia",
+      continent: "South America",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Death Road 3600m descent cloud forest drama", "La Paz 3640m altitude departure breathless", "Waterfall section wet slippery cliff edge", "Coroico valley subtropical arrival warm arrival", "La Cumbre pass 4650m road start highest"],
+      gear: ["Full suspension mountain bike operator provide", "Full face helmet operator provide mandatory", "Gloves protective padding operator gear", "Acclimatization La Paz 3640m altitude first", "Rain jacket cloud forest passage spray"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 400,
+      latitude: -16.2,
+      longitude: -67.8,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure683.id }, { userId: user2.id, adventureId: adventure683.id }, { userId: user3.id, adventureId: adventure683.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
