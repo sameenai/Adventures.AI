@@ -25475,6 +25475,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure730.id }, { userId: user2.id, adventureId: adventure730.id }, { userId: user3.id, adventureId: adventure730.id }], skipDuplicates: true });
 
+
+  // Adventure 731
+  const adventure731 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-731" },
+    update: {},
+    create: {
+      id: "seed-adventure-731",
+      title: "Kenya Ol Doinyo Lengai Climb",
+      description: `Ol Doinyo Lengai is the Mountain of God to the Maasai and the only active natrocarbonatite volcano on earth, erupting black carbonatite lava that turns white on contact with air. The 2962m summit is typically climbed overnight from Engare Sero village, 10-12 hours of steep loose volcanic ash scrambling to reach an active crater. The summit view across the Rift Valley to Lake Natron and Kilimanjaro in the distance is among Africa's most extraordinary.`,
+      location: "Arusha, Tanzania",
+      country: "Tanzania",
+      continent: "Africa",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Natrocarbonatite lava only world Lengai active", "Summit 2962m Maasai Mountain of God sacred", "Lake Natron flamingo pink below approach", "Kilimanjaro distant backdrop crater rim", "Active lava hornito formation summit crater"],
+      gear: ["Night start summit reach sunrise timing", "Volcanic gas mask active vent approach", "Crampons loose volcanic ash grip technique", "Gaiters ash dust deep slope penetration", "Guide Engare Sero village mandatory safety"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: -2.75,
+      longitude: 35.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["volcanic"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure731.id }, { userId: user2.id, adventureId: adventure731.id }, { userId: user3.id, adventureId: adventure731.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
