@@ -20194,6 +20194,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure554.id }, { userId: user2.id, adventureId: adventure554.id }, { userId: user3.id, adventureId: adventure554.id }], skipDuplicates: true });
 
+
+  // Adventure 555
+  const adventure555 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-555" },
+    update: {},
+    create: {
+      id: "seed-adventure-555",
+      title: "Nepal Dolpo Upper Circuit",
+      description: `Upper Dolpo is one of the most remote and culturally preserved regions in the Himalayas, requiring a special restricted area permit and a challenging approach across passes above 5000m. The Dolpo people maintain a Tibetan Buddhist culture essentially unchanged since the medieval period, documented by Peter Matthiessen in The Snow Leopard. Phoksumdo Lake at 3611m is the deepest lake in Nepal and among the most beautiful on earth.`,
+      location: "Dolpo, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Phoksumdo Lake deepest Nepal turquoise gem", "Snow leopard habitat canyon wildlife chance", "Shey Gompa crystal mountain pilgrimage circuit", "Dolpo-Pa people traditional culture unchanged", "Kang La pass 5350m dramatic crossing"],
+      gear: ["Restricted area permit Upper Dolpo required", "High altitude sleeping bag minus 25", "Yak hire village remote cargo transport", "Self-sufficient food remote section supply", "Guide mandatory complex route navigation"],
+      bestMonths: [9, 10, 11],
+      estimatedCost: 4000,
+      latitude: 29.1,
+      longitude: 83,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure555.id }, { userId: user2.id, adventureId: adventure555.id }, { userId: user3.id, adventureId: adventure555.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
