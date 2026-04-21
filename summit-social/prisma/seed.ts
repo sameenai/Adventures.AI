@@ -28025,6 +28025,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure815.id }, { userId: user2.id, adventureId: adventure815.id }], skipDuplicates: true });
 
+
+  // Adventure 816
+  const adventure816 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-816" },
+    update: {},
+    create: {
+      id: "seed-adventure-816",
+      title: "Peru Ausangate Circuit Trek",
+      description: `Circle Ausangate (6,384 m) — the sacred apu (mountain deity) of the Cusco region — on a 5-day high-altitude circuit crossing four passes above 5,000 m through landscapes of rainbow-coloured mountains, herds of alpaca and vicuna, and glacially polished lagoons reflecting the peak above. The route passes through the Vinicunca (Rainbow Mountain) area, now heavily visited, but the full circuit extends far beyond the day-trip crowds into genuinely remote territory. A recent luxury glamping option provides heated tents at high camps.`,
+      location: "Cusco Region, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -13.8,
+      longitude: -71.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure816.id }, { userId: user2.id, adventureId: adventure816.id }, { userId: user3.id, adventureId: adventure816.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
