@@ -28835,6 +28835,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure842.id }, { userId: user2.id, adventureId: adventure842.id }], skipDuplicates: true });
 
+
+  // Adventure 843
+  const adventure843 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-843" },
+    update: {},
+    create: {
+      id: "seed-adventure-843",
+      title: "Uzbekistan Silk Road Cycling",
+      description: `Cycle the ancient Silk Road through Uzbekistan — from Tashkent through Samarkand, Bukhara, and Khiva to the Aral Sea — connecting the UNESCO-listed trading cities whose turquoise-tiled domes and minarets have defined Central Asian aesthetics for six centuries. The cycling between cities is through flat steppe and cotton fields; the real rewards are the cities themselves. The Registan in Samarkand and Itchan Kala in Khiva are among the finest Islamic architectural ensembles in the world. Spring and autumn offer moderate temperatures; summer is brutally hot.`,
+      location: "Uzbekistan",
+      country: "Uzbekistan",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 1000,
+      latitude: 39.7,
+      longitude: 64.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["desert"].id }, { id: allTags["road-trip"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure843.id }, { userId: user2.id, adventureId: adventure843.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
