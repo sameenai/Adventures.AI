@@ -33215,6 +33215,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure988.id }, { userId: user2.id, adventureId: adventure988.id }], skipDuplicates: true });
 
+
+  // Adventure 989
+  const adventure989 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-989" },
+    update: {},
+    create: {
+      id: "seed-adventure-989",
+      title: "Kenya Chyulu Hills Camping Safari",
+      description: `Camp in the Chyulu Hills — a string of young volcanic cones between Amboseli and Tsavo in southern Kenya, home to one of the densest lion populations in Kenya in a private conservancy shared between the Maasai and Ol Donyo Lodge — for a walking safari across the perfect green volcanic hills above the Tsavo plains. The largest lava tubes in the world run beneath the Chyulu Hills; Leviathan Cave is 2.5 km long and 50 m deep. Kilimanjaro is visible on the horizon. The area is one of the most beautiful and least visited parts of the Kenyan bush.`,
+      location: "Chyulu Hills, Kajiado County, Kenya",
+      country: "Kenya",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10, 11],
+      estimatedCost: 1000,
+      latitude: -2.6,
+      longitude: 37.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["volcanic"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure989.id }, { userId: user2.id, adventureId: adventure989.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
