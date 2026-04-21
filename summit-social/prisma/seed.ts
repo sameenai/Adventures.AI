@@ -27695,6 +27695,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure804.id }, { userId: user2.id, adventureId: adventure804.id }], skipDuplicates: true });
 
+
+  // Adventure 805
+  const adventure805 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-805" },
+    update: {},
+    create: {
+      id: "seed-adventure-805",
+      title: "Galapagos Islands Dive Expedition",
+      description: `The Galapagos archipelago offers encounters with marine life found nowhere else on Earth — diving with marine iguanas, flightless cormorants, Galapagos penguins, and massive schools of hammerhead sharks at Wolf and Darwin Islands, considered among the top advanced dive sites in the world. The strong currents require experience; thermoclines can be dramatic and water temperatures vary from 18 to 28 degrees depending on season and location. Liveaboard vessels are the only way to access the outer islands where the best diving concentrates.`,
+      location: "Galapagos Islands, Ecuador",
+      country: "Ecuador",
+      continent: "Unknown",
+      category: Category.DIVING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10, 11],
+      estimatedCost: 1000,
+      latitude: -0.9,
+      longitude: -90.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["bucket-list"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure805.id }, { userId: user2.id, adventureId: adventure805.id }, { userId: user3.id, adventureId: adventure805.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
