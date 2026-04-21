@@ -32885,6 +32885,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure977.id }, { userId: user2.id, adventureId: adventure977.id }], skipDuplicates: true });
 
+
+  // Adventure 978
+  const adventure978 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-978" },
+    update: {},
+    create: {
+      id: "seed-adventure-978",
+      title: "Argentina Lake District Cross-Country Skiing",
+      description: `Ski across the Nahuel Huapi massif in the Argentine Lake District — the Andean lakes region around Bariloche with the most developed backcountry ski infrastructure in South America — on the Cruce Andino traverse that links Bariloche with Pucon in Chile over 4-5 days of ski mountaineering through volcanic and glaciated terrain. The route crosses the border by boat through Lago Frias; the Chilean side descends through the slopes of Volcan Osorno and the Llanquihue Lake region. An unusual mix of ski touring and lake navigation makes this unique in South American adventure.`,
+      location: "Nahuel Huapi, Rio Negro, Argentina",
+      country: "Argentina",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8],
+      estimatedCost: 1000,
+      latitude: -41.2,
+      longitude: -71.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }, { id: allTags["expedition"].id }, { id: allTags["volcanic"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure978.id }, { userId: user2.id, adventureId: adventure978.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
