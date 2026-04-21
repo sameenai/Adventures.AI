@@ -27125,6 +27125,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure785.id }, { userId: user2.id, adventureId: adventure785.id }, { userId: user3.id, adventureId: adventure785.id }], skipDuplicates: true });
 
+
+  // Adventure 786
+  const adventure786 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-786" },
+    update: {},
+    create: {
+      id: "seed-adventure-786",
+      title: "Myanmar Chin State Village Trek",
+      description: `Trek through the Chin Hills in western Myanmar, visiting traditional villages where elder women bear ancient facial tattoo traditions that are no longer practiced among the younger generation. The villages of Mindat and Kanpetlet serve as bases for multi-day walks through bamboo forest and terraced hillsides. The terrain is undulating rather than extreme but trails are unmapped and a local guide is essential. Political conditions in Myanmar require checking current travel advisories before booking.`,
+      location: "Chin State, Myanmar",
+      country: "Myanmar",
+      continent: "Unknown",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: 22,
+      longitude: 93.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["hiking"].id }, { id: allTags["jungle"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure786.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
