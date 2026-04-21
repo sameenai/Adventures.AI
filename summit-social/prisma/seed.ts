@@ -31385,6 +31385,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure927.id }, { userId: user2.id, adventureId: adventure927.id }], skipDuplicates: true });
 
+
+  // Adventure 928
+  const adventure928 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-928" },
+    update: {},
+    create: {
+      id: "seed-adventure-928",
+      title: "Colombia Tatacoa Desert Cycling",
+      description: `Cycle through the Tatacoa Desert — Colombia's driest region, a labyrinth of ochre and grey badlands between Neiva and the confluence of the Magdalena and Cabrera rivers — through a landscape with more in common with the Atacama than the lush country that surrounds it. The astronomical observatory at the heart of the desert offers exceptional stargazing; the red badlands and grey cactus zone are different enough to warrant separate visits. Cycling the loop tracks between the two colour zones takes a full day; fossils of Miocene megafauna emerge from eroded gullies.`,
+      location: "Huila Department, Colombia",
+      country: "Colombia",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1, 2, 6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 3.2,
+      longitude: -75.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["desert"].id }, { id: allTags["photography"].id }, { id: allTags["road-trip"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure928.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
