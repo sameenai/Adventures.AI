@@ -22984,6 +22984,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure647.id }, { userId: user2.id, adventureId: adventure647.id }, { userId: user3.id, adventureId: adventure647.id }], skipDuplicates: true });
 
+
+  // Adventure 648
+  const adventure648 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-648" },
+    update: {},
+    create: {
+      id: "seed-adventure-648",
+      title: "Japan Traverse the Kii Peninsula",
+      description: `The Kumano Kodo pilgrimage network on the Kii Peninsula is UNESCO-listed alongside the Camino de Santiago as one of only two pilgrim routes with World Heritage status. The Nakahechi route from Tanabe to Kumano Hongu Grand Shrine passes through ancient cedar forest, riverside shrines, and oji subsidiary shrine stations over five days. The contrast between sacred natural landscape and dramatic Nachi Falls creates a journey of aesthetic and spiritual power.`,
+      location: "Kii Peninsula, Japan",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Kumano Hongu Taisha Grand Shrine UNESCO arrival", "Nachi Falls 133m Japan highest sacred waterfall", "Daimon-zaka cedar avenue approach ancient", "Oji shrine network pilgrim stamp collection", "Yunomine Onsen world's oldest hot spring"],
+      gear: ["Pilgrimage vest vest traditional garment", "Walking stick traditional Kumano purchase", "Rain gear Kii Peninsula high rainfall", "Advance book accommodation limited rural", "JR Pass Shingu Tanabe access rail"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 800,
+      latitude: 33.84,
+      longitude: 135.79,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }, { id: allTags["hiking"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure648.id }, { userId: user2.id, adventureId: adventure648.id }, { userId: user3.id, adventureId: adventure648.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
