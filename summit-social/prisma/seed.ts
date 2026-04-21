@@ -21844,6 +21844,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure609.id }, { userId: user2.id, adventureId: adventure609.id }, { userId: user3.id, adventureId: adventure609.id }], skipDuplicates: true });
 
+
+  // Adventure 610
+  const adventure610 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-610" },
+    update: {},
+    create: {
+      id: "seed-adventure-610",
+      title: "Iceland Winter Ice Cave Trek",
+      description: `The ice caves beneath Vatnajokull glacier form and dissolve with each winter, creating unique crystalline blue chambers accessible only from November to March. Guided glacier walks and ice cave tours from Jokulsarlon glacier lagoon deliver experiences of extraordinary beauty, with naturally sculpted ice formations and the glacial blue light that penetrates the crystal ceiling. The ice cave experience is matched by the walk across the glacial surface above.`,
+      location: "Vatnajokull, Iceland",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Vatnajokull ice cave crystal blue chamber", "Jokulsarlon glacier lagoon iceberg drift", "Glacier surface walk crevasse guided route", "Aurora borealis ice cave night photography", "Breidamerkurjokull outlet glacier unique"],
+      gear: ["Crampons glacier surface mandatory", "Helmet ice cave ceiling fall risk", "Guide mandatory ice cave safety essential", "Warm waterproof layers ice interior cold", "Camera wide angle ice cave blue light"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 700,
+      latitude: 64.03,
+      longitude: -16.18,
+      published: true,
+      userId: user3.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["glacier"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure610.id }, { userId: user2.id, adventureId: adventure610.id }, { userId: user3.id, adventureId: adventure610.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
