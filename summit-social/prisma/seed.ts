@@ -28865,6 +28865,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure843.id }, { userId: user2.id, adventureId: adventure843.id }], skipDuplicates: true });
 
+
+  // Adventure 844
+  const adventure844 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-844" },
+    update: {},
+    create: {
+      id: "seed-adventure-844",
+      title: "Antarctic Peninsula Zodiac Cruise",
+      description: `Cruise the Antarctic Peninsula on an expedition ship with daily Zodiac landings among penguin colonies, breaching humpback whales, and calving glaciers. The 10-day voyage from Ushuaia crosses the Drake Passage — the world's roughest sea crossing — to reach the Peninsula for 5-6 days of intensive exploration. Gentoo, Adelie, and chinstrap penguins number in the millions; leopard seals hunt from ice floes. A continental landing adds Antarctica to the list of visited continents. Crossing the Antarctic Circle adds 700 km to the voyage.`,
+      location: "Antarctic Peninsula",
+      country: "Antarctic Peninsula",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EASY,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: -64,
+      longitude: -60,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["bucket-list"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure844.id }, { userId: user2.id, adventureId: adventure844.id }, { userId: user3.id, adventureId: adventure844.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
