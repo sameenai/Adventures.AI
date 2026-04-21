@@ -21574,6 +21574,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure600.id }, { userId: user2.id, adventureId: adventure600.id }, { userId: user3.id, adventureId: adventure600.id }], skipDuplicates: true });
 
+
+  // Adventure 601
+  const adventure601 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-601" },
+    update: {},
+    create: {
+      id: "seed-adventure-601",
+      title: "Mongolia Eagle Hunter Trek",
+      description: `The Kazakh eagle hunters of western Mongolia maintain one of the world's oldest hunting traditions, training golden eagles to hunt foxes and hares across the Altai steppe. Trekking between ger camps in the Bayan-Olgii region allows extended time with hunting families during the Golden Eagle Festival season, when competitions test eagle hunting skills passed down through generations. The landscape of snow-capped Altai peaks and endless steppe is extraordinary.`,
+      location: "Bayan-Olgii, Mongolia",
+      country: "Mongolia",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Golden eagle hunt training falcon Kazakh", "Eagle Festival October Olgii competition", "Ger camp overnight nomadic hospitality", "Altai mountain Tsaagan Nuur plateau trek", "Snow leopard habitat track remote valley"],
+      gear: ["Horse riding basics essential transport", "Extreme cold October festival minus 20", "Camera telephoto eagle action shots", "Cash togrog only Bayan-Olgii limited ATM", "Warm layers steppe wind chill constant"],
+      bestMonths: [9, 10],
+      estimatedCost: 1500,
+      latitude: 48.96,
+      longitude: 89.97,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["horse-trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure601.id }, { userId: user2.id, adventureId: adventure601.id }, { userId: user3.id, adventureId: adventure601.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
