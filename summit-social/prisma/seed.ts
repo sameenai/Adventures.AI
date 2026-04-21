@@ -25385,6 +25385,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure727.id }, { userId: user2.id, adventureId: adventure727.id }, { userId: user3.id, adventureId: adventure727.id }], skipDuplicates: true });
 
+
+  // Adventure 728
+  const adventure728 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-728" },
+    update: {},
+    create: {
+      id: "seed-adventure-728",
+      title: "Arctic Norway Ice Hotel Experience",
+      description: `The Icehotel in Swedish Lapland and the Northern Lights season in Arctic Norway combine adventure accommodation with the pursuit of the aurora. Reindeer sledding, snowmobile safaris across frozen lakes, and deep powder snowshoe journeys through birch forest complete an Arctic Norway winter immersion. The Tromsoe base provides science-guided Northern Lights hunting, and clear skies above the Arctic treeline deliver full display events of breathtaking colour.`,
+      location: "Tromso, Norway",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ice hotel sculptured suite art gallery sleep", "Northern Lights 100% display guarantee season", "Reindeer sled Sami herder traditional drive", "Snowmobile frozen lake night speed power", "King crab safari Arctic seafloor haul"],
+      gear: ["Arctic layers minus 20 active outdoor gear", "Camera manual settings ISO 3200 aurora", "Hand warmers battery pack cold camera", "Guide Northern Lights forecast interpretation", "Ice hotel sleeping bag supplement provided"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 3500,
+      latitude: 69.67,
+      longitude: 18.96,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["skiing"].id }, { id: allTags["photography"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure728.id }, { userId: user2.id, adventureId: adventure728.id }, { userId: user3.id, adventureId: adventure728.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
