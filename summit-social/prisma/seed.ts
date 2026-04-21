@@ -28685,6 +28685,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure837.id }, { userId: user2.id, adventureId: adventure837.id }, { userId: user3.id, adventureId: adventure837.id }], skipDuplicates: true });
 
+
+  // Adventure 838
+  const adventure838 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-838" },
+    update: {},
+    create: {
+      id: "seed-adventure-838",
+      title: "Georgia Black Sea to Caspian Sea Cycling",
+      description: `Cycle across the South Caucasus from Batumi on the Black Sea to Baku on the Caspian — a 1,000 km journey through Georgia, Armenia, or Azerbaijan across three former Soviet republics with contrasting cultures, cuisines, and mountain landscapes. The route crosses the Surami Range and the Kura River basin; the Azerbaijani section descends to the Absheron Peninsula through oil-field landscapes as surreal as any industrial heritage site. Cycling infrastructure is minimal; this is pure cycle touring on quiet back roads through hospitable communities.`,
+      location: "South Caucasus — Georgia / Azerbaijan",
+      country: "South Caucasus — Georgia / Azerbaijan",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 1000,
+      latitude: 41.5,
+      longitude: 44.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["road-trip"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure838.id }, { userId: user2.id, adventureId: adventure838.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
