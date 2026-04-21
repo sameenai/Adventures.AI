@@ -29135,6 +29135,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure852.id }, { userId: user2.id, adventureId: adventure852.id }], skipDuplicates: true });
 
+
+  // Adventure 853
+  const adventure853 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-853" },
+    update: {},
+    create: {
+      id: "seed-adventure-853",
+      title: "Switzerland Jungfrau Region Ski Touring",
+      description: `Ski tour around the Jungfrau massif in the Bernese Oberland — the trio of Eiger, Monch, and Jungfrau (4,158 m) dominating Europe's most celebrated mountain horizon — on routes that link the Grindelwald and Lauterbrunnen valleys through the Lauterbrunnen Breithorn and Schilthorn high plateaux. The Jungfraujoch (3,454 m) train station provides an unmatched high-altitude starting point. Tour routes are well-documented and guided operators are numerous; the avalanche risk requires daily checking. The views of the north face of the Eiger from touring terrain above Grindelwald are spectacular.`,
+      location: "Jungfrau Region, Bern, Switzerland",
+      country: "Switzerland",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 46.6,
+      longitude: 7.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["alpine"].id }, { id: allTags["glacier"].id }, { id: allTags["europe"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure853.id }, { userId: user2.id, adventureId: adventure853.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
