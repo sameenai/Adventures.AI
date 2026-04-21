@@ -29885,6 +29885,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure877.id }, { userId: user2.id, adventureId: adventure877.id }], skipDuplicates: true });
 
+
+  // Adventure 878
+  const adventure878 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-878" },
+    update: {},
+    create: {
+      id: "seed-adventure-878",
+      title: "New Zealand Fiordland Kayaking",
+      description: `Paddle through Fiordland National Park — one of the wettest places on Earth, averaging 6-8 m of annual rainfall — through Milford and Doubtful Sounds where hanging waterfalls create their own microweather, and bottlenose dolphins escort kayaks through the fjords at dawn. Doubtful Sound (three times deeper than Milford) has less boat traffic and greater wilderness character. The 3-day Milford Track Great Walk runs along the fjord edge and can be combined with a kayak return. The fiord's black coral trees grow to the surface due to the fresh water layer suppressing light penetration.`,
+      location: "Fiordland National Park, New Zealand",
+      country: "New Zealand",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: -44.7,
+      longitude: 168,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["wildlife"].id }, { id: allTags["new-zealand"].id }, { id: allTags["glacier"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure878.id }, { userId: user2.id, adventureId: adventure878.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
