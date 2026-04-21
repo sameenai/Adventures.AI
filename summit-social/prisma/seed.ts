@@ -19474,6 +19474,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure530.id }, { userId: user2.id, adventureId: adventure530.id }, { userId: user3.id, adventureId: adventure530.id }], skipDuplicates: true });
 
+
+  // Adventure 531
+  const adventure531 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-531" },
+    update: {},
+    create: {
+      id: "seed-adventure-531",
+      title: "Tanzania Ngorongoro Crater Safari Walk",
+      description: `The Ngorongoro Crater is the world's largest intact volcanic caldera and hosts the highest density of large mammals on earth. Walking safaris with Maasai guides bring visitors to eye level with wildebeest, zebra, and the densest lion population in Africa. The crater rim offers camping above cloud level with views into the 260-square-kilometre natural enclosure below.`,
+      location: "Ngorongoro Conservation Area, Tanzania",
+      country: "Tanzania",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Black rhino sighting rarest Africa encounter", "Lion pride crater floor 40 resident prides", "Flamingo pink soda lake Magadi", "Maasai walking safari cultural guide", "Crater rim camp cloud inversion sunrise"],
+      gear: ["Binoculars wildlife distance viewing", "Warm layers crater rim altitude 2300m", "Dust cover camera dry season", "Walking safari neutral earth tones", "Park fee Ngorongoro Conservation Authority"],
+      bestMonths: [6, 7, 8, 9, 12, 1],
+      estimatedCost: 2500,
+      latitude: -3.16,
+      longitude: 35.59,
+      published: true,
+      userId: user2.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["volcanic"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure531.id }, { userId: user2.id, adventureId: adventure531.id }, { userId: user3.id, adventureId: adventure531.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
