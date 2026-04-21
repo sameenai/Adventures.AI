@@ -21484,6 +21484,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure597.id }, { userId: user2.id, adventureId: adventure597.id }, { userId: user3.id, adventureId: adventure597.id }], skipDuplicates: true });
 
+
+  // Adventure 598
+  const adventure598 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-598" },
+    update: {},
+    create: {
+      id: "seed-adventure-598",
+      title: "Australia Kimberley Wilderness Drive",
+      description: `The Kimberley is one of the last great wilderness frontiers, 420,000 square kilometres of ancient sandstone gorges, boab trees, and tidal flats. The Gibb River Road is a 660-kilometre dirt road connecting Broome to Wyndham through cattle stations, isolated gorge waterholes, and indigenous rock art sites of the Wandjina and Gwion Gwion. Horizontal Falls, accessible only by charter plane, defy hydrological explanation.`,
+      location: "Kimberley, Western Australia",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["El Questro Gorge waterfall private station swim", "Mitchell Falls tiered cascade remote plateau", "Horizontal Falls tidal sluice natural phenomenon", "Wandjina rock art 50000 year ancient gallery", "Boab tree ancient sentinel geological landmark"],
+      gear: ["4WD mandatory Gibb River Road crossings", "Water supply 20L remote fuel stations far", "Recovery gear self-reliance Kimberley standard", "Satellite phone emergency outback coverage", "Spare tyres corrugated road blowout risk"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: -17,
+      longitude: 126,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["remote"].id }, { id: allTags["australia"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure598.id }, { userId: user2.id, adventureId: adventure598.id }, { userId: user3.id, adventureId: adventure598.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
