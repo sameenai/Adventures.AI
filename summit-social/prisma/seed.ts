@@ -31505,6 +31505,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure931.id }, { userId: user2.id, adventureId: adventure931.id }, { userId: user3.id, adventureId: adventure931.id }], skipDuplicates: true });
 
+
+  // Adventure 932
+  const adventure932 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-932" },
+    update: {},
+    create: {
+      id: "seed-adventure-932",
+      title: "Chile Atacama Desert Trek and Stargazing",
+      description: `Trek through the Atacama Desert — the driest non-polar desert on Earth at 2,400 m altitude in northern Chile — through lava fields, salt flats, geysers erupting at 4,500 m at dawn, and pink flamingo lagoons. The Atacama's night sky is legendary: the combination of altitude, zero humidity, and 330 clear nights per year makes this the world's premier stargazing location. Several professional-grade telescopes at the ALMA and Paranal observatories nearby; tourist-accessible star tours from San Pedro de Atacama operate every clear night.`,
+      location: "San Pedro de Atacama, Antofagasta, Chile",
+      country: "Chile",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 1000,
+      latitude: -22.9,
+      longitude: -68.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["high-altitude"].id }, { id: allTags["photography"].id }, { id: allTags["volcanic"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure932.id }, { userId: user2.id, adventureId: adventure932.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
