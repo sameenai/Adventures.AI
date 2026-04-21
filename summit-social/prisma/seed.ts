@@ -20434,6 +20434,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure562.id }, { userId: user2.id, adventureId: adventure562.id }, { userId: user3.id, adventureId: adventure562.id }], skipDuplicates: true });
 
+
+  // Adventure 563
+  const adventure563 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-563" },
+    update: {},
+    create: {
+      id: "seed-adventure-563",
+      title: "Patagonia Torres del Paine W Trek",
+      description: `Torres del Paine National Park in Chilean Patagonia is the pinnacle of southern hemisphere trekking. The W Trek connects the iconic three granite towers with the Grey Glacier and French Valley glacial cirque in a 5-day route of extraordinary landscapes. Paine winds at 100 km/h test gear and nerve, while the dawn light on the Torres pink granite pillars at Mirador Las Torres is one of the world's great natural photographs.`,
+      location: "Torres del Paine, Chile",
+      country: "Chile",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Torres del Paine granite pillars dawn sunrise", "Grey Glacier floating icebergs lake crossing", "Valle del Frances glacial cirque hanging ice", "Paine Grande massif full panorama", "Guanaco herd puma territory wildlife"],
+      gear: ["Wind jacket 100km/h Patagonia gusts", "Booking system hut advance essential", "Waterproof all gear Patagonia rain", "Gaiters mud November spring season", "Bear canister puma country food safety"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1800,
+      latitude: -51,
+      longitude: -73,
+      published: true,
+      userId: user1.id,
+      voteCount: 12,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure563.id }, { userId: user2.id, adventureId: adventure563.id }, { userId: user3.id, adventureId: adventure563.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
