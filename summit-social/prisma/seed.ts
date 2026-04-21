@@ -29975,6 +29975,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure880.id }, { userId: user2.id, adventureId: adventure880.id }, { userId: user3.id, adventureId: adventure880.id }], skipDuplicates: true });
 
+
+  // Adventure 881
+  const adventure881 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-881" },
+    update: {},
+    create: {
+      id: "seed-adventure-881",
+      title: "Tanzania Ngorongoro Crater Safari",
+      description: `Descend into the Ngorongoro Crater — the world's largest intact volcanic caldera, 260 km2 and 600 m deep — to see one of Earth's densest concentrations of wildlife in a self-contained ecosystem. The crater floor supports 25,000 large animals including the densest population of lions in Africa, black rhino, elephant, hippo, and enormous wildebeest herds that never migrate out. The rim at 2,400 m is forested; the descent on a rough 4WD track takes 45 minutes. Night camping on the crater rim allows pre-dawn entry for the best lion activity windows.`,
+      location: "Ngorongoro Conservation Area, Tanzania",
+      country: "Tanzania",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -3.2,
+      longitude: 35.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["volcanic"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure881.id }, { userId: user2.id, adventureId: adventure881.id }, { userId: user3.id, adventureId: adventure881.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
