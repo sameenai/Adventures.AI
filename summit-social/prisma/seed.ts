@@ -20464,6 +20464,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure563.id }, { userId: user2.id, adventureId: adventure563.id }, { userId: user3.id, adventureId: adventure563.id }], skipDuplicates: true });
 
+
+  // Adventure 564
+  const adventure564 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-564" },
+    update: {},
+    create: {
+      id: "seed-adventure-564",
+      title: "Nepal Kanchenjunga North Base Camp",
+      description: `The north base camp of Kangchenjunga offers a different perspective on the world's third highest mountain from a remote approach through the far east of Nepal. The restricted zone trek passes through high yak pastures, Buddhist monasteries, and rhododendron forests before delivering the stunning Pangpema viewpoint at 5140m above Kangchenjunga's north face. This is Nepal's least visited base camp trek and most rewarding.`,
+      location: "Far East Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Pangpema north base camp 5140m panorama", "Kangchenjunga north face 8586m full view", "Ghunsa village traditional Tibetan architecture", "Rhododendron forest bloom April colour", "Jannu 7710m satellite peak dramatic form"],
+      gear: ["Restricted zone permit far east Nepal", "High altitude sleeping bag minus 20", "Yak hire remote cargo remote sections", "Acclimatization schedule strict 5140m", "Guide mandatory permit regulations"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2800,
+      latitude: 27.7,
+      longitude: 88.15,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure564.id }, { userId: user2.id, adventureId: adventure564.id }, { userId: user3.id, adventureId: adventure564.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
