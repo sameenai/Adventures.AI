@@ -23434,6 +23434,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure662.id }, { userId: user2.id, adventureId: adventure662.id }, { userId: user3.id, adventureId: adventure662.id }], skipDuplicates: true });
 
+
+  // Adventure 663
+  const adventure663 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-663" },
+    update: {},
+    create: {
+      id: "seed-adventure-663",
+      title: "South Africa Pilanesberg Game Drive",
+      description: `Pilanesberg National Park in an ancient volcanic crater 2 hours from Johannesburg is one of South Africa's most accessible Big Five reserves. The alkaline lake system in the crater centre attracts elephant, rhino, lion, and buffalo in predictable patterns, and the circular topography concentrates wildlife near water year-round. Self-drive safaris are straightforward and affordable compared to private reserves.`,
+      location: "Pilanesberg, North West Province",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Big Five in ancient volcanic crater setting", "White rhino population reintroduced success", "Mankwe Hide waterhole dawn wildlife theatre", "Elephant bachelor herd daily lake visit", "Night drive lion hyena darkness encounter"],
+      gear: ["Self-drive car hire standard saloon fine", "Binoculars safari distance viewing", "Camera zoom lens animal portraits", "Pilanesberg park permit gate entry", "Water food self-catering park entry"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 400,
+      latitude: -25.26,
+      longitude: 27.03,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["volcanic"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure663.id }, { userId: user2.id, adventureId: adventure663.id }, { userId: user3.id, adventureId: adventure663.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
