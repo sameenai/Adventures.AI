@@ -25265,6 +25265,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure723.id }, { userId: user2.id, adventureId: adventure723.id }, { userId: user3.id, adventureId: adventure723.id }], skipDuplicates: true });
 
+
+  // Adventure 724
+  const adventure724 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-724" },
+    update: {},
+    create: {
+      id: "seed-adventure-724",
+      title: "Jordan Wadi Dana Trek",
+      description: `The Dana Biosphere Reserve is Jordan's largest nature reserve and a corridor of biodiversity connecting Mediterranean highlands to the Arabian Desert through a series of dramatic wadis and cliff escarpments. The trek from Dana village to Feynan on the Dead Sea Transform fault descends through four bioclimatic zones in a single day, from juniper woodland through desert scrub to copper-ore country where Roman smelters once processed ore from Biblical Punon.`,
+      location: "Dana Biosphere Reserve, Jordan",
+      country: "Jordan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Feynan Ecolodge Dead Sea Transform rift stay", "Dana Village cliff edge village Ottoman era", "Roman copper smelter Punon ancient industry", "Ibex herd sandstone cliff Wadi Dana sight", "Four bioclimatic zones single day descent"],
+      gear: ["Feynan booking advance ecolodge only stay", "Water carrying canyon section dry", "Gaiters sandy wadi lower section descent", "Sun hat desert valley heat afternoon", "Guide optional Feynan trail easy follow"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 400,
+      latitude: 30.68,
+      longitude: 35.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure724.id }, { userId: user2.id, adventureId: adventure724.id }, { userId: user3.id, adventureId: adventure724.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
