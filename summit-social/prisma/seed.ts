@@ -16922,6 +16922,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure445.id }, { userId: user2.id, adventureId: adventure445.id }], skipDuplicates: true });
 
+
+  // Adventure 446
+  const adventure446 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-446" },
+    update: {},
+    create: {
+      id: "seed-adventure-446",
+      title: "Trans-Canada Trail Hiking",
+      description: `The Great Trail of Canada is the world's longest recreational trail network at 24,000 kilometres connecting the Pacific, Atlantic, and Arctic coasts. The most dramatic section through the Canadian Rockies links Banff, Yoho, and Kootenay National Parks through passes accessible only in summer. The Sea to Sky Trail from Vancouver to Whistler is the most popular section, combining coastal rainforest with alpine terrain over 180 kilometres.`,
+      location: "Vancouver",
+      country: "Canada",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1600&q=80",
+      highlights: ["Sea to Sky 180km coastal to alpine", "Garibaldi Provincial Park glaciers", "Black tusk volcanic plug views", "Bear and cougar wilderness", "Whistler alpine village finish"],
+      gear: ["Bear spray mandatory BC", "Hiking boots", "Bear canister camping", "Waterproof jacket rain coast", "Trekking poles"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: 49.25,
+      longitude: -123.12,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["camping"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure446.id }, { userId: user2.id, adventureId: adventure446.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
