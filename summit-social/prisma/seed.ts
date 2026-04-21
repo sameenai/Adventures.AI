@@ -28115,6 +28115,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure818.id }, { userId: user2.id, adventureId: adventure818.id }, { userId: user3.id, adventureId: adventure818.id }], skipDuplicates: true });
 
+
+  // Adventure 819
+  const adventure819 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-819" },
+    update: {},
+    create: {
+      id: "seed-adventure-819",
+      title: "Tanzania Selous Game Reserve Walking Safari",
+      description: `Walk with armed rangers through the Selous Game Reserve (now Nyerere National Park) — Africa's largest wildlife reserve and a UNESCO World Heritage Site covering 50,000 km2 — where foot travel puts you at the same level as lion, elephant, and African wild dog. The Rufiji River provides the central artery for boat-based game viewing; hippo-dense channels wind through fever tree forests. The Selous receives fewer tourists than the northern circuit parks and offers an rawer, more intimate safari experience.`,
+      location: "Selous / Nyerere National Park, Tanzania",
+      country: "Tanzania",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -9,
+      longitude: 37.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure819.id }, { userId: user2.id, adventureId: adventure819.id }, { userId: user3.id, adventureId: adventure819.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
