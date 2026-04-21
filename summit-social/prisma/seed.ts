@@ -16862,6 +16862,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure443.id }, { userId: user2.id, adventureId: adventure443.id }], skipDuplicates: true });
 
+
+  // Adventure 444
+  const adventure444 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-444" },
+    update: {},
+    create: {
+      id: "seed-adventure-444",
+      title: "Peru Colca Canyon Trek",
+      description: `The Colca Canyon in southern Peru is twice as deep as the Grand Canyon at 3,400 metres and is home to the Andean condor, which rides the morning thermals rising from the canyon floor past the Cruz del Condor viewpoint. The three-day trek from Cabanaconde descends 1,200 metres to the oasis of Sangalle at the canyon bottom, where palm trees and thermal pools create a surreal contrast with the arid canyon walls above. The Collagua and Cabana people's terraced agriculture dating to pre-Inca times lines the upper walls.`,
+      location: "Cabanaconde",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
+      highlights: ["Andean condor Cruz del Condor viewpoint", "3400m depth twice Grand Canyon", "Sangalle oasis thermal pools bottom", "Pre-Inca agricultural terracing", "Dawn condor thermals photography"],
+      gear: ["Trekking poles steep descent", "Hiking boots ankle support", "Sun protection high UV", "Water 3 litres minimum", "Cash for oasis accommodation"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 300,
+      latitude: -15.62,
+      longitude: -71.84,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["gorge"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure444.id }, { userId: user2.id, adventureId: adventure444.id }, { userId: user3.id, adventureId: adventure444.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
