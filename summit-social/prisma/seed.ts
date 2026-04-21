@@ -30365,6 +30365,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure893.id }, { userId: user2.id, adventureId: adventure893.id }], skipDuplicates: true });
 
+
+  // Adventure 894
+  const adventure894 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-894" },
+    update: {},
+    create: {
+      id: "seed-adventure-894",
+      title: "Ethiopia Bale Mountains Wolf Trek",
+      description: `Trek the Sanetti Plateau and Harenna Forest of Bale Mountains National Park in search of the Ethiopian wolf — the world's rarest canid, with only 500 remaining, of which 250 live in the Bale Mountains. The plateau at 4,000 m is the wolf's primary habitat; morning walks along the moorland edge give the best sightings. The Harenna Forest below 3,500 m harbours Bale monkey, colobus, and the rare giant mole rat that the wolves specialise in hunting. The trek combines high-altitude grassland, forest, and cultural visits to Oromo villages.`,
+      location: "Bale Mountains National Park, Oromia, Ethiopia",
+      country: "Ethiopia",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: 7,
+      longitude: 39.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure894.id }, { userId: user2.id, adventureId: adventure894.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
