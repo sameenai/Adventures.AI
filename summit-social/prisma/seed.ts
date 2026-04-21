@@ -28145,6 +28145,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure819.id }, { userId: user2.id, adventureId: adventure819.id }, { userId: user3.id, adventureId: adventure819.id }], skipDuplicates: true });
 
+
+  // Adventure 820
+  const adventure820 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-820" },
+    update: {},
+    create: {
+      id: "seed-adventure-820",
+      title: "Georgia Caucasus Mountain Traverse",
+      description: `Trek across the Georgian Greater Caucasus from the Svaneti region to Tusheti — two of the most isolated highland communities in Europe — crossing the Caucasus watershed via high passes only accessible in summer. The Svanebi people in Svaneti have preserved their medieval tower-house villages almost intact; Tusheti is accessed by one of the most extreme roads in the world, a mountain track requiring 4WD even in summer. The walk between them takes 10-14 days and involves passes above 3,500 m with stunning glacier views.`,
+      location: "Greater Caucasus, Georgia",
+      country: "Georgia",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 42.7,
+      longitude: 43.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure820.id }, { userId: user2.id, adventureId: adventure820.id }, { userId: user3.id, adventureId: adventure820.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
