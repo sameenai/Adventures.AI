@@ -27485,6 +27485,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure797.id }, { userId: user2.id, adventureId: adventure797.id }, { userId: user3.id, adventureId: adventure797.id }], skipDuplicates: true });
 
+
+  // Adventure 798
+  const adventure798 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-798" },
+    update: {},
+    create: {
+      id: "seed-adventure-798",
+      title: "Uganda Bwindi Mountain Gorilla Trek",
+      description: `Track mountain gorillas in Bwindi Impenetrable Forest — one of the last habitats of a species with only around 1,000 individuals remaining in the wild. The trek involves 2-8 hours of dense forest hiking with a team of rangers and a professional guide before spending a non-negotiable 60-minute allocated visit with a habituated gorilla family. Encounters are at ground level; silverbacks may approach to within a metre. Permits are limited and must be booked months in advance; this is one of the most emotionally overwhelming wildlife experiences on Earth.`,
+      location: "Bwindi Impenetrable Forest, Uganda",
+      country: "Uganda",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: -1.1,
+      longitude: 29.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure798.id }, { userId: user2.id, adventureId: adventure798.id }, { userId: user3.id, adventureId: adventure798.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
