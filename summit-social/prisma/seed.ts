@@ -31445,6 +31445,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure929.id }, { userId: user2.id, adventureId: adventure929.id }, { userId: user3.id, adventureId: adventure929.id }], skipDuplicates: true });
 
+
+  // Adventure 930
+  const adventure930 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-930" },
+    update: {},
+    create: {
+      id: "seed-adventure-930",
+      title: "Vietnam Fansipan Summit Trek",
+      description: `Climb Fansipan (3,143 m) — the highest peak in Indochina, nicknamed the Roof of Indochina — through the cloud forests above Sapa in northern Vietnam on a 2-3 day summit trek. The route gains 1,400 m from the Tram Ton Pass through rhododendron and primula forests, along ridges with views into China on clear days. A cable car now reaches the summit; the trekking route via Cat Cat Village is far less visited but requires a certified guide. March and April offer the best conditions before the monsoon; October and November after it.`,
+      location: "Hoang Lien Son, Lao Cai Province, Vietnam",
+      country: "Vietnam",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 22.3,
+      longitude: 103.8,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["jungle"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure930.id }, { userId: user2.id, adventureId: adventure930.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
