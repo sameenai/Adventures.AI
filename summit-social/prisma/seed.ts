@@ -29435,6 +29435,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure862.id }, { userId: user2.id, adventureId: adventure862.id }, { userId: user3.id, adventureId: adventure862.id }], skipDuplicates: true });
 
+
+  // Adventure 863
+  const adventure863 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-863" },
+    update: {},
+    create: {
+      id: "seed-adventure-863",
+      title: "Zambia Lower Zambezi Canoe Safari",
+      description: `Paddle the Lower Zambezi River in open canoes, camping on white sandbanks while hippos and elephants drink metres away in the golden late-afternoon light. The Lower Zambezi National Park lines the Zimbabwean bank; Zambia's own game management areas provide the paddling channel with minimal boat traffic. 4-6 day canoe safaris are guided; encounter elephants swimming the river, crocodiles basking, and fish eagles calling from dead trees overhanging the current. The Zambezi Valley's evening light over the escarpment is among the most beautiful in Africa.`,
+      location: "Lower Zambezi Valley, Zambia",
+      country: "Zambia",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [8, 9, 10, 11],
+      estimatedCost: 1000,
+      latitude: -15.6,
+      longitude: 29.6,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["safari"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure863.id }, { userId: user2.id, adventureId: adventure863.id }, { userId: user3.id, adventureId: adventure863.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
