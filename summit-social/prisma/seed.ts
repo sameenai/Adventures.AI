@@ -19414,6 +19414,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure528.id }, { userId: user2.id, adventureId: adventure528.id }, { userId: user3.id, adventureId: adventure528.id }], skipDuplicates: true });
 
+
+  // Adventure 529
+  const adventure529 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-529" },
+    update: {},
+    create: {
+      id: "seed-adventure-529",
+      title: "Guyana Wilderness Expedition",
+      description: `Mount Roraima is the tabletop mountain that inspired Arthur Conan Doyle's Lost World, rising 2810m above the Amazon rainforest at the junction of Venezuela, Brazil, and Guyana. The approach through savanna grassland and cloud forest delivers trekkers to a summit plateau where unique species evolved in complete isolation. Waterfalls cascade off all sides of the tepui into clouds below.`,
+      location: "Roraima, Guyana",
+      country: "Guyana",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Roraima summit lost world plateau 2810m", "Angel Falls approach Venezuela side descent", "Tepui endemic species isolated evolution", "Triple border point Venezuela Brazil Guyana", "Savanna grassland Gran Sabana approach"],
+      gear: ["Rain gear permanent cloud summit moisture", "Navigation summit plateau featureless", "Guide mandatory indigenous Pemon land", "Multi-day food 6-day expedition supply", "Hammock jungle below treeline camping"],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 1800,
+      latitude: 5.14,
+      longitude: -60.76,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["jungle"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure529.id }, { userId: user2.id, adventureId: adventure529.id }, { userId: user3.id, adventureId: adventure529.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
