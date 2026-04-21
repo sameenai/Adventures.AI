@@ -16832,6 +16832,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure442.id }, { userId: user2.id, adventureId: adventure442.id }], skipDuplicates: true });
 
+
+  // Adventure 443
+  const adventure443 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-443" },
+    update: {},
+    create: {
+      id: "seed-adventure-443",
+      title: "Chukotka Reindeer Migration",
+      description: `Chukotka in the Russian Far East is one of the most remote inhabited regions on Earth, home to the Chukchi people whose nomadic reindeer herding culture survived Soviet collectivisation through sheer geographic isolation. The spring migration of reindeer herds numbering thousands across the tundra to summer coastal pastures follows routes unchanged for thousands of years. Walrus haul-outs of 10,000 animals on Pacific beaches and whale watching add to the extraordinary wildlife density.`,
+      location: "Anadyr",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600&q=80",
+      highlights: ["Chukchi nomadic reindeer migration", "10000 walrus Pacific haul-out", "Arctic tundra complete isolation", "Grey whale summer feeding grounds", "Soviet era Chukotka cultural artifacts"],
+      gear: ["Russian Far East permit", "Helicopter charter access", "Polar expedition clothing", "Satellite communicator", "Bear spray and rifle guide"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 6000,
+      latitude: 64.73,
+      longitude: 177.51,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure443.id }, { userId: user2.id, adventureId: adventure443.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
