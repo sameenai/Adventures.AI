@@ -25175,6 +25175,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure720.id }, { userId: user2.id, adventureId: adventure720.id }, { userId: user3.id, adventureId: adventure720.id }], skipDuplicates: true });
 
+
+  // Adventure 721
+  const adventure721 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-721" },
+    update: {},
+    create: {
+      id: "seed-adventure-721",
+      title: "Namibia Fish River Canyon Trek",
+      description: `Fish River Canyon is the second largest canyon on earth and one of Africa's great trekking destinations, a 5-day unsupported route through 85 kilometres of raw desert canyon following the river as it winds between the walls of ancient gneiss and quartzite. The permit limits visitor numbers strictly, no guides or support are available once you descend, and the midday desert heat between May and September is manageable. This is self-reliance wilderness at its finest.`,
+      location: "Fish River Canyon, Namibia",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Fish River Canyon 161km Africa second largest", "Unsupported 5-day solo canyon floor walking", "Hot spring Ai-Ais spa resort arrival", "Ancient gneiss geological 1.8 billion year exposure", "Overnight sandbank camp river star watching"],
+      gear: ["Water minimum 5L midday heat Namib", "Medical certificate required permit health check", "Permit Namibia Tourism Board advance", "Navigation canyon no trail self-route", "First aid kit remote no evacuation option"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 500,
+      latitude: -27.66,
+      longitude: 17.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure721.id }, { userId: user2.id, adventureId: adventure721.id }, { userId: user3.id, adventureId: adventure721.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
