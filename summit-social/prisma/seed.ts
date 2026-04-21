@@ -22924,6 +22924,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure645.id }, { userId: user2.id, adventureId: adventure645.id }, { userId: user3.id, adventureId: adventure645.id }], skipDuplicates: true });
 
+
+  // Adventure 646
+  const adventure646 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-646" },
+    update: {},
+    create: {
+      id: "seed-adventure-646",
+      title: "Ecuador Galapagos Land Tour",
+      description: `The Galapagos Islands are evolution's laboratory, where species evolved in isolation and demonstrate no natural fear of humans. Giant tortoises at Santa Cruz research station, marine iguanas at Fernandina, and blue-footed booby courtship dances at Espanola create wildlife encounters of extraordinary intimacy. The land tour on a naturalist-guided expedition ship covers multiple islands in a week of concentrated evolutionary wonder.`,
+      location: "Galapagos Islands, Ecuador",
+      country: "Ecuador",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Giant tortoise Santa Cruz Charles Darwin Research", "Blue-footed booby Espanola mating dance", "Marine iguana Fernandina largest colony", "Waved albatross Espanola breeding April August", "Darwin finches beak adaptation evolutionary"],
+      gear: ["Naturalist guide mandatory Galapagos regulations", "Reef safe sunscreen coral protection mandatory", "Seasickness medication between island crossings", "Binoculars wildlife distance observation", "Camera macro wide angle species diversity"],
+      bestMonths: [6, 7, 8, 12, 1],
+      estimatedCost: 3500,
+      latitude: -0.57,
+      longitude: -90.36,
+      published: true,
+      userId: user3.id,
+      voteCount: 11,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure646.id }, { userId: user2.id, adventureId: adventure646.id }, { userId: user3.id, adventureId: adventure646.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
