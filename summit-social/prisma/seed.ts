@@ -24845,6 +24845,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure709.id }, { userId: user2.id, adventureId: adventure709.id }, { userId: user3.id, adventureId: adventure709.id }], skipDuplicates: true });
 
+
+  // Adventure 710
+  const adventure710 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-710" },
+    update: {},
+    create: {
+      id: "seed-adventure-710",
+      title: "Ethiopia Tigray Rock Churches",
+      description: `The rock-hewn churches of Tigray are the most extraordinary example of Christian architecture carved into sandstone cliffs, predating the more famous Lalibela by 500 years. Abuna Yemata Guh requires a vertiginous scramble up a sheer cliff face without ropes to reach a 6th century church with its original paintings intact. The combination of athletic approach and ancient art makes this the most extreme cultural pilgrimage in Africa.`,
+      location: "Tigray, Ethiopia",
+      country: "Ethiopia",
+      continent: "Africa",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Abuna Yemata Guh cliff scramble no rope access", "6th century frescoes original intact preservation", "Debre Damo monastery rope access historic", "Tigray sandstone geological erosion church", "Orthodox Christianity ancient African tradition"],
+      gear: ["Climbing confidence exposure scramble mandatory", "Modest clothing Orthodox church visits", "Local guide mandatory cliff approach safety", "Cash birr only remote Tigray limited", "Early morning start heat rock face comfort"],
+      bestMonths: [10, 11, 12, 1, 2],
+      estimatedCost: 800,
+      latitude: 13.96,
+      longitude: 39.27,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["africa"].id }, { id: allTags["scrambling"].id }, { id: allTags["hiking"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure710.id }, { userId: user2.id, adventureId: adventure710.id }, { userId: user3.id, adventureId: adventure710.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
