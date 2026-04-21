@@ -25295,6 +25295,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure724.id }, { userId: user2.id, adventureId: adventure724.id }, { userId: user3.id, adventureId: adventure724.id }], skipDuplicates: true });
 
+
+  // Adventure 725
+  const adventure725 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-725" },
+    update: {},
+    create: {
+      id: "seed-adventure-725",
+      title: "Nepal Annapurna Sanctuary Winter",
+      description: `Entering the Annapurna Sanctuary in winter is one of Nepal's most demanding and atmospherically extraordinary trekking experiences. The Modi Khola gorge that provides the only entrance becomes avalanche-prone and occasionally completely blocked by snow, adding risk and adventure to a journey where the sanctuary itself sits deep in snow and the teahouses are closed. The experience of the sanctuary in complete winter isolation is profound.`,
+      location: "Annapurna Region, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Sanctuary winter silence teahouse closure isolation", "Modi Khola gorge avalanche risk winter passage", "Annapurna I south face winter conditions raw", "Machapuchare winter snow pristine approach", "ABC 4130m winter stark silent magnificence"],
+      gear: ["Avalanche safety transceiver sanctuary winter", "Crampons ice Modi Khola gorge ice", "High altitude sleeping bag minus 25", "Emergency bivouac cave gorge avalanche", "Winter experience absolutely essential"],
+      bestMonths: [12, 1, 2],
+      estimatedCost: 900,
+      latitude: 28.53,
+      longitude: 83.87,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure725.id }, { userId: user2.id, adventureId: adventure725.id }, { userId: user3.id, adventureId: adventure725.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
