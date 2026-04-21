@@ -25715,6 +25715,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure738.id }, { userId: user2.id, adventureId: adventure738.id }, { userId: user3.id, adventureId: adventure738.id }], skipDuplicates: true });
 
+
+  // Adventure 739
+  const adventure739 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-739" },
+    update: {},
+    create: {
+      id: "seed-adventure-739",
+      title: "Himalaya Gokyo Ri Climb Nepal",
+      description: `Gokyo Ri at 5360m provides what many consider the finest view in the Himalayas, a 360-degree panorama encompassing four of the world's five highest mountains simultaneously: Everest, Lhotse, Makalu, and Cho Oyu. The Gokyo Valley approach through a series of turquoise glacial lakes is less crowded than the Everest Base Camp route while offering comparable altitude and dramatically superior summit views from Gokyo Ri itself.`,
+      location: "Khumbu, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Gokyo Ri four 8000m peaks simultaneously view", "Gokyo Valley turquoise lake series five ascending", "Ngozumpa Glacier largest glacier Nepal", "Cho Oyu 8201m sixth highest approach view", "Renjo La 5360m optional pass Gokyo exit"],
+      gear: ["Acclimatization schedule strict Gokyo Ri", "Warm layers sunrise cold 5360m summit", "TIMS permit Khumbu registration Gokyo", "Trekking poles rocky Gokyo Ri ascent", "Camera sunrise 8000m peak panorama essential"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 1200,
+      latitude: 27.96,
+      longitude: 86.68,
+      published: true,
+      userId: user1.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["photography"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure739.id }, { userId: user2.id, adventureId: adventure739.id }, { userId: user3.id, adventureId: adventure739.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
