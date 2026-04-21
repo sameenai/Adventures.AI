@@ -25055,6 +25055,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure716.id }, { userId: user2.id, adventureId: adventure716.id }, { userId: user3.id, adventureId: adventure716.id }], skipDuplicates: true });
 
+
+  // Adventure 717
+  const adventure717 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-717" },
+    update: {},
+    create: {
+      id: "seed-adventure-717",
+      title: "Pakistan Hushe Valley Trek",
+      description: `The Hushe Valley south of Concordia is one of the most beautiful approach valleys in the Karakoram, leading to the dramatic Gondogoro La pass at 5585m with its extraordinary view of K2, Broad Peak, the Gasherbrums, and Masherbrum all simultaneously visible. The pass connects Hushe to the Baltoro Glacier route, creating an alternative circuit that reveals the Karakoram's grandest peaks from angles impossible on the standard K2 base camp route.`,
+      location: "Hushe Valley, Pakistan",
+      country: "Pakistan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Gondogoro La 5585m six 8000m peaks panorama", "K2 Broad Peak Gasherbrums Masherbrum view", "Hushe village Balti culture base hospitality", "Aling Glacier approach blue ice crevasse", "Laila Peak 6096m granite spire iconic"],
+      gear: ["Crampons ice axe Gondogoro La snow ice", "High altitude sleeping bag minus 25 camp", "Acclimatization schedule strict 5585m pass", "Pakistani guide porter Hushe Valley hire", "LO permit Karakoram trek government"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 2500,
+      latitude: 35.47,
+      longitude: 76.41,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["glacier"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure717.id }, { userId: user2.id, adventureId: adventure717.id }, { userId: user3.id, adventureId: adventure717.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
