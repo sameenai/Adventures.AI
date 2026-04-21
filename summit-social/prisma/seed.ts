@@ -30155,6 +30155,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure886.id }, { userId: user2.id, adventureId: adventure886.id }], skipDuplicates: true });
 
+
+  // Adventure 887
+  const adventure887 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-887" },
+    update: {},
+    create: {
+      id: "seed-adventure-887",
+      title: "Morocco Anti-Atlas Mountain Trekking",
+      description: `Trek the Anti-Atlas Mountains between Tafraoute and Siroua — less visited and more rugged than the High Atlas, a landscape of pink granite boulders, argan orchards, ancient fortified villages (ksours), and rose-terraced hillsides overlooked by Jebel Siroua (3,304 m) at the region's highest point. The area south of Agadir is one of Morocco's best-kept trekking secrets; mule tracks between Amazigh Berber villages have been walked for centuries. The route can be extended into the Draa Valley and Saharan edge below.`,
+      location: "Anti-Atlas Mountains, Souss-Massa, Morocco",
+      country: "Morocco",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 29.7,
+      longitude: -8.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure887.id }, { userId: user2.id, adventureId: adventure887.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
