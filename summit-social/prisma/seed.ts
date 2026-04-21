@@ -24545,6 +24545,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure699.id }, { userId: user2.id, adventureId: adventure699.id }, { userId: user3.id, adventureId: adventure699.id }], skipDuplicates: true });
 
+
+  // Adventure 700
+  const adventure700 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-700" },
+    update: {},
+    create: {
+      id: "seed-adventure-700",
+      title: "Nepal Tsum Valley Cultural Trek",
+      description: `The Tsum Valley is a remote Himalayan valley in Gorkha district that maintained complete isolation from the outside world until 2008, preserving a Tibetan Buddhist culture that has disappeared from Tibet itself. The sacred Mu Gompa monastery at 3700m is the spiritual heart of a culture that prohibits hunting and maintains the valley as a place of ahimsa non-violence. Snow leopards still patrol the upper reaches with relative impunity.`,
+      location: "Gorkha District, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mu Gompa 3700m sacred monastery isolation", "Tsum Valley culture unchanged Tibet unchanged", "Snow leopard habitat non-violence protection", "Rachen Gompa nunnery ancient frescoes", "Milarepa Cave historical Buddhist meditation"],
+      gear: ["Restricted area permit Tsum Valley required", "High altitude sleeping bag minus 15", "Guide mandatory restricted zone regulations", "Cash rupees remote village no ATM", "Altitude acclimatization Arughat start"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2000,
+      latitude: 28.8,
+      longitude: 84.74,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure700.id }, { userId: user2.id, adventureId: adventure700.id }, { userId: user3.id, adventureId: adventure700.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
