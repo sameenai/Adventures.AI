@@ -24155,6 +24155,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure686.id }, { userId: user2.id, adventureId: adventure686.id }, { userId: user3.id, adventureId: adventure686.id }], skipDuplicates: true });
 
+
+  // Adventure 687
+  const adventure687 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-687" },
+    update: {},
+    create: {
+      id: "seed-adventure-687",
+      title: "Portugal Alentejo Wine Walk",
+      description: `The Portuguese interior of Alentejo offers one of Europe's most civilized trekking experiences, walking between wine estates through cork oak forests, lavender fields, and medieval hilltop villages under an enormous sky. The Rota Vicentina coast path reaches the Atlantic at Sagres, while inland the Seven Hanging Valleys walk above the Guadiana River gorge combines geological drama with wine estate hospitality. Slow travel Portugal at its finest.`,
+      location: "Alentejo, Portugal",
+      country: "Portugal",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Cork oak harvest bark stripping traditional", "Alentejo wine quintas estate dinner overnight", "Rota Vicentina coast Atlantic cliffs walk", "Marvao hilltop village medieval battlements", "Seven Hanging Valleys Guadiana gorge drama"],
+      gear: ["Comfortable walking shoes cork forest soft", "Sunscreen Alentejo summer heat exposure", "Wine tasting notes estate visits essential", "Lightweight pack village accommodation available", "Language basic Portuguese helpful rural"],
+      bestMonths: [3, 4, 5, 9, 10],
+      estimatedCost: 700,
+      latitude: 38,
+      longitude: -7.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure687.id }, { userId: user2.id, adventureId: adventure687.id }, { userId: user3.id, adventureId: adventure687.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
