@@ -25805,6 +25805,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure741.id }, { userId: user2.id, adventureId: adventure741.id }, { userId: user3.id, adventureId: adventure741.id }], skipDuplicates: true });
 
+
+  // Adventure 742
+  const adventure742 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-742" },
+    update: {},
+    create: {
+      id: "seed-adventure-742",
+      title: "Philippines Batanes Island Trek",
+      description: `The Batanes Islands at the northern tip of the Philippines are the country's most remote and least visited archipelago, geographically and culturally closer to Taiwan than Luzon. The Ivatan people build unique stone houses to withstand typhoon winds, and the rolling green hills with lighthouse-crowned headlands above the Pacific provide some of the most distinctive landscape in Southeast Asia. Cycling and trekking the Batan Island circuit is the Philippines at its most wild.`,
+      location: "Batanes, Philippines",
+      country: "Philippines",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ivatan stone house typhoon-proof architecture", "Naidi Hills lighthouse Pacific view sweeping", "Mount Iraya 1009m active volcano trek", "Sabtang Island ferry traditional boat ride", "Vayang Rolling Hills dramatic golden hour"],
+      gear: ["Typhoon season avoidance critical June November", "Bike hire Batan Island circuit pleasant", "Camera golden light rolling hill photography", "Accommodation advance booking limited Batanes", "Light jacket wind Pacific trade winds"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 700,
+      latitude: 20.45,
+      longitude: 121.97,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["photography"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure742.id }, { userId: user2.id, adventureId: adventure742.id }, { userId: user3.id, adventureId: adventure742.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
