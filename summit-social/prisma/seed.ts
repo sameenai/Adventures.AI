@@ -33185,6 +33185,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure987.id }, { userId: user2.id, adventureId: adventure987.id }], skipDuplicates: true });
 
+
+  // Adventure 988
+  const adventure988 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-988" },
+    update: {},
+    create: {
+      id: "seed-adventure-988",
+      title: "Nepal Shey Phoksundo Lake Trek",
+      description: `Trek to Shey Phoksundo Lake — Nepal's deepest lake at 145 m, a surreal turquoise in the dry Tibetan landscape of Dolpa at 3,610 m — through a landscape that transitions from subtropical Karnali gorge to Tibetan plateau within 3 days walking. The lake is the centrepiece of Shey Phoksundo National Park; the monastery at Ringmo village on the lakeside is one of the most photographed sights in Nepal. Snow leopard are occasionally spotted on the lake cliffs above. The remote approach by flight to Juphal from Nepalgunj requires advance planning.`,
+      location: "Dolpa District, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [9, 10, 11, 3, 4],
+      estimatedCost: 1000,
+      latitude: 29.2,
+      longitude: 82.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure988.id }, { userId: user2.id, adventureId: adventure988.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
