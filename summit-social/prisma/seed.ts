@@ -23584,6 +23584,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure667.id }, { userId: user2.id, adventureId: adventure667.id }, { userId: user3.id, adventureId: adventure667.id }], skipDuplicates: true });
 
+
+  // Adventure 668
+  const adventure668 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-668" },
+    update: {},
+    create: {
+      id: "seed-adventure-668",
+      title: "Jordan Dead Sea to Red Sea",
+      description: `The Jordan Trail connects Umm Qais in the north to Aqaba on the Red Sea over 650 kilometres through some of the Middle East's most diverse landscapes. The route passes through the Dead Sea's extreme altitude at minus 430m, the rose-red city of Petra, Wadi Rum's desert towers, and the Rift Valley escarpment of Dana Biosphere Reserve through a biblical landscape of extraordinary historical depth.`,
+      location: "Jordan",
+      country: "Jordan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Petra rose-red city treasury approach on foot", "Dead Sea minus 430m lowest point earth", "Dana Biosphere Reserve biodiversity corridor", "Wadi Rum desert towers Lawrence of Arabia", "Aqaba Red Sea finish warm water dip"],
+      gear: ["Water cache planning desert section 4L daily", "Sun protection Jordan April heat intense", "Warm layers desert nights cold contrast", "Jordan Trail Association route information", "Arabic phrases village hospitality respect"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 30.5,
+      longitude: 35.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }, { id: allTags["thru-hike"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure668.id }, { userId: user2.id, adventureId: adventure668.id }, { userId: user3.id, adventureId: adventure668.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
