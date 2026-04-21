@@ -26525,6 +26525,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure765.id }, { userId: user2.id, adventureId: adventure765.id }], skipDuplicates: true });
 
+
+  // Adventure 766
+  const adventure766 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-766" },
+    update: {},
+    create: {
+      id: "seed-adventure-766",
+      title: "Tajikistan Wakhan Corridor Trekking",
+      description: `Trek through the remote Wakhan Corridor — the finger of land separating Afghanistan from Pakistan — along ancient Silk Road caravan routes through the Pamir highlands. The valley is home to Wakhi and Kyrgyz nomads living largely unchanged since medieval times. Passes reach above 4,800 m and the trail is unmarked for long stretches. No tourist infrastructure exists; homestays with local families are the only option. This is one of the most culturally and geographically remote treks in Central Asia.`,
+      location: "Wakhan Corridor, Tajikistan",
+      country: "Tajikistan",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8],
+      estimatedCost: 1000,
+      latitude: 37.2,
+      longitude: 73.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["remote"].id }, { id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure766.id }, { userId: user2.id, adventureId: adventure766.id }, { userId: user3.id, adventureId: adventure766.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
