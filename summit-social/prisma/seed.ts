@@ -28565,6 +28565,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure833.id }, { userId: user2.id, adventureId: adventure833.id }, { userId: user3.id, adventureId: adventure833.id }], skipDuplicates: true });
 
+
+  // Adventure 834
+  const adventure834 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-834" },
+    update: {},
+    create: {
+      id: "seed-adventure-834",
+      title: "Malawi Lake Kayaking and Diving",
+      description: `Lake Malawi — the third largest lake in Africa and a UNESCO World Heritage Site — contains more species of freshwater fish than any other lake on Earth, including hundreds of endemic cichlid species that colour the shallows like a freshwater Great Barrier Reef. The lake is warm year-round and bilharzia-free in designated areas. Cape Maclear in Lake Malawi National Park offers snorkelling, kayaking, and diving. Island camping on Mumbo and Domwe Islands — no electricity, no piped water — is the best available off-grid lakeside experience in Africa.`,
+      location: "Lake Malawi National Park, Malawi",
+      country: "Malawi",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -14,
+      longitude: 34.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["diving"].id }, { id: allTags["africa"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure834.id }, { userId: user2.id, adventureId: adventure834.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
