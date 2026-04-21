@@ -33365,6 +33365,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure993.id }], skipDuplicates: true });
 
+
+  // Adventure 994
+  const adventure994 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-994" },
+    update: {},
+    create: {
+      id: "seed-adventure-994",
+      title: "Nepal Manaslu Circuit Trek",
+      description: `Circle Manaslu (8,163 m) — the eighth highest peak in the world — on a restricted area trek that follows the Budhi Gandaki gorge through Gurung and Tibetan communities before crossing the Larkya La (5,106 m), one of the most spectacular high passes in Nepal. The circuit takes 14-18 days; the crossing of the Larkya La is the physical and visual climax. The Manaslu Conservation Area protects snow leopard habitat; sightings are rare but tracks are found regularly in winter. Less crowded than the Annapurna and Everest circuits but rapidly growing in popularity.`,
+      location: "Gorkha District, Gandaki Province, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 28.6,
+      longitude: 84.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure994.id }, { userId: user2.id, adventureId: adventure994.id }, { userId: user3.id, adventureId: adventure994.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
