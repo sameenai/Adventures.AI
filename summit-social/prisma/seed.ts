@@ -26375,6 +26375,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure760.id }, { userId: user2.id, adventureId: adventure760.id }, { userId: user3.id, adventureId: adventure760.id }], skipDuplicates: true });
 
+
+  // Adventure 761
+  const adventure761 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-761" },
+    update: {},
+    create: {
+      id: "seed-adventure-761",
+      title: "Patagonia Crossing — Argentina to Chile on Foot",
+      description: `A remote multi-day traverse from the Argentine steppe across the Andes into Chilean Patagonia. The route links estancias, river crossings, and unnamed passes with no marked trail for long stretches. Wind is the constant companion — gusts exceeding 120 km/h are routine and can pin you in a tent for a full day. Carry a compass and topographic maps; GPS alone is insufficient. The reward is absolute solitude and landscapes unchanged since the last ice age.`,
+      location: "Patagonia, Argentina / Chile",
+      country: "Argentina / Chile",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: -50.5,
+      longitude: -73,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure761.id }, { userId: user2.id, adventureId: adventure761.id }, { userId: user3.id, adventureId: adventure761.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
