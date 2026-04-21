@@ -19654,6 +19654,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure536.id }, { userId: user2.id, adventureId: adventure536.id }, { userId: user3.id, adventureId: adventure536.id }], skipDuplicates: true });
 
+
+  // Adventure 537
+  const adventure537 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-537" },
+    update: {},
+    create: {
+      id: "seed-adventure-537",
+      title: "Alaska Arctic National Wildlife Refuge",
+      description: `The Arctic National Wildlife Refuge is nineteen million acres of complete wilderness, the largest national wildlife refuge in the US and one of the most protected wild places on earth. Float plane access delivers trekkers to remote valleys where Porcupine caribou herd migrations of 200,000 animals, grizzly bears, and wolves play out primal ecological dramas unchanged for millennia.`,
+      location: "ANWR, Alaska, USA",
+      country: "USA",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Porcupine caribou herd 200000 animals migration", "Grizzly bear salmon river fishing close encounter", "Arctic fall tundra colour blueberry crimson", "Float plane wilderness access dramatic landing", "Brooks Range peaks 2500m above Arctic tundra"],
+      gear: ["Float plane charter remote access required", "Bear fence electric camping safety", "Satellite communicator SPOT emergency", "River crossing trekking poles ford", "Leave No Trace strict wilderness ethics"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 5000,
+      latitude: 69.5,
+      longitude: -144.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure537.id }, { userId: user2.id, adventureId: adventure537.id }, { userId: user3.id, adventureId: adventure537.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
