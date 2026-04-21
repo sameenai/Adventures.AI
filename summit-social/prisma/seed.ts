@@ -28055,6 +28055,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure816.id }, { userId: user2.id, adventureId: adventure816.id }, { userId: user3.id, adventureId: adventure816.id }], skipDuplicates: true });
 
+
+  // Adventure 817
+  const adventure817 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-817" },
+    update: {},
+    create: {
+      id: "seed-adventure-817",
+      title: "Norway Hardanger Plateau Winter Ski Tour",
+      description: `Ski tour across Hardangervidda — Europe's largest mountain plateau at 1,000-1,400 m, covering 8,000 km2 — following the historic Hardangervidda traverse route between Finse and Haukeliseter in 4-6 days. Roald Amundsen trained here before his South Pole expedition. The plateau is featureless in poor visibility and navigation requires confidence with map and compass. Mountain huts run by the Norwegian Trekking Association are spaced 15-25 km apart; booking is essential. The wind-sculpted sastrugi (wind ridges) make pulling a pulk a serious physical challenge.`,
+      location: "Hardangervidda Plateau, Norway",
+      country: "Norway",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4],
+      estimatedCost: 1000,
+      latitude: 60.4,
+      longitude: 7.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure817.id }, { userId: user2.id, adventureId: adventure817.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
