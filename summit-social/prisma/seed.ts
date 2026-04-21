@@ -27455,6 +27455,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure796.id }, { userId: user2.id, adventureId: adventure796.id }, { userId: user3.id, adventureId: adventure796.id }], skipDuplicates: true });
 
+
+  // Adventure 797
+  const adventure797 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-797" },
+    update: {},
+    create: {
+      id: "seed-adventure-797",
+      title: "France Pyrenees GR10 Traverse",
+      description: `Walk the French side of the Pyrenees from the Atlantic at Hendaye to the Mediterranean at Banyuls-sur-Mer on the GR10 — 866 km across the full length of the mountain chain. The route stays on the French side, dipping briefly into Spain only to refuel in border villages. The western section through the Basque Country and Aragon is wilder and less walked than the central Ariege; the eastern Catalan section ends with a descent through vineyards to the sea. Most thru-hikers take 50-60 days; 28-35 days for those covering large daily distances.`,
+      location: "Pyrenees, France",
+      country: "France",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 35,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 43,
+      longitude: 0.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["thru-hike"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure797.id }, { userId: user2.id, adventureId: adventure797.id }, { userId: user3.id, adventureId: adventure797.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
