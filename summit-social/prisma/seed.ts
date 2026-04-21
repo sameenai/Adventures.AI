@@ -22894,6 +22894,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure644.id }, { userId: user2.id, adventureId: adventure644.id }, { userId: user3.id, adventureId: adventure644.id }], skipDuplicates: true });
 
+
+  // Adventure 645
+  const adventure645 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-645" },
+    update: {},
+    create: {
+      id: "seed-adventure-645",
+      title: "Australia Ningaloo Reef Dive",
+      description: `Ningaloo Reef is Australia's longest fringing reef and one of the few places on earth where whale sharks congregate predictably each year from March to July. Unlike the Great Barrier Reef, Ningaloo sits within walking distance of the beach, and snorkelling with whale sharks is possible for non-divers. Manta rays glide through coral gardens year-round, and the isolated Western Australian coast setting makes this less visited but equally extraordinary.`,
+      location: "Ningaloo Reef, Western Australia",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Whale shark March July reliable aggregation", "Manta ray coral garden year round glide", "Fringing reef walking beach access unique", "Humpback whale August September passage", "Turtle nesting Jurabi Point beach rookery"],
+      gear: ["Snorkel mask fin set non-diver access", "Wetsuit 3mm Ningaloo cooler south current", "Water shoes reef flat walking access", "Guide operator mandatory whale shark swim", "Camera wide angle whale shark scale"],
+      bestMonths: [3, 4, 5, 6, 7],
+      estimatedCost: 1800,
+      latitude: -22.5,
+      longitude: 113.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }, { id: allTags["australia"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure645.id }, { userId: user2.id, adventureId: adventure645.id }, { userId: user3.id, adventureId: adventure645.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
