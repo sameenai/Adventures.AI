@@ -27425,6 +27425,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure795.id }, { userId: user2.id, adventureId: adventure795.id }, { userId: user3.id, adventureId: adventure795.id }], skipDuplicates: true });
 
+
+  // Adventure 796
+  const adventure796 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-796" },
+    update: {},
+    create: {
+      id: "seed-adventure-796",
+      title: "India Spiti Valley High-Altitude Trek",
+      description: `Trek through Spiti Valley in the high trans-Himalayan desert of Himachal Pradesh — a Tibetan Buddhist region of whitewashed monasteries perched on crumbling mud cliffs above the turquoise Spiti River. The Pin Parvati Pass (5,319 m) connects Spiti with Kullu Valley across a glaciated watershed. The monasteries of Tabo, Key, and Dhankar are among the oldest continuously inhabited religious sites in Asia. Roads are open June-October; snow closes all routes in winter. Altitude acclimatisation in Kaza is essential before any high-pass crossings.`,
+      location: "Spiti Valley, Himachal Pradesh, India",
+      country: "India",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 32.2,
+      longitude: 78,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure796.id }, { userId: user2.id, adventureId: adventure796.id }, { userId: user3.id, adventureId: adventure796.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
