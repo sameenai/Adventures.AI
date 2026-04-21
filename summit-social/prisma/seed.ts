@@ -22774,6 +22774,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure640.id }, { userId: user2.id, adventureId: adventure640.id }, { userId: user3.id, adventureId: adventure640.id }], skipDuplicates: true });
 
+
+  // Adventure 641
+  const adventure641 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-641" },
+    update: {},
+    create: {
+      id: "seed-adventure-641",
+      title: "Kenya Samburu Walking Safari",
+      description: `Samburu National Reserve north of the equator is Kenya's finest wildlife area for species unique to the Northern Frontier, including Grevy's zebra, reticulated giraffe, Beisa oryx, and Somali ostrich. Walking safaris with armed Samburu guides provide ground-level encounters impossible from a vehicle, and the acacia thornbush landscape along the Ewaso Ng'iro River rewards patience. Leopard density is the highest in Kenya.`,
+      location: "Samburu National Reserve, Kenya",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Grevy's zebra endangered species Samburu endemic", "Reticulated giraffe tallest subspecies walking", "Leopard highest density Kenya Ewaso River", "Somali ostrich blue neck northern endemic", "Samburu warrior guide cultural knowledge deep"],
+      gear: ["Neutral clothing earth tones walking safari", "Binoculars safari distance viewing essential", "Malaria prophylaxis Samburu high risk", "Dust cover camera dry season tracks", "Sun protection equatorial latitude intense"],
+      bestMonths: [6, 7, 8, 9, 1, 2],
+      estimatedCost: 2500,
+      latitude: 0.6,
+      longitude: 37.53,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure641.id }, { userId: user2.id, adventureId: adventure641.id }, { userId: user3.id, adventureId: adventure641.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
