@@ -24275,6 +24275,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure690.id }, { userId: user2.id, adventureId: adventure690.id }, { userId: user3.id, adventureId: adventure690.id }], skipDuplicates: true });
 
+
+  // Adventure 691
+  const adventure691 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-691" },
+    update: {},
+    create: {
+      id: "seed-adventure-691",
+      title: "Spain Camino del Norte",
+      description: `The Camino del Norte follows Spain's northern Cantabrian coast from Irun on the French border to Santiago de Compostela, a wilder and more challenging alternative to the Camino Frances. The route passes through the Basque Country's dramatic coastline, Santander's surf beaches, Asturias's cliff paths, and Galicia's ria estuaries before the cathedral arrival. Green Spain, in contrast to the meseta's relentless flatness, rewards with constant oceanic drama.`,
+      location: "Cantabrian Coast, Spain",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Basque Country dramatic coastal cliff pilgrimage", "San Sebastian pintxos pilgrimage start reward", "Asturias green cliff path coastal drama", "Cabo Fisterra westernmost pilgrimage extension", "Santiago Cathedral arrival Botafumeiro ritual"],
+      gear: ["Rain gear green Spain Atlantic coast rain", "Pilgrim credencial passport stamp collection", "Blister prevention coastal tarmac section", "Albergue hostel booking advance pilgrimage peak", "Trekking poles descent Galicia wet cobble"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 900,
+      latitude: 43.47,
+      longitude: -8.4,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["camino"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure691.id }, { userId: user2.id, adventureId: adventure691.id }, { userId: user3.id, adventureId: adventure691.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
