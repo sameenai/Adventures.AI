@@ -19534,6 +19534,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure532.id }, { userId: user2.id, adventureId: adventure532.id }, { userId: user3.id, adventureId: adventure532.id }], skipDuplicates: true });
 
+
+  // Adventure 533
+  const adventure533 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-533" },
+    update: {},
+    create: {
+      id: "seed-adventure-533",
+      title: "Greece Mount Olympus Ascent",
+      description: `Mount Olympus rises dramatically from the Aegean coastal plain to 2917m at Mytikas, the highest point in Greece and mythological home of the twelve gods. The standard two-day ascent via Prionia follows through dense beech and black pine forest before the ridge scramble to the summit zone. The combination of classical mythology and genuine mountaineering makes this an intellectually and physically rewarding ascent.`,
+      location: "Mount Olympus, Greece",
+      country: "Greece",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mytikas summit 2917m Greece highest mythology", "Stefani Throne of Zeus dramatic secondary summit", "Litochoro approach sea view coastal start", "Prionia refuge traditional mountain hospitality", "Byzantine chapel ridge line historical site"],
+      gear: ["Sturdy boots summit zone loose rock", "Helmet summit scramble rockfall", "Early start summit afternoon thunderstorm", "Hut reservation Apostolidis refuge", "Wind shell summit exposed ridge"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 500,
+      latitude: 40.09,
+      longitude: 22.35,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["europe"].id }, { id: allTags["alpine"].id }, { id: allTags["scrambling"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure533.id }, { userId: user2.id, adventureId: adventure533.id }, { userId: user3.id, adventureId: adventure533.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
