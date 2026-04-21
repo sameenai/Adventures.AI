@@ -28955,6 +28955,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure846.id }, { userId: user2.id, adventureId: adventure846.id }, { userId: user3.id, adventureId: adventure846.id }], skipDuplicates: true });
 
+
+  // Adventure 847
+  const adventure847 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-847" },
+    update: {},
+    create: {
+      id: "seed-adventure-847",
+      title: "Mongolia Nomadic Horse Trekking Circuit",
+      description: `Ride across the Mongolian steppe on Mongol horses — small, tough, and highly independent animals descended from the horses of Genghis Khan — following seasonal migration routes between ger camps across the Orkhon Valley and Khangai Mountains. Staying with nomadic families in gers (yurts), eating fermented mare's milk (airag), and helping with livestock rounds is the complete picture. The pace is 30-50 km per day; riders should be comfortable in the saddle for extended periods. The vast sky and 360-degree horizon are the defining visual experience of Mongolia.`,
+      location: "Orkhon Valley, Arkhangai Province, Mongolia",
+      country: "Mongolia",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 47.3,
+      longitude: 102.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["horse-trekking"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-sport"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure847.id }, { userId: user2.id, adventureId: adventure847.id }, { userId: user3.id, adventureId: adventure847.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
