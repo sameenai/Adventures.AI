@@ -24995,6 +24995,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure714.id }, { userId: user2.id, adventureId: adventure714.id }, { userId: user3.id, adventureId: adventure714.id }], skipDuplicates: true });
 
+
+  // Adventure 715
+  const adventure715 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-715" },
+    update: {},
+    create: {
+      id: "seed-adventure-715",
+      title: "Pakistan Fairy Meadows Trek",
+      description: `Fairy Meadows beneath the Nanga Parbat Diamir face is one of the most accessible Himalayan high-altitude walking destinations, reachable by jeep track to Tato village and then a 3-hour walk through pine forest. The alpine meadow at 3300m looks directly at the 8126m south face of Nanga Parbat, the Killer Mountain, one of the most dramatic close-range views of any 8000m peak. The trek to Nanga Parbat base camp at 3600m adds an extra day of volcanic scenery.`,
+      location: "Gilgit-Baltistan, Pakistan",
+      country: "Pakistan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Nanga Parbat Diamir face 8126m direct view", "Fairy Meadows alpine flower carpet June", "Base camp 3600m Killer Mountain at feet", "Raikot Bridge entry 1000m road end track", "Pine forest Kacheli alpine meadow transition"],
+      gear: ["Jeep hire Raikot Bridge Tato village track", "Acclimatization Gilgit 1500m before meadow", "Warm layers 3300m nights cold clear", "Trekking poles steep pine forest approach", "Food bring from Gilgit limited meadow shops"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 35.38,
+      longitude: 74.59,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure715.id }, { userId: user2.id, adventureId: adventure715.id }, { userId: user3.id, adventureId: adventure715.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
