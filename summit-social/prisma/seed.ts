@@ -26585,6 +26585,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure767.id }, { userId: user2.id, adventureId: adventure767.id }], skipDuplicates: true });
 
+
+  // Adventure 768
+  const adventure768 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-768" },
+    update: {},
+    create: {
+      id: "seed-adventure-768",
+      title: "Ecuador Quilotoa Loop Trek",
+      description: `A four-day circular walk through indigenous Andean villages and farmland in the volcanic highlands of Ecuador, culminating at the turquoise crater lake of Quilotoa at 3,914 m. The route passes through Zumbahua market, Chugchilan, and Isinlivi — each offering authentic hostel accommodation and local food. The descent to the crater floor and ascent out are steep and strenuous. The highland communities maintain traditional weaving and textile traditions; several cooperatives sell directly to visitors.`,
+      location: "Cotopaxi Province, Ecuador",
+      country: "Ecuador",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -0.9,
+      longitude: -78.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure768.id }, { userId: user2.id, adventureId: adventure768.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
