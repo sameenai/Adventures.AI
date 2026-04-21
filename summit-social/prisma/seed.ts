@@ -26795,6 +26795,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure774.id }, { userId: user2.id, adventureId: adventure774.id }, { userId: user3.id, adventureId: adventure774.id }], skipDuplicates: true });
 
+
+  // Adventure 775
+  const adventure775 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-775" },
+    update: {},
+    create: {
+      id: "seed-adventure-775",
+      title: "Turkey Lycian Way Coastal Trek",
+      description: `Walk Turkey's first long-distance trail — 540 km along the ancient Lycian coastline from Fethiye to Antalya — through ruined Lycian cities, Byzantine churches, and Ottoman hamlets perched on clifftops above turquoise bays. The trail is waymarked but requires navigational attention on faded sections. Accommodation ranges from pensions in villages to wild camping on secluded headlands. Spring brings wildflowers and mild temperatures; summer is hot and sections near sea level are brutal in July and August.`,
+      location: "Antalya Province, Turkey",
+      country: "Turkey",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 10, 11],
+      estimatedCost: 1000,
+      latitude: 36.6,
+      longitude: 30,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["europe"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure775.id }, { userId: user2.id, adventureId: adventure775.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
