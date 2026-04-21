@@ -28505,6 +28505,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure831.id }, { userId: user2.id, adventureId: adventure831.id }, { userId: user3.id, adventureId: adventure831.id }], skipDuplicates: true });
 
+
+  // Adventure 832
+  const adventure832 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-832" },
+    update: {},
+    create: {
+      id: "seed-adventure-832",
+      title: "Slovenia Soca River Kayaking and Rafting",
+      description: `The Soca River in the Julian Alps of Slovenia runs an impossibly vivid emerald green — coloured by dissolved calcium carbonate and glacial meltwater — through a valley that saw some of World War One's most brutal fighting on the Isonzo Front. The river offers world-class whitewater from Grade II to Grade V; sea kayakers and canoeists find the middle section ideal while expert kayakers target the technical Bovec gorge. The Triglav National Park backdrop, with waterfalls and limestone cliffs on both banks, makes this Europe's most photogenic river.`,
+      location: "Soca Valley, Slovenia",
+      country: "Slovenia",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 46.3,
+      longitude: 13.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["gorge"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure832.id }, { userId: user2.id, adventureId: adventure832.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
