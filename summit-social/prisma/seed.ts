@@ -32765,6 +32765,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure973.id }, { userId: user2.id, adventureId: adventure973.id }], skipDuplicates: true });
 
+
+  // Adventure 974
+  const adventure974 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-974" },
+    update: {},
+    create: {
+      id: "seed-adventure-974",
+      title: "India Great Himalayan Trail Section",
+      description: `Walk a section of the Great Himalayan Trail — a trans-Himalayan route stretching 4,500 km across Nepal and India from Arunachal Pradesh to Ladakh — through the Uttarakhand section linking the Har Ki Dun Valley, Ruinsara Lake, and Kedarkantha (3,810 m) above the Tons River gorge, one of the most beautiful but least-visited trekking areas in the Indian Himalayas. The valley is home to the Rawat and Jaunsari hill communities whose traditions include an unusual Mahabharata legacy. The complete trail from Arunachal to Ladakh is a 6-month undertaking.`,
+      location: "Uttarkashi District, Uttarakhand, India",
+      country: "India",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 1000,
+      latitude: 31.1,
+      longitude: 78.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure974.id }, { userId: user2.id, adventureId: adventure974.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
