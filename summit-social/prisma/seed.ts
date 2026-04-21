@@ -20344,6 +20344,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure559.id }, { userId: user2.id, adventureId: adventure559.id }, { userId: user3.id, adventureId: adventure559.id }], skipDuplicates: true });
 
+
+  // Adventure 560
+  const adventure560 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-560" },
+    update: {},
+    create: {
+      id: "seed-adventure-560",
+      title: "Namibia Desert Ultramarathon Self-Supported",
+      description: `Running the Namib Desert in a self-supported ultramarathon format across 250 kilometres of the world's oldest desert is an exercise in human endurance at its limits. The race crosses the NamibRand Nature Reserve through dune fields, gravel plains, and canyon systems while competitors carry all their food for seven days. The Namib at dawn with the Southern Cross overhead tests body and spirit equally.`,
+      location: "Namib Desert, Namibia",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["NamibRand red dune field dawn crossing", "Southern Cross night sky no light pollution", "Welwitschia plant 2000 years old desert survival", "Oryx herd desert adapted crossing route", "Canyon camp overnight dramatic desert geology"],
+      gear: ["Running pack mandatory food 7 days", "Desert running shoes sand drainage", "Electrolyte management heat stroke prevention", "GPS tracker mandatory race safety", "Medical certificate clearance required"],
+      bestMonths: [4, 5, 6, 8, 9],
+      estimatedCost: 3000,
+      latitude: -25,
+      longitude: 16,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["desert"].id }, { id: allTags["africa"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure560.id }, { userId: user2.id, adventureId: adventure560.id }, { userId: user3.id, adventureId: adventure560.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
