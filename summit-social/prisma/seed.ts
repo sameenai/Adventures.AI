@@ -29105,6 +29105,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure851.id }, { userId: user2.id, adventureId: adventure851.id }, { userId: user3.id, adventureId: adventure851.id }], skipDuplicates: true });
 
+
+  // Adventure 852
+  const adventure852 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-852" },
+    update: {},
+    create: {
+      id: "seed-adventure-852",
+      title: "Namibia Damaraland Desert Walk",
+      description: `Walk through Damaraland — a vast territory of volcanic rock, ochre gravel plains, and ancient dry riverbeds in northwest Namibia — guided by Damara community guides tracking desert-adapted elephant, rhino, and lion on foot through landscapes so remote that GPS coordinates often predate the satellite era. The Brandberg massif, containing the famous White Lady San rock painting at 6,000 years old, rises 2,573 m from surrounding plains. Torra Bay on the Atlantic coast provides accommodation before the desert interior. Night skies here are among the darkest on the African continent.`,
+      location: "Damaraland, Namibia",
+      country: "Namibia",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -20.5,
+      longitude: 14.8,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["desert"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure852.id }, { userId: user2.id, adventureId: adventure852.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
