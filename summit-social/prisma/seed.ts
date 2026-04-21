@@ -32795,6 +32795,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure974.id }, { userId: user2.id, adventureId: adventure974.id }], skipDuplicates: true });
 
+
+  // Adventure 975
+  const adventure975 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-975" },
+    update: {},
+    create: {
+      id: "seed-adventure-975",
+      title: "Vietnam Northern Highlands Motorcycling",
+      description: `Ride a motorbike through the mountain provinces of northern Vietnam — Dien Bien Phu (where French colonial ambitions ended in 1954), the Mu Cang Chai rice terraces that cascade down 1,000 m hillsides in stepped layers of gold during September harvest, and the remote border towns of Dong Van and Meo Vac accessed by the Ma Pi Leng Pass — on a 10-day loop from Hanoi that returns via the coast. The motorbike community in northern Vietnam is well-established; guesthouses and mechanics along the main circuit provide reasonable infrastructure.`,
+      location: "Northwest Vietnam",
+      country: "Northwest Vietnam",
+      continent: "Unknown",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [9, 10, 3, 4],
+      estimatedCost: 1000,
+      latitude: 21.5,
+      longitude: 103.8,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["cycling"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure975.id }, { userId: user2.id, adventureId: adventure975.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
