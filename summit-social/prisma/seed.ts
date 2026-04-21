@@ -26645,6 +26645,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure769.id }, { userId: user2.id, adventureId: adventure769.id }, { userId: user3.id, adventureId: adventure769.id }], skipDuplicates: true });
 
+
+  // Adventure 770
+  const adventure770 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-770" },
+    update: {},
+    create: {
+      id: "seed-adventure-770",
+      title: "Ethiopia Simien Mountains Trekking",
+      description: `Trek across the Simien Mountains — a UNESCO World Heritage Site and one of Africa's great highland ranges — to reach Ras Dashen, Ethiopia's highest peak at 4,550 m. The route passes enormous basalt escarpments with 1,500 m vertical drops into the lowlands. Gelada baboons (found nowhere else on Earth) graze on the plateau in troops of hundreds; Ethiopian wolves are sometimes spotted on higher sections. Armed scouts are mandatory due to park regulations rather than any significant safety concern.`,
+      location: "Simien Mountains, Ethiopia",
+      country: "Ethiopia",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: 13.2,
+      longitude: 38.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure770.id }, { userId: user2.id, adventureId: adventure770.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
