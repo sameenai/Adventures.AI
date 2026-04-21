@@ -23104,6 +23104,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure651.id }, { userId: user2.id, adventureId: adventure651.id }, { userId: user3.id, adventureId: adventure651.id }], skipDuplicates: true });
 
+
+  // Adventure 652
+  const adventure652 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-652" },
+    update: {},
+    create: {
+      id: "seed-adventure-652",
+      title: "Tajikistan Wakhan Corridor Trek",
+      description: `The Wakhan Corridor is a narrow strip of Afghan territory that gives Afghanistan a border with China and connects the Pamirs with the Hindu Kush. The Tajik side follows the Panj River border with Afghanistan through the valley of the Wakhi people and onward to the Lake Chaqmaqtin plateau at 4600m. The combination of extraordinary remoteness, Wakhi nomadic culture, and the geopolitical curiosity of being in one of history's most contested corridors creates a deeply memorable expedition.`,
+      location: "Wakhan Corridor, Tajikistan",
+      country: "Tajikistan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Wakhan Corridor Afghanistan border river walk", "Wakhi nomad yurt culture ancient tradition", "Lake Chaqmaqtin 4600m plateau remote beauty", "Marco Polo sheep highest mountain sheep habitat", "Yamchun Fortress ancient Silk Road fortification"],
+      gear: ["Tajik visa advance application required", "Pamir permit GBAO special permission", "High altitude sleeping bag cold plateau", "Horse hire Wakhan valley transport option", "Satellite phone emergency remote corridor"],
+      bestMonths: [7, 8],
+      estimatedCost: 2200,
+      latitude: 37.5,
+      longitude: 72.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure652.id }, { userId: user2.id, adventureId: adventure652.id }, { userId: user3.id, adventureId: adventure652.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
