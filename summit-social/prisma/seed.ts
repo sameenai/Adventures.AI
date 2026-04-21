@@ -27095,6 +27095,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure784.id }], skipDuplicates: true });
 
+
+  // Adventure 785
+  const adventure785 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-785" },
+    update: {},
+    create: {
+      id: "seed-adventure-785",
+      title: "Namibia Skeleton Coast Fly-In Safari",
+      description: `A fly-in safari to the restricted Skeleton Coast National Park — accessible only by small aircraft with a licensed operator — to see one of Earth's most surreal landscapes: shipwrecked vessels rusting on desert beaches, brown hyena packs, massive Cape fur seal colonies and lion prides that specialise in hunting seals. The park is closed to private vehicles and tourist numbers are strictly capped. The coastal fog that gives the park its name rolls in daily from the cold Benguela current and creates an eerie low visibility.`,
+      location: "Skeleton Coast, Namibia",
+      country: "Namibia",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -19.8,
+      longitude: 12.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["desert"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure785.id }, { userId: user2.id, adventureId: adventure785.id }, { userId: user3.id, adventureId: adventure785.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
