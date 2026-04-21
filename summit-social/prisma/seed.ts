@@ -31145,6 +31145,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure919.id }, { userId: user2.id, adventureId: adventure919.id }], skipDuplicates: true });
 
+
+  // Adventure 920
+  const adventure920 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-920" },
+    update: {},
+    create: {
+      id: "seed-adventure-920",
+      title: "Greenland Dog Sled Expedition — Ilulissat Icefjord",
+      description: `Travel by dog sled across the frozen sea ice of Disko Bay near Ilulissat in west Greenland — where the Ilulissat Icefjord, a UNESCO World Heritage Site, delivers more ice into the sea than any other glacier outside Antarctica. Dog sled tours run from February to April before the spring breakup of sea ice; Greenlandic huskies are legally required in the west Greenland tradition. The icebergs grounded at the fjord entrance reach 100 m above the waterline; the scale is incomprehensible until you stand beside one. Reindeer herds graze the snowfields inland.`,
+      location: "Ilulissat, Qaasuitsup, Greenland",
+      country: "Greenland",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 69.2,
+      longitude: -51.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure920.id }, { userId: user2.id, adventureId: adventure920.id }, { userId: user3.id, adventureId: adventure920.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
