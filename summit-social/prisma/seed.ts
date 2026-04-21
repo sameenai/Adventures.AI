@@ -28355,6 +28355,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure826.id }, { userId: user2.id, adventureId: adventure826.id }], skipDuplicates: true });
 
+
+  // Adventure 827
+  const adventure827 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-827" },
+    update: {},
+    create: {
+      id: "seed-adventure-827",
+      title: "Canada Yukon River Canoe Expedition",
+      description: `Paddle 742 km of the historic Yukon River from Whitehorse to Dawson City — the route of the 1898 Klondike Gold Rush stampeders — through wilderness that has seen minimal change in a century. The river is broad and mostly gentle with a few rapids; no technical whitewater skills are required. Moose, bald eagles, and occasional grizzly bears line the banks. Wilderness camping every night on gravel bars and bluffs; the Midnight Sun makes evening light extraordinary in June and July. The journey takes 14-21 days at a relaxed pace.`,
+      location: "Yukon Territory, Canada",
+      country: "Canada",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 64,
+      longitude: -137,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["midnight-sun"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure827.id }, { userId: user2.id, adventureId: adventure827.id }, { userId: user3.id, adventureId: adventure827.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
