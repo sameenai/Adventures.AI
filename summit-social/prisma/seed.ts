@@ -19354,6 +19354,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure526.id }, { userId: user2.id, adventureId: adventure526.id }, { userId: user3.id, adventureId: adventure526.id }], skipDuplicates: true });
 
+
+  // Adventure 527
+  const adventure527 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-527" },
+    update: {},
+    create: {
+      id: "seed-adventure-527",
+      title: "Scandinavia Trans-Nordic Ski Tour",
+      description: `Traversing the Scandinavian Mountains from Norway's coast to Finland's fell forests by Nordic ski is one of the great winter human-powered journeys. The Kungsleden in Sweden and Finnmark plateau in Norway offer complete wilderness skiing with reindeer herds and Northern Lights dancing overhead at night. Sami indigenous culture provides overnight hospitality in traditional lavvu tents.`,
+      location: "Norway to Finland",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Northern Lights aurora borealis nightly camp", "Reindeer herd encounter Sami traditional land", "Finnmark plateau endless white horizon", "Kebnekaise summit Sweden highest ski descent", "Sami lavvu overnight traditional hospitality"],
+      gear: ["Nordic touring ski binding setup", "Pulk sled food fuel 2-week supply", "Polar sleeping system minus 30 rated", "Satellite phone emergency remote", "Avalanche safety terrain assessment"],
+      bestMonths: [2, 3, 4],
+      estimatedCost: 4000,
+      latitude: 68.4,
+      longitude: 18.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["midnight-sun"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure527.id }, { userId: user2.id, adventureId: adventure527.id }, { userId: user3.id, adventureId: adventure527.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
