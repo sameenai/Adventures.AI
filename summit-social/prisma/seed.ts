@@ -30245,6 +30245,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure889.id }, { userId: user2.id, adventureId: adventure889.id }, { userId: user3.id, adventureId: adventure889.id }], skipDuplicates: true });
 
+
+  // Adventure 890
+  const adventure890 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-890" },
+    update: {},
+    create: {
+      id: "seed-adventure-890",
+      title: "Canada Pacific Crest — Sea to Summit",
+      description: `Complete the Sea to Summit trail in Squamish, British Columbia — a 6.5 km trail ascending 1,600 m from the ocean at Howe Sound directly to the summit of the Chief (702 m) and continuing to the alpine zone above 1,200 m. Then kayak the fjord below, paddle past porpoises and bald eagles in the estuary. The combination is one of the most concentrated vertical experiences available from a city base: Vancouver is 60 km away by road. The Chief is also one of the premier crack climbing destinations in North America; multi-day walls line the 600 m granite face.`,
+      location: "Squamish, British Columbia, Canada",
+      country: "Canada",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 49.7,
+      longitude: -123.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["kayaking"].id }, { id: allTags["hiking"].id }, { id: allTags["multi-sport"].id }, { id: allTags["coastal"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure890.id }, { userId: user2.id, adventureId: adventure890.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
