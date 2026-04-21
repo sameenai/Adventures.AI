@@ -31985,6 +31985,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure947.id }, { userId: user2.id, adventureId: adventure947.id }], skipDuplicates: true });
 
+
+  // Adventure 948
+  const adventure948 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-948" },
+    update: {},
+    create: {
+      id: "seed-adventure-948",
+      title: "Peru Vilcabamba Inca Trail to Espiritu Pampa",
+      description: `Trek into the Vilcabamba range to reach Espiritu Pampa — the Lost City of the Incas, the actual last refuge of the Inca emperor Tupac Amaru until his capture by the Spanish in 1572, rediscovered by Hiram Bingham in 1911 and largely ignored since Machu Picchu was found nearby. The jungle trek from Choquequirao takes 4-5 days through cloud forest and primary jungle; ruins emerge gradually from the vegetation. Far fewer than 100 people visit per year; this is one of the most significant and accessible underfunded archaeological sites in South America.`,
+      location: "Vilcabamba Range, Cusco, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 1000,
+      latitude: -13,
+      longitude: -73.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure948.id }, { userId: user2.id, adventureId: adventure948.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
