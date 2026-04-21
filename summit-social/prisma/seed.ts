@@ -28445,6 +28445,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure829.id }, { userId: user2.id, adventureId: adventure829.id }], skipDuplicates: true });
 
+
+  // Adventure 830
+  const adventure830 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-830" },
+    update: {},
+    create: {
+      id: "seed-adventure-830",
+      title: "Nepal Three Passes Trekking Circuit",
+      description: `Link three high passes in the Khumbu region — Renjo La (5,360 m), Cho La (5,420 m), and Kongma La (5,535 m) — on a 20-day circuit that incorporates Everest Base Camp and ascents of Gokyo Ri and Kala Patthar for the best viewpoints. This is the most comprehensive Khumbu circuit, traversing terrain rarely seen by most Everest Base Camp trekkers. The Cho La involves a short glacier crossing with fixed ropes; ice axe and crampons are advisable in early season. Accommodation in teahouses throughout.`,
+      location: "Khumbu, Sagarmatha National Park, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 1000,
+      latitude: 27.9,
+      longitude: 86.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure830.id }, { userId: user2.id, adventureId: adventure830.id }, { userId: user3.id, adventureId: adventure830.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
