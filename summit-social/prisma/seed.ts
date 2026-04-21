@@ -23224,6 +23224,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure655.id }, { userId: user2.id, adventureId: adventure655.id }, { userId: user3.id, adventureId: adventure655.id }], skipDuplicates: true });
 
+
+  // Adventure 656
+  const adventure656 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-656" },
+    update: {},
+    create: {
+      id: "seed-adventure-656",
+      title: "Western Australia Ningaloo Coast Drive",
+      description: `The Northwest Cape and Ningaloo Coast road from Exmouth through Shark Bay to Kalbarri is one of Australia's great remote coastal drives. Stromatolites at Shark Bay are living descendants of the first life forms on earth, Monkey Mia dolphins receive hand-fed fish from rangers daily, and Hamelin Pool's ancient rock formations predate complex life by billions of years. This drive through geological time ends at Kalbarri's red sandstone gorge country.`,
+      location: "Western Australia",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Stromatolites Shark Bay oldest life forms 3.5bn", "Monkey Mia dolphin hand feeding daily ritual", "Hamelin Pool ancient geology living fossils", "Quobba blowholes Indian Ocean power spray", "Kalbarri gorge red sandstone ancient erosion"],
+      gear: ["4WD Cape Range dirt road sections", "Water 20L remote track contingency", "Camping gear Ningaloo coast campsite", "Fuel capacity 300km remote station gap", "Snorkel gear Turquoise Bay Ningaloo reef"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 2000,
+      latitude: -23.5,
+      longitude: 113.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["coastal"].id }, { id: allTags["australia"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure656.id }, { userId: user2.id, adventureId: adventure656.id }, { userId: user3.id, adventureId: adventure656.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
