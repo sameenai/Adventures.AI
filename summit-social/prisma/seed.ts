@@ -32375,6 +32375,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure960.id }, { userId: user2.id, adventureId: adventure960.id }], skipDuplicates: true });
 
+
+  // Adventure 961
+  const adventure961 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-961" },
+    update: {},
+    create: {
+      id: "seed-adventure-961",
+      title: "Peru Colca Canyon Trek and Condor Watch",
+      description: `Descend into the Colca Canyon — one of the world's deepest canyons at 3,400 m, twice the depth of the Grand Canyon — on a 3-day trek from Cabanaconde through indigenous villages of the Collagua and Cabana cultures, terracing the canyon walls since pre-Inca times. The Cruz del Condor viewpoint is the best accessible location in South America to observe Andean condors on thermals at close range; up to 20 birds can be seen simultaneously on clear mornings. The canyon floor hot springs at Sangalle provide a welcome soak at the turnaround point.`,
+      location: "Colca Canyon, Arequipa, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -15.6,
+      longitude: -71.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure961.id }, { userId: user2.id, adventureId: adventure961.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
