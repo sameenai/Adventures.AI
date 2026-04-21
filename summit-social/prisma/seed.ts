@@ -30665,6 +30665,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure903.id }, { userId: user2.id, adventureId: adventure903.id }], skipDuplicates: true });
 
+
+  // Adventure 904
+  const adventure904 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-904" },
+    update: {},
+    create: {
+      id: "seed-adventure-904",
+      title: "Nepal Langtang Valley Trek",
+      description: `Trek the Langtang Valley — just 60 km north of Kathmandu and three days by foot from Syabrubesi road head — through Tamang villages and yak pastures to the high pastures of Kyanjin Gompa (3,870 m) at the foot of the Langtang Lirung (7,227 m) massif. The valley was devastated by the 2015 earthquake; the rebuilt village and gompa stand as testament to community resilience. Side ascents of Tserko Ri (4,984 m) and Kyanjin Ri (4,773 m) reward with glacier and summit panoramas. One of the most accessible alpine valleys in the Himalayas.`,
+      location: "Langtang National Park, Rasuwa, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 1000,
+      latitude: 28.2,
+      longitude: 85.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure904.id }, { userId: user2.id, adventureId: adventure904.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
