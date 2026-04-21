@@ -31805,6 +31805,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure941.id }, { userId: user2.id, adventureId: adventure941.id }], skipDuplicates: true });
 
+
+  // Adventure 942
+  const adventure942 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-942" },
+    update: {},
+    create: {
+      id: "seed-adventure-942",
+      title: "Iceland Volcano Trek — Landmannalaugar Circuit",
+      description: `Walk the Landmannalaugar circuit in Iceland's Fjallabak Nature Reserve — a 4-day loop through the most colourful mountains in Europe, with rhyolite ridges glowing in red, yellow, green, and purple, obsidian lava fields that crunch underfoot, and natural hot spring streams perfect for end-of-day soaking. The circuit is shorter than the full Laugavegur trail and allows return to the starting campsite with its geothermal pools. July is the prime month; August brings less daylight. The Icelandic Weather Service forecasts are essential reading before any highland trekking.`,
+      location: "Fjallabak Nature Reserve, South Iceland",
+      country: "South Iceland",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8],
+      estimatedCost: 1000,
+      latitude: 63.9,
+      longitude: -19.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["hiking"].id }, { id: allTags["arctic"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure942.id }, { userId: user2.id, adventureId: adventure942.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
