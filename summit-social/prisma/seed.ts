@@ -32645,6 +32645,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure969.id }, { userId: user2.id, adventureId: adventure969.id }], skipDuplicates: true });
 
+
+  // Adventure 970
+  const adventure970 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-970" },
+    update: {},
+    create: {
+      id: "seed-adventure-970",
+      title: "Nepal Dolpo Upper Circuit Trek",
+      description: `Trek the Upper Dolpo restricted area — the setting for Peter Matthiessen's The Snow Leopard — a high Trans-Himalayan plateau of turquoise lakes, rock art, ancient Bon-po monasteries, and yak caravans that crosses three passes above 5,000 m in a 25-day circuit. The permit is expensive and number-limited; the region's isolation is its primary quality. The Crystal Mountain's Shey Gompa is the circuit's centrepiece. The route follows the historic trade route between Tibet and Nepal that predates Hinduism and Buddhism in the Himalayas. One of the most remote trekking experiences in Nepal.`,
+      location: "Dolpo District, Karnali Province, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 25,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [9, 10],
+      estimatedCost: 1000,
+      latitude: 29.2,
+      longitude: 82.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure970.id }, { userId: user2.id, adventureId: adventure970.id }, { userId: user3.id, adventureId: adventure970.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
