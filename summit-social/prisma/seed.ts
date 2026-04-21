@@ -21274,6 +21274,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure590.id }, { userId: user2.id, adventureId: adventure590.id }, { userId: user3.id, adventureId: adventure590.id }], skipDuplicates: true });
 
+
+  // Adventure 591
+  const adventure591 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-591" },
+    update: {},
+    create: {
+      id: "seed-adventure-591",
+      title: "Canary Islands Interisland Cycle",
+      description: `Cycling between the Canary Islands via ferry reveals the extraordinary geological diversity of this volcanic archipelago off the African coast. Tenerife's Teide at 3718m is Spain's highest peak, Gran Canaria's lunar Roque Nublo landscape leads to caldera cycling, and Lanzarote's UNESCO Biosphere volcanic lava fields provide otherworldly pedaling. Each island offers a distinct character and climate within easy ferry connection.`,
+      location: "Canary Islands, Spain",
+      country: "Spain",
+      continent: "Africa",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Teide 3718m Spain highest peak cycling base", "Roque Nublo Gran Canaria volcanic needle", "Lanzarote Timanfaya lava field cycling route", "El Hierro Atlantic Ocean smallest island circuit", "Masca valley Tenerife descent dramatic gorge"],
+      gear: ["Road bike Canary Islands paved routes", "Wind jacket trade wind constant Atlantic", "Ferry timetable interisland connection", "Chamois cream volcanic road distance", "Sunscreen year-round UV African latitude"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 1400,
+      latitude: 28.3,
+      longitude: -16.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["volcanic"].id }, { id: allTags["island"].id }, { id: allTags["africa"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure591.id }, { userId: user2.id, adventureId: adventure591.id }, { userId: user3.id, adventureId: adventure591.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
