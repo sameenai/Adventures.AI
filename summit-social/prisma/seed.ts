@@ -21094,6 +21094,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure584.id }, { userId: user2.id, adventureId: adventure584.id }, { userId: user3.id, adventureId: adventure584.id }], skipDuplicates: true });
 
+
+  // Adventure 585
+  const adventure585 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-585" },
+    update: {},
+    create: {
+      id: "seed-adventure-585",
+      title: "Caucasus Georgia Wild Camping",
+      description: `The Racha region of Georgia is the least visited and most pristine highland area of the country, a highland world of alpine meadows, endemic Caucasian wildlife, and ancient stone-built Georgian churches in deep valleys. Wild camping is entirely legal and free across the mountains, and the warmth of Georgian hospitality in shepherd camps provides an experience of authentic mountain culture at its most generous.`,
+      location: "Racha Region, Georgia",
+      country: "Georgia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Racha highland meadow wild camp freedom", "Georgian Caucasian wildlife lynx bear endemic", "Ancient stone church valley remote position", "Chacha traditional grape spirit shepherd offering", "Shovi highland resort Soviet era ruins"],
+      gear: ["Tent four-season Georgia alpine weather", "Water filter mountain spring reliability", "Georgian lari cash remote village", "Bear canister Caucasus bear territory", "Navigation offline maps no signal"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 400,
+      latitude: 42.5,
+      longitude: 43.4,
+      published: true,
+      userId: user2.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["camping"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure585.id }, { userId: user2.id, adventureId: adventure585.id }, { userId: user3.id, adventureId: adventure585.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
