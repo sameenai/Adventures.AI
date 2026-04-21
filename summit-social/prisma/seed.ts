@@ -32105,6 +32105,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure951.id }, { userId: user2.id, adventureId: adventure951.id }], skipDuplicates: true });
 
+
+  // Adventure 952
+  const adventure952 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-952" },
+    update: {},
+    create: {
+      id: "seed-adventure-952",
+      title: "India Valley of Flowers National Park Trek",
+      description: `Trek to the Valley of Flowers — a UNESCO World Heritage Site in Uttarakhand's Chamoli district at 3,500 m where over 300 species of Himalayan wildflowers bloom simultaneously in July and August — and continue to Hemkund Sahib (4,329 m), one of the holiest Sikh shrines, on a separate route from Ghangaria. The valley entrance is 13 km from Joshimath by road; the Ghangaria campsite serves as the overnight base. The flowers include Brahmakamal, Himalayan poppy, and dozens of endemic species. Rain and mist are common; July and August are the peak flower months.`,
+      location: "Chamoli District, Uttarakhand, India",
+      country: "India",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8],
+      estimatedCost: 1000,
+      latitude: 30.7,
+      longitude: 79.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["hiking"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure952.id }, { userId: user2.id, adventureId: adventure952.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
