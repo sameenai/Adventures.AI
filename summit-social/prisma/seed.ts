@@ -26405,6 +26405,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure761.id }, { userId: user2.id, adventureId: adventure761.id }, { userId: user3.id, adventureId: adventure761.id }], skipDuplicates: true });
 
+
+  // Adventure 762
+  const adventure762 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-762" },
+    update: {},
+    create: {
+      id: "seed-adventure-762",
+      title: "Iceland Laugavegur Ultra — 55 km Trail Race",
+      description: `The iconic Laugavegur hiking trail converted into a racing format, running from Landmannalaugar to Thorsmork through rainbow rhyolite mountains, obsidian fields, and glacial rivers. The 55 km course includes around 2,000 m of elevation gain and several cold knee-deep river crossings with no bridges. The race draws elite runners and strong amateurs from around the world each July. Qualifying requires a recent ultra finish; the start list sells out within hours of opening.`,
+      location: "Iceland",
+      country: "Iceland",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7],
+      estimatedCost: 1000,
+      latitude: 63.9,
+      longitude: -19.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["volcanic"].id }, { id: allTags["glacier"].id }, { id: allTags["multi-sport"].id }, { id: allTags["arctic"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure762.id }, { userId: user2.id, adventureId: adventure762.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
