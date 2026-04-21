@@ -31745,6 +31745,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure939.id }, { userId: user2.id, adventureId: adventure939.id }, { userId: user3.id, adventureId: adventure939.id }], skipDuplicates: true });
 
+
+  // Adventure 940
+  const adventure940 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-940" },
+    update: {},
+    create: {
+      id: "seed-adventure-940",
+      title: "Italy Mont Blanc Traverse — TMB Ultra",
+      description: `Complete the Tour du Mont Blanc as a fast-packing or running route — 170 km and 10,000 m of elevation gain that thru-hikers take 11 days can be run in 3-4 days by fit mountain athletes. The circuit passes through France, Italy, and Switzerland around Europe's highest massif with the Grandes Jorasses, Aiguilles, and the Brenva Face of Mont Blanc as the constant backdrop. The race version (UTMB) draws 10,000 runners each August; independent fast-packers can tackle the same route without the crowds at any time in summer.`,
+      location: "Mont Blanc Massif, France / Italy / Switzerland",
+      country: "France / Italy / Switzerland",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 45.8,
+      longitude: 6.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure940.id }, { userId: user2.id, adventureId: adventure940.id }, { userId: user3.id, adventureId: adventure940.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
