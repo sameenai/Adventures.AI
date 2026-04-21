@@ -32525,6 +32525,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure965.id }, { userId: user2.id, adventureId: adventure965.id }, { userId: user3.id, adventureId: adventure965.id }], skipDuplicates: true });
 
+
+  // Adventure 966
+  const adventure966 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-966" },
+    update: {},
+    create: {
+      id: "seed-adventure-966",
+      title: "Iceland South Coast Road Trip",
+      description: `Drive Iceland's south coast between Reykjavik and Hofn — the most accessible and concentrated introduction to Icelandic landscape available — past the black sand beaches of Reynisfjara, the Skogafoss and Seljalandsfoss waterfalls (the latter walkable behind the curtain), the Solheimajokull glacier tongue, the Jokulsarlon glacial lagoon, and the Diamond Beach where icebergs strand on black sand. All within a 5-day road trip covering 500 km on Route 1. Roadside photography is the primary activity; short hikes from the road lead to glacier edges, lava caves, and cliff colonies.`,
+      location: "South Coast, Iceland",
+      country: "Iceland",
+      continent: "Unknown",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: 63.5,
+      longitude: -19.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["glacier"].id }, { id: allTags["volcanic"].id }, { id: allTags["photography"].id }, { id: allTags["arctic"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure966.id }, { userId: user2.id, adventureId: adventure966.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
