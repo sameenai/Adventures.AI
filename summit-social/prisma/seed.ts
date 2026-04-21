@@ -22594,6 +22594,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure634.id }, { userId: user2.id, adventureId: adventure634.id }, { userId: user3.id, adventureId: adventure634.id }], skipDuplicates: true });
 
+
+  // Adventure 635
+  const adventure635 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-635" },
+    update: {},
+    create: {
+      id: "seed-adventure-635",
+      title: "Chile Easter Island Trek",
+      description: `Easter Island is the most remote inhabited place on earth, 3500 kilometres from the Chilean coast, where the Rapa Nui civilization created 887 moai statues and then collapsed in an ecological tragedy. Trekking between statue sites and climbing the Rano Kau volcano crater combines stunning natural scenery with the most profound archaeological mystery in Polynesia. The annual Tapati Rapa Nui cultural festival brings the island alive in February.`,
+      location: "Easter Island, Chile",
+      country: "Chile",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ahu Tongariki 15 moai restored sunrise backdrop", "Rano Raraku moai quarry 400 statues unfinished", "Rano Kau volcano crater lake trekking", "Birdman ceremony site Orongo cliff edge", "Anakena beach palm archaeological excavation"],
+      gear: ["Sun protection Pacific latitude UV strong", "Wind jacket trade wind ocean constant", "Comfortable shoes gravel road statue sites", "Guide Rapa Nui culture interpretation", "Cash limited ATM most accept card"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1800,
+      latitude: -27.11,
+      longitude: -109.35,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["island"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["volcanic"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure635.id }, { userId: user2.id, adventureId: adventure635.id }, { userId: user3.id, adventureId: adventure635.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
