@@ -21604,6 +21604,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure601.id }, { userId: user2.id, adventureId: adventure601.id }, { userId: user3.id, adventureId: adventure601.id }], skipDuplicates: true });
 
+
+  // Adventure 602
+  const adventure602 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-602" },
+    update: {},
+    create: {
+      id: "seed-adventure-602",
+      title: "Central Asian Steppe Cycling",
+      description: `Cycling across the Kazakh steppe from Almaty to Astana covers 1400 kilometres of endless grassland, salt lake depressions, and rolling semi-arid terrain that stretches to every horizon. The physical and psychological challenge of crossing the world's largest steppe demands self-sufficiency and route-finding through a landscape with almost no infrastructure. Nomadic hospitality from shepherds in remote yurt camps is the unexpected reward.`,
+      location: "Kazakhstan",
+      country: "Kazakhstan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Steppe horizon endless grass infinite sky", "Yurt camp shepherd tea bread hospitality", "Charyn Canyon Kazakhstan mini Grand Canyon", "Almaty Tian Shan mountain backdrop start", "Bayterek tower Astana futuristic capital end"],
+      gear: ["Panniers full self-sufficiency 5-day supply", "Tyre repair remote no bike shop steppe", "Wind jacket steppe headwind constant", "Water bladder 6L capacity remote sections", "Navigation offline maps no signal"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1500,
+      latitude: 48,
+      longitude: 68,
+      published: true,
+      userId: user1.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure602.id }, { userId: user2.id, adventureId: adventure602.id }, { userId: user3.id, adventureId: adventure602.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
