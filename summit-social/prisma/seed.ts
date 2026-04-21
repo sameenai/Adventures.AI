@@ -27995,6 +27995,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure814.id }, { userId: user2.id, adventureId: adventure814.id }], skipDuplicates: true });
 
+
+  // Adventure 815
+  const adventure815 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-815" },
+    update: {},
+    create: {
+      id: "seed-adventure-815",
+      title: "Hawaii Big Island Lava Flow Hike and Dive",
+      description: `Experience active volcanism at Hawaii Volcanoes National Park — where ongoing eruptions from Kilauea and Mauna Loa periodically send lava flows to the coast, entering the ocean in spectacular steam explosions visible from shore. The park trail system allows safe observation of volcanic features including lava tubes, calderas, and when active flows permit, glowing lava at night. Combine with a manta ray night dive off the Kona coast — one of the most accessible and reliable manta encounters in the world.`,
+      location: "Hawaii Volcanoes National Park, Hawaii, USA",
+      country: "USA",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      estimatedCost: 1000,
+      latitude: 19.4,
+      longitude: -155.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["volcanic"].id }, { id: allTags["diving"].id }, { id: allTags["multi-sport"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure815.id }, { userId: user2.id, adventureId: adventure815.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
