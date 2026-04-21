@@ -27275,6 +27275,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure790.id }, { userId: user2.id, adventureId: adventure790.id }, { userId: user3.id, adventureId: adventure790.id }], skipDuplicates: true });
 
+
+  // Adventure 791
+  const adventure791 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-791" },
+    update: {},
+    create: {
+      id: "seed-adventure-791",
+      title: "Portugal Rota Vicentina Coastal Trail",
+      description: `The Fishermen's Trail section of the Rota Vicentina follows the southwest corner of Portugal — Europe's last great wild coast — hugging Atlantic cliffs from Porto Covo to Sagres for 120 km. The route navigates beaches accessible only on foot, clifftop paths between nesting stork colonies, and fishing villages with no tourism infrastructure beyond a single guesthouse. The Alentejo and Algarve sections are walkable year-round; spring brings wildflower meadows with orchids and cistus in bloom.`,
+      location: "Alentejo Coast, Portugal",
+      country: "Portugal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 1000,
+      latitude: 37.5,
+      longitude: -8.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure791.id }, { userId: user2.id, adventureId: adventure791.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
