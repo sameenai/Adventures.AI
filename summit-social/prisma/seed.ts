@@ -20884,6 +20884,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure577.id }, { userId: user2.id, adventureId: adventure577.id }, { userId: user3.id, adventureId: adventure577.id }], skipDuplicates: true });
 
+
+  // Adventure 578
+  const adventure578 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-578" },
+    update: {},
+    create: {
+      id: "seed-adventure-578",
+      title: "Peru Huascarán National Park Trek",
+      description: `The Cordillera Blanca is the world's highest tropical mountain range, and its centrepiece Huascarán at 6768m is Peru's highest peak. The Santa Cruz Trek is the classic circuit of the range, passing sapphire glacial lakes, moraine campgrounds, and the Punta Union pass at 4750m with views of the Alpamayo face. Chopicalqui and Artesonraju offer technical acclimatized mountaineering above 6000m for prepared climbers.`,
+      location: "Cordillera Blanca, Peru",
+      country: "Peru",
+      continent: "South America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Huascarán 6768m Peru highest glacier summit", "Santa Cruz Trek Punta Union 4750m pass", "Alpamayo perfect pyramid world's most beautiful", "Churup turquoise lake hanging glacier backdrop", "Llanganuco twin glacial lake sapphire blue"],
+      gear: ["Altitude acclimatization Huaraz 3052m base", "High altitude crampons glaciated peaks", "Ice axe crevassed glacier standard", "Guide service technical Cordillera summits", "Expedition sleeping bag minus 25 camp"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 1500,
+      latitude: -9.12,
+      longitude: -77.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure578.id }, { userId: user2.id, adventureId: adventure578.id }, { userId: user3.id, adventureId: adventure578.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
