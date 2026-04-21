@@ -24785,6 +24785,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure707.id }, { userId: user2.id, adventureId: adventure707.id }, { userId: user3.id, adventureId: adventure707.id }], skipDuplicates: true });
 
+
+  // Adventure 708
+  const adventure708 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-708" },
+    update: {},
+    create: {
+      id: "seed-adventure-708",
+      title: "Kyrgyzstan Alay Valley Trek",
+      description: `The Alay Valley south of Osh is a high plateau at 3000m flanked by the Alay Range and the Trans-Alay peaks including Lenin Peak at 7134m on the Tajik border. Trekking from Sary Moghul through nomadic Kyrgyz summer pastures toward the base camps of Lenin Peak delivers spectacular views of a 100-kilometre line of 7000m mountains across the Tajik frontier. This is Central Asian alpine scenery at its grandest scale.`,
+      location: "Osh, Kyrgyzstan",
+      country: "Kyrgyzstan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Lenin Peak 7134m Trans-Alay base camp approach", "Alay Valley 100km 7000m peak panorama", "Kyrgyz yurt camp summer pastoral nomadic", "Sary Tash border village China road junction", "Kyzyl Suu river valley wild remote camping"],
+      gear: ["Altitude acclimatization Osh 963m gradual", "High altitude sleeping bag 4000m camp cold", "Water filter glacial spring Alay melt", "Horse hire valley traverse option", "Warm layers trans-Alay cold plateau nights"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 800,
+      latitude: 39.6,
+      longitude: 72.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure708.id }, { userId: user2.id, adventureId: adventure708.id }, { userId: user3.id, adventureId: adventure708.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
