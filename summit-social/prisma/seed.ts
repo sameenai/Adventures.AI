@@ -20494,6 +20494,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure564.id }, { userId: user2.id, adventureId: adventure564.id }, { userId: user3.id, adventureId: adventure564.id }], skipDuplicates: true });
 
+
+  // Adventure 565
+  const adventure565 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-565" },
+    update: {},
+    create: {
+      id: "seed-adventure-565",
+      title: "Iceland Kerlingarfjoll Highland Hike",
+      description: `Kerlingarfjoll is one of Iceland's most dramatic and undervisited highland destinations, a geothermal rhyolite massif of orange and red mountains steaming with hot springs, fumaroles, and boiling mud pools. The highland summer camp at Ásgarður provides a base for day hikes through a lunar landscape where snow patches persist beside hot spring streams and the silence is total. Iceland's most photogenic lesser-known destination.`,
+      location: "Highlands, Iceland",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Hveradalir geothermal valley steaming fumaroles", "Rhyolite mountain colour orange red spectrum", "Hot spring natural pool highland remote", "Snowfield adjacent fumarole thermal contrast", "Langjokull ice cap backdrop highland camp"],
+      gear: ["F-road 4WD mandatory Highland access", "Windproof Iceland permanent wind", "River crossing highland route poles", "Waterproof camera steam fumarole moisture", "Camp highland base overnight option"],
+      bestMonths: [7, 8],
+      estimatedCost: 900,
+      latitude: 64.63,
+      longitude: -19.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["remote"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure565.id }, { userId: user2.id, adventureId: adventure565.id }, { userId: user3.id, adventureId: adventure565.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
