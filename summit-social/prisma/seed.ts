@@ -31535,6 +31535,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure932.id }, { userId: user2.id, adventureId: adventure932.id }], skipDuplicates: true });
 
+
+  // Adventure 933
+  const adventure933 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-933" },
+    update: {},
+    create: {
+      id: "seed-adventure-933",
+      title: "Myanmar Pindaya Caves and Intha Lake Cycle",
+      description: `Cycle from the Pindaya Caves — a sacred Buddhist complex of 8,000 Buddha images in a limestone cave above a lake, reached by escalator or a steep stone stairway — south to Inle Lake through Pa-O and Shan highland villages. The route descends from 1,180 m through tea and sesame farming communities on quiet mountain roads rarely travelled by tourists. The Pa-O people wear distinctive black turbans and traditional dress; Sunday markets at Heho and Kalaw draw hundreds of highland minority groups. Check current travel advisories.`,
+      location: "Shan State, Myanmar",
+      country: "Myanmar",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: 20.7,
+      longitude: 96.7,
+      published: true,
+      userId: user1.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["road-trip"].id }, { id: allTags["hiking"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure933.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
