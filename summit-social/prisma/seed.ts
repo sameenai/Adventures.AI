@@ -22324,6 +22324,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure625.id }, { userId: user2.id, adventureId: adventure625.id }, { userId: user3.id, adventureId: adventure625.id }], skipDuplicates: true });
 
+
+  // Adventure 626
+  const adventure626 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-626" },
+    update: {},
+    create: {
+      id: "seed-adventure-626",
+      title: "Congo Gorilla Tracking Expedition",
+      description: `Tracking mountain gorillas in Virunga National Park in the Democratic Republic of Congo is a more adventurous and less regulated alternative to the Rwanda experience. The park also harbors active Nyiragongo volcano with its lava lake, accessible by a steep overnight climb from Goma. The combination of mountain gorilla encounter and active volcano lava lake creates a safari expedition unique in Africa.`,
+      location: "Virunga National Park, DRC",
+      country: "DRC",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mountain gorilla silverback DRC Virunga forest", "Nyiragongo lava lake crater overnight camp", "Lowland gorilla Kahuzi-Biega dense forest", "Goma volcanic city active slopes base", "Eastern DRC biodiversity exceptional endemic"],
+      gear: ["Security advice current DRC situation essential", "Volcanic ascent Nyiragongo guide mandatory", "Gorilla permit Virunga reserve booking", "Medical insurance DRC evacuation cover", "Malaria prophylaxis DRC high transmission"],
+      bestMonths: [6, 7, 8, 12, 1],
+      estimatedCost: 2800,
+      latitude: -1.5,
+      longitude: 29.25,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["volcanic"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure626.id }, { userId: user2.id, adventureId: adventure626.id }, { userId: user3.id, adventureId: adventure626.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
