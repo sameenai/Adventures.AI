@@ -23344,6 +23344,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure659.id }, { userId: user2.id, adventureId: adventure659.id }, { userId: user3.id, adventureId: adventure659.id }], skipDuplicates: true });
 
+
+  // Adventure 660
+  const adventure660 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-660" },
+    update: {},
+    create: {
+      id: "seed-adventure-660",
+      title: "France Ecrins High Mountain Tour",
+      description: `The Massif des Ecrins is the highest Alpine massif entirely within France, centred on the Barre des Ecrins at 4102m, and its Tour des Ecrins is the region's classic circuit for mountaineers and strong hikers. The route takes 10 days through remote valleys and high glaciated passes, far fewer crowds than the Mont Blanc or Vanoise circuits. The Pilatte and Temple Ecrins glaciers provide glacier travel for those who want ice under their boots.`,
+      location: "Massif des Ecrins, France",
+      country: "France",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Barre des Ecrins 4102m France highest massif", "Glacier Blanc largest French Alps glacier approach", "Pilatte Valley remote undiscovered hiker route", "La Berarde historic mountaineering village centre", "Col d'Arsine 2340m dramatic Ecrins north entry"],
+      gear: ["Crampons glacier crossings Ecrins circuit", "Ice axe optional Barre des Ecrins summit", "Hut reservation advance July August essential", "Guide optional technical glacier summit", "Navigation skills remote Ecrins valleys"],
+      bestMonths: [7, 8],
+      estimatedCost: 1200,
+      latitude: 44.92,
+      longitude: 6.35,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure660.id }, { userId: user2.id, adventureId: adventure660.id }, { userId: user3.id, adventureId: adventure660.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
