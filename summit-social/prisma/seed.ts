@@ -30005,6 +30005,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure881.id }, { userId: user2.id, adventureId: adventure881.id }, { userId: user3.id, adventureId: adventure881.id }], skipDuplicates: true });
 
+
+  // Adventure 882
+  const adventure882 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-882" },
+    update: {},
+    create: {
+      id: "seed-adventure-882",
+      title: "France Verdon Gorge Kayaking and Climbing",
+      description: `Explore Europe's Grand Canyon — the Gorges du Verdon in Provence — from the water and the cliff face. The Verdon River runs emerald green between 700 m limestone walls for 21 km; canoes and kayaks are launched at Castellane and taken out at Lac de Sainte-Croix. The same limestone walls provide single pitch sport climbing at the Escalès cliffs and multi-pitch routes above the river. A road along each rim gives access between climbing areas and viewpoints. The colour of the Verdon's water — caused by ground glacial flour — is extraordinary at midday.`,
+      location: "Gorges du Verdon, Alpes-de-Haute-Provence, France",
+      country: "France",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 43.8,
+      longitude: 6.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["scrambling"].id }, { id: allTags["gorge"].id }, { id: allTags["europe"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure882.id }, { userId: user2.id, adventureId: adventure882.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
