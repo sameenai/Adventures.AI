@@ -28775,6 +28775,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure840.id }, { userId: user2.id, adventureId: adventure840.id }, { userId: user3.id, adventureId: adventure840.id }], skipDuplicates: true });
 
+
+  // Adventure 841
+  const adventure841 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-841" },
+    update: {},
+    create: {
+      id: "seed-adventure-841",
+      title: "Tanzania Kilimanjaro Machame Route",
+      description: `Climb Africa's highest peak via the Machame Route — the most scenic of Kilimanjaro's seven established trails — over 7 days. The route passes through five distinct vegetation zones from tropical rainforest to arctic summit plateau at 5,895 m. The Lava Tower detour at 4,600 m is key to acclimatisation; the Barranco Wall involves hands-on scrambling above 3,900 m. Summit night begins at midnight; the final push to Stella Point and Uhuru Peak takes 6-8 hours. Approximately 65% of Machame climbers reach the summit.`,
+      location: "Kilimanjaro National Park, Tanzania",
+      country: "Tanzania",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -3.1,
+      longitude: 37.4,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["africa"].id }, { id: allTags["high-altitude"].id }, { id: allTags["trekking"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure841.id }, { userId: user2.id, adventureId: adventure841.id }, { userId: user3.id, adventureId: adventure841.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
