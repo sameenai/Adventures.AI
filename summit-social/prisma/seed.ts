@@ -25205,6 +25205,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure721.id }, { userId: user2.id, adventureId: adventure721.id }, { userId: user3.id, adventureId: adventure721.id }], skipDuplicates: true });
 
+
+  // Adventure 722
+  const adventure722 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-722" },
+    update: {},
+    create: {
+      id: "seed-adventure-722",
+      title: "Canada Coast Mountains Ski Tour",
+      description: `The Coast Mountains of British Columbia receive some of the world's deepest maritime snowfall, and multi-day ski touring through the Chilcotin Ranges and the Waddington area accesses terrain measured in vertical kilometres above base valleys. The Monarch Icefield and the Waddington massif form the centerpiece of a ski touring wilderness where helicopters are the only alternative to your own skis for access. An entire winter playground for the serious ski tourer.`,
+      location: "Coast Mountains, BC, Canada",
+      country: "Canada",
+      continent: "North America",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Waddington 4019m BC highest summit ski approach", "Chilcotin Ranges deepest snow North America", "Monarch Icefield glacier plateau ski traverse", "Old growth cedar valley below ski terrain", "Heli-ski option Bella Coola staging area"],
+      gear: ["Ski touring binding AT setup glacier", "Avalanche safety transceiver probe shovel", "Crevasse rescue rope glacier protocol", "Hut system advance booking essential", "Helicopter charter backup remote exit"],
+      bestMonths: [2, 3, 4],
+      estimatedCost: 4000,
+      latitude: 51.36,
+      longitude: -125.27,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure722.id }, { userId: user2.id, adventureId: adventure722.id }, { userId: user3.id, adventureId: adventure722.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
