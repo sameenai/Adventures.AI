@@ -24665,6 +24665,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure703.id }, { userId: user2.id, adventureId: adventure703.id }, { userId: user3.id, adventureId: adventure703.id }], skipDuplicates: true });
 
+
+  // Adventure 704
+  const adventure704 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-704" },
+    update: {},
+    create: {
+      id: "seed-adventure-704",
+      title: "Mongolia Naadam Festival Trek",
+      description: `The Naadam Festival in July is Mongolia's greatest cultural celebration, the three games of archery, horse racing, and wrestling played as they have been for centuries on the open steppe. Pairing the festival in Ulaanbaatar with trekking in the Khustain Nuruu National Park to see the world's only truly wild Przewalski horses creates a week that combines nomadic cultural immersion with rare wildlife encounter.`,
+      location: "Ulaanbaatar, Mongolia",
+      country: "Mongolia",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Naadam archery wrestling horse racing festival", "Przewalski wild horse Khustain Nuruu herd", "Ger ceremony kumiss fermented mare milk", "Mongolian wrestling bukh traditional final", "Horse racing child jockey 40km steppe"],
+      gear: ["Festival UV sunscreen July sun Mongolia", "Camera telephoto horse racing wide steppe", "Dust protection Gobi approaching summer", "Cash togrog festival vendors prefer", "Warm layers evening temperature steppe cold"],
+      bestMonths: [7],
+      estimatedCost: 1200,
+      latitude: 47.9,
+      longitude: 106.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["wildlife"].id }, { id: allTags["horse-trekking"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure704.id }, { userId: user2.id, adventureId: adventure704.id }, { userId: user3.id, adventureId: adventure704.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
