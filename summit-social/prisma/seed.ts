@@ -32615,6 +32615,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure968.id }, { userId: user2.id, adventureId: adventure968.id }, { userId: user3.id, adventureId: adventure968.id }], skipDuplicates: true });
 
+
+  // Adventure 969
+  const adventure969 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-969" },
+    update: {},
+    create: {
+      id: "seed-adventure-969",
+      title: "Japan Hokkaido Ski Touring — Daisetsuzan",
+      description: `Ski tour in Daisetsuzan National Park — Japan's largest national park in the central Hokkaido highlands — through untracked backcountry above the active volcanic terrain between Asahidake (2,291 m, Hokkaido's highest peak) and the Tokachi range. The park receives Siberian winter snowfall of extraordinary depth and lightness; the backcountry is the preserve of a small community of ski tourers who know the terrain. Guided day tours from Asahidake Onsen provide access to remarkable terrain above the hot spring resort. Volcanic fumaroles steam through the snow at the summit ridge.`,
+      location: "Daisetsuzan National Park, Hokkaido, Japan",
+      country: "Japan",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 43.6,
+      longitude: 142.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["volcanic"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure969.id }, { userId: user2.id, adventureId: adventure969.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
