@@ -20704,6 +20704,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure571.id }, { userId: user2.id, adventureId: adventure571.id }, { userId: user3.id, adventureId: adventure571.id }], skipDuplicates: true });
 
+
+  // Adventure 572
+  const adventure572 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-572" },
+    update: {},
+    create: {
+      id: "seed-adventure-572",
+      title: "Laos Mekong River Slow Boat",
+      description: `The two-day slow boat journey from Huay Xai on the Thai border to Luang Prabang is one of Southeast Asia's great river journeys. The wooden passenger boats drift between limestone karst cliffs, past riverside villages, and through the golden light of the Mekong valley at the pace of a different era. Pak Beng's riverside guesthouses provide the midpoint stop, and Luang Prabang's UNESCO temples await at the journey's end.`,
+      location: "Mekong River, Laos",
+      country: "Laos",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mekong River limestone karst cliff scenery", "Pak Beng riverside guesthouse overnight sunset", "Luang Prabang UNESCO temple alms ceremony", "Golden Triangle border junction history", "Pak Ou Buddha cave temple river mouth"],
+      gear: ["Hammock option deck passenger comfort", "Light pack slow boat luggage rack", "Cash kip Laos rural villages limited ATM", "Reading material two-day journey preparation", "Sunscreen Mekong deck sun exposure"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 300,
+      latitude: 19.89,
+      longitude: 102.13,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure572.id }, { userId: user2.id, adventureId: adventure572.id }, { userId: user3.id, adventureId: adventure572.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
