@@ -20254,6 +20254,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure556.id }, { userId: user2.id, adventureId: adventure556.id }, { userId: user3.id, adventureId: adventure556.id }], skipDuplicates: true });
 
+
+  // Adventure 557
+  const adventure557 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-557" },
+    update: {},
+    create: {
+      id: "seed-adventure-557",
+      title: "Georgia Caucasus Mountain Trek",
+      description: `The Caucasus Mountains north of Tbilisi harbour some of Europe's highest peaks and most dramatic scenery, with Mount Kazbegi at 5047m overlooking the Gergeti Trinity Church perched on a cliff above the ancient Georgian Military Highway. The Caucasian trekking triangle of Mestia, Kazbegi, and Lagodekhi connects glaciated peaks, ancient tower villages, and high pastures in a walking circuit through the mountainous heart of Georgia.`,
+      location: "Kazbegi, Georgia",
+      country: "Georgia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Gergeti Trinity Church cliff 2170m iconic view", "Mount Kazbegi 5047m summit attempt", "Mestia Svan tower village mediaeval fortification", "Chalaadi Glacier moraine approach geology", "Ushba twin summit 4710m dramatic backdrop"],
+      gear: ["Trekking poles mountain terrain", "Warm layers high altitude Caucasus cold", "Georgian lari cash mountain villages", "Guide optional Mestia trekking trails", "Altitude acclimatization Kazbegi 1756m base"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 42.65,
+      longitude: 44.69,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["glacier"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure557.id }, { userId: user2.id, adventureId: adventure557.id }, { userId: user3.id, adventureId: adventure557.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
