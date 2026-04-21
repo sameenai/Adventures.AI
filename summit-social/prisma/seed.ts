@@ -27785,6 +27785,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure807.id }, { userId: user2.id, adventureId: adventure807.id }], skipDuplicates: true });
 
+
+  // Adventure 808
+  const adventure808 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-808" },
+    update: {},
+    create: {
+      id: "seed-adventure-808",
+      title: "Iceland Fjallabak Nature Reserve Trek",
+      description: `Explore Iceland's colourful Fjallabak Nature Reserve — a highland interior of rhyolite mountains in reds, yellows, and purples, obsidian lava fields, steaming hot spring rivers, and geothermal hot pots you can bathe in. The reserve encompasses the Laugavegur and Fimmvorduhals trails but also vast unmarked terrain beyond the main routes. The F208 highland road is one of Iceland's most dramatic drives if not trekking; crossing the Tungna River ford requires a 4WD. Highland conditions can change within hours year-round.`,
+      location: "Fjallabak Nature Reserve, Iceland",
+      country: "Iceland",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8],
+      estimatedCost: 1000,
+      latitude: 63.7,
+      longitude: -19.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["hiking"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure808.id }, { userId: user2.id, adventureId: adventure808.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
