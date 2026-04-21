@@ -21034,6 +21034,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure582.id }, { userId: user2.id, adventureId: adventure582.id }, { userId: user3.id, adventureId: adventure582.id }], skipDuplicates: true });
 
+
+  // Adventure 583
+  const adventure583 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-583" },
+    update: {},
+    create: {
+      id: "seed-adventure-583",
+      title: "Tierra del Fuego Kayak Circuit",
+      description: `The channels and fjords of Tierra del Fuego provide one of the world's most remote and dramatic sea kayaking environments. Calving glaciers block channels with floating ice, Magellanic penguins watch from boulder shores, and the possibility of Williwaw wind squalls arriving without warning demands respect and experience. The Beagle Channel, where Darwin first encountered the Fuegian people, frames every paddle stroke with history.`,
+      location: "Tierra del Fuego, Argentina",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Beagle Channel Darwin historical paddle", "Glacier calving ice block navigation", "Magellanic penguin colony rock shore", "Condor thermals Tierra del Fuego ridgeline", "Williwaw squall emergency response practice"],
+      gear: ["Sea kayak heavy water skills essential", "Drysuit extreme cold sub-Antarctic water", "Expedition rescue certification minimum", "Tidal chart Cape Horn navigation critical", "Bear spray Southern Andean puma territory"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 3500,
+      latitude: -54.6,
+      longitude: -67.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure583.id }, { userId: user2.id, adventureId: adventure583.id }, { userId: user3.id, adventureId: adventure583.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
