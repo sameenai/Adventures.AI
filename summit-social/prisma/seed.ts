@@ -22624,6 +22624,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure635.id }, { userId: user2.id, adventureId: adventure635.id }, { userId: user3.id, adventureId: adventure635.id }], skipDuplicates: true });
 
+
+  // Adventure 636
+  const adventure636 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-636" },
+    update: {},
+    create: {
+      id: "seed-adventure-636",
+      title: "Peru Machu Picchu Inca Trail",
+      description: `The four-day Inca Trail is the world's most famous trekking route, following original Inca stone paving through cloud forest and high passes to the Sun Gate above Machu Picchu. The permit system limits numbers to 500 per day including guides and porters, making advance booking six months ahead essential. Dead Woman's Pass at 4215m is the highest point, and the sunrise reveal of Machu Picchu through the Sun Gate is one of the world's great travel moments.`,
+      location: "Cusco Region, Peru",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Sun Gate Inti Punku first Machu Picchu view", "Dead Woman's Pass 4215m Inca Trail highest", "Wiay Wayna Inca ruin pre-dawn cloud forest", "Machu Picchu sunrise two-hour first entry", "Inca stone paving 500 year original pathway"],
+      gear: ["Permit 6 months advance booking essential", "Trekking poles mandatory Dead Woman's Pass", "Acclimatization Cusco 3 days minimum", "Down jacket cold 4215m night camp", "Blister prevention first day cobblestone"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1200,
+      latitude: -13.16,
+      longitude: -72.54,
+      published: true,
+      userId: user2.id,
+      voteCount: 12,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["bucket-list"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure636.id }, { userId: user2.id, adventureId: adventure636.id }, { userId: user3.id, adventureId: adventure636.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
