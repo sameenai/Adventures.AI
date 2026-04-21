@@ -23284,6 +23284,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure657.id }, { userId: user2.id, adventureId: adventure657.id }, { userId: user3.id, adventureId: adventure657.id }], skipDuplicates: true });
 
+
+  // Adventure 658
+  const adventure658 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-658" },
+    update: {},
+    create: {
+      id: "seed-adventure-658",
+      title: "Iran Alborz Ski Patrol Trek",
+      description: `The Alborz Mountains north of Tehran hide a trekking culture largely unknown outside Iran, with hundreds of kilometres of marked trails through the forests and high meadows above the Caspian coast. Tochal peak accessible by gondola from Tehran provides a day hike to 3964m above one of the world's largest cities, while the remote Alam Kuh north face is a major mountaineering objective. Persian mountain hospitality in trail huts offers genuine cultural exchange.`,
+      location: "Alborz Mountains, Iran",
+      country: "Iran",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Tochal gondola Tehran view day hike summit", "Alam Kuh north face mountaineering classic Iran", "Caspian forest green contrast Tehran smog", "Darband waterfall Tehran's informal outdoor club", "Kandovan ancient troglodyte village volcanic"],
+      gear: ["Modest clothing Iran cultural law compliance", "Water filter mountain spring reliance", "Layers cold Alborz summit morning", "Iran visa advance stamped on arrival select", "Guide option complex remote routes"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: 35.95,
+      longitude: 51.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure658.id }, { userId: user2.id, adventureId: adventure658.id }, { userId: user3.id, adventureId: adventure658.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
