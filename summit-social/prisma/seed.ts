@@ -26075,6 +26075,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure750.id }, { userId: user2.id, adventureId: adventure750.id }, { userId: user3.id, adventureId: adventure750.id }], skipDuplicates: true });
 
+
+  // Adventure 751
+  const adventure751 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-751" },
+    update: {},
+    create: {
+      id: "seed-adventure-751",
+      title: "Scotland Skye Ridge Winter Walk",
+      description: `The Cuillin Ridge on the Isle of Skye is Britain's only genuine Alpine ridge, a 12-kilometre crest of gabbro and basalt with the Inaccessible Pinnacle as the highest point requiring technical rock climbing to summit. In winter, the ridge transforms into a serious mountaineering environment requiring ice tools, crampons, and roping up for the exposed moves. The combination of sea, mist, and gabbro creates one of the most atmospheric mountain experiences in Britain.`,
+      location: "Isle of Skye, Scotland",
+      country: "UK",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Cuillin Ridge only Alpine ridge Britain", "Inaccessible Pinnacle technical summit required", "Sgurr Dearg 992m Skye highest trekking peak", "Gabbro rock unique friction climbing quality", "Sea mist atmospheric Cuillin drama moody"],
+      gear: ["Ice axe crampons winter Cuillin mandatory", "Rock climbing gear Inaccessible Pinnacle", "Rope 50m ridge technical moves protection", "Guide strongly recommended winter Cuillin", "Emergency bivouac kit weather change rapid"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 800,
+      latitude: 57.22,
+      longitude: -6.19,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["scotland"].id }, { id: allTags["alpine"].id }, { id: allTags["scrambling"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure751.id }, { userId: user2.id, adventureId: adventure751.id }, { userId: user3.id, adventureId: adventure751.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
