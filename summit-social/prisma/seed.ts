@@ -19294,6 +19294,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure524.id }, { userId: user2.id, adventureId: adventure524.id }, { userId: user3.id, adventureId: adventure524.id }], skipDuplicates: true });
 
+
+  // Adventure 525
+  const adventure525 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-525" },
+    update: {},
+    create: {
+      id: "seed-adventure-525",
+      title: "Swiss Haute Route Ski Tour",
+      description: `The Haute Route from Chamonix to Zermatt is ski touring's most celebrated traverse, crossing eleven high passes and seven glaciers between Mont Blanc and the Matterhorn. A week of glacier travel, crevasse navigation, and high mountain hut overnights delivers the grand sweep of the Western Alps in winter. The final descent to Zermatt with the Matterhorn above is one of mountaineering's great moments.`,
+      location: "Valais Alps, Switzerland",
+      country: "Switzerland",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Matterhorn descent Zermatt arrival finale", "Cols des Vignettes 3157m high camp sunrise", "Glacier travel crevasse navigation daily", "Argentiere hut Mont Blanc massif view", "Col du Mont Brule high point 3213m"],
+      gear: ["Ski touring binding splitboard setup", "Avalanche transceiver probe shovel", "Rope glacier travel crevasse rescue", "High mountain hut booking advance essential", "Crampons icy col crossings essential"],
+      bestMonths: [3, 4],
+      estimatedCost: 3500,
+      latitude: 46.03,
+      longitude: 7.66,
+      published: true,
+      userId: user2.id,
+      voteCount: 11,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure525.id }, { userId: user2.id, adventureId: adventure525.id }, { userId: user3.id, adventureId: adventure525.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
