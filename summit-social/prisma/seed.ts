@@ -27245,6 +27245,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure789.id }, { userId: user2.id, adventureId: adventure789.id }, { userId: user3.id, adventureId: adventure789.id }], skipDuplicates: true });
 
+
+  // Adventure 790
+  const adventure790 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-790" },
+    update: {},
+    create: {
+      id: "seed-adventure-790",
+      title: "Nepal Rolwaling Valley Trek",
+      description: `The Rolwaling Valley — tucked between Everest and Langtang — is one of Nepal's most isolated trekking regions, home to the Sherpa community of Beding village (4,160 m) and the spectacular Tso Rolpa glacial lake. The valley is ringed by peaks including Gauri Shankar (7,134 m) and Melungtse (7,181 m). The crossing over Tashi Lapcha Pass (5,755 m) into the Khumbu requires mountaineering experience and fixed rope work; most trekkers descend the same way. Permits and camping equipment are required as teahouses are minimal.`,
+      location: "Dolakha District, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 4, 5],
+      estimatedCost: 1000,
+      latitude: 27.9,
+      longitude: 86.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["remote"].id }, { id: allTags["glacier"].id }, { id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure790.id }, { userId: user2.id, adventureId: adventure790.id }, { userId: user3.id, adventureId: adventure790.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
