@@ -29285,6 +29285,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure857.id }, { userId: user2.id, adventureId: adventure857.id }], skipDuplicates: true });
 
+
+  // Adventure 858
+  const adventure858 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-858" },
+    update: {},
+    create: {
+      id: "seed-adventure-858",
+      title: "Spain Camino Primitivo — Original Way",
+      description: `Walk the Camino Primitivo from Oviedo to Santiago de Compostela — the oldest and most historically significant of the Camino routes, following the path taken by King Alfonso II in 830 AD through the mountains of Asturias. The 320 km route is harder and less crowded than the Camino Frances; the mountain stages between Oviedo and Lugo involve 1,000+ m of daily elevation change. Wet Asturian weather is typical even in summer. The route crosses some of the finest medieval bridge and hamlet infrastructure on the entire Camino network.`,
+      location: "Asturias to Galicia, Spain",
+      country: "Spain",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 1000,
+      latitude: 43.4,
+      longitude: -6,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["europe"].id }, { id: allTags["camino"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure858.id }, { userId: user2.id, adventureId: adventure858.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
