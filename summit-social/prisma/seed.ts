@@ -22504,6 +22504,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure631.id }, { userId: user2.id, adventureId: adventure631.id }, { userId: user3.id, adventureId: adventure631.id }], skipDuplicates: true });
 
+
+  // Adventure 632
+  const adventure632 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-632" },
+    update: {},
+    create: {
+      id: "seed-adventure-632",
+      title: "Brazil Chapada Diamantina Hike",
+      description: `The Chapada Diamantina is a highland plateau of table mountains, waterfalls, and caves in the Bahia interior that served as the setting for the Brazilian diamond rush. Fumaca Falls drops 340 metres into an abyss and is one of Brazil's highest, while Poco Encantado enchanted well glows turquoise in morning light when the sun enters the cave. The highland trails through cerrado vegetation connect a series of natural wonders in compact sequence.`,
+      location: "Bahia, Brazil",
+      country: "Brazil",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Fumaca Falls 340m Brazil highest waterfall", "Poco Encantado enchanted turquoise cave well", "Morro do Pai Inacio table mountain plateau", "Gruta da Lapa cave bat exodus dusk", "Lencois colonial diamond rush town base"],
+      gear: ["Sturdy boots rock slabs waterfall approach", "Rain jacket Bahia highland afternoon showers", "Swimwear natural pool cave well compulsory", "Guide Fumaca Falls approach navigation", "Water filter trail spring reliance"],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 600,
+      latitude: -12.56,
+      longitude: -41.39,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure632.id }, { userId: user2.id, adventureId: adventure632.id }, { userId: user3.id, adventureId: adventure632.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
