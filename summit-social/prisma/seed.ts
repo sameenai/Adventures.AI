@@ -30395,6 +30395,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure894.id }, { userId: user2.id, adventureId: adventure894.id }], skipDuplicates: true });
 
+
+  // Adventure 895
+  const adventure895 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-895" },
+    update: {},
+    create: {
+      id: "seed-adventure-895",
+      title: "Portugal Azores Multi-Island Trek",
+      description: `Trek across several of the nine Azores islands — volcanic mid-Atlantic outposts with twin craters, steaming fumaroles, whale-watching, and whale shark diving all within a few kilometres of each other. Sao Miguel's Sete Cidades caldera is a 5 km double crater lake walk; Pico Island's volcano (2,351 m, Portugal's highest summit) takes 7-8 hours return. Faial and Flores offer sea cliff walking and waterfalls. The islands are less than 2 hours from Lisbon; whale watching season runs April to October when sperm whales, fin whales, and blue whales pass through.`,
+      location: "Azores, Portugal",
+      country: "Portugal",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 37.7,
+      longitude: -25.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["island"].id }, { id: allTags["diving"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure895.id }, { userId: user2.id, adventureId: adventure895.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
