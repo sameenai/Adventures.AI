@@ -28415,6 +28415,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure828.id }, { userId: user2.id, adventureId: adventure828.id }], skipDuplicates: true });
 
+
+  // Adventure 829
+  const adventure829 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-829" },
+    update: {},
+    create: {
+      id: "seed-adventure-829",
+      title: "New Zealand Heaphy Track Great Walk",
+      description: `Walk the Heaphy Track — one of New Zealand's nine Great Walks — across 78 km of Kahurangi National Park from the Nelson Lakes area to the wild West Coast beach at Kohaihai. The track crosses three distinct ecosystems: alpine tussock, beech forest, and palm-studded coastal rainforest. The final two days along the West Coast are among the most memorable in New Zealand walking — nikau palms at 41 degrees south, the most southerly in the world, with blue sea visible between fronds. DOC huts require advance booking.`,
+      location: "Kahurangi National Park, New Zealand",
+      country: "New Zealand",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 1000,
+      latitude: -40.9,
+      longitude: 172.4,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["jungle"].id }, { id: allTags["new-zealand"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure829.id }, { userId: user2.id, adventureId: adventure829.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
