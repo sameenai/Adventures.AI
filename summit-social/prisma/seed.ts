@@ -27875,6 +27875,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure810.id }, { userId: user2.id, adventureId: adventure810.id }], skipDuplicates: true });
 
+
+  // Adventure 811
+  const adventure811 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-811" },
+    update: {},
+    create: {
+      id: "seed-adventure-811",
+      title: "Brazil Amazon River Expedition by Boat",
+      description: `Journey deep into the Amazon basin on a slow boat from Manaus — the capital of Amazonas state at the confluence of the Rio Negro and Amazon River — into the floodplain forests and igapos of the western Amazon. Sleeping in hammocks on river boats is the classic experience; private cabins are available on faster vessels. Off-river excursions into flooded forest by canoe, piranha fishing, pink river dolphin encounters, and visits to indigenous Tikuna communities define the journey. The rainy season (December-May) floods the forest to depths of 10+ metres.`,
+      location: "Amazon River, Amazonas, Brazil",
+      country: "Brazil",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -3.1,
+      longitude: -60,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["kayaking"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure811.id }, { userId: user2.id, adventureId: adventure811.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
