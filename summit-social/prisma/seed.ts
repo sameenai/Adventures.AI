@@ -25835,6 +25835,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure742.id }, { userId: user2.id, adventureId: adventure742.id }, { userId: user3.id, adventureId: adventure742.id }], skipDuplicates: true });
 
+
+  // Adventure 743
+  const adventure743 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-743" },
+    update: {},
+    create: {
+      id: "seed-adventure-743",
+      title: "Zimbabwe Matobo Hills Safari",
+      description: `The Matobo Hills in southern Zimbabwe form a landscape of balanced granite boulders, ancient San rock art galleries, and one of the highest densities of raptors in the world. Cecil Rhodes is buried on the summit of Malindidzimu World's View, and walking safaris through the hills with rhino in the game reserve and white-necked ravens circling the koppies provide a wildlife and cultural experience unique in southern Africa.`,
+      location: "Matabeleland, Zimbabwe",
+      country: "Zimbabwe",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["White rhino walking safari close encounter", "San rock art gallery 13000 years painting", "Cecil Rhodes World's View summit burial site", "Maleme Dam sunset raptor kettle circling", "Painted dog sighting rare encounter Hills"],
+      gear: ["Walking safari neutral tone clothing", "Binoculars raptor identification Matobo", "Hat sun Zimbabwe midday heat", "Guide mandatory white rhino territory", "Camera telephoto raptor cliff face nest"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: -20.53,
+      longitude: 28.44,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure743.id }, { userId: user2.id, adventureId: adventure743.id }, { userId: user3.id, adventureId: adventure743.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
