@@ -32825,6 +32825,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure975.id }, { userId: user2.id, adventureId: adventure975.id }], skipDuplicates: true });
 
+
+  // Adventure 976
+  const adventure976 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-976" },
+    update: {},
+    create: {
+      id: "seed-adventure-976",
+      title: "South Georgia Island Expedition Cruise",
+      description: `Voyage to South Georgia — perhaps the greatest wildlife spectacle on Earth — where 400,000 king penguins breed in colonies at Salisbury Plain and St Andrews Bay that stretch to the horizon, 150,000 fur seals roar from every beach, and 100,000 elephant seals haul out on the gravel beaches. Shackleton's grave at Grytviken provides a pilgrimage to the heroic age of Antarctic exploration. The island is 2 days by ship from the Falkland Islands; most voyages combine both in a 14-16 day itinerary. The wildlife here is not habituated to humans — it is simply unafraid.`,
+      location: "South Georgia Island, British Overseas Territory",
+      country: "British Overseas Territory",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EASY,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: -54.3,
+      longitude: -36.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["bucket-list"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure976.id }, { userId: user2.id, adventureId: adventure976.id }, { userId: user3.id, adventureId: adventure976.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
