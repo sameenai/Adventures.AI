@@ -30935,6 +30935,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure912.id }, { userId: user2.id, adventureId: adventure912.id }, { userId: user3.id, adventureId: adventure912.id }], skipDuplicates: true });
 
+
+  // Adventure 913
+  const adventure913 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-913" },
+    update: {},
+    create: {
+      id: "seed-adventure-913",
+      title: "Philippines Siargao Surf and Island Trek",
+      description: `Cloud 9 at Siargao is the Philippines' most famous surf break — a powerful right-hand reef break that draws professional surfers and beginners alike to the country's surfing capital. Beyond the wave, Siargao's interior contains mangrove tours, jellyfish lake swims, island hopping to Naked Island, Daku Island, and Guyam Island, and the limestone cave network of Sugba Lagoon. The island is small enough to traverse on motorbike in a day but rewards longer stays with the unhurried pace of a genuine off-the-circuit island community.`,
+      location: "Siargao Island, Surigao del Norte, Philippines",
+      country: "Philippines",
+      continent: "Unknown",
+      category: Category.SURFING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [8, 9, 10, 11],
+      estimatedCost: 1000,
+      latitude: 9.9,
+      longitude: 126.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["surfing"].id }, { id: allTags["island"].id }, { id: allTags["diving"].id }, { id: allTags["kayaking"].id }, { id: allTags["coastal"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure913.id }, { userId: user2.id, adventureId: adventure913.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
