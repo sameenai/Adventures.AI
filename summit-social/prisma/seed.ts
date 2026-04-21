@@ -26045,6 +26045,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure749.id }, { userId: user2.id, adventureId: adventure749.id }, { userId: user3.id, adventureId: adventure749.id }], skipDuplicates: true });
 
+
+  // Adventure 750
+  const adventure750 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-750" },
+    update: {},
+    create: {
+      id: "seed-adventure-750",
+      title: "Nepal Dolpa Trek Lower Circuit",
+      description: `Lower Dolpa is the accessible part of the remote Dolpa region of western Nepal, centered on Phoksumdo Lake at 3611m, the deepest and arguably most beautiful lake in Nepal with its impossible turquoise waters in a desert canyon landscape. The 2-week trek from Juphal airstrip through Chhepka, Ringmo village, and back provides an introduction to Dolpa culture without the extreme remote and high-altitude challenges of Upper Dolpa.`,
+      location: "Dolpa, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Phoksumdo Lake deepest Nepal 145m turquoise", "Ringmo village Traditional Bon religion intact", "Chhepka valley river gorge dramatic approach", "Phoksumdo Waterfall above lake spectacular", "Snow leopard habitat lower elevation chance"],
+      gear: ["Restricted area permit Lower Dolpa fee", "Acclimatization Juphal 2475m start moderate", "High altitude sleeping bag minus 15", "Guide mandatory Dolpa restricted area", "Cash rupees only remote Dolpa economy"],
+      bestMonths: [9, 10, 11, 3, 4],
+      estimatedCost: 2500,
+      latitude: 29.2,
+      longitude: 82.93,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure750.id }, { userId: user2.id, adventureId: adventure750.id }, { userId: user3.id, adventureId: adventure750.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
