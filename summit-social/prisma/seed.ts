@@ -31685,6 +31685,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure937.id }, { userId: user2.id, adventureId: adventure937.id }], skipDuplicates: true });
 
+
+  // Adventure 938
+  const adventure938 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-938" },
+    update: {},
+    create: {
+      id: "seed-adventure-938",
+      title: "Tanzania Ruaha National Park Walking Safari",
+      description: `Walk through Ruaha National Park — Tanzania's largest national park and one of Africa's best-kept safari secrets — with experienced walking guides through habitats that support the largest elephant population in East Africa. The Great Ruaha River provides a corridor for concentrated wildlife during the dry season; crocodile, hippo, lion, and wild dog are all reliably seen. Ruaha sees a fraction of the tourists of the Northern Circuit parks; the experience is intimate and unfiltered. The Miombo woodland ecosystem is distinct from the better-known savanna reserves.`,
+      location: "Ruaha National Park, Iringa, Tanzania",
+      country: "Tanzania",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -7.5,
+      longitude: 35,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure938.id }, { userId: user2.id, adventureId: adventure938.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
