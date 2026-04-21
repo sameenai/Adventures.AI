@@ -31925,6 +31925,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure945.id }, { userId: user2.id, adventureId: adventure945.id }, { userId: user3.id, adventureId: adventure945.id }], skipDuplicates: true });
 
+
+  // Adventure 946
+  const adventure946 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-946" },
+    update: {},
+    create: {
+      id: "seed-adventure-946",
+      title: "Argentina Tierra del Fuego Trekking",
+      description: `Trek through Tierra del Fuego National Park — the southernmost national park in Argentina and one of the southernmost in the world — where beech forests of lenga and nirre reach the cold shores of the Beagle Channel. The Costanera and Coastal Trail connects Ushuaia with the park along the channel shoreline. Condors and steamer ducks frequent the coastal cliffs; Andean fox emerge at dusk. The park marks the end of Ruta 3 — the most southerly paved road in the world — and the beginning of the Drake Passage to Antarctica, just 1,000 km south.`,
+      location: "Tierra del Fuego National Park, Argentina",
+      country: "Argentina",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: -54.7,
+      longitude: -68.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["wildlife"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure946.id }, { userId: user2.id, adventureId: adventure946.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
