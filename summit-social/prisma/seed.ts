@@ -26165,6 +26165,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure753.id }, { userId: user2.id, adventureId: adventure753.id }, { userId: user3.id, adventureId: adventure753.id }], skipDuplicates: true });
 
+
+  // Adventure 754
+  const adventure754 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-754" },
+    update: {},
+    create: {
+      id: "seed-adventure-754",
+      title: "Morocco Sahara Microlight Flight",
+      description: `Seeing the Sahara from the air reveals the scale and pattern of the world's greatest desert in ways impossible from the ground. Microlight and hot air balloon flights from Merzouga offer dawn flights above Erg Chebbi at the moment when the first light catches the dune crests in gold before the heat builds. Camel trekking the following morning connects aerial and ground perspectives on the Saharan landscape in a complete desert experience.`,
+      location: "Merzouga, Morocco",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Erg Chebbi aerial dune pattern shadow dawn", "Microlight Sahara silence wind motor distant", "Camel trek ground perspective complement flight", "Berber camp stargazing astronomy guide night", "Fossil market local geological collection Erfoud"],
+      gear: ["Warm layers dawn balloon altitude cold", "Camera stabilizer aerial vibration compensation", "Sun protection Sahara UV equatorial intense", "Cash dirhams balloon operator payment", "Comfortable loose clothing camel riding"],
+      bestMonths: [10, 11, 2, 3, 4],
+      estimatedCost: 700,
+      latitude: 31.08,
+      longitude: -3.97,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["desert"].id }, { id: allTags["africa"].id }, { id: allTags["photography"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure754.id }, { userId: user2.id, adventureId: adventure754.id }, { userId: user3.id, adventureId: adventure754.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
