@@ -29195,6 +29195,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure854.id }, { userId: user2.id, adventureId: adventure854.id }], skipDuplicates: true });
 
+
+  // Adventure 855
+  const adventure855 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-855" },
+    update: {},
+    create: {
+      id: "seed-adventure-855",
+      title: "Iceland Westfjords Winter Ski Tour",
+      description: `Ski tour the remote Westfjords — Iceland's least-visited region, a peninsula of dramatic fjords and 900 m peaks that receives some of the heaviest snowfall in the country — on untracked terrain with minimal infrastructure. Most routes are self-guided; a few local guides operate from the small town of Isafjordur. The combination of sea-level fjords and alpine ridges visible in every direction creates extraordinary ski touring scenery. Aurora borealis is visible on clear nights from January to March. Avalanche skills are essential; the steep fjord headwalls provide serious terrain.`,
+      location: "Westfjords, Iceland",
+      country: "Iceland",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4],
+      estimatedCost: 1000,
+      latitude: 65.8,
+      longitude: -23.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["midnight-sun"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure855.id }, { userId: user2.id, adventureId: adventure855.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
