@@ -24125,6 +24125,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure685.id }, { userId: user2.id, adventureId: adventure685.id }, { userId: user3.id, adventureId: adventure685.id }], skipDuplicates: true });
 
+
+  // Adventure 686
+  const adventure686 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-686" },
+    update: {},
+    create: {
+      id: "seed-adventure-686",
+      title: "Himalaya Kanchenjunga South Trek",
+      description: `The south base camp of Kangchenjunga at 4780m approaches the third highest mountain from its less-visited southern flank through Yamphudin village and the Simbua Khola valley. The Yalung Glacier approach passes beneath the complete south face of Kangchenjunga in a remote valley rarely visited even by Nepali trekkers. Combining with the north base camp creates the complete Kangchenjunga circuit for determined high-altitude trekkers.`,
+      location: "Taplejung, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Yalung Glacier south face Kangchenjunga 8586m", "Yamphudin village remote far east Nepal", "Oktang south base camp 4780m full view", "Simbua Khola valley unexplored wilderness", "Combine north south complete circuit option"],
+      gear: ["Restricted area permit far east Nepal", "High altitude sleeping bag minus 20", "Yak hire remote south approach cargo", "Guide mandatory permit regulations Nepal", "Full expedition camping self-sufficiency"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2800,
+      latitude: 27.7,
+      longitude: 88.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure686.id }, { userId: user2.id, adventureId: adventure686.id }, { userId: user3.id, adventureId: adventure686.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
