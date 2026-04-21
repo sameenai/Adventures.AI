@@ -26825,6 +26825,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure775.id }, { userId: user2.id, adventureId: adventure775.id }], skipDuplicates: true });
 
+
+  // Adventure 776
+  const adventure776 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-776" },
+    update: {},
+    create: {
+      id: "seed-adventure-776",
+      title: "Borneo Kinabalu Summit and Rainforest Traverse",
+      description: `A two-part Borneo adventure: summit Mount Kinabalu (4,095 m) via the Summit Trail — Southeast Asia's highest peak — then descend into the Kinabatangan River rainforest for proboscis monkey and pygmy elephant encounters. Kinabalu involves a steep 6 km ascent to the Low's Peak summit, typically done overnight to catch sunrise. The Kinabatangan is best explored by river boat from Sukau; dawn and dusk boat rides offer reliable wildlife sightings. Combining both takes about 10 days.`,
+      location: "Sabah, Borneo, Malaysia",
+      country: "Malaysia",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 8, 9],
+      estimatedCost: 1000,
+      latitude: 5.3,
+      longitude: 116.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-sport"].id }, { id: allTags["trekking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure776.id }, { userId: user2.id, adventureId: adventure776.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
