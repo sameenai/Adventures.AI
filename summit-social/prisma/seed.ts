@@ -28805,6 +28805,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure841.id }, { userId: user2.id, adventureId: adventure841.id }, { userId: user3.id, adventureId: adventure841.id }], skipDuplicates: true });
 
+
+  // Adventure 842
+  const adventure842 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-842" },
+    update: {},
+    create: {
+      id: "seed-adventure-842",
+      title: "Norway Lofoten Islands Surfing and Hiking",
+      description: `Surf the breaks of the Lofoten archipelago — jagged granite peaks rising directly from the Norwegian Sea above beaches of genuine white sand — in water that rarely exceeds 12 degrees but delivers consistent Atlantic swells. Unstad Beach hosts an international surf school; the breaks at Utakleiv and Eggum are less crowded. Between sessions, hike the dramatic ridgelines above the fishing villages of Reine and Henningsvaer. The midnight sun in summer allows surfing and hiking at 11pm with full daylight. One of Europe's most surprising surf destinations.`,
+      location: "Lofoten Islands, Norway",
+      country: "Norway",
+      continent: "Unknown",
+      category: Category.SURFING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 9, 10],
+      estimatedCost: 1000,
+      latitude: 68.2,
+      longitude: 14.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["surfing"].id }, { id: allTags["arctic"].id }, { id: allTags["mountains"].id }, { id: allTags["hiking"].id }, { id: allTags["midnight-sun"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure842.id }, { userId: user2.id, adventureId: adventure842.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
