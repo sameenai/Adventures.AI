@@ -31655,6 +31655,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure936.id }, { userId: user2.id, adventureId: adventure936.id }], skipDuplicates: true });
 
+
+  // Adventure 937
+  const adventure937 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-937" },
+    update: {},
+    create: {
+      id: "seed-adventure-937",
+      title: "Peru Salkantay Trek to Machu Picchu",
+      description: `The Salkantay Trek — a 5-day alternative to the Classic Inca Trail that crosses the Salkantay Pass at 4,630 m within direct view of the 6,271 m glacier peak for which the route is named — descends through cloud forest and coffee and cocoa plantations to Aguas Calientes and Machu Picchu. The high pass section involves dramatic contrasts between alpine snowfields and subtropical growth within a single day's walking. The Salkantay Trek is increasingly popular but still less crowded than the main Inca Trail; no permits required.`,
+      location: "Cusco Region, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -13.3,
+      longitude: -72.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure937.id }, { userId: user2.id, adventureId: adventure937.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
