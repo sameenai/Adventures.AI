@@ -21754,6 +21754,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure606.id }, { userId: user2.id, adventureId: adventure606.id }, { userId: user3.id, adventureId: adventure606.id }], skipDuplicates: true });
 
+
+  // Adventure 607
+  const adventure607 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-607" },
+    update: {},
+    create: {
+      id: "seed-adventure-607",
+      title: "Mozambique Bazaruto Dive Safari",
+      description: `The Bazaruto Archipelago is one of the Indian Ocean's last pristine marine environments, hosting the last viable population of dugong in East Africa alongside manta rays, whale sharks, and an extraordinary diversity of coral reef fish. The shallow flats between islands support flamingo feeding grounds, while deep wall dives on the outer reef encounter the full spectacle of a healthy Indian Ocean ecosystem largely spared by the 2004 tsunami.`,
+      location: "Bazaruto Archipelago, Mozambique",
+      country: "Mozambique",
+      continent: "Africa",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Dugong last viable East Africa population", "Manta ray cleaning station outer reef", "Bazaruto flamingo shallow flat feeding", "Whale shark seasonal November appearance", "Two Mile Reef pristine coral diversity"],
+      gear: ["Open water certification minimum requirement", "Nitrox certification deeper wall diving", "Underwater camera macro coral detail", "Light wetsuit Indian Ocean 27C water", "Beach boat transfer island reef access"],
+      bestMonths: [4, 5, 9, 10, 11],
+      estimatedCost: 2800,
+      latitude: -21.65,
+      longitude: 35.47,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["africa"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure607.id }, { userId: user2.id, adventureId: adventure607.id }, { userId: user3.id, adventureId: adventure607.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
