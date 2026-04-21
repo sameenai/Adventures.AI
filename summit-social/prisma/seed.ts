@@ -21064,6 +21064,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure583.id }, { userId: user2.id, adventureId: adventure583.id }, { userId: user3.id, adventureId: adventure583.id }], skipDuplicates: true });
 
+
+  // Adventure 584
+  const adventure584 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-584" },
+    update: {},
+    create: {
+      id: "seed-adventure-584",
+      title: "Senegal Casamance River Kayak",
+      description: `The Casamance region of southern Senegal is lush, green, and largely untouched by mass tourism, separated from the arid north by the Gambia. Kayaking the tidal Casamance River through mangrove forest provides access to remote Jola villages reachable only by water, where rice wine and traditional music greet visitors. Manatees, river dolphins, and leopards are rumoured in the more remote tributaries.`,
+      location: "Casamance, Senegal",
+      country: "Senegal",
+      continent: "Africa",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Jola village water access traditional music welcome", "Mangrove forest tidal creek navigation maze", "River dolphin Casamance estuary encounter", "Casamance forest green contrast Sahel north", "Ziguinchor colonial Portuguese architecture base"],
+      gear: ["Kayak hire Ziguinchor local operator", "Malaria prophylaxis Casamance year round", "Modest clothing Jola village respect", "Rain jacket forest humidity moisture", "Cash CFA franc remote village economy"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 500,
+      latitude: 12.56,
+      longitude: -15.7,
+      published: true,
+      userId: user1.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure584.id }, { userId: user2.id, adventureId: adventure584.id }, { userId: user3.id, adventureId: adventure584.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
