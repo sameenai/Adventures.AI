@@ -30275,6 +30275,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure890.id }, { userId: user2.id, adventureId: adventure890.id }], skipDuplicates: true });
 
+
+  // Adventure 891
+  const adventure891 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-891" },
+    update: {},
+    create: {
+      id: "seed-adventure-891",
+      title: "Indonesia Komodo Island Diving and Trekking",
+      description: `The Komodo National Park combines two bucket-list experiences: tracking Komodo dragons — the world's largest lizard, reaching 3 m and 70 kg — on foot through dry savanna on Komodo and Rinca islands, and diving the extraordinary currents of the Flores Sea where manta rays, thresher sharks, and pygmy seahorses concentrate in remarkable numbers. Diving at sites like Batu Bolong and Crystal Rock requires managing strong currents; the upwellings create cold, nutrient-rich water supporting extraordinary biodiversity. Labuan Bajo on Flores is the gateway.`,
+      location: "Komodo National Park, East Nusa Tenggara, Indonesia",
+      country: "Indonesia",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8],
+      estimatedCost: 1000,
+      latitude: -8.5,
+      longitude: 119.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["trekking"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure891.id }, { userId: user2.id, adventureId: adventure891.id }, { userId: user3.id, adventureId: adventure891.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
