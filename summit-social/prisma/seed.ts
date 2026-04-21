@@ -20824,6 +20824,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure575.id }, { userId: user2.id, adventureId: adventure575.id }, { userId: user3.id, adventureId: adventure575.id }], skipDuplicates: true });
 
+
+  // Adventure 576
+  const adventure576 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-576" },
+    update: {},
+    create: {
+      id: "seed-adventure-576",
+      title: "Bhutan Lungchutse Monastery Trek",
+      description: `The day hike to Lungchutse Monastery above Thimphu delivers Bhutan's mountain experience in its most accessible form. The prayer flag-strewn ridge above the monastery provides views of the entire Bhutan Himalaya including Masang Gang and Gangkhar Puensum, the world's highest unclimbed peak at 7570m. Bhutan's high daily visitor fee is offset by a country where tourism is measured in thousands rather than millions annually.`,
+      location: "Thimphu, Bhutan",
+      country: "Bhutan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Gangkhar Puensum 7570m highest unclimbed peak", "Lungchutse Monastery prayer flag ridge summit", "Thimphu city Himalaya backdrop valley", "Tiger's Nest Paro monastery cliff face iconic", "Bhutan Gross National Happiness cultural philosophy"],
+      gear: ["Bhutan daily visitor permit minimum fee", "Trekking shoes Thimphu altitude 2320m", "Warm layers high ridge wind morning", "Camera monastery prayer flags colour", "Agency mandatory Bhutan travel regulations"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2500,
+      latitude: 27.47,
+      longitude: 89.64,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure576.id }, { userId: user2.id, adventureId: adventure576.id }, { userId: user3.id, adventureId: adventure576.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
