@@ -23704,6 +23704,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure671.id }, { userId: user2.id, adventureId: adventure671.id }, { userId: user3.id, adventureId: adventure671.id }], skipDuplicates: true });
 
+
+  // Adventure 672
+  const adventure672 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-672" },
+    update: {},
+    create: {
+      id: "seed-adventure-672",
+      title: "Arizona Grand Canyon Rim to River",
+      description: `The Grand Canyon rim-to-river-to-rim hike via the Bright Angel and South Kaibab trails is one of America's most iconic and dangerous hikes, with the Park Service actively discouraging the full crossing in a single day. The Colorado River at the bottom is 1.6 kilometres below the rim, through two billion years of exposed geological strata. Three days camping at Phantom Ranch delivers the full Canyon experience at the pace the landscape demands.`,
+      location: "Grand Canyon, Arizona, USA",
+      country: "USA",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Colorado River 1.6km below rim geological time", "Phantom Ranch Colorado riverside camp permit", "South Kaibab sunrise O'Neill Butte view", "Bright Angel Trail Watchtower tower cultural", "Two billion years geological strata exposed"],
+      gear: ["Water 1L per hour heat mandatory summer", "Electrolyte tablets heat exhaustion prevention", "Permit Phantom Ranch advance lottery required", "Night hiking headlamp summer heat avoidance", "Shelter camp 3 days Phantom Ranch essential"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 400,
+      latitude: 36.1,
+      longitude: -112.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure672.id }, { userId: user2.id, adventureId: adventure672.id }, { userId: user3.id, adventureId: adventure672.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
