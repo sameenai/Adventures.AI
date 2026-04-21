@@ -30095,6 +30095,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure884.id }, { userId: user2.id, adventureId: adventure884.id }], skipDuplicates: true });
 
+
+  // Adventure 885
+  const adventure885 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-885" },
+    update: {},
+    create: {
+      id: "seed-adventure-885",
+      title: "Colombia Lost City Trek — Ciudad Perdida",
+      description: `Trek through the Sierra Nevada de Santa Marta — the world's highest coastal mountain range, rising 5,775 m from sea level in just 42 km — to reach the Lost City (Ciudad Perdida), a pre-Columbian city built around 800 AD, 650 years before Machu Picchu. The 4-6 day return trek involves steep jungle climbs, river crossings, and overnight camps in the forest. Indigenous Kogi, Arhuaco, and Wiwa communities maintain spiritual custodianship of the mountains; their restrictions on access to certain areas are respected by all tour operators.`,
+      location: "Sierra Nevada de Santa Marta, Colombia",
+      country: "Colombia",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1, 2, 3, 7, 8],
+      estimatedCost: 1000,
+      latitude: 11,
+      longitude: -74.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure885.id }, { userId: user2.id, adventureId: adventure885.id }, { userId: user3.id, adventureId: adventure885.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
