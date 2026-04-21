@@ -27335,6 +27335,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure792.id }, { userId: user2.id, adventureId: adventure792.id }], skipDuplicates: true });
 
+
+  // Adventure 793
+  const adventure793 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-793" },
+    update: {},
+    create: {
+      id: "seed-adventure-793",
+      title: "Mozambique Bazaruto Archipelago Diving",
+      description: `The Bazaruto Archipelago — five islands strung along Mozambique's southern coast — is one of the last refuges of the dugong (sea cow) in East Africa, with a population of around 250 individuals. The marine park also supports manta rays, whale sharks, humpback whales (July-October), and pristine coral reefs barely touched by recreational diving. The islands are accessible by light aircraft from Vilanculos. Infrastructure is limited to a handful of high-end lodges and basic island camps.`,
+      location: "Bazaruto Archipelago, Mozambique",
+      country: "Mozambique",
+      continent: "Unknown",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -21.7,
+      longitude: 35.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure793.id }, { userId: user2.id, adventureId: adventure793.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
