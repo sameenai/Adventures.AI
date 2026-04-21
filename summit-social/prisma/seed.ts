@@ -27185,6 +27185,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure787.id }, { userId: user2.id, adventureId: adventure787.id }], skipDuplicates: true });
 
+
+  // Adventure 788
+  const adventure788 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-788" },
+    update: {},
+    create: {
+      id: "seed-adventure-788",
+      title: "Dolomites Alta Via 1 — Italian Alps Trek",
+      description: `The Alta Via 1 traverses the Dolomites from Braies Lake in the north to Belluno in the south over 120 km, following a chain of rifugios through some of the most dramatic mountain scenery in Europe. The pale limestone towers of the Dolomites glow orange and pink at sunrise and sunset — a phenomenon called enrosadira in the local Ladin language. The route passes through the Val Badia, the Marmolada glacier, and the Pale di San Martino plateau. Book rifugios months in advance for summer dates.`,
+      location: "Dolomites, Italy",
+      country: "Italy",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 46.7,
+      longitude: 12.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure788.id }, { userId: user2.id, adventureId: adventure788.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
