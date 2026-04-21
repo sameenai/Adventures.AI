@@ -32675,6 +32675,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure970.id }, { userId: user2.id, adventureId: adventure970.id }, { userId: user3.id, adventureId: adventure970.id }], skipDuplicates: true });
 
+
+  // Adventure 971
+  const adventure971 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-971" },
+    update: {},
+    create: {
+      id: "seed-adventure-971",
+      title: "Antarctica Ross Sea Expedition Voyage",
+      description: `Voyage to the Ross Sea — the most remote and least visited sector of Antarctica, requiring a 3-day Drake Passage crossing and then 3-4 days of sailing in sea ice — to reach the volcanoes of Ross Island: Erebus (still active) and Terror, the dry valleys where liquid water has not fallen for 2 million years, and the original huts of Scott and Shackleton preserved in the Antarctic freeze since 1912. Fewer than 500 tourists visit the Ross Sea each year; an expedition ship with specialist lecturers provides the platform.`,
+      location: "Ross Sea, Antarctica",
+      country: "Antarctica",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EASY,
+      durationDays: 22,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1],
+      estimatedCost: 1000,
+      latitude: -75,
+      longitude: 162,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["bucket-list"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure971.id }, { userId: user2.id, adventureId: adventure971.id }, { userId: user3.id, adventureId: adventure971.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
