@@ -32435,6 +32435,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure962.id }, { userId: user2.id, adventureId: adventure962.id }], skipDuplicates: true });
 
+
+  // Adventure 963
+  const adventure963 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-963" },
+    update: {},
+    create: {
+      id: "seed-adventure-963",
+      title: "Borneo Sun Bear and Orangutan Trek",
+      description: `Volunteer at the Bornean Sun Bear Conservation Centre in Sandakan alongside forest rehabilitation work at the Sepilok Orangutan Rehabilitation Centre — two of the world's most important wildlife conservation facilities, both in Sabah within 30 minutes of each other. Walk with rangers monitoring semi-wild orangutans returning to forest habitats; observing sun bears — the world's smallest bear species — in their forested enclosures provides context that sanctuaries elsewhere cannot match. Extend into the Kinabatangan River for wild wildlife viewing by river boat.`,
+      location: "Sandakan, Sabah, Borneo, Malaysia",
+      country: "Malaysia",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 8, 9],
+      estimatedCost: 1000,
+      latitude: 5.8,
+      longitude: 118.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure963.id }, { userId: user2.id, adventureId: adventure963.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
