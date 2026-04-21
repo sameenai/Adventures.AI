@@ -33125,6 +33125,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure985.id }, { userId: user2.id, adventureId: adventure985.id }, { userId: user3.id, adventureId: adventure985.id }], skipDuplicates: true });
 
+
+  // Adventure 986
+  const adventure986 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-986" },
+    update: {},
+    create: {
+      id: "seed-adventure-986",
+      title: "Alaska Denali Summit Expedition",
+      description: `Attempt the summit of Denali (6,190 m) — North America's highest peak — via the West Buttress Route from Base Camp at Kahiltna Glacier (2,200 m), a 17-21 day expedition involving fixed camps at 3,350 m, 4,335 m, 5,240 m, and a summit day from High Camp at 5,240 m. The mountain is technically non-technical in good conditions but the cold is extraordinary: temperatures at High Camp can reach -40C with wind chill to -70C. Crevasse rescue, tent camping in extreme cold, and glacier travel skills are mandatory. About 50% of teams reach the summit.`,
+      location: "Denali National Park, Alaska, USA",
+      country: "USA",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6],
+      estimatedCost: 1000,
+      latitude: 63.1,
+      longitude: -151,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["glacier"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure986.id }, { userId: user2.id, adventureId: adventure986.id }, { userId: user3.id, adventureId: adventure986.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
