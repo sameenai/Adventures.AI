@@ -29825,6 +29825,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure875.id }, { userId: user2.id, adventureId: adventure875.id }], skipDuplicates: true });
 
+
+  // Adventure 876
+  const adventure876 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-876" },
+    update: {},
+    create: {
+      id: "seed-adventure-876",
+      title: "Bolivia Salt Flats and Altiplano Crossing",
+      description: `Cross the Salar de Uyuni — the world's largest salt flat at 10,582 km2 at 3,656 m altitude — by 4WD, cycling, or on foot during the rainy season when the surface becomes a perfect mirror reflecting the sky. The route continues through the Bolivian altiplano to the Laguna Colorado (a red mineral lake) and Laguna Verde (emerald green) near the Chilean border, both above 4,500 m. Flamingo colonies inhabit both lakes. The landscape is among the most surreal in South America; a photographer's destination of the first order.`,
+      location: "Salar de Uyuni, Potosi, Bolivia",
+      country: "Bolivia",
+      continent: "Unknown",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: -20.1,
+      longitude: -67.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["desert"].id }, { id: allTags["high-altitude"].id }, { id: allTags["photography"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure876.id }, { userId: user2.id, adventureId: adventure876.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
