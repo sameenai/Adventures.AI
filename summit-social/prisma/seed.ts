@@ -25745,6 +25745,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure739.id }, { userId: user2.id, adventureId: adventure739.id }, { userId: user3.id, adventureId: adventure739.id }], skipDuplicates: true });
 
+
+  // Adventure 740
+  const adventure740 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-740" },
+    update: {},
+    create: {
+      id: "seed-adventure-740",
+      title: "Slovenia Triglav National Park",
+      description: `Triglav National Park encompasses the entire Slovenian Julian Alps and the Soca River valley, with Triglav at 2864m providing a challenging ascent that is a Slovenian national rite of passage. The mountain's northwest wall is one of the most demanding Via Ferrata routes in the Alps, while the Soca River valley below provides emerald river swimming and white water kayaking. Slovenia's small scale concentrates extraordinary Alpine diversity in easy reach.`,
+      location: "Julian Alps, Slovenia",
+      country: "Slovenia",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Triglav 2864m Slovenian national symbol summit", "Northwest Ferrata wall advanced route dramatic", "Triglav Glacier shrinking visible climate", "Vrsic Pass Julian Alps road switchback", "Soca River swim emerald pool natural"],
+      gear: ["Via ferrata set harness helmet Triglav wall", "Trekking poles rocky Julian terrain descent", "Mountain hut reservation summer advance", "Wetsuit Soca River cold clear swimming", "Alpine rescue insurance Slovenia climbing"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 600,
+      latitude: 46.38,
+      longitude: 13.84,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["alpine"].id }, { id: allTags["kayaking"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure740.id }, { userId: user2.id, adventureId: adventure740.id }, { userId: user3.id, adventureId: adventure740.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
