@@ -30305,6 +30305,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure891.id }, { userId: user2.id, adventureId: adventure891.id }, { userId: user3.id, adventureId: adventure891.id }], skipDuplicates: true });
 
+
+  // Adventure 892
+  const adventure892 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-892" },
+    update: {},
+    create: {
+      id: "seed-adventure-892",
+      title: "Spain Sierra Nevada Ski Mountaineering",
+      description: `Ski tour the Sierra Nevada in Andalucia — southern Europe's southernmost ski mountaineering terrain, with Mulhacen (3,479 m) as the highest peak in mainland Spain — across a mountain range you can see both the Atlantic and the Mediterranean from in clear conditions. The combination of Granada's culture, the Alhambra palace, and alpine skiing makes this the most culturally rich ski destination in Europe. Spring ski touring gives access to the full extent of the range above the resort boundary. Sea-level Mediterranean coastline is 40 km from the summit.`,
+      location: "Sierra Nevada, Granada, Spain",
+      country: "Spain",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 37.1,
+      longitude: -3.4,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["alpine"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure892.id }, { userId: user2.id, adventureId: adventure892.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
