@@ -22384,6 +22384,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure627.id }, { userId: user2.id, adventureId: adventure627.id }, { userId: user3.id, adventureId: adventure627.id }], skipDuplicates: true });
 
+
+  // Adventure 628
+  const adventure628 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-628" },
+    update: {},
+    create: {
+      id: "seed-adventure-628",
+      title: "Iceland Westfjords Kayaking",
+      description: `The Westfjords are Iceland's most remote region, a complex of deep fjords, bird cliffs, and empty highlands that see a fraction of the country's visitors. Sea kayaking the fjord network from Isafjordur through Hornstrandir Nature Reserve provides access to a coastline where Arctic fox, puffin colonies, and eider ducks inhabit beaches unmarked by any human footprint. This is Iceland as Ingolfur Arnarson found it.`,
+      location: "Westfjords, Iceland",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Hornstrandir Arctic fox tame photography", "Puffin colony Latrabjarg largest Europe", "Isafjordur village compact fjord drama", "Dynjandi waterfall tiered cascade approach kayak", "Midnight sun navigation 24-hour daylight"],
+      gear: ["Sea kayak expedition cold water Arctic", "Drysuit Iceland water temperature critical", "VHF radio Westfjords tidal navigation", "Bear spray Arctic fox bluff territory", "Midnight sun navigation headlamp optional"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 2000,
+      latitude: 65.8,
+      longitude: -23.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure628.id }, { userId: user2.id, adventureId: adventure628.id }, { userId: user3.id, adventureId: adventure628.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
