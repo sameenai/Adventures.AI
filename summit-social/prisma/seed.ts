@@ -19234,6 +19234,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure522.id }, { userId: user2.id, adventureId: adventure522.id }, { userId: user3.id, adventureId: adventure522.id }], skipDuplicates: true });
 
+
+  // Adventure 523
+  const adventure523 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-523" },
+    update: {},
+    create: {
+      id: "seed-adventure-523",
+      title: "Kamchatka Volcano Trek Russia",
+      description: `The Kamchatka Peninsula is a UNESCO World Heritage site and one of the most geologically active regions on earth, with 29 active volcanoes within a peninsula the size of California. Klyuchevskaya Sopka at 4750m is Russia's highest active volcano and one of the world's most dangerous, while Mutnovsky offers accessible fumarole fields where sulphur vents steam above glacier ice.`,
+      location: "Kamchatka Peninsula, Russia",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Klyuchevskaya Sopka active summit 4750m Russia", "Mutnovsky fumarole glacier sulphur fields", "Avacha Bay active volcano horseshoe rim", "Valley of Geysers UNESCO helicopter access", "Brown bear salmon river encounter autumn"],
+      gear: ["Crampons glacier volcanic summit", "Gas mask sulphur fumarole protection", "Expedition sleeping system cold nights", "Helicopter transfer Valley of Geysers", "Russian visa advance application required"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 3500,
+      latitude: 56.06,
+      longitude: 160.64,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["volcanic"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure523.id }, { userId: user2.id, adventureId: adventure523.id }, { userId: user3.id, adventureId: adventure523.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
