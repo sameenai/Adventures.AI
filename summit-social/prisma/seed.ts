@@ -19774,6 +19774,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure540.id }, { userId: user2.id, adventureId: adventure540.id }, { userId: user3.id, adventureId: adventure540.id }], skipDuplicates: true });
 
+
+  // Adventure 541
+  const adventure541 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-541" },
+    update: {},
+    create: {
+      id: "seed-adventure-541",
+      title: "Italian Alps Via Ferrata Summer",
+      description: `The Dolomites pioneered via ferrata as a form of mountain access during WWI, and today hundreds of iron-clipped routes traverse the most dramatic cliff faces in the Alps. Cinque Torri above Cortina provides a beginner circuit with WWI trenches, while Ferrata Ivano Dibona on Monte Cristallo delivers exposed ridge traverses above 3000m with views across the entire Dolomite massif.`,
+      location: "Dolomites, Italy",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ferrata Ivano Dibona Monte Cristallo 3100m", "Cinque Torri WWI trench restoration historic", "Tre Cime circuit via ferrata approach", "Marmolada queen Dolomites glacier ferrata", "Rifugio overnight pink alpenglow evening"],
+      gear: ["Via ferrata set lanyard harness helmet", "Gloves grip iron cable hands", "Sturdy mountain boots grip Dolomite rock", "Dry bag camera altitude weather change", "Helmet rockfall falling stones risk"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1200,
+      latitude: 46.42,
+      longitude: 12.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["via-ferrata"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["alpine"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure541.id }, { userId: user2.id, adventureId: adventure541.id }, { userId: user3.id, adventureId: adventure541.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
