@@ -19204,6 +19204,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure521.id }, { userId: user2.id, adventureId: adventure521.id }, { userId: user3.id, adventureId: adventure521.id }], skipDuplicates: true });
 
+
+  // Adventure 522
+  const adventure522 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-522" },
+    update: {},
+    create: {
+      id: "seed-adventure-522",
+      title: "Jordan Wadi Rum Desert Trek",
+      description: `Wadi Rum is a landscape of sandstone arches, towering red cliffs, and desert silence that has served as the backdrop for Mars in countless films. Bedouin guides lead multi-day camel and foot expeditions through narrow canyons, past ancient Nabataean inscriptions, and into the open desert where nights are spent under the clearest sky on earth. Lawrence of Arabia's Arabia still exists here.`,
+      location: "Wadi Rum, Jordan",
+      country: "Jordan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Burdah Rock Bridge natural sandstone arch climb", "Khazali Canyon Nabataean inscription gallery", "Camel overnight bivouac desert star camp", "Sunset Jebel Umm Adaami Jordan highest", "Lawrence Spring historical WWII connection"],
+      gear: ["Desert headwear UV protection", "Gaiters sand dune prevention", "Water minimum 4L per day desert", "Warm layers cold desert nights", "Camera wide lens landscape arches"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 600,
+      latitude: 29.58,
+      longitude: 35.42,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure522.id }, { userId: user2.id, adventureId: adventure522.id }, { userId: user3.id, adventureId: adventure522.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
