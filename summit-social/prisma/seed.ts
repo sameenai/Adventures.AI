@@ -27215,6 +27215,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure788.id }, { userId: user2.id, adventureId: adventure788.id }], skipDuplicates: true });
 
+
+  // Adventure 789
+  const adventure789 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-789" },
+    update: {},
+    create: {
+      id: "seed-adventure-789",
+      title: "Okavango Delta Mokoro Safari",
+      description: `Pole silently through the Okavango Delta — the world's largest inland delta and a UNESCO World Heritage Site — in a mokoro (dugout canoe) guided by a San Bushmen poler who reads the papyrus channels with an inherited knowledge passed down for generations. The delta supports one of Africa's greatest concentrations of wildlife, including large elephant herds, hippos, lions, leopards, and thousands of bird species. A camp set up on a sandy island and a walking safari on the floodplain plain round out the experience.`,
+      location: "Okavango Delta, Botswana",
+      country: "Botswana",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -19.3,
+      longitude: 23,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["kayaking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure789.id }, { userId: user2.id, adventureId: adventure789.id }, { userId: user3.id, adventureId: adventure789.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
