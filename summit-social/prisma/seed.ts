@@ -32015,6 +32015,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure948.id }, { userId: user2.id, adventureId: adventure948.id }], skipDuplicates: true });
 
+
+  // Adventure 949
+  const adventure949 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-949" },
+    update: {},
+    create: {
+      id: "seed-adventure-949",
+      title: "Scotland Cairngorm Plateau Winter Walking",
+      description: `Navigate the Cairngorm plateau in winter — the largest area of Arctic-like terrain in Britain above 1,000 m, where the weather can rival Greenland in severity — via the classic routes from the ski area car park to the summit of Ben Macdui (1,309 m, the second highest peak in Britain), Cairn Gorm (1,245 m), and the corrie walls above Loch Avon. The plateau navigates by compass in whiteout; the descent lines are exact. Mountain rescue statistics for the Cairngorms are among the highest in Britain; the terrain demands experience. The February conditions are reliably alpine.`,
+      location: "Cairngorms National Park, Scotland",
+      country: "Scotland",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 57.1,
+      longitude: -3.7,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["scotland"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure949.id }, { userId: user2.id, adventureId: adventure949.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
