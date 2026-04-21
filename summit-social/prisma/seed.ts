@@ -24065,6 +24065,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure683.id }, { userId: user2.id, adventureId: adventure683.id }, { userId: user3.id, adventureId: adventure683.id }], skipDuplicates: true });
 
+
+  // Adventure 684
+  const adventure684 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-684" },
+    update: {},
+    create: {
+      id: "seed-adventure-684",
+      title: "Scotland Cairngorm Plateau Ski",
+      description: `The Cairngorm plateau in winter provides the most genuine Arctic skiing experience in Britain, with the ski area at Cairngorm Mountain providing access to high plateau terrain that can receive storm force winds and zero visibility. Nordic ski touring across the plateau from Aviemore to Braemar via the Lairig Ghru pass is a classic winter traverse, while telemark and backcountry turns off the Fiacaill ridge deliver genuine mountain skiing.`,
+      location: "Cairngorms, Scotland",
+      country: "UK",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Cairngorm plateau Arctic conditions Britain", "Lairig Ghru winter ski traverse classic", "Fiacaill Ridge off-piste backcountry turns", "Ben Macdui 1309m plateau navigation winter", "Ptarmigan restaurant highest in Britain view"],
+      gear: ["Arctic layering system Cairngorm wind", "Ice axe crampons winter plateau crossing", "Navigation compass white out essential", "Avalanche transceiver plateau cornices", "Nordic ski touring binding Lairig Ghru"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 700,
+      latitude: 57.12,
+      longitude: -3.68,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["scotland"].id }, { id: allTags["mountains"].id }, { id: allTags["alpine"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure684.id }, { userId: user2.id, adventureId: adventure684.id }, { userId: user3.id, adventureId: adventure684.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
