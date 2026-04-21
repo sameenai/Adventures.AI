@@ -29525,6 +29525,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure865.id }, { userId: user2.id, adventureId: adventure865.id }, { userId: user3.id, adventureId: adventure865.id }], skipDuplicates: true });
 
+
+  // Adventure 866
+  const adventure866 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-866" },
+    update: {},
+    create: {
+      id: "seed-adventure-866",
+      title: "India Brahmaputra River Rafting",
+      description: `Raft the Brahmaputra River through Arunachal Pradesh — one of the world's great rivers, thundering out of Tibet through the Tsangpo Gorge (the world's deepest) before spreading across the Assam plains. The upper Siang section through the Himalayan foothills offers Grade IV-V whitewater over 10 days; the lower stretches through jungle and tiger reserves are Grade II-III with wildlife viewing. The Brahmaputra carries the highest sediment load of any river and changes course dramatically with each monsoon; the grey-brown flood plain is a world apart from the turquoise Himalayan streams above.`,
+      location: "Arunachal Pradesh, India",
+      country: "India",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 3, 4],
+      estimatedCost: 1000,
+      latitude: 28.2,
+      longitude: 94.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-sport"].id }, { id: allTags["jungle"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure866.id }, { userId: user2.id, adventureId: adventure866.id }, { userId: user3.id, adventureId: adventure866.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
