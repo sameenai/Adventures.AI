@@ -17012,6 +17012,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure448.id }, { userId: user2.id, adventureId: adventure448.id }, { userId: user3.id, adventureId: adventure448.id }], skipDuplicates: true });
 
+
+  // Adventure 449
+  const adventure449 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-449" },
+    update: {},
+    create: {
+      id: "seed-adventure-449",
+      title: "Fjordland Norway Cruise Kayak",
+      description: `Combining a Norwegian Hurtigruten coastal cruise with sea kayak day departures from the ship at Geiranger, Hjorundfjord, and the Sunnmore Alps creates the ultimate Norwegian fjord experience. The Geirangerfjord UNESCO World Heritage Site with its Seven Sisters and Suitor waterfalls is the most photographed fjord in Norway, but the adjacent Hjorundfjord is equally dramatic with none of the cruise ship crowds. Sea kayaking the Norangsfjord beneath 1,500-metre peaks is sublime.`,
+      location: "Bergen",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: ["Geirangerfjord Seven Sisters waterfall", "Hjorundfjord away from cruise crowds", "Norangsfjord under 1500m peaks", "Hurtigruten coastal cruise option", "Sunnmore Alps ski touring summer"],
+      gear: ["Sea kayak", "Dry suit cold fjord water", "Binoculars sea eagles", "VHF radio", "Waterproof camera housing"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 2000,
+      latitude: 60.39,
+      longitude: 5.32,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure449.id }, { userId: user2.id, adventureId: adventure449.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
