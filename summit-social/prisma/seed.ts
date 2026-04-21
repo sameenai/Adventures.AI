@@ -20854,6 +20854,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure576.id }, { userId: user2.id, adventureId: adventure576.id }, { userId: user3.id, adventureId: adventure576.id }], skipDuplicates: true });
 
+
+  // Adventure 577
+  const adventure577 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-577" },
+    update: {},
+    create: {
+      id: "seed-adventure-577",
+      title: "Arctic Canada Polar Bear Safari",
+      description: `Churchill on Hudson Bay is the polar bear capital of the world, where several hundred bears congregate each October and November waiting for Hudson Bay to freeze before their winter hunting season begins. Tundra buggies provide safe viewing from elevated vehicles as bears spar, play, and rest on the tundra, while beluga whales number in the thousands in summer's Churchill River. The Northern Lights add a celestial dimension to this wildlife capital.`,
+      location: "Churchill, Manitoba, Canada",
+      country: "Canada",
+      continent: "North America",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Polar bear congregation October November peak", "Tundra buggy close encounter safe vehicle", "Beluga whale summer 3000 Churchill River", "Northern Lights purple green Arctic October", "Great Gray Owl boreal forest encounter"],
+      gear: ["Extreme cold gear minus 30 October", "Camera telephoto lens wildlife distance", "Tundra buggy booking advance essential", "Face cover arctic wind chill frostbite", "Binoculars secondary wildlife observation"],
+      bestMonths: [10, 11],
+      estimatedCost: 4500,
+      latitude: 58.77,
+      longitude: -94.16,
+      published: true,
+      userId: user3.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["arctic"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure577.id }, { userId: user2.id, adventureId: adventure577.id }, { userId: user3.id, adventureId: adventure577.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
