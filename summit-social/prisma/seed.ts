@@ -22954,6 +22954,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure646.id }, { userId: user2.id, adventureId: adventure646.id }, { userId: user3.id, adventureId: adventure646.id }], skipDuplicates: true });
 
+
+  // Adventure 647
+  const adventure647 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-647" },
+    update: {},
+    create: {
+      id: "seed-adventure-647",
+      title: "Albania Albanian Alps Trek",
+      description: `The Albanian Alps, known as the Accursed Mountains or Bjeshket e Namuna, are one of Europe's last genuine wild frontiers, where Kanun customary law, sworn virgins, and blood feuds echo in remote villages largely bypassed by modernity until 1991. The Peaks of the Balkans trail circuit connects Albanian, Montenegrin, and Kosovar mountain territory through landscapes of extraordinary beauty rarely visited by outsiders. The isolation is profound.`,
+      location: "Accursed Mountains, Albania",
+      country: "Albania",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Valbona Valley dramatic limestone massif entry", "Theth village traditional kulla tower house", "Peaks of the Balkans tri-border mountain circuit", "Komani Lake ferry approach stunning fjord", "Accursed Mountains Kanun culture ancient law"],
+      gear: ["Mountain boots rocky terrain Accursed", "Cash lek only remote Albanian villages", "Border crossing tri-country circuit permit", "Guide Peaks of Balkans trail navigation", "Tent camping remote section preparation"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 42.42,
+      longitude: 19.88,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure647.id }, { userId: user2.id, adventureId: adventure647.id }, { userId: user3.id, adventureId: adventure647.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
