@@ -16772,6 +16772,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure440.id }, { userId: user2.id, adventureId: adventure440.id }, { userId: user3.id, adventureId: adventure440.id }], skipDuplicates: true });
 
+
+  // Adventure 441
+  const adventure441 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-441" },
+    update: {},
+    create: {
+      id: "seed-adventure-441",
+      title: "Aoraki Mount Cook Climb",
+      description: `Aoraki Mount Cook at 3,724 metres is New Zealand's highest peak and offers serious alpine climbing on routes graded up to New Zealand Grade 6. The Linda Glacier route is the standard ascent, but the East Ridge and Empress Ridge offer classic mixed routes for experienced alpinists. The Hermitage Hotel area below provides acclimatisation walks past the Hooker Glacier terminal lake with its floating icebergs.`,
+      location: "Aoraki Mount Cook Village",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: ["Aoraki 3724m New Zealand highest peak", "Linda Glacier route standard ascent", "Hooker Lake iceberg terminal lake", "East Ridge classic alpine route", "Tasman Glacier longest New Zealand"],
+      gear: ["Ice axe and crampons", "Rope 50m glacier travel", "Crevasse rescue kit", "Guide strongly recommended", "Alpine boots double"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 1500,
+      latitude: -43.59,
+      longitude: 170.14,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["glacier"].id }, { id: allTags["new-zealand"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure441.id }, { userId: user2.id, adventureId: adventure441.id }, { userId: user3.id, adventureId: adventure441.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
