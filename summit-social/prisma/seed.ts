@@ -32045,6 +32045,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure949.id }, { userId: user2.id, adventureId: adventure949.id }], skipDuplicates: true });
 
+
+  // Adventure 950
+  const adventure950 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-950" },
+    update: {},
+    create: {
+      id: "seed-adventure-950",
+      title: "Bolivia Cordillera Real Trekking Circuit",
+      description: `Trek the Cordillera Real — the principal Andean range above La Paz, containing 600 summits above 5,000 m — on a 5-7 day circuit linking the high valleys between Huayna Potosi (6,088 m), Condoriri, and Chearoco along the Mururata route. The circuit visits Takesi, Choro, and Yunga Cruz trails that descend from glacier altiplano into subtropical valleys in remarkable single-day transitions. La Paz at 3,640 m provides the acclimatisation base. The Bolivian Andes remain far less commercialised than the Peruvian equivalents; guides and porters are available but not mandatory.`,
+      location: "Cordillera Real, La Paz Department, Bolivia",
+      country: "Bolivia",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -16.3,
+      longitude: -68.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure950.id }, { userId: user2.id, adventureId: adventure950.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
