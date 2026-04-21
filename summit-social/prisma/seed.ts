@@ -25865,6 +25865,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure743.id }, { userId: user2.id, adventureId: adventure743.id }, { userId: user3.id, adventureId: adventure743.id }], skipDuplicates: true });
 
+
+  // Adventure 744
+  const adventure744 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-744" },
+    update: {},
+    create: {
+      id: "seed-adventure-744",
+      title: "Peru Chacaltaya Ski Glacier",
+      description: `Chacaltaya was once the world's highest ski resort at 5421m above La Paz, but its glacier has now almost entirely disappeared due to climate change. The existing ski on the remaining snow represents both a high-altitude extreme sport experience and a visceral lesson in the climate emergency. Combined with ski touring on the nearby Huayna Potosi glacier at 6088m, this delivers the most extreme altitude skiing accessible to acclimatized mountaineers.`,
+      location: "La Paz, Bolivia",
+      country: "Bolivia",
+      continent: "South America",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Chacaltaya 5421m former world highest ski resort", "Huayna Potosi 6088m summit ski descent", "La Paz 3640m world highest city base camp", "Climate change visible glacier loss lesson", "Illimani 6438m La Paz backdrop Andes"],
+      gear: ["Altitude acclimatization La Paz minimum 3 days", "Crampons ice axe glacier summit ski", "Down jacket extreme cold 6000m summit", "Ski mountaineering binding AT setup", "Oxygen 6000m altitude emergency insurance"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 900,
+      latitude: -16.35,
+      longitude: -68.13,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["expedition"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure744.id }, { userId: user2.id, adventureId: adventure744.id }, { userId: user3.id, adventureId: adventure744.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
