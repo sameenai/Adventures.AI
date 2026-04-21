@@ -33485,6 +33485,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure997.id }, { userId: user2.id, adventureId: adventure997.id }], skipDuplicates: true });
 
+
+  // Adventure 998
+  const adventure998 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-998" },
+    update: {},
+    create: {
+      id: "seed-adventure-998",
+      title: "Philippines Apo Island Diving and Freediving",
+      description: `Apo Island Marine Sanctuary — a 74-hectare marine reserve off Negros Oriental managed by the fishing community since 1982 — is considered the finest example of community-based marine conservation in Southeast Asia and one of the best dive sites in the Philippines for resident sea turtle density, healthy coral cover, and diverse reef fish. Freediving beside sea turtles feeding on the coral walls is possible from the beach at depth of 10-15 m. The island is 45 minutes by outrigger from Dauin; the community guesthouse provides simple accommodation.`,
+      location: "Apo Island, Negros Oriental, Philippines",
+      country: "Philippines",
+      continent: "Unknown",
+      category: Category.DIVING,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 9.1,
+      longitude: 123.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure998.id }, { userId: user2.id, adventureId: adventure998.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
