@@ -22834,6 +22834,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure642.id }, { userId: user2.id, adventureId: adventure642.id }, { userId: user3.id, adventureId: adventure642.id }], skipDuplicates: true });
 
+
+  // Adventure 643
+  const adventure643 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-643" },
+    update: {},
+    create: {
+      id: "seed-adventure-643",
+      title: "Morocco Toubkal Winter Climb",
+      description: `Jebel Toubkal in winter transforms from a summer trekking peak into a genuine mountaineering challenge requiring crampons, ice axe, and winter navigation skills. The Normal Route from Imlil gains 2500 metres through snowfield and ice to the North Africa summit at 4167m. December to February delivers the most dramatic conditions with ice couloirs, wind crust, and the extraordinary experience of standing on a summit above the snow line while the Sahara shimmers below.`,
+      location: "High Atlas, Morocco",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Toubkal winter summit 4167m ice couloir", "Sahara desert south horizon summit view", "Imlil village Berber winter hospitality", "Tizi n Toubkal col ice snow winter", "Atlas Cedar forest approach snow-covered"],
+      gear: ["Crampons ice axe winter Toubkal mandatory", "Gaiters deep snow Atlas winter", "Down jacket summit cold night hut", "Guide recommended winter navigation", "Layers system cold minus 15 summit"],
+      bestMonths: [12, 1, 2],
+      estimatedCost: 600,
+      latitude: 31.06,
+      longitude: -7.91,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["mountains"].id }, { id: allTags["africa"].id }, { id: allTags["alpine"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure643.id }, { userId: user2.id, adventureId: adventure643.id }, { userId: user3.id, adventureId: adventure643.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
