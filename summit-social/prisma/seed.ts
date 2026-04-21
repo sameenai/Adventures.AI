@@ -20584,6 +20584,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure567.id }, { userId: user2.id, adventureId: adventure567.id }, { userId: user3.id, adventureId: adventure567.id }], skipDuplicates: true });
 
+
+  // Adventure 568
+  const adventure568 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-568" },
+    update: {},
+    create: {
+      id: "seed-adventure-568",
+      title: "South Korea Baekdu-Daegan Ridge Trek",
+      description: `The Baekdu-Daegan is the great mountain spine of the Korean Peninsula, running 1400 kilometres from Mount Baekdu on the North Korea border to Jirisan National Park in the south. The accessible southern section through Sobaeksan, Deogyusan, and Jirisan national parks covers a landscape of Buddhist temples, dramatic ridge crests, and mountain meadows steeped in Korean shamanistic culture.`,
+      location: "Korean Peninsula",
+      country: "South Korea",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Jirisan traverse Korea highest mainland mountain", "Seoraksan winter hoarfrost ridge spectacle", "Buddhist temple mountain overnight stay experience", "Korean autumn foliage ridge colour display", "Baekdu-Daegan ecological corridor wildlife"],
+      gear: ["Korean mountain hut booking advance", "Rain jacket monsoon July August peak", "Trekking poles steep granite descent", "Food carry mountain hut gap sections", "National park entrance fee system"],
+      bestMonths: [5, 6, 10, 11],
+      estimatedCost: 600,
+      latitude: 35.34,
+      longitude: 127.73,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure568.id }, { userId: user2.id, adventureId: adventure568.id }, { userId: user3.id, adventureId: adventure568.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
