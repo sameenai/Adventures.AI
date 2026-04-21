@@ -30995,6 +30995,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure914.id }, { userId: user2.id, adventureId: adventure914.id }, { userId: user3.id, adventureId: adventure914.id }], skipDuplicates: true });
 
+
+  // Adventure 915
+  const adventure915 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-915" },
+    update: {},
+    create: {
+      id: "seed-adventure-915",
+      title: "Ethiopia Lalibela to Simien Mountains Trek",
+      description: `Combine two of Ethiopia's greatest sights: walk between the rock-hewn churches of Lalibela — 11 medieval Christian churches carved directly from the bedrock in the 12th century, still in active use — then trek north through the Lasta highlands to reach the Simien Mountains. The overland connection is rarely done as a continuous route; local guides navigate between settlements along tracks used by livestock herders. The contrast between the deeply spiritual atmosphere of Lalibela and the wild escarpment wildlife of Simien is as complete a contrast as Ethiopia offers.`,
+      location: "Amhara Region, Ethiopia",
+      country: "Ethiopia",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: 12,
+      longitude: 39,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["africa"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure915.id }, { userId: user2.id, adventureId: adventure915.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
