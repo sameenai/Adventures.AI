@@ -28985,6 +28985,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure847.id }, { userId: user2.id, adventureId: adventure847.id }, { userId: user3.id, adventureId: adventure847.id }], skipDuplicates: true });
 
+
+  // Adventure 848
+  const adventure848 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-848" },
+    update: {},
+    create: {
+      id: "seed-adventure-848",
+      title: "Turkey Mount Ararat Mountaineering",
+      description: `Climb Agri Dagi — Mount Ararat — at 5,137 m, the highest peak in Turkey and a dormant stratovolcano of enormous cultural significance as the purported resting place of Noah's Ark. The standard route from the village of Dogubayazit involves two or three days of ascent through alpine meadows and snowfields to the summit snowcap. A permit from the Turkish government is required and must be obtained in advance; the mountain sits close to the Iranian and Armenian borders. The views south into Iran and the Aras River valley below are extraordinary.`,
+      location: "Agri Province, Turkey",
+      country: "Turkey",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 39.7,
+      longitude: 44.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["volcanic"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure848.id }, { userId: user2.id, adventureId: adventure848.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
