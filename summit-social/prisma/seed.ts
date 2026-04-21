@@ -20314,6 +20314,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure558.id }, { userId: user2.id, adventureId: adventure558.id }, { userId: user3.id, adventureId: adventure558.id }], skipDuplicates: true });
 
+
+  // Adventure 559
+  const adventure559 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-559" },
+    update: {},
+    create: {
+      id: "seed-adventure-559",
+      title: "Japan Northern Alps Traverse",
+      description: `The Japanese Northern Alps traverse from Shin-Hotaka Onsen to Kamikochi crosses the backbone of the Japanese Alps through high-alpine terrain above the clouds. Mount Yarigatake at 3180m is the Matterhorn of Japan, a rocky pinnacle visible from every summit on the ridge. Mountain huts every few hours make this multi-day traverse accessible without expedition camping, while onsen in each valley provide a unique recovery culture.`,
+      location: "Northern Alps, Japan",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Yarigatake 3180m Matterhorn Japan rocky spire", "Okuhida Onsen valley thermal recovery spa", "Kamikochi valley floor sunrise reflection pond", "Hotaka Daikiretto knife-edge traverse Grade II", "Mountain hut futon dinner culture unique Japan"],
+      gear: ["Ridge traverse helmet rockfall", "Trekking poles steep descent knee", "Hut reservation essential Golden Week", "Rain gear Japan monsoon afternoon clouds", "Gaiters loose scree mountain hut approach"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1200,
+      latitude: 36.28,
+      longitude: 137.65,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }, { id: allTags["alpine"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure559.id }, { userId: user2.id, adventureId: adventure559.id }, { userId: user3.id, adventureId: adventure559.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
