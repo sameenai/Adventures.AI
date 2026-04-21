@@ -27575,6 +27575,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure800.id }, { userId: user2.id, adventureId: adventure800.id }, { userId: user3.id, adventureId: adventure800.id }], skipDuplicates: true });
 
+
+  // Adventure 801
+  const adventure801 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-801" },
+    update: {},
+    create: {
+      id: "seed-adventure-801",
+      title: "Lesotho Pony Trekking — Kingdom in the Sky",
+      description: `Ride Basotho ponies through the highland kingdom of Lesotho — Africa's highest country, where the lowest point is 1,400 m above sea level. The Maluti and Drakensberg mountains rise above 3,000 m with Thabana Ntlenyana reaching 3,482 m. Local pony trekking lodges offer 3-7 day routes between remote mountain villages where horses are the primary transport. The Basotho people wrap themselves in distinctive wool blankets year-round; temperatures drop sharply at altitude even in summer.`,
+      location: "Maluti Mountains, Lesotho",
+      country: "Lesotho",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -29.6,
+      longitude: 28.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["horse-trekking"].id }, { id: allTags["africa"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure801.id }, { userId: user2.id, adventureId: adventure801.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
