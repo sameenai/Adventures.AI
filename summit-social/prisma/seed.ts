@@ -32285,6 +32285,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure957.id }, { userId: user2.id, adventureId: adventure957.id }], skipDuplicates: true });
 
+
+  // Adventure 958
+  const adventure958 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-958" },
+    update: {},
+    create: {
+      id: "seed-adventure-958",
+      title: "South Africa Garden Route Cycling",
+      description: `Cycle the Garden Route from Mossel Bay to the Storms River mouth — 300 km along South Africa's most scenic stretch of Indian Ocean coastline through the Outeniqua Mountains, ancient Knysna forest, the Wilderness dunes, and the Tsitsikamma coastal cliffs. The Swartberg Pass (1,583 m) inland diversion is one of Africa's great mountain road ascents. Cycling in South Africa requires particular care on roads shared with heavy vehicles; the designated cycling route sections near Wilderness and Tsitsikamma have good infrastructure. Whale watching at Hermanus is 3 hours west.`,
+      location: "Garden Route, Western Cape, South Africa",
+      country: "South Africa",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [9, 10, 11, 3, 4],
+      estimatedCost: 1000,
+      latitude: -33.7,
+      longitude: 22.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["africa"].id }, { id: allTags["coastal"].id }, { id: allTags["wildlife"].id }, { id: allTags["road-trip"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure958.id }, { userId: user2.id, adventureId: adventure958.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
