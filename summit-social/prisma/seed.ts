@@ -30425,6 +30425,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure895.id }, { userId: user2.id, adventureId: adventure895.id }], skipDuplicates: true });
 
+
+  // Adventure 896
+  const adventure896 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-896" },
+    update: {},
+    create: {
+      id: "seed-adventure-896",
+      title: "Peru Inca Jungle Trek to Machu Picchu",
+      description: `Reach Machu Picchu via the Inca Jungle Trek — a 4-day alternative combining mountain biking, hiking, zip-lining, and white-water rafting through the subtropical Urubamba Valley — rather than the increasingly overcrowded Classic Inca Trail. The bike descent from Abra Malaga (4,316 m) to Santa Maria covers 65 km of switchback mountain road; the subsequent trail through coffee and cocoa plantations to Aguas Calientes takes two days of walking. The arrival at the Inca citadel via this route feels earned in a way that bus arrivals cannot match.`,
+      location: "Cusco Region, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -13.2,
+      longitude: -72.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-sport"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure896.id }, { userId: user2.id, adventureId: adventure896.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
