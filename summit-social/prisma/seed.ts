@@ -22474,6 +22474,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure630.id }, { userId: user2.id, adventureId: adventure630.id }, { userId: user3.id, adventureId: adventure630.id }], skipDuplicates: true });
 
+
+  // Adventure 631
+  const adventure631 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-631" },
+    update: {},
+    create: {
+      id: "seed-adventure-631",
+      title: "Mongolia Trans-Altai Motorcycle",
+      description: `Riding from Ulaanbaatar across the Mongolian steppe and Altai mountains to the western border at Khovd is one of central Asia's great off-road motorcycle adventures. There are no paved roads for 1000 kilometres of the route, and navigation across trackless steppe and river crossings is entirely by GPS and local knowledge. Eagle festival timing aligns the journey's end with Bayan-Olgii's cultural spectacle.`,
+      location: "Western Mongolia",
+      country: "Mongolia",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mongolian steppe trackless riding GPS navigation", "Altai river ford water crossing technique", "Terkhiin Tsagaan Nuur volcanic crater lake", "Kharkhiraa and Turgen peak 4000m Altai", "Eagle festival Bayan-Olgii journey finale"],
+      gear: ["Enduro motorcycle suspension river crossing", "Spare parts remote no mechanic 1000km", "GPS offline Mongolia OSM maps", "Fuel range 300km+ steppe section", "Recovery kit bog steppe melt spring"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: 48,
+      longitude: 89.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure631.id }, { userId: user2.id, adventureId: adventure631.id }, { userId: user3.id, adventureId: adventure631.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
