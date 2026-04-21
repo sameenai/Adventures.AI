@@ -31955,6 +31955,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure946.id }, { userId: user2.id, adventureId: adventure946.id }], skipDuplicates: true });
 
+
+  // Adventure 947
+  const adventure947 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-947" },
+    update: {},
+    create: {
+      id: "seed-adventure-947",
+      title: "Malaysia Taman Negara Rainforest Trek",
+      description: `Trek through Taman Negara — one of the world's oldest rainforests at 130 million years, predating the last ice age — along the world's longest canopy walkway at 450 m and through lowland forest that supports tigers, Malayan tapirs, clouded leopards, and wild elephants. The interior can be reached by boat up the Tembeling River from Kuala Tahan. Extended treks to Gunung Tahan (2,187 m), the highest peak in Peninsular Malaysia, take 7 days return through pristine forest. Night walks reveal a completely different forest community of nocturnal insects, frogs, and small mammals.`,
+      location: "Taman Negara National Park, Pahang, Malaysia",
+      country: "Malaysia",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 4.5,
+      longitude: 102.4,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure947.id }, { userId: user2.id, adventureId: adventure947.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
