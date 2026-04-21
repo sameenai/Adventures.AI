@@ -21004,6 +21004,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure581.id }, { userId: user2.id, adventureId: adventure581.id }, { userId: user3.id, adventureId: adventure581.id }], skipDuplicates: true });
 
+
+  // Adventure 582
+  const adventure582 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-582" },
+    update: {},
+    create: {
+      id: "seed-adventure-582",
+      title: "Atlas Mountains Mountain Bike",
+      description: `Mountain biking through the Moroccan High Atlas connects Berber village to village on rough mountain tracks, singletrack descents, and piste roads through the stunning Todgha and Dades gorge systems. The Trans Atlas route crosses the main range by the Tizi n Tichka pass before descending toward the Draa Valley and the desert fringe. Mule trains carrying tagine pots, fossil traders, and nomadic shepherds share the trails.`,
+      location: "High Atlas, Morocco",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Tizi n Tichka pass 2260m High Atlas main cross", "Todgha Gorge vertical limestone 300m cycle", "Dades Gorge kasbah valley red earth", "Draa Valley oasis palmier arrival desert edge", "Berber village overnight family hospitality"],
+      gear: ["Mountain bike suspension rocky trail", "Tool kit remote no bike shop Atlas", "Helmet mandatory rocky descent terrain", "Mule hire overload transfer steep option", "Cash dirhams village accommodation only"],
+      bestMonths: [3, 4, 5, 9, 10],
+      estimatedCost: 900,
+      latitude: 31,
+      longitude: -6.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["africa"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure582.id }, { userId: user2.id, adventureId: adventure582.id }, { userId: user3.id, adventureId: adventure582.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
