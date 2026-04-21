@@ -26885,6 +26885,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure777.id }, { userId: user2.id, adventureId: adventure777.id }], skipDuplicates: true });
 
+
+  // Adventure 778
+  const adventure778 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-778" },
+    update: {},
+    create: {
+      id: "seed-adventure-778",
+      title: "Japan Shikoku Henro Pilgrimage Cycling",
+      description: `Complete the 1,200-year-old Buddhist pilgrimage around Shikoku island by bicycle, visiting all 88 temples associated with the monk Kukai in approximately 18 days. Cyclists can cover the full circuit in roughly half the walking time, covering 1,000-1,200 km depending on route choice. White pilgrim garb (ohenrosan) is traditional and earns special treatment in rural areas. The route traverses mountainous interior, dramatic Pacific coastline, and visits include temple complexes carved into cliff faces and ancient castle towns.`,
+      location: "Shikoku Island, Japan",
+      country: "Japan",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 10, 11],
+      estimatedCost: 1000,
+      latitude: 33.8,
+      longitude: 133.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["island"].id }, { id: allTags["multi-day"].id }, { id: allTags["road-trip"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure778.id }, { userId: user2.id, adventureId: adventure778.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
