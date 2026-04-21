@@ -29765,6 +29765,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure873.id }, { userId: user2.id, adventureId: adventure873.id }], skipDuplicates: true });
 
+
+  // Adventure 874
+  const adventure874 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-874" },
+    update: {},
+    create: {
+      id: "seed-adventure-874",
+      title: "South Africa Cape Peninsula Cycling",
+      description: `Cycle the Cape Peninsula from Cape Town to Cape Point — 65 km of rolling coastal road past the Cape of Good Hope, Boulders Beach penguin colony, Hout Bay fishing harbour, and Constantia wine farms on the reverse route. The Cape Point climb to the lighthouse on a dirt track is a classic; the descent on the west coast back toward Cape Town is fast and exposed to Atlantic headwinds. The Cape Argus Cycle Tour in March is one of the world's largest individually timed cycle races; the route is available for recreational riders throughout the year.`,
+      location: "Cape Peninsula, Western Cape, South Africa",
+      country: "South Africa",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: -34.4,
+      longitude: 18.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["africa"].id }, { id: allTags["coastal"].id }, { id: allTags["wildlife"].id }, { id: allTags["road-trip"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure874.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
