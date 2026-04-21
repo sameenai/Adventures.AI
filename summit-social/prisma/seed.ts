@@ -23794,6 +23794,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure674.id }, { userId: user2.id, adventureId: adventure674.id }, { userId: user3.id, adventureId: adventure674.id }], skipDuplicates: true });
 
+
+  // Adventure 675
+  const adventure675 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-675" },
+    update: {},
+    create: {
+      id: "seed-adventure-675",
+      title: "India Hampi Historical Trek",
+      description: `Hampi was the capital of the Vijayanagara Empire, one of the largest Hindu empires in history, and its ruins spread across a dramatic boulder landscape of the Tungabhadra River. Exploring 500-year-old temples, royal enclosures, and elephant stables on foot and by bicycle through this UNESCO World Heritage landscape is unlike any other historical trekking experience. Climbing the surrounding boulder hills at sunset provides perspectives on the scale of this lost city.`,
+      location: "Hampi, Karnataka, India",
+      country: "India",
+      continent: "Asia",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Virupaksha Temple 9th century active pilgrimage", "Vittala Temple chariot stone wheel UNESCO", "Matanga Hill sunrise boulder city panorama", "Elephant stables royal enclosure Vijayanagara", "Tungabhadra coracle river traditional boat crossing"],
+      gear: ["Comfortable shoes temple complex walking", "Sun hat Karnataka December heat", "Bicycle hire Hampi village exploration", "Camera wide angle temple scale grandeur", "Sunrise alarm Matanga Hill 5am crowd avoid"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 200,
+      latitude: 15.33,
+      longitude: 76.46,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }, { id: allTags["photography"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure675.id }, { userId: user2.id, adventureId: adventure675.id }, { userId: user3.id, adventureId: adventure675.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
