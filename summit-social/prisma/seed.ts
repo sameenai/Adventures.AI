@@ -16802,6 +16802,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure441.id }, { userId: user2.id, adventureId: adventure441.id }, { userId: user3.id, adventureId: adventure441.id }], skipDuplicates: true });
 
+
+  // Adventure 442
+  const adventure442 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-442" },
+    update: {},
+    create: {
+      id: "seed-adventure-442",
+      title: "Zhangjiajie Pillar Hiking China",
+      description: `The quartzite sandstone pillars of Zhangjiajie National Forest Park in Hunan province inspired the floating Hallelujah Mountains of Avatar, rising hundreds of metres from the forest floor in forms that defy geological comprehension. The Tianmen Mountain cable car is the world's longest passenger cable car at 7.5 kilometres, and the glass walkway clinging to the cliff at 1,400 metres tests nerves above the forest canopy. The Avatar Hallelujah Mountain floating walkways allow the full immersion in this alien landscape.`,
+      location: "Zhangjiajie",
+      country: "China",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1600&q=80",
+      highlights: ["Avatar floating mountain landscape", "Tianmen glass walkway 1400m cliff", "World's longest cable car 7.5km", "Sandstone pillars 800m height", "Misty dawn forest photography"],
+      gear: ["Comfortable walking shoes", "Rain jacket misty conditions", "Camera wide angle pillars", "Early morning start crowds", "China tourist pass"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 600,
+      latitude: 29.32,
+      longitude: 110.47,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["photography"].id }, { id: allTags["mountains"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure442.id }, { userId: user2.id, adventureId: adventure442.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
