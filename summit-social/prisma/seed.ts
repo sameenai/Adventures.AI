@@ -31775,6 +31775,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure940.id }, { userId: user2.id, adventureId: adventure940.id }, { userId: user3.id, adventureId: adventure940.id }], skipDuplicates: true });
 
+
+  // Adventure 941
+  const adventure941 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-941" },
+    update: {},
+    create: {
+      id: "seed-adventure-941",
+      title: "Japan Mount Fuji Sunrise Ascent",
+      description: `Climb Mount Fuji (3,776 m) — Japan's most sacred volcano and highest peak, inscribed on UNESCO's World Heritage list as a cultural site — via the Yoshida Trail from the Subaru Fifth Station for a dawn summit arrival that rewards with the Goraiko sunrise, a phenomenon considered one of Japan's most sacred views. The mountain is officially open July-September; the season is short and the crowds are intense in August. Off-season climbing is possible but the huts are closed and navigation and weather conditions deteriorate sharply. Climbing at night to catch sunrise is the traditional approach.`,
+      location: "Mount Fuji, Shizuoka / Yamanashi Prefecture, Japan",
+      country: "Japan",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8],
+      estimatedCost: 1000,
+      latitude: 35.4,
+      longitude: 138.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["volcanic"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure941.id }, { userId: user2.id, adventureId: adventure941.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
