@@ -26675,6 +26675,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure770.id }, { userId: user2.id, adventureId: adventure770.id }], skipDuplicates: true });
 
+
+  // Adventure 771
+  const adventure771 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-771" },
+    update: {},
+    create: {
+      id: "seed-adventure-771",
+      title: "Switzerland Haute Route Ski Tour — Chamonix to Zermatt",
+      description: `The classic high-level ski mountaineering traverse from Chamonix to Zermatt, crossing from France into Switzerland through a series of high cols and glaciated passes between Mont Blanc and the Matterhorn. The route visits some of the finest ski touring terrain in the Alps, staying in remote mountain huts each night. Avalanche risk assessment and crevasse rescue skills are essential; participants should be confident off-piste skiers. The traverse is typically done in 6-8 days and covers around 120 km.`,
+      location: "Alps, France / Switzerland",
+      country: "France / Switzerland",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4],
+      estimatedCost: 1000,
+      latitude: 45.9,
+      longitude: 7.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure771.id }, { userId: user2.id, adventureId: adventure771.id }, { userId: user3.id, adventureId: adventure771.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
