@@ -32165,6 +32165,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure953.id }, { userId: user2.id, adventureId: adventure953.id }], skipDuplicates: true });
 
+
+  // Adventure 954
+  const adventure954 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-954" },
+    update: {},
+    create: {
+      id: "seed-adventure-954",
+      title: "Tanzania Mahale Mountains Chimpanzee Trek",
+      description: `Trek through Mahale Mountains National Park — accessible only by plane or boat on the remote eastern shore of Lake Tanganyika, the world's longest and second deepest lake — to track the habituated chimpanzees of the Mahale community on forest paths that require no trail. The approach by dhow across the jade-green lake at dawn is the defining arrival; the forest itself is dense and hot. After chimp tracking, snorkelling the crystalline lake reveals cichlid fish found nowhere else. One of the most remote and rewarding wildlife experiences in Africa.`,
+      location: "Mahale Mountains National Park, Kigoma, Tanzania",
+      country: "Tanzania",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -6.2,
+      longitude: 29.8,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["jungle"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure954.id }, { userId: user2.id, adventureId: adventure954.id }, { userId: user3.id, adventureId: adventure954.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
