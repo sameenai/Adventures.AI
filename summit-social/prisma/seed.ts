@@ -33245,6 +33245,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure989.id }, { userId: user2.id, adventureId: adventure989.id }], skipDuplicates: true });
 
+
+  // Adventure 990
+  const adventure990 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-990" },
+    update: {},
+    create: {
+      id: "seed-adventure-990",
+      title: "Finland Rovaniemi to North Cape Ski Tour",
+      description: `Ski the 1,200 km Arctic route from Rovaniemi (the official home of Santa Claus at the Arctic Circle) to Nordkapp on the Barents Sea — the northernmost point of mainland Europe — on a 30-day cross-country ski traverse through Finnish Lapland, Norwegian Finnmark, and the Barents Sea coast. The route follows reindeer migration corridors across frozen lakes and fells; Sami communities provide context for the landscape. The midnight sun arrives at Nordkapp on May 14; reaching the cliff edge at the sea in skiing conditions is achievable in late April.`,
+      location: "Lapland, Finland / Norway",
+      country: "Finland / Norway",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4],
+      estimatedCost: 1000,
+      latitude: 71.2,
+      longitude: 25.8,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["skiing"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure990.id }, { userId: user2.id, adventureId: adventure990.id }, { userId: user3.id, adventureId: adventure990.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
