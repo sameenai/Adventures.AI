@@ -24695,6 +24695,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure704.id }, { userId: user2.id, adventureId: adventure704.id }, { userId: user3.id, adventureId: adventure704.id }], skipDuplicates: true });
 
+
+  // Adventure 705
+  const adventure705 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-705" },
+    update: {},
+    create: {
+      id: "seed-adventure-705",
+      title: "Ireland Wild Atlantic Way Cycling",
+      description: `The Wild Atlantic Way is the world's longest defined coastal touring route at 2500 kilometres, following the entire Irish Atlantic coast from Donegal to Cork through the landscape that shaped the world's largest diaspora. The Cliffs of Moher, the Connemara boglands, the Ring of Kerry, and the Dingle Peninsula bookend a cycling journey through pubs, stone walls, and the particular melancholy beauty of the Irish west.`,
+      location: "Wild Atlantic Way, Ireland",
+      country: "Ireland",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Cliffs of Moher 200m sea cliff Atlantic spray", "Dingle Peninsula Irish language Blaskets view", "Connemara bogland peat stone wall cycling", "Skellig Michael sea stack monastery UNESCO", "Traditional pub session music evening culture"],
+      gear: ["Rain gear Ireland reliable Atlantic rain", "Wind jacket Atlantic coast gale constant", "Panniers loaded touring rack", "Cash euro pub accommodation preference", "Bike fit reliable long distance touring"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1500,
+      latitude: 53.5,
+      longitude: -9.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure705.id }, { userId: user2.id, adventureId: adventure705.id }, { userId: user3.id, adventureId: adventure705.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
