@@ -26495,6 +26495,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure764.id }, { userId: user2.id, adventureId: adventure764.id }, { userId: user3.id, adventureId: adventure764.id }], skipDuplicates: true });
 
+
+  // Adventure 765
+  const adventure765 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-765" },
+    update: {},
+    create: {
+      id: "seed-adventure-765",
+      title: "Greece Sporades Island Sea Kayaking",
+      description: `A 10-day sea kayaking journey through the Northern Sporades, paddling between Skiathos, Skopelos, Alonnisos and the protected Alonnisos Marine Park — Greece's largest marine protected area and home to the endangered Mediterranean monk seal. Routes weave between sea caves, white pebble beaches, and Byzantine cliff monasteries. Meltemi winds in summer create challenging open crossings; spring and autumn offer calmer conditions. Wild camp on uninhabited islets with no facilities — bring all water from mainland.`,
+      location: "Sporades, Greece",
+      country: "Greece",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 1000,
+      latitude: 39.1,
+      longitude: 23.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure765.id }, { userId: user2.id, adventureId: adventure765.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
