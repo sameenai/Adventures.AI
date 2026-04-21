@@ -20134,6 +20134,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure552.id }, { userId: user2.id, adventureId: adventure552.id }, { userId: user3.id, adventureId: adventure552.id }], skipDuplicates: true });
 
+
+  // Adventure 553
+  const adventure553 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-553" },
+    update: {},
+    create: {
+      id: "seed-adventure-553",
+      title: "California Pacific Crest Trail Section",
+      description: `The John Muir Trail section of the Pacific Crest Trail traverses the Sierra Nevada from Yosemite Valley to Mount Whitney, the highest peak in the continental US at 4421m. The 340-kilometre High Sierra route crosses 11 passes above 3600m through granite wilderness that John Muir called the Range of Light. Bear canisters are mandatory, permits are fiercely competitive, and the scenery is transcendent.`,
+      location: "Sierra Nevada, California, USA",
+      country: "USA",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mount Whitney 4421m continental US highest summit", "Muir Pass 3632m stone shelter historical hut", "Evolution Basin granite cirque reflection", "Forester Pass 4009m PCT highest point", "Yosemite Valley Happy Isles iconic start"],
+      gear: ["Bear canister mandatory Sierra Nevada regulations", "Permit lottery highly competitive advance", "Creek crossing poles Sierra snowmelt floods", "Mosquito head net June July abundance", "UL setup base weight target 10kg"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 800,
+      latitude: 37.6,
+      longitude: -118.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["thru-hike"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure553.id }, { userId: user2.id, adventureId: adventure553.id }, { userId: user3.id, adventureId: adventure553.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
