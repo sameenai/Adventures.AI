@@ -29645,6 +29645,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure869.id }, { userId: user2.id, adventureId: adventure869.id }], skipDuplicates: true });
 
+
+  // Adventure 870
+  const adventure870 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-870" },
+    update: {},
+    create: {
+      id: "seed-adventure-870",
+      title: "Japan Nakasendo Hiking Trail",
+      description: `Walk the Nakasendo — one of the five great Edo-period highways linking Kyoto and Edo (Tokyo) — through the Kiso Valley and Central Japanese Alps, staying in beautifully preserved post towns like Magome and Tsumago where the feudal road survives intact between forests of Japanese cedar. The Magome-Tsumago section (8 km) is the most walked and best preserved segment; multi-day walks extend the route to Nagoya or back toward Kyoto through dozens of traditional towns. Autumn foliage transforms the cedar forest route in late October and early November.`,
+      location: "Kiso Valley, Nagano Prefecture, Japan",
+      country: "Japan",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 10, 11],
+      estimatedCost: 1000,
+      latitude: 35.6,
+      longitude: 137.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }, { id: allTags["multi-day"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure870.id }, { userId: user2.id, adventureId: adventure870.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
