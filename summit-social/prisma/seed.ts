@@ -25925,6 +25925,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure745.id }, { userId: user2.id, adventureId: adventure745.id }, { userId: user3.id, adventureId: adventure745.id }], skipDuplicates: true });
 
+
+  // Adventure 746
+  const adventure746 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-746" },
+    update: {},
+    create: {
+      id: "seed-adventure-746",
+      title: "Portugal Fishermen Coast Walk",
+      description: `The Rota Vicentina Fishermen's Trail follows the most pristine Atlantic coastline in Europe from Santiago do Cacem to Sagres along a route used historically by fishermen to access their boats. The 230-kilometre trail passes through cork oak forests, wild cliff tops, and deserted beaches where the Alentejo coast receives less than 10 tourists per kilometre even in high season. The Sagres fortress at the route's end overlooks the point where the Atlantic trade winds begin.`,
+      location: "Alentejo Coast, Portugal",
+      country: "Portugal",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Sagres Cape St Vincent Europe's southwest end", "Cork oak dehesa landscape ancient harvest", "Stork nesting cliff top Atlantic colony", "Deserted beach Vicentina coast solitude", "Atlantic sunsets Alentejo cliff top dramatic"],
+      gear: ["Trekking shoes hard coastal paths", "Wind jacket Atlantic coast permanent wind", "Albergue advance booking shoulder season", "Waymark blue fish Route Vicentina symbol", "Blister prevention tarmac section village"],
+      bestMonths: [3, 4, 5, 9, 10],
+      estimatedCost: 500,
+      latitude: 37.8,
+      longitude: -8.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["multi-day"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure746.id }, { userId: user2.id, adventureId: adventure746.id }, { userId: user3.id, adventureId: adventure746.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
