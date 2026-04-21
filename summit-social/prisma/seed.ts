@@ -25535,6 +25535,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure732.id }, { userId: user2.id, adventureId: adventure732.id }, { userId: user3.id, adventureId: adventure732.id }], skipDuplicates: true });
 
+
+  // Adventure 733
+  const adventure733 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-733" },
+    update: {},
+    create: {
+      id: "seed-adventure-733",
+      title: "India Hampi Boulder Scramble",
+      description: `The granite boulders of Hampi create a natural playground for scramblers and climbers that has attracted a dedicated community of international visitors seeking both the archaeological wonders and the physical challenge of the landscape. Climbing to sunset viewpoints above the Tungabhadra, scrambling through boulder-piled hills between ancient Vijayanagara ruins, and the challenge of Matanga Hill through multiple boulder passages combine sport and heritage in a unique way.`,
+      location: "Hampi, Karnataka, India",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Matanga Hill boulder scramble panorama sunrise", "Tungabhadra gorge view boulder summit approach", "Virupaksha Temple viewpoint evening gold light", "Suleiman Hill sunrise earliest light circuit", "Rock climbing community bouldering problem Hampi"],
+      gear: ["Climbing shoes grip granite bouldering", "Sun hat Karnataka exposed granite heat", "Water boulder scramble distance heat", "Camera telephoto temple detail distant", "Early morning start heat avoidance strategy"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 200,
+      latitude: 15.33,
+      longitude: 76.46,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["scrambling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure733.id }, { userId: user2.id, adventureId: adventure733.id }, { userId: user3.id, adventureId: adventure733.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
