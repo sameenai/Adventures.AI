@@ -21154,6 +21154,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure586.id }, { userId: user2.id, adventureId: adventure586.id }, { userId: user3.id, adventureId: adventure586.id }], skipDuplicates: true });
 
+
+  // Adventure 587
+  const adventure587 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-587" },
+    update: {},
+    create: {
+      id: "seed-adventure-587",
+      title: "Myanmar Golden Triangle Trek",
+      description: `The highland hill tribe villages of Myanmar's Shan State offer trekking through a landscape where Akha, Lahu, Padaung, and Shan minority cultures maintain traditional practices in bamboo villages above tea plantations. The trek from Kyaukme in the north connects communities through forested ridges and terraced fields, with overnight stays in village homes providing an intimacy with rural highland life unavailable anywhere more visited.`,
+      location: "Shan State, Myanmar",
+      country: "Myanmar",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Akha village overnight traditional bamboo home", "Padaung long neck tribe Kayah brass rings", "Tea plantation harvest participation cultural", "Shan hilltribe morning market Kyaukme", "Buddhist monastery mountain ridge meditation"],
+      gear: ["Modest dress Myanmar Buddhist culture", "Small gifts pencils notebooks village children", "Guide mandatory remote village access", "Cash kyat only hill tribe area", "Malaria prophylaxis Shan border zones"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 500,
+      latitude: 22.75,
+      longitude: 97.03,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure587.id }, { userId: user2.id, adventureId: adventure587.id }, { userId: user3.id, adventureId: adventure587.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
