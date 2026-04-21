@@ -24965,6 +24965,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure713.id }, { userId: user2.id, adventureId: adventure713.id }, { userId: user3.id, adventureId: adventure713.id }], skipDuplicates: true });
 
+
+  // Adventure 714
+  const adventure714 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-714" },
+    update: {},
+    create: {
+      id: "seed-adventure-714",
+      title: "Iceland Reykjanes Volcanic Hike",
+      description: `The Reykjanes Peninsula has been transformed since 2021 by repeated volcanic eruptions that have created entirely new lava fields, volcanic craters, and eruption landscapes accessible to walkers. The ongoing eruption sequence at Fagradalsfjall provides the extraordinary possibility of watching an active fissure eruption from safe distance on a peninsula within 45 minutes of Reykjavik. Active volcanology and trekking combine in real time.`,
+      location: "Reykjanes Peninsula, Iceland",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Fagradalsfjall active eruption lava field approach", "Eldvorp crater row volcanic fissure ancient", "Blue Lagoon geothermal silica spa contrast", "Bridge Between Continents rift walk tectonic", "Grindavik volcanic hazard zone active"],
+      gear: ["Real-time eruption status check safety critical", "Volcanic gas mask if close to active vent", "Sturdy boots new lava field sharp surface", "Camera tripod lava glow night photography", "Wind jacket Reykjanes Peninsula constant"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 500,
+      latitude: 63.89,
+      longitude: -22.46,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure714.id }, { userId: user2.id, adventureId: adventure714.id }, { userId: user3.id, adventureId: adventure714.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
