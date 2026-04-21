@@ -19624,6 +19624,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure535.id }, { userId: user2.id, adventureId: adventure535.id }, { userId: user3.id, adventureId: adventure535.id }], skipDuplicates: true });
 
+
+  // Adventure 536
+  const adventure536 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-536" },
+    update: {},
+    create: {
+      id: "seed-adventure-536",
+      title: "Peru Choquequirao Trek",
+      description: `Choquequirao is dubbed the other Machu Picchu, an Inca citadel perched at 3050m above the Apurimac Canyon that remains accessible only by foot. The four-day round trip descends 1500m to the canyon floor and climbs back through cloud forest to the terraced city that may have housed the last Inca resistance against Spanish conquest. Less than 30% of the city has been excavated.`,
+      location: "Apurimac Canyon, Peru",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Choquequirao citadel Inca 30% excavated mystery", "Apurimac Canyon 3000m depth dramatic descent", "Capuliyoq viewpoint distant ruins approach", "Llama terrace ridge unique Inca motif", "Cachi Ccasa pass 4350m puna crossing"],
+      gear: ["Trekking poles canyon descent protect knees", "Water purification river source reliance", "Warm layers 4350m pass crossing", "Mule hire optional load heavy route", "Acclimatization Cusco 2 days minimum"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: -13.54,
+      longitude: -72.84,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure536.id }, { userId: user2.id, adventureId: adventure536.id }, { userId: user3.id, adventureId: adventure536.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
