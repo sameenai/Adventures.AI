@@ -23314,6 +23314,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure658.id }, { userId: user2.id, adventureId: adventure658.id }, { userId: user3.id, adventureId: adventure658.id }], skipDuplicates: true });
 
+
+  // Adventure 659
+  const adventure659 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-659" },
+    update: {},
+    create: {
+      id: "seed-adventure-659",
+      title: "Uganda White Nile Rafting",
+      description: `Jinja on the shores of Lake Victoria is the source of the White Nile and home to some of the best commercial white water rafting in Africa. Class V rapids including Silverback, Dead Dutchman, and Itanda Falls thunder through the narrow granite gorge of the Victoria Nile, and multi-day expeditions from Jinja to Lake Kyoga combine rafting with riverside camping in Africa's wild water heartland.`,
+      location: "Jinja, Uganda",
+      country: "Uganda",
+      continent: "Africa",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Itanda Falls Class V biggest rapid White Nile", "Lake Victoria source of Nile departure point", "Murchison Falls world's most powerful falls downstream", "Nile crocodile sandbank rafting context", "Night camp Victoria Nile riverside camp"],
+      gear: ["Helmet life jacket operator provision standard", "River shoes secured ankle straps mandatory", "Malaria prophylaxis Uganda all year", "Dry bag waterproof absolute Class V splash", "Swimming ability strong water swim test"],
+      bestMonths: [6, 7, 8, 12, 1],
+      estimatedCost: 700,
+      latitude: 0.45,
+      longitude: 33.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["multi-day"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure659.id }, { userId: user2.id, adventureId: adventure659.id }, { userId: user3.id, adventureId: adventure659.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
