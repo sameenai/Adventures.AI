@@ -23404,6 +23404,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure661.id }, { userId: user2.id, adventureId: adventure661.id }, { userId: user3.id, adventureId: adventure661.id }], skipDuplicates: true });
 
+
+  // Adventure 662
+  const adventure662 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-662" },
+    update: {},
+    create: {
+      id: "seed-adventure-662",
+      title: "Nepal Nar Phu Valley Trek",
+      description: `The Nar Phu Valley is one of Nepal's most restricted and least visited trekking destinations, requiring a special permit and accessible only through a dramatic gorge entrance above the Annapurna Circuit. The isolated villages of Nar and Phu maintain Tibetan Buddhist culture entirely unchanged by outside influence, and the valley sits at 4000m above sea level beneath the Kang La pass at 5320m connecting to Manaslu Circuit.`,
+      location: "Nar Phu Valley, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Nar village restricted zone ancient culture", "Phu Valley 4000m Tibetan plateau isolation", "Kang La pass 5320m Manaslu connection", "Restricted area permit unique access Nepal", "Snow leopard habitat active territory"],
+      gear: ["Restricted area permit expensive advance", "High altitude sleeping bag minus 20", "Guide mandatory restricted zone regulations", "Yak hire village cargo transport option", "Self-sufficient food between villages remote"],
+      bestMonths: [10, 11, 3, 4],
+      estimatedCost: 3000,
+      latitude: 28.68,
+      longitude: 84.12,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure662.id }, { userId: user2.id, adventureId: adventure662.id }, { userId: user3.id, adventureId: adventure662.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
