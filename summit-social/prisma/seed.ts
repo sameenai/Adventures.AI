@@ -23464,6 +23464,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure663.id }, { userId: user2.id, adventureId: adventure663.id }, { userId: user3.id, adventureId: adventure663.id }], skipDuplicates: true });
 
+
+  // Adventure 664
+  const adventure664 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-664" },
+    update: {},
+    create: {
+      id: "seed-adventure-664",
+      title: "Slovenia Socha Valley Trek",
+      description: `The Soca River flows through the Julian Alps in a colour of impossible emerald green, and the valley it carved between Triglav National Park and the Italian border is one of Europe's most beautiful. The Via Alpina long-distance route follows the river gorge before ascending to the Triglav summit at 2864m, the highest peak in Slovenia. WWI Isonzo campaign sites, Tolmin gorge, and Bovec base camp complete a multidimensional mountain valley experience.`,
+      location: "Soca Valley, Slovenia",
+      country: "Slovenia",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Soca River emerald green impossible kayak swim", "Triglav 2864m Slovenia highest Julian Alps", "WWI Isonzo 11 battles valley history", "Tolmin Gorge turquoise slot canyon swim", "Bovec adventure base whitewater kayak centre"],
+      gear: ["Wetsuit Soca River swim cold emerald water", "Mountain boots Triglav rocky summit", "Helmet canyon swimming safety", "Via Alpina red white marking navigation", "Hut booking Triglav summer advance"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: 46.33,
+      longitude: 13.58,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["kayaking"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure664.id }, { userId: user2.id, adventureId: adventure664.id }, { userId: user3.id, adventureId: adventure664.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
