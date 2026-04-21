@@ -25595,6 +25595,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure734.id }, { userId: user2.id, adventureId: adventure734.id }, { userId: user3.id, adventureId: adventure734.id }], skipDuplicates: true });
 
+
+  // Adventure 735
+  const adventure735 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-735" },
+    update: {},
+    create: {
+      id: "seed-adventure-735",
+      title: "Mexico Yucatan Cenote Diving",
+      description: `The Yucatan Peninsula contains the world's longest underwater cave system, the Sac Actun system extending over 350 kilometres of submerged passages through the limestone karst. Cavern and cave diving in the Tulum area accesses chambers of crystal clarity illuminated by shafts of light filtering through jungle openings, where Mayan artifacts rest undisturbed. The technical cave diving of Pit and Dos Ojos represent the definitive cenote diving challenge.`,
+      location: "Yucatan Peninsula, Mexico",
+      country: "Mexico",
+      continent: "North America",
+      category: Category.DIVING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Sac Actun 350km worlds longest underwater cave", "Dos Ojos cenote light shaft crystal clarity", "Pit cenote 120m deep blue hole halocline", "Mayan artifacts submerged cave system ancient", "Cavern zone accessible certification entry"],
+      gear: ["Cave diving certification specialty mandatory", "Double tank backgas cave configuration", "Reel primary secondary guideline essential", "Dive light 3 minimum redundant cave rule", "Instructor guided first cave dive experience"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 800,
+      latitude: 20.21,
+      longitude: -87.46,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure735.id }, { userId: user2.id, adventureId: adventure735.id }, { userId: user3.id, adventureId: adventure735.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
