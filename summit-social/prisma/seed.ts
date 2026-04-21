@@ -29345,6 +29345,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure859.id }, { userId: user2.id, adventureId: adventure859.id }, { userId: user3.id, adventureId: adventure859.id }], skipDuplicates: true });
 
+
+  // Adventure 860
+  const adventure860 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-860" },
+    update: {},
+    create: {
+      id: "seed-adventure-860",
+      title: "Australia Larapinta Trail Trek",
+      description: `Walk the Larapinta Trail — 223 km through the West MacDonnell Ranges in the Northern Territory — on one of Australia's finest long-distance desert walks. The trail follows the spine of an ancient mountain range above the red desert floor, with the highest point at Mount Sonder (1,380 m). The night sky in the Central Australian desert is among the darkest in the world; the Milky Way is visible as a dense band of light. Aboriginal Arrernte cultural heritage is woven throughout the landscape; traditional owners maintain custodianship of the land traversed.`,
+      location: "West MacDonnell Ranges, Northern Territory, Australia",
+      country: "Australia",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 15,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -23.7,
+      longitude: 132.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["australia"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure860.id }, { userId: user2.id, adventureId: adventure860.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
