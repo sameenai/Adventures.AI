@@ -33095,6 +33095,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure984.id }, { userId: user2.id, adventureId: adventure984.id }], skipDuplicates: true });
 
+
+  // Adventure 985
+  const adventure985 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-985" },
+    update: {},
+    create: {
+      id: "seed-adventure-985",
+      title: "Colombia Caño Cristales River Trek",
+      description: `Trek to Caño Cristales — the River of Five Colors, or the Liquid Rainbow — in the Serranía de la Macarena National Park, where endemic aquatic plants (Macarenia clavigera) turn the river bottom red, pink, yellow, and green simultaneously from July to November. The river is accessible only by small plane from Bogota or Villavicencio and then on foot with a licensed guide; no tourist infrastructure exists outside the village of La Macarena. The surrounding savanna and gallery forest harbour thousands of endemic species. The park reopened to tourism in 2009 after two decades of conflict.`,
+      location: "Serranía de la Macarena, Meta, Colombia",
+      country: "Colombia",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9, 10, 11],
+      estimatedCost: 1000,
+      latitude: 2.3,
+      longitude: -73.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure985.id }, { userId: user2.id, adventureId: adventure985.id }, { userId: user3.id, adventureId: adventure985.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
