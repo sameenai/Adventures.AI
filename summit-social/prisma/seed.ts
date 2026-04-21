@@ -24635,6 +24635,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure702.id }, { userId: user2.id, adventureId: adventure702.id }, { userId: user3.id, adventureId: adventure702.id }], skipDuplicates: true });
 
+
+  // Adventure 703
+  const adventure703 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-703" },
+    update: {},
+    create: {
+      id: "seed-adventure-703",
+      title: "Serbia Dinaric Alps Via Dinarica",
+      description: `The Via Dinarica is a 1200-kilometre trail through the Dinaric Alps connecting Slovenia to Albania through some of the most undervisited mountain terrain in Europe. Durmitor National Park in Montenegro, the Prokletije Albanian Alps, and the Sutjeska primeval forest in Bosnia provide wilderness of exceptional quality. The trail passes through landscapes that bore witness to the most brutal theatre of WWII partisan warfare and 1990s conflict.`,
+      location: "Balkans",
+      country: "Serbia",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Durmitor Black Lake canyon Montenegro", "Sutjeska primeval Perucica forest Bosnia unique", "Prokletije Albanian Alps remote borderland", "Tara River Canyon Europe's deepest gorge", "Via Dinarica waymarked trail multi-country"],
+      gear: ["Border crossing multiple Balkans passport", "Mountain hut booking advance peak season", "Navigation offline maps Dinarica GPX", "Cash local currency remote villages", "Rain jacket Dinaric Alps reliable precipitation"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 43,
+      longitude: 19.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure703.id }, { userId: user2.id, adventureId: adventure703.id }, { userId: user3.id, adventureId: adventure703.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
