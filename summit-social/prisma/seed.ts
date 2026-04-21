@@ -31055,6 +31055,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure916.id }, { userId: user2.id, adventureId: adventure916.id }], skipDuplicates: true });
 
+
+  // Adventure 917
+  const adventure917 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-917" },
+    update: {},
+    create: {
+      id: "seed-adventure-917",
+      title: "Nepal Everest Panorama Trek — Shorter Circuit",
+      description: `A shorter Khumbu circuit that reaches Tengboche Monastery (3,867 m) and Namche Bazaar with views of Ama Dablam, Lhotse, and Everest without committing to the full Base Camp journey. The 8-day trek from Lukla to Tengboche and back through Phakding and Namche Bazaar is ideal for trekkers with limited time or altitude concerns. The Saturday market at Namche Bazaar — the hub of Sherpa trade in the Khumbu — is the best place in the world to equip for high-altitude adventures. The monastery at Tengboche hosts Mani Rimdu in November.`,
+      location: "Khumbu, Solukhumbu, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 27.8,
+      longitude: 86.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["hiking"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure917.id }, { userId: user2.id, adventureId: adventure917.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
