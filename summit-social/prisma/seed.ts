@@ -31475,6 +31475,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure930.id }, { userId: user2.id, adventureId: adventure930.id }], skipDuplicates: true });
 
+
+  // Adventure 931
+  const adventure931 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-931" },
+    update: {},
+    create: {
+      id: "seed-adventure-931",
+      title: "Kenya Mount Kenya Technical Climb",
+      description: `Climb the twin technical peaks of Mount Kenya — Batian (5,199 m) and Nelion (5,188 m) — via the Normal Route on the South East Face, one of the classic rock climbing routes in Africa, requiring Grade IV+ rock climbing ability at altitude in an equatorial glacial environment. The third and more accessible summit of Lenana (4,985 m) is reachable on a 3-day trek from Naro Moru or Sirimon gates without technical equipment. The mountain straddles the equator; the landscape transitions from rainforest through bamboo, heath, moorland, and finally to glaciated rock summits.`,
+      location: "Mount Kenya National Park, Kenya",
+      country: "Kenya",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -0.2,
+      longitude: 37.3,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["africa"].id }, { id: allTags["glacier"].id }, { id: allTags["high-altitude"].id }, { id: allTags["scrambling"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure931.id }, { userId: user2.id, adventureId: adventure931.id }, { userId: user3.id, adventureId: adventure931.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
