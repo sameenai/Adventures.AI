@@ -19804,6 +19804,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure541.id }, { userId: user2.id, adventureId: adventure541.id }, { userId: user3.id, adventureId: adventure541.id }], skipDuplicates: true });
 
+
+  // Adventure 542
+  const adventure542 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-542" },
+    update: {},
+    create: {
+      id: "seed-adventure-542",
+      title: "Myanmar Inle Lake Cycling Trek",
+      description: `Inle Lake in Myanmar's Shan State is one of Southeast Asia's most serene landscapes, where Intha fishermen stand one-legged on their boats rowing with a foot-wrapped oar. Cycling the Shan Hills through teak villages, hilltribe morning markets, and terraced vineyards reveals a rural Myanmar little changed by tourism. The Pindaya caves with 8000 Buddha images carved into limestone add cultural depth.`,
+      location: "Shan State, Myanmar",
+      country: "Myanmar",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Intha fisherman one-leg rowing technique unique", "Pindaya cave 8000 Buddha statues limestone", "Shan hilltribe morning market textile weaving", "Indein stupa complex ancient jungle overgrown", "Taunggyi balloon festival hot air sunset"],
+      gear: ["Modest clothing Myanmar temple visits", "Flat pedal bike unpaved village roads", "Sunscreen Shan plateau UV exposure", "Cash kyat only remote areas limited ATM", "Rain jacket monsoon season preparation"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 700,
+      latitude: 20.59,
+      longitude: 96.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["island"].id }, { id: allTags["photography"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure542.id }, { userId: user2.id, adventureId: adventure542.id }, { userId: user3.id, adventureId: adventure542.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
