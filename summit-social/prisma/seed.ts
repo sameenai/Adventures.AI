@@ -21694,6 +21694,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure604.id }, { userId: user2.id, adventureId: adventure604.id }, { userId: user3.id, adventureId: adventure604.id }], skipDuplicates: true });
 
+
+  // Adventure 605
+  const adventure605 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-605" },
+    update: {},
+    create: {
+      id: "seed-adventure-605",
+      title: "Canada Yukon Dog Sled Winter",
+      description: `Learning to drive a sled dog team through the Yukon wilderness in winter is one of North America's great bucket-list experiences. Multi-day mushing expeditions from Whitehorse or Dawson City cover the frozen Yukon River and boreal forest under the Northern Lights, camping in wall tents heated by wood stoves, and feeding the dogs at minus 40 is part of the daily ritual. The Iditarod spirit lives in Yukon's dog sledding culture.`,
+      location: "Yukon Territory, Canada",
+      country: "Canada",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Dog sled team drive 12 dogs wilderness", "Northern Lights aurora drive camp night", "Yukon River frozen highway winter travel", "Musher overnight camp wall tent wood stove", "Dawson City gold rush heritage winter stop"],
+      gear: ["Extreme cold layer system minus 40", "Balaclava face protection sled wind chill", "Mushing instruction clinic operator provided", "Camera hand warmers battery cold failure", "Sleeping bag minus 40 wall tent camp"],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 3500,
+      latitude: 60.7,
+      longitude: -135,
+      published: true,
+      userId: user1.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure605.id }, { userId: user2.id, adventureId: adventure605.id }, { userId: user3.id, adventureId: adventure605.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
