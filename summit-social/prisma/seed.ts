@@ -30575,6 +30575,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure900.id }, { userId: user2.id, adventureId: adventure900.id }, { userId: user3.id, adventureId: adventure900.id }], skipDuplicates: true });
 
+
+  // Adventure 901
+  const adventure901 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-901" },
+    update: {},
+    create: {
+      id: "seed-adventure-901",
+      title: "Iceland Northern Lights Snowmobile Tour",
+      description: `Explore the Vatnajokull glacier above the south coast of Iceland by snowmobile on guided day tours departing from Skaftafell, then stand on Vatnajokull's frozen surface in the evening darkness watching the aurora borealis illuminate the sky above Europe's largest glacier. The combination of glacier travel — crevasse-free on the guided routes — and aurora watching in the absolute silence above the cloud layer is unlike anything available elsewhere. The Jokulsarlon glacial lagoon at the glacier edge provides a surreal daytime contrast with icebergs calving into the sea.`,
+      location: "Vatnajokull, South Iceland",
+      country: "South Iceland",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EASY,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 63.9,
+      longitude: -17,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["glacier"].id }, { id: allTags["arctic"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["photography"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure901.id }, { userId: user2.id, adventureId: adventure901.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
