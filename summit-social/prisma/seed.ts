@@ -32945,6 +32945,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure979.id }, { userId: user2.id, adventureId: adventure979.id }], skipDuplicates: true });
 
+
+  // Adventure 980
+  const adventure980 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-980" },
+    update: {},
+    create: {
+      id: "seed-adventure-980",
+      title: "Canada PCT British Columbia Section",
+      description: `Backpack the E.C. Manning to Kicking Horse section of the Great Divide Trail — Canada's answer to the Pacific Crest Trail, a 1,100 km route along the Continental Divide in British Columbia and Alberta — through wilderness that even most Canadians have never seen. The route crosses Joffre Lakes, the Stein Valley, the Squamish headwaters, and the Palmer and Cayoosh ranges in absolute solitude. Grizzly bear encounters are routine; food storage is mandatory. The trail is not continuously maintained; route-finding skills and detailed topographic maps are essential.`,
+      location: "Coast Mountains, British Columbia, Canada",
+      country: "Canada",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 50.5,
+      longitude: -121,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure980.id }, { userId: user2.id, adventureId: adventure980.id }, { userId: user3.id, adventureId: adventure980.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
