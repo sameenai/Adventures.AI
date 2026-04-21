@@ -21514,6 +21514,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure598.id }, { userId: user2.id, adventureId: adventure598.id }, { userId: user3.id, adventureId: adventure598.id }], skipDuplicates: true });
 
+
+  // Adventure 599
+  const adventure599 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-599" },
+    update: {},
+    create: {
+      id: "seed-adventure-599",
+      title: "Swiss Alps Eiger North Face Trek",
+      description: `The Eiger Trail beneath the north face of the Eiger follows the base of one of mountaineering's most legendary walls from Eigergletscher to Alpiglen, close enough to watch the live drama of active rock fall and to spot climbers on the face above. The Bernese Oberland landscape of Grindelwald valley, Jungfrau massif, and wildflower meadows frames Switzerland's most charged mountain encounter. Alpiglen restaurant serves Rosti with the best view on earth.`,
+      location: "Bernese Oberland, Switzerland",
+      country: "Switzerland",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Eiger north face Mordwand close base trail", "Grindelwald valley symmetry Wetterhorn view", "Jungfrau 4158m glacier massif backdrop", "Kleine Scheidegg railway mountain hub", "Alpiglen Rosti lunch best mountain view Swiss"],
+      gear: ["Sturdy boots rocky trail glacier moraine", "Helmet loose rock from north face above", "Layers weather change exposed Bernese", "Train Jungfraubahn access convenience", "Early start visibility Eiger morning clear"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 800,
+      latitude: 46.58,
+      longitude: 8,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure599.id }, { userId: user2.id, adventureId: adventure599.id }, { userId: user3.id, adventureId: adventure599.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
