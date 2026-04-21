@@ -24095,6 +24095,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure684.id }, { userId: user2.id, adventureId: adventure684.id }, { userId: user3.id, adventureId: adventure684.id }], skipDuplicates: true });
 
+
+  // Adventure 685
+  const adventure685 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-685" },
+    update: {},
+    create: {
+      id: "seed-adventure-685",
+      title: "Colombia Sierra Nevada Surfing",
+      description: `The Caribbean coast of Colombia between Cartagena and the Sierra Nevada de Santa Marta combines some of Latin America's finest surfing beaches with access to the Lost City jungle trek. Punta Gallinas at the northernmost tip of South America offers off-grid living at the end of the continent, while Palomino and Tayrona National Park beaches provide consistent Caribbean surf conditions with the snow-capped Sierra Nevada as a backdrop.`,
+      location: "Caribbean Coast, Colombia",
+      country: "Colombia",
+      continent: "South America",
+      category: Category.SURFING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Punta Gallinas northernmost South America point", "Palomino beach Caribbean surf consistent", "Tayrona National Park pristine beach jungle", "Sierra Nevada backdrop snow cap beach unique", "Wayuu indigenous community desert coastal"],
+      gear: ["Surfboard shortboard Caribbean wave size", "Reef shoes coral protection shallow reef", "Sunscreen Caribbean UV tropical intensity", "Light wetsuit rash guard sun protection", "Insect repellent Tayrona forest evening"],
+      bestMonths: [12, 1, 2, 3, 7, 8],
+      estimatedCost: 700,
+      latitude: 11.24,
+      longitude: -73.59,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["surfing"].id }, { id: allTags["coastal"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure685.id }, { userId: user2.id, adventureId: adventure685.id }, { userId: user3.id, adventureId: adventure685.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
