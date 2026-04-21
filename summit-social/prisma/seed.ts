@@ -27815,6 +27815,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure808.id }, { userId: user2.id, adventureId: adventure808.id }], skipDuplicates: true });
 
+
+  // Adventure 809
+  const adventure809 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-809" },
+    update: {},
+    create: {
+      id: "seed-adventure-809",
+      title: "Mongolia Altai Eagle Hunter Expedition",
+      description: `Travel to the Kazakh eagle hunter communities of Mongolia's Bayan-Olgii province — the far western corner of the country bordering Russia, China, and Kazakhstan — to live with a nomadic family during the golden eagle hunting season. Eagle hunters (berkutchi) have practiced this art for thousands of years; eagles are trained from chicks to hunt fox and rabbit on horseback across snow-covered steppe. The Golden Eagle Festival in October draws dozens of hunters to compete. Horse-based travel to remote winter camps is the centrepiece.`,
+      location: "Bayan-Olgii Province, Mongolia",
+      country: "Mongolia",
+      continent: "Unknown",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11],
+      estimatedCost: 1000,
+      latitude: 48.5,
+      longitude: 89.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["horse-trekking"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure809.id }, { userId: user2.id, adventureId: adventure809.id }, { userId: user3.id, adventureId: adventure809.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
