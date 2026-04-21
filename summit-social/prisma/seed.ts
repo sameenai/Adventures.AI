@@ -30065,6 +30065,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure883.id }, { userId: user2.id, adventureId: adventure883.id }, { userId: user3.id, adventureId: adventure883.id }], skipDuplicates: true });
 
+
+  // Adventure 884
+  const adventure884 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-884" },
+    update: {},
+    create: {
+      id: "seed-adventure-884",
+      title: "Mozambique Gorongosa National Park Walk",
+      description: `Walk through Gorongosa National Park — one of Africa's greatest conservation success stories, reborn from near-extinction after the Mozambican civil war through a partnership between the Carr Foundation and the government — where wildlife numbers have recovered from near zero in 1994 to tens of thousands today. The Rift Valley escarpment forest above the plain provides guided walking through habitat for samango monkey, lion, elephant, and an extraordinary 800 species of birds. The recovery narrative is told at the park's research and education centre.`,
+      location: "Gorongosa National Park, Sofala, Mozambique",
+      country: "Mozambique",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -18.5,
+      longitude: 34.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["hiking"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure884.id }, { userId: user2.id, adventureId: adventure884.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
