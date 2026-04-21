@@ -20014,6 +20014,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure548.id }, { userId: user2.id, adventureId: adventure548.id }, { userId: user3.id, adventureId: adventure548.id }], skipDuplicates: true });
 
+
+  // Adventure 549
+  const adventure549 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-549" },
+    update: {},
+    create: {
+      id: "seed-adventure-549",
+      title: "France Pyrenees High Route",
+      description: `The Haute Route des Pyrenees follows the crest of the mountain chain from the Atlantic at Hendaye to the Mediterranean at Banyuls-sur-Mer, staying as high as possible on the frontier ridge between France and Spain. The 840-kilometre route crosses 48 high passes and traverses the remote Ariege, Andorra, and Catalan sections that even Pyrenean regulars rarely explore. This is the Pyrenean grand traverse.`,
+      location: "Pyrenees, France",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Vignemale 3298m highest French Pyrenees", "Cirque de Gavarnie natural amphitheatre", "Andorra circuit high pastoral detour", "Ordesa Canyon Spanish national park contrast", "Mediterranean finale Banyuls-sur-Mer swim"],
+      gear: ["Navigation skills off-trail route finding", "Mountain hut refuge booking system", "Water filter high pastoral springs", "Crampon option late snow June cols", "Full self-sufficiency remote Ariege sections"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1500,
+      latitude: 43,
+      longitude: 0.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["multi-day"].id }, { id: allTags["thru-hike"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure549.id }, { userId: user2.id, adventureId: adventure549.id }, { userId: user3.id, adventureId: adventure549.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
