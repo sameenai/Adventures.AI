@@ -23494,6 +23494,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure664.id }, { userId: user2.id, adventureId: adventure664.id }, { userId: user3.id, adventureId: adventure664.id }], skipDuplicates: true });
 
+
+  // Adventure 665
+  const adventure665 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-665" },
+    update: {},
+    create: {
+      id: "seed-adventure-665",
+      title: "Tibet Kailash Parikrama Circuit",
+      description: `The kora circumambulation of Mount Kailash at 6638m is the world's most sacred pilgrimage circuit, considered holy simultaneously by Hindu, Buddhist, Jain, and Bon traditions. The 52-kilometre circuit crosses the Dolma La pass at 5630m, highest point on any major pilgrimage route. The approach through western Tibet across the Tibetan plateau itself requires a journey of hundreds of kilometres through one of earth's most extreme high altitude landscapes.`,
+      location: "Western Tibet",
+      country: "China",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Kailash kora 5630m Dolma La sacred pass", "Lake Manasarovar 4588m sacred Hindu bathing", "Tirthapuri hot spring pilgrimage circuit add", "Darchen base 4560m Tibet plateau approach", "Four religion sacred mountain pilgrimage"],
+      gear: ["Tibet permit China group travel required", "Altitude acclimatization Lhasa 3650m minimum", "High altitude sleeping bag minus 20", "Altitude medication 5630m mandatory safety", "Down jacket Tibetan plateau wind cold"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 3500,
+      latitude: 31.07,
+      longitude: 81.31,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure665.id }, { userId: user2.id, adventureId: adventure665.id }, { userId: user3.id, adventureId: adventure665.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
