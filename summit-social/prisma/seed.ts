@@ -26555,6 +26555,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure766.id }, { userId: user2.id, adventureId: adventure766.id }, { userId: user3.id, adventureId: adventure766.id }], skipDuplicates: true });
 
+
+  // Adventure 767
+  const adventure767 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-767" },
+    update: {},
+    create: {
+      id: "seed-adventure-767",
+      title: "Australia Ningaloo Reef Dive and Snorkel Safari",
+      description: `Ningaloo Reef is one of the world's largest fringing reefs, accessible directly from the beach — no boat required for much of it. The primary draw is whale shark encounters from March to July, when aggregations of 40+ individuals feed on coral spawn. Manta rays are resident year-round and humpback whale season runs August to October. Coral Bay and Exmouth serve as bases; liveaboard vessels offer deeper outer reef access. The water clarity here rivals the Maldives with far fewer crowds.`,
+      location: "Ningaloo Reef, Western Australia",
+      country: "Western Australia",
+      continent: "Unknown",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 6, 7],
+      estimatedCost: 1000,
+      latitude: -22.7,
+      longitude: 113.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["australia"].id }, { id: allTags["wildlife"].id }, { id: allTags["island"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure767.id }, { userId: user2.id, adventureId: adventure767.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
