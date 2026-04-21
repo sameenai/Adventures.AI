@@ -26285,6 +26285,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure757.id }, { userId: user2.id, adventureId: adventure757.id }, { userId: user3.id, adventureId: adventure757.id }], skipDuplicates: true });
 
+
+  // Adventure 758
+  const adventure758 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-758" },
+    update: {},
+    create: {
+      id: "seed-adventure-758",
+      title: "Russia Lake Baikal Ice Trek",
+      description: `Lake Baikal freezes each winter to a depth of over a metre, creating a walkable surface of extraordinary ice formations including transparent blue ice, pressure ridges, and ice caves. The Baikal Ice Trek covers 600 kilometres of the world's deepest lake on foot and ski, camping on the ice above water that plunges two kilometres below. The haunting beauty of the ice, the silence, and the clarity of the frozen lake create one of the world's great winter journeys.`,
+      location: "Siberia, Russia",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Baikal blue ice transparency 40m depth visible", "Ice pressure ridge hummock field crossing", "Ice cave formation bubbles methane trapped", "Nerpa Baikal freshwater seal unique encounter", "600km traverse longest continuous lake walk"],
+      gear: ["Crampons ice grip Lake Baikal surface", "Polar tent camping ice surface wind", "Sleeping bag minus 40 Siberian winter", "Satellite phone Baikal remote emergency", "Pulk sled 600km food fuel supply"],
+      bestMonths: [2, 3],
+      estimatedCost: 2500,
+      latitude: 53.5,
+      longitude: 108,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["glacier"].id }, { id: allTags["expedition"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure758.id }, { userId: user2.id, adventureId: adventure758.id }, { userId: user3.id, adventureId: adventure758.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
