@@ -27755,6 +27755,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure806.id }, { userId: user2.id, adventureId: adventure806.id }, { userId: user3.id, adventureId: adventure806.id }], skipDuplicates: true });
 
+
+  // Adventure 807
+  const adventure807 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-807" },
+    update: {},
+    create: {
+      id: "seed-adventure-807",
+      title: "Rwanda Volcanoes National Park Golden Monkey Trek",
+      description: `Track golden monkeys in the bamboo forests of Rwanda's Volcanoes National Park — a species restricted to the Virunga volcano chain and one of the rarest primates in Africa. The trek takes 1-3 hours through dense bamboo at 2,500-3,000 m altitude. The same park also offers mountain gorilla permits and guided ascents of the Virunga volcanoes including Bisoke (3,711 m) with its perfectly circular crater lake. Combining gorilla, golden monkey, and volcano summit in a 5-day visit is the classic Rwanda highland programme.`,
+      location: "Volcanoes National Park, Rwanda",
+      country: "Rwanda",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: -1.5,
+      longitude: 29.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["volcanic"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure807.id }, { userId: user2.id, adventureId: adventure807.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
