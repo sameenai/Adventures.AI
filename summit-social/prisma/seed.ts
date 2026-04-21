@@ -27665,6 +27665,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure803.id }, { userId: user2.id, adventureId: adventure803.id }], skipDuplicates: true });
 
+
+  // Adventure 804
+  const adventure804 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-804" },
+    update: {},
+    create: {
+      id: "seed-adventure-804",
+      title: "Iran Alborz Range Ski Mountaineering",
+      description: `Ski tour in the Alborz Mountains above Tehran — 5,610 m Damavand is the highest volcano in Asia and a ski mountaineering objective that can be attempted from a hut at 4,200 m. Iranian ski resorts like Dizin and Shemshak receive deep, dry powder snow from Arctic air masses and are virtually unknown to Western skiers. Backcountry terrain outside the resorts is extensive and untracked. Iranian hospitality makes this one of the most rewarding off-the-beaten-path ski destinations in the world.`,
+      location: "Alborz Mountains, Iran",
+      country: "Iran",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 35.9,
+      longitude: 52.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountaineering"].id }, { id: allTags["high-altitude"].id }, { id: allTags["volcanic"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure804.id }, { userId: user2.id, adventureId: adventure804.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
