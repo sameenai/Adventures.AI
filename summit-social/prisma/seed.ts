@@ -30515,6 +30515,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure898.id }], skipDuplicates: true });
 
+
+  // Adventure 899
+  const adventure899 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-899" },
+    update: {},
+    create: {
+      id: "seed-adventure-899",
+      title: "Namibia Sossusvlei Dune Walk and Kalahari",
+      description: `Walk the dunes of Sossusvlei — the highest sand dunes on Earth, reaching 325 m, glowing in shades of orange, ochre, and purple at dawn — and then traverse into the Kalahari on a multi-day bushman walk with San tracker guides who read wildlife sign, find water sources, and navigate by star. The contrast between the photographic spectacle of Sossusvlei's Dead Vlei salt pan with its skeletal camel thorn trees, and the intimate knowledge required to survive in the Kalahari, makes this one of Africa's most complete wilderness programmes.`,
+      location: "Namib-Naukluft Park and Kalahari, Namibia",
+      country: "Namibia",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -24.7,
+      longitude: 15.4,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure899.id }, { userId: user2.id, adventureId: adventure899.id }, { userId: user3.id, adventureId: adventure899.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
