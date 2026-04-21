@@ -23524,6 +23524,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure665.id }, { userId: user2.id, adventureId: adventure665.id }, { userId: user3.id, adventureId: adventure665.id }], skipDuplicates: true });
 
+
+  // Adventure 666
+  const adventure666 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-666" },
+    update: {},
+    create: {
+      id: "seed-adventure-666",
+      title: "Baja California Whale Watching",
+      description: `The shallow San Ignacio Lagoon on Baja California's Pacific coast is the world's premier gray whale watching location, where the whales actively seek out small pangas and allow themselves to be touched by visitors. January to April brings the entire eastern Pacific gray whale population to breed and calve in the warm lagoon, and the experience of a grey whale mother pushing her calf to the boat to be stroked is unlike any other wildlife encounter on earth.`,
+      location: "Baja California, Mexico",
+      country: "Mexico",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Gray whale mother calf approach touch experience", "San Ignacio Lagoon UNESCO World Heritage", "Whale spy-hop eye contact interaction", "Pacific flyway bird migration coincidence", "Baja desert driving Carretera Transpeninsular"],
+      gear: ["Binoculars whale behaviour observation", "Camera telephoto whale surface moments", "Waterproof bag panga splash open boat", "Warm jacket Baja January cool ocean", "Camp permit San Ignacio lagoon edge"],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 1500,
+      latitude: 26.9,
+      longitude: -113.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure666.id }, { userId: user2.id, adventureId: adventure666.id }, { userId: user3.id, adventureId: adventure666.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
