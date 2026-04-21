@@ -19744,6 +19744,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure539.id }, { userId: user2.id, adventureId: adventure539.id }, { userId: user3.id, adventureId: adventure539.id }], skipDuplicates: true });
 
+
+  // Adventure 540
+  const adventure540 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-540" },
+    update: {},
+    create: {
+      id: "seed-adventure-540",
+      title: "Morocco Sahara Camel Expedition",
+      description: `The Erg Chebbi sand sea near Merzouga rises to 150-metre dunes at the edge of Morocco's Sahara, creating the classic Lawrence-of-Arabia desert experience. Multi-day camel treks with Tuareg guides navigate between oasis water sources and ancient caravan crossroads. Sleeping on dune crests under the Milky Way with no light pollution for hundreds of kilometres is an experience outside modernity.`,
+      location: "Merzouga, Morocco",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Erg Chebbi 150m dune crest Milky Way camp", "Tuareg guide traditional desert navigation", "Oasis palm garden caravan crossroads stay", "Sunrise dune crest orange shadow play", "Traditional Berber tent star watching night"],
+      gear: ["Tagelmust head wrap sand protection", "Warm sleeping bag cold desert nights", "Camera morning light golden hour dunes", "Water supply oasis planning guide", "Camel riding comfort basic instruction"],
+      bestMonths: [10, 11, 2, 3, 4],
+      estimatedCost: 500,
+      latitude: 31.08,
+      longitude: -3.97,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["africa"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure540.id }, { userId: user2.id, adventureId: adventure540.id }, { userId: user3.id, adventureId: adventure540.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
