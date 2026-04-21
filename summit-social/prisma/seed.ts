@@ -27515,6 +27515,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure798.id }, { userId: user2.id, adventureId: adventure798.id }, { userId: user3.id, adventureId: adventure798.id }], skipDuplicates: true });
 
+
+  // Adventure 799
+  const adventure799 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-799" },
+    update: {},
+    create: {
+      id: "seed-adventure-799",
+      title: "Alaska Denali National Park Wilderness Camping",
+      description: `Enter the backcountry of Denali National Park — 6 million acres of roadless wilderness — where no trails exist and navigation is entirely by map, compass, and terrain reading. The park's one paved road is closed to private vehicles beyond the first 15 miles; visitors proceed by lottery bus or on foot. Bears, moose, wolves, and caribou herds are encountered regularly. Backcountry permits are issued by unit, limiting the number of people in each drainage at any time. The park's alpine tundra and braided glacial rivers make this unlike any other National Park experience.`,
+      location: "Denali National Park, Alaska, USA",
+      country: "USA",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 63.3,
+      longitude: -150.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["camping"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure799.id }, { userId: user2.id, adventureId: adventure799.id }, { userId: user3.id, adventureId: adventure799.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
