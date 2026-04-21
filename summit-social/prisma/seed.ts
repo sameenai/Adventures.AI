@@ -30695,6 +30695,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure904.id }, { userId: user2.id, adventureId: adventure904.id }], skipDuplicates: true });
 
+
+  // Adventure 905
+  const adventure905 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-905" },
+    update: {},
+    create: {
+      id: "seed-adventure-905",
+      title: "Morocco Toubkal Atlas Winter Ascent",
+      description: `Climb Jebel Toubkal (4,167 m) — the highest peak in North Africa and the Atlas Mountains — in winter conditions with crampon and ice axe from the Refuge du Toubkal at 3,207 m. The 2-day ascent via the Ikhibi Sud route takes mountaineers from the souks and date palms of Marrakech to true alpine winter terrain within 3 hours by car. Winter snow transforms the normally straightforward summer route into a genuine mountaineering objective; the south couloir holds good ice conditions February-March. The view from the summit encompasses the High Atlas range and the Sahara horizon beyond.`,
+      location: "High Atlas, Marrakech-Safi, Morocco",
+      country: "Morocco",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 31.1,
+      longitude: -7.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["africa"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure905.id }, { userId: user2.id, adventureId: adventure905.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
