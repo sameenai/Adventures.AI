@@ -21124,6 +21124,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure585.id }, { userId: user2.id, adventureId: adventure585.id }, { userId: user3.id, adventureId: adventure585.id }], skipDuplicates: true });
 
+
+  // Adventure 586
+  const adventure586 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-586" },
+    update: {},
+    create: {
+      id: "seed-adventure-586",
+      title: "South Africa Wild Coast Hike",
+      description: `The Wild Coast of South Africa's Eastern Cape is a dramatic stretch of cliff, gorge, and untouched beach where the Hole in the Wall natural arch frames the Indian Ocean. The Strandloper route from Kei Mouth to Morgan Bay follows beach and cliff paths through the coastal territory of the Pondo people, with overnight stays in rustic beach huts and encounters with the most pristine coastline in southern Africa.`,
+      location: "Eastern Cape, South Africa",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Hole in the Wall natural sea arch coastal", "Strandloper route beach cliff pristine coast", "Pondo village overnight traditional cultural", "Whale watching Indian Ocean southern right", "Wild Coast shipwreck historical hiking trail"],
+      gear: ["Dry bag river mouth crossings essential", "Sun protection Indian Ocean UV strong", "Hut booking in advance Strandloper", "Tide table river mouth crossing timing", "Insect repellent evening coastal"],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 600,
+      latitude: -32.5,
+      longitude: 28.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure586.id }, { userId: user2.id, adventureId: adventure586.id }, { userId: user3.id, adventureId: adventure586.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
