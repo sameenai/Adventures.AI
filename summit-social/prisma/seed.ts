@@ -32555,6 +32555,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure966.id }, { userId: user2.id, adventureId: adventure966.id }], skipDuplicates: true });
 
+
+  // Adventure 967
+  const adventure967 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-967" },
+    update: {},
+    create: {
+      id: "seed-adventure-967",
+      title: "Canada Haida Gwaii Sea Kayaking",
+      description: `Kayak the remote archipelago of Haida Gwaii — the islands of the Haida Nation off the coast of British Columbia, closed to non-Haida visitors for much of the year but accessible with guided tours that operate under Haida Watchmen oversight — through old-growth Sitka spruce forest, abandoned totem pole villages like Sgang Gwaay (a UNESCO site), and sea lanes patrolled by humpback whales, Pacific white-sided dolphins, and black bears. The South Moresby wilderness is one of the last intact temperate rainforest coastlines in the world.`,
+      location: "Haida Gwaii, British Columbia, Canada",
+      country: "Canada",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 53,
+      longitude: -131.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["jungle"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure967.id }, { userId: user2.id, adventureId: adventure967.id }, { userId: user3.id, adventureId: adventure967.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
