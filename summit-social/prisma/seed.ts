@@ -21544,6 +21544,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure599.id }, { userId: user2.id, adventureId: adventure599.id }, { userId: user3.id, adventureId: adventure599.id }], skipDuplicates: true });
 
+
+  // Adventure 600
+  const adventure600 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-600" },
+    update: {},
+    create: {
+      id: "seed-adventure-600",
+      title: "Mexico Copper Canyon Railway Trek",
+      description: `The Copper Canyon system of Chihuahua is four times larger than the Grand Canyon, and the El Chepe train that connects Los Mochis to Chihuahua City crosses it on one of the world's most spectacular railway journeys. Trekking from the rim villages down through Tarahumara indigenous territory to the canyon floor reveals a depth of landscape and culture. The Tarahumara people's ultramarathon running tradition is legendary.`,
+      location: "Chihuahua, Mexico",
+      country: "Mexico",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Copper Canyon 4x Grand Canyon depth scale", "El Chepe train spectacular railway descent", "Tarahumara ultrarunner cultural encounter", "Barrancas del Cobre canyon floor tropical", "Divisadero overlook rim viewpoint dramatic"],
+      gear: ["Trekking poles canyon descent steep", "Water purification canyon floor heat", "Guide Tarahumara territory cultural respect", "Train ticket El Chepe advance booking", "Descent layers tropical floor to rim cold"],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 800,
+      latitude: 27.7,
+      longitude: -107.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["road-trip"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure600.id }, { userId: user2.id, adventureId: adventure600.id }, { userId: user3.id, adventureId: adventure600.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
