@@ -22054,6 +22054,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure616.id }, { userId: user2.id, adventureId: adventure616.id }, { userId: user3.id, adventureId: adventure616.id }], skipDuplicates: true });
 
+
+  // Adventure 617
+  const adventure617 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-617" },
+    update: {},
+    create: {
+      id: "seed-adventure-617",
+      title: "Greece Islands Sailing Circuit",
+      description: `Chartering a sailing yacht in the Greek Cyclades provides access to an island world where white cube architecture, volcanic beaches, and crystal Aegean water create the world's most romantic sailing environment. The circuit from Athens through Santorini, Milos, Folegandros, and Naxos covers islands of radically different character connected by the Meltemi summer wind that fills sails reliably. Mooring in Santorini caldera at sunset is a life moment.`,
+      location: "Aegean Islands, Greece",
+      country: "Greece",
+      continent: "Europe",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Santorini caldera sunset mooring iconic moment", "Milos Sarakiniko lunar beach volcanic white", "Folegandros cliff village Chora remote escape", "Naxos Apollo Temple Portara sea approach", "Meltemi wind reliable afternoon sail system"],
+      gear: ["Sailing certification skipper competence", "Sunscreen Aegean UV reflection amplified", "Snorkel mask volcanic underwater rock garden", "Wind jacket Meltemi afternoon 25-30 knots", "Charts Aegean navigation island maze"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: 37,
+      longitude: 25,
+      published: true,
+      userId: user1.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["sailing"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure617.id }, { userId: user2.id, adventureId: adventure617.id }, { userId: user3.id, adventureId: adventure617.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
