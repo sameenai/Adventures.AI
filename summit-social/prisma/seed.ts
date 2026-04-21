@@ -27305,6 +27305,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure791.id }, { userId: user2.id, adventureId: adventure791.id }], skipDuplicates: true });
 
+
+  // Adventure 792
+  const adventure792 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-792" },
+    update: {},
+    create: {
+      id: "seed-adventure-792",
+      title: "Argentina Gaucho Horse Trek — Mendoza Wine Country",
+      description: `Ride into the Andes foothills above Mendoza with gauchos who manage estancias that have operated for over a century. The multi-day ride passes through wine country vineyards at altitude, then climbs into montane scrubland and river valleys below the snow-capped Cordillera. Nights are spent in mountain camps or stone shepherd huts; gaucho-cooked asado over an open fire is the evening ritual. Riders should be comfortable with fast-paced trail riding; the horses are working ranch animals with independent temperaments.`,
+      location: "Mendoza Province, Argentina",
+      country: "Argentina",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 3, 4],
+      estimatedCost: 1000,
+      latitude: -33,
+      longitude: -69.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["horse-trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-sport"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure792.id }, { userId: user2.id, adventureId: adventure792.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
