@@ -24935,6 +24935,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure712.id }, { userId: user2.id, adventureId: adventure712.id }, { userId: user3.id, adventureId: adventure712.id }], skipDuplicates: true });
 
+
+  // Adventure 713
+  const adventure713 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-713" },
+    update: {},
+    create: {
+      id: "seed-adventure-713",
+      title: "Andaman Islands Diving Adventure",
+      description: `The Andaman Islands in the Bay of Bengal are India's most pristine coral reef diving destination, largely protected from commercial fishing and accessible only via Port Blair. The Barren Island active volcano in the Andamans is India's only active volcano and diving in its lava-flow-sculpted waters adds geological dimension to extraordinary reef diversity. Hawksbill turtles, manta rays, and schools of bumphead parrotfish define the Andaman underwater world.`,
+      location: "Andaman Islands, India",
+      country: "India",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Barren Island active volcano dive India only", "Bumphead parrotfish school 100 strong coral", "Hawksbill turtle resident cave reef shelter", "Manta ray cleaning station North Bay regular", "Andaman pristine reef no fishing protection"],
+      gear: ["Open Water certification minimum required", "Liveaboard 6-day Barren Island access", "Underwater camera wide angle reef scale", "5mm wetsuit Bay of Bengal water", "Permit Andaman Islands restricted tribal"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 1500,
+      latitude: 12.65,
+      longitude: 92.75,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure713.id }, { userId: user2.id, adventureId: adventure713.id }, { userId: user3.id, adventureId: adventure713.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
