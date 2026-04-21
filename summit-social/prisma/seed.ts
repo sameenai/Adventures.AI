@@ -21634,6 +21634,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure602.id }, { userId: user2.id, adventureId: adventure602.id }, { userId: user3.id, adventureId: adventure602.id }], skipDuplicates: true });
 
+
+  // Adventure 603
+  const adventure603 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-603" },
+    update: {},
+    create: {
+      id: "seed-adventure-603",
+      title: "Tanzania Kilimanjaro Lemosho Route",
+      description: `The Lemosho Route is Kilimanjaro's most scenic and wildlife-rich approach, entering through the Western Breach where elephants and buffalo frequent the lower forest zones. Eight days of gradual acclimatization through five distinct vegetation zones from rainforest to Arctic summit glacier maximize summit success rate. The pre-dawn summit push via Crater Camp offers the Kilimanjaro experience at its most complete and demanding.`,
+      location: "Kilimanjaro, Tanzania",
+      country: "Tanzania",
+      continent: "Africa",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Uhuru Peak 5895m Africa highest summit", "Lemosho forest elephant buffalo zone entry", "Shira Plateau wilderness camp 3840m", "Western Breach technical alternative route", "Glacier Furtwangler shrinking visible loss"],
+      gear: ["Summit night gear minus 20 mandatory", "Acclimatization 8-day Lemosho essential", "Altitude medication Diamox consult doctor", "Trekking poles mandatory descent knees", "IPPG permit guide porter required Tanzania"],
+      bestMonths: [1, 2, 6, 7, 8, 9],
+      estimatedCost: 2800,
+      latitude: -3.07,
+      longitude: 37.35,
+      published: true,
+      userId: user2.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["africa"].id }, { id: allTags["high-altitude"].id }, { id: allTags["multi-day"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure603.id }, { userId: user2.id, adventureId: adventure603.id }, { userId: user3.id, adventureId: adventure603.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
