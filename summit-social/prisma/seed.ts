@@ -26465,6 +26465,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure763.id }, { userId: user2.id, adventureId: adventure763.id }, { userId: user3.id, adventureId: adventure763.id }], skipDuplicates: true });
 
+
+  // Adventure 764
+  const adventure764 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-764" },
+    update: {},
+    create: {
+      id: "seed-adventure-764",
+      title: "Svalbard Dog Sledding Expedition — Across the Ice",
+      description: `A week-long self-drive dog sledding journey across Svalbard's frozen fjords and tundra plateaus in deep winter. The archipelago sits at 78 degrees north and sees polar night from November through February. Teams of 8-10 huskies pull traditional wooden sleds; mushers must manage the team, read snow conditions, and navigate using magnetic compass (GPS unreliable near the pole). Polar bear guards accompany each group outside Longyearbyen. Camping in expedition tents at -30C is part of the experience.`,
+      location: "Svalbard, Norway",
+      country: "Norway",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [2, 3],
+      estimatedCost: 1000,
+      latitude: 78.2,
+      longitude: 15.6,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["arctic"].id }, { id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure764.id }, { userId: user2.id, adventureId: adventure764.id }, { userId: user3.id, adventureId: adventure764.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
