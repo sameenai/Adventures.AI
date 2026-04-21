@@ -32915,6 +32915,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure978.id }, { userId: user2.id, adventureId: adventure978.id }], skipDuplicates: true });
 
+
+  // Adventure 979
+  const adventure979 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-979" },
+    update: {},
+    create: {
+      id: "seed-adventure-979",
+      title: "Mongolia Gobi Desert Camel Trek",
+      description: `Trek by Bactrian camel across the Gobi — the world's northernmost desert, a vast cold semi-desert of gravel plains, saxaul forest, and sand dune fields punctuated by dinosaur fossil beds and the Flaming Cliffs of Bayanzag, where Roy Chapman Andrews discovered the first dinosaur eggs in 1923. Multi-day camel treks between ger camps traverse the Khongoryn Els sand dunes (180 km long) and the Yolyn Am ice canyon — a narrow gorge that holds ice until July despite the surrounding heat. The Gobi is best in spring and autumn; summer temperatures exceed 45 degrees.`,
+      location: "South Gobi Province, Mongolia",
+      country: "Mongolia",
+      continent: "Unknown",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 1000,
+      latitude: 43.8,
+      longitude: 104.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["horse-trekking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure979.id }, { userId: user2.id, adventureId: adventure979.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
