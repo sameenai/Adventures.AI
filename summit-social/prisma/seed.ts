@@ -27725,6 +27725,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure805.id }, { userId: user2.id, adventureId: adventure805.id }, { userId: user3.id, adventureId: adventure805.id }], skipDuplicates: true });
 
+
+  // Adventure 806
+  const adventure806 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-806" },
+    update: {},
+    create: {
+      id: "seed-adventure-806",
+      title: "Australia Kimberley Coast Sailing",
+      description: `Sail the remote Kimberley coast of Western Australia — one of the last great wilderness coastlines on Earth — through horizontal waterfalls, 10-metre tidal ranges, sandstone gorges rising directly from the sea, and freshwater cascades accessible only by inflatable dinghy. The region supports the world's largest population of freshwater crocodiles and significant saltwater crocodile populations; swimming protocols are strict. Aboriginal rock art galleries in the Wandjina tradition date to over 17,000 years. The season is May to September only.`,
+      location: "Kimberley Coast, Western Australia",
+      country: "Western Australia",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -15.5,
+      longitude: 126,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["sailing"].id }, { id: allTags["australia"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure806.id }, { userId: user2.id, adventureId: adventure806.id }, { userId: user3.id, adventureId: adventure806.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
