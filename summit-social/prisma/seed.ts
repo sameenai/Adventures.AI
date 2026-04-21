@@ -26105,6 +26105,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure751.id }, { userId: user2.id, adventureId: adventure751.id }, { userId: user3.id, adventureId: adventure751.id }], skipDuplicates: true });
 
+
+  // Adventure 752
+  const adventure752 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-752" },
+    update: {},
+    create: {
+      id: "seed-adventure-752",
+      title: "Mekong Delta Cycling Vietnam",
+      description: `The Mekong Delta is a vast alluvial plain of river channels, rice paddies, and floating markets that feeds Vietnam with its agricultural abundance. Cycling the quiet back roads between Ben Tre, Vinh Long, and Can Tho through coconut groves, orchard islands, and traditional craft villages provides an intimate view of Vietnamese rural life at its most productive and peaceful. Floating market boat rides at dawn complete the delta experience.`,
+      location: "Mekong Delta, Vietnam",
+      country: "Vietnam",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Cai Rang floating market dawn river boat trade", "Ben Tre coconut candy factory traditional craft", "Vinh Long Phu Ninh orchard island stay", "Tra Su cajuput bird forest flooded canoe", "Chau Doc Cham Muslim floating fish farm"],
+      gear: ["Flat pedal bike Mekong road gentle flat", "Rain poncho afternoon delta shower season", "Sun hat delta heat flat no shade", "Cash dong local market floating vendor", "Insect repellent rice paddy evening mosquito"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 300,
+      latitude: 10.2,
+      longitude: 105.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure752.id }, { userId: user2.id, adventureId: adventure752.id }, { userId: user3.id, adventureId: adventure752.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
