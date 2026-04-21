@@ -89,6 +89,7 @@ const sampleAdventure = {
   difficulty: "MODERATE",
   durationDays: 10,
   voteCount: 5,
+  createdAt: new Date("2024-01-01T00:00:00.000Z"),
   userId: "user-1",
   published: true,
   coverImageUrl: "https://example.com/img.jpg",
@@ -125,7 +126,10 @@ describe("GET /api/adventures", () => {
     const data = await response.json();
 
     expect(data.items).toHaveLength(20);
-    expect(data.nextCursor).toBe("adv-19");
+    // cursor is now a compound keyset cursor (base64url-encoded JSON)
+    const decoded = JSON.parse(Buffer.from(data.nextCursor, "base64url").toString("utf8"));
+    expect(decoded.id).toBe("adv-19");
+    expect(typeof decoded.v).toBe("number");
   });
 
   it("returns 400 for invalid filter params", async () => {
@@ -156,7 +160,7 @@ describe("GET /api/adventures", () => {
     await getAdventures(makeRequest("http://localhost/api/adventures?sortBy=newest"));
 
     const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
-    expect(call.orderBy).toEqual({ createdAt: "desc" });
+    expect(call.orderBy).toEqual([{ createdAt: "desc" }, { id: "asc" }]);
   });
 
   it("orders by durationDays asc when sortBy=duration", async () => {
@@ -165,7 +169,7 @@ describe("GET /api/adventures", () => {
     await getAdventures(makeRequest("http://localhost/api/adventures?sortBy=duration"));
 
     const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
-    expect(call.orderBy).toEqual({ durationDays: "asc" });
+    expect(call.orderBy).toEqual([{ durationDays: "asc" }, { id: "asc" }]);
   });
 
   it.each([
@@ -196,14 +200,65 @@ describe("GET /api/adventures", () => {
     expect(call.where.OR[2]).toMatchObject({ location: { contains: "nepal", mode: "insensitive" } });
   });
 
-  it("passes cursor and skip to prisma when ?cursor= is provided", async () => {
+  it("applies keyset where condition for votes sort when ?cursor= is provided", async () => {
     (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
 
-    await getAdventures(makeRequest("http://localhost/api/adventures?cursor=adv-5"));
+    const cursorToken = Buffer.from(JSON.stringify({ v: 3, id: "adv-5" })).toString("base64url");
+    await getAdventures(makeRequest(`http://localhost/api/adventures?cursor=${cursorToken}`));
 
     const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
-    expect(call.cursor).toEqual({ id: "adv-5" });
-    expect(call.skip).toBe(1);
+    expect(call.cursor).toBeUndefined();
+    expect(call.skip).toBeUndefined();
+    expect(call.where.OR).toEqual([
+      { voteCount: { lt: 3 } },
+      { voteCount: 3, id: { gt: "adv-5" } },
+    ]);
+  });
+
+  it("applies keyset where condition for newest sort when ?cursor= is provided", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    const isoDate = "2024-06-01T12:00:00.000Z";
+    const cursorToken = Buffer.from(JSON.stringify({ c: isoDate, id: "adv-10" })).toString(
+      "base64url",
+    );
+    await getAdventures(
+      makeRequest(`http://localhost/api/adventures?sortBy=newest&cursor=${cursorToken}`),
+    );
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.cursor).toBeUndefined();
+    expect(call.skip).toBeUndefined();
+    expect(call.where.OR).toEqual([
+      { createdAt: { lt: new Date(isoDate) } },
+      { createdAt: new Date(isoDate), id: { gt: "adv-10" } },
+    ]);
+  });
+
+  it("applies keyset where condition for duration sort when ?cursor= is provided", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    const cursorToken = Buffer.from(JSON.stringify({ d: 7, id: "adv-20" })).toString("base64url");
+    await getAdventures(
+      makeRequest(`http://localhost/api/adventures?sortBy=duration&cursor=${cursorToken}`),
+    );
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.cursor).toBeUndefined();
+    expect(call.skip).toBeUndefined();
+    expect(call.where.OR).toEqual([
+      { durationDays: { gt: 7 } },
+      { durationDays: 7, id: { gt: "adv-20" } },
+    ]);
+  });
+
+  it("ignores malformed cursor and returns results without cursor where clause", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?cursor=not-valid-base64!!!"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.where.OR).toBeUndefined();
   });
 });
 

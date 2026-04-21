@@ -11,7 +11,12 @@ interface InfiniteAdventureGridProps {
   currentUserId?: string;
   votedAdventureIds: string[];
   bookmarkedAdventureIds: string[];
-  queryParams: Record<string, string | undefined>;
+  category?: string;
+  continent?: string;
+  difficulty?: string;
+  duration?: string;
+  search?: string;
+  sortBy?: string;
 }
 
 export function InfiniteAdventureGrid({
@@ -20,25 +25,39 @@ export function InfiniteAdventureGrid({
   currentUserId,
   votedAdventureIds,
   bookmarkedAdventureIds,
-  queryParams,
+  category,
+  continent,
+  difficulty,
+  duration,
+  search,
+  sortBy,
 }: InfiniteAdventureGridProps) {
   const votedSet = new Set(votedAdventureIds);
   const bookmarkedSet = new Set(bookmarkedAdventureIds);
 
+  // Individual primitives as deps so fetchFn only recreates when filter values
+  // actually change, not on every setItems re-render (which would cause
+  // sentinelRef to reconnect the IntersectionObserver and fire a duplicate fetch).
   const fetchFn = useCallback(
     async (cursor?: string) => {
       const params = new URLSearchParams();
-      for (const [k, v] of Object.entries(queryParams)) {
-        if (v) params.set(k, v);
-      }
+      if (category) params.set("category", category);
+      if (continent) params.set("continent", continent);
+      if (difficulty) params.set("difficulty", difficulty);
+      if (duration) params.set("duration", duration);
+      if (search) params.set("search", search);
+      if (sortBy) params.set("sortBy", sortBy);
       if (cursor) params.set("cursor", cursor);
       params.set("limit", "20");
 
       const res = await fetch(`/api/adventures?${params.toString()}`);
-      if (!res.ok) return { items: [], nextCursor: undefined };
+      if (!res.ok) {
+        console.error(`Failed to fetch adventures: ${res.status} ${res.statusText}`);
+        return { items: [], nextCursor: undefined };
+      }
       return res.json() as Promise<{ items: AdventureWithUser[]; nextCursor?: string }>;
     },
-    [queryParams],
+    [category, continent, difficulty, duration, search, sortBy],
   );
 
   const { items, loading, hasMore, sentinelRef } = useInfiniteScroll<AdventureWithUser>({

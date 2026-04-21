@@ -2,7 +2,9 @@ import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
+import { decodeCursor, encodeCursor } from "@/lib/pagination";
 import { adventureFilterSchema, createAdventureSchema } from "@/lib/validators/adventure";
+import type { Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -81,18 +83,49 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ items, nextCursor });
   }
 
+  // Build keyset WHERE condition from cursor so page boundaries are exact even
+  // when the primary sort field has ties.
+  //   votes:    (voteCount < v) OR (voteCount = v AND id > id)
+  //   newest:   (createdAt < c) OR (createdAt = c AND id > id)
+  //   duration: (durationDays > d) OR (durationDays = d AND id > id)
+  let cursorWhere: Prisma.AdventureWhereInput = {};
+  if (cursor) {
+    const decoded = decodeCursor(cursor);
+    if (decoded) {
+      if (sortBy === "newest" && "c" in decoded) {
+        const cursorDate = new Date(decoded.c);
+        cursorWhere = {
+          OR: [
+            { createdAt: { lt: cursorDate } },
+            { createdAt: cursorDate, id: { gt: decoded.id } },
+          ],
+        };
+      } else if (sortBy === "duration" && "d" in decoded) {
+        cursorWhere = {
+          OR: [
+            { durationDays: { gt: decoded.d } },
+            { durationDays: decoded.d, id: { gt: decoded.id } },
+          ],
+        };
+      } else if ("v" in decoded) {
+        cursorWhere = {
+          OR: [{ voteCount: { lt: decoded.v } }, { voteCount: decoded.v, id: { gt: decoded.id } }],
+        };
+      }
+    }
+  }
+
   const orderBy =
     sortBy === "newest"
-      ? { createdAt: "desc" as const }
+      ? [{ createdAt: "desc" as const }, { id: "asc" as const }]
       : sortBy === "duration"
-        ? { durationDays: "asc" as const }
-        : { voteCount: "desc" as const };
+        ? [{ durationDays: "asc" as const }, { id: "asc" as const }]
+        : [{ voteCount: "desc" as const }, { id: "asc" as const }];
 
   const adventures = await prisma.adventure.findMany({
-    where,
+    where: { ...where, ...cursorWhere },
     orderBy,
     take: limit + 1,
-    ...(cursor && { cursor: { id: cursor }, skip: 1 }),
     include: {
       user: { select: { id: true, name: true, avatarUrl: true } },
       tags: true,
@@ -102,7 +135,18 @@ export async function GET(request: NextRequest) {
 
   const hasMore = adventures.length > limit;
   const items = hasMore ? adventures.slice(0, limit) : adventures;
-  const nextCursor = hasMore ? items[items.length - 1].id : undefined;
+
+  let nextCursor: string | undefined;
+  if (hasMore) {
+    const last = items[items.length - 1];
+    if (sortBy === "newest") {
+      nextCursor = encodeCursor({ c: last.createdAt.toISOString(), id: last.id });
+    } else if (sortBy === "duration") {
+      nextCursor = encodeCursor({ d: last.durationDays, id: last.id });
+    } else {
+      nextCursor = encodeCursor({ v: last.voteCount, id: last.id });
+    }
+  }
 
   return NextResponse.json({ items, nextCursor });
 }

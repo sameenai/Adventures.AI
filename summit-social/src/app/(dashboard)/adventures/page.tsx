@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
 import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import { encodeCursor } from "@/lib/pagination";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -91,10 +92,10 @@ export default async function AdventuresPage({
           where,
           orderBy:
             sortBy === "newest"
-              ? { createdAt: "desc" as const }
+              ? [{ createdAt: "desc" as const }, { id: "asc" as const }]
               : sortBy === "duration"
-                ? { durationDays: "asc" as const }
-                : { voteCount: "desc" as const },
+                ? [{ durationDays: "asc" as const }, { id: "asc" as const }]
+                : [{ voteCount: "desc" as const }, { id: "asc" as const }],
           take: PAGE_SIZE + 1,
           include,
         }),
@@ -102,7 +103,18 @@ export default async function AdventuresPage({
 
   const hasMore = rawAdventures.length > PAGE_SIZE;
   const adventures = hasMore ? rawAdventures.slice(0, PAGE_SIZE) : rawAdventures;
-  const nextCursor = hasMore ? adventures[adventures.length - 1].id : undefined;
+
+  let nextCursor: string | undefined;
+  if (hasMore) {
+    const last = adventures[adventures.length - 1];
+    if (sortBy === "newest") {
+      nextCursor = encodeCursor({ c: last.createdAt.toISOString(), id: last.id });
+    } else if (sortBy === "duration") {
+      nextCursor = encodeCursor({ d: last.durationDays, id: last.id });
+    } else {
+      nextCursor = encodeCursor({ v: last.voteCount, id: last.id });
+    }
+  }
 
   let votedIds: string[] = [];
   let bookmarkedIds: string[] = [];
@@ -301,14 +313,12 @@ export default async function AdventuresPage({
             currentUserId={session?.user?.id}
             votedAdventureIds={votedIds}
             bookmarkedAdventureIds={bookmarkedIds}
-            queryParams={{
-              category: params.category,
-              continent: params.continent,
-              difficulty: params.difficulty,
-              duration: params.duration,
-              search: params.search,
-              sortBy: params.sortBy,
-            }}
+            category={params.category}
+            continent={params.continent}
+            difficulty={params.difficulty}
+            duration={params.duration}
+            search={params.search}
+            sortBy={params.sortBy}
           />
         </div>
       </div>

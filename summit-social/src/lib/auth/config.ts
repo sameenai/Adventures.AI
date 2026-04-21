@@ -1,12 +1,13 @@
 import { prisma } from "@/lib/db/prisma";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  // No database adapter: session.strategy is "jwt", which is fully self-contained.
+  // PrismaAdapter + CredentialsProvider + jwt strategy is unsupported in NextAuth v4
+  // and causes CLIENT_FETCH_ERROR on every session fetch.
   providers: [
     // Local dev login — works without any OAuth credentials.
     // Sign in with any email + password "dev".

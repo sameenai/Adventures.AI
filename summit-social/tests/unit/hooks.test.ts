@@ -305,7 +305,7 @@ describe("useInfiniteScroll", () => {
   it("initialises with provided items", () => {
     const fetchFn = vi.fn();
     const { result } = renderHook(() =>
-      useInfiniteScroll({ fetchFn, initialItems: [{ id: 1 }, { id: 2 }], initialCursor: "cursor-1" }),
+      useInfiniteScroll({ fetchFn, initialItems: [{ id: "1" }, { id: "2" }], initialCursor: "cursor-1" }),
     );
     expect(result.current.items).toHaveLength(2);
     expect(result.current.loading).toBe(false);
@@ -321,12 +321,12 @@ describe("useInfiniteScroll", () => {
   it("loads more items on loadMore call", async () => {
     const fetchFn = vi
       .fn()
-      .mockResolvedValueOnce({ items: [{ id: 3 }, { id: 4 }], nextCursor: "cursor-2" });
+      .mockResolvedValueOnce({ items: [{ id: "3" }, { id: "4" }], nextCursor: "cursor-2" });
 
     const { result } = renderHook(() =>
       useInfiniteScroll({
         fetchFn,
-        initialItems: [{ id: 1 }, { id: 2 }],
+        initialItems: [{ id: "1" }, { id: "2" }],
         initialCursor: "cursor-1",
       }),
     );
@@ -340,7 +340,7 @@ describe("useInfiniteScroll", () => {
   });
 
   it("sets hasMore=false when no nextCursor returned", async () => {
-    const fetchFn = vi.fn().mockResolvedValueOnce({ items: [{ id: 5 }], nextCursor: undefined });
+    const fetchFn = vi.fn().mockResolvedValueOnce({ items: [{ id: "5" }], nextCursor: undefined });
 
     const { result } = renderHook(() => useInfiniteScroll({ fetchFn }));
 
@@ -427,7 +427,7 @@ describe("useInfiniteScroll", () => {
     }
     vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
 
-    const fetchFn = vi.fn().mockResolvedValue({ items: [{ id: 99 }], nextCursor: undefined });
+    const fetchFn = vi.fn().mockResolvedValue({ items: [{ id: "99" }], nextCursor: undefined });
     const { result, unmount } = renderHook(() => useInfiniteScroll({ fetchFn, initialCursor: "cursor-1" }));
 
     const node = document.createElement("div");
@@ -467,6 +467,60 @@ describe("useInfiniteScroll", () => {
 
     expect(mockDisconnect).toHaveBeenCalledTimes(1);
     vi.unstubAllGlobals();
+  });
+
+  it("filters duplicate IDs returned by the server", async () => {
+    // Server may return an item whose ID already exists in the local list
+    // (e.g. page boundary moved between requests). The duplicate must be dropped.
+    const fetchFn = vi
+      .fn()
+      .mockResolvedValueOnce({ items: [{ id: "2" }, { id: "3" }], nextCursor: undefined });
+
+    const { result } = renderHook(() =>
+      useInfiniteScroll({
+        fetchFn,
+        initialItems: [{ id: "1" }, { id: "2" }],
+        initialCursor: "cursor-1",
+      }),
+    );
+
+    await act(async () => {
+      await result.current.loadMore();
+    });
+
+    // id "2" already existed — only id "3" should be appended
+    expect(result.current.items).toHaveLength(3);
+    expect(result.current.items.map((i) => i.id)).toEqual(["1", "2", "3"]);
+  });
+
+  it("in-flight guard prevents concurrent fetches for the same cursor", async () => {
+    let resolveFirst!: (value: { items: { id: string }[]; nextCursor: undefined }) => void;
+    const firstCallPromise = new Promise<{ items: { id: string }[]; nextCursor: undefined }>(
+      (res) => {
+        resolveFirst = res;
+      },
+    );
+    const fetchFn = vi.fn().mockReturnValueOnce(firstCallPromise);
+
+    const { result } = renderHook(() =>
+      useInfiniteScroll({ fetchFn, initialCursor: "cursor-1" }),
+    );
+
+    // Kick off first load without awaiting
+    act(() => {
+      result.current.loadMore();
+    });
+
+    // Immediately attempt a second load with the same cursor — should be blocked
+    await act(async () => {
+      await result.current.loadMore();
+    });
+
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+
+    // Resolve the first call so the hook settles cleanly
+    resolveFirst({ items: [{ id: "10" }], nextCursor: undefined });
+    await waitFor(() => expect(result.current.loading).toBe(false));
   });
 
   it("sentinelRef does nothing when called with null", () => {
