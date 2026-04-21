@@ -25955,6 +25955,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure746.id }, { userId: user2.id, adventureId: adventure746.id }, { userId: user3.id, adventureId: adventure746.id }], skipDuplicates: true });
 
+
+  // Adventure 747
+  const adventure747 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-747" },
+    update: {},
+    create: {
+      id: "seed-adventure-747",
+      title: "Kazakhstan Charyn Canyon Trek",
+      description: `Charyn Canyon is Kazakhstan's answer to the Grand Canyon, a 80-kilometre ravine carved by the Charyn River through ancient red sandstone 200 kilometres east of Almaty. The Valley of Castles section concentrates the most dramatic sculpted formations in a 2-kilometre walkable section, while multi-day trekking through the canyon system to the river downstream reveals a geological gallery carved over 12 million years.`,
+      location: "Almaty Region, Kazakhstan",
+      country: "Kazakhstan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Valley of Castles sandstone formation gallery", "Charyn River canyon floor desert oasis", "Ash Grove ancient Sogdian poplar forest unique", "Tian Shan mountain backdrop canyon edge view", "Canyon sunrise red rock orange shadow play"],
+      gear: ["Water 4L canyon floor no source summer", "Sun protection Kazakhstan steppe UV intense", "Sturdy boots rocky canyon floor navigation", "Permit system Almaty Charyn Canyon park", "Warm layers canyon night temperature drop"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 300,
+      latitude: 43.35,
+      longitude: 79.08,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure747.id }, { userId: user2.id, adventureId: adventure747.id }, { userId: user3.id, adventureId: adventure747.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
