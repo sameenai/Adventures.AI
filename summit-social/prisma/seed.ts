@@ -29165,6 +29165,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure853.id }, { userId: user2.id, adventureId: adventure853.id }], skipDuplicates: true });
 
+
+  // Adventure 854
+  const adventure854 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-854" },
+    update: {},
+    create: {
+      id: "seed-adventure-854",
+      title: "Peru Tambopata Amazon Canopy Expedition",
+      description: `Explore the Tambopata National Reserve — one of the most biodiverse corners of the Amazon basin, bordering Bolivia in southeast Peru — by canoe through oxbow lakes watching giant otters, and via canopy towers above the rainforest canopy where macaw clay licks draw hundreds of birds simultaneously at dawn. The Colpa Colorado macaw clay lick is one of the most spectacular wildlife sights in South America. Lodges operate guided night walks, caiman spotting by lamp, and piranha fishing on the Tambopata River. A 2-hour flight from Cusco.`,
+      location: "Tambopata, Madre de Dios, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -12.8,
+      longitude: -69.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["kayaking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure854.id }, { userId: user2.id, adventureId: adventure854.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
