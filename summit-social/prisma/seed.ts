@@ -24245,6 +24245,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure689.id }, { userId: user2.id, adventureId: adventure689.id }, { userId: user3.id, adventureId: adventure689.id }], skipDuplicates: true });
 
+
+  // Adventure 690
+  const adventure690 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-690" },
+    update: {},
+    create: {
+      id: "seed-adventure-690",
+      title: "Nepal Api Base Camp Trek",
+      description: `Api Mountain at 7132m in Nepal's far western Mahakali zone is one of the least visited Himalayan peaks, and the approach to its base camp is one of the most remote Himalayan treks accessible to ordinary trekkers. The route passes through Saipal Forest, Kailash highland meadows, and a landscape of Khas, Bhotia, and Humla cultures that preserve medieval Himalayan traditions unchanged. This is Nepal's final frontier for serious trekkers.`,
+      location: "Far Western Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Api 7132m far west Nepal rarely visited base", "Mahakali zone remote Nepal frontier culture", "Saipal forest ancient jungle Nepal west", "Bhotia village Himalayan culture medieval", "Days from road far west Nepal isolation"],
+      gear: ["Unreliable trail maps navigate carefully", "Full self-sufficiency 12-day remote section", "High altitude sleeping bag minus 20", "Guide mandatory remote western Nepal", "Flight Nepalgunj far west access point"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 3000,
+      latitude: 30,
+      longitude: 80.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure690.id }, { userId: user2.id, adventureId: adventure690.id }, { userId: user3.id, adventureId: adventure690.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
