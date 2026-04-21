@@ -2,32 +2,12 @@ import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
+import { decodeCursor, encodeCursor } from "@/lib/pagination";
 import { adventureFilterSchema, createAdventureSchema } from "@/lib/validators/adventure";
+import type { Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-
-// Keyset cursor helpers — encode/decode a compound {sort-value, id} position so
-// pagination is stable even when the primary sort field (voteCount, durationDays,
-// createdAt) has ties. Prisma's built-in cursor: { id } mechanism requires it to
-// look up the cursor row's sort-field value internally, which is unreliable with
-// compound orderBy; explicit WHERE conditions are always correct.
-type CursorPayload =
-  | { v: number; id: string } // votes sort
-  | { c: string; id: string } // newest sort  (createdAt ISO)
-  | { d: number; id: string }; // duration sort
-
-function encodeCursor(payload: CursorPayload): string {
-  return Buffer.from(JSON.stringify(payload)).toString("base64url");
-}
-
-function decodeCursor(cursor: string): CursorPayload | null {
-  try {
-    return JSON.parse(Buffer.from(cursor, "base64url").toString("utf8")) as CursorPayload;
-  } catch {
-    return null;
-  }
-}
 
 export async function GET(request: NextRequest) {
   const searchParams = Object.fromEntries(request.nextUrl.searchParams);
@@ -108,7 +88,7 @@ export async function GET(request: NextRequest) {
   //   votes:    (voteCount < v) OR (voteCount = v AND id > id)
   //   newest:   (createdAt < c) OR (createdAt = c AND id > id)
   //   duration: (durationDays > d) OR (durationDays = d AND id > id)
-  let cursorWhere: object = {};
+  let cursorWhere: Prisma.AdventureWhereInput = {};
   if (cursor) {
     const decoded = decodeCursor(cursor);
     if (decoded) {

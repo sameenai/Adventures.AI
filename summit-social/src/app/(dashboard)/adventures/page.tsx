@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
 import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import { encodeCursor } from "@/lib/pagination";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -107,17 +108,11 @@ export default async function AdventuresPage({
   if (hasMore) {
     const last = adventures[adventures.length - 1];
     if (sortBy === "newest") {
-      nextCursor = Buffer.from(
-        JSON.stringify({ c: last.createdAt.toISOString(), id: last.id }),
-      ).toString("base64url");
+      nextCursor = encodeCursor({ c: last.createdAt.toISOString(), id: last.id });
     } else if (sortBy === "duration") {
-      nextCursor = Buffer.from(JSON.stringify({ d: last.durationDays, id: last.id })).toString(
-        "base64url",
-      );
+      nextCursor = encodeCursor({ d: last.durationDays, id: last.id });
     } else {
-      nextCursor = Buffer.from(JSON.stringify({ v: last.voteCount, id: last.id })).toString(
-        "base64url",
-      );
+      nextCursor = encodeCursor({ v: last.voteCount, id: last.id });
     }
   }
 
