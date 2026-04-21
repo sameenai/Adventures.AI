@@ -19714,6 +19714,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure538.id }, { userId: user2.id, adventureId: adventure538.id }, { userId: user3.id, adventureId: adventure538.id }], skipDuplicates: true });
 
+
+  // Adventure 539
+  const adventure539 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-539" },
+    update: {},
+    create: {
+      id: "seed-adventure-539",
+      title: "Antarctica South Georgia Expedition",
+      description: `South Georgia Island is the greatest concentration of wildlife on the planet, with half a million king penguins breeding at St Andrews Bay and elephant seal beaches numbering in the thousands. The crossing of South Georgia's glaciated spine following Shackleton's desperate survival march is a mountaineering pilgrimage combining polar wilderness with one of history's greatest stories of human endurance.`,
+      location: "South Georgia Island",
+      country: "South Georgia",
+      continent: "Antarctica",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["King penguin 500000 breeding St Andrews Bay", "Shackleton crossing glaciated spine mountaineering", "Elephant seal bull beach harem bellowing", "Albatross wandering 3m wingspan sailing overhead", "Grytviken Shackleton grave whisky tribute toast"],
+      gear: ["Expedition parka ship provided polar", "Crampons ice axe Shackleton route", "Seasickness medication Drake strong", "Waterproof camera extreme cold condensation", "Zodiac landing rubber boots ship issue"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 10000,
+      latitude: -54.28,
+      longitude: -36.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 12,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure539.id }, { userId: user2.id, adventureId: adventure539.id }, { userId: user3.id, adventureId: adventure539.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
