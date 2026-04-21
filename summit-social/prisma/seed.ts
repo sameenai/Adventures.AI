@@ -27035,6 +27035,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure782.id }, { userId: user2.id, adventureId: adventure782.id }, { userId: user3.id, adventureId: adventure782.id }], skipDuplicates: true });
 
+
+  // Adventure 783
+  const adventure783 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-783" },
+    update: {},
+    create: {
+      id: "seed-adventure-783",
+      title: "Austrian Alps Via Ferrata Circuit",
+      description: `The Dachstein and Gesause regions of Austria contain some of the finest via ferrata in the Alps — iron rungs, cables, and ladders bolted into vertical limestone faces originally installed for wartime military operations. The Intersport Klettersteig on the Donnerkogel is among the most exposed in Europe, crossing a near-horizontal cable traverse above 1,200 m of void. A harness, via ferrata set, and helmet are required; no prior climbing experience is needed but a good head for heights is essential.`,
+      location: "Styria, Austria",
+      country: "Austria",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 47.5,
+      longitude: 14.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["via-ferrata"].id }, { id: allTags["alpine"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["scrambling"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure783.id }, { userId: user2.id, adventureId: adventure783.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
