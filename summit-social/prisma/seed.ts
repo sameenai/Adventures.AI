@@ -33515,6 +33515,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure998.id }, { userId: user2.id, adventureId: adventure998.id }], skipDuplicates: true });
 
+
+  // Adventure 999
+  const adventure999 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-999" },
+    update: {},
+    create: {
+      id: "seed-adventure-999",
+      title: "Nepal Everest Base Camp Trek",
+      description: `Follow the Sherpa trade route from Lukla to Everest Base Camp at 5,364 m — the world's most famous trek, passing through the Khumbu icefall below the summit of the world's highest mountain. The 12-14 day journey from Lukla ascends through pine and rhododendron forest, past Tengboche Monastery and its backdrop of Ama Dablam, through the Khumbu valley to the Base Camp moraines where expedition tents cluster in late April and May. Kala Patthar (5,545 m) provides the best viewpoint of Everest's summit pyramid. The teahouse infrastructure is excellent.`,
+      location: "Khumbu, Solukhumbu District, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 1000,
+      latitude: 27.99,
+      longitude: 86.93,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["bucket-list"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure999.id }, { userId: user2.id, adventureId: adventure999.id }, { userId: user3.id, adventureId: adventure999.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
