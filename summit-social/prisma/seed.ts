@@ -31325,6 +31325,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure925.id }, { userId: user2.id, adventureId: adventure925.id }], skipDuplicates: true });
 
+
+  // Adventure 926
+  const adventure926 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-926" },
+    update: {},
+    create: {
+      id: "seed-adventure-926",
+      title: "Kenya Maasai Mara Walking Safari",
+      description: `Walk with Maasai guides across the Mara ecosystem — the northern extension of the Serengeti — on a foot safari that puts you at ground level with the landscape that vehicle-based tourists see only through glass. The Great Migration (July-September) brings 1.5 million wildebeest and zebra across the Mara River in dramatic crossings; walking in the conservancies surrounding the main reserve allows access to areas otherwise off-limits. Maasai cultural visits to bomas (homesteads) and engagement with traditional cattle herding provide context that game drives cannot.`,
+      location: "Maasai Mara Conservancy, Narok County, Kenya",
+      country: "Kenya",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -1.5,
+      longitude: 35.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure926.id }, { userId: user2.id, adventureId: adventure926.id }, { userId: user3.id, adventureId: adventure926.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
