@@ -29495,6 +29495,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure864.id }, { userId: user2.id, adventureId: adventure864.id }], skipDuplicates: true });
 
+
+  // Adventure 865
+  const adventure865 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-865" },
+    update: {},
+    create: {
+      id: "seed-adventure-865",
+      title: "Iceland Vatnajokull Glacier Ski Traverse",
+      description: `Traverse Vatnajokull — Europe's largest glacier, covering 8% of Iceland's surface area — on cross-country skis over 5-7 days from the glacial outlet at Skaftafell to Egilsstadir in the east. The flat central plateau at 1,800 m is a featureless white expanse navigated by GPS; visibility can drop to zero in any month. Below the plateau, outlet glaciers descend through icefalls and crevasse fields requiring rope team techniques and crevasse rescue preparedness. An expedition of genuine seriousness that rewards with complete Arctic solitude and views of Grimsvotn volcano's steam plume.`,
+      location: "Vatnajokull, South Iceland",
+      country: "South Iceland",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5],
+      estimatedCost: 1000,
+      latitude: 64.4,
+      longitude: -16.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["skiing"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure865.id }, { userId: user2.id, adventureId: adventure865.id }, { userId: user3.id, adventureId: adventure865.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
