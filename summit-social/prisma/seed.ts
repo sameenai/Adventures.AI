@@ -22204,6 +22204,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure621.id }, { userId: user2.id, adventureId: adventure621.id }, { userId: user3.id, adventureId: adventure621.id }], skipDuplicates: true });
 
+
+  // Adventure 622
+  const adventure622 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-622" },
+    update: {},
+    create: {
+      id: "seed-adventure-622",
+      title: "South Africa Drakensberg Traverse",
+      description: `The Drakensberg Escarpment forms the great wall between South Africa and Lesotho, with basalt cliffs rising 1000 metres from the KwaZulu-Natal foothills. The Grand Traverse follows the entire escarpment from Cathedral Peak to the Royal Natal national park through a landscape of San bushman rock art in cave shelters, open plateau hiking, and endemic Drakensberg birding including the lammergeier bearded vulture.`,
+      location: "Drakensberg, KwaZulu-Natal",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Drakensberg Grand Traverse escarpment route", "San bushman rock art painted cave shelters", "Lammergeier bearded vulture endemic raptor", "Amphitheatre Tugela Falls 948m world top five", "Sentinel Peak plateau hike chain ascent"],
+      gear: ["Chain ascent Sentinel Peak fixed chain", "Lightning danger Drakensberg afternoon storm", "Water filter plateau spring reliable", "Permit ezemvelo KZN Wildlife book advance", "Warm layers high plateau cold nights 3000m"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 700,
+      latitude: -28.69,
+      longitude: 29.24,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["africa"].id }, { id: allTags["multi-day"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure622.id }, { userId: user2.id, adventureId: adventure622.id }, { userId: user3.id, adventureId: adventure622.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
