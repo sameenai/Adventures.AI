@@ -21904,6 +21904,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure611.id }, { userId: user2.id, adventureId: adventure611.id }, { userId: user3.id, adventureId: adventure611.id }], skipDuplicates: true });
 
+
+  // Adventure 612
+  const adventure612 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-612" },
+    update: {},
+    create: {
+      id: "seed-adventure-612",
+      title: "Peru Amazon Headwaters Kayak",
+      description: `The Madre de Dios River system in southeastern Peru drains into the Amazon through Manu National Park, one of the most biodiverse protected areas on earth. Multi-day canoe journeys through Manu's core zone provide access to giant otter lakes, macaw clay licks, and tapir river beaches that define the Amazon's remaining pristine heartlands. Night patrols for caiman and black kayaking through flooded forest complete the Amazon immersion.`,
+      location: "Madre de Dios, Peru",
+      country: "Peru",
+      continent: "South America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Giant otter lake Manu core zone colony", "Macaw clay lick hundreds simultaneous", "Tapir river beach morning sighting", "Night caiman spotlight river count", "Manu National Park UNESCO pristine core"],
+      gear: ["Manu permit advance Lima application", "Yellow fever vaccination mandatory Peru", "Malaria prophylaxis Madre de Dios", "Rubber boots lodge issue jungle standard", "Camera waterproof river canoe splash"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: -12.7,
+      longitude: -71.4,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure612.id }, { userId: user2.id, adventureId: adventure612.id }, { userId: user3.id, adventureId: adventure612.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
