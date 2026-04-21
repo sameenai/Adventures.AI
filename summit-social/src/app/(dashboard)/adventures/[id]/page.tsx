@@ -197,6 +197,11 @@ export default async function AdventureDetailPage({ params }: Props) {
   const relatedAdventures = related.slice(0, 4);
   const isBookmarked = !!isBookmarkedResult;
 
+  // Total comment count includes top-level comments and all their replies
+  const totalCommentCount =
+    adventure.comments.length +
+    adventure.comments.reduce((sum, c) => sum + (c.replies?.length ?? 0), 0);
+
   const markers =
     adventure.latitude && adventure.longitude
       ? [{ lat: adventure.latitude, lng: adventure.longitude, label: adventure.location }]
@@ -347,7 +352,7 @@ export default async function AdventureDetailPage({ params }: Props) {
           {/* Comments */}
           <section>
             <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
-              {pluralise(adventure.comments.length, "Comment")}
+              {pluralise(totalCommentCount, "Comment")}
             </h2>
             {session?.user?.id ? (
               <div className="mb-6">
