@@ -32855,6 +32855,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure976.id }, { userId: user2.id, adventureId: adventure976.id }, { userId: user3.id, adventureId: adventure976.id }], skipDuplicates: true });
 
+
+  // Adventure 977
+  const adventure977 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-977" },
+    update: {},
+    create: {
+      id: "seed-adventure-977",
+      title: "Nepal Tsum Valley Hidden Trek",
+      description: `Trek through the Tsum Valley — a sacred Tibetan Buddhist pilgrimage valley in the Gorkha district of Nepal that remained closed to foreigners until 2008 and still requires a special permit — through Nubri and Tsum communities whose language, dress, and culture retain an intact pre-modern Tibetan character almost entirely lost across the border. The route visits the Milarepa cave monastery at Rachen Gompa and the high meadows above the Nepal-Tibet border. Round trip from Arughat takes 18-22 days; teahouses along the route have improved significantly since opening.`,
+      location: "Gorkha District, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 28.7,
+      longitude: 84.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure977.id }, { userId: user2.id, adventureId: adventure977.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
