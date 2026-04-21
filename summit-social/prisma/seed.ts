@@ -30545,6 +30545,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure899.id }, { userId: user2.id, adventureId: adventure899.id }, { userId: user3.id, adventureId: adventure899.id }], skipDuplicates: true });
 
+
+  // Adventure 900
+  const adventure900 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-900" },
+    update: {},
+    create: {
+      id: "seed-adventure-900",
+      title: "Pakistan Baltoro Glacier Trek to K2 Base Camp",
+      description: `Trek the Baltoro Glacier to K2 Base Camp (5,150 m) — a 15-day return journey through the greatest concentration of 8,000 m peaks on Earth: K2, Broad Peak, the Gasherbrums, and Masherbrum are all visible from the Concordia amphitheatre where the glacier meets the Godwin-Austen icefall. The approach from Skardu to Askole and then on foot requires crossing glacial rivers, camping on moraine rubble, and gaining altitude steadily through the world's largest non-polar glaciated region. One of the defining trekking experiences on Earth.`,
+      location: "Baltoro Glacier, Gilgit-Baltistan, Pakistan",
+      country: "Pakistan",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 35.8,
+      longitude: 76.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["glacier"].id }, { id: allTags["high-altitude"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure900.id }, { userId: user2.id, adventureId: adventure900.id }, { userId: user3.id, adventureId: adventure900.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
