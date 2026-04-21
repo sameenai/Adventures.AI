@@ -109,15 +109,23 @@ export default async function AdventureDetailPage({ params }: Props) {
     })),
   }));
 
-  const [isBookmarkedResult, relatedAdventures] = await Promise.all([
+  const tagNames = adventure.tags.map((t) => t.name);
+
+  const [isBookmarkedResult, relatedBySameContinent, relatedByCategory] = await Promise.all([
     session?.user?.id
       ? prisma.bookmark.findUnique({
           where: { userId_adventureId: { userId: session.user.id, adventureId: id } },
           select: { id: true },
         })
       : Promise.resolve(null),
+    // First preference: same category + same continent (tightest match)
     prisma.adventure.findMany({
-      where: { published: true, category: adventure.category, id: { not: id } },
+      where: {
+        published: true,
+        category: adventure.category,
+        continent: adventure.continent,
+        id: { not: id },
+      },
       orderBy: { voteCount: "desc" },
       take: 4,
       select: {
@@ -127,9 +135,66 @@ export default async function AdventureDetailPage({ params }: Props) {
         location: true,
         difficulty: true,
         durationDays: true,
+        tags: { select: { name: true } },
+      },
+    }),
+    // Fallback: same category globally, used if not enough continent matches
+    prisma.adventure.findMany({
+      where: { published: true, category: adventure.category, id: { not: id } },
+      orderBy: { voteCount: "desc" },
+      take: 8,
+      select: {
+        id: true,
+        title: true,
+        coverImageUrl: true,
+        location: true,
+        difficulty: true,
+        durationDays: true,
+        tags: { select: { name: true } },
       },
     }),
   ]);
+
+  // Build related list: continent matches first, then fill with tag-overlap
+  // adventures from the wider category pool, de-duplicated, capped at 4.
+  const seenIds = new Set<string>([id]);
+  const related: typeof relatedByCategory = [];
+
+  for (const a of relatedBySameContinent) {
+    if (seenIds.has(a.id)) continue;
+    seenIds.add(a.id);
+    related.push(a);
+    if (related.length === 4) break;
+  }
+
+  if (related.length < 4 && tagNames.length > 0) {
+    // Sort remaining candidates by tag overlap (descending), then voteCount
+    const withOverlap = relatedByCategory
+      .filter((a) => !seenIds.has(a.id))
+      .map((a) => ({
+        ...a,
+        overlap: "tags" in a ? a.tags.filter((t) => tagNames.includes(t.name)).length : 0,
+      }))
+      .sort((a, b) => b.overlap - a.overlap);
+
+    for (const a of withOverlap) {
+      if (seenIds.has(a.id)) continue;
+      seenIds.add(a.id);
+      related.push(a);
+      if (related.length === 4) break;
+    }
+  }
+
+  if (related.length < 4) {
+    for (const a of relatedByCategory) {
+      if (seenIds.has(a.id)) continue;
+      seenIds.add(a.id);
+      related.push(a);
+      if (related.length === 4) break;
+    }
+  }
+
+  const relatedAdventures = related.slice(0, 4);
   const isBookmarked = !!isBookmarkedResult;
 
   const markers =
