@@ -31295,6 +31295,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure924.id }, { userId: user2.id, adventureId: adventure924.id }], skipDuplicates: true });
 
+
+  // Adventure 925
+  const adventure925 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-925" },
+    update: {},
+    create: {
+      id: "seed-adventure-925",
+      title: "Bolivia Yungas Death Road Mountain Bike",
+      description: `Ride the North Yungas Road from La Cumbre pass (4,650 m) to Coroico (1,200 m) — once the world's most dangerous road, now the world's most famous mountain bike descent. The 64 km route drops 3,400 m in vertical elevation through fog-shrouded cloud forest on a narrow unpaved track carved into cliffs above 600 m drops. Commercial operators provide quality mountain bikes, full-face helmets, and support vehicles following each group. The road surface is loose gravel and clay in places; the speed of descent is rider-controlled. An extraordinary natural environment compressed into half a day's riding.`,
+      location: "Yungas Road, La Paz Department, Bolivia",
+      country: "Bolivia",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -16.2,
+      longitude: -67.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["jungle"].id }, { id: allTags["road-trip"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure925.id }, { userId: user2.id, adventureId: adventure925.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
