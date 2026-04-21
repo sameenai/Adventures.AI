@@ -20104,6 +20104,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure551.id }, { userId: user2.id, adventureId: adventure551.id }, { userId: user3.id, adventureId: adventure551.id }], skipDuplicates: true });
 
+
+  // Adventure 552
+  const adventure552 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-552" },
+    update: {},
+    create: {
+      id: "seed-adventure-552",
+      title: "Ethiopia Omo Valley Cultural Trek",
+      description: `The Omo Valley is one of the last places where traditional tribal cultures survive largely intact, with Mursi lip-plate women, Hamar bull-jumping ceremonies, and Karo body painting creating a living museum of human cultural diversity. Walking between villages with local guides provides access that vehicle tourists never experience, and the Omo River itself offers canoe journeys through crocodile habitat.`,
+      location: "Omo Valley, Ethiopia",
+      country: "Ethiopia",
+      continent: "Africa",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mursi tribe lip-plate traditional appearance", "Hamar bull-jumping coming-of-age ceremony", "Karo village body art chalk ochre design", "Omo River crocodile canoe journey", "Turmi Monday market tribal gathering"],
+      gear: ["Ethiopian guide cultural sensitivity essential", "Donation payment fair photo tradition", "Malaria prophylaxis remote Omo region", "4WD transport village road condition", "Cash birr only no card remote"],
+      bestMonths: [9, 10, 11, 12, 1],
+      estimatedCost: 1500,
+      latitude: 5.65,
+      longitude: 36.12,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }, { id: allTags["hiking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure552.id }, { userId: user2.id, adventureId: adventure552.id }, { userId: user3.id, adventureId: adventure552.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
