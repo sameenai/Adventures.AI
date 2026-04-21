@@ -25505,6 +25505,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure731.id }, { userId: user2.id, adventureId: adventure731.id }, { userId: user3.id, adventureId: adventure731.id }], skipDuplicates: true });
 
+
+  // Adventure 732
+  const adventure732 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-732" },
+    update: {},
+    create: {
+      id: "seed-adventure-732",
+      title: "Finland Arctic Canoe Expedition",
+      description: `Canoeing the Ounasjoki and Lemmenjoki rivers of Finnish Lapland provides a silent water-level perspective on the boreal wilderness and subarctic landscape. The Lemmenjoki National Park river route passes through the largest national park in Finland and the largest wilderness area in Western Europe, where reindeer herds cross rivers and ospreys nest above white water sections. Midnight sun canoeing in June extends the day beyond any normal rhythm.`,
+      location: "Lapland, Finland",
+      country: "Finland",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Lemmenjoki largest wilderness Western Europe", "Midnight sun canoeing 24-hour daylight June", "Reindeer herd river crossing ahead canoe", "Gold panning Lemmenjoki traditional prospectors", "Sami reindeer culture river cultural meeting"],
+      gear: ["Open canoe Finnish wilderness touring", "Portage wheels river section rapids bypass", "Mosquito protection Finnish summer absolute", "Tent lightweight arctic summer weight", "Water filter Finnish wilderness spring clean"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 68.5,
+      longitude: 26.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["midnight-sun"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure732.id }, { userId: user2.id, adventureId: adventure732.id }, { userId: user3.id, adventureId: adventure732.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
