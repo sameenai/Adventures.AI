@@ -33395,6 +33395,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure994.id }, { userId: user2.id, adventureId: adventure994.id }, { userId: user3.id, adventureId: adventure994.id }], skipDuplicates: true });
 
+
+  // Adventure 995
+  const adventure995 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-995" },
+    update: {},
+    create: {
+      id: "seed-adventure-995",
+      title: "Bolivia Potosi Silver Mine and Altiplano Trek",
+      description: `Visit the Cerro Rico silver mine of Potosi — 4,090 m above sea level, the site of the colonial silver extraction that financed the Spanish Empire for 200 years and killed an estimated 8 million miners — then trek across the surrounding altiplano through Inca highways and 17th-century colonial waymarkers to the thermal baths of Uyuni. The mine is still active; tours enter with miners who continue to work the same tunnels. The altiplano hiking above 4,000 m is otherworldly: thin air, vast views, and llama caravans on unpaved tracks.`,
+      location: "Potosi Department, Bolivia",
+      country: "Bolivia",
+      continent: "Unknown",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -19.6,
+      longitude: -65.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["high-altitude"].id }, { id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure995.id }, { userId: user2.id, adventureId: adventure995.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
