@@ -21784,6 +21784,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure607.id }, { userId: user2.id, adventureId: adventure607.id }, { userId: user3.id, adventureId: adventure607.id }], skipDuplicates: true });
 
+
+  // Adventure 608
+  const adventure608 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-608" },
+    update: {},
+    create: {
+      id: "seed-adventure-608",
+      title: "Norway Preikestolen Hike",
+      description: `Pulpit Rock is a flat-topped cliff rising 604 metres above the Lysefjord in Norway, one of the most dramatic natural viewpoints in Europe. The 8-kilometre round trip hike gains 330m through birch forest and rocky plateau to a summit overlooking the fjord in both directions. The Kjeragbolten rock wedged in a crevasse above a 1000-metre drop is accessible on a more challenging trail nearby for those seeking the ultimate vertiginous photograph.`,
+      location: "Rogaland, Norway",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Pulpit Rock 604m vertical Lysefjord cliff drop", "Kjeragbolten boulder wedged 1000m drop stand", "Lysefjord cruise water approach alternative", "Stavanger Viking heritage city fjord base", "Early morning crowd-free sunrise photography"],
+      gear: ["Sturdy boots wet rock slippery surface", "Wind jacket fjord wind exposed plateau", "Pre-dawn start crowd avoidance strategy", "Rain gear Norwegian reliable morning precipitation", "Trekking poles steep descent steps"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 400,
+      latitude: 58.99,
+      longitude: 6.19,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure608.id }, { userId: user2.id, adventureId: adventure608.id }, { userId: user3.id, adventureId: adventure608.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
