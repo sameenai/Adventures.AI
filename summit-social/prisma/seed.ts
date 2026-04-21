@@ -33335,6 +33335,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure992.id }, { userId: user2.id, adventureId: adventure992.id }], skipDuplicates: true });
 
+
+  // Adventure 993
+  const adventure993 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-993" },
+    update: {},
+    create: {
+      id: "seed-adventure-993",
+      title: "Portugal Madeira Levada Walking",
+      description: `Walk the levada network of Madeira — a 2,500 km system of ancient irrigation channels carved into the island's cliff faces and through laurisilva cloud forest, maintained since the 15th century — on paths that follow water at gradients of 1:1000 through tunnels, over aqueducts, and along cliff ledges above the Atlantic 1,000 m below. The Levada do Norte and Levada do Caldeirão Verde provide the most dramatic sections; the PR1 Pico do Areeiro to Pico Ruivo route is Madeira's finest mountain walk. All-year destination with mild temperatures.`,
+      location: "Madeira Island, Portugal",
+      country: "Portugal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      estimatedCost: 1000,
+      latitude: 32.7,
+      longitude: -17,
+      published: true,
+      userId: user1.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["island"].id }, { id: allTags["europe"].id }, { id: allTags["coastal"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure993.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
