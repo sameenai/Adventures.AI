@@ -15,6 +15,7 @@ interface InfiniteAdventureGridProps {
   continent?: string;
   difficulty?: string;
   duration?: string;
+  month?: string;
   search?: string;
   sortBy?: string;
 }
@@ -29,6 +30,7 @@ export function InfiniteAdventureGrid({
   continent,
   difficulty,
   duration,
+  month,
   search,
   sortBy,
 }: InfiniteAdventureGridProps) {
@@ -45,6 +47,7 @@ export function InfiniteAdventureGrid({
       if (continent) params.set("continent", continent);
       if (difficulty) params.set("difficulty", difficulty);
       if (duration) params.set("duration", duration);
+      if (month) params.set("month", month);
       if (search) params.set("search", search);
       if (sortBy) params.set("sortBy", sortBy);
       if (cursor) params.set("cursor", cursor);
@@ -57,7 +60,7 @@ export function InfiniteAdventureGrid({
       }
       return res.json() as Promise<{ items: AdventureWithUser[]; nextCursor?: string }>;
     },
-    [category, continent, difficulty, duration, search, sortBy],
+    [category, continent, difficulty, duration, month, search, sortBy],
   );
 
   const { items, loading, hasMore, sentinelRef } = useInfiniteScroll<AdventureWithUser>({

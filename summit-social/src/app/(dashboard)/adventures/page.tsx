@@ -33,6 +33,7 @@ export default async function AdventuresPage({
   const params = await searchParams;
   const search = params.search?.trim();
   const sortBy = params.sortBy ?? "votes";
+  const month = params.month ? Number(params.month) : undefined;
 
   const DURATION_RANGES = {
     weekend: { gte: 1, lte: 3 },
@@ -52,6 +53,7 @@ export default async function AdventuresPage({
       params.duration in DURATION_RANGES && {
         durationDays: DURATION_RANGES[params.duration as keyof typeof DURATION_RANGES],
       }),
+    ...(month && { bestMonths: { has: month } }),
     ...(search && {
       OR: [
         { title: { contains: search, mode: "insensitive" as const } },
@@ -293,6 +295,45 @@ export default async function AdventuresPage({
           })}
         </div>
 
+        {/* Month quick-filters */}
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+            Season
+          </span>
+          {(
+            [
+              { value: 1, label: "Jan" },
+              { value: 2, label: "Feb" },
+              { value: 3, label: "Mar" },
+              { value: 4, label: "Apr" },
+              { value: 5, label: "May" },
+              { value: 6, label: "Jun" },
+              { value: 7, label: "Jul" },
+              { value: 8, label: "Aug" },
+              { value: 9, label: "Sep" },
+              { value: 10, label: "Oct" },
+              { value: 11, label: "Nov" },
+              { value: 12, label: "Dec" },
+            ] as const
+          ).map(({ value, label }) => {
+            const active = params.month === String(value);
+            const href = buildFilterUrl(params, { month: active ? undefined : String(value) });
+            return (
+              <Link
+                key={value}
+                href={href}
+                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                  active
+                    ? "border border-amber-500 text-amber-500"
+                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+                }`}
+              >
+                {label}
+              </Link>
+            );
+          })}
+        </div>
+
         {/* Search + sort */}
         <Suspense>
           <SearchFilter />
@@ -305,6 +346,7 @@ export default async function AdventuresPage({
               params.continent,
               params.difficulty,
               params.duration,
+              params.month,
               params.search,
               params.sortBy,
             ].join("|")}
@@ -317,6 +359,7 @@ export default async function AdventuresPage({
             continent={params.continent}
             difficulty={params.difficulty}
             duration={params.duration}
+            month={params.month}
             search={params.search}
             sortBy={params.sortBy}
           />

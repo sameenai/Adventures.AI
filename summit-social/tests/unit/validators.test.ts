@@ -263,6 +263,17 @@ describe("adventureFilterSchema", () => {
     const result = adventureFilterSchema.safeParse({ search: "a".repeat(201) });
     expect(result.success).toBe(false);
   });
+
+  it("accepts a valid month value and coerces string to number", () => {
+    const result = adventureFilterSchema.safeParse({ month: "7" });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.month).toBe(7);
+  });
+
+  it("rejects month below 1 or above 12", () => {
+    expect(adventureFilterSchema.safeParse({ month: "0" }).success).toBe(false);
+    expect(adventureFilterSchema.safeParse({ month: "13" }).success).toBe(false);
+  });
 });
 
 // ---------------------------------------------------------------------------
