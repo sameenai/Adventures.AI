@@ -29465,6 +29465,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure863.id }, { userId: user2.id, adventureId: adventure863.id }, { userId: user3.id, adventureId: adventure863.id }], skipDuplicates: true });
 
+
+  // Adventure 864
+  const adventure864 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-864" },
+    update: {},
+    create: {
+      id: "seed-adventure-864",
+      title: "Taiwan Yushan Peak and East Rift Valley Cycling",
+      description: `Combine an ascent of Yushan (3,952 m) — Northeast Asia's highest peak — with a cycling tour through the spectacular East Rift Valley between the Central and Coastal Mountain ranges. The Yushan ascent requires an advance permit, 2 days of hiking, and a night at the high-altitude Paiyun Lodge. The East Rift Valley cycling route follows the flattest and most dramatic valley in Taiwan through Amis and Bunun aboriginal communities, hot spring towns, and the sheer Taroko Gorge marble walls at the northern end. Taiwan's cycling infrastructure is excellent.`,
+      location: "Yushan National Park and Hualien, Taiwan",
+      country: "Taiwan",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 1000,
+      latitude: 23.5,
+      longitude: 120.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure864.id }, { userId: user2.id, adventureId: adventure864.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
