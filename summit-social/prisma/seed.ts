@@ -29015,6 +29015,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure848.id }, { userId: user2.id, adventureId: adventure848.id }], skipDuplicates: true });
 
+
+  // Adventure 849
+  const adventure849 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-849" },
+    update: {},
+    create: {
+      id: "seed-adventure-849",
+      title: "South Africa Drakensberg Traverse",
+      description: `Trek the Drakensberg escarpment — the basalt barrier between KwaZulu-Natal and Lesotho, with summits above 3,400 m and vertical rock walls 1,000 m high — on a 5-day traverse linking Cathedral Peak, the Monks Cowl, and Giants Castle. San Bushmen rock art galleries containing thousands of paintings are accessible on day walks from the base camps. The Giant's Cup Hiking Trail in the southern Berg is a well-maintained 5-day route with overnight huts. The combination of subtropical lowveld and alpine summit experience within a single day is unique to the Drakensberg.`,
+      location: "Drakensberg, KwaZulu-Natal, South Africa",
+      country: "South Africa",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 1000,
+      latitude: -28.8,
+      longitude: 29.3,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["africa"].id }, { id: allTags["mountains"].id }, { id: allTags["hiking"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure849.id }, { userId: user2.id, adventureId: adventure849.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
