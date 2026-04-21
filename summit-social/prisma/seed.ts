@@ -26195,6 +26195,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure754.id }, { userId: user2.id, adventureId: adventure754.id }, { userId: user3.id, adventureId: adventure754.id }], skipDuplicates: true });
 
+
+  // Adventure 755
+  const adventure755 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-755" },
+    update: {},
+    create: {
+      id: "seed-adventure-755",
+      title: "Nepal Kangchenjunga Complete Circuit",
+      description: `The complete Kangchenjunga circuit combining both north and south base camps is one of Nepal's most ambitious trekking achievements, a 25-day route through some of the country's most remote and culturally authentic highland territory. The crossing of the Mirgin La at 4663m connects the north and south approaches, and the complete circuit visits Pangpema base camp at 5140m and Oktang at 4780m for the full perspective on the world's third highest mountain.`,
+      location: "Far Eastern Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Complete Kangchenjunga circuit north south linked", "Mirgin La 4663m circuit connecting pass", "Yalung Glacier south approach Oktang 4780m", "Pangpema north base camp 5140m view", "25-day commitment Nepal's most remote circuit"],
+      gear: ["Restricted area permit both zones required", "25-day food supply remote sections self", "High altitude sleeping bag minus 20 both camps", "Guide mandatory remote far east Nepal", "Yak hire heavy gear both approaches"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 4000,
+      latitude: 27.7,
+      longitude: 88.15,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure755.id }, { userId: user2.id, adventureId: adventure755.id }, { userId: user3.id, adventureId: adventure755.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
