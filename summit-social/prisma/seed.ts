@@ -22744,6 +22744,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure639.id }, { userId: user2.id, adventureId: adventure639.id }, { userId: user3.id, adventureId: adventure639.id }], skipDuplicates: true });
 
+
+  // Adventure 640
+  const adventure640 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-640" },
+    update: {},
+    create: {
+      id: "seed-adventure-640",
+      title: "Scotland Ben Nevis Winter Ascent",
+      description: `Ben Nevis in winter is a genuinely serious mountaineering environment, with the summit plateau experiencing some of the worst weather in Britain. The tourist path becomes an artic slog in full winter conditions, while the north face presents Grade III and IV ice and mixed climbing routes that rival Alpine conditions. Tower Ridge is the longest winter route in Britain at Grade III, and the Minus and Zero Gullies are ice climbing classics.`,
+      location: "Fort William, Scotland",
+      country: "UK",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Tower Ridge longest winter route Britain Grade III", "Zero Gully classic ice route north face", "Summit plateau whiteout navigation challenge", "CMD Arete summer scramble approach", "CIC Hut mountain rescue team base"],
+      gear: ["Ice axe crampons mandatory winter essential", "Winter navigation whiteout plateau skills", "Helmet north face climbing rockfall ice", "Rope 60m winter climbing north face", "Mountain rescue cover winter serious risk"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 600,
+      latitude: 56.8,
+      longitude: -5,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["scotland"].id }, { id: allTags["alpine"].id }, { id: allTags["glacier"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure640.id }, { userId: user2.id, adventureId: adventure640.id }, { userId: user3.id, adventureId: adventure640.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
