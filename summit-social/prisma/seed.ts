@@ -28595,6 +28595,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure834.id }, { userId: user2.id, adventureId: adventure834.id }], skipDuplicates: true });
 
+
+  // Adventure 835
+  const adventure835 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-835" },
+    update: {},
+    create: {
+      id: "seed-adventure-835",
+      title: "Nepal Pikey Peak Trekking Circuit",
+      description: `Trek to Pikey Peak (4,065 m) in the Solu Khumbu region for what Sir Edmund Hillary called the best viewpoint for Everest. The route begins from Dhap and circles through Sherpa villages and rhododendron forests barely touched by tourism despite sitting an easy bus journey from Kathmandu. The circuit can be done in 6-8 days without the crowds of the Annapurna or Everest base camp trails. The village of Junbesi contains a fine monastery with views of Numbur (6,957 m). A quiet alternative for experienced Nepal trekkers seeking solitude.`,
+      location: "Solu Khumbu, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 27.4,
+      longitude: 86.7,
+      published: true,
+      userId: user2.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["hiking"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure835.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
