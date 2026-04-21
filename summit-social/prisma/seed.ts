@@ -21454,6 +21454,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure596.id }, { userId: user2.id, adventureId: adventure596.id }, { userId: user3.id, adventureId: adventure596.id }], skipDuplicates: true });
 
+
+  // Adventure 597
+  const adventure597 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-597" },
+    update: {},
+    create: {
+      id: "seed-adventure-597",
+      title: "France Mont Blanc Massif Tour",
+      description: `The Tour du Mont Blanc is the world's most popular long-distance hiking route, circumnavigating the highest mountain in Western Europe through France, Italy, and Switzerland in 11 days. The route crosses seven high passes offering panoramic views of 4000m peaks, glaciers, and verdant Alpine valleys. Chamonix and Courmayeur provide high-end basecamp facilities, while mountain refuges along the route deliver memorable social evenings.`,
+      location: "French, Italian, Swiss Alps",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Grand Col Ferret Italy-Switzerland border pass", "Courmayeur Italian café culture pasta Alps", "Les Contamines valley approach French Alps", "Chamonix Aiguille du Midi cable car side trip", "Col de la Seigne France Italy border view"],
+      gear: ["Hut booking advance peak July August", "Trekking poles col descents critical", "Passport three countries border crossing", "Cash Euros Swiss Francs both accepted", "Layers weather change 3000m altitude"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1500,
+      latitude: 45.88,
+      longitude: 6.86,
+      published: true,
+      userId: user2.id,
+      voteCount: 12,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["europe"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure597.id }, { userId: user2.id, adventureId: adventure597.id }, { userId: user3.id, adventureId: adventure597.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
