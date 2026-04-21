@@ -27005,6 +27005,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure781.id }, { userId: user2.id, adventureId: adventure781.id }], skipDuplicates: true });
 
+
+  // Adventure 782
+  const adventure782 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-782" },
+    update: {},
+    create: {
+      id: "seed-adventure-782",
+      title: "Madagascar Ring Road Expedition",
+      description: `Circumnavigate Madagascar on the partially paved national ring road by 4WD or motorcycle, experiencing the island's extraordinary biodiversity across six bioclimatic zones. The east coast rainforest contains the highest concentration of lemur species; the south is semi-arid spiny forest; the Tsingy de Bemaraha rock formations are unique on Earth. Road conditions deteriorate dramatically in the wet season (December-March). Remote sections require jerry cans for fuel; some river crossings require dismounting and pushing.`,
+      location: "Madagascar",
+      country: "Madagascar",
+      continent: "Unknown",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 21,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -19,
+      longitude: 46.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure782.id }, { userId: user2.id, adventureId: adventure782.id }, { userId: user3.id, adventureId: adventure782.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
