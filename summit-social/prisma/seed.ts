@@ -21214,6 +21214,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure588.id }, { userId: user2.id, adventureId: adventure588.id }, { userId: user3.id, adventureId: adventure588.id }], skipDuplicates: true });
 
+
+  // Adventure 589
+  const adventure589 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-589" },
+    update: {},
+    create: {
+      id: "seed-adventure-589",
+      title: "Scottish Islands Sea Kayak Circuit",
+      description: `The Outer Hebrides provide one of Europe's great sea kayaking journeys, paddling through the Lewis and Harris tidal streams past standing stone circles, white sand beaches of Caribbean quality, and red-deer-populated hillsides. The passage through the Sound of Harris and the Uists to Barra offers route-finding complexity through tidal races, while seals, minke whales, and white-tailed eagles add constant wildlife drama.`,
+      location: "Hebrides, Scotland",
+      country: "UK",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Callanish Standing Stones sea approach kayak", "Harris beach Luskentyre Caribbean quality", "Sound of Harris tidal race navigation challenge", "White-tailed eagle wingspan 2.5m coastal soar", "Minke whale surface bubble net feeding"],
+      gear: ["Sea kayak open Atlantic tidal crossing", "Drysuit Scottish water year-round cold", "Tidal chart Sound of Harris critical", "VHF radio Atlantic swell warning", "Wild camping Scotland access rights law"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 1200,
+      latitude: 57.9,
+      longitude: -7.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["coastal"].id }, { id: allTags["scotland"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure589.id }, { userId: user2.id, adventureId: adventure589.id }, { userId: user3.id, adventureId: adventure589.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
