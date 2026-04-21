@@ -30845,6 +30845,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure909.id }, { userId: user2.id, adventureId: adventure909.id }, { userId: user3.id, adventureId: adventure909.id }], skipDuplicates: true });
 
+
+  // Adventure 910
+  const adventure910 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-910" },
+    update: {},
+    create: {
+      id: "seed-adventure-910",
+      title: "Norway Rondane National Park Ski Traverse",
+      description: `Traverse Rondane National Park — Norway's oldest national park, a high plateau of rounded glacially sculpted peaks between 1,600 and 2,178 m — on skis over 3-4 days, staying in Norwegian Trekking Association huts on one of the classic Nordic ski traverses outside the Hardangervidda. The reindeer herds of Rondane are the largest in Norway; the chance of encountering them on open plateau is high in winter. The approach from Otta or Dombas takes 2-3 hours from Oslo by train; the park is more accessible than Svalbard or Hardangervidda equivalents.`,
+      location: "Rondane National Park, Innlandet, Norway",
+      country: "Norway",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 62,
+      longitude: 9.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }, { id: allTags["europe"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure910.id }, { userId: user2.id, adventureId: adventure910.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
