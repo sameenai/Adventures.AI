@@ -26225,6 +26225,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure755.id }, { userId: user2.id, adventureId: adventure755.id }, { userId: user3.id, adventureId: adventure755.id }], skipDuplicates: true });
 
+
+  // Adventure 756
+  const adventure756 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-756" },
+    update: {},
+    create: {
+      id: "seed-adventure-756",
+      title: "Antarctic Peninsula Kayaking",
+      description: `Sea kayaking the Antarctic Peninsula is one of the ultimate water-based adventure experiences, paddling among brash ice and sculpted icebergs while penguins porpoise beside the kayak and humpback whales surface ten metres away. Expedition ships carry kayaks and certified kayakers to the most spectacular locations, including Port Lockroy, the Lemaire Channel, and Neko Harbour, where glaciers calve directly into the bay. Antarctica at water level is completely unlike the view from the ship deck.`,
+      location: "Antarctic Peninsula",
+      country: "Antarctica",
+      continent: "Antarctica",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Lemaire Channel iceberg passage kayak cathedral", "Humpback whale surface 10m alongside kayak", "Gentoo penguin porpoise speed chase kayak", "Neko Harbour glacier calving bay ice debris", "Zodiac support kayak remote cove access"],
+      gear: ["Sea kayak certification expedition level", "Drysuit immersion Antarctic water critical", "Spray skirt bergy bits roll protection", "VHF radio ship contact constant", "Warm pogies paddle cold water hands"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 9000,
+      latitude: -64.27,
+      longitude: -63.04,
+      published: true,
+      userId: user3.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["expedition"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure756.id }, { userId: user2.id, adventureId: adventure756.id }, { userId: user3.id, adventureId: adventure756.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
