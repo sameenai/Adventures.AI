@@ -30785,6 +30785,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure907.id }, { userId: user2.id, adventureId: adventure907.id }], skipDuplicates: true });
 
+
+  // Adventure 908
+  const adventure908 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-908" },
+    update: {},
+    create: {
+      id: "seed-adventure-908",
+      title: "Switzerland Engadin Ski Marathon",
+      description: `Race or complete the Engadin Ski Marathon — a 42 km classic-style cross-country ski race from Maloja to Zuoz across the frozen Engadin lakes at 1,800 m, one of the largest and most celebrated Nordic ski races in the world with 13,000 participants. The event is held on the second Sunday of March; training the course in the days before the race rewards with the full Engadin valley experience. The Upper Engadine landscape of frozen lakes, St Moritz, and the Malojawind is one of Europe's most iconic ski touring settings in its own right.`,
+      location: "Upper Engadin, Graubunden, Switzerland",
+      country: "Switzerland",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3],
+      estimatedCost: 1000,
+      latitude: 46.5,
+      longitude: 9.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["multi-sport"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure908.id }, { userId: user2.id, adventureId: adventure908.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
