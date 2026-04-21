@@ -31175,6 +31175,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure920.id }, { userId: user2.id, adventureId: adventure920.id }, { userId: user3.id, adventureId: adventure920.id }], skipDuplicates: true });
 
+
+  // Adventure 921
+  const adventure921 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-921" },
+    update: {},
+    create: {
+      id: "seed-adventure-921",
+      title: "Peru Ausangate Glacier Hot Springs Trek",
+      description: `Trek through the high Andean circuit below Ausangate (6,384 m) visiting natural hot spring thermal baths at Pacchanta and Upis — natural pools steaming at 40 degrees within metres of glacial snowfields — with the Andes backdrop of rainbow mountains, alpaca herds, and roaming vicuna. The contrast between soaking in a hot spring and looking at a 6,000 m glacier 2 km away is one of the most surreal experiences in South America. Day hikes from a base camp at Upis allow exploration of the surrounding glacial valleys.`,
+      location: "Cusco Region, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -13.8,
+      longitude: -71.3,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure921.id }, { userId: user2.id, adventureId: adventure921.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
