@@ -23134,6 +23134,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure652.id }, { userId: user2.id, adventureId: adventure652.id }, { userId: user3.id, adventureId: adventure652.id }], skipDuplicates: true });
 
+
+  // Adventure 653
+  const adventure653 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-653" },
+    update: {},
+    create: {
+      id: "seed-adventure-653",
+      title: "US Alaska Denali Climb",
+      description: `Denali at 6190m is North America's highest peak and one of the seven summits, with the West Buttress route providing the standard mountaineering ascent from a glacier camp to the summit. The 21-day expedition involves hauling heavy loads through extreme cold, navigating crevassed glaciers, and surviving high camps in winds above 100mph. The altitude feels much higher than 6190m due to the low atmospheric pressure at this extreme latitude.`,
+      location: "Denali National Park, Alaska",
+      country: "USA",
+      continent: "North America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Denali summit 6190m North America highest", "West Buttress Route standard mountaineering line", "High camp 17200ft severe weather survival", "Kahiltna Glacier ski plane landing base camp", "Denali Pass crevassed traverse above 18000ft"],
+      gear: ["Double boots plastic mountaineering grade", "Down suit expedition minus 40 sleeping bag", "Avalanche safety transceiver probe shovel", "Sled haul doubles glacier load system", "NPS permit lottery Denali expedition"],
+      bestMonths: [4, 5, 6],
+      estimatedCost: 6000,
+      latitude: 63.07,
+      longitude: -150.99,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["glacier"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure653.id }, { userId: user2.id, adventureId: adventure653.id }, { userId: user3.id, adventureId: adventure653.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
