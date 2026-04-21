@@ -32225,6 +32225,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure955.id }, { userId: user2.id, adventureId: adventure955.id }, { userId: user3.id, adventureId: adventure955.id }], skipDuplicates: true });
 
+
+  // Adventure 956
+  const adventure956 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-956" },
+    update: {},
+    create: {
+      id: "seed-adventure-956",
+      title: "Nepal Dhaulagiri Circuit Trek",
+      description: `Circle Dhaulagiri (8,167 m) — the seventh highest peak in the world — on one of Nepal's most challenging and least-trekked circuits, crossing the French Pass (5,360 m) and Dhampus Pass (5,167 m) above enormous glacial basins. The route passes the Dhaulagiri base camp at 4,750 m and the Italian base camp, both in use by active Himalayan expeditions. No teahouses for much of the route; full camping equipment required. The approach from Beni involves 5-6 days of walking before reaching technical terrain. This is one for experienced Himalayan trekkers only.`,
+      location: "Dhaulagiri Zone, Myagdi, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 20,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 10, 11],
+      estimatedCost: 1000,
+      latitude: 28.7,
+      longitude: 83.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["glacier"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure956.id }, { userId: user2.id, adventureId: adventure956.id }, { userId: user3.id, adventureId: adventure956.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
