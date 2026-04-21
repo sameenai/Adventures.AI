@@ -26435,6 +26435,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure762.id }, { userId: user2.id, adventureId: adventure762.id }], skipDuplicates: true });
 
+
+  // Adventure 763
+  const adventure763 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-763" },
+    update: {},
+    create: {
+      id: "seed-adventure-763",
+      title: "Tibet Friendship Highway Cycling — Lhasa to Kathmandu",
+      description: `The highest road journey on Earth, pedalling from Lhasa across the Tibetan Plateau to Nepal through five passes over 5,000 m including Gyatso La at 5,220 m. The road surface ranges from smooth tarmac to broken gravel. Altitude sickness is the primary objective hazard; acclimatise in Lhasa for several days before departure. Tibet travel permits are required and change periodically — book through a licensed Tibet agency. The descent from Lalung La into Nepal is one of cycling's great downhills.`,
+      location: "Tibet / Nepal",
+      country: "Tibet / Nepal",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 1000,
+      latitude: 29.6,
+      longitude: 91.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["high-altitude"].id }, { id: allTags["cycling"].id }, { id: allTags["expedition"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure763.id }, { userId: user2.id, adventureId: adventure763.id }, { userId: user3.id, adventureId: adventure763.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
