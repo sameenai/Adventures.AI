@@ -28655,6 +28655,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure836.id }], skipDuplicates: true });
 
+
+  // Adventure 837
+  const adventure837 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-837" },
+    update: {},
+    create: {
+      id: "seed-adventure-837",
+      title: "Peru Manu National Park Jungle Expedition",
+      description: `Journey into Manu National Park — one of the world's most biodiverse protected areas, descending from the Andean highlands at 4,000 m through cloud forest to Amazon lowland rainforest at 300 m — a biological gradient that supports more bird species than all of North America combined. The park is closed to independent access; licensed operators only. Ox-bow lakes (cochas) in the lowland zone are the best place in South America to see giant otters, tapirs, black caimans, and rare macaw clay licks. A week in Manu is a transformative natural history experience.`,
+      location: "Manu National Park, Madre de Dios, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -11.8,
+      longitude: -71.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure837.id }, { userId: user2.id, adventureId: adventure837.id }, { userId: user3.id, adventureId: adventure837.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
