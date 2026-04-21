@@ -31595,6 +31595,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure934.id }, { userId: user2.id, adventureId: adventure934.id }], skipDuplicates: true });
 
+
+  // Adventure 935
+  const adventure935 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-935" },
+    update: {},
+    create: {
+      id: "seed-adventure-935",
+      title: "Tajikistan Pamir Highway Road Trip",
+      description: `Drive the M41 Pamir Highway — one of the world's great road trips, a 1,200 km route across the Pamir Mountains from Dushanbe to Osh in Kyrgyzstan at elevations mostly above 3,600 m, crossing the Ak-Baital Pass (4,655 m), the highest point on a paved road in the former Soviet Union. The Wakhan Valley branch follows the Panj River along the Afghanistan border for 200 km within sight of Hindu Kush peaks. Ismaili mountain communities, ancient rock art, and complete absence of commercial tourism make the Pamir one of the world's last genuinely off-circuit road journeys.`,
+      location: "Pamir Mountains, Tajikistan",
+      country: "Tajikistan",
+      continent: "Unknown",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 37.5,
+      longitude: 73.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure935.id }, { userId: user2.id, adventureId: adventure935.id }, { userId: user3.id, adventureId: adventure935.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
