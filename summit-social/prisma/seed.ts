@@ -28475,6 +28475,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure830.id }, { userId: user2.id, adventureId: adventure830.id }, { userId: user3.id, adventureId: adventure830.id }], skipDuplicates: true });
 
+
+  // Adventure 831
+  const adventure831 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-831" },
+    update: {},
+    create: {
+      id: "seed-adventure-831",
+      title: "Ethiopia Danakil Depression — Hottest Place on Earth",
+      description: `Descend to the Danakil Depression — 116 metres below sea level, one of the hottest and lowest inhabited places on Earth — to see the active lava lake of Erta Ale volcano, the multicoloured sulphur springs of Dallol, and the Afar salt caravans that still cross this hellscape daily. Daytime temperatures reach 50 degrees Celsius; the tour operates overnight to the crater rim. Afar region requires armed guards for security. This is one of the most alien and extreme landscapes accessible to regular visitors anywhere on the planet.`,
+      location: "Danakil Depression, Afar Region, Ethiopia",
+      country: "Ethiopia",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 1000,
+      latitude: 14.2,
+      longitude: 40.7,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["volcanic"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }, { id: allTags["desert"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure831.id }, { userId: user2.id, adventureId: adventure831.id }, { userId: user3.id, adventureId: adventure831.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
