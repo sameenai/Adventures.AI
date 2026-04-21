@@ -30635,6 +30635,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure902.id }], skipDuplicates: true });
 
+
+  // Adventure 903
+  const adventure903 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-903" },
+    update: {},
+    create: {
+      id: "seed-adventure-903",
+      title: "Finland Oulanka National Park Canoe and Trek",
+      description: `Paddle and walk the Karhunkierros (Bear's Ring Trail) — Finland's most celebrated national park route through 80 km of Oulanka National Park, with canyons, waterfalls, and suspension bridges across the Oulanka and Kitkajoki rivers. Canoe sections of the route are possible in the river corridors. The trail is marked and hut-supported; dogs are permitted. Finnish national park huts (autiotupa) are free to stay in but can be crowded in midsummer. The autumn berry and mushroom season transforms the forest floor; northern lights appear from late August.`,
+      location: "Oulanka National Park, Northern Ostrobothnia, Finland",
+      country: "Finland",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 66.3,
+      longitude: 29.3,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["hiking"].id }, { id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure903.id }, { userId: user2.id, adventureId: adventure903.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
