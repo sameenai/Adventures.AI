@@ -21424,6 +21424,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure595.id }, { userId: user2.id, adventureId: adventure595.id }, { userId: user3.id, adventureId: adventure595.id }], skipDuplicates: true });
 
+
+  // Adventure 596
+  const adventure596 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-596" },
+    update: {},
+    create: {
+      id: "seed-adventure-596",
+      title: "Kenya Mathews Range Trek",
+      description: `The Mathews Range north of Samburu is a forested mountain island rising from Kenya's arid northern frontier, accessible only with Samburu cultural guides. The range harbours elephant herds sheltering from the heat, Grevy's zebra on the plains below, and colobus monkeys in forest canopy that can receive 2000mm of rain when the northern Kenya flats are parched. This is genuinely off-the-beaten-track Kenya at its finest.`,
+      location: "Samburu, Kenya",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Elephant forest shelter cool mountain haven", "Samburu guide cultural navigation north Kenya", "Grevy's zebra rare stripe plains below", "Colobus monkey forest canopy endemic mountain", "Ngeng Valley waterfall remote gorge discovery"],
+      gear: ["Samburu guide mandatory safety wildlife", "Malaria prophylaxis north Kenya high risk", "Water purification remote forest spring", "Tent camping no fixed accommodation", "First aid kit remote medical zero"],
+      bestMonths: [1, 2, 7, 8, 9],
+      estimatedCost: 1200,
+      latitude: 1.2,
+      longitude: 37.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure596.id }, { userId: user2.id, adventureId: adventure596.id }, { userId: user3.id, adventureId: adventure596.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
