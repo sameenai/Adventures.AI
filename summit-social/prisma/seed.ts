@@ -21724,6 +21724,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure605.id }, { userId: user2.id, adventureId: adventure605.id }, { userId: user3.id, adventureId: adventure605.id }], skipDuplicates: true });
 
+
+  // Adventure 606
+  const adventure606 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-606" },
+    update: {},
+    create: {
+      id: "seed-adventure-606",
+      title: "Sri Lanka Adams Peak Pilgrimage",
+      description: `Adams Peak rises 2243m above the Sri Lankan central highlands and is one of the most sacred pilgrimage sites in Asia, claimed simultaneously by Buddhist, Hindu, Muslim, and Christian traditions for the footprint-shaped impression on its summit. The pre-dawn climb via 5500 steps through pilgrimage lights and tea sellers rewards with a triangular shadow projected across the lowland mist at sunrise. This is sacred mountain trekking at its most spiritual.`,
+      location: "Central Highlands, Sri Lanka",
+      country: "Sri Lanka",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Adams Peak shadow triangle sunrise projection", "Sri Pada sacred footprint four religions claim", "5500 steps pilgrimage chain handrail lit", "Tea plantation approach highland green carpet", "Pilgrims night climb lantern procession"],
+      gear: ["Layers cold summit dawn pilgrimage", "Pilgrimage season December April light string", "Descent knees 5500 steps pole protection", "Cash rupees pilgrimage stall purchases", "Early afternoon start overnight summit dawn"],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 300,
+      latitude: 6.81,
+      longitude: 80.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure606.id }, { userId: user2.id, adventureId: adventure606.id }, { userId: user3.id, adventureId: adventure606.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
