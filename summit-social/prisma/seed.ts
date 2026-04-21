@@ -23074,6 +23074,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure650.id }, { userId: user2.id, adventureId: adventure650.id }, { userId: user3.id, adventureId: adventure650.id }], skipDuplicates: true });
 
+
+  // Adventure 651
+  const adventure651 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-651" },
+    update: {},
+    create: {
+      id: "seed-adventure-651",
+      title: "Sweden Kungsleden Summer Hike",
+      description: `The Kungsleden, King's Trail, is Sweden's most famous long distance hiking route, 440 kilometres through arctic and sub-arctic landscape from Abisko to Hemavan. The northern section from Abisko to Kebnekaise includes Sweden's highest peak at 2106m and the most dramatic above-treeline terrain, while the middle sections through Sarek National Park offer true wilderness navigation. Sami reindeer herding culture punctuates the route throughout.`,
+      location: "Lapland, Sweden",
+      country: "Sweden",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Kebnekaise 2106m Sweden highest summit detour", "Sarek National Park wilderness true pathless", "Abisko Aurora Sky Station Northern Lights base", "Rapa Valley Sarek pristine arctic vegetation", "Midnight sun hiking 24 hours daylight June"],
+      gear: ["Hut booking STF reservation advance", "River crossing poles Sarek section glacial", "Mosquito head net Lapland summer plague", "Nordic walking boots boggy subarctic", "GPS offline Sarek trackless navigation"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1200,
+      latitude: 68.34,
+      longitude: 18.78,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure651.id }, { userId: user2.id, adventureId: adventure651.id }, { userId: user3.id, adventureId: adventure651.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
