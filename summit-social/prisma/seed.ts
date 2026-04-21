@@ -29915,6 +29915,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure878.id }, { userId: user2.id, adventureId: adventure878.id }], skipDuplicates: true });
 
+
+  // Adventure 879
+  const adventure879 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-879" },
+    update: {},
+    create: {
+      id: "seed-adventure-879",
+      title: "Cuba Vinales Valley Cycling and Climbing",
+      description: `Cycle through the Vinales Valley — Cuba's most dramatic landscape, where limestone mogotes (steep-sided hills) rise 200-300 m from the valley floor covered in tobacco plantations, royal palms, and red-earthed fields ploughed by oxen — and rock climb on the mogote faces where new routes have been developed since Cuba reopened to international climbers. The area is a UNESCO World Heritage Site for its rural cultural landscape. Cycling between farmsteads involves dirt tracks and memorable hospitality at local paladares. The karst scenery is unlike anything else in the Caribbean.`,
+      location: "Vinales Valley, Pinar del Rio, Cuba",
+      country: "Cuba",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 22.6,
+      longitude: -83.7,
+      published: true,
+      userId: user1.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["scrambling"].id }, { id: allTags["island"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure879.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
