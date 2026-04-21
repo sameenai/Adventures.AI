@@ -22234,6 +22234,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure622.id }, { userId: user2.id, adventureId: adventure622.id }, { userId: user3.id, adventureId: adventure622.id }], skipDuplicates: true });
 
+
+  // Adventure 623
+  const adventure623 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-623" },
+    update: {},
+    create: {
+      id: "seed-adventure-623",
+      title: "India Zanskar High Mountain Trek",
+      description: `The Zanskar region of Ladakh is one of the most remote permanently inhabited areas on earth, cut off from the outside world for eight months of winter each year. Summer trekking over the Shingo La and Kargyak passes delivers trekkers to ancient Buddhist monasteries, turquoise rivers, and high desert landscapes at 4000m altitude. The Zanskar River gorge section combines river trekking with cliff-face balconies above the deepest river canyon in Asia.`,
+      location: "Zanskar Valley, Ladakh",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Shingo La pass 5090m dramatic crossing", "Phuktal Monastery river canyon cave position", "Zanskar River gorge cliff balcony path", "Karsha Gompa monastery hilltop whitewash", "Padum valley cultivated Buddhist oasis"],
+      gear: ["Acclimatization Leh 3500m minimum 3 days", "High altitude sleeping bag minus 20", "Water filter Zanskar glacial river", "Guide mandatory remote route navigation", "Altitude sickness protocol knowledge essential"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1400,
+      latitude: 33.5,
+      longitude: 77,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure623.id }, { userId: user2.id, adventureId: adventure623.id }, { userId: user3.id, adventureId: adventure623.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
