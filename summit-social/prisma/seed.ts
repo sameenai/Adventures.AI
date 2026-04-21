@@ -29615,6 +29615,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure868.id }, { userId: user2.id, adventureId: adventure868.id }, { userId: user3.id, adventureId: adventure868.id }], skipDuplicates: true });
 
+
+  // Adventure 869
+  const adventure869 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-869" },
+    update: {},
+    create: {
+      id: "seed-adventure-869",
+      title: "Peru Amazon Headwaters Kayak",
+      description: `Kayak the headwaters of the Amazon system in the Peruvian cloud forest east of Cusco — paddling rivers that begin as Andean snowmelt and widen over 10 days into full jungle waterways. The route descends through three vegetation zones from 3,000 m to 500 m; the number of bird and butterfly species visible increases dramatically each day. The Manu and Alto Madre de Dios watersheds provide the best access. Jungle camps with screened sleeping facilities and experienced guides who navigate the unmarked channels. The upper sections require Class III paddling skills.`,
+      location: "Madre de Dios, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -12,
+      longitude: -71.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure869.id }, { userId: user2.id, adventureId: adventure869.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
