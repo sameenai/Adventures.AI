@@ -25685,6 +25685,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure737.id }, { userId: user2.id, adventureId: adventure737.id }, { userId: user3.id, adventureId: adventure737.id }], skipDuplicates: true });
 
+
+  // Adventure 738
+  const adventure738 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-738" },
+    update: {},
+    create: {
+      id: "seed-adventure-738",
+      title: "Georgia Wine Country Cycling",
+      description: `The Kakheti wine region of eastern Georgia is the birthplace of winemaking, with 8000 years of continuous viticulture and the unique qvevri clay amphora wine tradition recognized by UNESCO. Cycling the valley roads between Telavi and Sighnaghi through vineyard landscapes backed by the Caucasus Mountains provides a gentle cultural immersion in a wine tradition older than any other in Europe or the Middle East. Family winemakers open their marani cellars to visitors cycling past.`,
+      location: "Kakheti, Georgia",
+      country: "Georgia",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Qvevri clay amphora 8000-year winemaking UNESCO", "Alaverdi Cathedral 11th century vineyard", "Sighnaghi walled town vineyard panorama", "Family marani winery underground qvevri cellar", "Caucasus range backdrop Kakheti valley view"],
+      gear: ["Road bike Kakheti valley gentle terrain", "Wine glass lightweight backpack essential", "Sun protection Kakheti summer heat", "Cash lari village winery informal purchase", "Language Georgian phrase hospitality attempt"],
+      bestMonths: [5, 6, 7, 9, 10],
+      estimatedCost: 400,
+      latitude: 41.87,
+      longitude: 45.67,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure738.id }, { userId: user2.id, adventureId: adventure738.id }, { userId: user3.id, adventureId: adventure738.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
