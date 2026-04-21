@@ -25655,6 +25655,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure736.id }, { userId: user2.id, adventureId: adventure736.id }, { userId: user3.id, adventureId: adventure736.id }], skipDuplicates: true });
 
+
+  // Adventure 737
+  const adventure737 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-737" },
+    update: {},
+    create: {
+      id: "seed-adventure-737",
+      title: "Brazil Lencois Maranhenses Sandboarding",
+      description: `Lencois Maranhenses is one of the world's most bizarre and beautiful landscapes, a vast white sand dune field on the equatorial Atlantic coast that fills with crystal-blue freshwater lagoons during the rainy season. Walking and sandboarding between emerald, turquoise, and sapphire lagoons between dunes that reach 40 metres creates a surreal dreamscape. Seasonal piranha and rare fish species adapt to this unique lagoon ecosystem.`,
+      location: "Maranhao, Brazil",
+      country: "Brazil",
+      continent: "South America",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["White dune blue lagoon combination unique earth", "Sandboard 40m dune face crystal lagoon base", "Seasonal piranha freshwater lagoon ecosystem", "Flamingo pink lagoon rare viewing salt marsh", "Small plane access Barreirinhas remote approach"],
+      gear: ["4WD mandatory Lencois Maranhenses access roads", "Sun protection equatorial UV extreme", "Swimwear lagoon compulsory sandboarding finish", "Light clothing heat humidity equatorial", "Water lagoon swim freshwater hydration"],
+      bestMonths: [4, 5, 6, 7],
+      estimatedCost: 600,
+      latitude: -2.49,
+      longitude: -43.12,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["coastal"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure737.id }, { userId: user2.id, adventureId: adventure737.id }, { userId: user3.id, adventureId: adventure737.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
