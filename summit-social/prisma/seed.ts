@@ -19864,6 +19864,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure543.id }, { userId: user2.id, adventureId: adventure543.id }, { userId: user3.id, adventureId: adventure543.id }], skipDuplicates: true });
 
+
+  // Adventure 544
+  const adventure544 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-544" },
+    update: {},
+    create: {
+      id: "seed-adventure-544",
+      title: "East Africa Cycling Safari",
+      description: `Cycling through the Rift Valley and Serengeti ecosystem provides wildlife encounters impossible from a vehicle window. The road between Nairobi and Arusha crosses Maasai land where herds of wildebeest and zebra cross asphalt, and Mount Kilimanjaro looms above the amboseli plains. Off-road detours into Tsavo and Amboseli deliver close encounters with elephants, giraffes, and even lions on the road.`,
+      location: "Kenya and Tanzania",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Maasai Mara cycling savanna wildebeest crossing", "Kilimanjaro Amboseli plains cycle backdrop", "Elephant herd road crossing close encounter", "Maasai village boma traditional welcome", "Great Rift Valley escarpment descent dramatic"],
+      gear: ["Mountain bike Kenya road conditions", "Malaria prophylaxis East Africa required", "Cash USD backup remote areas", "Tent wild camping savanna night sounds", "First aid kit remote medical care limited"],
+      bestMonths: [6, 7, 8, 9, 1, 2],
+      estimatedCost: 1800,
+      latitude: -2.3,
+      longitude: 36.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure544.id }, { userId: user2.id, adventureId: adventure544.id }, { userId: user3.id, adventureId: adventure544.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
