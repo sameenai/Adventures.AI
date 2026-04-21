@@ -23164,6 +23164,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure653.id }, { userId: user2.id, adventureId: adventure653.id }, { userId: user3.id, adventureId: adventure653.id }], skipDuplicates: true });
 
+
+  // Adventure 654
+  const adventure654 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-654" },
+    update: {},
+    create: {
+      id: "seed-adventure-654",
+      title: "India Spiti Frozen River Walk",
+      description: `The Spiti River valley in winter offers a less arduous alternative to the famous Chadar Trek on the Zanskar, with frozen river walking possible in certain sections combined with monastery visits to active Buddhist communities accessible only in winter by this river corridor. The Pin Valley monastery complex and Kibber village perched above the frozen valley floor provide cultural depth to winter Spiti's extraordinary desert mountain landscape.`,
+      location: "Spiti Valley, India",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Spiti River frozen winter walk unique route", "Key Monastery 1000-year hilltop perch active", "Kibber highest road village world perspective", "Snow leopard winter territory spot track chance", "Dhankar Monastery turquoise lake reflection"],
+      gear: ["Extreme cold gear minus 25 Spiti winter", "Crampons ice grip frozen river sections", "Inner Line Permit Spiti advance booking", "Guide local winter route knowledge", "Altitude acclimatization Kaza base 3800m"],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 700,
+      latitude: 32.25,
+      longitude: 78.02,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure654.id }, { userId: user2.id, adventureId: adventure654.id }, { userId: user3.id, adventureId: adventure654.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
