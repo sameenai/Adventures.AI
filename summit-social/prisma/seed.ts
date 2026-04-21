@@ -23194,6 +23194,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure654.id }, { userId: user2.id, adventureId: adventure654.id }, { userId: user3.id, adventureId: adventure654.id }], skipDuplicates: true });
 
+
+  // Adventure 655
+  const adventure655 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-655" },
+    update: {},
+    create: {
+      id: "seed-adventure-655",
+      title: "New Zealand Tongariro Alpine Crossing",
+      description: `The Tongariro Alpine Crossing is New Zealand's most popular and finest day walk, crossing the volcanic plateau between Mount Ngauruhoe and Mount Tongariro through a landscape of sulphur fields, crater lakes, and lava flows. The 19.4-kilometre crossing gains 765m through active volcanic terrain that served as Mordor in Peter Jackson's Lord of the Rings films. The Emerald Lakes glow in impossible shades of green and blue above the Red Crater volcanic cone.`,
+      location: "Tongariro National Park, New Zealand",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Emerald Lakes volcanic mineral impossible colour", "Red Crater 1868m summit volcanic edge", "Mount Ngauruhoe Mount Doom LOTR film site", "Blue Lake sacred Maori Tongariro tapu", "South Crater vast volcanic depression crossing"],
+      gear: ["Weather check mandatory volcanic change fast", "Wind jacket 1868m exposed alpine crossing", "Layers thermal volcanic plateau cold", "Early start car park crowding midday", "Trekking poles descent Red Crater steep"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 200,
+      latitude: -39.08,
+      longitude: 175.67,
+      published: true,
+      userId: user3.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["new-zealand"].id }, { id: allTags["photography"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure655.id }, { userId: user2.id, adventureId: adventure655.id }, { userId: user3.id, adventureId: adventure655.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
