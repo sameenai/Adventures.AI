@@ -24335,6 +24335,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure692.id }, { userId: user2.id, adventureId: adventure692.id }, { userId: user3.id, adventureId: adventure692.id }], skipDuplicates: true });
 
+
+  // Adventure 693
+  const adventure693 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-693" },
+    update: {},
+    create: {
+      id: "seed-adventure-693",
+      title: "Thailand Koh Tao Scuba Course",
+      description: `Koh Tao is the world's best diving qualification island, where the combination of calm shallow water, abundant marine life, and competitive pricing produces more PADI certifications annually than anywhere else on earth. After qualifying, the dive sites around Koh Tao and the nearby Sail Rock pinnacle host whale sharks year-round and reef shark schools in the cleaning stations. This is the accessible entry point to the global diving community.`,
+      location: "Koh Tao, Thailand",
+      country: "Thailand",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["PADI certification world capital affordable", "Sail Rock pinnacle whale shark aggregation", "Chumphon Pinnacle grey reef shark school", "Whale shark seasonal chance all year", "Night dive bioluminescence plankton glow"],
+      gear: ["PADI Open Water Course equipment provided", "Underwater camera entry level GoPro", "Reef safe sunscreen mandatory coral", "Light wetsuit 3mm Thailand water", "Night dive torch operator provision"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 500,
+      latitude: 10.1,
+      longitude: 99.84,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure693.id }, { userId: user2.id, adventureId: adventure693.id }, { userId: user3.id, adventureId: adventure693.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
