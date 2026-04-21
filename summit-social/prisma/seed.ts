@@ -22654,6 +22654,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure636.id }, { userId: user2.id, adventureId: adventure636.id }, { userId: user3.id, adventureId: adventure636.id }], skipDuplicates: true });
 
+
+  // Adventure 637
+  const adventure637 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-637" },
+    update: {},
+    create: {
+      id: "seed-adventure-637",
+      title: "Thailand Doi Inthanon Summit Trek",
+      description: `Doi Inthanon at 2565m is Thailand's highest peak and the heart of a national park of extraordinary biodiversity, where over 400 bird species include the Doi Inthanon national park endemics found nowhere else. The summit moss forest is draped in orchids and cloud, and the Royal Project pagodas offer stunning views over the surrounding mountain landscape. Birding at dawn from the summit area rewards with Gould's sunbird, Hume's leaf warbler, and elusive snow-capped robin.`,
+      location: "Chiang Mai, Thailand",
+      country: "Thailand",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Doi Inthanon 2565m Thailand highest summit", "Endemic birds Doi Inthanon 400 species", "Royal Project twin pagodas garden view", "Summit cloud forest orchid moss drape", "Wachirathan Waterfall approach road camp"],
+      gear: ["Warm layers summit cold early morning 2565m", "Binoculars birding dawn summit essential", "Rain jacket cloud forest moisture", "Camera telephoto bird endemic rarities", "Guide birding specialist optional dawn"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 400,
+      latitude: 18.58,
+      longitude: 98.49,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["wildlife"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure637.id }, { userId: user2.id, adventureId: adventure637.id }, { userId: user3.id, adventureId: adventure637.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
