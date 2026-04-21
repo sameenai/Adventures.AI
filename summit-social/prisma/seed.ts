@@ -31205,6 +31205,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure921.id }, { userId: user2.id, adventureId: adventure921.id }], skipDuplicates: true });
 
+
+  // Adventure 922
+  const adventure922 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-922" },
+    update: {},
+    create: {
+      id: "seed-adventure-922",
+      title: "Sri Lanka West Coast Surf Season",
+      description: `Surf the consistent breaks of Sri Lanka's west and south coasts during the northern hemisphere winter season — Hikkaduwa, Weligama, and Arugam Bay offer accessible beach breaks for beginners and intermediate surfers alongside reef breaks for experienced wave riders. Arugam Bay on the east coast is active April to October; the west and south coasts are best November to April. The town of Weligama is the gentlest starting point; Midigama's One Palm Point reef is a world-class wave that rewards patience and skill. Learn to surf for less than anywhere in the Indian Ocean.`,
+      location: "Southern Coast, Sri Lanka",
+      country: "Sri Lanka",
+      continent: "Unknown",
+      category: Category.SURFING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 5.9,
+      longitude: 80.4,
+      published: true,
+      userId: user2.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["surfing"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["diving"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure922.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
