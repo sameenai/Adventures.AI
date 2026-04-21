@@ -20944,6 +20944,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure579.id }, { userId: user2.id, adventureId: adventure579.id }, { userId: user3.id, adventureId: adventure579.id }], skipDuplicates: true });
 
+
+  // Adventure 580
+  const adventure580 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-580" },
+    update: {},
+    create: {
+      id: "seed-adventure-580",
+      title: "Argentina Patagonia Overland",
+      description: `The Ruta 40 through Argentinian Patagonia is one of the world's great road trips, 5000 kilometres of Andean foothills, Patagonian steppe, and volcanic tablelands from Salta to Tierra del Fuego. Los Glaciares National Park with Perito Moreno glacier calving into Lago Argentino, Cueva de las Manos cave paintings, and El Chalten trekking capital define the landmarks of this legendary southern highway.`,
+      location: "Patagonia, Argentina",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Perito Moreno Glacier calving Lago Argentino", "El Chalten Fitz Roy Cerro Torre dramatic peaks", "Cueva de las Manos hand stencil 9000 years", "Ruta 40 lonely wind-swept steppe endlessness", "Tierra del Fuego Ushuaia world's end drama"],
+      gear: ["4WD Ruta 40 section road condition", "Spare tyres remote fuel station stretches", "Wind jacket Patagonian constant gale", "GPS navigation limited signal steppe", "Food supply remote section 200km gap"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 3000,
+      latitude: -49,
+      longitude: -71.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure580.id }, { userId: user2.id, adventureId: adventure580.id }, { userId: user3.id, adventureId: adventure580.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
