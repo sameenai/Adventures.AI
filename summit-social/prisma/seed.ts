@@ -26945,6 +26945,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure779.id }, { userId: user2.id, adventureId: adventure779.id }], skipDuplicates: true });
 
+
+  // Adventure 780
+  const adventure780 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-780" },
+    update: {},
+    create: {
+      id: "seed-adventure-780",
+      title: "Nepal Mardi Himal Trek",
+      description: `A quieter alternative to the Annapurna Sanctuary, the Mardi Himal Trek leads up a narrow ridge between the Modi Khola and Mardi Khola rivers to a high camp at 4,500 m with direct views of the Annapurna massif and Machhapuchhre. The trail receives far fewer trekkers than neighbouring routes and passes through rhododendron forests and high alpine meadows. A new tea house trail makes it feasible without tents. Pokhara is the gateway; the trek is typically completed as a 5-6 day loop.`,
+      location: "Annapurna Region, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 28.4,
+      longitude: 83.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["hiking"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure780.id }, { userId: user2.id, adventureId: adventure780.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
