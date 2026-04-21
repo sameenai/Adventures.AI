@@ -32315,6 +32315,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure958.id }, { userId: user2.id, adventureId: adventure958.id }], skipDuplicates: true });
 
+
+  // Adventure 959
+  const adventure959 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-959" },
+    update: {},
+    create: {
+      id: "seed-adventure-959",
+      title: "Indonesia Borneo Heart of Borneo Trek",
+      description: `Trek deep into the Heart of Borneo — the tri-national rainforest conservation area shared by Malaysia, Brunei, and Indonesia, containing one of the last large lowland rainforest complexes in Southeast Asia — with Dayak guides through primary forest that supports pygmy elephants, proboscis monkeys, clouded leopards, and the rare Bornean orangutan. The Kayan Mentarang National Park in East Kalimantan provides access; river travel by longboat is the primary transport. Multi-day forest camps require carrying food and shelter. One of the planet's most biodiverse remaining intact forest systems.`,
+      location: "Kayan Mentarang National Park, East Kalimantan, Indonesia",
+      country: "Indonesia",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 8, 9],
+      estimatedCost: 1000,
+      latitude: 2.5,
+      longitude: 115.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure959.id }, { userId: user2.id, adventureId: adventure959.id }, { userId: user3.id, adventureId: adventure959.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
