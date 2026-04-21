@@ -274,6 +274,17 @@ describe("adventureFilterSchema", () => {
     expect(adventureFilterSchema.safeParse({ month: "0" }).success).toBe(false);
     expect(adventureFilterSchema.safeParse({ month: "13" }).success).toBe(false);
   });
+
+  it("accepts a tag filter", () => {
+    const result = adventureFilterSchema.safeParse({ tag: "glacier" });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.tag).toBe("glacier");
+  });
+
+  it("rejects a tag longer than 50 characters", () => {
+    const result = adventureFilterSchema.safeParse({ tag: "a".repeat(51) });
+    expect(result.success).toBe(false);
+  });
 });
 
 // ---------------------------------------------------------------------------

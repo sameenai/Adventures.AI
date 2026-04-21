@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { cursor, limit, category, continent, difficulty, search, sortBy, duration, month } =
+  const { cursor, limit, category, continent, difficulty, search, sortBy, duration, month, tag } =
     parsed.data;
 
   const DURATION_RANGES = {
@@ -39,6 +39,7 @@ export async function GET(request: NextRequest) {
     ...(difficulty && { difficulty }),
     ...(duration && { durationDays: DURATION_RANGES[duration] }),
     ...(month && { bestMonths: { has: month } }),
+    ...(tag && { tags: { some: { name: tag } } }),
     ...(search && {
       OR: [
         { title: { contains: search, mode: "insensitive" as const } },

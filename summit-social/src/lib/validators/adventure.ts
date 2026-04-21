@@ -79,6 +79,7 @@ export const adventureFilterSchema = z.object({
     .enum(["weekend", "week", "fortnight", "expedition", "peregrination", "lifestyle"])
     .optional(),
   month: z.coerce.number().int().min(1).max(12).optional(),
+  tag: z.string().max(50).optional(),
 });
 
 export type CreateAdventureInput = z.infer<typeof createAdventureSchema>;

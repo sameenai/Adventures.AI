@@ -360,12 +360,13 @@ export default async function AdventureDetailPage({ params }: Props) {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {adventure.tags.map((tag) => (
-                  <span
+                  <Link
                     key={tag.id}
-                    className="border border-stone-800 px-2 py-0.5 font-mono text-xs text-stone-500"
+                    href={`/adventures?tag=${encodeURIComponent(tag.name)}`}
+                    className="border border-stone-800 px-2 py-0.5 font-mono text-xs text-stone-500 hover:border-amber-500/50 hover:text-amber-500 transition-colors"
                   >
                     {tag.name}
-                  </span>
+                  </Link>
                 ))}
               </div>
             </div>

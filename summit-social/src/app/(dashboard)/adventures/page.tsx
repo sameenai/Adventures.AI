@@ -34,6 +34,7 @@ export default async function AdventuresPage({
   const search = params.search?.trim();
   const sortBy = params.sortBy ?? "votes";
   const month = params.month ? Number(params.month) : undefined;
+  const tag = params.tag;
 
   const DURATION_RANGES = {
     weekend: { gte: 1, lte: 3 },
@@ -54,6 +55,7 @@ export default async function AdventuresPage({
         durationDays: DURATION_RANGES[params.duration as keyof typeof DURATION_RANGES],
       }),
     ...(month && { bestMonths: { has: month } }),
+    ...(tag && { tags: { some: { name: tag } } }),
     ...(search && {
       OR: [
         { title: { contains: search, mode: "insensitive" as const } },
@@ -347,6 +349,7 @@ export default async function AdventuresPage({
               params.difficulty,
               params.duration,
               params.month,
+              params.tag,
               params.search,
               params.sortBy,
             ].join("|")}
@@ -360,6 +363,7 @@ export default async function AdventuresPage({
             difficulty={params.difficulty}
             duration={params.duration}
             month={params.month}
+            tag={params.tag}
             search={params.search}
             sortBy={params.sortBy}
           />
