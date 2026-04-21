@@ -32585,6 +32585,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure967.id }, { userId: user2.id, adventureId: adventure967.id }, { userId: user3.id, adventureId: adventure967.id }], skipDuplicates: true });
 
+
+  // Adventure 968
+  const adventure968 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-968" },
+    update: {},
+    create: {
+      id: "seed-adventure-968",
+      title: "Zambia Liuwa Plain Lion Safari",
+      description: `Travel to the Liuwa Plain National Park in western Zambia — accessible only by 4WD in dry season and largely by boat in the floods — for the second largest wildebeest migration in Africa and encounters with the habituated lion pride that is among the most studied in conservation history. The plain floods completely December to June, converting to a vast shallow lake that birds colonise in their millions. Dry season (July-October) reveals the wildebeest herds and the lions that hunt them across a landscape with no fences and almost no other visitors.`,
+      location: "Liuwa Plain National Park, Western Province, Zambia",
+      country: "Zambia",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -14.5,
+      longitude: 22.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure968.id }, { userId: user2.id, adventureId: adventure968.id }, { userId: user3.id, adventureId: adventure968.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
