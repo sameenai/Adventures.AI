@@ -26765,6 +26765,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure773.id }], skipDuplicates: true });
 
+
+  // Adventure 774
+  const adventure774 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-774" },
+    update: {},
+    create: {
+      id: "seed-adventure-774",
+      title: "Greenland Ice Sheet Ski Crossing",
+      description: `A full crossing of the Greenland Ice Sheet on cross-country skis, pulling pulks loaded with 35-40 kg of food and camping equipment from the west coast to the east coast — approximately 500 km. The journey traverses featureless white plateau at elevations up to 2,800 m in near-continuous daylight. Crevasses are minimal on the central ice sheet but navigation in whiteout conditions requires compass and GPS discipline. Most parties take 25-30 days. This is one of the defining polar expeditions in adventure travel.`,
+      location: "Greenland Ice Sheet",
+      country: "Greenland Ice Sheet",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 28,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6],
+      estimatedCost: 1000,
+      latitude: 66.5,
+      longitude: -42,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["glacier"].id }, { id: allTags["skiing"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure774.id }, { userId: user2.id, adventureId: adventure774.id }, { userId: user3.id, adventureId: adventure774.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
