@@ -21964,6 +21964,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure613.id }, { userId: user2.id, adventureId: adventure613.id }, { userId: user3.id, adventureId: adventure613.id }], skipDuplicates: true });
 
+
+  // Adventure 614
+  const adventure614 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-614" },
+    update: {},
+    create: {
+      id: "seed-adventure-614",
+      title: "Reunion Island Piton Traverse",
+      description: `Reunion Island is a remote French territory in the Indian Ocean where two active volcanoes bookend a landscape of dramatic caldera cirques and sheer cliffs draped in tropical vegetation. Piton des Neiges at 3071m is the highest point in the Indian Ocean, while Piton de la Fournaise erupts multiple times annually, creating fresh lava flows accessible to walkers. The three caldera cirques of Cilaos, Salazie, and Mafate are trekking paradises.`,
+      location: "Reunion Island, France",
+      country: "France",
+      continent: "Africa",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Piton de la Fournaise eruption fresh lava", "Mafate cirque helicopter access only gorge", "Piton des Neiges 3071m Indian Ocean highest", "Cilaos cirque terrace village wine production", "Grand Benare ridge traverse dramatic cliffs"],
+      gear: ["Volcanic terrain boots ankle protection", "Early summit start 3071m altitude pre-dawn", "Lava field navigation safety guide option", "Rain jacket Indian Ocean humidity moisture", "Sun protection Indian Ocean latitude UV"],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1500,
+      latitude: -21.11,
+      longitude: 55.53,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["volcanic"].id }, { id: allTags["island"].id }, { id: allTags["remote"].id }, { id: allTags["africa"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure614.id }, { userId: user2.id, adventureId: adventure614.id }, { userId: user3.id, adventureId: adventure614.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
