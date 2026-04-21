@@ -26255,6 +26255,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure756.id }, { userId: user2.id, adventureId: adventure756.id }, { userId: user3.id, adventureId: adventure756.id }], skipDuplicates: true });
 
+
+  // Adventure 757
+  const adventure757 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-757" },
+    update: {},
+    create: {
+      id: "seed-adventure-757",
+      title: "China Yellow Mountain Hike",
+      description: `Huangshan Yellow Mountain has inspired Chinese landscape painting for a thousand years, and standing among its granite towers in cloud sea is to inhabit a Song Dynasty scroll. The West Sea Canyon, sunrise from Beihai hotel, and the sea of clouds that fills the valleys below the ridge peaks in the morning create visual experiences that explain Chinese mountaineering culture's entirely aesthetic relationship with peaks and fog.`,
+      location: "Anhui, China",
+      country: "China",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Sea of clouds valley fill morning ridge", "West Sea Canyon granite tower labyrinth", "Sunrise Beihai Huangshan classic Chinese", "Ying Ke pine welcome guest tree ancient", "Cable car summit hotel accommodation option"],
+      gear: ["Rain gear cloud Huangshan frequent mist", "Trekking poles granite stairs descent knees", "Layers cloud summit cold year round", "Camera morning cloud sea timing dawn", "Advance reservation mountain hotel essential"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 500,
+      latitude: 30.13,
+      longitude: 118.15,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure757.id }, { userId: user2.id, adventureId: adventure757.id }, { userId: user3.id, adventureId: adventure757.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
