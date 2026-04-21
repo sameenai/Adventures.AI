@@ -296,6 +296,7 @@ Acclimatisation is everything. Arrive in Nairobi or Dar es Salaam at least two d
     "diving",
     "sailing",
     "africa",
+    "road-trip",
   ];
   const extraTags = await Promise.all(
     extraTagNames.map((name) =>
@@ -17972,6 +17973,1206 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     },
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure480.id }, { userId: user2.id, adventureId: adventure480.id }], skipDuplicates: true });
+
+
+  // Adventure 481
+  const adventure481 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-481" },
+    update: {},
+    create: {
+      id: "seed-adventure-481",
+      title: "Corsica GR20 Ridge Trek",
+      description: `The toughest long-distance trail in Europe cuts the spine of Corsica from Calenzana to Conca across granite summits, maquis-covered cols, and glacial lakes. Fourteen stages of unrelenting scrambling, boulder-hopping, and vertical ascents make GR20 a rite of passage for mountain enthusiasts. The island's interior wilderness rewards with views stretching to the Ligurian Sea.`,
+      location: "Corsica, France",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Monte Cinto summit 2706m highest peak", "Lac de Nino high plateau grassland", "Cirque de la Solitude via-ferrata section", "Bavella needle pinnacles drama", "Maquis herbs scent path entire route"],
+      gear: ["Trekking poles boulder fields", "Rigid sole boots ankle support", "Bivouac mat hut overflow", "Water filter alpine springs", "Sun protection granite reflection"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 900,
+      latitude: 42.2,
+      longitude: 9,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["scrambling"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure481.id }, { userId: user2.id, adventureId: adventure481.id }, { userId: user3.id, adventureId: adventure481.id }], skipDuplicates: true });
+
+
+  // Adventure 482
+  const adventure482 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-482" },
+    update: {},
+    create: {
+      id: "seed-adventure-482",
+      title: "Alaskan Inside Passage Sea Kayak",
+      description: `Paddle the emerald maze of fjords, channels, and island archipelagos between Ketchikan and Glacier Bay. Humpback whales surface beside kayaks, bald eagles nest in old-growth Sitka spruce, and blue-calving glaciers thunder into the sea. Open water crossings and tidal currents demand advanced paddling skills, while the wilderness rewards with unmatched Pacific Northwest grandeur.`,
+      location: "Southeast Alaska, USA",
+      country: "USA",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Glacier Bay glacier calving close approach", "Humpback whale encounters daily", "Tracy Arm Fjord ice-choked narrows", "Orca pods Chatham Strait passage", "Old-growth temperate rainforest shoreline"],
+      gear: ["Sea kayak double preferred", "Dry suit cold water immersion", "VHF marine radio tidal charts", "Bear canister food storage", "Spray skirt rough water crossings"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 2800,
+      latitude: 57.5,
+      longitude: -135,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["coastal"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure482.id }, { userId: user2.id, adventureId: adventure482.id }, { userId: user3.id, adventureId: adventure482.id }], skipDuplicates: true });
+
+
+  // Adventure 483
+  const adventure483 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-483" },
+    update: {},
+    create: {
+      id: "seed-adventure-483",
+      title: "Rwandan Gorilla Trek Virunga",
+      description: `Volcanoes National Park preserves one of the last mountain gorilla habitats on earth. Armed rangers escort small groups through dense bamboo forest and hagenia woodland to spend one precious hour with a gorilla family. Lock eyes with a silverback amid moss-draped volcanoes and experience the most intimate wildlife encounter on the planet.`,
+      location: "Volcanoes National Park, Rwanda",
+      country: "Rwanda",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mountain gorilla silverback dominance display", "Infant gorilla playful bamboo acrobatics", "Dian Fossey research center visit", "Volcano summit golden monkey tracking", "Albertine Rift biodiversity hotspot"],
+      gear: ["Waterproof gaiters mud tracks", "Gardening gloves nettle protection", "Neutral colors dark green brown", "Insect repellent forest edge", "Camera silent mode wildlife respect"],
+      bestMonths: [1, 2, 6, 7, 8, 9],
+      estimatedCost: 3200,
+      latitude: -1.46,
+      longitude: 29.54,
+      published: true,
+      userId: user3.id,
+      voteCount: 12,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["jungle"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure483.id }, { userId: user2.id, adventureId: adventure483.id }, { userId: user3.id, adventureId: adventure483.id }], skipDuplicates: true });
+
+
+  // Adventure 484
+  const adventure484 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-484" },
+    update: {},
+    create: {
+      id: "seed-adventure-484",
+      title: "Iran Alborz Ski Touring",
+      description: `The Alborz range north of Tehran conceals world-class ski touring terrain largely unknown to western skiers. Mount Damavand at 5610m offers a high-altitude volcano ski descent, while Dizin and Shemshak resorts provide groomed runs with Persian hospitality. Untouched couloirs, deep powder, and surprisingly developed infrastructure make Iran a hidden gem of mountain skiing.`,
+      location: "Alborz Mountains, Iran",
+      country: "Iran",
+      continent: "Asia",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Damavand volcano summit ski descent 5610m", "Dizin resort Persian hospitality", "Tochal gondola Tehran view skiing", "Untouched couloir first descents possible", "Traditional teahouse chai ski breaks"],
+      gear: ["Ski touring binding splitboard", "Avalanche safety transceiver probe shovel", "Altitude acclimatization Damavand schedule", "Warm layers Alborz cold nights", "Iran visa advance application required"],
+      bestMonths: [1, 2, 3, 12],
+      estimatedCost: 1800,
+      latitude: 35.95,
+      longitude: 52.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 5,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure484.id }, { userId: user2.id, adventureId: adventure484.id }, { userId: user3.id, adventureId: adventure484.id }], skipDuplicates: true });
+
+
+  // Adventure 485
+  const adventure485 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-485" },
+    update: {},
+    create: {
+      id: "seed-adventure-485",
+      title: "Lofoten Islands Cycling",
+      description: `Pedal between dramatic sea-stack peaks and red rorbuer fishing villages across the Lofoten island chain. The E10 highway threads causeways connecting islands where trollfjord reflections and midnight sun illuminate a landscape unlike anywhere in Europe. Surf beaches, Viking longhouse museums, and fresh skrei cod define this Arctic cycling paradise.`,
+      location: "Lofoten Archipelago, Norway",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Hamnoy red fishing village iconic view", "Trollfjord narrow kayak side trip", "Reine mountain reflection calm water", "Midnight sun beach cycling Unstad", "Viking museum Borg longhouse replica"],
+      gear: ["Touring bike rack panniers", "Waterproof panniers Norwegian rain", "Lightweight tent wild camping legal", "Wind jacket Atlantic gusts strong", "Summer no darkness headlamp optional"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1400,
+      latitude: 68.1,
+      longitude: 13.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["coastal"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["arctic"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure485.id }, { userId: user2.id, adventureId: adventure485.id }, { userId: user3.id, adventureId: adventure485.id }], skipDuplicates: true });
+
+
+  // Adventure 486
+  const adventure486 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-486" },
+    update: {},
+    create: {
+      id: "seed-adventure-486",
+      title: "Egypt Sinai Desert Camel Trek",
+      description: `Traverse the ancient desert landscapes of the Sinai Peninsula by camel and foot with Bedouin guides who have navigated these routes for centuries. Reach the sacred summit of Mount Sinai at dawn, sleep under an impossibly dense starfield, and discover hidden oases surrounded by burnt-orange granite massifs. This biblical landscape offers profound solitude and cultural depth.`,
+      location: "Sinai Peninsula, Egypt",
+      country: "Egypt",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mount Sinai summit 2285m biblical sunrise", "Bedouin overnight camp stargazing", "Colored Canyon painted rock formation", "Saint Catherines Monastery UNESCO", "Camel caravan traditional navigation"],
+      gear: ["Desert headwear sun neck protection", "Warm layers cold Sinai nights", "Water capacity minimum 4 liters", "Modest clothing cultural respect", "Camera for infinite starfield shots"],
+      bestMonths: [10, 11, 2, 3, 4],
+      estimatedCost: 800,
+      latitude: 28.5,
+      longitude: 33.97,
+      published: true,
+      userId: user3.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["africa"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure486.id }, { userId: user2.id, adventureId: adventure486.id }, { userId: user3.id, adventureId: adventure486.id }], skipDuplicates: true });
+
+
+  // Adventure 487
+  const adventure487 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-487" },
+    update: {},
+    create: {
+      id: "seed-adventure-487",
+      title: "Papua New Guinea Kokoda Track",
+      description: `The Kokoda Track is one of the world's most historically charged and physically demanding treks. The 96-kilometre route crosses the Owen Stanley Range through dense jungle, negotiating knife-edge ridges, river crossings, and relentless mud. Porters from Kokoda villages carry loads with extraordinary endurance while sharing the WWII history that defines this route's spiritual weight.`,
+      location: "Owen Stanley Range, Papua New Guinea",
+      country: "Papua New Guinea",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Isurava memorial WWII soldier tribute", "Owen Stanley Range cloud forest crossing", "Village overnight traditional hospitality", "Kokoda village historic station arrival", "Jungle orchids birds of paradise sighting"],
+      gear: ["Gaiters mandatory mud track", "Malaria prophylaxis essential requirement", "Lightweight shelter humidity management", "Electrolyte tablets humidity sweating", "Kokoda Track Authority permit required"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1600,
+      latitude: -8.88,
+      longitude: 147.73,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure487.id }, { userId: user2.id, adventureId: adventure487.id }, { userId: user3.id, adventureId: adventure487.id }], skipDuplicates: true });
+
+
+  // Adventure 488
+  const adventure488 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-488" },
+    update: {},
+    create: {
+      id: "seed-adventure-488",
+      title: "Azores Island Volcanic Trekking",
+      description: `The Azores rise from the mid-Atlantic as a volcanic archipelago of lush crater lakes, fumarole steam vents, and wild hydrangea-lined caldera rims. Sao Miguel's Sete Cidades offers twin-colored crater lakes, while Pico Island's summit provides the highest point in Portugal with views spanning the Atlantic. Whale watching and thermal pools complete this island adventure.`,
+      location: "Azores Archipelago, Portugal",
+      country: "Portugal",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Sete Cidades twin crater lakes blue green", "Pico Island summit 2351m Portugal highest", "Fumarole steam vent caldera da Furnas", "Sperm whale watching endemic populations", "Caldeira Velha thermal spring jungle"],
+      gear: ["Rain jacket Atlantic fronts constant", "Sturdy boots volcanic lava terrain", "Sun protection clear day summit", "Swimwear thermal pools compulsory", "Binoculars whale watching offshore"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1100,
+      latitude: 37.74,
+      longitude: -25.67,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure488.id }, { userId: user2.id, adventureId: adventure488.id }, { userId: user3.id, adventureId: adventure488.id }], skipDuplicates: true });
+
+
+  // Adventure 489
+  const adventure489 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-489" },
+    update: {},
+    create: {
+      id: "seed-adventure-489",
+      title: "Xinjiang Tian Shan Mountain Cycling",
+      description: `The ancient Silk Road highways through Xinjiang's Tian Shan traverse some of the most remote mountain terrain on earth. Passes exceeding 3600m connect Kyrgyz and Kazakh pasturelands where nomads still summer with their yurt camps. Turpan's Flaming Mountains and Kashgar's Sunday market bookend a cycling epic through Central Asia's most striking landscapes.`,
+      location: "Tian Shan Range, Xinjiang, China",
+      country: "China",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Karakoram Highway pass 4714m Kunjerab", "Kashgar Sunday bazaar Uyghur culture", "Turpan Flaming Mountains heat record", "Issyk-Kul Lake Kyrgyzstan descent", "Tian Chi Heavenly Lake reflection"],
+      gear: ["Mountain bike panniers loaded touring", "Altitude medication pass acclimatization", "Spare tyres tubes remote road", "Stove fuel high altitude cooking", "Chinese permit Xinjiang border crossing"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2400,
+      latitude: 42.5,
+      longitude: 83,
+      published: true,
+      userId: user3.id,
+      voteCount: 5,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure489.id }, { userId: user2.id, adventureId: adventure489.id }, { userId: user3.id, adventureId: adventure489.id }], skipDuplicates: true });
+
+
+  // Adventure 490
+  const adventure490 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-490" },
+    update: {},
+    create: {
+      id: "seed-adventure-490",
+      title: "Svalbard Polar Expedition Hiking",
+      description: `At 78 degrees north, Svalbard is one of the most accessible High Arctic destinations on earth, yet remains profoundly wild. Glacier crossings, polar bear encounters, and midnight sun hiking through a landscape sculpted by millennia of ice define this expedition. Armed polar bear guides are mandatory outside Longyearbyen, and the psychological weight of true wilderness is constant.`,
+      location: "Svalbard, Norway",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Polar bear wilderness encounter required armed guide", "Midnight sun 24-hour hiking season", "Newtontoppen summit highest point Svalbard", "Glacier crossing crevasse navigation", "Walrus colony Prins Karls Forland"],
+      gear: ["Polar bear rifle mandatory safety", "Glacier rope crampons crevasse safety", "Arctic sleeping system minus 20", "GPS satellite communicator emergency", "Windproof shell constant Svalbard wind"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 4500,
+      latitude: 78.22,
+      longitude: 15.65,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["glacier"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure490.id }, { userId: user2.id, adventureId: adventure490.id }, { userId: user3.id, adventureId: adventure490.id }], skipDuplicates: true });
+
+
+  // Adventure 491
+  const adventure491 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-491" },
+    update: {},
+    create: {
+      id: "seed-adventure-491",
+      title: "Camino Primitivo Northern Spain",
+      description: `The Camino Primitivo is the oldest and wildest of the Camino de Santiago routes, traversing mountain passes and remote Galician villages from Oviedo to Santiago de Compostela. Fewer pilgrims than the Frances mean genuine solitude in Celtic Galicia's misty oak forests. The route demands more climbing than the Frances while delivering the most authentic medieval pilgrimage atmosphere.`,
+      location: "Asturias and Galicia, Spain",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["O Cebreiro mountain pass dramatic entry Galicia", "Lugo Roman walls complete circuit UNESCO", "Galician bagpipe music albergue evenings", "Santiago de Compostela cathedral arrival emotion", "Alto do Poio mountain saddle 1337m"],
+      gear: ["Pilgrim passport credencial stamps route", "Trekking poles mountain ascents", "Blister prevention foot care kit", "Albergue sleeping bag liner", "Poncho cape Galician rain inevitable"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 800,
+      latitude: 43.35,
+      longitude: -8.4,
+      published: true,
+      userId: user2.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["camino"].id }, { id: allTags["europe"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure491.id }, { userId: user2.id, adventureId: adventure491.id }, { userId: user3.id, adventureId: adventure491.id }], skipDuplicates: true });
+
+
+  // Adventure 492
+  const adventure492 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-492" },
+    update: {},
+    create: {
+      id: "seed-adventure-492",
+      title: "Sikkim Kangchenjunga Circuit",
+      description: `Kangchenjunga is the world's third highest mountain, and the restricted-zone circuit around it is one of the least-visited high-altitude treks on earth. Permits limit visitor numbers, keeping the route pristine through ancient rhododendron forests, Buddhist monasteries, and high passes with views of the full Kangchenjunga massif. This is Himalayan trekking at its most authentic.`,
+      location: "Sikkim, India",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Kangchenjunga north and south base camps", "Goecha La pass 4940m panoramic summit", "Pemayangste monastery 17th century icons", "Rhododendron forest bloom March April", "Restricted Inner Line Permit unique access"],
+      gear: ["Inner Line Permit arranged Gangtok", "High altitude sleeping bag minus 20", "Acclimatization schedule strict adherence", "Yak transport high camp loads", "Down jacket prayer flags col crossings"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2600,
+      latitude: 27.7,
+      longitude: 88.15,
+      published: true,
+      userId: user3.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure492.id }, { userId: user2.id, adventureId: adventure492.id }, { userId: user3.id, adventureId: adventure492.id }], skipDuplicates: true });
+
+
+  // Adventure 493
+  const adventure493 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-493" },
+    update: {},
+    create: {
+      id: "seed-adventure-493",
+      title: "New Zealand Te Araroa Thru-Hike",
+      description: `Te Araroa is a 3000-kilometre trail running the length of New Zealand from Cape Reinga in the north to Bluff in the south. The route weaves through geothermal hot springs, volcanic plateau, glacier-fed rivers, and alpine passes of the Southern Alps. Most thru-hikers spend 3 months walking through two islands of staggering ecological diversity.`,
+      location: "New Zealand",
+      country: "New Zealand",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Tongariro Alpine Crossing volcanic plateau", "Whanganui River canoe section unique", "Southern Alps Richmond Ranges alpine", "Fiordland Kepler Track circuit detour", "Bluff to Cape Reinga full island spine"],
+      gear: ["River crossing poles essential floods", "Sand fly protection South Island misery", "Hut booking system advance reservation", "Lightweight shelter rain reliability", "Bear box NZ possum proof containers"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 3500,
+      latitude: -44,
+      longitude: 170,
+      published: true,
+      userId: user1.id,
+      voteCount: 11,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["new-zealand"].id }, { id: allTags["thru-hike"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure493.id }, { userId: user2.id, adventureId: adventure493.id }, { userId: user3.id, adventureId: adventure493.id }], skipDuplicates: true });
+
+
+  // Adventure 494
+  const adventure494 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-494" },
+    update: {},
+    create: {
+      id: "seed-adventure-494",
+      title: "Maldives Live-Aboard Diving",
+      description: `The Maldives archipelago offers some of the world's finest live-aboard diving in a nation that barely rises above sea level. Manta ray cleaning stations, whale shark aggregations, and drift dives through fish-dense channels between atolls define a diving experience that draws the world's best underwater photographers. Outer atolls accessible only by boat conceal pristine untouched reef systems.`,
+      location: "Maldives Atolls",
+      country: "Maldives",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Whale shark aggregation South Ari Atoll", "Manta ray cleaning station Hanifaru Bay", "Hammerhead shark school Rasdhoo Atoll", "Napoleon wrasse coral garden drift", "Night dive bioluminescence plankton bloom"],
+      gear: ["Open water certification minimum required", "Underwater camera housing wide angle", "Reef-safe sunscreen biodegradable only", "Live-aboard dive computer nitrox", "Light shorty suit warm water 28C"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 3800,
+      latitude: 3.2,
+      longitude: 73.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure494.id }, { userId: user2.id, adventureId: adventure494.id }, { userId: user3.id, adventureId: adventure494.id }], skipDuplicates: true });
+
+
+  // Adventure 495
+  const adventure495 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-495" },
+    update: {},
+    create: {
+      id: "seed-adventure-495",
+      title: "Morocco Atlas Mountains Trek",
+      description: `The High Atlas rises abruptly from the Saharan fringe to summit Toubkal at 4167m, North Africa's highest peak. Berber villages clinging to valley walls provide overnight hospitality while mule trains carry supplies up ancient trade routes. The contrast between snow-capped summit and desert below creates an extraordinary trekking landscape that is easily accessible yet genuinely wild.`,
+      location: "High Atlas, Morocco",
+      country: "Morocco",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Toubkal summit 4167m North Africa highest", "Berber village overnight traditional dinner", "Imlil valley walnut orchard approach", "Tizi n Toubkal col 3940m panorama", "Sahara fringe desert village view south"],
+      gear: ["Crampons ice axe winter season only", "Wind shell Atlas summit cold", "Mule hire Imlil traditional option", "Berber host fee negotiation respect", "Altitude medication above 3500m optional"],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 700,
+      latitude: 31.06,
+      longitude: -7.91,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["africa"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["desert"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure495.id }, { userId: user2.id, adventureId: adventure495.id }, { userId: user3.id, adventureId: adventure495.id }], skipDuplicates: true });
+
+
+  // Adventure 496
+  const adventure496 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-496" },
+    update: {},
+    create: {
+      id: "seed-adventure-496",
+      title: "Colombia Lost City Trek",
+      description: `The Lost City trek leads through dense jungle to Ciudad Perdida, a pre-Columbian city built by the Tairona civilization around 800 CE, predating Machu Picchu by 650 years. The four-day route climbs 1200 stone steps through cloud forest inhabited by indigenous Kogi communities who consider the site sacred. The jungle heat and humidity test endurance, while the reward is profound.`,
+      location: "Sierra Nevada, Colombia",
+      country: "Colombia",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ciudad Perdida 1200 stone steps ancient city", "Kogi indigenous community cultural exchange", "Jungle river crossing natural swimming holes", "Cloud forest birding tanager paradise", "Sierra Nevada Caribbean coast views"],
+      gear: ["Insect repellent DEET jungle mandatory", "Quick dry clothing constant humidity", "Waterproof bag electronics protection", "Good boots ankle support wet trails", "Guide mandatory Lost City access"],
+      bestMonths: [12, 1, 2, 3, 7, 8],
+      estimatedCost: 600,
+      latitude: 11.04,
+      longitude: -73.93,
+      published: true,
+      userId: user1.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure496.id }, { userId: user2.id, adventureId: adventure496.id }, { userId: user3.id, adventureId: adventure496.id }], skipDuplicates: true });
+
+
+  // Adventure 497
+  const adventure497 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-497" },
+    update: {},
+    create: {
+      id: "seed-adventure-497",
+      title: "South Africa Cape Point Cycling",
+      description: `Cycle the Cape Peninsula from Cape Town to Cape Point on one of the world's most scenic road rides. Chapman's Peak Drive hugs cliffs above churning Atlantic surf, Cape of Good Hope Nature Reserve hosts free-ranging baboons, and Boulders Beach penguins waddle past cyclists. The route returns through the Cape Winelands for a finale of Stellenbosch cycling in wine country.`,
+      location: "Western Cape, South Africa",
+      country: "South Africa",
+      continent: "Africa",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Chapman's Peak cliff drive Atlantic views", "Cape of Good Hope Africa southernmost feel", "Boulders Beach penguin colony cycling past", "Table Mountain backdrop Cape Town", "Stellenbosch wine farm cycling detour"],
+      gear: ["Road bike quality pavement surface", "Helmet mandatory South Africa law", "Cape Doctor wind jacket essential", "Water Cape Peninsula no shade stretches", "Lock security Cape Town urban sections"],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 1200,
+      latitude: -34.35,
+      longitude: 18.47,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["coastal"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure497.id }, { userId: user2.id, adventureId: adventure497.id }, { userId: user3.id, adventureId: adventure497.id }], skipDuplicates: true });
+
+
+  // Adventure 498
+  const adventure498 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-498" },
+    update: {},
+    create: {
+      id: "seed-adventure-498",
+      title: "Borneo Mulu Caves Expedition",
+      description: `Gunung Mulu National Park holds the world's largest cave passages and most spectacular karst landscapes. Sarawak Chamber could park 40 Boeing 747s inside, while Clearwater Cave contains the world's largest river cave passage. The Pinnacles limestone spires above the jungle canopy require a challenging 3-day climb delivering surreal views over Borneo's primary rainforest.`,
+      location: "Gunung Mulu National Park, Malaysia",
+      country: "Malaysia",
+      continent: "Asia",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Sarawak Chamber worlds largest cave room", "Deer Cave 3 million bat exodus dusk", "Pinnacles limestone spires 3-day climb", "Clearwater Cave river cave system", "Langur monkeys gibbon jungle approach"],
+      gear: ["Head torch cave exploration mandatory", "Waterproof boots cave stream crossings", "Guide mandatory Mulu park regulations", "Climbing harness Pinnacles fixed ropes", "Long sleeves cave insects protection"],
+      bestMonths: [2, 3, 4, 7, 8],
+      estimatedCost: 1400,
+      latitude: 4.05,
+      longitude: 114.81,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure498.id }, { userId: user2.id, adventureId: adventure498.id }, { userId: user3.id, adventureId: adventure498.id }], skipDuplicates: true });
+
+
+  // Adventure 499
+  const adventure499 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-499" },
+    update: {},
+    create: {
+      id: "seed-adventure-499",
+      title: "Peru Ausangate Circuit Trek",
+      description: `The Ausangate Circuit orbits the 6384m Apu Ausangate, sacred mountain of the Quechua people, through high puna grassland dotted with vicuna herds and alpaca flocks. Crossing five passes above 5000m, the route visits the Rainbow Mountain phenomenon and thermal hot springs at Pacchanta village. Fewer crowds than Machu Picchu make this one of Peru's most rewarding high-altitude treks.`,
+      location: "Cusco Region, Peru",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Vinicunca Rainbow Mountain red mineral slope", "Ausangate glacier 6384m backdrop camps", "Puna vicuna herds 5000m plateau grazing", "Pacchanta natural thermal hot springs", "Andean condor thermal soaring camp views"],
+      gear: ["High altitude sleeping bag minus 20", "Acclimatization Cusco minimum 3 days", "Gaiters stream crossing high puna", "Trekking poles pass altitude fatigue", "Oxygen canister emergency insurance"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 900,
+      latitude: -13.79,
+      longitude: -71.23,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure499.id }, { userId: user2.id, adventureId: adventure499.id }, { userId: user3.id, adventureId: adventure499.id }], skipDuplicates: true });
+
+
+  // Adventure 500
+  const adventure500 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-500" },
+    update: {},
+    create: {
+      id: "seed-adventure-500",
+      title: "Antarctica Peninsula Expedition",
+      description: `The Antarctic Peninsula is the most accessible part of the last true wilderness on earth. Expedition ships carry passengers through the Drake Passage to land among penguin colonies, watch humpback whales from zodiac inflatables, and stand on the seventh continent. Glaciers calve into mirror-still bays, icebergs dwarf ships, and the scale of this pristine environment produces a spiritual reckoning.`,
+      location: "Antarctic Peninsula",
+      country: "Antarctica",
+      continent: "Antarctica",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Half Moon Island chinstrap penguin rookery", "Zodiac among iceberg sculpture garden", "Humpback whale zodiac feeding encounter", "Paradise Bay mirror reflection glacier", "Drake Passage 48-hour ocean crossing test"],
+      gear: ["Waterproof expedition parka provided ship", "Rubber boots zodiac landings ship issue", "Seasickness medication Drake Passage", "Layers thermal base mid outer", "Camera moisture protection extreme cold"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 8000,
+      latitude: -64.27,
+      longitude: -63.04,
+      published: true,
+      userId: user2.id,
+      voteCount: 15,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["glacier"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure500.id }, { userId: user2.id, adventureId: adventure500.id }, { userId: user3.id, adventureId: adventure500.id }], skipDuplicates: true });
+
+
+  // Adventure 501
+  const adventure501 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-501" },
+    update: {},
+    create: {
+      id: "seed-adventure-501",
+      title: "Scottish Highlands Winter Mountaineering",
+      description: `The Cairngorm plateau in winter transforms into a genuine Arctic environment with spindrift, whiteout conditions, and rime-coated summit cairns. Ben Nevis offers Grade III/IV winter routes rivaling Alpine conditions, while Creag Meaghaidh's Central Gully provides Scottish mixed climbing at its finest. The unpredictability and ferocity of Scottish weather makes this a serious mountaineering arena.`,
+      location: "Cairngorms, Scotland",
+      country: "UK",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ben Nevis Tower Ridge Grade III classic", "Cairngorm plateau Arctic conditions plateau", "Creag Meaghaidh mixed climbing Grade IV", "Glencoe Buachaille Etive Mor winter ridge", "Northern Corries powder skiing off-piste"],
+      gear: ["Ice axe crampons winter mandatory", "Whiteout navigation skills essential", "Layer system Scottish wind chill extreme", "Helmet mixed climbing rockfall ice", "Mountain rescue insurance winter exposure"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 700,
+      latitude: 57.12,
+      longitude: -3.68,
+      published: true,
+      userId: user3.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["scotland"].id }, { id: allTags["alpine"].id }, { id: allTags["scrambling"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure501.id }, { userId: user2.id, adventureId: adventure501.id }, { userId: user3.id, adventureId: adventure501.id }], skipDuplicates: true });
+
+
+  // Adventure 502
+  const adventure502 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-502" },
+    update: {},
+    create: {
+      id: "seed-adventure-502",
+      title: "Faroe Islands Cliff Hiking",
+      description: `The Faroe Islands rise from the North Atlantic as a collection of sheer basalt cliffs, grass-topped plateaus, and hidden lake systems. Sornfelli summit delivers 360-degree Atlantic views, while Slattaratindur offers exposed ridge walking above sea cliffs hosting millions of seabirds. Gasadalur waterfall falls directly into the ocean, and Lake Sorvagsvatn creates an extraordinary optical illusion.`,
+      location: "Faroe Islands",
+      country: "Faroe Islands",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Lake Sorvagsvatn optical illusion cliff edge", "Gasadalur waterfall ocean direct plunge", "Slattaratindur ridge walk seabird colonies", "Sornfelli summit 360 Atlantic panorama", "Puffin breeding colony cliff face nesting"],
+      gear: ["Wind jacket Faroe horizontal rain", "Waterproof boots wet grass terrain", "Trekking poles exposed ridge sections", "Balaclava extreme Atlantic wind chill", "Binoculars seabird colony observation"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 1500,
+      latitude: 62,
+      longitude: -7,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["photography"].id }, { id: allTags["island"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure502.id }, { userId: user2.id, adventureId: adventure502.id }, { userId: user3.id, adventureId: adventure502.id }], skipDuplicates: true });
+
+
+  // Adventure 503
+  const adventure503 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-503" },
+    update: {},
+    create: {
+      id: "seed-adventure-503",
+      title: "Ethiopian Simien Mountains Trek",
+      description: `The Simien Mountains are an eroded volcanic plateau sliced into dramatic escarpments and deep gorges where endemic Gelada baboons graze in their thousands. Ras Dashen at 4550m is Africa's fourth highest peak, requiring a multi-day approach through highland villages where injera and tej hospitality greet trekkers. The UNESCO World Heritage site combines extraordinary wildlife with mountain grandeur.`,
+      location: "Simien Mountains, Ethiopia",
+      country: "Ethiopia",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Gelada baboon herds thousands escarpment grazing", "Ras Dashen 4550m Africa fourth highest", "Ethiopian wolf endemic sighting highland", "Escarpment edge camp sunset gorge view", "Highland village teff farming traditional life"],
+      gear: ["Altitude acclimatization Gondar first", "Warm layers cold Simien nights above 4000m", "Scout armed escort mandatory park rules", "Mule hire traditional trek option", "Binoculars wildlife endemic species"],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 900,
+      latitude: 13.22,
+      longitude: 38.07,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure503.id }, { userId: user2.id, adventureId: adventure503.id }, { userId: user3.id, adventureId: adventure503.id }], skipDuplicates: true });
+
+
+  // Adventure 504
+  const adventure504 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-504" },
+    update: {},
+    create: {
+      id: "seed-adventure-504",
+      title: "Bolivia Salt Flat Cycling",
+      description: `Crossing the Salar de Uyuni by bicycle is one of South America's most surreal and demanding cycling experiences. The 10,582-square-kilometre salt flat sits at 3656m altitude, creating a flat white expanse that stretches to the horizon and reflects sky perfectly after rain. The route continues to Laguna Colorada flamingo-filled red lake and Laguna Verde in the volcanic southwest circuit.`,
+      location: "Altiplano, Bolivia",
+      country: "Bolivia",
+      continent: "South America",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Salar de Uyuni infinity reflection rainy season", "Laguna Colorada flamingo colony pink", "Geysers Sol de Manana altitude boiling", "Laguna Verde volcanic mineral turquoise", "Cactus Island Incahuasi giant cacti"],
+      gear: ["Mountain bike fat tyre preferred", "Sun protection salt flat UV amplified", "Altitude medication Diamox 3656m", "Wind jacket Altiplano temperature swing", "Water salt flat zero shade sections"],
+      bestMonths: [1, 2, 3, 11, 12],
+      estimatedCost: 800,
+      latitude: -20.13,
+      longitude: -67.49,
+      published: true,
+      userId: user3.id,
+      voteCount: 11,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["desert"].id }, { id: allTags["high-altitude"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure504.id }, { userId: user2.id, adventureId: adventure504.id }, { userId: user3.id, adventureId: adventure504.id }], skipDuplicates: true });
+
+
+  // Adventure 505
+  const adventure505 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-505" },
+    update: {},
+    create: {
+      id: "seed-adventure-505",
+      title: "Croatia Dalmatian Coast Sailing",
+      description: `Charter a sailing yacht and explore the 1000 islands of Croatia's Dalmatian coast at your own pace. Anchor in hidden coves on Hvar and Brac, swim in Kornati National Park waters, and dock at Split to explore Diocletian's Palace. The Maestral afternoon wind fills sails reliably from June to August, and island-hopping logistics are simple even for novice sailors.`,
+      location: "Dalmatian Coast, Croatia",
+      country: "Croatia",
+      continent: "Europe",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Kornati archipelago 89 uninhabited island chain", "Hvar old town lavender fields arrival", "Diocletian Palace Split apartment labyrinth", "Blue Cave Bisevo light phenomenon", "Anchor overnight secluded cove wild swim"],
+      gear: ["Sailing certification skipper required", "Sunscreen sailing UV reflection", "Snorkel mask crystal clear Adriatic", "Light layers Bora wind evening cool", "Chart plotter navigation island maze"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2200,
+      latitude: 43.5,
+      longitude: 16.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["sailing"].id }, { id: allTags["coastal"].id }, { id: allTags["island"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure505.id }, { userId: user2.id, adventureId: adventure505.id }, { userId: user3.id, adventureId: adventure505.id }], skipDuplicates: true });
+
+
+  // Adventure 506
+  const adventure506 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-506" },
+    update: {},
+    create: {
+      id: "seed-adventure-506",
+      title: "Nepal Manaslu Circuit Trek",
+      description: `The Manaslu Circuit orbits the world's eighth highest mountain through a landscape of Tibetan Buddhist culture preserved by isolation. The Larkya La pass at 5106m is the crux of this fourteen-day circuit, with close-up views of Manaslu's 8163m south face. Fewer trekkers than Annapurna Circuit retain the authentic teahouse culture that defined Nepal trekking before overtourism.`,
+      location: "Manaslu Region, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Larkya La pass 5106m Manaslu panorama", "Manaslu base camp 8163m close view", "Tibetan Buddhist monasteries remote valley", "Nubri Valley ancient trade route culture", "Tsum Valley restricted zone side trip"],
+      gear: ["Restricted area permit required Kathmandu", "High altitude sleeping bag minus 20", "Acclimatization profile strict Larkya La", "Down jacket teahouse unheated rooms", "Trekking poles Larkya pass altitude"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 1800,
+      latitude: 28.55,
+      longitude: 84.55,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure506.id }, { userId: user2.id, adventureId: adventure506.id }, { userId: user3.id, adventureId: adventure506.id }], skipDuplicates: true });
+
+
+  // Adventure 507
+  const adventure507 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-507" },
+    update: {},
+    create: {
+      id: "seed-adventure-507",
+      title: "Greenland Ice Sheet Ski Traverse",
+      description: `Traversing the Greenland ice sheet from east to west coast is one of the great polar ski expeditions, following the route first crossed by Nansen in 1888. Three weeks hauling a pulk sled across 600 kilometres of featureless white wilderness tests navigation, physical endurance, and psychological resilience at the extreme end of human experience. The silence is absolute; the scale is incomprehensible.`,
+      location: "Greenland Ice Sheet",
+      country: "Greenland",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Nansen historical route first crossing tribute", "Zero visible features navigation GPS only", "Pulk sled hauling 40kg 600km distance", "Polar blizzard storm tent survival", "Kangerlussuaq to Sisimiut east west traverse"],
+      gear: ["Pulk sled custom built polar hauling", "Polar sleeping system minus 40 rated", "Satellite communicator Iridium essential", "High calorie food 7000kcal daily", "Ski binding binding binding telemark setup"],
+      bestMonths: [4, 5, 6],
+      estimatedCost: 12000,
+      latitude: 67,
+      longitude: -45,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["skiing"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure507.id }, { userId: user2.id, adventureId: adventure507.id }, { userId: user3.id, adventureId: adventure507.id }], skipDuplicates: true });
+
+
+  // Adventure 508
+  const adventure508 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-508" },
+    update: {},
+    create: {
+      id: "seed-adventure-508",
+      title: "Australia Larapinta Trail Hike",
+      description: `The Larapinta Trail traverses the rugged spine of the West MacDonnell Ranges through the ancient heart of Australia. Over 220 kilometres, the track winds past Arrernte sacred sites, plunge pools fed by rare desert springs, and red quartzite ridges reflecting morning light in ochre and crimson. The desert silence is absolute, stars are overwhelming, and the cultural depth of this country runs 60,000 years.`,
+      location: "West MacDonnell Ranges, Australia",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Standley Chasm orange quartzite gorge", "Arrernte sacred site cultural interpretation", "Ormiston Gorge permanent waterhole swimming", "Mt Sonder summit 1380m sunrise panorama", "Aboriginal cave art ochre ancient gallery"],
+      gear: ["Water cache planning critical sections", "Heat protection 40C+ summer avoid", "Desert shelter emergency bivy essential", "Blister care red sand abrasion", "Permit self-registration system online"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -23.5,
+      longitude: 132.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["australia"].id }, { id: allTags["desert"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure508.id }, { userId: user2.id, adventureId: adventure508.id }, { userId: user3.id, adventureId: adventure508.id }], skipDuplicates: true });
+
+
+  // Adventure 509
+  const adventure509 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-509" },
+    update: {},
+    create: {
+      id: "seed-adventure-509",
+      title: "Vietnam Ha Giang Loop Motorcycle",
+      description: `The Ha Giang Loop through northern Vietnam's frontier with China is the country's most dramatic motorcycle ride. The Dong Van Karst Plateau Geopark features limestone towers emerging from ethnic minority villages where Hmong, Dao, and Tay communities maintain traditional cultures. The Mã Pi Lèng Pass drops 1000m in sweeping hairpins over turquoise Nho Que River gorge.`,
+      location: "Ha Giang Province, Vietnam",
+      country: "Vietnam",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ma Pi Leng Pass Vietnam most dangerous road", "Nho Que River turquoise gorge overlook", "Dong Van old town Hmong market", "Lung Cu flagpole northernmost Vietnam point", "Buckwheat flower pink October bloom fields"],
+      gear: ["Motorbike 110cc recommended road quality", "Rain poncho mountain weather changes", "Helmet full face protection roads", "Offline maps no signal remote", "Border permit Ha Giang foreigner required"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 400,
+      latitude: 23.31,
+      longitude: 105.32,
+      published: true,
+      userId: user2.id,
+      voteCount: 12,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure509.id }, { userId: user2.id, adventureId: adventure509.id }, { userId: user3.id, adventureId: adventure509.id }], skipDuplicates: true });
+
+
+  // Adventure 510
+  const adventure510 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-510" },
+    update: {},
+    create: {
+      id: "seed-adventure-510",
+      title: "Kenya Mount Kenya Technical Climb",
+      description: `Mount Kenya's twin technical summits, Batian (5199m) and Nelion (5188m), require genuine mountaineering skills with ice axe, crampon, and rope management on the Diamond Couloir and Normal Route. The Point Lenana trekking summit at 4985m delivers stunning views of the glaciated summit towers above the Equator, where glaciers are shrinking visibly with each passing decade.`,
+      location: "Mount Kenya, Kenya",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Batian Nelion twin summits technical climbing", "Diamond Couloir ice route above equator", "Point Lenana trekking summit 4985m sunrise", "Afroalpine flora giant groundsel lobelia", "Sirimon Chogoria route contrasting approaches"],
+      gear: ["Ice axe crampons technical summit", "Rope 60m technical route protection", "Altitude acclimatization Nairobi approach", "Climbing permit KWS gate entry", "Down jacket summit night freezing"],
+      bestMonths: [1, 2, 7, 8, 9],
+      estimatedCost: 1500,
+      latitude: -0.15,
+      longitude: 37.31,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["africa"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure510.id }, { userId: user2.id, adventureId: adventure510.id }, { userId: user3.id, adventureId: adventure510.id }], skipDuplicates: true });
+
+
+  // Adventure 511
+  const adventure511 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-511" },
+    update: {},
+    create: {
+      id: "seed-adventure-511",
+      title: "Silk Road Cycling Central Asia",
+      description: `Pedal the ancient Silk Road across Kyrgyzstan, Tajikistan, and Uzbekistan through a landscape of snow-capped Pamirs, yurt camp hospitality, and UNESCO-listed Samarkand and Bukhara. The Pamir Highway (M41) is one of the world's great adventure roads, climbing to 4655m at Ak-Baital Pass through a moonscape of high-altitude desert and glacial lakes.`,
+      location: "Kyrgyzstan to Uzbekistan",
+      country: "Kyrgyzstan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Pamir Highway M41 worlds great adventure road", "Ak-Baital Pass 4655m Pamir highest", "Wakhan Corridor Hindu Kush river valley", "Samarkand Registan square silk road gold", "Karakol yurt camp hospitality nomad"],
+      gear: ["Mountain bike tough frame Pamir roads", "Altitude medication 4655m passes", "Panniers 4-season camping system", "Spare parts remote no bike shops", "Multi-visa logistics advance planning"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 3000,
+      latitude: 41,
+      longitude: 73,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["expedition"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure511.id }, { userId: user2.id, adventureId: adventure511.id }, { userId: user3.id, adventureId: adventure511.id }], skipDuplicates: true });
+
+
+  // Adventure 512
+  const adventure512 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-512" },
+    update: {},
+    create: {
+      id: "seed-adventure-512",
+      title: "Namibia Sossusvlei Dune Trekking",
+      description: `The Namib Desert's Sossusvlei basin contains some of the world's highest sand dunes, their knife-edge crests turning apricot, orange, and blood red as dawn light sweeps across the ancient landscape. Dead Vlei white clay pan with ancient blackened acacia trees provides the most photographed scene in Africa. Dune 45 and Big Daddy offer summit climbs rewarded with views across the oldest desert on earth.`,
+      location: "Namib Desert, Namibia",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Dune 45 sunrise climb iconic orange crest", "Dead Vlei white pan ancient black acacia", "Big Daddy dune 325m climb run descent", "Sossusvlei pan oryx herd evening golden hour", "Deadvlei oldest desert earth 55 million years"],
+      gear: ["Pre-dawn departure gate 5:30am essential", "Sun protection extreme Namib UV", "Sand gaiters boots dune boarding", "Extra water heat exhaustion risk", "Tripod dawn photography golden hour"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1600,
+      latitude: -24.7,
+      longitude: 15.34,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["photography"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure512.id }, { userId: user2.id, adventureId: adventure512.id }, { userId: user3.id, adventureId: adventure512.id }], skipDuplicates: true });
+
+
+  // Adventure 513
+  const adventure513 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-513" },
+    update: {},
+    create: {
+      id: "seed-adventure-513",
+      title: "Alaska Denali Base Camp Trek",
+      description: `The approach to Denali base camp through Denali National Park offers a wilderness trekking experience unmatched in North America. No maintained trails, no bridges, and no established routes mean navigation across braided rivers, tundra, and glacial moraines is entirely self-directed. The Brooks Range backdrop and possibility of grizzly bear encounter frame a journey to the base of North America's highest peak.`,
+      location: "Denali National Park, Alaska",
+      country: "USA",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Denali 6190m North America highest backdrop", "Wonder Lake perfect reflection still morning", "Grizzly bear tundra encounter autumn", "Muldrow Glacier moraine approach", "Denali National Park one road access"],
+      gear: ["River crossing technique trekking poles pair", "Bear spray grizzly encounter protection", "GPS route finding off-trail navigation", "Fording shoes river crossings essential", "Wilderness permit advance lottery application"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1800,
+      latitude: 63.07,
+      longitude: -150.99,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure513.id }, { userId: user2.id, adventureId: adventure513.id }, { userId: user3.id, adventureId: adventure513.id }], skipDuplicates: true });
+
+
+  // Adventure 514
+  const adventure514 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-514" },
+    update: {},
+    create: {
+      id: "seed-adventure-514",
+      title: "Philippines Tubbataha Reef Diving",
+      description: `Tubbataha Reef Natural Park in the middle of the Sulu Sea is accessible only by live-aboard dive vessel and only during a strict two-month window. The UNESCO World Heritage reef hosts the highest density of reef sharks in the Philippines, with grey reef, blacktip, and whitetip species patrolling walls that drop to 100 metres. Manta rays, whale sharks, and nesting sea turtles complete an extraordinary marine wilderness.`,
+      location: "Sulu Sea, Philippines",
+      country: "Philippines",
+      continent: "Asia",
+      category: Category.DIVING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Grey reef shark density highest Philippines", "Manta ray cleaning station Tubbataha Pass", "Whale shark chance encounter pelagic", "Sea turtle nesting beach restricted area", "Wall diving vertical drop 100m clarity"],
+      gear: ["Advanced diving certification required walls", "Live-aboard 4-6 day Tubbataha access only", "Underwater camera strobe wide angle", "Reef safe biodegradable sunscreen", "Surface marker buoy strong currents"],
+      bestMonths: [3, 4, 5, 6],
+      estimatedCost: 3500,
+      latitude: 8.97,
+      longitude: 119.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure514.id }, { userId: user2.id, adventureId: adventure514.id }, { userId: user3.id, adventureId: adventure514.id }], skipDuplicates: true });
+
+
+  // Adventure 515
+  const adventure515 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-515" },
+    update: {},
+    create: {
+      id: "seed-adventure-515",
+      title: "Iceland Highlands Laugavegur Extension",
+      description: `Extending the classic Laugavegur trail deep into the Icelandic Highlands reveals a landscape scarcely touched by tourism. Beyond Thorsmork, the route enters the Fjallabak Nature Reserve past obsidian lava fields, rhyolite mountains in technicolor mineral hues, and geothermal hot springs erupting from snow. The Eldgja volcanic canyon adds a detour through Europe's largest volcanic fissure eruption site.`,
+      location: "Highlands, Iceland",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Landmannalaugar rhyolite mountain colour spectrum", "Eldgja volcanic fissure largest Europe eruption", "Emstrur black sand lava desert crossing", "Thorsmork glacier valley birch forest", "River crossings waist deep glacial melt"],
+      gear: ["River crossing poles mandatory glacier melt", "Windproof layering system Iceland permanent", "Hut booking advance summer essential", "Waterproof boots multiple river crossing", "Emergency bivouac sudden highland weather"],
+      bestMonths: [7, 8],
+      estimatedCost: 1300,
+      latitude: 64.06,
+      longitude: -19.49,
+      published: true,
+      userId: user2.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["glacier"].id }, { id: allTags["europe"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure515.id }, { userId: user2.id, adventureId: adventure515.id }, { userId: user3.id, adventureId: adventure515.id }], skipDuplicates: true });
+
+
+  // Adventure 516
+  const adventure516 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-516" },
+    update: {},
+    create: {
+      id: "seed-adventure-516",
+      title: "China Yangtze River Kayak",
+      description: `The Upper Yangtze gorges through Tiger Leaping Gorge and beyond represent some of the most technically challenging whitewater kayaking on earth. The river drops 200 metres per kilometre through granite gorges barely wide enough for a kayak, with class V rapids requiring portaging by most paddlers. The Tiger Leaping Gorge trekking trail provides access views to this extraordinary geological spectacle.`,
+      location: "Yunnan and Sichuan, China",
+      country: "China",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Tiger Leaping Gorge 3900m vertical relief", "Upper Yangtze Class V rapid succession", "Jade Dragon Snow Mountain glacier backdrop", "Naxi minority village overnight hospitality", "First Bend Yangtze geographical curiosity"],
+      gear: ["Advanced whitewater kayak skill class V", "Helmet drysuit cold glacial water", "Throw bag rescue system essential", "Portage harness gorge impassable sections", "Permit river access government required"],
+      bestMonths: [4, 5, 10, 11],
+      estimatedCost: 1900,
+      latitude: 27.23,
+      longitude: 100.18,
+      published: true,
+      userId: user3.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["gorge"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure516.id }, { userId: user2.id, adventureId: adventure516.id }, { userId: user3.id, adventureId: adventure516.id }], skipDuplicates: true });
+
+
+  // Adventure 517
+  const adventure517 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-517" },
+    update: {},
+    create: {
+      id: "seed-adventure-517",
+      title: "Turkey Lycian Way Coastal Trek",
+      description: `The Lycian Way follows 500 kilometres of Turkey's Turquoise Coast through ancient ruins, olive grove villages, and sea-cliff paths above water so clear it appears almost artificially blue. Oludeniz blue lagoon, the sunken city of Kekova, and Patara's unexcavated Roman city buried in sand dunes punctuate a route through the ancient Lycian civilization's heartland.`,
+      location: "Turquoise Coast, Turkey",
+      country: "Turkey",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Oludeniz blue lagoon aerial paraglide view", "Kekova sunken Lycian city snorkel swim", "Patara Roman city sand-buried ruins", "Chimera eternal flames hillside mythology", "Lycian rock tombs carved cliff faces"],
+      gear: ["Sun hat Turkish coastal summer heat", "Swimming gear crystal Aegean bays", "Light cotton layers Mediterranean warm", "Pension guesthouse village accommodation", "Waymark red white trail easy navigate"],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 700,
+      latitude: 36.55,
+      longitude: 29.12,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["coastal"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure517.id }, { userId: user2.id, adventureId: adventure517.id }, { userId: user3.id, adventureId: adventure517.id }], skipDuplicates: true });
+
+
+  // Adventure 518
+  const adventure518 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-518" },
+    update: {},
+    create: {
+      id: "seed-adventure-518",
+      title: "Zambia Kafue River Canoe Safari",
+      description: `Canoeing down the Kafue River through Kafue National Park is one of Africa's most authentic wildlife experiences. Open Canadian canoes drift past hippo pods surfacing, elephants wading the shallows, and crocodiles watching from sandbanks. The absence of motor noise means animals behave naturally, and overnight bush camps beneath a river of stars provide the perfect Africa immersion.`,
+      location: "Kafue National Park, Zambia",
+      country: "Zambia",
+      continent: "Africa",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Hippo pod canoe proximity heart-rate moment", "Elephant herd river crossing before camp", "Crocodile sandbank metre distance drift", "Fish eagle call iconic Africa morning", "Bush camp star trail Africa dark sky"],
+      gear: ["Life jacket mandatory hippo territory", "Dry bag electronics waterproofing", "Malaria prophylaxis Africa mosquito", "Quick dry clothes humidity river spray", "Guide armed safety crocodile hippo"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2200,
+      latitude: -14.43,
+      longitude: 25.87,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure518.id }, { userId: user2.id, adventureId: adventure518.id }, { userId: user3.id, adventureId: adventure518.id }], skipDuplicates: true });
+
+
+  // Adventure 519
+  const adventure519 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-519" },
+    update: {},
+    create: {
+      id: "seed-adventure-519",
+      title: "Dolomites Sellaronda Ski Circuit",
+      description: `The Sella Ronda circuit links four Dolomite valleys — Val Gardena, Val Badia, Arabba, and Val di Fassa — in a single day of resort-to-resort lift-linked skiing. The 40-kilometre circuit showcases the Dolomites' iconic pink limestone towers at their most theatrical. Rifugio lunches of polenta and Aperol Spritz amid mountain scenery that inspired Tolkien complete this Italian ski perfection.`,
+      location: "Dolomites, Italy",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Sellaronda 40km complete circuit single day", "Sassolungo tower sunrise orange glow", "Rifugio polenta schnapps mountain lunch", "Arabba vertical descent 1000m piste", "Pale di San Martino Dolomite reflection"],
+      gear: ["Piste map circuit navigation orange red", "Ski pass Dolomiti Superski area", "Avalanche safety off-piste exploration", "Italian ski lesson powder technique", "Layers rifugio warmth summit chill"],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 2500,
+      latitude: 46.5,
+      longitude: 11.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 11,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure519.id }, { userId: user2.id, adventureId: adventure519.id }, { userId: user3.id, adventureId: adventure519.id }], skipDuplicates: true });
+
+
+  // Adventure 520
+  const adventure520 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-520" },
+    update: {},
+    create: {
+      id: "seed-adventure-520",
+      title: "Costa Rica Multi-Sport Adventure",
+      description: `Costa Rica packs an extraordinary range of adventure activities into a small Central American country. Arenal Volcano provides a backdrop for jungle zip-lining and white-water rafting on the Rio Sarapiqui. Monteverde Cloud Forest Reserve offers night wildlife walks, while Corcovado National Park on the Osa Peninsula provides the most biologically intense wildlife encounter on earth.`,
+      location: "Costa Rica",
+      country: "Costa Rica",
+      continent: "North America",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Arenal Volcano active lava field approach hike", "Corcovado scarlet macaw tapir jaguar", "Monteverde canopy zip line cloud forest", "Rio Sarapiqui white water rafting class IV", "Manuel Antonio beach sloth encounter"],
+      gear: ["Insect repellent tropical jungle essential", "Quick dry clothes humidity sweat", "Waterproof camera bag rain season", "Good boots mud Corcovado trails", "Binoculars wildlife birding 850 species"],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 1600,
+      latitude: 10.46,
+      longitude: -84.64,
+      published: true,
+      userId: user1.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["coastal"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure520.id }, { userId: user2.id, adventureId: adventure520.id }, { userId: user3.id, adventureId: adventure520.id }], skipDuplicates: true });
 
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
