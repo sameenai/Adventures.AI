@@ -23764,6 +23764,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure673.id }, { userId: user2.id, adventureId: adventure673.id }, { userId: user3.id, adventureId: adventure673.id }], skipDuplicates: true });
 
+
+  // Adventure 674
+  const adventure674 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-674" },
+    update: {},
+    create: {
+      id: "seed-adventure-674",
+      title: "Chile Atacama Cycling Desert",
+      description: `The Atacama is the world's driest non-polar desert, and cycling through it between the El Tatio geysers at 4321m and the Valle de la Luna under the Milky Way is an otherworldly experience. The high plateau route connects San Pedro de Atacama's oasis salt flat architecture with the Bolivian Altiplano border through a landscape of volcanic activity, pink flamingo lakes, and absolute solar desert silence.`,
+      location: "Atacama Desert, Chile",
+      country: "Chile",
+      continent: "South America",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["El Tatio geysers 4321m dawn steaming world", "Valle de la Luna salt formation stargazing", "Atacama salt flat reflection Salar de Atacama", "Pink flamingo Laguna Chaxa flamboyance", "Antofagasta Hill of Seven Colours mineral"],
+      gear: ["Mountain bike 4300m altitude endurance", "Sun protection extreme Atacama UV zero cloud", "Water capacity desert 5L minimum per day", "Altitude acclimatization San Pedro 2438m", "Warm jacket Atacama night temperature drop"],
+      bestMonths: [4, 5, 9, 10, 11],
+      estimatedCost: 900,
+      latitude: -22.9,
+      longitude: -68.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["desert"].id }, { id: allTags["high-altitude"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure674.id }, { userId: user2.id, adventureId: adventure674.id }, { userId: user3.id, adventureId: adventure674.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
