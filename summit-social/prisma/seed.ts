@@ -28745,6 +28745,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure839.id }, { userId: user2.id, adventureId: adventure839.id }], skipDuplicates: true });
 
+
+  // Adventure 840
+  const adventure840 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-840" },
+    update: {},
+    create: {
+      id: "seed-adventure-840",
+      title: "Alaska Brooks Range Wilderness Backpacking",
+      description: `Backpack through the Brooks Range in Gates of the Arctic National Park — the northernmost national park in the United States, with no roads, no trails, no facilities, and no rangers in most of the park. The wilderness is accessed by bush plane from Fairbanks or Bettles to a gravel bar landing strip. Grizzly bears, wolves, caribou, and wolverines are the primary inhabitants; human visitors number in the hundreds per year. Navigation is by map and compass through tundra, river valleys, and unnamed passes. The solitude here is absolute.`,
+      location: "Gates of the Arctic National Park, Alaska, USA",
+      country: "USA",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 67.8,
+      longitude: -153.3,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure840.id }, { userId: user2.id, adventureId: adventure840.id }, { userId: user3.id, adventureId: adventure840.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
