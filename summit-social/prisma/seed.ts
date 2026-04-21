@@ -20554,6 +20554,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure566.id }, { userId: user2.id, adventureId: adventure566.id }, { userId: user3.id, adventureId: adventure566.id }], skipDuplicates: true });
 
+
+  // Adventure 567
+  const adventure567 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-567" },
+    update: {},
+    create: {
+      id: "seed-adventure-567",
+      title: "Oman Hajar Mountains Trek",
+      description: `The Hajar Mountains of Oman rise sharply from the Gulf of Oman to Jebel Shams at 3009m, and the ancient falaj irrigation channels connecting terraced village farms provide a network of historic walking routes. The Grand Canyon of Arabia at Wadi Ghul drops 1000m below the Jebel Shams plateau, while the abandoned village of Ghul perches dramatically on a cliff edge. Winter trekking in Oman combines mountain grandeur with desert comfort.`,
+      location: "Hajar Mountains, Oman",
+      country: "Oman",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Wadi Ghul Grand Canyon Arabia 1000m depth", "Jebel Shams 3009m Oman highest plateau", "Ghul abandoned cliff village dramatic perch", "Falaj ancient irrigation channel walk route", "Nakhal Fort historic Omani architecture"],
+      gear: ["Modest clothing Omani cultural respect", "Water cache hot dry climate mandatory", "Trekking poles canyon descent safety", "Sun hat desert plateau exposure", "Camp permit Jebel Shams plateau stay"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 700,
+      latitude: 23.17,
+      longitude: 57.24,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure567.id }, { userId: user2.id, adventureId: adventure567.id }, { userId: user3.id, adventureId: adventure567.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
