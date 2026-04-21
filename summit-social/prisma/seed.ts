@@ -16892,6 +16892,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure444.id }, { userId: user2.id, adventureId: adventure444.id }, { userId: user3.id, adventureId: adventure444.id }], skipDuplicates: true });
 
+
+  // Adventure 445
+  const adventure445 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-445" },
+    update: {},
+    create: {
+      id: "seed-adventure-445",
+      title: "Kyushu Onsen Cycling Japan",
+      description: `Kyushu island in southwestern Japan is the most geothermally active region in the country, with Beppu having more geothermal hot springs than anywhere else on Earth and the Aso caldera being one of the world's largest active calderas. Cycling the Aso cycling road around the caldera rim offers views into the smoking crater, while Kurokawa Onsen provides the most atmospheric rotenburo outdoor bathing experience. The Takachiho Gorge waterfall-laced canyon adds natural drama.`,
+      location: "Beppu",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+      highlights: ["Beppu 8 hells thermal springs", "Aso caldera active crater cycle", "Kurokawa Onsen forest rotenburo", "Takachiho Gorge mythology site", "Kyushu Odan cycling route"],
+      gear: ["Road or hybrid bicycle", "Onsen bathing towel", "Japanese yen cash inns", "Helmet and cycling computer", "Rain jacket"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1200,
+      latitude: 33.28,
+      longitude: 131.49,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["volcanic"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure445.id }, { userId: user2.id, adventureId: adventure445.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
