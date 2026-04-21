@@ -21994,6 +21994,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure614.id }, { userId: user2.id, adventureId: adventure614.id }, { userId: user3.id, adventureId: adventure614.id }], skipDuplicates: true });
 
+
+  // Adventure 615
+  const adventure615 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-615" },
+    update: {},
+    create: {
+      id: "seed-adventure-615",
+      title: "Lake District Wainwright Fells",
+      description: `Alfred Wainwright's 214 Lakeland fells form the ultimate bagging challenge in English hill walking, and completing all 214 is a rite of passage for British hillgoers. Scafell Pike at 978m is England's highest point, while Helvellyn's Striding Edge offers the most thrilling scramble approach in England. The combination of lakes, literary history from Wordsworth, and the particular quality of light in the English fells creates an intimate mountain world.`,
+      location: "Lake District, England",
+      country: "UK",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Helvellyn Striding Edge scramble England finest", "Scafell Pike 978m England highest point", "Catbells family fell Derwent Water view", "Sharp Edge Blencathra dramatic Grade I", "Ullswater sunrise Patterdale valley reflection"],
+      gear: ["OS map navigation fell compass essential", "Waterproof boots Lake District wet year round", "Rain jacket England constant rain", "Layers morning cloud afternoon clear cycle", "Gaiters peaty bog high fell crossing"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 400,
+      latitude: 54.46,
+      longitude: -3.21,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["scrambling"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure615.id }, { userId: user2.id, adventureId: adventure615.id }, { userId: user3.id, adventureId: adventure615.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
