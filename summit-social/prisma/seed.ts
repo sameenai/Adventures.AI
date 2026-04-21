@@ -29075,6 +29075,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure850.id }, { userId: user2.id, adventureId: adventure850.id }], skipDuplicates: true });
 
+
+  // Adventure 851
+  const adventure851 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-851" },
+    update: {},
+    create: {
+      id: "seed-adventure-851",
+      title: "Russia Kamchatka Volcano Expedition",
+      description: `Explore the Kamchatka Peninsula — one of the most volcanically active places on Earth, with 29 active volcanoes including Klyuchevskaya Sopka (4,750 m) — by helicopter and on foot through a landscape of geysers, boiling mud pools, and bear-dense salmon rivers. The Kronotsky Nature Reserve contains the Valley of Geysers — the world's second largest geyser field, accessible only by helicopter. Brown bears gather on the Kuril Lake in August to fish sockeye salmon; numbers can reach hundreds in one place. Petropavlovsk-Kamchatsky is the gateway.`,
+      location: "Kamchatka Peninsula, Russia",
+      country: "Russia",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 53,
+      longitude: 158.7,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["volcanic"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure851.id }, { userId: user2.id, adventureId: adventure851.id }, { userId: user3.id, adventureId: adventure851.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
