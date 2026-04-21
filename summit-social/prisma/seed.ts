@@ -31115,6 +31115,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure918.id }, { userId: user2.id, adventureId: adventure918.id }], skipDuplicates: true });
 
+
+  // Adventure 919
+  const adventure919 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-919" },
+    update: {},
+    create: {
+      id: "seed-adventure-919",
+      title: "Indonesia Flores Island Motorcycle and Trek",
+      description: `Ride the length of Flores by motorcycle — from Labuan Bajo in the west to Larantuka at the eastern end, a 700 km journey across a volcanic island of spectacular Catholic missions, traditional ikat weaving villages, and volcanic craters filled with multicoloured acid lakes. Kelimutu Volcano contains three crater lakes that change colour independently; reaching the rim at sunrise requires a 4am start from Moni village. The road deteriorates as you go east; the final section over the Lio highlands involves significant off-road riding requiring confidence and experience.`,
+      location: "Flores, East Nusa Tenggara, Indonesia",
+      country: "Indonesia",
+      continent: "Unknown",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -8.7,
+      longitude: 121.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["volcanic"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["island"].id }, { id: allTags["cycling"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure919.id }, { userId: user2.id, adventureId: adventure919.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
