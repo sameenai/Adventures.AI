@@ -28385,6 +28385,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure827.id }, { userId: user2.id, adventureId: adventure827.id }, { userId: user3.id, adventureId: adventure827.id }], skipDuplicates: true });
 
+
+  // Adventure 828
+  const adventure828 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-828" },
+    update: {},
+    create: {
+      id: "seed-adventure-828",
+      title: "Egypt Eastern Desert Bedouin Camel Trek",
+      description: `Cross the Egyptian Eastern Desert on camelback with Ababda Bedouin guides — following ancient caravan routes between the Nile Valley and the Red Sea Hills through landscapes of black granite mountains, dry wadis, and ancient gold and emerald mines worked since pharaonic times. The region contains some of Egypt's finest desert scenery, largely unknown to package tourists. Travel by day; camp in wadis protected from wind by ancient stone shelters used by traders for millennia. The camel riding requires no prior experience; the pace is walking speed.`,
+      location: "Eastern Desert, Egypt",
+      country: "Egypt",
+      continent: "Unknown",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 26,
+      longitude: 33,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["africa"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure828.id }, { userId: user2.id, adventureId: adventure828.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
