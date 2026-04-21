@@ -24815,6 +24815,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure708.id }, { userId: user2.id, adventureId: adventure708.id }, { userId: user3.id, adventureId: adventure708.id }], skipDuplicates: true });
 
+
+  // Adventure 709
+  const adventure709 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-709" },
+    update: {},
+    create: {
+      id: "seed-adventure-709",
+      title: "Alaska Kenai Fjords Sea Kayak",
+      description: `Kenai Fjords National Park on Alaska's Kenai Peninsula offers sea kayaking through a landscape of tidewater glaciers calving directly into the sea, Steller sea lion colonies, and abundant marine wildlife including orca pods, humpback whales, and sea otters. The park's remote fjords accessible only by water concentrate wildlife in extraordinary densities, and the constant ice and wildlife activity creates a dynamic kayaking environment with something different at every turn.`,
+      location: "Kenai Peninsula, Alaska",
+      country: "USA",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Holgate Glacier tidewater calving kayak zone", "Steller sea lion colony rookery noise proximity", "Orca pod surface foraging fjord channel", "Sea otter kelp raft maternal wrap", "Humpback whale bubble net feeding fjord"],
+      gear: ["Sea kayak expedition Alaska cold water", "Drysuit immersion Alaska water survival", "VHF radio tidal glacier wave warning", "Bear spray coastal Alaska protocol", "Rain gear Alaska consistent precipitation"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 2500,
+      latitude: 59.77,
+      longitude: -150.06,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure709.id }, { userId: user2.id, adventureId: adventure709.id }, { userId: user3.id, adventureId: adventure709.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
