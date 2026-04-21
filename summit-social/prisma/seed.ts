@@ -23644,6 +23644,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure669.id }, { userId: user2.id, adventureId: adventure669.id }, { userId: user3.id, adventureId: adventure669.id }], skipDuplicates: true });
 
+
+  // Adventure 670
+  const adventure670 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-670" },
+    update: {},
+    create: {
+      id: "seed-adventure-670",
+      title: "Greenland Disko Island Arctic",
+      description: `Disko Island in Disko Bay is the largest island off Greenland and the most accessible Arctic destination in the country, connected by ferry from Ilulissat. Hot springs, basalt cliffs, and arctic fox habitats combine with the constant backdrop of Disko Bay's extraordinary iceberg armada. The island is home to Greenland Institute of Natural Resources and traditional Greenlandic dog sledding culture that predates European contact.`,
+      location: "Disko Island, Greenland",
+      country: "Greenland",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Disko Bay iceberg armada largest in world", "Qeqertarsuaq hot spring arctic geothermal", "Greenlandic sled dog culture Inuit heritage", "Midnight sun June July 24-hour photography", "Basalt cliff seabird colony guillemot auk"],
+      gear: ["Ferry Ilulissat Qeqertarsuaq connection", "Layers Arctic summer cold wind", "Waterproof jacket rain constant Disko", "Camera iceberg scale telephoto wide", "Arctic fox patience still approach technique"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 2500,
+      latitude: 69.89,
+      longitude: -53.66,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure670.id }, { userId: user2.id, adventureId: adventure670.id }, { userId: user3.id, adventureId: adventure670.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
