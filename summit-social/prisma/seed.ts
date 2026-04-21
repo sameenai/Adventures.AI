@@ -33005,6 +33005,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure981.id }, { userId: user2.id, adventureId: adventure981.id }, { userId: user3.id, adventureId: adventure981.id }], skipDuplicates: true });
 
+
+  // Adventure 982
+  const adventure982 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-982" },
+    update: {},
+    create: {
+      id: "seed-adventure-982",
+      title: "Austria Alps Transalpine Route Cycling",
+      description: `Cycle from Munich to Venice via the Transalp — the classic 7-day mountain bike crossing of the Alps from the Bavarian lowlands through the Inntal, over the Reschen Pass into South Tyrol, through the Vinschgau Valley, and down to the Venetian Plain. The route covers 600 km and 15,000 m of climbing over terrain ranging from German beer gardens to Italian prosecco vineyards with the full Alpine range in between. The annual Transalp Race version draws thousands; independent riders can tackle the same route without time pressure. Mountain bike skills and fitness are essential.`,
+      location: "Alps, Germany / Austria / Italy",
+      country: "Germany / Austria / Italy",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 47,
+      longitude: 11.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["alpine"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure982.id }, { userId: user2.id, adventureId: adventure982.id }, { userId: user3.id, adventureId: adventure982.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
