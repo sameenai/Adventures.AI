@@ -21304,6 +21304,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure591.id }, { userId: user2.id, adventureId: adventure591.id }, { userId: user3.id, adventureId: adventure591.id }], skipDuplicates: true });
 
+
+  // Adventure 592
+  const adventure592 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-592" },
+    update: {},
+    create: {
+      id: "seed-adventure-592",
+      title: "Norway Trolltunga Hike",
+      description: `Trolltunga is a horizontal rock platform projecting horizontally 700 metres above Lake Ringedalsvatnet, creating the most dramatic photograph in Norway. The 22-kilometre round trip involves 1000m of ascent, and the view from the Troll's Tongue hovering above the turquoise lake is worth every step of the grueling approach. The Hardanger region around the trail provides fjord, waterfall, and glacier scenery throughout the approach.`,
+      location: "Hardanger, Norway",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Trolltunga tongue rock 700m above lake photograph", "Lake Ringedalsvatnet turquoise below platform", "Hardanger Fjord approach scenic drive", "Folgefonna glacier distant white backdrop", "Norwegian fjord valley Odda town base"],
+      gear: ["Pre-dawn start long day 10-12 hours", "Sturdy boots rocky alpine terrain", "Wind jacket plateau exposed ridge", "Sufficient food water no facilities trail", "Trekking poles descent knee protection"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 500,
+      latitude: 60.12,
+      longitude: 6.74,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure592.id }, { userId: user2.id, adventureId: adventure592.id }, { userId: user3.id, adventureId: adventure592.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
