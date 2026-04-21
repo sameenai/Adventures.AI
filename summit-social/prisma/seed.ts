@@ -32405,6 +32405,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure961.id }, { userId: user2.id, adventureId: adventure961.id }], skipDuplicates: true });
 
+
+  // Adventure 962
+  const adventure962 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-962" },
+    update: {},
+    create: {
+      id: "seed-adventure-962",
+      title: "Morocco Sahara Desert Camel Trek",
+      description: `Ride a camel into the Erg Chebbi sand dunes of the Moroccan Sahara near Merzouga — the classic dune sea with crests reaching 150 m — for an overnight camp in a Berber tent, waking before sunrise to climb a dune crest and watch the desert light transform the landscape through 40 shades of orange. The experience is deliberately simple: no electricity, no Wi-Fi, just fire, mint tea, and a sky saturated with stars. Multi-day extensions south to Erg Chigaga — larger and more remote, accessible only by 4WD — provide a genuine desert immersion.`,
+      location: "Erg Chebbi, Draa-Tafilalet, Morocco",
+      country: "Morocco",
+      continent: "Unknown",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 31.1,
+      longitude: -4,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["africa"].id }, { id: allTags["photography"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure962.id }, { userId: user2.id, adventureId: adventure962.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
