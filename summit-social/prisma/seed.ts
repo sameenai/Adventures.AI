@@ -22864,6 +22864,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure643.id }, { userId: user2.id, adventureId: adventure643.id }, { userId: user3.id, adventureId: adventure643.id }], skipDuplicates: true });
 
+
+  // Adventure 644
+  const adventure644 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-644" },
+    update: {},
+    create: {
+      id: "seed-adventure-644",
+      title: "Russia Trans-Siberian Cycle",
+      description: `Cycling the Trans-Siberian Highway from Moscow to Vladivostok is one of the world's most demanding cycling expeditions, 9000 kilometres of taiga forest, steppe, and the Siberian winter on roads that vary from perfectly paved to unpaved mud tracks. Lake Baikal provides a mid-point landmark where the deepest lake on earth reflects Siberian sky, while the Russian Far East taiga harbors Amur tigers and brown bears in dense forest alongside the final kilometres.`,
+      location: "Russia",
+      country: "Russia",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Lake Baikal deepest lake deepest blue overnight", "Siberian taiga forest 3000km without city", "Amur tiger territory Russian Far East cycling", "Trans-Siberian railway alongside parallel", "Vladivostok Pacific Ocean finish ceremony"],
+      gear: ["All season gear Siberian weather extreme", "Spare parts Moscow departure full toolkit", "Visa Russia multiple entry multi-month", "Satellite phone remote Siberia emergency", "Bear spray Siberian forest requirement"],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 5000,
+      latitude: 60,
+      longitude: 105,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure644.id }, { userId: user2.id, adventureId: adventure644.id }, { userId: user3.id, adventureId: adventure644.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
