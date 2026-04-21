@@ -27395,6 +27395,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure794.id }, { userId: user2.id, adventureId: adventure794.id }], skipDuplicates: true });
 
+
+  // Adventure 795
+  const adventure795 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-795" },
+    update: {},
+    create: {
+      id: "seed-adventure-795",
+      title: "Svalbard Summer Polar Expedition",
+      description: `A sailing-based polar expedition through Svalbard's fjords in the midnight sun — navigating sea ice, landing on Arctic beaches to see walrus colonies and polar bear tracks, and hiking from the shore into the tundra interior. The archipelago is one of the few places on Earth where polar bears outnumber humans. Most expeditions operate on 8-12-day sailing itineraries from Longyearbyen. Ice conditions vary annually; the northwest of Spitsbergen and the archipelago of Nordaustlandet are the most ice-dependent areas.`,
+      location: "Svalbard, Norway",
+      country: "Norway",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 78.2,
+      longitude: 17,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["arctic"].id }, { id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["sailing"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure795.id }, { userId: user2.id, adventureId: adventure795.id }, { userId: user3.id, adventureId: adventure795.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
