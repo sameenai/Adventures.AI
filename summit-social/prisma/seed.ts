@@ -23554,6 +23554,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure666.id }, { userId: user2.id, adventureId: adventure666.id }, { userId: user3.id, adventureId: adventure666.id }], skipDuplicates: true });
 
+
+  // Adventure 667
+  const adventure667 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-667" },
+    update: {},
+    create: {
+      id: "seed-adventure-667",
+      title: "Himalaya Kora Around Amnye Machen",
+      description: `The Amnye Machen sacred mountain in Qinghai is the pre-eminent mountain deity of the Amdo Tibetan region, and its kora circumambulation at 4000-5000m through remote grassland, glacial valleys, and nomad camps is one of the least-known great pilgrimages in Asia. The 220-kilometre circuit takes 8-10 days and passes below the Amnye Machen glacier complex before ascending to the highest point at 5200m above the main face.`,
+      location: "Qinghai, China",
+      country: "China",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Amnye Machen pilgrimage kora nomadic Amdo", "Tibetan nomad camp yak butter tea ceremony", "Glacier face 6282m Amnye Machen summit backdrop", "Mani wall prayer stone ancient inscription", "Wild yak herd Qinghai plateau encounter"],
+      gear: ["China permit Qinghai Tibetan plateau", "Horse hire Amnye Machen option trek pace", "High altitude sleeping bag 5200m pass", "Guide local Tibetan navigation knowledge", "Altitude medication protocol planned"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 2000,
+      latitude: 34.9,
+      longitude: 99.4,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure667.id }, { userId: user2.id, adventureId: adventure667.id }, { userId: user3.id, adventureId: adventure667.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
