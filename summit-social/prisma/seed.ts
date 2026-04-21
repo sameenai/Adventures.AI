@@ -25625,6 +25625,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure735.id }, { userId: user2.id, adventureId: adventure735.id }, { userId: user3.id, adventureId: adventure735.id }], skipDuplicates: true });
 
+
+  // Adventure 736
+  const adventure736 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-736" },
+    update: {},
+    create: {
+      id: "seed-adventure-736",
+      title: "Nepal Annapurna Circuit Trek",
+      description: `The Annapurna Circuit is one of the world's great trekking routes, circumnavigating the Annapurna massif through the deepest gorge on earth at Kali Gandaki and over the Thorong La pass at 5416m. The two-week circuit descends from the Tibetan highlands of Mustang to the subtropical forests of Pokhara through an extraordinary vertical range of climate, culture, and landscape that showcases the full depth of Nepali mountain life.`,
+      location: "Annapurna Region, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Thorong La pass 5416m circuit high point", "Kali Gandaki gorge deepest world Muktinath", "Muktinath Hindu Tibetan Buddhist sacred site", "Manang village acclimatization hike high camp", "Poon Hill dawn Annapurna range panorama"],
+      gear: ["Acclimatization rest day Manang essential", "Thorong La pass cold early morning start", "ACAP permit Annapurna Conservation Area", "Trekking poles Thorong descent knees protect", "Warm layers 5416m pass wind exposed"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 900,
+      latitude: 28.77,
+      longitude: 84.02,
+      published: true,
+      userId: user1.id,
+      voteCount: 11,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["multi-day"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure736.id }, { userId: user2.id, adventureId: adventure736.id }, { userId: user3.id, adventureId: adventure736.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
