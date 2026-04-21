@@ -19444,6 +19444,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure529.id }, { userId: user2.id, adventureId: adventure529.id }, { userId: user3.id, adventureId: adventure529.id }], skipDuplicates: true });
 
+
+  // Adventure 530
+  const adventure530 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-530" },
+    update: {},
+    create: {
+      id: "seed-adventure-530",
+      title: "Himalaya Zanskar River Ice Trek",
+      description: `The Chadar Trek follows the frozen Zanskar River through a gorge so deep and remote that winter ice is the only road for weeks. Trekkers walk on translucent river ice listening to it crack and groan underfoot, sheltering in caves at night as temperatures plunge to minus 30. This is one of the world's most extreme and unique winter trekking experiences available to non-climbers.`,
+      location: "Zanskar, Ladakh, India",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Chadar frozen river walk ice gorge", "Cave shelter minus 30 overnight ice", "Zanskar gorge ice overhang ceiling walk", "Buddhist monastery winter isolation visit", "Ladakhi guide traditional winter knowledge"],
+      gear: ["Extreme cold gear minus 30 essential", "Crampons ice grip river surface", "Sleeping bag minus 40 cave floors", "Insulated boots waterproof ice water", "Permit Zanskar Trek advance application"],
+      bestMonths: [1, 2],
+      estimatedCost: 1200,
+      latitude: 33.46,
+      longitude: 76.56,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure530.id }, { userId: user2.id, adventureId: adventure530.id }, { userId: user3.id, adventureId: adventure530.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
