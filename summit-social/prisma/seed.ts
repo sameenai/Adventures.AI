@@ -31355,6 +31355,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure926.id }, { userId: user2.id, adventureId: adventure926.id }, { userId: user3.id, adventureId: adventure926.id }], skipDuplicates: true });
 
+
+  // Adventure 927
+  const adventure927 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-927" },
+    update: {},
+    create: {
+      id: "seed-adventure-927",
+      title: "New Zealand Tongariro Northern Circuit",
+      description: `Walk the full Tongariro Northern Circuit — a 43 km loop around the Tongariro volcanic massif that incorporates the world-famous Alpine Crossing and extends beyond it to the Red Crater, Blue Lake, and the north circuit through moraine and alpine meadow. The Alpine Crossing alone takes 7-8 hours; the full circuit takes 3-4 days with hut accommodation. Mount Ngauruhoe (2,291 m) stands in as Mount Doom from The Lord of the Rings; side ascents to the summit add a 2-hour scramble to any circuit day. Active volcanic gases require weather monitoring.`,
+      location: "Tongariro National Park, Manawatu-Wanganui, New Zealand",
+      country: "New Zealand",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 1000,
+      latitude: -39.3,
+      longitude: 175.6,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["new-zealand"].id }, { id: allTags["hiking"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure927.id }, { userId: user2.id, adventureId: adventure927.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
