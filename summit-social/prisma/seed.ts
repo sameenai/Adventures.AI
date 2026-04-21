@@ -297,6 +297,7 @@ Acclimatisation is everything. Arrive in Nairobi or Dar es Salaam at least two d
     "sailing",
     "africa",
     "road-trip",
+    "surfing",
   ];
   const extraTags = await Promise.all(
     extraTagNames.map((name) =>
