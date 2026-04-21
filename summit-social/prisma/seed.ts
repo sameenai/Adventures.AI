@@ -24575,6 +24575,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure700.id }, { userId: user2.id, adventureId: adventure700.id }, { userId: user3.id, adventureId: adventure700.id }], skipDuplicates: true });
 
+
+  // Adventure 701
+  const adventure701 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-701" },
+    update: {},
+    create: {
+      id: "seed-adventure-701",
+      title: "Corsica Calanques Sea Kayak",
+      description: `The Calanques of the Corsican west coast are dramatic sea inlets carved into pink and red granite by Atlantic swell, accessible only from the sea by kayak or boat. The route from Calvi south to Porto and the UNESCO Scandola Nature Reserve passes through sea caves, under natural arches, and beside sheer cliff faces descending directly into the Mediterranean. Bearded vultures nest in the Scandola cliffs and osprey patrol the sea.`,
+      location: "West Coast Corsica, France",
+      country: "France",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Scandola Nature Reserve UNESCO World Heritage", "Calanque de Piana red granite sea inlet", "Osprey nest Scandola cliff face active", "Porto sea stack red granite formation", "Sea cave system Corsica west coast kayak"],
+      gear: ["Sea kayak calm conditions Mediterranean", "VHF radio west coast swell warning", "Sun protection granite reflection UV", "Snorkel mask underwater geological wonder", "Camp permit Corsican coast restrictions"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 42.37,
+      longitude: 8.72,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["coastal"].id }, { id: allTags["island"].id }, { id: allTags["europe"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure701.id }, { userId: user2.id, adventureId: adventure701.id }, { userId: user3.id, adventureId: adventure701.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
