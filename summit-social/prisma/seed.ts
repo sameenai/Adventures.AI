@@ -24485,6 +24485,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure697.id }, { userId: user2.id, adventureId: adventure697.id }, { userId: user3.id, adventureId: adventure697.id }], skipDuplicates: true });
 
+
+  // Adventure 698
+  const adventure698 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-698" },
+    update: {},
+    create: {
+      id: "seed-adventure-698",
+      title: "Southeast Asia Mekong Cycle",
+      description: `Cycling along the Mekong River from Chiang Rai in northern Thailand through Laos to Cambodia connects the rural heartland of mainland Southeast Asia in a journey of extraordinary cultural diversity. The river road passes Luang Prabang's French colonial monastery heritage, the Plain of Jars megalithic mystery, and Phnom Penh's sobering Killing Fields memorial before the cycle tour finale at Angkor Wat's moat.`,
+      location: "Mekong River Basin",
+      country: "Thailand",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Angkor Wat Khmer moat sunrise finale approach", "Luang Prabang alms ceremony monk procession", "Plain of Jars Laos megalithic mystery ride", "Mekong river sunset border crossing daily", "Phnom Penh Killing Fields memorial cycling"],
+      gear: ["Road bike Mekong highway paved sections", "Visa on arrival Thailand Laos Cambodia", "Cash USD universal Southeast Asia remote", "Helmet mandatory Cambodia road safety", "Chain lube monsoon season rust prevention"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1200,
+      latitude: 15,
+      longitude: 105,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["road-trip"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure698.id }, { userId: user2.id, adventureId: adventure698.id }, { userId: user3.id, adventureId: adventure698.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
