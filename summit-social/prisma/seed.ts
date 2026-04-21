@@ -24875,6 +24875,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure710.id }, { userId: user2.id, adventureId: adventure710.id }, { userId: user3.id, adventureId: adventure710.id }], skipDuplicates: true });
 
+
+  // Adventure 711
+  const adventure711 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-711" },
+    update: {},
+    create: {
+      id: "seed-adventure-711",
+      title: "Canada Haida Gwaii Wilderness Trek",
+      description: `Gwaii Haanas National Park Reserve on the southern islands of Haida Gwaii is one of Canada's most remote protected areas, accessible only by boat or float plane. The Watchmen program has Haida cultural monitors at key sites, and visitors encounter world-class grizzly bear habitat, sea lion colonies, and the eerie beauty of abandoned Haida villages where totem poles slowly return to the forest. This is wilderness on Haida Nation terms.`,
+      location: "Gwaii Haanas, BC, Canada",
+      country: "Canada",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ninstints SGang Gwaay UNESCO totem poles", "Grizzly bear berry season coastal encounter", "Steller sea lion colony rock platform noise", "Abandoned Haida village forest reclamation", "Gwaii Haanas permit watchman cultural guide"],
+      gear: ["Float plane charter Sandspit access", "Drysuit sea kayak Hecate Strait crossings", "Bear cache food safety Gwaii Haanas", "Haida permit advance compulsory booking", "Satellite communicator remote channel"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 3500,
+      latitude: 52.1,
+      longitude: -131.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure711.id }, { userId: user2.id, adventureId: adventure711.id }, { userId: user3.id, adventureId: adventure711.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
