@@ -29585,6 +29585,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure867.id }, { userId: user2.id, adventureId: adventure867.id }], skipDuplicates: true });
 
+
+  // Adventure 868
+  const adventure868 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-868" },
+    update: {},
+    create: {
+      id: "seed-adventure-868",
+      title: "Scotland NC500 Cycling — North Coast 500",
+      description: `Cycle the North Coast 500 — Scotland's answer to Route 66, a 516-mile circular route around the Scottish Highlands from Inverness — past the Old Man of Storr, Smoo Caves, Cape Wrath, Bealach na Ba (the steepest road in Britain), and Torridon's 750-million-year-old Torridonian sandstone mountains. The route is challenging by car and epic by bicycle; the West Coast sections involve punishing climbs and headwinds but deliver the finest cycling scenery in Britain. Midges (Highland biting insects) are a challenge from June to August; good rain gear is essential.`,
+      location: "Scottish Highlands, Scotland",
+      country: "Scotland",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 1000,
+      latitude: 57.8,
+      longitude: -4.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["scotland"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["road-trip"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure868.id }, { userId: user2.id, adventureId: adventure868.id }, { userId: user3.id, adventureId: adventure868.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
