@@ -23944,6 +23944,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure679.id }, { userId: user2.id, adventureId: adventure679.id }, { userId: user3.id, adventureId: adventure679.id }], skipDuplicates: true });
 
+
+  // Adventure 680
+  const adventure680 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-680" },
+    update: {},
+    create: {
+      id: "seed-adventure-680",
+      title: "India Valley of Flowers Trek",
+      description: `The Valley of Flowers National Park is a high-altitude Himalayan valley transformed each monsoon season into a carpet of 500 species of wildflowers, from Himalayan blue poppy to cobra lily. The UNESCO World Heritage site is accessible only in the three months of July to September before winter snow closes the approach, and the adjacent Hem Kund Sahib Sikh pilgrimage lake at 4329m adds spiritual dimension to a botanically extraordinary journey.`,
+      location: "Chamoli, Uttarakhand, India",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Valley of Flowers 500 species July August peak", "Himalayan blue poppy rarest endemic bloom", "Hem Kund Sahib 4329m Sikh sacred lake", "Pushpawati River wildflower valley canyon", "Snow Leopard Biosphere Reserve wildlife chance"],
+      gear: ["Monsoon rain gear July August constant", "Trekking poles slippery flower trail", "National park permit daily limit entry", "Waterproof camera monsoon wildflower photography", "Altitude acclimatization Joshimath 1875m base"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 500,
+      latitude: 30.72,
+      longitude: 79.61,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure680.id }, { userId: user2.id, adventureId: adventure680.id }, { userId: user3.id, adventureId: adventure680.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
