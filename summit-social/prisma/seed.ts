@@ -29555,6 +29555,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure866.id }, { userId: user2.id, adventureId: adventure866.id }, { userId: user3.id, adventureId: adventure866.id }], skipDuplicates: true });
 
+
+  // Adventure 867
+  const adventure867 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-867" },
+    update: {},
+    create: {
+      id: "seed-adventure-867",
+      title: "Botswana Chobe Elephant Safari",
+      description: `Chobe National Park in northern Botswana hosts the largest concentration of elephants in Africa — over 50,000 individuals — that congregate along the Chobe River each dry season in herds of hundreds. Morning and afternoon boat cruises on the Chobe River put visitors within metres of swimming elephants, hippos, and crocodiles; open 4WD game drives cover the Chobe forest and Savuti channel area. The area is also critical habitat for African wild dog, lion, and sable antelope. The crossing into Zimbabwe via the Victoria Falls bridge takes 30 minutes.`,
+      location: "Chobe National Park, Botswana",
+      country: "Botswana",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -17.8,
+      longitude: 25.1,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure867.id }, { userId: user2.id, adventureId: adventure867.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
