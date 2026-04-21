@@ -23854,6 +23854,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure676.id }, { userId: user2.id, adventureId: adventure676.id }, { userId: user3.id, adventureId: adventure676.id }], skipDuplicates: true });
 
+
+  // Adventure 677
+  const adventure677 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-677" },
+    update: {},
+    create: {
+      id: "seed-adventure-677",
+      title: "Japan Daisetsuzan Traverse",
+      description: `Daisetsuzan National Park on Hokkaido is Japan's largest national park and most pristine alpine wilderness, where the main range traverse from Asahidake to Tokachidake crosses above treeline for three days through volcanic terrain, high plateau, and hot spring valleys. Brown bear territory signs are routine on the trail, and the September timing aligns with Hokkaido's spectacular autumn colour transformation of the national park.`,
+      location: "Hokkaido, Japan",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Asahidake 2291m Hokkaido highest active volcano", "Tokachidake traverse volcanic sulphur field", "September foliage Hokkaido Japan earliest autumn", "Brown bear territory Japan wild encounter", "Kurodake hut mountain refuge wilderness view"],
+      gear: ["Bear spray Japan Hokkaido brown bear", "Rain jacket Hokkaido climate mountain change", "Mountain boots volcanic terrain rocky", "Hut reservation Daisetsuzan advance essential", "Layers cold traverse above treeline"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 800,
+      latitude: 43.66,
+      longitude: 142.86,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["alpine"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure677.id }, { userId: user2.id, adventureId: adventure677.id }, { userId: user3.id, adventureId: adventure677.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
