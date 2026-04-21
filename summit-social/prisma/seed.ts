@@ -30485,6 +30485,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure897.id }, { userId: user2.id, adventureId: adventure897.id }], skipDuplicates: true });
 
+
+  // Adventure 898
+  const adventure898 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-898" },
+    update: {},
+    create: {
+      id: "seed-adventure-898",
+      title: "Japan Oze Marshland and Nikko Mountain Trek",
+      description: `Trek through the Oze National Park — Japan's largest highland marshland, carpeted in mizubasho (Asian skunk cabbage) blooms in May and golden in autumn — then continue into the Nikko mountains for multi-day ridge traverses above traditional hot spring villages. The Oze marshland boardwalk protects the fragile peat ecosystem; off-board footsteps are forbidden. Nikko's waterfalls and mountain shrines connect the walk to one of Japan's most important Shinto and Buddhist heritage sites. Accommodation in traditional ryokan with onsen bathhouses.`,
+      location: "Fukushima / Tochigi Prefecture, Japan",
+      country: "Japan",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 10],
+      estimatedCost: 1000,
+      latitude: 36.9,
+      longitude: 139.3,
+      published: true,
+      userId: user2.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["hiking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure898.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
