@@ -31715,6 +31715,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure938.id }, { userId: user2.id, adventureId: adventure938.id }], skipDuplicates: true });
 
+
+  // Adventure 939
+  const adventure939 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-939" },
+    update: {},
+    create: {
+      id: "seed-adventure-939",
+      title: "Alaska Kenai Fjords Sea Kayaking",
+      description: `Kayak the Kenai Fjords coastline from Seward — a fjord system carved by glaciers and still actively calved by the Harding Icefield — through the marine protected waters of the National Park where tidewater glaciers reach the sea, orcas hunt, and sea otters wrap themselves in kelp. Multi-day paddles camp on gravel beaches between iceberg-dotted coves. Day trips are popular but multi-day routes into the outer coast reach beaches rarely visited. The combination of glacial scenery, marine wildlife, and technical sea conditions makes this among Alaska's finest kayaking.`,
+      location: "Kenai Fjords National Park, Alaska, USA",
+      country: "USA",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 59.9,
+      longitude: -149.7,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure939.id }, { userId: user2.id, adventureId: adventure939.id }, { userId: user3.id, adventureId: adventure939.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
