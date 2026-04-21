@@ -23374,6 +23374,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure660.id }, { userId: user2.id, adventureId: adventure660.id }, { userId: user3.id, adventureId: adventure660.id }], skipDuplicates: true });
 
+
+  // Adventure 661
+  const adventure661 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-661" },
+    update: {},
+    create: {
+      id: "seed-adventure-661",
+      title: "Botswana Okavango Delta Canoe",
+      description: `The Okavango Delta is one of Africa's great wildlife areas and the only major river system that drains not to the sea but into the Kalahari Desert. Mokoro dugout canoe journeys with poling guides through papyrus channels and lily-covered lagoons provide access to elephant islands, hippo-dense waters, and sitatunga antelope in reed beds. The water safari delivers wildlife encounters at absolute ground level.`,
+      location: "Okavango Delta, Botswana",
+      country: "Botswana",
+      continent: "Africa",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mokoro dugout canoe pole guide elephant island", "Hippo channel threading motor-silent passing", "Sitatunga antelope reed bed water specialist", "African fish eagle call iconic delta sound", "Chief's Island lion leopard density reserve"],
+      gear: ["Life jacket mandatory hippo territory", "Dry bag all electronics essential mokoro splash", "Guide poler obligatory safety navigation", "Malaria prophylaxis Okavango high risk", "Neutral clothing blend delta ecology"],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 2800,
+      latitude: -19.26,
+      longitude: 22.82,
+      published: true,
+      userId: user3.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure661.id }, { userId: user2.id, adventureId: adventure661.id }, { userId: user3.id, adventureId: adventure661.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
