@@ -1,7 +1,7 @@
 import { authOptions } from "@/lib/auth/config";
-import { RATE_LIMITS } from "@/lib/constants";
+import { CACHE_TTL, RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
-import { rateLimit } from "@/lib/db/redis";
+import { getCached, rateLimit, setCache } from "@/lib/db/redis";
 import { decodeCursor, encodeCursor } from "@/lib/pagination";
 import { adventureFilterSchema, createAdventureSchema } from "@/lib/validators/adventure";
 import type { Prisma } from "@prisma/client";
@@ -125,6 +125,18 @@ export async function GET(request: NextRequest) {
         ? [{ durationDays: "asc" as const }, { id: "asc" as const }]
         : [{ voteCount: "desc" as const }, { id: "asc" as const }];
 
+  // Cache first-page requests (no cursor) — these are the hottest reads and
+  // their results are identical for all visitors with the same filter params.
+  // Paginated requests (cursor present) are per-session and not cached.
+  const cacheKey = cursor
+    ? null
+    : `adventures:${sortBy}:${category ?? ""}:${continent ?? ""}:${difficulty ?? ""}:${duration ?? ""}:${month ?? ""}:${tag ?? ""}:${search ?? ""}:${limit}`;
+
+  if (cacheKey) {
+    const cached = await getCached<{ items: unknown[]; nextCursor?: string }>(cacheKey);
+    if (cached) return NextResponse.json(cached);
+  }
+
   const adventures = await prisma.adventure.findMany({
     where: { ...where, ...cursorWhere },
     orderBy,
@@ -151,7 +163,10 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  return NextResponse.json({ items, nextCursor });
+  const payload = { items, nextCursor };
+  if (cacheKey) await setCache(cacheKey, payload, CACHE_TTL.adventureCounts);
+
+  return NextResponse.json(payload);
 }
 
 export async function POST(request: NextRequest) {
