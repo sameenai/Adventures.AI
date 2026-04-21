@@ -22684,6 +22684,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure637.id }, { userId: user2.id, adventureId: adventure637.id }, { userId: user3.id, adventureId: adventure637.id }], skipDuplicates: true });
 
+
+  // Adventure 638
+  const adventure638 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-638" },
+    update: {},
+    create: {
+      id: "seed-adventure-638",
+      title: "Mediterranean Sea Sail Race",
+      description: `The Fastnet Rock and Rolex Fastnet Race attract the world's finest offshore sailors, but the Mediterranean also provides its own classic offshore races including the Maxi Yacht Rolex Cup from Porto Cervo. Crewing on a racing yacht across the Tyrrhenian Sea or through the Strait of Messina provides offshore sailing experience where teamwork, watch systems, and meteorological awareness combine with the drama of spinnaker-driven Mediterranean speed.`,
+      location: "Mediterranean Sea",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Porto Cervo Sardinia superyacht race start", "Strait of Messina tidal race navigation", "Stromboli volcano night sailing glow active", "Aeolian Islands volcanic chain approach race", "Finish line champagne classic race ceremony"],
+      gear: ["Offshore sailing qualification certificate", "Harness tether mandatory offshore passage", "Foul weather gear full Musto offshore set", "Watch system rotation preparation", "Crew application race organizer registration"],
+      bestMonths: [9, 10],
+      estimatedCost: 2000,
+      latitude: 41,
+      longitude: 9.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["sailing"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["multi-sport"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure638.id }, { userId: user2.id, adventureId: adventure638.id }, { userId: user3.id, adventureId: adventure638.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
