@@ -22024,6 +22024,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure615.id }, { userId: user2.id, adventureId: adventure615.id }, { userId: user3.id, adventureId: adventure615.id }], skipDuplicates: true });
 
+
+  // Adventure 616
+  const adventure616 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-616" },
+    update: {},
+    create: {
+      id: "seed-adventure-616",
+      title: "Kenya Loita Hills Wild Trek",
+      description: `The Loita Hills are sacred Maasai highlands in southern Kenya where no roads penetrate the ancient cedar forest and Maasai ceremonial groves. Walking with Maasai guides through wildlife-rich open grassland and forest habitat encounters buffalo, elephant, and on fortunate days, African wild dogs. The Loita Hills are rarely visited and represent the Kenya of pre-mass-tourism, where the relationship between human and wild is still negotiated daily.`,
+      location: "Loita Hills, Kenya",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["African wild dog encounter rare East Africa", "Maasai sacred cedar forest ceremonial grove", "Elephant herd forest highland Loita Hills", "Maasai guide traditional ecological knowledge", "No roads no infrastructure complete wilderness"],
+      gear: ["Maasai guide mandatory safety wildlife", "Water filter forest spring reliance", "Malaria prophylaxis Kenya highlands", "Tent camping no accommodation infrastructure", "First aid kit remote medical care none"],
+      bestMonths: [6, 7, 8, 1, 2],
+      estimatedCost: 800,
+      latitude: -1.6,
+      longitude: 36,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure616.id }, { userId: user2.id, adventureId: adventure616.id }, { userId: user3.id, adventureId: adventure616.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
