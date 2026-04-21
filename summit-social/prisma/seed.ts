@@ -28085,6 +28085,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure817.id }, { userId: user2.id, adventureId: adventure817.id }], skipDuplicates: true });
 
+
+  // Adventure 818
+  const adventure818 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-818" },
+    update: {},
+    create: {
+      id: "seed-adventure-818",
+      title: "Bhutan Snowman Trek",
+      description: `The Snowman Trek is one of the world's most difficult trekking routes — a 30-day journey across northern Bhutan crossing 11 passes above 4,500 m, with several above 5,400 m, connecting remote highland yak-herding villages barely touched by modernity. Only about 10-15% of those who attempt it complete the full route; weather, altitude, and the sheer duration defeat most parties. The trek is fully supported and requires mandatory Bhutanese government-certified guides. The remote Lunana district it traverses is so isolated it has no road access.`,
+      location: "Northern Bhutan",
+      country: "Northern Bhutan",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [9, 10],
+      estimatedCost: 1000,
+      latitude: 28.1,
+      longitude: 90.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["trekking"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure818.id }, { userId: user2.id, adventureId: adventure818.id }, { userId: user3.id, adventureId: adventure818.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
