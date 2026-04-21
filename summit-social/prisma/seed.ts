@@ -23014,6 +23014,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure648.id }, { userId: user2.id, adventureId: adventure648.id }, { userId: user3.id, adventureId: adventure648.id }], skipDuplicates: true });
 
+
+  // Adventure 649
+  const adventure649 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-649" },
+    update: {},
+    create: {
+      id: "seed-adventure-649",
+      title: "Norway Svalbard Snowmobile Arctic",
+      description: `Snowmobile expeditions across the Svalbard archipelago in March and April cover distances impossible on ski in the limited window before the sea ice becomes impassable. Guided expeditions from Longyearbyen to the east coast and back cross frozen fjords, mountain passes, and tundra plateaus under the Northern Lights or spring sun. Polar bear encounters from the safety of a snowmobile with an armed guide provide wildlife drama at the top of the world.`,
+      location: "Svalbard, Norway",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Svalbard polar bear snowmobile encounter", "Frozen fjord snowmobile crossing Nordaustlandet", "Spring Arctic light 24-hour photography", "Barentsburg Russian settlement visit contrast", "Northern Lights or midnight sun depending week"],
+      gear: ["Snowmobile instruction Longyearbyen operator", "Arctic gear minus 30 snowmobile wind", "Polar bear rifle guide mandatory safety", "GPS satellite phone Arctic emergency", "Balaclava face protection wind chill speed"],
+      bestMonths: [3, 4],
+      estimatedCost: 2500,
+      latitude: 78.22,
+      longitude: 15.65,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure649.id }, { userId: user2.id, adventureId: adventure649.id }, { userId: user3.id, adventureId: adventure649.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
