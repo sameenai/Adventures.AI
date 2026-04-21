@@ -31865,6 +31865,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure943.id }, { userId: user2.id, adventureId: adventure943.id }, { userId: user3.id, adventureId: adventure943.id }], skipDuplicates: true });
 
+
+  // Adventure 944
+  const adventure944 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-944" },
+    update: {},
+    create: {
+      id: "seed-adventure-944",
+      title: "Nepal Upper Mustang Restricted Area Trek",
+      description: `Obtain the restricted area permit required to enter Upper Mustang — the former Kingdom of Lo, a hidden Tibetan Buddhist enclave north of the Annapurna and Dhaulagiri ranges in a rain shadow desert that remained closed to outsiders until 1992 — and trek through ochre-walled ancient walled cities, cave dwellings, and crumbling chortens to Lo Manthang, the walled capital of the former kingdom, at 3,840 m. The landscape is genuinely Tibetan; the people maintain the Tibetan Buddhist culture suppressed across the border. One of Nepal's most singular cultural trekking experiences.`,
+      location: "Mustang District, Gandaki Province, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 6, 9, 10],
+      estimatedCost: 1000,
+      latitude: 29.1,
+      longitude: 83.8,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure944.id }, { userId: user2.id, adventureId: adventure944.id }, { userId: user3.id, adventureId: adventure944.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
