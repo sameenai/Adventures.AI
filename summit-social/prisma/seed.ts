@@ -29855,6 +29855,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure876.id }, { userId: user2.id, adventureId: adventure876.id }], skipDuplicates: true });
 
+
+  // Adventure 877
+  const adventure877 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-877" },
+    update: {},
+    create: {
+      id: "seed-adventure-877",
+      title: "India Sundarbans Tiger Safari",
+      description: `Navigate the Sundarbans — the world's largest mangrove delta shared between India and Bangladesh — by country boat in search of the Royal Bengal tiger that swims between islands and hunts in the tidal forest. The Sundarban Tiger Reserve in West Bengal protects around 100 tigers in a maze of tidal creeks, mangrove islands, and estuarine channels. Crocodiles, river dolphins, and vast numbers of shore birds share the habitat. The tigers here are known to swim between islands and are rarely photographed; a sighting is a significant event. The boat-based safari is available year-round.`,
+      location: "Sundarbans Tiger Reserve, West Bengal, India",
+      country: "India",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 21.9,
+      longitude: 89,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["kayaking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure877.id }, { userId: user2.id, adventureId: adventure877.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
