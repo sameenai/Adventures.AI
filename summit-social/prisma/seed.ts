@@ -28535,6 +28535,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure832.id }, { userId: user2.id, adventureId: adventure832.id }], skipDuplicates: true });
 
+
+  // Adventure 833
+  const adventure833 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-833" },
+    update: {},
+    create: {
+      id: "seed-adventure-833",
+      title: "Argentina Aconcagua High Camp Expedition",
+      description: `Attempt Aconcagua (6,961 m) via the Normal Route from Mendoza — the highest peak in the western hemisphere and the highest non-technical summit on Earth. The ascent is non-technical but the altitude is unforgiving; most failures are due to acute mountain sickness, not difficulty. Two weeks above 5,000 m in the White Glacier and Nido de Condores camps build acclimatisation before the summit push. Gusts at the summit can exceed 200 km/h; summit day waits for a weather window. The permit system and mule support are well-organised.`,
+      location: "Mendoza Province, Argentina",
+      country: "Argentina",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 18,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1, 2],
+      estimatedCost: 1000,
+      latitude: -32.7,
+      longitude: -70,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure833.id }, { userId: user2.id, adventureId: adventure833.id }, { userId: user3.id, adventureId: adventure833.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
