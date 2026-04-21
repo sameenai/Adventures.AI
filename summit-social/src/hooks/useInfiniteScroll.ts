@@ -39,6 +39,9 @@ export function useInfiniteScroll<T extends { id: string }>({
         return [...prev, ...fresh];
       });
       setCursor(result.nextCursor);
+      // fetchingCursorRef is NOT reset here — the cursor value advances to
+      // result.nextCursor, so the old value no longer matches and the guard
+      // naturally unblocks the next page without an explicit reset.
       if (!result.nextCursor) setHasMore(false);
     } catch (error) {
       console.error("Failed to load more:", error);
