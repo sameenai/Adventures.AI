@@ -25115,6 +25115,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure718.id }, { userId: user2.id, adventureId: adventure718.id }, { userId: user3.id, adventureId: adventure718.id }], skipDuplicates: true });
 
+
+  // Adventure 719
+  const adventure719 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-719" },
+    update: {},
+    create: {
+      id: "seed-adventure-719",
+      title: "UK Orkney Islands Archaeology Hike",
+      description: `Orkney's concentration of Neolithic monuments rivals and predates Stonehenge, with the Ring of Brodgar, Skara Brae village, and Maeshowe chambered cairn all within a short walking circuit of each other. The Ness of Brodgar excavation continues to reveal a ceremonial complex of extraordinary scale and sophistication. Walking the Mainland circuit in winter solstice aligns with the solar geometry of monuments designed 5000 years ago.`,
+      location: "Orkney, Scotland",
+      country: "UK",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ring of Brodgar 5000-year standing stone circle", "Skara Brae preserved Neolithic village 3100 BCE", "Maeshowe winter solstice sun alignment", "Ness of Brodgar active excavation UNESCO", "Italian Chapel Italian prisoners WWII art"],
+      gear: ["Wind jacket Orkney permanent north wind", "Waterproof boots wet Orkney climate reliable", "Camera golden hour light standing stone", "Ferry Scrabster Stromness Pentland Firth", "Walking shoes gentle coastal walking terrain"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 500,
+      latitude: 59,
+      longitude: -3.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure719.id }, { userId: user2.id, adventureId: adventure719.id }, { userId: user3.id, adventureId: adventure719.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
