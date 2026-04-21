@@ -27845,6 +27845,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure809.id }, { userId: user2.id, adventureId: adventure809.id }, { userId: user3.id, adventureId: adventure809.id }], skipDuplicates: true });
 
+
+  // Adventure 810
+  const adventure810 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-810" },
+    update: {},
+    create: {
+      id: "seed-adventure-810",
+      title: "Scotland Winter Mountaineering on Ben Nevis",
+      description: `Ben Nevis (1,345 m) in full winter condition is one of Britain's premier mountaineering destinations — its north face holds classic Grade IV and V ice routes and mixed gullies that form reliably in severe cold spells. Tower Ridge is the longest ridge climb in the UK. The summit plateau in a whiteout is genuinely dangerous; navigation errors here are well-documented. The Scottish avalanche information service provides daily forecasts. Fort William serves as the base; the approach from the CIC hut takes most parties 2-3 hours.`,
+      location: "Ben Nevis, Scotland",
+      country: "Scotland",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 56.8,
+      longitude: -5,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["scotland"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure810.id }, { userId: user2.id, adventureId: adventure810.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
