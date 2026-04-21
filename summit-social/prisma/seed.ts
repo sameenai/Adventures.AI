@@ -25235,6 +25235,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure722.id }, { userId: user2.id, adventureId: adventure722.id }, { userId: user3.id, adventureId: adventure722.id }], skipDuplicates: true });
 
+
+  // Adventure 723
+  const adventure723 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-723" },
+    update: {},
+    create: {
+      id: "seed-adventure-723",
+      title: "Peru Cordillera Huayhuash Trek",
+      description: `The Cordillera Huayhuash circuit is widely considered the world's finest mountain trekking circuit, orbiting a compact massif of seven peaks above 6000m including Yerupaja at 6635m, the second highest mountain in the Western Hemisphere. The 12-day circuit crosses nine passes above 4500m through a landscape of turquoise lakes, hanging glaciers, and high puna grassland that changes character daily. The remoteness and altitude make this a serious high-altitude undertaking.`,
+      location: "Ancash and Huanuco, Peru",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Yerupaja 6635m second Americas highest backdrop", "Siula Grande Touching the Void Simpson route", "Laguna Jahuacocha turquoise reflection camp", "Nine passes above 4500m circuit complete", "Punta Cuyoc 5000m highest circuit pass"],
+      gear: ["Acclimatization Huaraz 3052m minimum 4 days", "Crampons high passes snowfield option", "High altitude sleeping bag minus 20 required", "Community checkpoint fee per section", "Self-sufficient camping no teahouse route"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1200,
+      latitude: -10.27,
+      longitude: -76.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 11,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure723.id }, { userId: user2.id, adventureId: adventure723.id }, { userId: user3.id, adventureId: adventure723.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
