@@ -19594,6 +19594,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure534.id }, { userId: user2.id, adventureId: adventure534.id }, { userId: user3.id, adventureId: adventure534.id }], skipDuplicates: true });
 
+
+  // Adventure 535
+  const adventure535 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-535" },
+    update: {},
+    create: {
+      id: "seed-adventure-535",
+      title: "Borneo Headhunters Trail Jungle",
+      description: `The Headhunters Trail follows the historic route that Iban head-hunting raiding parties used to travel between the Rejang and Baram river basins in Sarawak. The five-day jungle route connects Gunung Mulu National Park to the Medamit district through primary rainforest where proboscis monkeys, hornbills, and clouded leopards inhabit the canopy. Longhouse overnight stays with indigenous Iban families are the highlight.`,
+      location: "Sarawak, Malaysian Borneo",
+      country: "Malaysia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Iban longhouse overnight traditional communal", "Proboscis monkey river evening boat encounter", "Hornbill rhinoceros birding canopy", "Jungle river longboat transport sections", "Penan hunter-gatherer forest people meeting"],
+      gear: ["Leech socks mandatory jungle floor", "Malaria prophylaxis rural Borneo", "Quick dry clothes river crossing daily", "Guide mandatory Headhunters route navigation", "Waterproof bag all electronics jungle"],
+      bestMonths: [3, 4, 5, 7, 8],
+      estimatedCost: 1400,
+      latitude: 4.15,
+      longitude: 114.62,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure535.id }, { userId: user2.id, adventureId: adventure535.id }, { userId: user3.id, adventureId: adventure535.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
