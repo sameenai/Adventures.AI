@@ -25085,6 +25085,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure717.id }, { userId: user2.id, adventureId: adventure717.id }, { userId: user3.id, adventureId: adventure717.id }], skipDuplicates: true });
 
+
+  // Adventure 718
+  const adventure718 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-718" },
+    update: {},
+    create: {
+      id: "seed-adventure-718",
+      title: "Maldives Island Hopping Sail",
+      description: `Chartering a traditional Maldivian dhoni sailing boat to hop between atolls and uninhabited islands provides the most authentic Maldives experience beyond the luxury resort formula. Local islands maintain traditional fishing culture and open their homes to visitors willing to engage on different terms, while the dhoni provides access to distant outer atolls where manta rays feed in channels and whale sharks patrol the outer reef edges. The stars at anchor in the middle of the Indian Ocean are incomparable.`,
+      location: "Maldives",
+      country: "Maldives",
+      continent: "Asia",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Dhoni traditional sailing vessel island hop", "Outer atoll manta ray feeding channel drift", "Whale shark outer reef patrol chance", "Local island fishing culture traditional life", "Indian Ocean anchor star observation night"],
+      gear: ["Sailing certification optional dhoni help", "Snorkel mask coral garden daily swim", "Reef safe sunscreen mandatory coral protection", "Lightweight clothing Islamic culture respect", "Cash rufiyaa local island transactions"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 2500,
+      latitude: 3.2,
+      longitude: 73.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["sailing"].id }, { id: allTags["island"].id }, { id: allTags["diving"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure718.id }, { userId: user2.id, adventureId: adventure718.id }, { userId: user3.id, adventureId: adventure718.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
