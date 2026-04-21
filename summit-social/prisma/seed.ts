@@ -23734,6 +23734,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure672.id }, { userId: user2.id, adventureId: adventure672.id }, { userId: user3.id, adventureId: adventure672.id }], skipDuplicates: true });
 
+
+  // Adventure 673
+  const adventure673 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-673" },
+    update: {},
+    create: {
+      id: "seed-adventure-673",
+      title: "Nepal Gosaikunda Sacred Lakes",
+      description: `The Gosaikunda sacred lake at 4380m is one of Hinduism's most important pilgrimage sites, where thousands of devotees make the ascent for the Janai Purnima festival in July. The Langtang Valley approach through rhododendron forest and yak pasture to the lake provides a Nepal trekking experience distinct from Annapurna and Everest circuits in character and culture. The Tserko Ri viewpoint adds Himalayan panorama to a spiritually charged journey.`,
+      location: "Langtang, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Gosaikunda 4380m Hindu sacred lake Shiva", "Tserko Ri 4984m Langtang panorama viewpoint", "Langtang Village Gurung culture yak butter", "Kyanjin Gompa monastery cheese factory unique", "Janai Purnima August pilgrimage crowds"],
+      gear: ["TIMS Langtang permit entry mandatory", "Acclimatization schedule Syabru Besi start", "Warm layers Gosaikunda exposed lakeside", "Trekking poles descent steep from Tserko Ri", "Tea house route lodging standard available"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 700,
+      latitude: 28.09,
+      longitude: 85.42,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure673.id }, { userId: user2.id, adventureId: adventure673.id }, { userId: user3.id, adventureId: adventure673.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
