@@ -30875,6 +30875,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure910.id }, { userId: user2.id, adventureId: adventure910.id }], skipDuplicates: true });
 
+
+  // Adventure 911
+  const adventure911 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-911" },
+    update: {},
+    create: {
+      id: "seed-adventure-911",
+      title: "Madagascar Masoala Peninsula Trek",
+      description: `Trek through the Masoala Peninsula — Madagascar's largest intact rainforest and a UNESCO World Heritage Site — on the northeast coast, through lowland and montane forest containing more than 50% of the island's remaining primary rainforest species. The peninsula is accessible only by boat from Maroantsetra; trails are steep, unmarked, and muddy. Red-ruffed lemurs, aye-ayes, fossa, and dozens of endemic chameleon species inhabit the forest. The Bay of Antongil on the eastern coast is a humpback whale nursery from July to September.`,
+      location: "Masoala Peninsula, Antsiranana, Madagascar",
+      country: "Madagascar",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -15.8,
+      longitude: 50.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure911.id }, { userId: user2.id, adventureId: adventure911.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
