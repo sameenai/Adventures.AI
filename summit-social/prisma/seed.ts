@@ -19384,6 +19384,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure527.id }, { userId: user2.id, adventureId: adventure527.id }, { userId: user3.id, adventureId: adventure527.id }], skipDuplicates: true });
 
+
+  // Adventure 528
+  const adventure528 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-528" },
+    update: {},
+    create: {
+      id: "seed-adventure-528",
+      title: "Ecuador Volcano Avenue Trek",
+      description: `Alexander von Humboldt named this corridor of Andean volcanoes the Avenue of Volcanoes in 1802. Cotopaxi at 5897m is the world's highest active volcano, while Chimborazo at 6263m is the point on earth's surface furthest from the planet's centre. Each volcano offers a different mountaineering challenge across a country that packs extraordinary altitude into a compact geography.`,
+      location: "Avenue of Volcanoes, Ecuador",
+      country: "Ecuador",
+      continent: "South America",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Cotopaxi 5897m active volcano summit crater", "Chimborazo 6263m furthest earth centre point", "Illiniza Norte 5126m technical ridge climb", "Tungurahua active eruption safe viewpoint", "Andean condor thermal soaring summit altitude"],
+      gear: ["High altitude crampons glaciated summits", "Ice axe crevassed glacier routes", "Acclimatization Quito 2850m schedule", "Guide required technical Cotopaxi summit", "Oxygen altitude above 5500m optional"],
+      bestMonths: [6, 7, 8, 9, 12, 1],
+      estimatedCost: 1400,
+      latitude: -0.68,
+      longitude: -78.44,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["volcanic"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure528.id }, { userId: user2.id, adventureId: adventure528.id }, { userId: user3.id, adventureId: adventure528.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
