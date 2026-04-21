@@ -22564,6 +22564,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure633.id }, { userId: user2.id, adventureId: adventure633.id }, { userId: user3.id, adventureId: adventure633.id }], skipDuplicates: true });
 
+
+  // Adventure 634
+  const adventure634 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-634" },
+    update: {},
+    create: {
+      id: "seed-adventure-634",
+      title: "Arctic Ski to North Pole",
+      description: `Skiing from Barneo ice camp to the geographic North Pole is one of the ultimate human endeavours, a short but psychologically enormous journey across shifting sea ice to the top of the world. The last degree expedition covers 111 kilometres in 7-9 days, hauling a pulk sled over pressure ridges and leads of open water. The moment of reaching 90 degrees North under any flag is one that changes perspective permanently.`,
+      location: "Arctic Ocean",
+      country: "Russia",
+      continent: "Europe",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Geographic North Pole 90N arrival moment", "Pressure ridge ice slab navigation haul", "Polar night or midnight sun depending season", "Lead open water ski bridge crossing", "Barneo ice camp helicopter approach dramatic"],
+      gear: ["Pulk sled arctic polar model custom", "Polar sleeping system minus 50 extreme", "Ski bindings arctic rated cold crack prevention", "Satellite phone Iridium emergency required", "Medical kit altitude frostbite protocol"],
+      bestMonths: [3, 4],
+      estimatedCost: 25000,
+      latitude: 90,
+      longitude: 0,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["skiing"].id }, { id: allTags["remote"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure634.id }, { userId: user2.id, adventureId: adventure634.id }, { userId: user3.id, adventureId: adventure634.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
