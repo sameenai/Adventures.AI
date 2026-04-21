@@ -20374,6 +20374,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure560.id }, { userId: user2.id, adventureId: adventure560.id }, { userId: user3.id, adventureId: adventure560.id }], skipDuplicates: true });
 
+
+  // Adventure 561
+  const adventure561 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-561" },
+    update: {},
+    create: {
+      id: "seed-adventure-561",
+      title: "Nepal Upper Mustang Kingdom Trek",
+      description: `Upper Mustang was closed to foreigners until 1992 and remains one of the most restricted and culturally intact regions in the Himalayas. The ancient walled city of Lo Manthang serves as capital of the former Kingdom of Mustang, where the King of Lo still maintains royal ceremonies. The landscape of eroded red clay canyons, cave monasteries, and Tibetan Buddhist traditions creates an otherworldly trekking destination.`,
+      location: "Upper Mustang, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Lo Manthang walled city ancient kingdom capital", "Tiji Festival mask dance three-day ceremony", "Cave monastery Luri ancient Buddhist murals", "Kali Gandaki deepest gorge world passage", "Charang Dzong fortress eroded canyon drama"],
+      gear: ["Restricted area permit Upper Mustang USD fee", "Windproof jacket Trans-Himalayan dry cold", "Acclimatization Kagbeni 2800m base point", "Horse hire Lo Manthang plateau option", "Down jacket cold nights 3800m elevation"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2200,
+      latitude: 29.18,
+      longitude: 83.96,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure561.id }, { userId: user2.id, adventureId: adventure561.id }, { userId: user3.id, adventureId: adventure561.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
