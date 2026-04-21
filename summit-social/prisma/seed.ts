@@ -21874,6 +21874,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure610.id }, { userId: user2.id, adventureId: adventure610.id }, { userId: user3.id, adventureId: adventure610.id }], skipDuplicates: true });
 
+
+  // Adventure 611
+  const adventure611 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-611" },
+    update: {},
+    create: {
+      id: "seed-adventure-611",
+      title: "Uzbekistan Silk Road Cycling",
+      description: `Uzbekistan's three great Silk Road cities form the backbone of one of history's most significant trade routes. Cycling from Tashkent to Samarkand, Bukhara, and Khiva through the Fergana Valley and Kyzylkum Desert connects medieval Islamic architecture of extraordinary quality with the pastoral traditions of Central Asian nomadic culture. The Registan plaza in Samarkand and Khiva's old city within walls are UNESCO masterpieces.`,
+      location: "Uzbekistan",
+      country: "Uzbekistan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Registan Samarkand three madrasa UNESCO plaza", "Khiva Itchan Kala walled city intact", "Bukhara Kalon Minaret medieval Silk Road", "Fergana Valley silk production traditional", "Kyzylkum Desert crossing arid steppe"],
+      gear: ["Road bike paved Uzbek highway comfortable", "Sun protection desert UV intense", "Water capacity desert section 4L plus", "Cash sum limited card acceptance rural", "Modest dress Islamic culture respect"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 1000,
+      latitude: 41.3,
+      longitude: 64.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["road-trip"].id }, { id: allTags["desert"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure611.id }, { userId: user2.id, adventureId: adventure611.id }, { userId: user3.id, adventureId: adventure611.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
