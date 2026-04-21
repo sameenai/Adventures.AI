@@ -19564,6 +19564,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure533.id }, { userId: user2.id, adventureId: adventure533.id }, { userId: user3.id, adventureId: adventure533.id }], skipDuplicates: true });
 
+
+  // Adventure 534
+  const adventure534 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-534" },
+    update: {},
+    create: {
+      id: "seed-adventure-534",
+      title: "Cuba Cycling Revolution Route",
+      description: `Cycling Cuba provides access to a country suspended in fascinating political and cultural amber. The Carretera Central connects Havana's colonial splendour to Trinidad's UNESCO streets and Santiago's African-influenced music through sugar cane fields and tobacco valleys where farmers still use oxen. Casa particular accommodation opens Cuban homes and conversations unavailable to hotel tourists.`,
+      location: "Cuba",
+      country: "Cuba",
+      continent: "North America",
+      category: Category.CYCLING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Havana Malecon colonial architecture cycling start", "Vinales tobacco valley mogote limestone", "Trinidad cobblestone UNESCO colonial streets", "Bay of Pigs historical cycling detour", "Santiago son cubano live music finale"],
+      gear: ["Spare tyres inner tubes Cuban scarcity", "Cash Cuban dollars no card access rural", "Heat management Caribbean cycling", "Lock security urban areas required", "Spanish basics casa particular interaction"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 900,
+      latitude: 22,
+      longitude: -79.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["road-trip"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure534.id }, { userId: user2.id, adventureId: adventure534.id }, { userId: user3.id, adventureId: adventure534.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
