@@ -20794,6 +20794,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure574.id }, { userId: user2.id, adventureId: adventure574.id }, { userId: user3.id, adventureId: adventure574.id }], skipDuplicates: true });
 
+
+  // Adventure 575
+  const adventure575 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-575" },
+    update: {},
+    create: {
+      id: "seed-adventure-575",
+      title: "Austria Grossglockner High Alpine",
+      description: `Grossglockner at 3798m is Austria's highest mountain and one of the Alps' most spectacular peaks, its twin summits connected by a narrow ridge above the Pasterze Glacier. The ascent from Lucknerhaus involves glacier travel, fixed rope sections, and a summit bivouac at the Erzherzog Johann Hut at 3454m above a sea of Alpine peaks. The Grossglockner High Alpine Road provides one of Europe's most dramatic drive-in bases.`,
+      location: "Hohe Tauern, Austria",
+      country: "Austria",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Grossglockner 3798m Austria highest summit twin", "Pasterze Glacier approach retreat visible", "Erzherzog Johann Hut 3454m high camp", "Klein Glockner Adlersruhe route classic", "Kals approach village dramatic ascent"],
+      gear: ["Crampons glacier crevassed Pasterze", "Ice axe summit ridge fixed rope section", "Guide option Grossglockner technical summit", "Hut reservation high season essential", "Glacier rope team crevasse standard protocol"],
+      bestMonths: [7, 8],
+      estimatedCost: 900,
+      latitude: 47.07,
+      longitude: 12.69,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure575.id }, { userId: user2.id, adventureId: adventure575.id }, { userId: user3.id, adventureId: adventure575.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
