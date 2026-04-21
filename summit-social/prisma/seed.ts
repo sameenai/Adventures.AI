@@ -21814,6 +21814,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure608.id }, { userId: user2.id, adventureId: adventure608.id }, { userId: user3.id, adventureId: adventure608.id }], skipDuplicates: true });
 
+
+  // Adventure 609
+  const adventure609 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-609" },
+    update: {},
+    create: {
+      id: "seed-adventure-609",
+      title: "China Sichuan Panda Trekking",
+      description: `The Wolong National Nature Reserve in Sichuan is China's most important giant panda research and breeding center, and the surrounding Qionglai Mountains host wild panda populations in bamboo forests above 2000m. Volunteer programs allow participants to assist with daily panda care, while trekking the mountain bamboo forests provides a slim but genuine chance of encountering a wild giant panda. The red panda is much more commonly spotted.`,
+      location: "Wolong, Sichuan, China",
+      country: "China",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Giant panda encounter wild bamboo chance", "Red panda sighting more common forest", "Wolong reserve breeding center volunteer", "Qionglai Mountains bamboo forest trekking", "Panda volunteer program week participation"],
+      gear: ["Waterproof boots Sichuan mist rain bamboo", "Layers cool mountain bamboo forest", "Camera telephoto wildlife distance bamboo", "Guide mandatory reserve regulations", "Quiet movement no noise wildlife encounter"],
+      bestMonths: [3, 4, 5, 9, 10],
+      estimatedCost: 1200,
+      latitude: 30.96,
+      longitude: 102.99,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["wildlife"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure609.id }, { userId: user2.id, adventureId: adventure609.id }, { userId: user3.id, adventureId: adventure609.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
