@@ -31835,6 +31835,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure942.id }, { userId: user2.id, adventureId: adventure942.id }], skipDuplicates: true });
 
+
+  // Adventure 943
+  const adventure943 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-943" },
+    update: {},
+    create: {
+      id: "seed-adventure-943",
+      title: "Uganda Rwenzori Mountains Ice Cap Trek",
+      description: `Climb to the ice cap of the Rwenzori Mountains — the Mountains of the Moon, rising to 5,109 m on the Uganda-DRC border — through an extraordinary sequence of vegetation zones: bamboo, then heather forest, then giant lobelias and groundsels in the Afro-alpine zone, then glacial moorland. Margherita Peak on Mount Stanley is the highest point in Uganda and the third highest in Africa. The glaciers are retreating rapidly; the current ice extent is a fraction of what existed in 1900. The circuit takes 7-9 days and involves significant mud and boggy terrain.`,
+      location: "Rwenzori Mountains National Park, Uganda",
+      country: "Uganda",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1, 2, 6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 0.4,
+      longitude: 29.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["africa"].id }, { id: allTags["glacier"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure943.id }, { userId: user2.id, adventureId: adventure943.id }, { userId: user3.id, adventureId: adventure943.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
