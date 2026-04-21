@@ -20614,6 +20614,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure568.id }, { userId: user2.id, adventureId: adventure568.id }, { userId: user3.id, adventureId: adventure568.id }], skipDuplicates: true });
 
+
+  // Adventure 569
+  const adventure569 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-569" },
+    update: {},
+    create: {
+      id: "seed-adventure-569",
+      title: "Algeria Sahara Grand Erg Trek",
+      description: `The Hoggar Mountains and Grand Erg Occidental of southern Algeria contain some of the Sahara's most spectacular landscapes, largely unseen by western travellers. Tamanrasset serves as the gateway to the Assekrem plateau where Charles de Foucauld's hermitage provides dawn views over volcanic plugs emerging from the desert floor. The Tuareg nomads of the Algerian Sahara maintain the deepest desert culture on earth.`,
+      location: "Tamanrasset, Algeria",
+      country: "Algeria",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Assekrem plateau volcanic plug panorama dawn", "Hoggar Mountains lunar landscape volcanic", "Tuareg nomad camp tea ceremony hospitality", "Grand Erg Occidental dune sea crossing", "Charles Foucauld hermitage mountain pilgrimage"],
+      gear: ["Algerian desert guide mandatory safety", "Water supply 6L daily heat management", "4WD support vehicle sand crossing", "Medical kit remote desert medical care", "Visa Algeria advance application required"],
+      bestMonths: [10, 11, 2, 3],
+      estimatedCost: 2500,
+      latitude: 23,
+      longitude: 5.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["africa"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure569.id }, { userId: user2.id, adventureId: adventure569.id }, { userId: user3.id, adventureId: adventure569.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
