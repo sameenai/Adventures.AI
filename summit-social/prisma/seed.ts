@@ -26975,6 +26975,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure780.id }, { userId: user2.id, adventureId: adventure780.id }], skipDuplicates: true });
 
+
+  // Adventure 781
+  const adventure781 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-781" },
+    update: {},
+    create: {
+      id: "seed-adventure-781",
+      title: "Faroe Islands Sea Cliff Hiking",
+      description: `Explore the Faroe Islands on foot, hiking dramatic Atlantic sea cliffs, grassy ridgelines, and remote lake shores above 500 m sea stacks where puffins nest in their tens of thousands. Sorvagsvatn — the lake that appears to float above the ocean — is the most photographed feature, though dozens of equally dramatic viewpoints exist away from the tourist trail. The terrain is untracked; wet grass on steep slopes is treacherous in rain and boots with ankle support and trekking poles are essential. Arrange accommodation well in advance.`,
+      location: "Faroe Islands, Denmark",
+      country: "Denmark",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 62,
+      longitude: -6.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["hiking"].id }, { id: allTags["coastal"].id }, { id: allTags["wildlife"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure781.id }, { userId: user2.id, adventureId: adventure781.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
