@@ -25565,6 +25565,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure733.id }, { userId: user2.id, adventureId: adventure733.id }, { userId: user3.id, adventureId: adventure733.id }], skipDuplicates: true });
 
+
+  // Adventure 734
+  const adventure734 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-734" },
+    update: {},
+    create: {
+      id: "seed-adventure-734",
+      title: "Alaska Wrangell Mountains Trek",
+      description: `Wrangell-St Elias is the largest national park in the United States, bigger than Switzerland, and much of it is accessible only by float plane or multi-week wilderness traverse. The Nabesna Road and McCarthy Road provide entry points to a park where Dall sheep dot the high ridges, grizzly bears patrol river corridors, and glaciers the size of small countries flow from the highest coastal mountain range on earth.`,
+      location: "Wrangell-St Elias, Alaska",
+      country: "USA",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Wrangell-St Elias larger than Switzerland scale", "Root Glacier hike guided ice walk approach", "Kennecott copper mine ghost town NPS", "Dall sheep high ridge white dots distance", "Grizzly bear river salmon corridor encounter"],
+      gear: ["Float plane charter remote interior access", "Bear spray grizzly Wrangell mandatory", "River crossing wilderness pole technique", "10-day food supply remote section planning", "Satellite phone emergency Wrangell remote"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 3000,
+      latitude: 61.1,
+      longitude: -142.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure734.id }, { userId: user2.id, adventureId: adventure734.id }, { userId: user3.id, adventureId: adventure734.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
