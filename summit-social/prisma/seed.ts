@@ -25775,6 +25775,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure740.id }, { userId: user2.id, adventureId: adventure740.id }, { userId: user3.id, adventureId: adventure740.id }], skipDuplicates: true });
 
+
+  // Adventure 741
+  const adventure741 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-741" },
+    update: {},
+    create: {
+      id: "seed-adventure-741",
+      title: "East Greenland Fjord Skiing",
+      description: `Scoresby Sound in East Greenland is the world's largest and longest fjord system, and the ski touring terrain above its frozen shores is among the most spectacular and least visited on earth. Expedition yachts carry ski teams to the fjord in April when the sea ice is still stable, enabling glacier descents and fjord skiing with iceberg-studded sea views below. Musk ox herds on the tundra and polar bear tracks complete a polar ski expedition of extreme rarity.`,
+      location: "Scoresby Sound, Greenland",
+      country: "Greenland",
+      continent: "North America",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Scoresby Sound worlds largest fjord system view", "Fjord iceberg sea skiing descent visual", "Musk ox herd tundra plateau encounter", "Polar bear sea ice track fresh April", "Expedition yacht frozen fjord access base"],
+      gear: ["Expedition yacht charter Reykjavik departure", "Polar ski touring binding fjord descent", "Arctic sleeping system minus 35 camp", "Crevasse rescue rope glacier summit", "Polar bear watch rotation yacht overnight"],
+      bestMonths: [3, 4, 5],
+      estimatedCost: 12000,
+      latitude: 71.5,
+      longitude: -24,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["arctic"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure741.id }, { userId: user2.id, adventureId: adventure741.id }, { userId: user3.id, adventureId: adventure741.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
