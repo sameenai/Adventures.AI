@@ -25445,6 +25445,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure729.id }, { userId: user2.id, adventureId: adventure729.id }, { userId: user3.id, adventureId: adventure729.id }], skipDuplicates: true });
 
+
+  // Adventure 730
+  const adventure730 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-730" },
+    update: {},
+    create: {
+      id: "seed-adventure-730",
+      title: "Chile Torres del Paine Kayak",
+      description: `Kayaking in Torres del Paine National Park accesses the glacial lakes of Grey, Pehoe, and Nordenskjold from the water, approaching the base of the Paine massif from angles impossible on land. The Grey Lake has floating icebergs calved from the Grey Glacier, and paddling through iceberg gardens beneath the Torres granite pillars delivers an experience that no land-based trekker can access. Patagonian wind management is the primary skill challenge.`,
+      location: "Magallanes, Chile",
+      country: "Chile",
+      continent: "South America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Grey Lake iceberg paddle beneath glacier", "Torres granite pillars water level approach", "Nordenskjold Lake full massif panorama kayak", "Pehoe Lake wind management skill challenge", "Camp kayak shore wind shelter identification"],
+      gear: ["Sea kayak Patagonian wind 80km/h capable", "Drysuit cold Patagonian glacial water", "Wind judgment skill delay waiting required", "Dry bag all camera gear ice splash", "VHF radio weather update Patagonia"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 2000,
+      latitude: -51,
+      longitude: -73,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure730.id }, { userId: user2.id, adventureId: adventure730.id }, { userId: user3.id, adventureId: adventure730.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
