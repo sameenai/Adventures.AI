@@ -24455,6 +24455,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure696.id }, { userId: user2.id, adventureId: adventure696.id }, { userId: user3.id, adventureId: adventure696.id }], skipDuplicates: true });
 
+
+  // Adventure 697
+  const adventure697 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-697" },
+    update: {},
+    create: {
+      id: "seed-adventure-697",
+      title: "Canada Baffin Island Arctic Trek",
+      description: `Auyuittuq National Park on Baffin Island is one of the few places on earth where trekkers can walk at the base of near-vertical granite walls over 1000 metres high in the complete Arctic wilderness. Thor Peak at 1675m has the world's greatest purely vertical drop of 1250 metres, and the Akshayuk Pass connects Pangnirtung fjord to Davis Strait through the park's glaciated core. Polar bear territory and permanent ice guarantee a serious expedition.`,
+      location: "Auyuittuq National Park, Canada",
+      country: "Canada",
+      continent: "North America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Thor Peak 1250m vertical drop world's greatest", "Akshayuk Pass Baffin Island through park", "Pangnirtung Fjord boat access dramatic", "Polar bear territory Arctic tundra constant", "Midnight sun June 24-hour daylight hiking"],
+      gear: ["Polar bear rifle mandatory Arctic wilderness", "Arctic sleeping system minus 30 summer", "River crossing poles glacial melt floods", "Satellite phone remote Baffin communication", "Food 8-day supply from Pangnirtung cache"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 5000,
+      latitude: 66.63,
+      longitude: -65.42,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["arctic"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure697.id }, { userId: user2.id, adventureId: adventure697.id }, { userId: user3.id, adventureId: adventure697.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
