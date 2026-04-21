@@ -27605,6 +27605,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure801.id }, { userId: user2.id, adventureId: adventure801.id }], skipDuplicates: true });
 
+
+  // Adventure 802
+  const adventure802 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-802" },
+    update: {},
+    create: {
+      id: "seed-adventure-802",
+      title: "Corsica GR20 — Europe's Toughest Trek",
+      description: `The GR20 traverses Corsica from Calenzana in the north to Conca in the south — 180 km through granite ridges, glacial lakes, and maquis scrubland in 15-16 days. It is widely regarded as the most demanding long-distance trail in Europe, with 12,000 m of cumulative ascent and multiple sections requiring chains and fixed ropes on polished granite. The northern section is the most technical; the southern is more Mediterranean in character. Book mountain hut bunks well in advance for July and August dates.`,
+      location: "Corsica, France",
+      country: "France",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 16,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 42.2,
+      longitude: 9.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["scrambling"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure802.id }, { userId: user2.id, adventureId: adventure802.id }, { userId: user3.id, adventureId: adventure802.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
