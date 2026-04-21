@@ -32705,6 +32705,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure971.id }, { userId: user2.id, adventureId: adventure971.id }, { userId: user3.id, adventureId: adventure971.id }], skipDuplicates: true });
 
+
+  // Adventure 972
+  const adventure972 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-972" },
+    update: {},
+    create: {
+      id: "seed-adventure-972",
+      title: "Chile Easter Island Trekking and Cycling",
+      description: `Explore Rapa Nui (Easter Island) — the most remote inhabited island in the world, 3,700 km from the Chilean mainland in the Pacific — on foot and by bicycle, visiting the moai platforms (ahu) that ring the coast and the quarry at Rano Raraku where 397 unfinished statues remain frozen in the hillside. The island is 24 km long; the entire circuit by bicycle takes a day. Hiking to the rim of Rano Kau, the extinct volcano in the southwest corner, rewards with a view of a rare freshwater crater lake in the ocean. The Rapa Nui people maintain strict cultural protocols around the moai.`,
+      location: "Easter Island, Valparaiso Region, Chile",
+      country: "Chile",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 9, 10, 11],
+      estimatedCost: 1000,
+      latitude: -27.1,
+      longitude: -109.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["island"].id }, { id: allTags["cycling"].id }, { id: allTags["hiking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure972.id }, { userId: user2.id, adventureId: adventure972.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
