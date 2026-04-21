@@ -20674,6 +20674,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure570.id }, { userId: user2.id, adventureId: adventure570.id }, { userId: user3.id, adventureId: adventure570.id }], skipDuplicates: true });
 
+
+  // Adventure 571
+  const adventure571 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-571" },
+    update: {},
+    create: {
+      id: "seed-adventure-571",
+      title: "Spain Sierra Nevada Winter Ski",
+      description: `The Sierra Nevada ski resort near Granada is Europe's southernmost ski destination, offering the surreal experience of skiing above 3000m while watching the Mediterranean Sea glitter in the distance. Mulhacen at 3479m is the highest peak in mainland Spain and accessible by ski touring from the resort. The proximity of beach and mountain skiing on the same day makes this a uniquely Spanish phenomenon.`,
+      location: "Sierra Nevada, Spain",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Mediterranean Sea view ski resort Europe unique", "Mulhacen 3479m mainland Spain highest ski", "Granada Alhambra palace cultural evening après", "Veleta 3398m summit ski piste southern", "Sierra Nevada spring corn snow April"],
+      gear: ["Ski pass Sierra Nevada resort lift", "Spring ski sunscreen reflection UV strong", "Ski touring binding Mulhacen extension", "Car access Granada 40 minutes resort", "Après ski Granada tapas free tradition"],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 1200,
+      latitude: 37.09,
+      longitude: -3.4,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["coastal"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure571.id }, { userId: user2.id, adventureId: adventure571.id }, { userId: user3.id, adventureId: adventure571.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
