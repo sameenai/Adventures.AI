@@ -23614,6 +23614,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure668.id }, { userId: user2.id, adventureId: adventure668.id }, { userId: user3.id, adventureId: adventure668.id }], skipDuplicates: true });
 
+
+  // Adventure 669
+  const adventure669 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-669" },
+    update: {},
+    create: {
+      id: "seed-adventure-669",
+      title: "Norway Jotunheimen National Park",
+      description: `Jotunheimen, Home of the Giants, is Norway's most dramatic national park, containing the country's two highest peaks at Galdhopiggen 2469m and Glittertind 2465m above an ice cap. The classic Besseggen Ridge walk above Lake Gjende was described by Ibsen as the most dramatic walk in Norway, and the exposed section above the blue Bessvatnet is one of Europe's finest mountain ridge walks. Huts and glaciated terrain combine for a classic Scandinavian mountain week.`,
+      location: "Jotunheimen, Norway",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Besseggen Ridge Ibsen Norway most dramatic", "Galdhopiggen 2469m Norway highest summit", "Lake Gjende Bessvatnet blue contrast ridge", "Peer Gynt folklore landscape literary tradition", "Juvass glacier ski June late season"],
+      gear: ["Hut booking DNT hut network advance", "Rain jacket Norway reliable summer precipitation", "Trekking poles Besseggen exposed descent", "Glacier equipment Galdhopiggen summer guide", "Layers morning cloud summit wind"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 900,
+      latitude: 61.62,
+      longitude: 8.3,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["europe"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure669.id }, { userId: user2.id, adventureId: adventure669.id }, { userId: user3.id, adventureId: adventure669.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
