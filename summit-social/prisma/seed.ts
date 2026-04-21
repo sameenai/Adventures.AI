@@ -30815,6 +30815,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure908.id }, { userId: user2.id, adventureId: adventure908.id }], skipDuplicates: true });
 
+
+  // Adventure 909
+  const adventure909 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-909" },
+    update: {},
+    create: {
+      id: "seed-adventure-909",
+      title: "Kenya Amboseli Elephant Safari",
+      description: `Amboseli National Park in southern Kenya offers the most photogenic wildlife experience in Africa: large elephant families walk across open savanna with the snow-capped summit of Kilimanjaro — just 50 km away across the Tanzanian border — rising 5,895 m into the sky behind them. The Amboseli elephant population is one of the best-studied wildlife communities in the world; individual elephants are known to researchers by name. Maasai communities surrounding the park engage in community conservancy programmes; sunrise balloon flights are available.`,
+      location: "Amboseli National Park, Rift Valley, Kenya",
+      country: "Kenya",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -2.7,
+      longitude: 37.4,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure909.id }, { userId: user2.id, adventureId: adventure909.id }, { userId: user3.id, adventureId: adventure909.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
