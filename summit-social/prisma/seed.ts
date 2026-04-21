@@ -22084,6 +22084,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure617.id }, { userId: user2.id, adventureId: adventure617.id }, { userId: user3.id, adventureId: adventure617.id }], skipDuplicates: true });
 
+
+  // Adventure 618
+  const adventure618 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-618" },
+    update: {},
+    create: {
+      id: "seed-adventure-618",
+      title: "Andean Condor Valley Hike",
+      description: `The Colca Canyon is twice the depth of the Grand Canyon and one of the world's deepest gorges, where Andean condors ride morning thermals at eye level from the Cruz del Condor viewpoint. The four-day canyon descent trek reaches the hot springs at the bottom and climbs through pre-Inca terraced agriculture still maintained by Collagua and Cabana communities in traditional dress. This is Peru's most visually spectacular trekking canyon.`,
+      location: "Colca Canyon, Peru",
+      country: "Peru",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Andean condor Cruz del Condor eye level thermal", "Colca Canyon 3400m depth twice Grand Canyon", "Oasis hot spring canyon floor camping", "Pre-Inca terrace agriculture Collagua active", "Tapay village traditional dress community"],
+      gear: ["Acclimatization Arequipa 2335m before trek", "Descent poles protect knees canyon", "Water purification canyon spring sources", "Warm layers cold canyon rim 3600m", "Condor viewpoint early morning 8-10am optimal"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: -15.5,
+      longitude: -71.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure618.id }, { userId: user2.id, adventureId: adventure618.id }, { userId: user3.id, adventureId: adventure618.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
