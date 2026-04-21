@@ -27365,6 +27365,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure793.id }, { userId: user2.id, adventureId: adventure793.id }], skipDuplicates: true });
 
+
+  // Adventure 794
+  const adventure794 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-794" },
+    update: {},
+    create: {
+      id: "seed-adventure-794",
+      title: "Nepal Tamang Heritage Trail",
+      description: `Trek through Tamang villages in the hills north of Kathmandu on a route designed in collaboration with local communities to channel tourism revenue directly to villagers. The trail visits monasteries, weaving cooperatives, and traditional Tamang homes with views of Langtang Himal and Ganesh Himal. Lower altitude than the classic Nepal treks (maximum 3,100 m) makes it accessible year-round, including a limited window in winter when Langtang and Everest treks are snowbound. Less crowded than the major circuits.`,
+      location: "Rasuwa District, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11, 12, 1],
+      estimatedCost: 1000,
+      latitude: 28.1,
+      longitude: 85.4,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["hiking"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure794.id }, { userId: user2.id, adventureId: adventure794.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
