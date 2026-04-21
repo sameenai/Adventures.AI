@@ -33425,6 +33425,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure995.id }, { userId: user2.id, adventureId: adventure995.id }], skipDuplicates: true });
 
+
+  // Adventure 996
+  const adventure996 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-996" },
+    update: {},
+    create: {
+      id: "seed-adventure-996",
+      title: "Namibia Richtersveld Canoe and Hike",
+      description: `Paddle and hike the Orange River through the Richtersveld National Park — a UNESCO World Heritage Site of spectacular rugged mountain desert landscape on the South Africa-Namibia border — where the river cuts through 1,000 m quartzite gorges over 5 days. The Orange River forms the international border; camping is on the Namibian bank. The Richtersveld is home to the Nama people and a remarkable succulent desert flora with more plant species per hectare than the Namib. Canoes and kayaks are supplied by the operator; paddling experience is helpful but not required.`,
+      location: "Richtersveld National Park, Namibia / South Africa",
+      country: "Namibia / South Africa",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 5, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -28.3,
+      longitude: 17.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["africa"].id }, { id: allTags["desert"].id }, { id: allTags["gorge"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure996.id }, { userId: user2.id, adventureId: adventure996.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
