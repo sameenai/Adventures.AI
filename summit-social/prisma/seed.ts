@@ -27065,6 +27065,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure783.id }, { userId: user2.id, adventureId: adventure783.id }], skipDuplicates: true });
 
+
+  // Adventure 784
+  const adventure784 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-784" },
+    update: {},
+    create: {
+      id: "seed-adventure-784",
+      title: "Cuba Eastern End-to-End Road Trip",
+      description: `Drive the length of eastern Cuba from Santiago de Cuba to Baracoa along mountain roads that twist through coffee plantations, tobacco fields, and tobacco-scented colonial towns where nothing much has changed in 50 years. Baracoa — Cuba's oldest city, founded in 1511 — sits at the foot of El Yunque, a flat-topped mountain visible from the sea for kilometres. The journey includes detours to Pico Turquino (Cuba's highest peak at 1,974 m) and the Valle de Los Ingenios rum heritage trail.`,
+      location: "Oriente, Cuba",
+      country: "Cuba",
+      continent: "Unknown",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.EASY,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 20,
+      longitude: -75.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["island"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure784.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
