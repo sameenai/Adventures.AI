@@ -30125,6 +30125,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure885.id }, { userId: user2.id, adventureId: adventure885.id }, { userId: user3.id, adventureId: adventure885.id }], skipDuplicates: true });
 
+
+  // Adventure 886
+  const adventure886 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-886" },
+    update: {},
+    create: {
+      id: "seed-adventure-886",
+      title: "Sri Lanka Adam's Peak Pilgrimage and Tea Country Trek",
+      description: `Climb Adam's Peak (Sri Pada, 2,243 m) before dawn on the ancient pilgrimage staircase to reach the summit sacred to Buddhists, Hindus, Christians, and Muslims — one of the few holy places shared by four religions. The 5,000-step ascent takes 3-4 hours by headtorch; the view of the perfect triangular shadow cast onto the cloud blanket at sunrise is one of Asia's great sights. Combine with cycling through the Hill Country tea estates between Nuwara Eliya and Ella — some of the most beautiful cycling in South Asia.`,
+      location: "Ratnapura District, Sri Lanka",
+      country: "Sri Lanka",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [12, 1, 2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 6.8,
+      longitude: 80.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure886.id }, { userId: user2.id, adventureId: adventure886.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
