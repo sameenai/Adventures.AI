@@ -24425,6 +24425,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure695.id }, { userId: user2.id, adventureId: adventure695.id }, { userId: user3.id, adventureId: adventure695.id }], skipDuplicates: true });
 
+
+  // Adventure 696
+  const adventure696 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-696" },
+    update: {},
+    create: {
+      id: "seed-adventure-696",
+      title: "India Nanda Devi Sanctuary Trek",
+      description: `The Nanda Devi Sanctuary is a unique geographical phenomenon, a 630-square-kilometre basin enclosed by a ring of peaks above 6000m with only one river gorge entrance passable to humans. Nanda Devi at 7816m stands alone in this extraordinary natural fortress. The sanctuary was closed to visitors in 1983 to allow ecological recovery, but guided expeditions with Indian Mountaineering Foundation permits resume periodically.`,
+      location: "Chamoli, Uttarakhand, India",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Nanda Devi 7816m India second highest sanctuary", "Inner sanctuary ring wall 6000m+ peaks", "Rishi Ganga gorge only entrance sanctuary", "Trisul 7120m Kuari Pass traverse approach", "Dharansi Pass 4480m sanctuary rim view"],
+      gear: ["IMF permit Indian Mountaineering Foundation", "High altitude sleeping bag minus 25", "Technical rope crevasse gorge section", "Guide mandatory permit restricted access", "Full expedition self-sufficiency sanctuary"],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 3500,
+      latitude: 30.37,
+      longitude: 79.97,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure696.id }, { userId: user2.id, adventureId: adventure696.id }, { userId: user3.id, adventureId: adventure696.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
