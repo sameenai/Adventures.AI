@@ -16952,6 +16952,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure446.id }, { userId: user2.id, adventureId: adventure446.id }], skipDuplicates: true });
 
+
+  // Adventure 447
+  const adventure447 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-447" },
+    update: {},
+    create: {
+      id: "seed-adventure-447",
+      title: "Gran Canaria Trail Running",
+      description: `Gran Canaria has been called a miniature continent for its extraordinary landscape diversity, with active volcanic peaks at 1,949 metres descending through cloud forest and pine to desert dunes at Maspalomas in under 50 kilometres. The Transgrancanaria ultra-marathon route of 125 kilometres with 8,500 metres of climbing is one of Europe's most prestigious trail races, but the marked trails are accessible to all fitness levels. The Roque Nublo volcanic monolith and the Bentayga sacred site of the Guanche people are iconic waypoints.`,
+      location: "Las Palmas",
+      country: "Spain",
+      continent: "Europe",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=80",
+      highlights: ["Roque Nublo volcanic monolith 1813m", "Maspalomas dunes coastal finish", "Caldera de Tejeda dramatic bowl", "Bentayga Guanche sacred site", "Transgrancanaria route trail running"],
+      gear: ["Trail running shoes", "Hydration vest 2 litre", "Sun protection volcanic", "Navigation Wikiloc Gran Canaria", "Warm layer summit evenings"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 800,
+      latitude: 28.1,
+      longitude: -15.41,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["volcanic"].id }, { id: allTags["island"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure447.id }, { userId: user2.id, adventureId: adventure447.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
