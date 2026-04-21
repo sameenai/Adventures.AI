@@ -22144,6 +22144,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure619.id }, { userId: user2.id, adventureId: adventure619.id }, { userId: user3.id, adventureId: adventure619.id }], skipDuplicates: true });
 
+
+  // Adventure 620
+  const adventure620 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-620" },
+    update: {},
+    create: {
+      id: "seed-adventure-620",
+      title: "Papua New Guinea Sepik River",
+      description: `The Sepik River is one of the world's great river systems and the living museum of Melanesian art and culture. Traditional spirit houses with carved totems, crocodile initiation ceremonies, and ancestral mask-making traditions survive in river communities largely unchanged by outside contact. Travelling by dugout canoe between villages with guides from the communities provides access to sacred traditions shared with genuine outsiders only rarely.`,
+      location: "Sepik River, Papua New Guinea",
+      country: "Papua New Guinea",
+      continent: "Oceania",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Spirit house haus tambaran ancestral carvings", "Crocodile initiation ceremony scarification tradition", "Mask carving master craftsmen workshop visit", "Crocodile swimming river bank abundant", "Kundu drum ceremony traditional welcome"],
+      gear: ["Malaria prophylaxis Sepik mandatory", "Water purification river contamination", "Modest gifts pencils reading glasses exchange", "Mosquito net sleeping essential", "Guide local community mandatory access"],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 2500,
+      latitude: -4.5,
+      longitude: 143.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure620.id }, { userId: user2.id, adventureId: adventure620.id }, { userId: user3.id, adventureId: adventure620.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
