@@ -30455,6 +30455,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure896.id }, { userId: user2.id, adventureId: adventure896.id }], skipDuplicates: true });
 
+
+  // Adventure 897
+  const adventure897 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-897" },
+    update: {},
+    create: {
+      id: "seed-adventure-897",
+      title: "Italy Alta Via 2 — Dolomites North to South",
+      description: `The Alta Via 2 traverses the central Dolomites from Bressanone to Feltre in 9-10 days through the Puez-Geisler, Sella, and Pale di San Martino groups — more remote and demanding than the AV1, with several via ferrata sections and a more challenging rifugio booking situation. The Sella massif — a flat-topped plateau at 2,500 m surrounded by vertical rock — is one of the most remarkable geological formations in Europe. The traverse crosses terrain associated with the World War One front; Austrian-Italian trenches survive on several summits.`,
+      location: "South Tyrol and Veneto, Italy",
+      country: "Italy",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 46.5,
+      longitude: 11.9,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["via-ferrata"].id }, { id: allTags["europe"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure897.id }, { userId: user2.id, adventureId: adventure897.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
