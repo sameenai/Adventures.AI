@@ -22804,6 +22804,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure641.id }, { userId: user2.id, adventureId: adventure641.id }, { userId: user3.id, adventureId: adventure641.id }], skipDuplicates: true });
 
+
+  // Adventure 642
+  const adventure642 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-642" },
+    update: {},
+    create: {
+      id: "seed-adventure-642",
+      title: "Patagonia Fitz Roy Circuit",
+      description: `The Fitz Roy massif above El Chalten is Patagonia's most dramatic skyline, with the Torre and Fitz Roy needles drawing world-class climbers and photographers to one of the finest non-technical trekking circuits in the Americas. The Laguna de los Tres at the foot of Fitz Roy requires a steep final ascent rewarded with one of the world's most photographed mountain reflections. The Chaltenia offers three days of trails with constantly shifting mountain drama.`,
+      location: "El Chalten, Argentina",
+      country: "Argentina",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Laguna de los Tres Fitz Roy reflection iconic", "Cerro Torre impossible needle granite spire", "Laguna Torre glacier ice blue reflection", "Condor thermal soaring Fitz Roy massif", "Patagonian wind 80km/h challenge constant"],
+      gear: ["Wind jacket Patagonian wind mandatory", "Trekking poles descent lake above El Chalten", "Rain gear Patagonia cloud cover reliable", "Camp or hostel El Chalten advance book", "Camera tripod stability reflection shot"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 800,
+      latitude: -49.33,
+      longitude: -72.89,
+      published: true,
+      userId: user2.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure642.id }, { userId: user2.id, adventureId: adventure642.id }, { userId: user3.id, adventureId: adventure642.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
