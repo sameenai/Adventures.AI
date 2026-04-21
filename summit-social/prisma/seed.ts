@@ -19984,6 +19984,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure547.id }, { userId: user2.id, adventureId: adventure547.id }, { userId: user3.id, adventureId: adventure547.id }], skipDuplicates: true });
 
+
+  // Adventure 548
+  const adventure548 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-548" },
+    update: {},
+    create: {
+      id: "seed-adventure-548",
+      title: "Galapagos Islands Diving Week",
+      description: `The Galapagos Islands inspired Darwin's theory of evolution and their underwater realm is equally extraordinary. Strong Cromwell upwelling currents concentrate sharks, mantas, and whale sharks around Wolf and Darwin islands in numbers that dwarf anywhere else. Playful sea lions accompany divers through crystal water, while marine iguanas graze on algae in the shallows beside penguins that swam from Antarctica.`,
+      location: "Galapagos Islands, Ecuador",
+      country: "Ecuador",
+      continent: "South America",
+      category: Category.DIVING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Hammerhead shark school 500 Wolf Island", "Whale shark Darwin Island 12m feeding", "Marine iguana underwater algae grazing", "Sea lion torpedo play diving partner", "Galapagos penguin equatorial cold water"],
+      gear: ["5mm wetsuit cold Humboldt upwelling", "Advanced Open Water minimum certification", "Live-aboard 8-day Wolf Darwin access", "Underwater camera strobe dual setup", "Strong current drift diving technique"],
+      bestMonths: [6, 7, 8, 9, 10, 11],
+      estimatedCost: 4500,
+      latitude: -0.57,
+      longitude: -90.36,
+      published: true,
+      userId: user1.id,
+      voteCount: 12,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["island"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure548.id }, { userId: user2.id, adventureId: adventure548.id }, { userId: user3.id, adventureId: adventure548.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
