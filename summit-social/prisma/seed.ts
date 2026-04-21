@@ -30755,6 +30755,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure906.id }, { userId: user2.id, adventureId: adventure906.id }, { userId: user3.id, adventureId: adventure906.id }], skipDuplicates: true });
 
+
+  // Adventure 907
+  const adventure907 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-907" },
+    update: {},
+    create: {
+      id: "seed-adventure-907",
+      title: "India Gangotri Glacier Trek — Gomukh",
+      description: `Trek from Gangotri — one of the most sacred towns in Hinduism at 3,048 m in the Garhwal Himalaya — to Gomukh (4,480 m), the snout of the Gangotri Glacier and the source of the Ganges River. The 19 km walk follows the river gorge through a desolate landscape of grey moraine and glacial boulders to the ice cave from which the Bhagirathi River emerges. The glacier has retreated 22 km since 1817. An extension to the Tapovan meadow (4,460 m) below Shivling (6,543 m) is one of India's most extraordinary camping spots. Restricted area permit required.`,
+      location: "Uttarakhand, India",
+      country: "India",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 1000,
+      latitude: 30.9,
+      longitude: 79.1,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["glacier"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure907.id }, { userId: user2.id, adventureId: adventure907.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
