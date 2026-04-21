@@ -24005,6 +24005,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure681.id }, { userId: user2.id, adventureId: adventure681.id }, { userId: user3.id, adventureId: adventure681.id }], skipDuplicates: true });
 
+
+  // Adventure 682
+  const adventure682 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-682" },
+    update: {},
+    create: {
+      id: "seed-adventure-682",
+      title: "Antarctica Weddell Sea Expedition",
+      description: `The Weddell Sea is the most remote part of Antarctica and the location of Shackleton's Endurance ship, recently discovered on the sea floor. Emperor penguin colonies accessible only in winter or from icebreakers, and pack ice pressure ridges traversed by very few humans, define one of the most extreme expeditions available. The Weddell Sea's wildlife includes Weddell seals, crabeater seals, and leopard seals in extraordinary concentrations.`,
+      location: "Weddell Sea, Antarctica",
+      country: "Antarctica",
+      continent: "Antarctica",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Emperor penguin colony largest accessible Weddell", "Endurance wreck site historical location visit", "Weddell seal snow birth pup January", "Pack ice pressure ridge sledge portage", "Leopard seal sea ice surface hunting"],
+      gear: ["Icebreaker expedition ship passage charter", "Extreme cold minus 40 polar gear", "Zodiac launch pack ice navigation safety", "Helicopter ice reconnaissance support", "Medical evacuation extreme remote insurance"],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 18000,
+      latitude: -72,
+      longitude: -40,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["wildlife"].id }, { id: allTags["glacier"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure682.id }, { userId: user2.id, adventureId: adventure682.id }, { userId: user3.id, adventureId: adventure682.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
