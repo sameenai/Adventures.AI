@@ -25985,6 +25985,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure747.id }, { userId: user2.id, adventureId: adventure747.id }, { userId: user3.id, adventureId: adventure747.id }], skipDuplicates: true });
 
+
+  // Adventure 748
+  const adventure748 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-748" },
+    update: {},
+    create: {
+      id: "seed-adventure-748",
+      title: "Bhutan Bumthang Cultural Trek",
+      description: `Bumthang Valley is Bhutan's cultural heartland, home to the country's oldest and most sacred temples where tantric Buddhist traditions preserved from 7th century Guru Rinpoche's presence still animate the monastic calendar. Trekking the Bumthang cultural circuit connects Jakar Dzong, Kurje Lhakhang, and the high pastures above the valley where yak herders maintain seasonal cycles unchanged since medieval times. This is Bhutan before modernization.`,
+      location: "Bumthang, Bhutan",
+      country: "Bhutan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Kurje Lhakhang Guru Rinpoche body imprint sacred", "Jakar Dzong fortress white wedding cake approach", "Mebar Tsho Burning Lake Guru Rinpoche site", "Tamshing Lhakhang 15th century murals unique", "Yak herder high pasture seasonal traditional"],
+      gear: ["Bhutan daily permit visitor fee mandatory", "Respectful clothing temple visits required", "Agency mandatory Bhutan tourism regulation", "Camera permission some temples restricted", "Trekking shoes Bumthang valley 2580m altitude"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2500,
+      latitude: 27.55,
+      longitude: 90.73,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure748.id }, { userId: user2.id, adventureId: adventure748.id }, { userId: user3.id, adventureId: adventure748.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
