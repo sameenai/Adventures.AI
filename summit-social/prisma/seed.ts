@@ -29675,6 +29675,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure870.id }, { userId: user2.id, adventureId: adventure870.id }], skipDuplicates: true });
 
+
+  // Adventure 871
+  const adventure871 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-871" },
+    update: {},
+    create: {
+      id: "seed-adventure-871",
+      title: "Papua New Guinea Kokoda Track",
+      description: `Walk the Kokoda Track — 96 km through the Owen Stanley Range in Papua New Guinea, following the route of the 1942 jungle campaign between Australian and Japanese forces that shaped the Pacific War. The trail involves 4,000+ m of cumulative ascent through dense jungle, river crossings, and vertical muddy ridges. Local Papuan carriers (porters) are hired from the villages along the route and provide cultural insight into the living traditions of the highland communities. The track is tough by any standard; less than 60% of starters complete it. August is the most popular month.`,
+      location: "Owen Stanley Range, Papua New Guinea",
+      country: "Papua New Guinea",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -9,
+      longitude: 147.7,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure871.id }, { userId: user2.id, adventureId: adventure871.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
