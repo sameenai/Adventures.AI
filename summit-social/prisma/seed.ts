@@ -27155,6 +27155,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure786.id }], skipDuplicates: true });
 
+
+  // Adventure 787
+  const adventure787 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-787" },
+    update: {},
+    create: {
+      id: "seed-adventure-787",
+      title: "Ireland Wild Atlantic Way Cycling",
+      description: `Cycle sections of the Wild Atlantic Way — the world's longest defined coastal route at 2,500 km from Malin Head in the north to Mizen Head in the south. The southwest section from Westport to Dingle is the most dramatic, passing Clew Bay, Achill Island, the Connemara coast, and the Dingle Peninsula. Atlantic weather dictates the experience: even in summer, gale-force headwinds are common and rain is regular. The road follows cliffs, beaches, river estuaries, and stone-walled bog roads through some of Ireland's most sparsely populated coastline.`,
+      location: "West Coast, Ireland",
+      country: "Ireland",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 53.5,
+      longitude: -9.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["road-trip"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure787.id }, { userId: user2.id, adventureId: adventure787.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
