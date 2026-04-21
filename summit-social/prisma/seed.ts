@@ -20044,6 +20044,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure549.id }, { userId: user2.id, adventureId: adventure549.id }, { userId: user3.id, adventureId: adventure549.id }], skipDuplicates: true });
 
+
+  // Adventure 550
+  const adventure550 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-550" },
+    update: {},
+    create: {
+      id: "seed-adventure-550",
+      title: "Japan Nakasendo Historic Trail",
+      description: `The Nakasendo is one of the five historic roads connecting Edo with Kyoto, and its best-preserved sections through the Kiso Valley pass through post towns where samurai-era architecture remains intact. Tsumago and Magome are the most famous preserved juku-machi, and the 8-kilometre connecting trail through cedar forest passes between them in a walk through Edo-period Japan. Cherry blossom or autumn leaves elevate the beauty to perfection.`,
+      location: "Nagano and Gifu, Japan",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Tsumago juku-machi Edo period architecture preserved", "Magome to Tsumago classic section cedar forest", "Cherry blossom April sakura timing perfection", "Autumn momiji maple red gold November", "Traditional ryokan overnight tatami yukata"],
+      gear: ["Walking shoes comfortable paved sections", "Baggage forwarding service available Kiso", "JR Pass regional train access", "Yen cash traditional inns prefer", "Rain jacket Japanese mountain valley climate"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 700,
+      latitude: 35.57,
+      longitude: 137.68,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["hiking"].id }, { id: allTags["multi-day"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure550.id }, { userId: user2.id, adventureId: adventure550.id }, { userId: user3.id, adventureId: adventure550.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
