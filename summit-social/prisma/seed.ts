@@ -25415,6 +25415,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure728.id }, { userId: user2.id, adventureId: adventure728.id }, { userId: user3.id, adventureId: adventure728.id }], skipDuplicates: true });
 
+
+  // Adventure 729
+  const adventure729 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-729" },
+    update: {},
+    create: {
+      id: "seed-adventure-729",
+      title: "Tibet Mount Everest Base Camp",
+      description: `The Tibetan side approach to Everest Base Camp via the Friendship Highway provides a radically different perspective on Chomolungma from the Nepal side. The Chinese Base Camp at 5200m is accessible by vehicle to a point impossible from the Nepal side, but the additional 20-kilometre walk to Advanced Base Camp at 6400m is the most accessible extreme altitude trek in the world. The north face view from ABC is the face that defeated pre-war British expeditions.`,
+      location: "Shigatse, Tibet",
+      country: "China",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Chomolungma north face ABC 6400m British history", "Rongbuk Monastery 5000m world's highest monastery", "Tibetan plateau Friendship Highway approach", "North Col 7000m climbers approach visible", "Tibet permit China group tour regulation"],
+      gear: ["Tibet permit China group tour required", "Altitude medication 6400m ABC extreme", "High altitude sleeping bag minus 30", "Acclimatization Lhasa Shigatse gradual", "Vehicle hire Tibet base camp road access"],
+      bestMonths: [4, 5, 9, 10],
+      estimatedCost: 3500,
+      latitude: 28.13,
+      longitude: 86.86,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure729.id }, { userId: user2.id, adventureId: adventure729.id }, { userId: user3.id, adventureId: adventure729.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
