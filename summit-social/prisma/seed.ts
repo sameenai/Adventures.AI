@@ -19834,6 +19834,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure542.id }, { userId: user2.id, adventureId: adventure542.id }, { userId: user3.id, adventureId: adventure542.id }], skipDuplicates: true });
 
+
+  // Adventure 543
+  const adventure543 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-543" },
+    update: {},
+    create: {
+      id: "seed-adventure-543",
+      title: "Newfoundland Viking Coastal Trek",
+      description: `Newfoundland's Gros Morne National Park exposes the earth's mantle at the surface through the ancient Tablelands, a geological wonder where peridotite rock creates a near-lifeless Mars-like landscape. The Long Range Traverse crosses the tablelands plateau on a wilderness route with no trail, compass navigation only, and caribou as the main landscape feature. L'Anse aux Meadows adds Viking history to Canada's wildest island.`,
+      location: "Newfoundland, Canada",
+      country: "Canada",
+      continent: "North America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Tablelands peridotite mantle rock exposed", "Long Range Traverse off-trail compass navigation", "L'Anse aux Meadows Viking site 1000 CE", "Western Brook Pond fjord boat wilderness", "Moose herd Gros Morne backcountry abundant"],
+      gear: ["Compass map navigation no trail", "Gaiters bog crossing wet plateau", "Bear canister moose encounter protocol", "Permit Gros Morne backcountry advance", "Weather jacket coastal Newfoundland reliable rain"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1200,
+      latitude: 49.55,
+      longitude: -57.75,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure543.id }, { userId: user2.id, adventureId: adventure543.id }, { userId: user3.id, adventureId: adventure543.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
