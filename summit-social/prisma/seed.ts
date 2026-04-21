@@ -32195,6 +32195,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure954.id }, { userId: user2.id, adventureId: adventure954.id }, { userId: user3.id, adventureId: adventure954.id }], skipDuplicates: true });
 
+
+  // Adventure 955
+  const adventure955 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-955" },
+    update: {},
+    create: {
+      id: "seed-adventure-955",
+      title: "Patagonia Torres del Paine O-Circuit",
+      description: `Complete the O-Circuit — the full loop around the Torres del Paine massif in southern Chile, extending the famous W-Trek with the back side of the park through the Valle del Frances, Lago Grey, and the remote Perros and John Gardner passes. The O-Circuit takes 8-9 days; the John Gardner Pass above Lago Grey at 1,241 m is exposed and weather-dependent. The back side of the massif sees a fraction of the W-trekkers and provides views of unexplored east face walls and glaciers invisible from the main routes. Book CONAF refugio and campsite permits far in advance.`,
+      location: "Torres del Paine National Park, Magallanes, Chile",
+      country: "Chile",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: -51,
+      longitude: -73,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure955.id }, { userId: user2.id, adventureId: adventure955.id }, { userId: user3.id, adventureId: adventure955.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
