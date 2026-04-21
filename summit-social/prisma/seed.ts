@@ -26615,6 +26615,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure768.id }, { userId: user2.id, adventureId: adventure768.id }], skipDuplicates: true });
 
+
+  // Adventure 769
+  const adventure769 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-769" },
+    update: {},
+    create: {
+      id: "seed-adventure-769",
+      title: "Alaska Inside Passage Sea Kayaking",
+      description: `A two-week self-supported sea kayak expedition through the protected waterways of Southeast Alaska — paddling alongside glaciers calving into the sea, through kelp forests, and past rainforest shorelines where brown bears forage at the waterline. The route from Juneau to Petersburg covers roughly 200 km. Wind and tidal currents require careful planning; open crossings can be dangerous in deteriorating conditions. Wildlife encounters include humpback whales, orcas, sea otters, and Steller sea lions.`,
+      location: "Southeast Alaska, USA",
+      country: "USA",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 57,
+      longitude: -134,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure769.id }, { userId: user2.id, adventureId: adventure769.id }, { userId: user3.id, adventureId: adventure769.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
