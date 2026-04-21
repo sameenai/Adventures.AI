@@ -51,7 +51,10 @@ export function InfiniteAdventureGrid({
       params.set("limit", "20");
 
       const res = await fetch(`/api/adventures?${params.toString()}`);
-      if (!res.ok) return { items: [], nextCursor: undefined };
+      if (!res.ok) {
+        console.error(`Failed to fetch adventures: ${res.status} ${res.statusText}`);
+        return { items: [], nextCursor: undefined };
+      }
       return res.json() as Promise<{ items: AdventureWithUser[]; nextCursor?: string }>;
     },
     [category, continent, difficulty, duration, search, sortBy],
