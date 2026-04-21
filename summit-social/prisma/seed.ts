@@ -31085,6 +31085,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure917.id }, { userId: user2.id, adventureId: adventure917.id }], skipDuplicates: true });
 
+
+  // Adventure 918
+  const adventure918 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-918" },
+    update: {},
+    create: {
+      id: "seed-adventure-918",
+      title: "Spain Andalucia Coast to Summit Cycling",
+      description: `Cycle from the Costa del Sol to the Sierra Nevada summit at 3,300 m — gaining 3,000 m in one epic day from sea level to snow line that has become one of cycling's most celebrated single-day altitude challenges. The route from Malaga via the inland road through Alhaurin de la Torre and Coin to Monachil is 130 km with sustained climbing in the upper section. The descent returns through the Lecrin Valley orchards of orange trees above the Mediterranean coast. A tarmac road reaches the Borreguiles ski area; the summit plateau is accessible on a clear day.`,
+      location: "Malaga to Sierra Nevada, Andalucia, Spain",
+      country: "Spain",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 9, 10],
+      estimatedCost: 1000,
+      latitude: 37.1,
+      longitude: -3.7,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["europe"].id }, { id: allTags["coastal"].id }, { id: allTags["alpine"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure918.id }, { userId: user2.id, adventureId: adventure918.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
