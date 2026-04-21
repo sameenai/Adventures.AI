@@ -24515,6 +24515,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure698.id }, { userId: user2.id, adventureId: adventure698.id }, { userId: user3.id, adventureId: adventure698.id }], skipDuplicates: true });
 
+
+  // Adventure 699
+  const adventure699 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-699" },
+    update: {},
+    create: {
+      id: "seed-adventure-699",
+      title: "Sardinia Sea Kayak Circuit",
+      description: `Kayaking around Sardinia's coast reveals hidden sea caves, turquoise coves accessible only from the water, and the pink granite towers of the Gallura region. The route from Cagliari through the Costa Verde's dunes and the Ogliastra sea caves to the La Maddalena archipelago covers 700 kilometres of the finest Mediterranean coastal scenery. Bronze Age nuraghe towers visible from the water add an archaeological dimension to the paddle.`,
+      location: "Sardinia, Italy",
+      country: "Italy",
+      continent: "Europe",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Bue Marino sea caves sea kayak access only", "Costa Verde dune beach isolated boat only", "La Maddalena archipelago turquoise snorkel", "Nuraghe Bronze Age tower coastal archaeology", "Cala Goloritze sea arch UNESCO Ogliastra"],
+      gear: ["Sea kayak Mediterranean summer conditions", "Wetsuit 3mm evening dip optional", "VHF radio Sardinian Mistral wind warning", "Sun protection Mediterranean UV reflection", "Water tablets coastal spring drinking"],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 1500,
+      latitude: 40,
+      longitude: 9,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["coastal"].id }, { id: allTags["island"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure699.id }, { userId: user2.id, adventureId: adventure699.id }, { userId: user3.id, adventureId: adventure699.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
