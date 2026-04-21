@@ -23044,6 +23044,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure649.id }, { userId: user2.id, adventureId: adventure649.id }, { userId: user3.id, adventureId: adventure649.id }], skipDuplicates: true });
 
+
+  // Adventure 650
+  const adventure650 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-650" },
+    update: {},
+    create: {
+      id: "seed-adventure-650",
+      title: "Colombia Cocora Valley Trek",
+      description: `The Cocora Valley near Salento is home to Colombia's national tree, the wax palm, which grows to 60 metres in a cloud forest landscape of extraordinary otherworldly beauty. The circular trail climbs through humid cloud forest before emerging onto the hilltops above where the wax palms stand like green candles against a misty backdrop. The coffee farms of the Zona Cafetera surrounding the valley add cultural depth to the natural spectacle.`,
+      location: "Salento, Colombia",
+      country: "Colombia",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Wax palm 60m national tree cloud forest", "Cloud forest hummingbird diversity spectacle", "Salento colonial coffee town base camp", "Zona Cafetera coffee farm tour harvest", "Spectacled bear cloud forest chance sighting"],
+      gear: ["Rain jacket cloud forest permanent mist", "Waterproof boots muddy trail after rain", "Gaiters mud lower valley tracks", "Camera telephoto hummingbird rapid movement", "Cash pesos local guide fee"],
+      bestMonths: [12, 1, 2, 7, 8],
+      estimatedCost: 400,
+      latitude: 4.64,
+      longitude: -75.48,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure650.id }, { userId: user2.id, adventureId: adventure650.id }, { userId: user3.id, adventureId: adventure650.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
