@@ -33455,6 +33455,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure996.id }, { userId: user2.id, adventureId: adventure996.id }], skipDuplicates: true });
 
+
+  // Adventure 997
+  const adventure997 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-997" },
+    update: {},
+    create: {
+      id: "seed-adventure-997",
+      title: "Indonesia Komodo to Flores Island Sailing",
+      description: `Sail from Lombok through the Komodo archipelago to Flores on a phinisi (traditional Indonesian wooden sailing vessel), stopping at Komodo and Rinca for dragon encounters, Padar Island for the three-colour bay view, Pink Beach for snorkelling on coral that has coloured the sand rose, and Manta Point for open-water encounters with oceanic manta rays on every tide. The 5-day live-aboard itinerary covers 400 km of Indonesia's most dramatic sea and island scenery. The cooking is Indonesian; the crew of 8 have sailed these waters their entire lives.`,
+      location: "Lesser Sunda Islands, Indonesia",
+      country: "Indonesia",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8],
+      estimatedCost: 1000,
+      latitude: -8.6,
+      longitude: 119.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["sailing"].id }, { id: allTags["island"].id }, { id: allTags["diving"].id }, { id: allTags["wildlife"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure997.id }, { userId: user2.id, adventureId: adventure997.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
