@@ -28205,6 +28205,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure821.id }, { userId: user2.id, adventureId: adventure821.id }], skipDuplicates: true });
 
+
+  // Adventure 822
+  const adventure822 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-822" },
+    update: {},
+    create: {
+      id: "seed-adventure-822",
+      title: "Oman Jebel Shams Canyon Trek",
+      description: `Trek the Balcony Walk around the Grand Canyon of Arabia — Wadi Ghul beneath Jebel Shams (2,980 m), Oman's highest peak — a narrow ledge path cut into the canyon wall above 1,000 m drops into the shadowed depths below. The canyon is 1,000 m deep and 10 km wide at its broadest; ancient terraced villages cling to the canyon rim. Jebel Shams is accessible year-round but the summit is cool even in summer; winter brings snow to the top. The walking is straightforward but exposure is significant.`,
+      location: "Al Hajar Mountains, Oman",
+      country: "Oman",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 23.2,
+      longitude: 57.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["gorge"].id }, { id: allTags["hiking"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure822.id }, { userId: user2.id, adventureId: adventure822.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
