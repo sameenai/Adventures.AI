@@ -24905,6 +24905,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure711.id }, { userId: user2.id, adventureId: adventure711.id }, { userId: user3.id, adventureId: adventure711.id }], skipDuplicates: true });
 
+
+  // Adventure 712
+  const adventure712 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-712" },
+    update: {},
+    create: {
+      id: "seed-adventure-712",
+      title: "Himalaya Everest Three Passes Trek",
+      description: `The Three Passes trek through the Khumbu crosses Renjo La at 5360m, Cho La at 5330m, and Kongma La at 5535m in addition to visiting Everest Base Camp and Gokyo Lakes, creating the most comprehensive circuit of the Khumbu Valley. The 20-day route requires glacier travel on Cho La and Kongma La and delivers panoramic views of the full Everest massif from multiple angles. This is the definitive Khumbu high-altitude adventure.`,
+      location: "Khumbu, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Three passes above 5000m crossing all Khumbu", "Gokyo Ri 5360m five 8000m peaks panorama", "Kongma La 5535m highest pass Khumbu circuit", "Cho La glacier scramble technical crossing", "Everest Base Camp 5364m Khumbu Icefall view"],
+      gear: ["Crampons Cho La Kongma La glacier snow", "Acclimatization schedule strict 20-day essential", "High altitude sleeping bag minus 20 Khumbu", "TIMS ACAP permit dual park registration", "Guide recommended three passes navigation"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2000,
+      latitude: 27.98,
+      longitude: 86.92,
+      published: true,
+      userId: user3.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure712.id }, { userId: user2.id, adventureId: adventure712.id }, { userId: user3.id, adventureId: adventure712.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
