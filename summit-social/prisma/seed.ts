@@ -29405,6 +29405,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure861.id }, { userId: user2.id, adventureId: adventure861.id }], skipDuplicates: true });
 
+
+  // Adventure 862
+  const adventure862 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-862" },
+    update: {},
+    create: {
+      id: "seed-adventure-862",
+      title: "Peru Cordillera Blanca High Trek",
+      description: `Trek the Santa Cruz circuit and surrounding routes in the Cordillera Blanca — the highest tropical mountain range in the world, with 27 peaks above 6,000 m visible from the Llanganuco valley. The Santa Cruz-Llanganuco trek is a 4-day classic; the more challenging Alpamayo base camp adds 3 days and reaches within view of what many mountaineers consider the most beautiful mountain on Earth. Huaraz at 3,052 m is the base; acclimatisation days at the surrounding highland lakes are required before any high trekking. The range is under serious glacier retreat.`,
+      location: "Cordillera Blanca, Ancash, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -9.1,
+      longitude: -77.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["glacier"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure862.id }, { userId: user2.id, adventureId: adventure862.id }, { userId: user3.id, adventureId: adventure862.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
