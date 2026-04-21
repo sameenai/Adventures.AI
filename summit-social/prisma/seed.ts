@@ -26345,6 +26345,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure759.id }, { userId: user2.id, adventureId: adventure759.id }, { userId: user3.id, adventureId: adventure759.id }], skipDuplicates: true });
 
+
+  // Adventure 760
+  const adventure760 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-760" },
+    update: {},
+    create: {
+      id: "seed-adventure-760",
+      title: "India Markha Valley Trek",
+      description: `The Markha Valley trek is Ladakh's most popular and accessible high-altitude route, a 5-day circuit through the Hemis National Park that is the largest national park in South Asia and home to the world's densest snow leopard population. The Kongmaru La pass at 5260m provides panoramic views of the Zanskar Range and Karakoram, and the medieval Markha village monastery perched above the valley floor epitomizes the Trans-Himalayan Buddhist culture of Ladakh.`,
+      location: "Ladakh, India",
+      country: "India",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Snow leopard Hemis National Park best chance", "Kongmaru La 5260m Zanskar Karakoram view", "Markha village monastery cliff ancient", "Hemis Monastery largest Ladakh festival July", "Nimaling plateau yak pasture 4700m highland"],
+      gear: ["Acclimatization Leh 3500m minimum 3 days", "Inner Line Permit Ladakh some sections", "High altitude sleeping bag minus 15", "Trekking poles Kongmaru La rocky descent", "Guide optional Markha well-marked trail"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 33.96,
+      longitude: 77.66,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure760.id }, { userId: user2.id, adventureId: adventure760.id }, { userId: user3.id, adventureId: adventure760.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
