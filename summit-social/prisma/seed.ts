@@ -28925,6 +28925,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure845.id }, { userId: user2.id, adventureId: adventure845.id }], skipDuplicates: true });
 
+
+  // Adventure 846
+  const adventure846 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-846" },
+    update: {},
+    create: {
+      id: "seed-adventure-846",
+      title: "Canada Baffin Island Sea Kayaking",
+      description: `Paddle the fiords of Baffin Island in the Canadian Arctic — among the world's deepest and most dramatic glaciated coastlines, accessible for a brief window in August when sea ice recedes. The Auyuittuq National Park coastline features 1,500 m cliffs rising from the sea and hanging glaciers descending to tidewater. Narwhals, walrus, polar bears, and beluga whales share these waters. Small group expeditions operate under strict safety protocols; a polar bear guard accompanies every landing. This is as remote as expeditionary kayaking gets without reaching Antarctica.`,
+      location: "Baffin Island, Nunavut, Canada",
+      country: "Canada",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [8],
+      estimatedCost: 1000,
+      latitude: 66,
+      longitude: -65,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["arctic"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure846.id }, { userId: user2.id, adventureId: adventure846.id }, { userId: user3.id, adventureId: adventure846.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
