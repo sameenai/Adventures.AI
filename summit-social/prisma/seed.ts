@@ -28625,6 +28625,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure835.id }], skipDuplicates: true });
 
+
+  // Adventure 836
+  const adventure836 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-836" },
+    update: {},
+    create: {
+      id: "seed-adventure-836",
+      title: "Japan Shirakami-Sanchi Beech Forest Trek",
+      description: `Trek through Shirakami-Sanchi — a UNESCO World Heritage Site in Aomori and Akita prefectures containing the largest remaining virgin beech forest in East Asia — on routes that see a fraction of the visitors of Japan's better-known hiking destinations. The forest is at its most spectacular in mid-October when the beech turns golden. The Juniko (12 Lakes) trail connects a series of deep blue forest pools; the challenging Shirakami Range traversal involves 1,600 m peaks with no maintained trail. A remote and meditative contrast to Japan's manicured tourist trails.`,
+      location: "Aomori / Akita Prefecture, Japan",
+      country: "Japan",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 5, 6],
+      estimatedCost: 1000,
+      latitude: 40.5,
+      longitude: 140.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["hiking"].id }, { id: allTags["remote"].id }, { id: allTags["jungle"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure836.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
