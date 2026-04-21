@@ -21364,6 +21364,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure593.id }, { userId: user2.id, adventureId: adventure593.id }, { userId: user3.id, adventureId: adventure593.id }], skipDuplicates: true });
 
+
+  // Adventure 594
+  const adventure594 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-594" },
+    update: {},
+    create: {
+      id: "seed-adventure-594",
+      title: "Iceland Snaefellsjokull Crater Trek",
+      description: `Snaefellsjokull is the glacier-capped volcano at the tip of the Snaefellsnes Peninsula, immortalized by Jules Verne as the entrance to the centre of the earth in Journey to the Centre of the Earth. The summit crater at 1446m is accessible by guided snowmobile or on foot with crampons from the glacier edge. The view across the Breidafjordur bay and back toward Reykjavik captures the dramatic essence of Iceland's volcanic landscape.`,
+      location: "Snaefellsnes Peninsula, Iceland",
+      country: "Iceland",
+      continent: "Europe",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Jules Verne Journey Centre Earth real entrance", "Summit crater 1446m glacier cap traverse", "Breidafjordur bay island constellation view", "Kirkjufell mountain peninsula symmetry icon", "Arnarstapi sea arch coastal lava platform"],
+      gear: ["Crampons glacier ice surface mandatory", "Guide summer glacier safety crevasses", "Windproof jacket Atlantic peninsula exposure", "Camera iconic Kirkjufell viewpoint", "Snowmobile alternative winter access"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 800,
+      latitude: 64.81,
+      longitude: -23.77,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["volcanic"].id }, { id: allTags["glacier"].id }, { id: allTags["europe"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure594.id }, { userId: user2.id, adventureId: adventure594.id }, { userId: user3.id, adventureId: adventure594.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
