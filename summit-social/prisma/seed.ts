@@ -24605,6 +24605,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure701.id }, { userId: user2.id, adventureId: adventure701.id }, { userId: user3.id, adventureId: adventure701.id }], skipDuplicates: true });
 
+
+  // Adventure 702
+  const adventure702 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-702" },
+    update: {},
+    create: {
+      id: "seed-adventure-702",
+      title: "China Three Parallel Rivers Trek",
+      description: `The Three Parallel Rivers of Yunnan UNESCO World Heritage site contains the upper reaches of the Yangtze, Mekong, and Salween rivers flowing parallel within 50 kilometres of each other through some of the world's deepest gorges. Trekking from the Tiger Leaping Gorge through the Yubeng Sacred Waterfall route to Deqin delivers an encounter with a wilderness of extraordinary biodiversity, with 25% of China's plant species in a compact mountain landscape.`,
+      location: "Northwest Yunnan, China",
+      country: "China",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Tiger Leaping Gorge 3900m relief trek classic", "Yubeng Sacred Waterfall pilgrimage Tibetan", "Meili Snow Mountain Kawagarbo sacred 6740m", "Three parallel rivers 50km geography unique", "Tibetan Buddhist culture Yunnan intact"],
+      gear: ["Mountain boots deep gorge terrain", "Acclimatization Lijiang 2400m start gradual", "Warm layers Meili Snow Mountain approach", "Permit Yubeng village restricted area", "Guide option complex Yubeng pilgrimage"],
+      bestMonths: [4, 5, 6, 9, 10, 11],
+      estimatedCost: 800,
+      latitude: 28.04,
+      longitude: 98.77,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure702.id }, { userId: user2.id, adventureId: adventure702.id }, { userId: user3.id, adventureId: adventure702.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
