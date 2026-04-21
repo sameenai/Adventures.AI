@@ -23254,6 +23254,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure656.id }, { userId: user2.id, adventureId: adventure656.id }, { userId: user3.id, adventureId: adventure656.id }], skipDuplicates: true });
 
+
+  // Adventure 657
+  const adventure657 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-657" },
+    update: {},
+    create: {
+      id: "seed-adventure-657",
+      title: "Turkey Cappadocia Hot Air Balloon",
+      description: `Cappadocia's fairy chimneys, cave churches, and underground cities create the world's most extraordinary hot air balloon landscape. Dawn flights over the Goreme Valley with hundreds of balloons in the sky simultaneously create a spectacle without parallel in adventure travel. Trekking between fairy chimney formations, horse riding through the Rose Valley, and hot air ballooning combine in a multi-activity Cappadocia week.`,
+      location: "Cappadocia, Turkey",
+      country: "Turkey",
+      continent: "Asia",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Hot air balloon 100 balloons Goreme dawn", "Rose Valley fairy chimney morning walk", "Underground city Derinkuyu 8 levels ancient", "Goreme Open Air Museum cave church frescoes", "Horse riding Red Valley sunset silhouette"],
+      gear: ["Warm layers balloon dawn cold 1000m altitude", "Camera wide angle multiple balloon sky", "Comfortable walking shoes rock formation trails", "Booking advance balloon high demand", "Ankle support horse riding boots"],
+      bestMonths: [4, 5, 9, 10, 11],
+      estimatedCost: 800,
+      latitude: 38.64,
+      longitude: 34.83,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }, { id: allTags["hiking"].id }, { id: allTags["horse-trekking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure657.id }, { userId: user2.id, adventureId: adventure657.id }, { userId: user3.id, adventureId: adventure657.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
