@@ -23914,6 +23914,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure678.id }, { userId: user2.id, adventureId: adventure678.id }, { userId: user3.id, adventureId: adventure678.id }], skipDuplicates: true });
 
+
+  // Adventure 679
+  const adventure679 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-679" },
+    update: {},
+    create: {
+      id: "seed-adventure-679",
+      title: "Nepal Dhaulagiri Circuit Trek",
+      description: `The Dhaulagiri Circuit is one of Nepal's most challenging and least trekked routes, circling the 8167m seventh highest mountain through the French Pass at 5360m and the Dhampus Pass at 5260m. The route requires true expedition preparation with high altitude camping, glacier travel, and technical snow passages. The Japanese Couloir approach to Dhaulagiri base camp and the ice fall at French Pass are serious mountaineering terrain.`,
+      location: "Dhaulagiri Region, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["French Pass 5360m glacier technical snow", "Dhaulagiri base camp 4750m eighth highest view", "Hidden Valley 5100m remote glacier plateau", "Dhampus Pass 5260m dramatic high crossing", "Marpha village apple brandy lower descent"],
+      gear: ["Crampons ice axe French Pass glacier", "High altitude camping sleeping bag minus 25", "Rope team glacier Hidden Valley crossing", "Guide experienced Dhaulagiri circuit navigation", "Full self-sufficiency remote section camping"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 3500,
+      latitude: 28.7,
+      longitude: 83.49,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["glacier"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure679.id }, { userId: user2.id, adventureId: adventure679.id }, { userId: user3.id, adventureId: adventure679.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
