@@ -29045,6 +29045,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure849.id }, { userId: user2.id, adventureId: adventure849.id }], skipDuplicates: true });
 
+
+  // Adventure 850
+  const adventure850 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-850" },
+    update: {},
+    create: {
+      id: "seed-adventure-850",
+      title: "Philippines El Nido Island Hopping and Diving",
+      description: `Explore El Nido in Palawan — the most spectacular island seascape in the Philippines — by banca boat, kayaking into hidden lagoons through narrow limestone crevices, snorkelling coral gardens, and diving walls where sea turtles graze on barrel sponges. The Bacuit Archipelago contains 45 islands and islets within a protected area. Kayaking through the Secret Lagoon and Big Lagoon is the iconic activity; PADI dive sites at Miniloc and Matinloc offer outstanding visibility. Arrive in April or May before peak season crowds.`,
+      location: "El Nido, Palawan, Philippines",
+      country: "Philippines",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 11.2,
+      longitude: 119.4,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["diving"].id }, { id: allTags["island"].id }, { id: allTags["kayaking"].id }, { id: allTags["multi-sport"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure850.id }, { userId: user2.id, adventureId: adventure850.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
