@@ -29315,6 +29315,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure858.id }, { userId: user2.id, adventureId: adventure858.id }], skipDuplicates: true });
 
+
+  // Adventure 859
+  const adventure859 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-859" },
+    update: {},
+    create: {
+      id: "seed-adventure-859",
+      title: "Greenland East Coast Dog Sled and Ski Tour",
+      description: `Travel by dog sled with Inuit guides along the remote east coast of Greenland — one of the least visited inhabited coastlines in the world — between the tiny settlements of Tasiilaq and Kulusuk across the sea ice of the Ammassalik Fjord system. Only Greenlandic dog sledding is permitted in east Greenland; the dogs are genetically distinct from any other breed. Combined ski touring on the glaciated peaks above the settlements adds mountaineering to the cultural experience. Accessible from Reykjavik by Air Iceland flight.`,
+      location: "Ammassalik, East Greenland",
+      country: "East Greenland",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 9,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4],
+      estimatedCost: 1000,
+      latitude: 65.6,
+      longitude: -37.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["arctic"].id }, { id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["skiing"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure859.id }, { userId: user2.id, adventureId: adventure859.id }, { userId: user3.id, adventureId: adventure859.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
