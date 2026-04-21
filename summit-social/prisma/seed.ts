@@ -33155,6 +33155,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure986.id }, { userId: user2.id, adventureId: adventure986.id }, { userId: user3.id, adventureId: adventure986.id }], skipDuplicates: true });
 
+
+  // Adventure 987
+  const adventure987 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-987" },
+    update: {},
+    create: {
+      id: "seed-adventure-987",
+      title: "Italy Sardinia Sea Kayaking",
+      description: `Paddle around the wild coast of Sardinia — sea stacks, sea caves, turquoise coves accessible only by water, and cliffs of pink and orange porphyry rising from water so clear the seabed is visible at 15 m — on a multi-day kayaking circuit of the island's most dramatic sections. The Gulf of Orosei on the eastern coast is the centrepiece: 40 km of vertical limestone cliffs accessible only by boat or on foot, with hidden beaches reachable through sea cave passages. The Archipelago della Maddalena on the northern coast provides sheltered island-hopping in a Marine National Park.`,
+      location: "Sardinia, Italy",
+      country: "Italy",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 1000,
+      latitude: 40.1,
+      longitude: 9.2,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["diving"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure987.id }, { userId: user2.id, adventureId: adventure987.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
