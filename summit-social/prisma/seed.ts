@@ -22354,6 +22354,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure626.id }, { userId: user2.id, adventureId: adventure626.id }, { userId: user3.id, adventureId: adventure626.id }], skipDuplicates: true });
 
+
+  // Adventure 627
+  const adventure627 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-627" },
+    update: {},
+    create: {
+      id: "seed-adventure-627",
+      title: "Himalayan Kingdom Bhutan Bike",
+      description: `Cycling Bhutan from the Indian border at Phuntsholing to the Tibetan plateau above Lingzhi is a grueling altitude challenge through a kingdom where tourism is limited and landscapes remain largely pristine. The National Highway climbs from subtropical lowlands to the Chelela Pass at 3988m, Bhutan's highest road pass, through a vertical botanical gradient from tropical forest to alpine meadow. Daily rider fees restrict the adventure to committed cyclists.`,
+      location: "Bhutan",
+      country: "Bhutan",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Chelela Pass 3988m Bhutan highest road cycling", "Tiger's Nest monastery cliff switchback approach", "Punakha Dzong fortress river confluence", "Black-necked crane wildlife Phobjikha winter", "Bhutan Gross National Happiness policy cycling"],
+      gear: ["Bhutan daily fee minimum per person", "Mountain bike altitude 3988m fitness", "Altitude medication Chelela pass", "Agency mandatory Bhutan cycling tour", "Warm layers high pass cold descent"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 3500,
+      latitude: 27.46,
+      longitude: 89.64,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure627.id }, { userId: user2.id, adventureId: adventure627.id }, { userId: user3.id, adventureId: adventure627.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
