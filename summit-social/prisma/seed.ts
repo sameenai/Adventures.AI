@@ -21244,6 +21244,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure589.id }, { userId: user2.id, adventureId: adventure589.id }, { userId: user3.id, adventureId: adventure589.id }], skipDuplicates: true });
 
+
+  // Adventure 590
+  const adventure590 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-590" },
+    update: {},
+    create: {
+      id: "seed-adventure-590",
+      title: "India Spiti Valley Motorcycle",
+      description: `The Spiti Valley loop through Himachal Pradesh is one of India's great motorcycle adventures, crossing the Kunzum Pass at 4551m between Manali and Kaza through a high desert moonscape that rivals the Trans-Himalayan landscapes of Ladakh. Key monastery perched on a 1000-year-old cliff face, the Key Monastery resident monks, and the highest post office in the world at Hikkim add cultural dimension to a road adventure.`,
+      location: "Himachal Pradesh, India",
+      country: "India",
+      continent: "Asia",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Kunzum Pass 4551m Manali-Kaza connection", "Key Monastery cliff face 1000 year architecture", "Hikkim world's highest post office postcard", "Chandratal Lake turquoise mountain crescent", "Rohtang Pass Himalayan drama dramatic entry"],
+      gear: ["Enfield Himalayan bike high altitude reliable", "Altitude sickness Diamox acclimatization", "Warm layers cold Spiti nights 3800m", "Permit Inner Line district crossing", "Tool kit remote village road condition"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 800,
+      latitude: 32.25,
+      longitude: 78.02,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure590.id }, { userId: user2.id, adventureId: adventure590.id }, { userId: user3.id, adventureId: adventure590.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
