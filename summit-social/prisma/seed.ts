@@ -24215,6 +24215,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure688.id }, { userId: user2.id, adventureId: adventure688.id }, { userId: user3.id, adventureId: adventure688.id }], skipDuplicates: true });
 
+
+  // Adventure 689
+  const adventure689 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-689" },
+    update: {},
+    create: {
+      id: "seed-adventure-689",
+      title: "Zimbabwe Victoria Falls Walk",
+      description: `Victoria Falls is the world's largest curtain of falling water, and the activities available on both the Zimbabwean and Zambian sides combine to create an adventure sports week without parallel. White water rafting the Batoka Gorge Class V rapids below the falls, bungee jumping from the 111-metre Victoria Falls Bridge, and the Devil's Pool swim at the edge of the falls combine natural wonder with adrenaline.`,
+      location: "Victoria Falls, Zimbabwe",
+      country: "Zimbabwe",
+      continent: "Africa",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Devil's Pool swim falls edge dry season", "Batoka Gorge Class V rafting below falls", "Victoria Falls Bridge 111m bungee jump", "Spray viewed from lunar rainbow night", "Chobe elephant 60000 herd cruise boat"],
+      gear: ["Waterproof camera rainbow spray zone", "Life jacket rafting Batoka mandatory", "Bungee jump certification operator provision", "Rain mac spray zone wet approach walk", "Zimbabwe entry visa kiosk USD cash"],
+      bestMonths: [8, 9, 10, 11],
+      estimatedCost: 1500,
+      latitude: -17.92,
+      longitude: 25.86,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["multi-sport"].id }, { id: allTags["wildlife"].id }, { id: allTags["africa"].id }, { id: allTags["kayaking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure689.id }, { userId: user2.id, adventureId: adventure689.id }, { userId: user3.id, adventureId: adventure689.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
