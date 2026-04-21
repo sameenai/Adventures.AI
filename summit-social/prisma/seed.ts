@@ -25145,6 +25145,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure719.id }, { userId: user2.id, adventureId: adventure719.id }, { userId: user3.id, adventureId: adventure719.id }], skipDuplicates: true });
 
+
+  // Adventure 720
+  const adventure720 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-720" },
+    update: {},
+    create: {
+      id: "seed-adventure-720",
+      title: "Nepal Rolwaling Valley Trek",
+      description: `The Rolwaling Valley is one of Nepal's most remote trekking destinations, a sacred valley beneath Gauri Shankar at 7134m that the Sherpas consider the mythical home of the Yeti. The Tashi Lapcha pass at 5755m connects Rolwaling to the Khumbu Valley and is one of Nepal's most technically demanding trekking passes, requiring fixed ropes and glacier navigation. The valley's complete isolation from motorable roads preserves a Buddhist culture of exceptional authenticity.`,
+      location: "Dolakha, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Tashi Lapcha pass 5755m Nepal technical demanding", "Gauri Shankar 7134m sacred Rolwaling backdrop", "Yeti footprint myth Rolwaling valley tradition", "Beding village remote Buddhist monastery visit", "Na village last habitation Tashi Lapcha approach"],
+      gear: ["Technical climbing gear Tashi Lapcha fixed rope", "High altitude sleeping bag minus 25", "Guide climbing experience mandatory pass", "Full self-sufficiency Rolwaling no facilities", "Acclimatization schedule strict 5755m"],
+      bestMonths: [10, 11, 4, 5],
+      estimatedCost: 2800,
+      latitude: 27.91,
+      longitude: 86.48,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["expedition"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure720.id }, { userId: user2.id, adventureId: adventure720.id }, { userId: user3.id, adventureId: adventure720.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
