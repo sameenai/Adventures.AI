@@ -20524,6 +20524,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure565.id }, { userId: user2.id, adventureId: adventure565.id }, { userId: user3.id, adventureId: adventure565.id }], skipDuplicates: true });
 
+
+  // Adventure 566
+  const adventure566 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-566" },
+    update: {},
+    create: {
+      id: "seed-adventure-566",
+      title: "Suriname Amazon Jungle Expedition",
+      description: `Suriname has one of the highest percentages of intact primary rainforest of any country on earth, and its Maroon communities descended from escaped slaves maintain African-derived cultures deep in the jungle interior. Travelling by dugout canoe up the Suriname River to Maroon villages provides access to indigenous land management knowledge and a rainforest wilderness experience unlike anything in more visited corners of Amazonia.`,
+      location: "Interior, Suriname",
+      country: "Suriname",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Maroon village African-Surinamese culture intact", "Dugout canoe river rapids jungle interior", "Howler monkey dawn chorus jungle wake up", "Jaguar track river sandbank mud print", "Suriname River rapids wooden boat skill"],
+      gear: ["Yellow fever vaccination mandatory Suriname", "Malaria prophylaxis rural jungle essential", "Hammock and tarp jungle camp system", "River sandals wet crossing footwear", "Insect mesh headnet evening mosquito"],
+      bestMonths: [8, 9, 10, 2, 3],
+      estimatedCost: 1800,
+      latitude: 4,
+      longitude: -56,
+      published: true,
+      userId: user1.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure566.id }, { userId: user2.id, adventureId: adventure566.id }, { userId: user3.id, adventureId: adventure566.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
