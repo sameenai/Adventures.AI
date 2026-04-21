@@ -33275,6 +33275,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure990.id }, { userId: user2.id, adventureId: adventure990.id }, { userId: user3.id, adventureId: adventure990.id }], skipDuplicates: true });
 
+
+  // Adventure 991
+  const adventure991 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-991" },
+    update: {},
+    create: {
+      id: "seed-adventure-991",
+      title: "Tanzania Ruaha Night Safari and Stars",
+      description: `Experience Ruaha National Park at night — guided night game drives and bush walks that reveal the park's nocturnal community of aardvark, porcupine, thick-tailed greater galago, and lion on evening hunts in the dry season — under a night sky ranked among the darkest in sub-Saharan Africa. Ruaha's remoteness from Dar es Salaam (5 hours by road or 90 minutes by charter flight) limits visitor numbers such that night drives can feel entirely private. Combine with dawn walking safaris along the Great Ruaha River for the full 24-hour Ruaha experience.`,
+      location: "Ruaha National Park, Iringa, Tanzania",
+      country: "Tanzania",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -7.6,
+      longitude: 35.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure991.id }, { userId: user2.id, adventureId: adventure991.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
