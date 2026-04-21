@@ -30215,6 +30215,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure888.id }, { userId: user2.id, adventureId: adventure888.id }, { userId: user3.id, adventureId: adventure888.id }], skipDuplicates: true });
 
+
+  // Adventure 889
+  const adventure889 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-889" },
+    update: {},
+    create: {
+      id: "seed-adventure-889",
+      title: "Zimbabwe Mana Pools Canoe Safari",
+      description: `Paddle the Zambezi River in Canadian canoes through Mana Pools National Park — a UNESCO World Heritage Site in the Zambezi Valley — sleeping on white sandbanks while hippos surface and snort around the campsite. Mana Pools is famous for wildlife encounters at extremely close range: elephants stand on hind legs to reach acacia pods; wild dogs hunt impala along the floodplain. The canoe safari puts paddlers at water level with crocodiles and hippos; experienced guides manage risk with a calm authority that comes from years on the river.`,
+      location: "Mana Pools National Park, Zimbabwe",
+      country: "Zimbabwe",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [8, 9, 10],
+      estimatedCost: 1000,
+      latitude: -15.7,
+      longitude: 29.3,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["safari"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure889.id }, { userId: user2.id, adventureId: adventure889.id }, { userId: user3.id, adventureId: adventure889.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
