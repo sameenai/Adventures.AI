@@ -31565,6 +31565,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure933.id }], skipDuplicates: true });
 
+
+  // Adventure 934
+  const adventure934 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-934" },
+    update: {},
+    create: {
+      id: "seed-adventure-934",
+      title: "Canada John Muir Trail Equivalent — Skyline Trail",
+      description: `Walk the Skyline Trail in Jasper National Park — 44 km along a high ridge above treeline with panoramic views of the Columbia Icefield and surrounding peaks for most of its length — one of the finest multi-day wilderness trails in North America. The highest point at Amber Mountain (2,469 m) overlooks what feels like the entire Canadian Rockies at once. Grizzly bears frequent the avalanche slopes on either side of the ridge. A Parks Canada permit system limits numbers; booking opens in January for summer dates.`,
+      location: "Jasper National Park, Alberta, Canada",
+      country: "Canada",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 52.9,
+      longitude: -117.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["wildlife"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure934.id }, { userId: user2.id, adventureId: adventure934.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
