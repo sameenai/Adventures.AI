@@ -19684,6 +19684,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure537.id }, { userId: user2.id, adventureId: adventure537.id }, { userId: user3.id, adventureId: adventure537.id }], skipDuplicates: true });
 
+
+  // Adventure 538
+  const adventure538 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-538" },
+    update: {},
+    create: {
+      id: "seed-adventure-538",
+      title: "Kyrgyzstan Tian Shan Horse Trek",
+      description: `Kyrgyzstan is nomadic Central Asia at its most accessible, where horse culture survives as a living tradition rather than a tourist performance. The Tian Shan mountains provide a backdrop of snow-capped 7000m peaks above summer yurt camps, and horse trekking with local guides allows access to high passes and lake systems impossible on foot. Son-Kul alpine lake at 3016m is the spiritual heart of this journey.`,
+      location: "Tian Shan, Kyrgyzstan",
+      country: "Kyrgyzstan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Son-Kul alpine lake nomad yurt stay", "Kel-Suu turquoise canyon lake remote access", "Khan Tengri 7010m backdrop south approach", "Eagle hunting festival Osh cultural display", "Suusamyr Valley summer pasture vast pastoral"],
+      gear: ["Horse riding basics helpful not essential", "Windproof jacket altitude yurt plateau", "Sleeping bag yurt supplement cold nights", "Cash USD only remote Kyrgyzstan economy", "Water filter high pasture spring reliability"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 900,
+      latitude: 41.95,
+      longitude: 75,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["horse-trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure538.id }, { userId: user2.id, adventureId: adventure538.id }, { userId: user3.id, adventureId: adventure538.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
