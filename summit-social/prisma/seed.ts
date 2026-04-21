@@ -22414,6 +22414,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure628.id }, { userId: user2.id, adventureId: adventure628.id }, { userId: user3.id, adventureId: adventure628.id }], skipDuplicates: true });
 
+
+  // Adventure 629
+  const adventure629 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-629" },
+    update: {},
+    create: {
+      id: "seed-adventure-629",
+      title: "Vietnam North Mountain Cycling",
+      description: `The mountain roads of northwest Vietnam from Hanoi through Sapa and Dien Bien Phu to Son La trace the route of the French colonial military campaigns and connect Hmong, Thai, and Dzao minority highland villages through extraordinary mountain scenery. The Khau Pha Pass in Yen Bai province is Vietnam's most spectacular mountain road, while the Muong Hum valley beyond Sapa opens into a landscape of cascading rice terraces.`,
+      location: "Northwest Vietnam",
+      country: "Vietnam",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Khau Pha Pass Vietnam most spectacular road", "Sapa Muong Hum valley deep rice terraces", "Dien Bien Phu historical French defeat battleground", "Hmong market Bac Ha Sunday traditional dress", "Fansipan 3143m Indochina highest background"],
+      gear: ["Mountain bike Vietnam road quality variable", "Rain gear monsoon northwest season", "Offline maps no signal remote passes", "Cash dong only highland villages", "Repair kit puncture tool kit basic"],
+      bestMonths: [9, 10, 11, 3, 4],
+      estimatedCost: 500,
+      latitude: 22.3,
+      longitude: 103.8,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure629.id }, { userId: user2.id, adventureId: adventure629.id }, { userId: user3.id, adventureId: adventure629.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
