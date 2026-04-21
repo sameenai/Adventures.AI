@@ -22294,6 +22294,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure624.id }, { userId: user2.id, adventureId: adventure624.id }, { userId: user3.id, adventureId: adventure624.id }], skipDuplicates: true });
 
+
+  // Adventure 625
+  const adventure625 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-625" },
+    update: {},
+    create: {
+      id: "seed-adventure-625",
+      title: "Nepal Mardi Himal Trek",
+      description: `The Mardi Himal trek is the newest and least-crowded trail in the Annapurna region, a ridge route offering continuous views of Machapuchare Fishtail, Annapurna South, and Hiunchuli from the High Camp at 4500m. The route through rhododendron forests and high alpine meadows takes five days and reaches closer to Machapuchare than any other trail, since the sacred peak is closed to all climbing.`,
+      location: "Annapurna Region, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Machapuchare Fishtail closest permitted approach", "High Camp 4500m Annapurna wall panorama", "Rhododendron forest bloom pink spring April", "Mardi Himal 5587m trekking peak option", "Low Forest Camp peaceful bamboo grove"],
+      gear: ["ACAP permit Annapurna Conservation Area", "Warm layers High Camp exposed 4500m", "Trekking poles rhododendron steep descent", "Tea house route advance booking high season", "Altitude acclimatization Pokhara start"],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 700,
+      latitude: 28.45,
+      longitude: 84,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["multi-day"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure625.id }, { userId: user2.id, adventureId: adventure625.id }, { userId: user3.id, adventureId: adventure625.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
