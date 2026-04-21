@@ -22114,6 +22114,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure618.id }, { userId: user2.id, adventureId: adventure618.id }, { userId: user3.id, adventureId: adventure618.id }], skipDuplicates: true });
 
+
+  // Adventure 619
+  const adventure619 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-619" },
+    update: {},
+    create: {
+      id: "seed-adventure-619",
+      title: "Japan Shikoku 88 Temple Pilgrimage",
+      description: `The Shikoku Henro is an 1200-kilometre walking pilgrimage visiting 88 Buddhist temples associated with the monk Kukai, completing a circuit of Shikoku Island. Walking the entire route takes 45-60 days and transforms participants through the experience of osettai hospitality from strangers who give food, lodging, and gifts to white-clad pilgrims as a spiritual practice. The henro is Japan's most transformative journey.`,
+      location: "Shikoku Island, Japan",
+      country: "Japan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Osettai stranger hospitality transformative gift", "Cape Ashizuri 88 pilgrim circuit southern tip", "Kochi castle riverside pilgrimage culture", "White henro clothing visible pilgrim tradition", "Kukai monk spiritual heritage 1200 years"],
+      gear: ["White henro robe kongozue staff pilgrim", "Pilgrim notebook stamp collection all 88", "Cash yen temple fee small donation", "Comfortable walking shoes 1200km endurance", "Rain gear Shikoku mountainous climate"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2000,
+      latitude: 33.56,
+      longitude: 133.53,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["multi-day"].id }, { id: allTags["thru-hike"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure619.id }, { userId: user2.id, adventureId: adventure619.id }, { userId: user3.id, adventureId: adventure619.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
