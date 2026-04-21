@@ -21184,6 +21184,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure587.id }, { userId: user2.id, adventureId: adventure587.id }, { userId: user3.id, adventureId: adventure587.id }], skipDuplicates: true });
 
+
+  // Adventure 588
+  const adventure588 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-588" },
+    update: {},
+    create: {
+      id: "seed-adventure-588",
+      title: "Ecuador Amazon Rainforest Stay",
+      description: `The Ecuadorian Amazon around Yasuni National Park contains more species per hectare than any ecosystem on earth. Wilderness lodges accessible only by motorized canoe provide multiple-day immersion in one of the most biodiverse patches of jungle on the planet. Dawn dugout canoe trips to find caiman, tapir tracks on river beaches, and 600-species bird lists make Ecuador's Amazon the world's most productive jungle experience.`,
+      location: "Ecuadorian Amazon",
+      country: "Ecuador",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Yasuni most biodiverse hectare planet designation", "Caiman night spotlight canoe encounter close", "Tapir river beach track identification dawn", "600 species bird list Amazon Ecuador record", "Indigenous Huaorani territory guided territory"],
+      gear: ["Yellow fever vaccination mandatory Ecuador", "Malaria prophylaxis Yasuni border zone", "Waterproof camera tropical humidity daily", "Rubber boots lodge standard issue provision", "DEET insect protection day and night"],
+      bestMonths: [6, 7, 8, 11, 12],
+      estimatedCost: 1800,
+      latitude: -1.5,
+      longitude: -76,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure588.id }, { userId: user2.id, adventureId: adventure588.id }, { userId: user3.id, adventureId: adventure588.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
