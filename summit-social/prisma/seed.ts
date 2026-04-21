@@ -33305,6 +33305,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure991.id }, { userId: user2.id, adventureId: adventure991.id }], skipDuplicates: true });
 
+
+  // Adventure 992
+  const adventure992 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-992" },
+    update: {},
+    create: {
+      id: "seed-adventure-992",
+      title: "Canada Trans-Canada Trail Canoe — Ontario",
+      description: `Paddle the historic Voyageur canoe route through Ontario's Quetico Provincial Park — 4,700 km2 of Canadian Shield wilderness with over 2,000 lakes connected by portage trails worn smooth by 8,000 years of indigenous paddlers — following routes mapped by Ojibwe people for millennia and later used by the fur trade voyageurs. Multi-week canoe trips carry all food and camping equipment; fishing for walleye and lake trout provides supplemental calories. Moose, timber wolves, and black bears are resident; loon calls echo across the lakes every morning.`,
+      location: "Quetico Provincial Park, Ontario, Canada",
+      country: "Canada",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 12,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 48.4,
+      longitude: -91.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["camping"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure992.id }, { userId: user2.id, adventureId: adventure992.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
