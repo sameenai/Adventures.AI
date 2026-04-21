@@ -32075,6 +32075,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure950.id }, { userId: user2.id, adventureId: adventure950.id }], skipDuplicates: true });
 
+
+  // Adventure 951
+  const adventure951 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-951" },
+    update: {},
+    create: {
+      id: "seed-adventure-951",
+      title: "Norway Jotunheimen High Mountain Trek",
+      description: `Trek through Jotunheimen — Home of the Giants, Norway's highest national park with 250 peaks above 2,000 m — on the classic Besseggen Ridge above Gjende lake (the most walked mountain route in Scandinavia) and the longer Krossbu to Turtagro traverse via Fanarakken and Hurrungane. The Galdhopiggen (2,469 m) summit, the highest in Scandinavia, can be reached on a guided glacier walk from Juvasshytta. The DNT hut network provides infrastructure across the entire park; no camping required. July and August are the main season.`,
+      location: "Jotunheimen National Park, Innlandet, Norway",
+      country: "Norway",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8],
+      estimatedCost: 1000,
+      latitude: 61.5,
+      longitude: 8.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["europe"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure951.id }, { userId: user2.id, adventureId: adventure951.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
