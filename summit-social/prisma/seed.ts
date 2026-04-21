@@ -25325,6 +25325,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure725.id }, { userId: user2.id, adventureId: adventure725.id }, { userId: user3.id, adventureId: adventure725.id }], skipDuplicates: true });
 
+
+  // Adventure 726
+  const adventure726 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-726" },
+    update: {},
+    create: {
+      id: "seed-adventure-726",
+      title: "Kyrgyzstan Celestial Mountains Ski",
+      description: `The ski areas around Bishkek and Osh in Kyrgyzstan offer extraordinary off-piste skiing in a landscape where the infrastructure is minimal and the terrain is vast. Karakol ski area accesses the Tian Shan above Issyk-Kul Lake, and the helicopter skiing around Jyrgalan Valley provides vertical drops of over 2000m with powder snow comparable to the best in the world at prices that represent extraordinary value.`,
+      location: "Bishkek, Kyrgyzstan",
+      country: "Kyrgyzstan",
+      continent: "Asia",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Karakol ski resort Tian Shan off-piste vast", "Jyrgalan Valley heli-ski 2000m vertical drop", "Issyk-Kul Lake largest alpine lake backdrop", "Soviet infrastructure charm unique experience", "Kyrgyz hospitality guesthouse traditional"],
+      gear: ["Avalanche safety off-piste mandatory", "Ski touring binding off-piste exploration", "Altitude medication Tian Shan 3000m skiing", "Cash som Kyrgyzstan limited card acceptance", "Warm layers extreme cold Tian Shan winter"],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 1500,
+      latitude: 42.5,
+      longitude: 78.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure726.id }, { userId: user2.id, adventureId: adventure726.id }, { userId: user3.id, adventureId: adventure726.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
