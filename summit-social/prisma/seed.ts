@@ -30605,6 +30605,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure901.id }, { userId: user2.id, adventureId: adventure901.id }], skipDuplicates: true });
 
+
+  // Adventure 902
+  const adventure902 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-902" },
+    update: {},
+    create: {
+      id: "seed-adventure-902",
+      title: "Peru Maras Salt Pans and Moray Trek",
+      description: `Walk the Sacred Valley circuit from Pisac through the Inca salt terraces of Maras — 3,000 individual salt pans worked by the same families for 500 years since the Inca period — to the mysterious circular agricultural terracing of Moray, believed to be an Inca experimental farm that tested crops at different altitudes. The trek connects three archaeologically significant sites in one day's walk through Andean farmland. Descend to Ollantaytambo, one of the finest examples of Inca urban planning still inhabited since the 15th century.`,
+      location: "Sacred Valley, Cusco Region, Peru",
+      country: "Peru",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 3,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -13.3,
+      longitude: -72.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 1,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["hiking"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure902.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
