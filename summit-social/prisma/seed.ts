@@ -23975,6 +23975,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure680.id }, { userId: user2.id, adventureId: adventure680.id }, { userId: user3.id, adventureId: adventure680.id }], skipDuplicates: true });
 
+
+  // Adventure 681
+  const adventure681 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-681" },
+    update: {},
+    create: {
+      id: "seed-adventure-681",
+      title: "Myanmar Inle Lake Kayak Trek",
+      description: `Exploring Inle Lake by kayak offers an intimate view of Myanmar's most distinctive lifestyle, where Intha people live in stilt houses above the shallow water and tend floating gardens of tomato and squash on woven reed rafts. Paddling the back channels to lotus weaving villages, ancient pagoda islands, and remote monasteries accessible only by water reveals the spiritual and practical depth of the lake culture. Dawn mist photography makes this one of Asia's most atmospheric kayak routes.`,
+      location: "Shan State, Myanmar",
+      country: "Myanmar",
+      continent: "Asia",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Floating garden kayak channel tomato weaving", "Nga Phe Leya jumping cats monastery island", "Dawn mist Intha fisherman one-leg paddle", "Seinban lotus weaving traditional craft", "Indein ancient overgrown stupa kayak access"],
+      gear: ["Kayak hire Nyaungshwe local boat town", "Sun protection Shan plateau heat exposure", "Modest clothing Buddhist monastery visits", "Camera telephoto fisherman silhouette dawn", "Rain jacket afternoon monsoon possibility"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 300,
+      latitude: 20.53,
+      longitude: 96.86,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["photography"].id }, { id: allTags["island"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure681.id }, { userId: user2.id, adventureId: adventure681.id }, { userId: user3.id, adventureId: adventure681.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
