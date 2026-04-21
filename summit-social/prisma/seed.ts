@@ -31025,6 +31025,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure915.id }, { userId: user2.id, adventureId: adventure915.id }], skipDuplicates: true });
 
+
+  // Adventure 916
+  const adventure916 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-916" },
+    update: {},
+    create: {
+      id: "seed-adventure-916",
+      title: "Australia Overland Track Tasmania",
+      description: `Walk the Overland Track — Tasmania's iconic 65 km multi-day trail from Cradle Mountain to Lake St Clair through the heart of the Tasmanian Wilderness World Heritage Area — over 6 days through alpine moorland, ancient pencil pine forests, and dramatic dolerite peaks. Side trips to the summit of Mount Ossa (Tasmania's highest peak at 1,617 m) and Walled Mountain add rewarding climbs to the main route. The track is one-directional (north to south) in peak season with compulsory pre-booking. Wombats and echidnas are regularly encountered at huts.`,
+      location: "Tasmanian Wilderness, Tasmania, Australia",
+      country: "Australia",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: -41.7,
+      longitude: 145.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["australia"].id }, { id: allTags["mountains"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure916.id }, { userId: user2.id, adventureId: adventure916.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
