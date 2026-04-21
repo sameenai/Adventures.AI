@@ -22444,6 +22444,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure629.id }, { userId: user2.id, adventureId: adventure629.id }, { userId: user3.id, adventureId: adventure629.id }], skipDuplicates: true });
 
+
+  // Adventure 630
+  const adventure630 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-630" },
+    update: {},
+    create: {
+      id: "seed-adventure-630",
+      title: "Torres del Paine Circuit Trek",
+      description: `The full O-circuit of Torres del Paine extends the famous W Trek to encircle the entire Paine massif, adding the remote and rarely walked northern section through the valley behind the towers. Eight days of Patagonian wilderness camping, wind, and raw mountain drama await those who extend beyond the W Trek. The John Gardner Pass at 1241m delivers the classic view of the Grey Glacier below, and the John Garner col crossing is a rite of passage.`,
+      location: "Torres del Paine, Chile",
+      country: "Chile",
+      continent: "South America",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["John Gardner Pass 1241m Grey Glacier view", "Los Perros Valley remote northern circuit", "Torres del Paine granite pillars camp 1 view", "Paine Grande massif circuit complete perspective", "Grey Glacier full approach northern access"],
+      gear: ["8-day food supply full circuit camp", "Patagonian wind jacket 100km/h gusts", "Camping gear full circuit hut supplement", "Tent groundsheet pegged wind gusts essential", "Navigation skills northern section unmarked"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 2200,
+      latitude: -51,
+      longitude: -73,
+      published: true,
+      userId: user2.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["glacier"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure630.id }, { userId: user2.id, adventureId: adventure630.id }, { userId: user3.id, adventureId: adventure630.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
