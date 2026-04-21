@@ -25355,6 +25355,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure726.id }, { userId: user2.id, adventureId: adventure726.id }, { userId: user3.id, adventureId: adventure726.id }], skipDuplicates: true });
 
+
+  // Adventure 727
+  const adventure727 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-727" },
+    update: {},
+    create: {
+      id: "seed-adventure-727",
+      title: "Australia Blue Mountains Canyoning",
+      description: `The Blue Mountains west of Sydney are cut through with sandstone canyons carved by clear mountain streams, and canyoning through them involves swimming, abseiling, and scrambling through narrow slot canyons with natural waterfalls and crystal plunge pools. Grand Canyon, Blue Gum Forest, and Kanangra Boyd's limestone caves provide day adventures accessible from Sydney that deliver wilderness experiences within two hours of Australia's largest city.`,
+      location: "Blue Mountains, NSW, Australia",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Slot canyon swimming cold clear pools abseiling", "Grand Canyon descent Blue Mountains namesake", "Blue Gum Forest ancient eucalypt grove valley", "Three Sisters Katoomba iconic formation view", "Kanangra Walls plateau limestone cave system"],
+      gear: ["Wetsuit canyon swim cold water sections", "Abseiling harness descender certified operator", "Helmet canyon rock falling water", "Water boots neoprene grip canyon creek", "Permit some canyon conservation required"],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 300,
+      latitude: -33.71,
+      longitude: 150.31,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["australia"].id }, { id: allTags["mountains"].id }, { id: allTags["camping"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure727.id }, { userId: user2.id, adventureId: adventure727.id }, { userId: user3.id, adventureId: adventure727.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
