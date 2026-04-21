@@ -26915,6 +26915,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure778.id }, { userId: user2.id, adventureId: adventure778.id }], skipDuplicates: true });
 
+
+  // Adventure 779
+  const adventure779 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-779" },
+    update: {},
+    create: {
+      id: "seed-adventure-779",
+      title: "Canadian Arctic Polar Bear Viewing — Churchill",
+      description: `Churchill, Manitoba is the polar bear capital of the world — each autumn, hundreds of bears congregate along Hudson Bay waiting for the sea ice to form. Specially designed Tundra Buggy vehicles take small groups onto the frozen tundra to observe bears at close range in complete safety. The season runs late October to mid-November. Northern lights are frequently visible at night. Churchill is also a beluga whale destination in summer (June-August) when thousands of belugas fill the Churchill River estuary.`,
+      location: "Churchill, Manitoba, Canada",
+      country: "Canada",
+      continent: "Unknown",
+      category: Category.SAFARI,
+      difficulty: Difficulty.EASY,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11],
+      estimatedCost: 1000,
+      latitude: 58.8,
+      longitude: -94.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["arctic"].id }, { id: allTags["wildlife"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure779.id }, { userId: user2.id, adventureId: adventure779.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
