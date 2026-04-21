@@ -19264,6 +19264,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure523.id }, { userId: user2.id, adventureId: adventure523.id }, { userId: user3.id, adventureId: adventure523.id }], skipDuplicates: true });
 
+
+  // Adventure 524
+  const adventure524 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-524" },
+    update: {},
+    create: {
+      id: "seed-adventure-524",
+      title: "Madagascar Lemur Jungle Trek",
+      description: `Madagascar is evolution's laboratory, with 90% of its species found nowhere else on earth. Ranomafana National Park protects rainforest where golden bamboo lemurs, indri, and aye-aye inhabit tree canopies above rushing rivers. Isalo National Park adds sandstone canyon trekking with ring-tailed lemur encounters at natural swimming pools. This is wildlife trekking at its most unique.`,
+      location: "Ranomafana National Park, Madagascar",
+      country: "Madagascar",
+      continent: "Africa",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Golden bamboo lemur Ranomafana endemic species", "Indri haunting call dawn forest wakeup", "Aye-aye nocturnal search night forest walk", "Isalo canyon natural swimming pool lemur", "Avenue of the Baobabs sunset iconic"],
+      gear: ["Insect repellent malaria mosquito zone", "Waterproof boots wet rainforest daily", "Headlamp nocturnal wildlife walk", "Guide mandatory park regulations", "Binoculars canopy lemur spotting"],
+      bestMonths: [4, 5, 10, 11],
+      estimatedCost: 2000,
+      latitude: -21.26,
+      longitude: 47.41,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["jungle"].id }, { id: allTags["africa"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure524.id }, { userId: user2.id, adventureId: adventure524.id }, { userId: user3.id, adventureId: adventure524.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
