@@ -22534,6 +22534,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure632.id }, { userId: user2.id, adventureId: adventure632.id }, { userId: user3.id, adventureId: adventure632.id }], skipDuplicates: true });
 
+
+  // Adventure 633
+  const adventure633 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-633" },
+    update: {},
+    create: {
+      id: "seed-adventure-633",
+      title: "Namibia Brandberg Rock Art Trek",
+      description: `The Brandberg Massif is Namibia's highest peak at 2573m, and its granite boulders harbour some of the most extensive San bushman rock art in southern Africa, including the White Lady of the Brandberg, a 3500-year-old rock painting of extraordinary artistic quality. The canyon approach to Spitzkoppe adds granite dome scrambling to a desert photography expedition through Namibia's most dramatic geological formations.`,
+      location: "Brandberg Massif, Namibia",
+      country: "Namibia",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["White Lady Brandberg 3500-year rock painting", "Brandberg 2573m Namibia highest summit", "Spitzkoppe Matterhorn Africa granite dome", "San bushman rock art gallery ancient", "Desert adapted elephant Hoanib River"],
+      gear: ["Guide mandatory rock art site protection", "Water capacity Brandberg desert hot", "Sun protection Namib UV granite reflection", "Scrambling shoes granite dome Spitzkoppe", "Overnight camp Brandberg permit required"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 800,
+      latitude: -21.16,
+      longitude: 14.55,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["desert"].id }, { id: allTags["africa"].id }, { id: allTags["photography"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure633.id }, { userId: user2.id, adventureId: adventure633.id }, { userId: user3.id, adventureId: adventure633.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
