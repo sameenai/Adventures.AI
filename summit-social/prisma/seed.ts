@@ -28325,6 +28325,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure825.id }, { userId: user2.id, adventureId: adventure825.id }], skipDuplicates: true });
 
+
+  // Adventure 826
+  const adventure826 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-826" },
+    update: {},
+    create: {
+      id: "seed-adventure-826",
+      title: "Pakistan Karakoram Highway Road Trip",
+      description: `Drive the Karakoram Highway — one of the highest paved roads in the world — from Islamabad through the Karakoram and Hindu Kush to the Chinese border at Khunjerab Pass (4,693 m). The route passes through Hunza Valley, Gilgit-Baltistan, and the confluence of three of the world's great mountain ranges. Views of Rakaposhi (7,788 m), Nanga Parbat (8,126 m), and the Batura Glacier are available from the road. Side trips to Passu and the Gojal Valley lake district complete the journey. Travel in Gilgit-Baltistan is generally safe but check Foreign Office advisories.`,
+      location: "Gilgit-Baltistan, Pakistan",
+      country: "Pakistan",
+      continent: "Unknown",
+      category: Category.ROAD_TRIP,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [5, 6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 35.9,
+      longitude: 74.3,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["road-trip"].id }, { id: allTags["mountains"].id }, { id: allTags["high-altitude"].id }, { id: allTags["remote"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure826.id }, { userId: user2.id, adventureId: adventure826.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
