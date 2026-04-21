@@ -29705,6 +29705,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure871.id }, { userId: user2.id, adventureId: adventure871.id }], skipDuplicates: true });
 
+
+  // Adventure 872
+  const adventure872 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-872" },
+    update: {},
+    create: {
+      id: "seed-adventure-872",
+      title: "Canada Chilkoot Trail Gold Rush Trek",
+      description: `Walk the historic Chilkoot Trail — 53 km from Dyea, Alaska to Bennett, British Columbia — retracing the route of 100,000 stampeders who crossed the 1,067 m Chilkoot Pass in the winter of 1897-1898 during the Klondike Gold Rush. The trail is now a Parks Canada and US National Park Service jointly managed wilderness route; artefacts from the stampede era lie where they fell on the snow in 1898. The summit section involves a hands-and-feet scramble up 45-degree loose rock to the narrow pass. The White Pass railway returns hikers to Skagway.`,
+      location: "Dyea, Alaska / Bennett, British Columbia",
+      country: "British Columbia",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 59.5,
+      longitude: -135.3,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["glacier"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure872.id }, { userId: user2.id, adventureId: adventure872.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
