@@ -20914,6 +20914,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure578.id }, { userId: user2.id, adventureId: adventure578.id }, { userId: user3.id, adventureId: adventure578.id }], skipDuplicates: true });
 
+
+  // Adventure 579
+  const adventure579 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-579" },
+    update: {},
+    create: {
+      id: "seed-adventure-579",
+      title: "Finland Fell Country Ski Tour",
+      description: `Finland's Lapland offers a different kind of ski touring on gentle fell tops covered in deep powder snow, through birch forests encrusted with rime ice, and between traditional Sami reindeer herding camps. The Urho Kekkonen National Park provides 2550 square kilometres of wilderness skiing without lifts, while Saariselka serves as a comfortable resort base. Northern Lights, authentic Sami culture, and reindeer sleigh experiences complete a Lapland ski journey.`,
+      location: "Finnish Lapland",
+      country: "Finland",
+      continent: "Europe",
+      category: Category.SKIING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Fell top powder snow deep pristine surface", "Northern Lights aurora ski trail night", "Reindeer herd ski trail crossing encounter", "Sami herder traditional culture accommodation", "Saariselka ski resort wilderness access base"],
+      gear: ["Nordic cross-country ski broad Lapland", "Polar layers minus 25 cold Finland", "Snowshoe alternative flat fell travel", "Husky safari dog sled optional activity", "Snow shovel winter safety kit"],
+      bestMonths: [1, 2, 3, 4],
+      estimatedCost: 1800,
+      latitude: 68.5,
+      longitude: 27.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["arctic"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["europe"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure579.id }, { userId: user2.id, adventureId: adventure579.id }, { userId: user3.id, adventureId: adventure579.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
