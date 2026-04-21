@@ -19324,6 +19324,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure525.id }, { userId: user2.id, adventureId: adventure525.id }, { userId: user3.id, adventureId: adventure525.id }], skipDuplicates: true });
 
+
+  // Adventure 526
+  const adventure526 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-526" },
+    update: {},
+    create: {
+      id: "seed-adventure-526",
+      title: "Indonesia Flores Ring of Fire Trek",
+      description: `Flores translates as Flowers and the island lives up to its name. Kelimutu volcano's three crater lakes each change colour independently due to mineral reactions, shifting from turquoise to black to blood red. The island's spine offers trekking through traditional Ngadha villages with ancestral thatched shrines, and the Komodo dragon adds a prehistoric wildlife encounter at the western tip.`,
+      location: "Flores Island, Indonesia",
+      country: "Indonesia",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Kelimutu three crater lakes colour shifting", "Bena Ngadha village megalithic ancestor shrine", "Komodo dragon Rinca Island prehistoric encounter", "Wae Rebo traditional highland village homestay", "Labuan Bajo sunset sailing departure point"],
+      gear: ["Sturdy boots volcanic crater approach", "Dawn alarm Kelimutu colour optimal viewing", "Guide Komodo dragon mandatory safety", "Long sleeves Aedes mosquito evenings", "Water purification rural village supply"],
+      bestMonths: [4, 5, 6, 7, 8, 9],
+      estimatedCost: 900,
+      latitude: -8.67,
+      longitude: 121.62,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["volcanic"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure526.id }, { userId: user2.id, adventureId: adventure526.id }, { userId: user3.id, adventureId: adventure526.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
