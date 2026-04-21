@@ -19174,6 +19174,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure520.id }, { userId: user2.id, adventureId: adventure520.id }, { userId: user3.id, adventureId: adventure520.id }], skipDuplicates: true });
 
+
+  // Adventure 521
+  const adventure521 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-521" },
+    update: {},
+    create: {
+      id: "seed-adventure-521",
+      title: "Corsica South-North Traverse",
+      description: `The south-to-north traverse of Corsica beyond the GR20 explores remote shepherd trails through maquis-scented interiors and ancient Genoese watchtower coastlines. Starting from Bonifacio's limestone cliffs and finishing at Cap Corse, the route incorporates granite massifs, Alta Rocca highlands, and the chestnut forests of Castagniccia in a lesser-known island epic.`,
+      location: "Corsica, France",
+      country: "France",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Bonifacio limestone cliff village coastal start", "Alta Rocca granite shepherd plateau", "Castagniccia chestnut forest ancient villages", "Cap Corse northern peninsula finale", "Genoese watchtower coastal path sections"],
+      gear: ["Trekking poles mountain terrain", "Water filter remote spring reliance", "Maquis brush gaiters lower legs", "Sun protection Mediterranean heat", "Bivouac option remote section preparation"],
+      bestMonths: [5, 6, 9, 10],
+      estimatedCost: 800,
+      latitude: 41.87,
+      longitude: 9.01,
+      published: true,
+      userId: user1.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["island"].id }, { id: allTags["europe"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure521.id }, { userId: user2.id, adventureId: adventure521.id }, { userId: user3.id, adventureId: adventure521.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
