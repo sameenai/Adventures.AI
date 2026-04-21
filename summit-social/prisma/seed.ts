@@ -29945,6 +29945,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure879.id }], skipDuplicates: true });
 
+
+  // Adventure 880
+  const adventure880 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-880" },
+    update: {},
+    create: {
+      id: "seed-adventure-880",
+      title: "India Ladakh Cycling — Manali to Leh",
+      description: `Cycle the Manali-Leh Highway through the Himalayas and into the high-altitude desert of Ladakh — a 490 km route crossing five passes above 4,500 m including Tanglang La (5,328 m), one of the highest motorable passes in the world. The road is open June to October; snow can close passes even in August. Support vehicle arrangements are common and sensible; self-supported cyclists carry their own food and camping gear for multi-day stretches between supply points. The Ladakhi landscape of mud-brick gompas perched on ridges above turquoise rivers is extraordinary.`,
+      location: "Manali to Leh, Himachal Pradesh / Ladakh, India",
+      country: "India",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 33,
+      longitude: 77.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["expedition"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure880.id }, { userId: user2.id, adventureId: adventure880.id }, { userId: user3.id, adventureId: adventure880.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
