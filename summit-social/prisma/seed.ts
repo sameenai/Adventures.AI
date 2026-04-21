@@ -33035,6 +33035,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure982.id }, { userId: user2.id, adventureId: adventure982.id }, { userId: user3.id, adventureId: adventure982.id }], skipDuplicates: true });
 
+
+  // Adventure 983
+  const adventure983 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-983" },
+    update: {},
+    create: {
+      id: "seed-adventure-983",
+      title: "Papua New Guinea Highlands Cultural Trek",
+      description: `Trek through the Western Highlands of Papua New Guinea — one of the last places on Earth where traditional tribal cultures remain largely intact — visiting Huli wigmen in their ceremonial bird-of-paradise headdresses, attending a Sing-Sing festival, and walking between villages on routes used for inter-tribal trade for millennia. Papua New Guinea has over 850 distinct languages; a local guide is essential for both communication and safety. The Tari Basin around the Tari Highlands is the most accessible starting point. Cultural sensitivity and following guide protocols are paramount.`,
+      location: "Western Highlands, Papua New Guinea",
+      country: "Papua New Guinea",
+      continent: "Unknown",
+      category: Category.CULTURAL,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 1000,
+      latitude: -5.8,
+      longitude: 144.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["cultural-immersion"].id }, { id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure983.id }, { userId: user2.id, adventureId: adventure983.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
