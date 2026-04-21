@@ -31235,6 +31235,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure922.id }], skipDuplicates: true });
 
+
+  // Adventure 923
+  const adventure923 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-923" },
+    update: {},
+    create: {
+      id: "seed-adventure-923",
+      title: "Georgia Gudauri Backcountry Ski Tour",
+      description: `Ski the backcountry above Gudauri resort in the Georgian Caucasus — high ridges and north-facing couloirs above 3,000 m that receive dry, light powder from continental weather systems — on guided tours that access terrain otherwise requiring helicopter from a resort that remains uncrowded by European standards. The Kazbegi valley below Mkinvartsveri (Kazbek, 5,047 m) is accessed by 4WD from the resort for multi-day touring. Tsminda Sameba Church at 2,170 m, with Kazbek towering behind it, is one of the most photogenic religious buildings in the Caucasus.`,
+      location: "Gudauri, Kazbegi, Georgia",
+      country: "Georgia",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 42.5,
+      longitude: 44.5,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["alpine"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure923.id }, { userId: user2.id, adventureId: adventure923.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
