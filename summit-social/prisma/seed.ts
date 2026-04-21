@@ -32495,6 +32495,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure964.id }, { userId: user2.id, adventureId: adventure964.id }], skipDuplicates: true });
 
+
+  // Adventure 965
+  const adventure965 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-965" },
+    update: {},
+    create: {
+      id: "seed-adventure-965",
+      title: "Nepal Nar Phu Valley Remote Trek",
+      description: `Trek the Nar Phu Valley — a restricted area accessed via a special permit north of the Annapurna Circuit — through a high Tibetan cultural landscape of ancient walled villages, fortified gompa monasteries, and high pastures where snow leopards hunt blue sheep. The valley was closed to outsiders until 2003 and remains one of Nepal's least visited trekking regions. Nar village at 4,110 m and the Nar La and Kang La passes provide stunning crossings into the Manang Valley. The entire population of Nar and Phu numbers fewer than 500 people.`,
+      location: "Manang District, Nepal",
+      country: "Nepal",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 15,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [3, 4, 10, 11],
+      estimatedCost: 1000,
+      latitude: 28.7,
+      longitude: 84.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["remote"].id }, { id: allTags["high-altitude"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure965.id }, { userId: user2.id, adventureId: adventure965.id }, { userId: user3.id, adventureId: adventure965.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
