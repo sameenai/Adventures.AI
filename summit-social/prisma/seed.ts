@@ -30905,6 +30905,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure911.id }, { userId: user2.id, adventureId: adventure911.id }], skipDuplicates: true });
 
+
+  // Adventure 912
+  const adventure912 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-912" },
+    update: {},
+    create: {
+      id: "seed-adventure-912",
+      title: "Iceland Midnight Sun Marathon and Ring Road Cycling",
+      description: `Cycle Iceland's Ring Road (Route 1) under the midnight sun — a 1,332 km loop around the entire island that takes 10-14 days at a comfortable pace — passing glaciers, lava fields, waterfalls, fjords, and volcanic landscapes in perpetual daylight from June to early August. The east fjords section is the most dramatic cycling; the north is the most remote. Traffic on the Ring Road is predictable; the weather is not. The Highland roads (F roads) are impassable on most loaded touring bikes and require 4WD. A completing an Iceland Ring Road is a benchmark achievement in cycling.`,
+      location: "Ring Road, Iceland",
+      country: "Iceland",
+      continent: "Unknown",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 14,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 1000,
+      latitude: 64.5,
+      longitude: -18.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["arctic"].id }, { id: allTags["volcanic"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure912.id }, { userId: user2.id, adventureId: adventure912.id }, { userId: user3.id, adventureId: adventure912.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
