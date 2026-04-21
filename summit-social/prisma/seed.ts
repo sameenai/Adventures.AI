@@ -31895,6 +31895,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure944.id }, { userId: user2.id, adventureId: adventure944.id }, { userId: user3.id, adventureId: adventure944.id }], skipDuplicates: true });
 
+
+  // Adventure 945
+  const adventure945 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-945" },
+    update: {},
+    create: {
+      id: "seed-adventure-945",
+      title: "Antarctica South Pole Expedition Ski",
+      description: `A 50-day unsupported ski traverse from the coast of Antarctica to the geographic South Pole (90 degrees south) — one of the most demanding human-powered journeys on the planet, covering approximately 1,100 km pulling a 100 kg pulk across a featureless ice sheet at elevations above 3,000 m in temperatures that can drop below -50 degrees. This is the realm of elite polar explorers; the undertaking requires years of preparation, specialist training, and expedition funding. Commercial operators provide logistics support without assistance during the actual traverse.`,
+      location: "Antarctic Interior",
+      country: "Antarctic Interior",
+      continent: "Unknown",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 55,
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12],
+      estimatedCost: 1000,
+      latitude: -90,
+      longitude: 0,
+      published: true,
+      userId: user1.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["glacier"].id }, { id: allTags["skiing"].id }, { id: allTags["remote"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure945.id }, { userId: user2.id, adventureId: adventure945.id }, { userId: user3.id, adventureId: adventure945.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
