@@ -20224,6 +20224,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure555.id }, { userId: user2.id, adventureId: adventure555.id }, { userId: user3.id, adventureId: adventure555.id }], skipDuplicates: true });
 
+
+  // Adventure 556
+  const adventure556 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-556" },
+    update: {},
+    create: {
+      id: "seed-adventure-556",
+      title: "Brazil Amazon River Expedition",
+      description: `The Amazon River is one fifth of all the fresh water on earth, and navigating its tributaries by dugout canoe into the heart of the world's largest rainforest is a journey to the planet's lungs. Indigenous guide networks in Mamiraua Sustainable Development Reserve facilitate canoe journeys where pink river dolphins, giant river otters, and jaguars drinking at river banks define the wildlife encounters.`,
+      location: "Amazon Basin, Brazil",
+      country: "Brazil",
+      continent: "South America",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Pink river dolphin boto encounter rare", "Giant river otter family group hunting", "Jaguar river bank dawn sighting chance", "Anaconda swim river edge night encounter", "Piranha fishing local technique traditional"],
+      gear: ["Yellow fever vaccination mandatory Brazil", "Malaria prophylaxis deep Amazon essential", "Insect repellent DEET concentration maximum", "Quick dry lightweight humid jungle", "Water purification river contamination"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 2200,
+      latitude: -3.47,
+      longitude: -62.22,
+      published: true,
+      userId: user3.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["jungle"].id }, { id: allTags["wildlife"].id }, { id: allTags["kayaking"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure556.id }, { userId: user2.id, adventureId: adventure556.id }, { userId: user3.id, adventureId: adventure556.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
