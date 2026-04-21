@@ -32135,6 +32135,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure952.id }, { userId: user2.id, adventureId: adventure952.id }], skipDuplicates: true });
 
+
+  // Adventure 953
+  const adventure953 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-953" },
+    update: {},
+    create: {
+      id: "seed-adventure-953",
+      title: "Australia Cape to Cape Walk — Margaret River",
+      description: `Walk the 135 km Cape to Cape Track in Western Australia's Margaret River region — from Cape Naturaliste in the north to Cape Leeuwin at the continent's southwestern tip where the Indian and Southern Oceans converge — through coastal heath, karri forest, limestone sea cliffs, and white sand beaches punctuated by world-class surfing breaks. The track is self-guided with campsite infrastructure; whale watching (June-October) from the cliffs and wine-region diversions at the Margaret River township make this one of the most enjoyable long walks in Australia.`,
+      location: "Margaret River Region, Western Australia",
+      country: "Western Australia",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [9, 10, 11, 3, 4],
+      estimatedCost: 1000,
+      latitude: -33.7,
+      longitude: 114.9,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["australia"].id }, { id: allTags["coastal"].id }, { id: allTags["wildlife"].id }, { id: allTags["hiking"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure953.id }, { userId: user2.id, adventureId: adventure953.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
