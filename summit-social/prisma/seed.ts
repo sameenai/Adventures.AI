@@ -29225,6 +29225,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure855.id }, { userId: user2.id, adventureId: adventure855.id }], skipDuplicates: true });
 
+
+  // Adventure 856
+  const adventure856 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-856" },
+    update: {},
+    create: {
+      id: "seed-adventure-856",
+      title: "India Kerala Backwaters Houseboat and Trek",
+      description: `Navigate the 900 km Kerala backwater network by traditional kettuvallam houseboat between Alleppey and Kumarakom through paddy fields, coconut groves, and fishing villages, then ascend to the tea and spice plantations of Munnar (1,600 m) for high-altitude trekking in the Western Ghats. Eravikulam National Park above Munnar protects the Nilgiri tahr; the rolling grass-covered shola forest ridges are walked on day routes from plantation lodges. The contrast between sea-level backwater langour and mountain walking is one of India's finest travel combinations.`,
+      location: "Kerala, India",
+      country: "India",
+      continent: "Unknown",
+      category: Category.MULTI_SPORT,
+      difficulty: Difficulty.EASY,
+      durationDays: 8,
+      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [10, 11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: 9.9,
+      longitude: 76.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["wildlife"].id }, { id: allTags["multi-sport"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure856.id }, { userId: user2.id, adventureId: adventure856.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
