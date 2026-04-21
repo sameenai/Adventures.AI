@@ -21394,6 +21394,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure594.id }, { userId: user2.id, adventureId: adventure594.id }, { userId: user3.id, adventureId: adventure594.id }], skipDuplicates: true });
 
+
+  // Adventure 595
+  const adventure595 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-595" },
+    update: {},
+    create: {
+      id: "seed-adventure-595",
+      title: "Vietnam Central Highlands Trek",
+      description: `Vietnam's Central Highlands around Kontum province are home to Bahnar, Jarai, and Sedang highland minority cultures whose rong communal houses, statue-decorated communal cemeteries, and gong music create a cultural world apart from lowland Vietnam. Trekking between villages through coffee and pepper plantations and pine-forested hills provides authentic engagement with cultures that have been largely bypassed by Vietnamese modernization.`,
+      location: "Kontum, Vietnam",
+      country: "Vietnam",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Bahnar village rong communal house traditional", "Jarai cemetery statue carved wooden mortuary", "Coffee plantation highland harvest participation", "Gong music communal ceremony traditional", "Mang Den highland lake pine forest"],
+      gear: ["Guide mandatory Central Highlands villages", "Modest clothing minority cultural respect", "Cash dong only remote highland villages", "Insect repellent evening forest Highland", "Rain poncho Central Highland afternoon storms"],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 400,
+      latitude: 14.35,
+      longitude: 108,
+      published: true,
+      userId: user3.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["hiking"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure595.id }, { userId: user2.id, adventureId: adventure595.id }, { userId: user3.id, adventureId: adventure595.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
