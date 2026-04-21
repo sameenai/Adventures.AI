@@ -29795,6 +29795,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure874.id }], skipDuplicates: true });
 
+
+  // Adventure 875
+  const adventure875 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-875" },
+    update: {},
+    create: {
+      id: "seed-adventure-875",
+      title: "Norway Svalbard Polar Night Skiing",
+      description: `Ski into Svalbard's polar night — the three-month period of continuous darkness from November to February — on moonlit snowfields lit by aurora borealis and the cold glow of distant stars. Guided ski tours from Longyearbyen cross the frozen tundra to Norwegian trapper cabins where the history of the Arctic fur trade lives in preserved artefacts. The polar night skiing experience is unlike anything in the mainstream Alps; the silence, the cold (down to -30C), and the absence of solar light create a completely different relationship with mountain terrain.`,
+      location: "Svalbard, Norway",
+      country: "Norway",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [1, 2],
+      estimatedCost: 1000,
+      latitude: 78.2,
+      longitude: 15.6,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["arctic"].id }, { id: allTags["remote"].id }, { id: allTags["midnight-sun"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure875.id }, { userId: user2.id, adventureId: adventure875.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
