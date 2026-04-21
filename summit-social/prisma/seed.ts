@@ -23674,6 +23674,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure670.id }, { userId: user2.id, adventureId: adventure670.id }, { userId: user3.id, adventureId: adventure670.id }], skipDuplicates: true });
 
+
+  // Adventure 671
+  const adventure671 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-671" },
+    update: {},
+    create: {
+      id: "seed-adventure-671",
+      title: "Kenya Great Rift Valley Walk",
+      description: `Walking the escarpment of the Great Rift Valley in Kenya from Lake Naivasha to Lake Magadi reveals the geological force that divided Africa and created the cradle of human evolution. Flamingo-pink soda lakes, maasai cattle tracks, and extinct shield volcano Mt Longonot frame a landscape that stretches from the Ethiopian highlands to Mozambique in a single continuous structural depression. This is geography as adventure.`,
+      location: "Great Rift Valley, Kenya",
+      country: "Kenya",
+      continent: "Africa",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Rift Valley escarpment dramatic geological drop", "Lake Magadi soda ash flamingo pink extreme", "Longonot crater volcano climb interior circuit", "Lake Naivasha hippo waterfront start", "Maasai cattle herder escort cultural service"],
+      gear: ["Maasai guide Rift Valley pastoral land respect", "Sun protection equatorial Rift Valley", "Water cache hot exposed escarpment", "Binoculars flamingo pink distant lake", "First aid snake encounter protocol aware"],
+      bestMonths: [6, 7, 8, 1, 2],
+      estimatedCost: 500,
+      latitude: -1,
+      longitude: 36.5,
+      published: true,
+      userId: user1.id,
+      voteCount: 7,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["africa"].id }, { id: allTags["wildlife"].id }, { id: allTags["mountains"].id }, { id: allTags["photography"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure671.id }, { userId: user2.id, adventureId: adventure671.id }, { userId: user3.id, adventureId: adventure671.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
