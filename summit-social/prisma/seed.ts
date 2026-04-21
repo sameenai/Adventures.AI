@@ -19924,6 +19924,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure545.id }, { userId: user2.id, adventureId: adventure545.id }, { userId: user3.id, adventureId: adventure545.id }], skipDuplicates: true });
 
+
+  // Adventure 546
+  const adventure546 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-546" },
+    update: {},
+    create: {
+      id: "seed-adventure-546",
+      title: "Australia Overland Track Hiking",
+      description: `The Overland Track is Australia's most celebrated wilderness walk, traversing 65 kilometres through the Tasmanian Wilderness World Heritage Area between Cradle Mountain and Lake St Clair. Ancient pencil pine forests, alpine dolerite peaks, and buttongrass plains create a landscape unchanged for millennia. Platypus in mountain streams, wombats at hut doors, and spotted quolls provide wildlife encounters impossible elsewhere.`,
+      location: "Cradle Mountain, Tasmania",
+      country: "Australia",
+      continent: "Oceania",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Cradle Mountain dolerite summit panorama", "Barn Bluff 1559m optional summit detour", "Lake St Clair deepest lake Australia finale", "Platypus river crossing at dusk viewing", "Pencil pine ancient alpine forest walk"],
+      gear: ["Booking system advance reservation essential", "Rain jacket Tasmania four seasons daily", "Gaiters buttongrass wet boots prevention", "Hut supplement tent overflow booking", "Wombat food secure bear box equivalent"],
+      bestMonths: [11, 12, 1, 2, 3, 4],
+      estimatedCost: 900,
+      latitude: -41.63,
+      longitude: 145.94,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["australia"].id }, { id: allTags["multi-day"].id }, { id: allTags["wildlife"].id }, { id: allTags["mountains"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure546.id }, { userId: user2.id, adventureId: adventure546.id }, { userId: user3.id, adventureId: adventure546.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
