@@ -21934,6 +21934,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure612.id }, { userId: user2.id, adventureId: adventure612.id }, { userId: user3.id, adventureId: adventure612.id }], skipDuplicates: true });
 
+
+  // Adventure 613
+  const adventure613 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-613" },
+    update: {},
+    create: {
+      id: "seed-adventure-613",
+      title: "Himalayas Annapurna Base Camp",
+      description: `The Annapurna Sanctuary is a high glacial bowl surrounded by eight peaks above 7000m, accessible through a dramatic gorge that opens suddenly onto a vast mountain amphitheatre. The base camp at 4130m sits at the foot of the south face of Annapurna I, the mountain with the highest fatality rate of all 8000m peaks. The teahouse trail passes through Gurung villages that preserve a distinct mountain culture.`,
+      location: "Annapurna Sanctuary, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Annapurna Sanctuary glacial bowl 8000m circle", "Annapurna I 8091m south face dramatic view", "Machhapuchhre Fishtail peak approach sacred", "Gurung village cultural architecture traditional", "Avalanche risk high basin acclimatization"],
+      gear: ["Annapurna Conservation Area permit ACAP", "Warm layers 4130m base camp nights", "Acclimatization Pokhara 814m gradual ascent", "Teahouse route lodging advance booking", "First aid altitude sickness recognition"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 900,
+      latitude: 28.53,
+      longitude: 83.87,
+      published: true,
+      userId: user3.id,
+      voteCount: 10,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure613.id }, { userId: user2.id, adventureId: adventure613.id }, { userId: user3.id, adventureId: adventure613.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
