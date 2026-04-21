@@ -30965,6 +30965,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure913.id }, { userId: user2.id, adventureId: adventure913.id }], skipDuplicates: true });
 
+
+  // Adventure 914
+  const adventure914 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-914" },
+    update: {},
+    create: {
+      id: "seed-adventure-914",
+      title: "Canada Lake Louise Ski Mountaineering",
+      description: `Access the spectacular backcountry above Lake Louise ski resort in Banff National Park — routes to Mount Victoria, the Plain of Six Glaciers, and the Abbott Pass hut at 2,926 m provide ski mountaineering objectives above some of the most famous mountain scenery in North America. The Canadian Rockies backcountry receives consistent deep snow and the glaciated terrain is crevasse-complex; rope team competence is essential. The Lake Louise area also provides access to the vast Wapta Traverse linking multiple mountain huts across the Waputik Icefield.`,
+      location: "Banff National Park, Alberta, Canada",
+      country: "Canada",
+      continent: "Unknown",
+      category: Category.SKIING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 6,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [2, 3, 4],
+      estimatedCost: 1000,
+      latitude: 51.4,
+      longitude: -116.2,
+      published: true,
+      userId: user3.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["skiing"].id }, { id: allTags["glacier"].id }, { id: allTags["mountains"].id }, { id: allTags["alpine"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure914.id }, { userId: user2.id, adventureId: adventure914.id }, { userId: user3.id, adventureId: adventure914.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
