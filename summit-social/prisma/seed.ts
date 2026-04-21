@@ -30035,6 +30035,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure882.id }, { userId: user2.id, adventureId: adventure882.id }], skipDuplicates: true });
 
+
+  // Adventure 883
+  const adventure883 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-883" },
+    update: {},
+    create: {
+      id: "seed-adventure-883",
+      title: "Kyrgyzstan Khan Tengri Climbing Expedition",
+      description: `Attempt Khan Tengri (6,995 m) — the most beautiful peak in Central Asia and the most northerly 7,000 m summit on Earth — via the north face from Base Camp on the South Inylchek Glacier in the Tien Shan. The mountain is technically demanding: a long ridge with exposed sections and significant objective hazard from seracs and rockfall. The glacier approach takes 3-4 days by helicopter and on foot. July and August offer the best weather windows. The view from the summit across the Tien Shan range into Kazakhstan and China is unparalleled.`,
+      location: "Tien Shan, Kyrgyzstan",
+      country: "Kyrgyzstan",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 30,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [7, 8],
+      estimatedCost: 1000,
+      latitude: 42.2,
+      longitude: 80.2,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["8000m"].id }, { id: allTags["glacier"].id }, { id: allTags["expedition"].id }, { id: allTags["high-altitude"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure883.id }, { userId: user2.id, adventureId: adventure883.id }, { userId: user3.id, adventureId: adventure883.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
