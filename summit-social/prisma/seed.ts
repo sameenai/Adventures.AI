@@ -21334,6 +21334,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure592.id }, { userId: user2.id, adventureId: adventure592.id }, { userId: user3.id, adventureId: adventure592.id }], skipDuplicates: true });
 
+
+  // Adventure 593
+  const adventure593 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-593" },
+    update: {},
+    create: {
+      id: "seed-adventure-593",
+      title: "Nepal Mera Peak Climb",
+      description: `Mera Peak at 6476m is Nepal's highest trekking peak, and its non-technical standard route via the Mera La and Mera Central offers high-altitude mountaineering for trekkers with no previous climbing experience. The 360-degree summit view encompasses five of the world's six highest mountains simultaneously. The Hinku Valley approach through Chhetri villages and rhododendron forest makes this one of Nepal's most rewarding Himalayan objectives.`,
+      location: "Solukhumbu, Nepal",
+      country: "Nepal",
+      continent: "Asia",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Five 8000m peaks visible summit 360 panorama", "Mera La 5415m gateway high plateau camp", "Hinku Valley rhododendron forest April bloom", "Mera Central 6476m Nepal highest trekking peak", "Khare base camp 5045m glacier approach"],
+      gear: ["Crampons glacier summit Mera", "Ice axe standard summit route gear", "High altitude sleeping bag minus 25", "Acclimatization Lukla start 2840m base", "Climbing permit Nepal trekking peak fee"],
+      bestMonths: [3, 4, 5, 10, 11],
+      estimatedCost: 2200,
+      latitude: 27.69,
+      longitude: 86.89,
+      published: true,
+      userId: user1.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["8000m"].id }, { id: allTags["high-altitude"].id }, { id: allTags["multi-day"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure593.id }, { userId: user2.id, adventureId: adventure593.id }, { userId: user3.id, adventureId: adventure593.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
