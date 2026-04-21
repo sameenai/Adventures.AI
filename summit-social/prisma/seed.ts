@@ -27635,6 +27635,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure802.id }, { userId: user2.id, adventureId: adventure802.id }, { userId: user3.id, adventureId: adventure802.id }], skipDuplicates: true });
 
+
+  // Adventure 803
+  const adventure803 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-803" },
+    update: {},
+    create: {
+      id: "seed-adventure-803",
+      title: "New Zealand Northland Coast Kayaking",
+      description: `Paddle the Bay of Islands and Northland coast of New Zealand — 144 islands scattered across a subtropical sea with dolphins, kingfishers, and pohutukawa trees overhanging sea caves. The multi-day kayak tour links deserted beaches, Maori pa sites, and diving spots in the Poor Knights Islands Marine Reserve — one of the top 10 dive sites in the world according to Jacques Cousteau. Whales and orcas pass through in winter. The water temperature is comfortable from November to April.`,
+      location: "Bay of Islands, New Zealand",
+      country: "New Zealand",
+      continent: "Unknown",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [11, 12, 1, 2, 3],
+      estimatedCost: 1000,
+      latitude: -35.2,
+      longitude: 174.1,
+      published: true,
+      userId: user3.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["island"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }, { id: allTags["new-zealand"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure803.id }, { userId: user2.id, adventureId: adventure803.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
