@@ -33545,6 +33545,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure999.id }, { userId: user2.id, adventureId: adventure999.id }, { userId: user3.id, adventureId: adventure999.id }], skipDuplicates: true });
 
+
+  // Adventure 1000
+  const adventure1000 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-1000" },
+    update: {},
+    create: {
+      id: "seed-adventure-1000",
+      title: "World Summit — Mont Blanc Ascent",
+      description: `Climb Mont Blanc (4,808 m) — the highest peak in Western Europe and one of the Seven Summits by some definitions — via the Gouter Route from the Nid d'Aigle cable car terminus, climbing through the Grand Couloir rockfall zone to the Gouter Hut at 3,835 m and then the summit dome in a pre-dawn push. The mountain receives 20,000 ascents per year; it is simultaneously accessible and genuinely demanding. Altitude sickness affects up to 30% of those who attempt it. The view from the summit across the whole of the Western Alps in clear conditions is the most complete alpine panorama in Europe — a worthy destination for the 1,000th adventure.`,
+      location: "Chamonix, Haute-Savoie, France",
+      country: "France",
+      continent: "Unknown",
+      category: Category.MOUNTAINEERING,
+      difficulty: Difficulty.EXTREME,
+      durationDays: 4,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 45.8,
+      longitude: 6.9,
+      published: true,
+      userId: user2.id,
+      voteCount: 3,
+      tags: { connect: [{ id: allTags["mountaineering"].id }, { id: allTags["glacier"].id }, { id: allTags["alpine"].id }, { id: allTags["europe"].id }, { id: allTags["bucket-list"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure1000.id }, { userId: user2.id, adventureId: adventure1000.id }, { userId: user3.id, adventureId: adventure1000.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
