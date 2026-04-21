@@ -26015,6 +26015,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure748.id }, { userId: user2.id, adventureId: adventure748.id }, { userId: user3.id, adventureId: adventure748.id }], skipDuplicates: true });
 
+
+  // Adventure 749
+  const adventure749 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-749" },
+    update: {},
+    create: {
+      id: "seed-adventure-749",
+      title: "Alaska Kodiak Island Bear Safari",
+      description: `Kodiak bears are the world's largest terrestrial carnivore, regularly reaching 600kg on the salmon-rich rivers of Kodiak Island off Alaska's coast. Float plane access to remote river systems delivers photographers within metres of feeding bears during the salmon run. The Kodiak National Wildlife Refuge covers two-thirds of the island and contains the world's densest population of bears in a landscape of extraordinary coastal Alaska beauty.`,
+      location: "Kodiak Island, Alaska",
+      country: "USA",
+      continent: "North America",
+      category: Category.SAFARI,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Kodiak bear 600kg world largest terrestrial", "Salmon run August September river feeding", "Float plane river drop close approach", "Kodiak NWR 2-3 million salmon run density", "Bald eagle salmon competition aerial display"],
+      gear: ["Float plane charter Kodiak City operator", "Telephoto 500mm minimum bear portraits", "Bear safety training float plane briefing", "Rain gear coastal Alaska constant precipitation", "Waders salmon stream photography position"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 4000,
+      latitude: 57.72,
+      longitude: -153.4,
+      published: true,
+      userId: user2.id,
+      voteCount: 9,
+      tags: { connect: [{ id: allTags["safari"].id }, { id: allTags["wildlife"].id }, { id: allTags["remote"].id }, { id: allTags["photography"].id }, { id: allTags["expedition"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure749.id }, { userId: user2.id, adventureId: adventure749.id }, { userId: user3.id, adventureId: adventure749.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
