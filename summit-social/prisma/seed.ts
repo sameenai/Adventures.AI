@@ -20164,6 +20164,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure553.id }, { userId: user2.id, adventureId: adventure553.id }, { userId: user3.id, adventureId: adventure553.id }], skipDuplicates: true });
 
+
+  // Adventure 554
+  const adventure554 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-554" },
+    update: {},
+    create: {
+      id: "seed-adventure-554",
+      title: "Arctic Norway Ski-Sail Expedition",
+      description: `Combining ski touring on Svalbard with sailing the Arctic Ocean is one of adventure travel's most ambitious concepts. Expedition yachts break through sea ice to deposit ski teams on glaciated fjord shores before collecting them at coastal points. The combination of technical glaciated skiing and Arctic sailing creates a complete polar experience. Northern Lights, pack ice navigation, and polar bear territory complete the expedition.`,
+      location: "Svalbard and Norway",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Pack ice navigation sailboat bow watch", "Glacier ski descent Arctic fjord shoreline", "Polar bear encounter sea ice safari", "Northern Lights aurora bow watch midnight", "Magdalenefjorden glacier calving bay"],
+      gear: ["Offshore sailing experience required", "Ski touring glacier mountain competence", "Drysuit immersion Arctic water safety", "Emergency position indicating radio beacon", "Polar bear watch rotation overnight"],
+      bestMonths: [3, 4, 5],
+      estimatedCost: 8000,
+      latitude: 79,
+      longitude: 14,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["skiing"].id }, { id: allTags["arctic"].id }, { id: allTags["sailing"].id }, { id: allTags["remote"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure554.id }, { userId: user2.id, adventureId: adventure554.id }, { userId: user3.id, adventureId: adventure554.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
