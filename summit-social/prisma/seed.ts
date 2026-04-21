@@ -25025,6 +25025,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure715.id }, { userId: user2.id, adventureId: adventure715.id }, { userId: user3.id, adventureId: adventure715.id }], skipDuplicates: true });
 
+
+  // Adventure 716
+  const adventure716 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-716" },
+    update: {},
+    create: {
+      id: "seed-adventure-716",
+      title: "West Africa Sahel Desert Crossing",
+      description: `The Sahel transition zone between the Sahara Desert and sub-Saharan Africa preserves one of the world's most fascinating but fragile cultural landscapes, where Tuareg nomads navigate seasonal migration routes that have functioned for millennia. The Dogon country cliff villages of Mali and the Air Mountains of Niger provide trekking through ancient geological and cultural formations largely bypassed by the modern world. Security requirements demand thorough advance research.`,
+      location: "Mali and Niger",
+      country: "Mali",
+      continent: "Africa",
+      category: Category.EXPEDITION,
+      difficulty: Difficulty.EXPEDITION_GRADE,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Dogon cliff village Mali escarpment culture", "Air Mountains Niger Tuareg nomad encounter", "Agadez Tuareg silversmith ancient craft", "Sahel-Sahara boundary transition ecology", "Djenné Grand Mosque largest mud brick world"],
+      gear: ["Security advance research essential region", "4WD support vehicle desert crossing", "Tuareg guide mandatory desert navigation", "Malaria prophylaxis Sahel zone required", "Visa Mali Niger advance application"],
+      bestMonths: [11, 12, 1, 2],
+      estimatedCost: 3000,
+      latitude: 16,
+      longitude: 0,
+      published: true,
+      userId: user1.id,
+      voteCount: 6,
+      tags: { connect: [{ id: allTags["expedition"].id }, { id: allTags["desert"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["remote"].id }, { id: allTags["africa"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure716.id }, { userId: user2.id, adventureId: adventure716.id }, { userId: user3.id, adventureId: adventure716.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
