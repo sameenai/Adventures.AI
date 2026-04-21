@@ -23824,6 +23824,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure675.id }, { userId: user2.id, adventureId: adventure675.id }, { userId: user3.id, adventureId: adventure675.id }], skipDuplicates: true });
 
+
+  // Adventure 676
+  const adventure676 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-676" },
+    update: {},
+    create: {
+      id: "seed-adventure-676",
+      title: "Tajikistan Fann Mountains Trek",
+      description: `The Fann Mountains of northern Tajikistan contain some of Central Asia's finest trekking terrain, with turquoise lakes filling glacial valleys below 5000m peaks. The 7 Lakes Valley and Iskanderkul Lake named after Alexander the Great provide accessible entry points to a mountain landscape of extraordinary colour and drama. The peaks above Artuch and Chimtarga base camps rival the Tian Shan for technical mountaineering.`,
+      location: "Fann Mountains, Tajikistan",
+      country: "Tajikistan",
+      continent: "Asia",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Seven Lakes Valley turquoise blue progression", "Iskanderkul Alexander Great Lake history myth", "Chimtarga 5489m summit panorama technical", "Alauddin Lake high camp turquoise jewel", "Mutnye Lakes series ladder valley climb"],
+      gear: ["Tajik visa advance application required", "Mountain boots rocky Fann terrain", "High altitude sleeping bag minus 15", "Water filter glacial spring water treatment", "Guide option complex pass navigation"],
+      bestMonths: [7, 8, 9],
+      estimatedCost: 900,
+      latitude: 39.15,
+      longitude: 68.39,
+      published: true,
+      userId: user3.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["remote"].id }, { id: allTags["multi-day"].id }, { id: allTags["glacier"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure676.id }, { userId: user2.id, adventureId: adventure676.id }, { userId: user3.id, adventureId: adventure676.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
