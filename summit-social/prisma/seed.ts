@@ -20644,6 +20644,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure569.id }, { userId: user2.id, adventureId: adventure569.id }, { userId: user3.id, adventureId: adventure569.id }], skipDuplicates: true });
 
+
+  // Adventure 570
+  const adventure570 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-570" },
+    update: {},
+    create: {
+      id: "seed-adventure-570",
+      title: "Canada Haida Gwaii Sea Kayak",
+      description: `Haida Gwaii is an archipelago off the coast of British Columbia that the Haida Nation calls the islands of the people, and its wilderness coastlines, ancient totem pole sites, and prolific marine life make it one of North America's greatest sea kayaking destinations. Bears fish salmon streams beside the kayak route, sea otters wrap themselves in kelp, and Gwaii Haanas National Park Reserve protects one of the most intact ecosystems on the Pacific Coast.`,
+      location: "Haida Gwaii, British Columbia",
+      country: "Canada",
+      continent: "North America",
+      category: Category.KAYAKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 5,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Ninstints UNESCO totem pole village abandoned", "Grizzly bear salmon stream coastal sighting", "Sea otter kelp wrap Pacific Coast endemic", "Haida cultural immersion Gwaii Haanas", "Orca pod surface kayak Pacific proximity"],
+      gear: ["Sea kayak expedition double touring", "Drysuit British Columbia cold water", "Haida Gwaii permit Gwaii Haanas reserve", "VHF radio open ocean crossings", "Bear cache canister food forest camp"],
+      bestMonths: [6, 7, 8],
+      estimatedCost: 3000,
+      latitude: 52.8,
+      longitude: -131.6,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["kayaking"].id }, { id: allTags["wildlife"].id }, { id: allTags["coastal"].id }, { id: allTags["remote"].id }, { id: allTags["cultural-immersion"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure570.id }, { userId: user2.id, adventureId: adventure570.id }, { userId: user3.id, adventureId: adventure570.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
