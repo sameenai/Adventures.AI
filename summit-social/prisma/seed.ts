@@ -20734,6 +20734,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure572.id }, { userId: user2.id, adventureId: adventure572.id }, { userId: user3.id, adventureId: adventure572.id }], skipDuplicates: true });
 
+
+  // Adventure 573
+  const adventure573 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-573" },
+    update: {},
+    create: {
+      id: "seed-adventure-573",
+      title: "China Guilin to Yangshuo Cycle",
+      description: `The Li River valley between Guilin and Yangshuo is one of China's most iconic landscapes, with karst limestone towers rising from flat rice paddies in the scene that adorns the 20-yuan banknote. Cycling the 70 kilometres through Longji rice terraces and riverside hamlets provides a landscape that feels like a Chinese scroll painting come to life. Yangshuo's rock climbing on karst towers adds adventure to aesthetic wonder.`,
+      location: "Guangxi, China",
+      country: "China",
+      continent: "Asia",
+      category: Category.CYCLING,
+      difficulty: Difficulty.EASY,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Longji Terraced Rice Fields dragon backbone", "Li River limestone karst 20 yuan note view", "Yangshuo rock climbing karst tower sport", "Moon Hill natural limestone arch cycling", "Xingping village 20 yuan viewpoint exact"],
+      gear: ["Bicycle hire Guilin or own touring", "Rain jacket Guangxi subtropical climate", "Mosquito repellent rice paddy evening", "Cash yuan village guesthouse payment", "Camera polarising filter karst reflection"],
+      bestMonths: [4, 5, 9, 10, 11],
+      estimatedCost: 400,
+      latitude: 24.82,
+      longitude: 110.5,
+      published: true,
+      userId: user2.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["cycling"].id }, { id: allTags["photography"].id }, { id: allTags["cultural-immersion"].id }, { id: allTags["mountains"].id }, { id: allTags["multi-day"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure573.id }, { userId: user2.id, adventureId: adventure573.id }, { userId: user3.id, adventureId: adventure573.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
