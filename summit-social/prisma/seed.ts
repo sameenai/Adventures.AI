@@ -32735,6 +32735,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure972.id }, { userId: user2.id, adventureId: adventure972.id }], skipDuplicates: true });
 
+
+  // Adventure 973
+  const adventure973 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-973" },
+    update: {},
+    create: {
+      id: "seed-adventure-973",
+      title: "Sweden Kungsleden High Route Trek",
+      description: `Walk Sweden's Kungsleden (King's Trail) — 440 km from Abisko to Hemavan through Swedish Lapland — in sections: the classic northern section from Abisko to Kebnekaise (Sweden's highest peak at 2,111 m, reachable on a day ascent from the hut) to Saltoluokta is 4 days; the full trail is 20+ days. The midnight sun illuminates the fell tundra and birch forest in June and July; autumn colours transform the landscape orange in September. STF mountain huts are spaced every day's walk; sleeping bags required. Reindeer herds and occasional wolverine sightings accompany the walk.`,
+      location: "Lapland, Sweden",
+      country: "Sweden",
+      continent: "Unknown",
+      category: Category.TREKKING,
+      difficulty: Difficulty.MODERATE,
+      durationDays: 10,
+      coverImageUrl: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+      highlights: [],
+      gear: [],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 1000,
+      latitude: 68.4,
+      longitude: 18.8,
+      published: true,
+      userId: user2.id,
+      voteCount: 2,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["arctic"].id }, { id: allTags["hiking"].id }, { id: allTags["wildlife"].id }, { id: allTags["midnight-sun"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure973.id }, { userId: user2.id, adventureId: adventure973.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
