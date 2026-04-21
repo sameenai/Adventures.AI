@@ -20074,6 +20074,36 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure550.id }, { userId: user2.id, adventureId: adventure550.id }, { userId: user3.id, adventureId: adventure550.id }], skipDuplicates: true });
 
+
+  // Adventure 551
+  const adventure551 = await prisma.adventure.upsert({
+    where: { id: "seed-adventure-551" },
+    update: {},
+    create: {
+      id: "seed-adventure-551",
+      title: "Norway Romsdalseggen Ridge Walk",
+      description: `The Romsdalseggen ridge is Norway's most celebrated day hike, a knife-edge traverse above the Romsdal Valley with the Trollveggen north face visible across the valley and Romsdalsfjord glittering below. The exposed ridge drops sharply on both sides and requires confidence on rocky terrain, but the views are among the finest in Norway. The combination of fjord, valley, and mountain peak scenery is unmatched.`,
+      location: "Romsdal Valley, Norway",
+      country: "Norway",
+      continent: "Europe",
+      category: Category.TREKKING,
+      difficulty: Difficulty.CHALLENGING,
+      durationDays: 7,
+      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      highlights: ["Romsdalshorn 1550m dramatic summit needle", "Trollveggen Europe tallest vertical rock face view", "Romsdalsfjord valley floor view descent", "Nesaksen ridge knife-edge exposed traverse", "Andalsnes trainstation dramatic arrival base"],
+      gear: ["Sturdy boots exposed ridge grip", "Trekking poles descent Romsdal valley steep", "Wind jacket ridge exposed Atlantic", "Rain gear Norway reliable precipitation", "Early start avoid afternoon cloud buildup"],
+      bestMonths: [6, 7, 8, 9],
+      estimatedCost: 600,
+      latitude: 62.57,
+      longitude: 7.69,
+      published: true,
+      userId: user1.id,
+      voteCount: 8,
+      tags: { connect: [{ id: allTags["trekking"].id }, { id: allTags["mountains"].id }, { id: allTags["coastal"].id }, { id: allTags["europe"].id }, { id: allTags["scrambling"].id }] },
+    },
+  });
+  await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure551.id }, { userId: user2.id, adventureId: adventure551.id }, { userId: user3.id, adventureId: adventure551.id }], skipDuplicates: true });
+
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
   console.log(`  Users: ${user1.name}, ${user2.name}, ${user3.name}`);
