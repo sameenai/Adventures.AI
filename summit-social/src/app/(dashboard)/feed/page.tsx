@@ -35,7 +35,7 @@ export default async function FeedPage() {
         </p>
         <Link
           href="/adventures"
-          className="border border-amber-500 bg-amber-500 px-6 py-2 font-display text-xs uppercase tracking-widest text-stone-950 hover:bg-amber-400 transition-colors"
+          className="border border-amber-500 bg-amber-500 px-6 py-2 font-display text-xs uppercase tracking-widest text-ink hover:bg-amber-400 transition-colors"
         >
           Explore Adventures
         </Link>

@@ -121,7 +121,7 @@ export function OpenAiKeyForm({ initialHasKey, initialHint }: OpenAiKeyFormProps
           <button
             type="submit"
             disabled={saving || keyInput.trim().length < 20}
-            className="shrink-0 border border-amber-500 bg-amber-500 px-5 py-2.5 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="shrink-0 border border-amber-500 bg-amber-500 px-5 py-2.5 font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {saving ? "Saving…" : "Save Key"}
           </button>

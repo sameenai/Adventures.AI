@@ -177,7 +177,7 @@ export function FlightCard({ offer, label, priceBarPercent = 0 }: FlightCardProp
             <button
               type="button"
               onClick={handleBook}
-              className="w-full border border-amber-500 bg-amber-500 py-2.5 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
+              className="w-full border border-amber-500 bg-amber-500 py-2.5 font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
             >
               Book on {offer.airline} →
             </button>

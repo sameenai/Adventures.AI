@@ -34,13 +34,76 @@
   --color-warning: #fbbf24;
   --color-danger: #f87171;
 
+  /* Fixed near-black — always dark regardless of mode (for text on amber buttons) */
+  --color-ink: #1c1917;
+
   /* Fonts — resolved at runtime via Next.js CSS vars */
   --font-display: var(--font-teko), "Arial Narrow", sans-serif;
   --font-sans: var(--font-lora), Georgia, serif;
   --font-mono: var(--font-space-mono), "Courier New", monospace;
 }
 
+/*
+ * Declare the stone scale as inline theme tokens so that Tailwind v4 utilities
+ * reference these as CSS variables at runtime (var(--color-stone-*)) rather
+ * than inlining resolved hex values. This lets us swap the entire scale by
+ * redefining the variables in :root (light) vs .dark.
+ */
+@theme inline {
+  --color-stone-50: var(--bc-stone-50);
+  --color-stone-100: var(--bc-stone-100);
+  --color-stone-200: var(--bc-stone-200);
+  --color-stone-300: var(--bc-stone-300);
+  --color-stone-400: var(--bc-stone-400);
+  --color-stone-500: var(--bc-stone-500);
+  --color-stone-600: var(--bc-stone-600);
+  --color-stone-700: var(--bc-stone-700);
+  --color-stone-800: var(--bc-stone-800);
+  --color-stone-900: var(--bc-stone-900);
+  --color-stone-950: var(--bc-stone-950);
+}
+
 @layer base {
+  /*
+   * Default (dark) — the original warm expedition palette.
+   * :root sets the dark values so the app is dark without any class.
+   * .light overrides to the inverted parchment scale.
+   */
+  :root {
+    color-scheme: dark;
+    --bc-stone-50: #fafaf9;
+    --bc-stone-100: #f5f5f4;
+    --bc-stone-200: #e7e5e4;
+    --bc-stone-300: #d6d3d1;
+    --bc-stone-400: #a8a29e;
+    --bc-stone-500: #78716c;
+    --bc-stone-600: #57534e;
+    --bc-stone-700: #44403c;
+    --bc-stone-800: #292524;
+    --bc-stone-900: #1c1917;
+    --bc-stone-950: #0c0a09;
+  }
+
+  /*
+   * Light mode — warm parchment tones, scale inverted.
+   * stone-950 becomes the lightest background; stone-100 the darkest text.
+   * Every existing stone-* utility flips automatically with no component changes.
+   */
+  .light {
+    color-scheme: light;
+    --bc-stone-50: #0c0a09;
+    --bc-stone-100: #1c1917;
+    --bc-stone-200: #292524;
+    --bc-stone-300: #44403c;
+    --bc-stone-400: #78716c;
+    --bc-stone-500: #a8a29e;
+    --bc-stone-600: #d6d3d1;
+    --bc-stone-700: #e7e5e4;
+    --bc-stone-800: #f0eeec;
+    --bc-stone-900: #f5f4f2;
+    --bc-stone-950: #fafaf9;
+  }
+
   body {
     @apply bg-stone-950 text-stone-100 antialiased;
     font-family: var(--font-sans);
@@ -66,7 +129,7 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #3d2e1a;
+    background: var(--bc-stone-700);
     border-radius: 0;
   }
   ::-webkit-scrollbar-thumb:hover {

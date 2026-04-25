@@ -248,6 +248,66 @@ describe("adventureFilterSchema", () => {
     expect(result.success).toBe(false);
   });
 
+  it("accepts a single category value and returns it as an array", () => {
+    const result = adventureFilterSchema.safeParse({ category: "TREKKING" });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.category).toEqual(["TREKKING"]);
+  });
+
+  it("accepts comma-separated categories and returns them as an array", () => {
+    const result = adventureFilterSchema.safeParse({ category: "TREKKING,CYCLING" });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.category).toEqual(["TREKKING", "CYCLING"]);
+  });
+
+  it("trims whitespace around comma-separated category values", () => {
+    const result = adventureFilterSchema.safeParse({ category: "TREKKING, CYCLING" });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.category).toEqual(["TREKKING", "CYCLING"]);
+  });
+
+  it("rejects an invalid category token in a comma-separated list", () => {
+    const result = adventureFilterSchema.safeParse({ category: "TREKKING,INVALID" });
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects an entirely invalid category", () => {
+    const result = adventureFilterSchema.safeParse({ category: "HIKING" });
+    expect(result.success).toBe(false);
+  });
+
+  it("accepts comma-separated difficulties", () => {
+    const result = adventureFilterSchema.safeParse({ difficulty: "EASY,MODERATE" });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.difficulty).toEqual(["EASY", "MODERATE"]);
+  });
+
+  it("rejects an invalid difficulty token", () => {
+    const result = adventureFilterSchema.safeParse({ difficulty: "EASY,UNKNOWN" });
+    expect(result.success).toBe(false);
+  });
+
+  it("accepts comma-separated continents", () => {
+    const result = adventureFilterSchema.safeParse({ continent: "Asia,Europe" });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.continent).toEqual(["Asia", "Europe"]);
+  });
+
+  it("rejects an invalid continent token", () => {
+    const result = adventureFilterSchema.safeParse({ continent: "Asia,Atlantis" });
+    expect(result.success).toBe(false);
+  });
+
+  it("treats undefined category/difficulty/continent as absent", () => {
+    const result = adventureFilterSchema.safeParse({});
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.category).toBeUndefined();
+      expect(result.data.difficulty).toBeUndefined();
+      expect(result.data.continent).toBeUndefined();
+    }
+  });
+
   it("accepts optional filters", () => {
     const result = adventureFilterSchema.safeParse({
       category: "TREKKING",

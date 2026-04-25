@@ -34,9 +34,16 @@ export async function GET(request: NextRequest) {
 
   const where = {
     published: true,
-    ...(category && { category }),
-    ...(continent && { continent }),
-    ...(difficulty && { difficulty }),
+    ...(category && {
+      category: category.length === 1 ? (category[0] as never) : ({ in: category } as never),
+    }),
+    ...(continent && {
+      continent: continent.length === 1 ? continent[0] : { in: continent },
+    }),
+    ...(difficulty && {
+      difficulty:
+        difficulty.length === 1 ? (difficulty[0] as never) : ({ in: difficulty } as never),
+    }),
     ...(duration && { durationDays: DURATION_RANGES[duration] }),
     ...(month && { bestMonths: { has: month } }),
     ...(tag && { tags: { some: { name: tag } } }),
@@ -130,7 +137,7 @@ export async function GET(request: NextRequest) {
   // Paginated requests (cursor present) are per-session and not cached.
   const cacheKey = cursor
     ? null
-    : `adventures:${sortBy}:${category ?? ""}:${continent ?? ""}:${difficulty ?? ""}:${duration ?? ""}:${month ?? ""}:${tag ?? ""}:${search ?? ""}:${limit}`;
+    : `adventures:${sortBy}:${(category ?? []).join(",")}:${(continent ?? []).join(",")}:${(difficulty ?? []).join(",")}:${duration ?? ""}:${month ?? ""}:${tag ?? ""}:${search ?? ""}:${limit}`;
 
   if (cacheKey) {
     const cached = await getCached<{ items: unknown[]; nextCursor?: string }>(cacheKey);

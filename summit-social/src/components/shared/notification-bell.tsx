@@ -78,7 +78,7 @@ export function NotificationBell() {
           />
         </svg>
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center bg-amber-500 font-mono text-[9px] text-stone-950">
+          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center bg-amber-500 font-mono text-[9px] text-ink">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}

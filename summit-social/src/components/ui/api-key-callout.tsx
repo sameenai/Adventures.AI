@@ -16,7 +16,7 @@ export function ApiKeyCallout({ title, description, className = "" }: ApiKeyCall
         </div>
         <Link
           href="/profile/edit#api-key"
-          className="shrink-0 border border-amber-500 bg-amber-500 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
+          className="shrink-0 border border-amber-500 bg-amber-500 px-4 py-2 font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
         >
           Add API Key
         </Link>

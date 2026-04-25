@@ -13,7 +13,7 @@ export function ItineraryTimeline({ days }: ItineraryTimelineProps) {
       <div className="absolute left-3 top-2 bottom-2 w-0.5 bg-stone-700" />
       {sortedDays.map((day) => (
         <div key={day.id} className="relative">
-          <div className="absolute -left-8 top-1 flex h-6 w-6 items-center justify-center bg-amber-500 text-xs font-mono font-bold text-stone-950">
+          <div className="absolute -left-8 top-1 flex h-6 w-6 items-center justify-center bg-amber-500 text-xs font-mono font-bold text-ink">
             {day.dayNumber}
           </div>
           <DayCard day={day} />

@@ -82,7 +82,7 @@ export function CommentForm({
         <button
           type="submit"
           disabled={!body.trim() || isSubmitting}
-          className="border border-amber-500 bg-amber-500 px-4 py-1.5 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed"
+          className="border border-amber-500 bg-amber-500 px-4 py-1.5 font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {isSubmitting ? "Posting…" : "Post"}
         </button>

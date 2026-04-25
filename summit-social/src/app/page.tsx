@@ -89,7 +89,7 @@ export default async function LandingPage() {
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/adventures"
-              className="inline-flex items-center gap-2 border border-amber-500 bg-amber-500 px-8 py-3 font-display text-sm uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400 hover:border-amber-400"
+              className="inline-flex items-center gap-2 border border-amber-500 bg-amber-500 px-8 py-3 font-display text-sm uppercase tracking-widest text-ink transition-colors hover:bg-amber-400 hover:border-amber-400"
             >
               Explore Adventures
             </Link>
@@ -188,7 +188,7 @@ export default async function LandingPage() {
         </h2>
         <Link
           href="/adventures"
-          className="inline-flex items-center gap-2 border border-amber-500 bg-amber-500 px-10 py-3 font-display text-sm uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400 hover:border-amber-400"
+          className="inline-flex items-center gap-2 border border-amber-500 bg-amber-500 px-10 py-3 font-display text-sm uppercase tracking-widest text-ink transition-colors hover:bg-amber-400 hover:border-amber-400"
         >
           Start Exploring
         </Link>
