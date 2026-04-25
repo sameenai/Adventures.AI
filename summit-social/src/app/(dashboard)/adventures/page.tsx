@@ -392,7 +392,6 @@ export default async function AdventuresPage({
               params.tag,
               params.search,
               params.sortBy,
-              view,
             ].join("|")}
             initialAdventures={adventures}
             initialNextCursor={nextCursor}

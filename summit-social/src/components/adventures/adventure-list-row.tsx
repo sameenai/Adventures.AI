@@ -76,7 +76,7 @@ export function AdventureListRow({
           <span
             className={cn("font-display text-[10px] uppercase tracking-widest", difficulty?.color)}
           >
-            {difficulty?.label}
+            {difficulty?.label ?? adventure.difficulty}
           </span>
           <span className="font-mono text-[10px] text-stone-600">
             {pluralise(adventure.durationDays, "day")}
