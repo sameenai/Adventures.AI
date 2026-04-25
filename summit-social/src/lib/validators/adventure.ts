@@ -1,3 +1,4 @@
+import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import { z } from "zod";
 
 export const createAdventureSchema = z.object({
@@ -52,43 +53,14 @@ export const updateAdventureSchema = createAdventureSchema
 
 export type UpdateAdventureInput = z.infer<typeof updateAdventureSchema>;
 
-const CATEGORY_VALUES = [
-  "TREKKING",
-  "MOUNTAINEERING",
-  "CYCLING",
-  "KAYAKING",
-  "DIVING",
-  "SAFARI",
-  "SKIING",
-  "SURFING",
-  "ROAD_TRIP",
-  "CULTURAL",
-  "MULTI_SPORT",
-  "EXPEDITION",
-] as const;
-
-const DIFFICULTY_VALUES = [
-  "EASY",
-  "MODERATE",
-  "CHALLENGING",
-  "EXTREME",
-  "EXPEDITION_GRADE",
-] as const;
-
-const CONTINENT_VALUES = [
-  "Africa",
-  "Antarctica",
-  "Asia",
-  "Europe",
-  "North America",
-  "Oceania",
-  "South America",
-] as const;
+const CATEGORY_VALUES = CATEGORIES.map((c) => c.value) as unknown as [string, ...string[]];
+const DIFFICULTY_VALUES = DIFFICULTIES.map((d) => d.value) as unknown as [string, ...string[]];
+const CONTINENT_VALUES = [...CONTINENTS] as unknown as [string, ...string[]];
 
 // Parses a comma-separated string into an array of validated enum values.
-// Single values also work (no comma needed).
-function multiEnum<T extends string>(values: readonly T[]) {
-  const single = z.enum(values as [T, ...T[]]);
+// Single values work without a comma. Invalid tokens cause a parse failure.
+function multiEnum(values: [string, ...string[]]) {
+  const single = z.enum(values);
   return z
     .string()
     .transform((s) => s.split(",").map((v) => v.trim()))

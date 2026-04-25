@@ -34,9 +34,16 @@ export async function GET(request: NextRequest) {
 
   const where = {
     published: true,
-    ...(category && { category: category.length === 1 ? category[0] : { in: category } }),
-    ...(continent && { continent: continent.length === 1 ? continent[0] : { in: continent } }),
-    ...(difficulty && { difficulty: difficulty.length === 1 ? difficulty[0] : { in: difficulty } }),
+    ...(category && {
+      category: category.length === 1 ? (category[0] as never) : ({ in: category } as never),
+    }),
+    ...(continent && {
+      continent: continent.length === 1 ? continent[0] : { in: continent },
+    }),
+    ...(difficulty && {
+      difficulty:
+        difficulty.length === 1 ? (difficulty[0] as never) : ({ in: difficulty } as never),
+    }),
     ...(duration && { durationDays: DURATION_RANGES[duration] }),
     ...(month && { bestMonths: { has: month } }),
     ...(tag && { tags: { some: { name: tag } } }),
