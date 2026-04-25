@@ -76,6 +76,33 @@ describe("ViewToggle", () => {
     fireEvent.click(screen.getByRole("button", { name: /list view/i }));
     expect(mockRouterPush.mock.calls[0][1]).toEqual({ scroll: false });
   });
+
+  it("does not navigate when clicking the already-active view", () => {
+    render(<ViewToggle current="grid" />);
+    fireEvent.click(screen.getByRole("button", { name: /grid view/i }));
+    expect(mockRouterPush).not.toHaveBeenCalled();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// difficultyAccentClass
+// ---------------------------------------------------------------------------
+import { difficultyAccentClass } from "@/components/adventures/difficulty-accent";
+
+describe("difficultyAccentClass", () => {
+  it.each([
+    ["EASY", "bg-emerald-500"],
+    ["MODERATE", "bg-amber-400"],
+    ["CHALLENGING", "bg-orange-400"],
+    ["EXTREME", "bg-red-500"],
+    ["EXPEDITION_GRADE", "bg-purple-500"],
+  ])("%s → %s", (difficulty, expected) => {
+    expect(difficultyAccentClass(difficulty)).toBe(expected);
+  });
+
+  it("returns a fallback class for unknown values", () => {
+    expect(difficultyAccentClass("UNKNOWN")).toBe("bg-stone-600");
+  });
 });
 
 // ---------------------------------------------------------------------------

@@ -11,6 +11,7 @@ export function ViewToggle({ current }: ViewToggleProps) {
   const searchParams = useSearchParams();
 
   function setView(view: "grid" | "list") {
+    if (view === current) return;
     const params = new URLSearchParams(searchParams.toString());
     if (view === "grid") {
       params.delete("view");

@@ -4,6 +4,7 @@ import type { AdventureWithUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { BookmarkButton } from "./bookmark-button";
+import { difficultyAccentClass } from "./difficulty-accent";
 import { VoteButton } from "./vote-button";
 
 interface AdventureListRowProps {
@@ -27,11 +28,7 @@ export function AdventureListRow({
       <div
         className={cn(
           "absolute left-0 top-0 bottom-0 w-0.5 transition-opacity duration-300 group-hover:opacity-100 opacity-40",
-          adventure.difficulty === "EASY" && "bg-emerald-500",
-          adventure.difficulty === "MODERATE" && "bg-amber-400",
-          adventure.difficulty === "CHALLENGING" && "bg-orange-400",
-          adventure.difficulty === "EXTREME" && "bg-red-500",
-          adventure.difficulty === "EXPEDITION_GRADE" && "bg-purple-500",
+          difficultyAccentClass(adventure.difficulty),
         )}
       />
 
