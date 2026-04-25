@@ -41,12 +41,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       className={`${teko.variable} ${lora.variable} ${spaceMono.variable}`}
-      style={{ colorScheme: "dark" }}
+      suppressHydrationWarning
     >
       <body>
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-amber-500 focus:text-stone-950 focus:font-display focus:text-xs focus:uppercase focus:tracking-widest"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-amber-500 focus:text-ink focus:font-display focus:text-xs focus:uppercase focus:tracking-widest"
         >
           Skip to main content
         </a>

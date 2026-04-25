@@ -70,7 +70,7 @@ export function CollectionsPanel({ initialCollections }: CollectionsPanelProps) 
         <button
           type="submit"
           disabled={!newName.trim() || creating}
-          className="border border-amber-500 bg-amber-500 px-3 py-1.5 font-display text-xs uppercase tracking-widest text-stone-950 hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="border border-amber-500 bg-amber-500 px-3 py-1.5 font-display text-xs uppercase tracking-widest text-ink hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           {creating ? "…" : "Create"}
         </button>

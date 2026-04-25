@@ -89,7 +89,7 @@ export default async function ItineraryDetailPage({ params }: Props) {
           )}
           <Link
             href={`/adventures/new?title=${encodeURIComponent(itinerary.title)}&durationDays=${itinerary.days.length || 1}`}
-            className="border border-amber-500 px-3 py-1.5 font-display text-xs uppercase tracking-widest text-amber-500 transition-colors hover:bg-amber-500 hover:text-stone-950"
+            className="border border-amber-500 px-3 py-1.5 font-display text-xs uppercase tracking-widest text-amber-500 transition-colors hover:bg-amber-500 hover:text-ink"
           >
             Publish as Adventure
           </Link>
@@ -103,7 +103,7 @@ export default async function ItineraryDetailPage({ params }: Props) {
           </p>
           <Link
             href="/itinerary"
-            className="mt-4 inline-block border border-amber-500 bg-amber-500 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
+            className="mt-4 inline-block border border-amber-500 bg-amber-500 px-4 py-2 font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
           >
             Open Planner
           </Link>

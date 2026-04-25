@@ -605,7 +605,7 @@ export default async function AdventureDetailPage({ params }: Props) {
               </p>
               <Link
                 href={`/itinerary?prompt=${encodeURIComponent(`Plan a trip inspired by "${adventure.title}" in ${adventure.location}, ${adventure.country}. Duration: ${adventure.durationDays} days, difficulty: ${adventure.difficulty.toLowerCase()}.`)}`}
-                className="block w-full border border-amber-500 bg-amber-500 py-2 text-center font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
+                className="block w-full border border-amber-500 bg-amber-500 py-2 text-center font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
               >
                 Open Planner
               </Link>

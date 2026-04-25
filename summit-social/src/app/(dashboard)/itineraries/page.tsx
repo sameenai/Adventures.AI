@@ -51,7 +51,7 @@ export default async function ItinerariesPage() {
           </p>
           <Link
             href="/itinerary"
-            className="mt-6 inline-block border border-amber-500 bg-amber-500 px-6 py-2 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400"
+            className="mt-6 inline-block border border-amber-500 bg-amber-500 px-6 py-2 font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
           >
             Start Planning
           </Link>

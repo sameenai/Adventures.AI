@@ -177,7 +177,7 @@ export function ProfileEditForm({ user }: ProfileEditFormProps) {
         <button
           type="submit"
           disabled={saving || !name.trim()}
-          className="border border-amber-500 bg-amber-500 px-6 py-2.5 font-display text-xs uppercase tracking-widest text-stone-950 transition-colors hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed"
+          className="border border-amber-500 bg-amber-500 px-6 py-2.5 font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {saving ? "Saving…" : "Save Changes"}
         </button>
