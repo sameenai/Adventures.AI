@@ -52,27 +52,56 @@ export const updateAdventureSchema = createAdventureSchema
 
 export type UpdateAdventureInput = z.infer<typeof updateAdventureSchema>;
 
+const CATEGORY_VALUES = [
+  "TREKKING",
+  "MOUNTAINEERING",
+  "CYCLING",
+  "KAYAKING",
+  "DIVING",
+  "SAFARI",
+  "SKIING",
+  "SURFING",
+  "ROAD_TRIP",
+  "CULTURAL",
+  "MULTI_SPORT",
+  "EXPEDITION",
+] as const;
+
+const DIFFICULTY_VALUES = [
+  "EASY",
+  "MODERATE",
+  "CHALLENGING",
+  "EXTREME",
+  "EXPEDITION_GRADE",
+] as const;
+
+const CONTINENT_VALUES = [
+  "Africa",
+  "Antarctica",
+  "Asia",
+  "Europe",
+  "North America",
+  "Oceania",
+  "South America",
+] as const;
+
+// Parses a comma-separated string into an array of validated enum values.
+// Single values also work (no comma needed).
+function multiEnum<T extends string>(values: readonly T[]) {
+  const single = z.enum(values as [T, ...T[]]);
+  return z
+    .string()
+    .transform((s) => s.split(",").map((v) => v.trim()))
+    .pipe(z.array(single).min(1))
+    .optional();
+}
+
 export const adventureFilterSchema = z.object({
   cursor: z.string().optional(),
   limit: z.coerce.number().int().min(1).max(100).default(20),
-  category: z
-    .enum([
-      "TREKKING",
-      "MOUNTAINEERING",
-      "CYCLING",
-      "KAYAKING",
-      "DIVING",
-      "SAFARI",
-      "SKIING",
-      "SURFING",
-      "ROAD_TRIP",
-      "CULTURAL",
-      "MULTI_SPORT",
-      "EXPEDITION",
-    ])
-    .optional(),
-  continent: z.string().optional(),
-  difficulty: z.enum(["EASY", "MODERATE", "CHALLENGING", "EXTREME", "EXPEDITION_GRADE"]).optional(),
+  category: multiEnum(CATEGORY_VALUES),
+  continent: multiEnum(CONTINENT_VALUES),
+  difficulty: multiEnum(DIFFICULTY_VALUES),
   search: z.string().max(200).optional(),
   sortBy: z.enum(["votes", "newest", "duration", "trending"]).default("votes"),
   duration: z

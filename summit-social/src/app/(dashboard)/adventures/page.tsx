@@ -13,6 +13,7 @@ export const metadata = { title: "Adventures | Basecamp" };
 
 const PAGE_SIZE = 20;
 
+// Toggle a value in/out of a comma-separated param, then return the new URL.
 function buildFilterUrl(
   current: Record<string, string | undefined>,
   overrides: Record<string, string | undefined>,
@@ -23,6 +24,22 @@ function buildFilterUrl(
     .map(([k, v]) => `${k}=${encodeURIComponent(v as string)}`)
     .join("&");
   return `/adventures${qs ? `?${qs}` : ""}`;
+}
+
+function toggleMultiValue(
+  current: Record<string, string | undefined>,
+  key: string,
+  value: string,
+): string {
+  const existing = current[key] ? (current[key] as string).split(",") : [];
+  const next = existing.includes(value)
+    ? existing.filter((v) => v !== value)
+    : [...existing, value];
+  return buildFilterUrl(current, { [key]: next.length > 0 ? next.join(",") : undefined });
+}
+
+function isActive(param: string | undefined, value: string): boolean {
+  return param ? param.split(",").includes(value) : false;
 }
 
 export default async function AdventuresPage({
@@ -36,6 +53,10 @@ export default async function AdventuresPage({
   const month = params.month ? Number(params.month) : undefined;
   const tag = params.tag;
 
+  const categories = params.category ? params.category.split(",") : [];
+  const continents = params.continent ? params.continent.split(",") : [];
+  const difficulties = params.difficulty ? params.difficulty.split(",") : [];
+
   const DURATION_RANGES = {
     weekend: { gte: 1, lte: 3 },
     week: { gte: 4, lte: 7 },
@@ -47,9 +68,16 @@ export default async function AdventuresPage({
 
   const where = {
     published: true,
-    ...(params.category && { category: params.category as never }),
-    ...(params.continent && { continent: params.continent }),
-    ...(params.difficulty && { difficulty: params.difficulty as never }),
+    ...(categories.length > 0 && {
+      category: categories.length === 1 ? (categories[0] as never) : { in: categories as never[] },
+    }),
+    ...(continents.length > 0 && {
+      continent: continents.length === 1 ? continents[0] : { in: continents },
+    }),
+    ...(difficulties.length > 0 && {
+      difficulty:
+        difficulties.length === 1 ? (difficulties[0] as never) : { in: difficulties as never[] },
+    }),
     ...(params.duration &&
       params.duration in DURATION_RANGES && {
         durationDays: DURATION_RANGES[params.duration as keyof typeof DURATION_RANGES],
@@ -188,7 +216,7 @@ export default async function AdventuresPage({
           <Link
             href={buildFilterUrl(params, { category: undefined })}
             className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
-              !params.category
+              categories.length === 0
                 ? "border border-amber-500 text-amber-500"
                 : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
             }`}
@@ -196,11 +224,11 @@ export default async function AdventuresPage({
             All
           </Link>
           {CATEGORIES.map((cat) => {
-            const active = params.category === cat.value;
+            const active = isActive(params.category, cat.value);
             return (
               <Link
                 key={cat.value}
-                href={buildFilterUrl(params, { category: active ? undefined : cat.value })}
+                href={toggleMultiValue(params, "category", cat.value)}
                 className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? "border border-amber-500 text-amber-500"
@@ -255,8 +283,8 @@ export default async function AdventuresPage({
             Level
           </span>
           {DIFFICULTIES.map((diff) => {
-            const active = params.difficulty === diff.value;
-            const href = buildFilterUrl(params, { difficulty: active ? undefined : diff.value });
+            const active = isActive(params.difficulty, diff.value);
+            const href = toggleMultiValue(params, "difficulty", diff.value);
             return (
               <Link
                 key={diff.value}
@@ -279,8 +307,8 @@ export default async function AdventuresPage({
             Continent
           </span>
           {CONTINENTS.map((continent) => {
-            const active = params.continent === continent;
-            const href = buildFilterUrl(params, { continent: active ? undefined : continent });
+            const active = isActive(params.continent, continent);
+            const href = toggleMultiValue(params, "continent", continent);
             return (
               <Link
                 key={continent}
