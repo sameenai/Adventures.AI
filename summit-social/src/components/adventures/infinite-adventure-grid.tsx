@@ -4,6 +4,7 @@ import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import type { AdventureWithUser } from "@/types";
 import { useCallback } from "react";
 import { AdventureCard } from "./adventure-card";
+import { AdventureListRow } from "./adventure-list-row";
 
 interface InfiniteAdventureGridProps {
   initialAdventures: AdventureWithUser[];
@@ -19,6 +20,7 @@ interface InfiniteAdventureGridProps {
   tag?: string;
   search?: string;
   sortBy?: string;
+  view?: "grid" | "list";
 }
 
 export function InfiniteAdventureGrid({
@@ -35,6 +37,7 @@ export function InfiniteAdventureGrid({
   tag,
   search,
   sortBy,
+  view = "grid",
 }: InfiniteAdventureGridProps) {
   const votedSet = new Set(votedAdventureIds);
   const bookmarkedSet = new Set(bookmarkedAdventureIds);
@@ -85,17 +88,31 @@ export function InfiniteAdventureGrid({
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((adventure) => (
-          <AdventureCard
-            key={adventure.id}
-            adventure={adventure}
-            currentUserId={currentUserId}
-            hasVoted={votedSet.has(adventure.id)}
-            hasBookmarked={bookmarkedSet.has(adventure.id)}
-          />
-        ))}
-      </div>
+      {view === "list" ? (
+        <div className="flex flex-col gap-2">
+          {items.map((adventure) => (
+            <AdventureListRow
+              key={adventure.id}
+              adventure={adventure}
+              currentUserId={currentUserId}
+              hasVoted={votedSet.has(adventure.id)}
+              hasBookmarked={bookmarkedSet.has(adventure.id)}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((adventure) => (
+            <AdventureCard
+              key={adventure.id}
+              adventure={adventure}
+              currentUserId={currentUserId}
+              hasVoted={votedSet.has(adventure.id)}
+              hasBookmarked={bookmarkedSet.has(adventure.id)}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Sentinel for intersection observer */}
       {hasMore && (
