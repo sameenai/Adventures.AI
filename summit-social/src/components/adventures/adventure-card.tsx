@@ -82,7 +82,7 @@ export function AdventureCard({
       </Link>
 
       <div className="px-4 pt-3 pb-4">
-        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-amber-600/80 line-clamp-1">
+        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-amber-500/80 line-clamp-1">
           {adventure.country}
         </p>
         <Link href={`/adventures/${adventure.id}`}>

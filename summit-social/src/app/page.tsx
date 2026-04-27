@@ -71,7 +71,7 @@ export default async function LandingPage() {
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage: "radial-gradient(circle, #d97706 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, var(--bc-amber-600) 1px, transparent 1px)",
             backgroundSize: "28px 28px",
             opacity: "var(--dot-opacity)",
           }}
@@ -184,7 +184,7 @@ export default async function LandingPage() {
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage: "radial-gradient(circle, #d97706 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, var(--bc-amber-600) 1px, transparent 1px)",
             backgroundSize: "24px 24px",
             opacity: "var(--dot-opacity)",
           }}
