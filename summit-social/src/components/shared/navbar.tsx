@@ -74,9 +74,9 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-stone-800/80 bg-stone-950/98 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-stone-800 bg-stone-950/98 backdrop-blur-md">
       {/* Amber accent line across the top */}
-      <div className="h-px bg-gradient-to-r from-transparent via-amber-600/60 to-transparent" />
+      <div className="h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-70" />
       <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-10">
           <Link href="/" className="group flex items-center gap-2.5">

@@ -4,6 +4,7 @@ import type { AdventureWithUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { BookmarkButton } from "./bookmark-button";
+import { difficultyAccentClass } from "./difficulty-accent";
 import { VoteButton } from "./vote-button";
 
 interface AdventureCardProps {
@@ -22,16 +23,12 @@ export function AdventureCard({
   const difficulty = DIFFICULTY_MAP.get(adventure.difficulty);
 
   return (
-    <div className="group relative border border-stone-800 bg-stone-950 overflow-hidden transition-colors duration-300 hover:border-amber-800/60">
+    <div className="group relative border-2 border-stone-800 bg-stone-950 overflow-hidden transition-colors duration-300 hover:border-amber-500/50">
       {/* Left accent bar colored by difficulty */}
       <div
         className={cn(
-          "absolute left-0 top-0 bottom-0 w-0.5 transition-opacity duration-300 group-hover:opacity-100 opacity-40",
-          adventure.difficulty === "EASY" && "bg-emerald-500",
-          adventure.difficulty === "MODERATE" && "bg-amber-400",
-          adventure.difficulty === "CHALLENGING" && "bg-orange-400",
-          adventure.difficulty === "EXTREME" && "bg-red-500",
-          adventure.difficulty === "EXPEDITION_GRADE" && "bg-purple-500",
+          "absolute left-0 top-0 bottom-0 w-1 transition-opacity duration-300 group-hover:opacity-100 opacity-50",
+          difficultyAccentClass(adventure.difficulty),
         )}
       />
 
@@ -85,12 +82,15 @@ export function AdventureCard({
       </Link>
 
       <div className="px-4 pt-3 pb-4">
+        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-amber-500/80 line-clamp-1">
+          {adventure.country}
+        </p>
         <Link href={`/adventures/${adventure.id}`}>
-          <h3 className="font-display text-sm uppercase tracking-wider text-stone-100 transition-colors group-hover:text-amber-400 line-clamp-1 leading-snug">
+          <h3 className="mt-0.5 font-display text-sm uppercase tracking-wider text-stone-100 transition-colors group-hover:text-amber-400 line-clamp-1 leading-snug">
             {adventure.title}
           </h3>
         </Link>
-        <p className="mt-0.5 font-mono text-[11px] text-stone-600 line-clamp-1">
+        <p className="mt-0.5 font-mono text-[11px] text-stone-500 line-clamp-1">
           {adventure.location}
         </p>
 
@@ -106,13 +106,13 @@ export function AdventureCard({
                 className="rounded-full opacity-60 shrink-0"
               />
             )}
-            <span className="font-mono text-[11px] text-stone-600 truncate">
+            <span className="font-mono text-[11px] text-stone-500 truncate">
               {adventure.user.name}
             </span>
             {adventure._count?.comments !== undefined && adventure._count.comments > 0 && (
               <>
-                <span className="text-stone-800 text-[11px] shrink-0">·</span>
-                <span className="font-mono text-[11px] text-stone-700 shrink-0">
+                <span className="text-stone-700 text-[11px] shrink-0">·</span>
+                <span className="font-mono text-[11px] text-stone-600 shrink-0">
                   {pluralise(adventure._count.comments, "comment")}
                 </span>
               </>

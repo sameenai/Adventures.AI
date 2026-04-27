@@ -30,8 +30,8 @@ const FOOTER_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-stone-800 bg-stone-950">
-      <div className="h-px bg-gradient-to-r from-transparent via-amber-600/40 to-transparent" />
+    <footer className="border-t-2 border-stone-800 bg-stone-950">
+      <div className="h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           {/* Brand column */}
