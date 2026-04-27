@@ -44,10 +44,8 @@
 }
 
 /*
- * Declare the stone scale as inline theme tokens so that Tailwind v4 utilities
- * reference these as CSS variables at runtime (var(--color-stone-*)) rather
- * than inlining resolved hex values. This lets us swap the entire scale by
- * redefining the variables in :root (light) vs .dark.
+ * stone-* utilities reference CSS variables at runtime so the entire scale
+ * can be swapped by redefining the variables in :root (dark) vs .light.
  */
 @theme inline {
   --color-stone-50: var(--bc-stone-50);
@@ -61,16 +59,21 @@
   --color-stone-800: var(--bc-stone-800);
   --color-stone-900: var(--bc-stone-900);
   --color-stone-950: var(--bc-stone-950);
+
+  /* Amber adapts per mode — bright yellow in dark, legible burnt orange in light */
+  --color-amber-400: var(--bc-amber-400);
+  --color-amber-500: var(--bc-amber-500);
+  --color-amber-600: var(--bc-amber-600);
 }
 
 @layer base {
   /*
-   * Default (dark) — the original warm expedition palette.
-   * :root sets the dark values so the app is dark without any class.
-   * .light overrides to the inverted parchment scale.
+   * Default (dark) — rich near-black with warm undertone.
+   * Borders and surfaces are meaningfully distinct from the background.
    */
   :root {
     color-scheme: dark;
+
     --bc-stone-50: #fafaf9;
     --bc-stone-100: #f5f5f4;
     --bc-stone-200: #e7e5e4;
@@ -79,29 +82,48 @@
     --bc-stone-500: #78716c;
     --bc-stone-600: #57534e;
     --bc-stone-700: #44403c;
-    --bc-stone-800: #292524;
-    --bc-stone-900: #1c1917;
-    --bc-stone-950: #0c0a09;
+    --bc-stone-800: #2e2a27;
+    --bc-stone-900: #1e1a17;
+    --bc-stone-950: #0e0b09;
+
+    /* Dark mode amber — classic bright campfire */
+    --bc-amber-400: #fbbf24;
+    --bc-amber-500: #f59e0b;
+    --bc-amber-600: #d97706;
+
+    /* Dot grid opacity for dark backgrounds */
+    --dot-opacity: 0.07;
   }
 
   /*
-   * Light mode — warm parchment tones, scale inverted.
-   * stone-950 becomes the lightest background; stone-100 the darkest text.
-   * Every existing stone-* utility flips automatically with no component changes.
+   * Light mode — warm parchment with high contrast.
+   * NOT a simple inversion; designed for legibility and character.
+   * Background: warm off-white. Text: near-black brown. Borders: visible brown.
+   * Amber shifts to burnt orange for legibility on light surfaces.
    */
   .light {
     color-scheme: light;
-    --bc-stone-50: #0c0a09;
-    --bc-stone-100: #1c1917;
-    --bc-stone-200: #292524;
-    --bc-stone-300: #44403c;
-    --bc-stone-400: #78716c;
-    --bc-stone-500: #a8a29e;
-    --bc-stone-600: #d6d3d1;
-    --bc-stone-700: #e7e5e4;
-    --bc-stone-800: #f0eeec;
-    --bc-stone-900: #f5f4f2;
-    --bc-stone-950: #fafaf9;
+
+    /* Parchment white → near-black brown (light reads as backgrounds, dark as text) */
+    --bc-stone-50: #1a110a;
+    --bc-stone-100: #2d1f14;
+    --bc-stone-200: #3d2b1c;
+    --bc-stone-300: #5c4033;
+    --bc-stone-400: #7a5c4a;
+    --bc-stone-500: #9a7c69;
+    --bc-stone-600: #c4a898;
+    --bc-stone-700: #ddd0c8;
+    --bc-stone-800: #ece4dc;
+    --bc-stone-900: #f5efe8;
+    --bc-stone-950: #fdf8f3;
+
+    /* Light mode amber — darker burnt orange reads well on warm white */
+    --bc-amber-400: #c2600a;
+    --bc-amber-500: #b45309;
+    --bc-amber-600: #92400e;
+
+    /* Dot grid more visible on light backgrounds */
+    --dot-opacity: 0.12;
   }
 
   body {
@@ -133,6 +155,6 @@
     border-radius: 0;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #d97706;
+    background: var(--bc-amber-600);
   }
 }

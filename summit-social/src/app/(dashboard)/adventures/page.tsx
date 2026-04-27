@@ -172,15 +172,16 @@ export default async function AdventuresPage({
       <div className="relative overflow-hidden border-b border-stone-800 bg-stone-950">
         {/* Topographic dot grid */}
         <div
-          className="absolute inset-0 opacity-[0.035]"
+          className="absolute inset-0"
           style={{
             backgroundImage: "radial-gradient(circle, #d97706 1px, transparent 1px)",
             backgroundSize: "32px 32px",
+            opacity: "var(--dot-opacity)",
           }}
         />
         {/* Diagonal accent */}
         <div
-          className="absolute right-0 top-0 h-full w-px opacity-10"
+          className="absolute right-0 top-0 h-full w-0.5 opacity-20"
           style={{ background: "linear-gradient(180deg, #d97706 0%, transparent 70%)" }}
         />
         <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">

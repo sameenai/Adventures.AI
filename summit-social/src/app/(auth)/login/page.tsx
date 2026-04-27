@@ -30,20 +30,24 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen bg-stone-950">
       {/* Left decorative panel */}
-      <div
-        className="hidden lg:flex lg:w-1/2 flex-col justify-end p-16 border-r border-stone-800"
-        style={{
-          backgroundImage: "radial-gradient(circle, #d97706 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-          backgroundColor: "#0a0908",
-          backgroundBlendMode: "normal",
-        }}
-      >
-        <div style={{ backgroundImage: "none" }}>
-          <span className="font-display text-4xl uppercase tracking-[0.2em] text-amber-500">
-            {APP_NAME.replace("S", "S·")}
+      <div className="hidden lg:flex lg:w-1/2 flex-col justify-end p-16 border-r-2 border-stone-800 relative overflow-hidden bg-stone-900">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: "radial-gradient(circle, #d97706 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+            opacity: "var(--dot-opacity)",
+          }}
+        />
+        <div className="relative z-10">
+          <span className="font-display text-5xl uppercase tracking-[0.2em] text-amber-500">
+            {APP_NAME}
           </span>
-          <p className="mt-3 text-sm leading-relaxed text-stone-500 max-w-xs">
+          <div className="mt-3 h-0.5 w-12 bg-amber-500" />
+          <p
+            className="mt-4 text-sm leading-relaxed text-stone-400 max-w-xs"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
             Plan extraordinary adventures. Join the community of serious explorers.
           </p>
         </div>
@@ -54,14 +58,16 @@ export default function LoginPage() {
         <div className="w-full max-w-sm">
           <div className="lg:hidden mb-10 text-center">
             <span className="font-display text-2xl uppercase tracking-[0.2em] text-amber-500">
-              {APP_NAME.replace("S", "S·")}
+              {APP_NAME}
             </span>
           </div>
 
           <h1 className="font-display text-3xl uppercase tracking-widest text-stone-100">
             Welcome back
           </h1>
-          <p className="mt-2 text-sm text-stone-500">Sign in to continue your expedition</p>
+          <p className="mt-2 text-sm text-stone-400" style={{ fontFamily: "var(--font-sans)" }}>
+            Sign in to continue your expedition
+          </p>
 
           <div className="mt-10 space-y-3">
             <Button
@@ -80,13 +86,13 @@ export default function LoginPage() {
             </Button>
           </div>
 
-          {/* Dev login — works without OAuth credentials */}
+          {/* Dev login */}
           <div className="relative mt-8">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-stone-800" />
             </div>
             <div className="relative flex justify-center">
-              <span className="bg-stone-950 px-3 font-mono text-xs text-stone-600">local dev</span>
+              <span className="bg-stone-950 px-3 font-mono text-xs text-stone-500">local dev</span>
             </div>
           </div>
 
@@ -102,16 +108,22 @@ export default function LoginPage() {
               placeholder="you@example.com"
               required
             />
-            <p className="font-mono text-xs text-stone-600">Password is always &ldquo;dev&rdquo;</p>
+            <p className="font-mono text-xs text-stone-500">Password is always &ldquo;dev&rdquo;</p>
             {devError && <p className="font-mono text-xs text-red-400">{devError}</p>}
             <Button type="submit" className="w-full justify-center">
               Sign in
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-xs text-stone-600">
+          <p
+            className="mt-6 text-center text-xs text-stone-500"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
             No account?{" "}
-            <Link href="/signup" className="text-amber-500 hover:text-amber-400 transition-colors">
+            <Link
+              href="/signup"
+              className="text-amber-500 hover:text-amber-400 transition-colors font-semibold"
+            >
               Sign up
             </Link>
           </p>
