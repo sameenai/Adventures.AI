@@ -3,6 +3,8 @@ import { Navbar } from "@/components/shared/navbar";
 import { prisma } from "@/lib/db/prisma";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Basecamp — Plan Your Next Great Adventure" };
 
 const STAT_LABELS = [

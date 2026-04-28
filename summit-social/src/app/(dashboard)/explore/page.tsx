@@ -4,8 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Explore | Basecamp" };
 
-// Coordinates change only when adventures are added/edited — revalidate hourly.
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function ExplorePage() {
   const adventures = await prisma.adventure.findMany({
