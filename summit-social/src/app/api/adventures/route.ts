@@ -45,7 +45,10 @@ export async function GET(request: NextRequest) {
         difficulty.length === 1 ? (difficulty[0] as never) : ({ in: difficulty } as never),
     }),
     ...(duration && { durationDays: DURATION_RANGES[duration] }),
-    ...(month && { bestMonths: { has: month } }),
+    ...(month &&
+      month.length > 0 && {
+        OR: month.map((m) => ({ bestMonths: { has: m } })),
+      }),
     ...(tag && { tags: { some: { name: tag } } }),
     ...(search && {
       OR: [

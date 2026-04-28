@@ -54,7 +54,12 @@ export default async function AdventuresPage({
   const view = params.view === "list" ? "list" : "grid";
   const search = params.search?.trim();
   const sortBy = params.sortBy ?? "votes";
-  const month = params.month ? Number(params.month) : undefined;
+  const months = params.month
+    ? params.month
+        .split(",")
+        .map(Number)
+        .filter((n) => n >= 1 && n <= 12)
+    : [];
   const tag = params.tag;
 
   const categories = params.category ? params.category.split(",") : [];
@@ -86,7 +91,9 @@ export default async function AdventuresPage({
       params.duration in DURATION_RANGES && {
         durationDays: DURATION_RANGES[params.duration as keyof typeof DURATION_RANGES],
       }),
-    ...(month && { bestMonths: { has: month } }),
+    ...(months.length > 0 && {
+      OR: months.map((m) => ({ bestMonths: { has: m } })),
+    }),
     ...(tag && { tags: { some: { name: tag } } }),
     ...(search && {
       OR: [
@@ -354,8 +361,8 @@ export default async function AdventuresPage({
               { value: 12, label: "Dec" },
             ] as const
           ).map(({ value, label }) => {
-            const active = params.month === String(value);
-            const href = buildFilterUrl(params, { month: active ? undefined : String(value) });
+            const active = months.includes(value);
+            const href = toggleMultiValue(params, "month", String(value));
             return (
               <Link
                 key={value}
