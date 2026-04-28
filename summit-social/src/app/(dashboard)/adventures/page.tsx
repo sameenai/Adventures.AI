@@ -217,10 +217,13 @@ export default async function AdventuresPage({
 
       <div className="mx-auto max-w-7xl px-4 pt-6 pb-10 sm:px-6 lg:px-8">
         {/* Category filters */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+            Category
+          </span>
           <Link
             href={buildFilterUrl(params, { category: undefined })}
-            className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+            className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
               categories.length === 0
                 ? "border border-amber-500 text-amber-500"
                 : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -234,7 +237,7 @@ export default async function AdventuresPage({
               <Link
                 key={cat.value}
                 href={toggleMultiValue(params, "category", cat.value)}
-                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? "border border-amber-500 text-amber-500"
                     : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -247,7 +250,7 @@ export default async function AdventuresPage({
         </div>
 
         {/* Duration quick-filters */}
-        <div className="mt-3 flex flex-wrap items-center gap-2">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
             Duration
           </span>
@@ -267,7 +270,7 @@ export default async function AdventuresPage({
               <Link
                 key={value}
                 href={href}
-                className={`flex items-baseline gap-1.5 px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                className={`flex items-baseline gap-1.5 px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? "border border-amber-500 text-amber-500"
                     : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -283,7 +286,7 @@ export default async function AdventuresPage({
         </div>
 
         {/* Difficulty quick-filters */}
-        <div className="mt-3 flex flex-wrap items-center gap-2">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
             Level
           </span>
@@ -294,7 +297,7 @@ export default async function AdventuresPage({
               <Link
                 key={diff.value}
                 href={href}
-                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? `border ${diff.value === "EASY" ? "border-emerald-500 text-emerald-400" : diff.value === "MODERATE" ? "border-amber-500 text-amber-400" : diff.value === "CHALLENGING" ? "border-orange-500 text-orange-400" : diff.value === "EXTREME" ? "border-red-500 text-red-400" : "border-purple-500 text-purple-400"}`
                     : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -307,7 +310,7 @@ export default async function AdventuresPage({
         </div>
 
         {/* Continent quick-filters */}
-        <div className="mt-3 flex flex-wrap items-center gap-2">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
             Continent
           </span>
@@ -318,7 +321,7 @@ export default async function AdventuresPage({
               <Link
                 key={continent}
                 href={href}
-                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? "border border-amber-500 text-amber-500"
                     : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -331,7 +334,7 @@ export default async function AdventuresPage({
         </div>
 
         {/* Month quick-filters */}
-        <div className="mt-3 flex flex-wrap items-center gap-2">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
             Season
           </span>
@@ -357,7 +360,7 @@ export default async function AdventuresPage({
               <Link
                 key={value}
                 href={href}
-                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? "border border-amber-500 text-amber-500"
                     : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -370,7 +373,7 @@ export default async function AdventuresPage({
         </div>
 
         {/* Search + sort + view toggle */}
-        <div className="mt-4 flex items-center gap-2">
+        <div className="mt-8 flex items-center gap-2">
           <div className="flex-1">
             <Suspense>
               <SearchFilter />
