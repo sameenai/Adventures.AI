@@ -1,3 +1,4 @@
+import { Pagination } from "@/components/shared/pagination";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
@@ -10,9 +11,20 @@ import { redirect } from "next/navigation";
 
 export const metadata: Metadata = { title: "Activity Feed | Basecamp" };
 
-export default async function FeedPage() {
+const PAGE_SIZE = 20;
+// Fetch a generous window per source so the merged + sorted slice has enough items
+const FETCH_PER_SOURCE = 200;
+
+export default async function FeedPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) redirect("/login");
+
+  const params = await searchParams;
+  const page = Math.max(1, Number.parseInt(params.page ?? "1", 10) || 1);
 
   // Get IDs of users this person follows
   const follows = await prisma.follow.findMany({
@@ -43,12 +55,12 @@ export default async function FeedPage() {
     );
   }
 
-  // Fetch recent adventures and comments from followed users (last 50)
+  // Fetch recent adventures and comments from followed users, merge, sort, then paginate
   const [recentAdventures, recentComments] = await Promise.all([
     prisma.adventure.findMany({
       where: { userId: { in: followingIds }, published: true },
       orderBy: { createdAt: "desc" },
-      take: 25,
+      take: FETCH_PER_SOURCE,
       include: {
         user: { select: { id: true, name: true, avatarUrl: true } },
         tags: { take: 3 },
@@ -57,7 +69,7 @@ export default async function FeedPage() {
     prisma.comment.findMany({
       where: { userId: { in: followingIds } },
       orderBy: { createdAt: "desc" },
-      take: 25,
+      take: FETCH_PER_SOURCE,
       include: {
         user: { select: { id: true, name: true, avatarUrl: true } },
         adventure: { select: { id: true, title: true } },
@@ -65,21 +77,26 @@ export default async function FeedPage() {
     }),
   ]);
 
-  // Merge and sort by date
   type FeedItem =
     | { type: "adventure"; createdAt: Date; data: (typeof recentAdventures)[0] }
     | { type: "comment"; createdAt: Date; data: (typeof recentComments)[0] };
 
-  const feed: FeedItem[] = [
+  const allItems: FeedItem[] = [
     ...recentAdventures.map((a) => ({
       type: "adventure" as const,
       createdAt: a.createdAt,
       data: a,
     })),
-    ...recentComments.map((c) => ({ type: "comment" as const, createdAt: c.createdAt, data: c })),
-  ]
-    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
-    .slice(0, 40);
+    ...recentComments.map((c) => ({
+      type: "comment" as const,
+      createdAt: c.createdAt,
+      data: c,
+    })),
+  ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
+  const total = allItems.length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const feed = allItems.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:px-8">
@@ -97,20 +114,23 @@ export default async function FeedPage() {
           No recent activity from people you follow.
         </p>
       ) : (
-        <ul className="space-y-4">
-          {feed.map((item) => (
-            <li
-              key={`${item.type}-${item.data.id}`}
-              className="border border-stone-800 p-4 hover:border-stone-700 transition-colors"
-            >
-              {item.type === "adventure" ? (
-                <AdventureFeedItem adventure={item.data} />
-              ) : (
-                <CommentFeedItem comment={item.data} />
-              )}
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul className="space-y-4">
+            {feed.map((item) => (
+              <li
+                key={`${item.type}-${item.data.id}`}
+                className="border border-stone-800 p-4 hover:border-stone-700 transition-colors"
+              >
+                {item.type === "adventure" ? (
+                  <AdventureFeedItem adventure={item.data} />
+                ) : (
+                  <CommentFeedItem comment={item.data} />
+                )}
+              </li>
+            ))}
+          </ul>
+          <Pagination page={page} totalPages={totalPages} buildHref={(p) => `/feed?page=${p}`} />
+        </>
       )}
     </div>
   );
