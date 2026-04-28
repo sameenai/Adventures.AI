@@ -13,6 +13,9 @@ const schema = z.object({
 });
 
 function validate() {
+  // Skip during `next build` — env vars are injected at runtime by Cloud Run
+  if (process.env.NEXT_PHASE === "phase-production-build") return;
+
   const result = schema.safeParse(process.env);
   if (!result.success) {
     const missing = result.error.issues.map((i) => `  • ${i.path.join(".")}`).join("\n");
