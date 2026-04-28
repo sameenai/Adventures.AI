@@ -517,7 +517,7 @@ The wildlife density rivals any game reserve in Africa. Elephant herds of 50+ wa
       category: Category.SAFARI,
       difficulty: Difficulty.MODERATE,
       durationDays: 7,
-      coverImageUrl: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600&q=80",
+      coverImageUrl: "https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1600&q=80",
       highlights: [
         "Silent mokoro gliding through papyrus channels at dawn — no engine noise",
         "Elephant herds wading through the shallows around your camp island",
@@ -1348,7 +1348,7 @@ Stay overnight in Beddgelert — a 45-minute drive from the trailhead — to rea
       category: Category.TREKKING,
       difficulty: Difficulty.MODERATE,
       durationDays: 2,
-      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
+      coverImageUrl: "https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1600&q=80",
       highlights: [
         "Nantgwynant oakwood approach — ancient sessile oak forest below the cwm",
         "Plas Cwmllan slate quarry ruins: mid-Victorian industrial archaeology at 700m",
@@ -1798,7 +1798,7 @@ July–December brings cooler and rougher conditions but whale sharks and the al
       category: Category.DIVING,
       difficulty: Difficulty.EASY,
       durationDays: 7,
-      coverImageUrl: "https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=1600&q=80",
+      coverImageUrl: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=1600&q=80",
       highlights: [
         "Marine iguanas underwater: endemic lizards grazing on algae at 5m depth",
         "Sea lions spiralling around snorkellers in Galapagos sea lion bays",
@@ -2196,7 +2196,7 @@ All trails start from El Chalten village. No permits, no booking, no fees.`,
       category: Category.TREKKING,
       difficulty: Difficulty.CHALLENGING,
       durationDays: 6,
-      coverImageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&q=80",
+      coverImageUrl: "https://images.unsplash.com/photo-1484291470158-b8f8d608850d?w=1600&q=80",
       highlights: [
         "Laguna de los Tres at sunrise: Fitz Roy reflected in the glacial lake below the spire",
         "Cerro Torre granite needle in clear conditions: arguably the world's most dramatic summit profile",
@@ -2423,7 +2423,7 @@ The Mustang region on the far side of the pass is the hidden reward: a Tibetan p
       category: Category.TREKKING,
       difficulty: Difficulty.CHALLENGING,
       durationDays: 18,
-      coverImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
+      coverImageUrl: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1600&q=80",
       highlights: [
         "Thorong La Pass (5,416m): the high point, summit before the afternoon wind",
         "Manang acclimatisation view: Annapurna III (7,555m) across the valley floor",
@@ -2537,7 +2537,7 @@ Water is abundant above 3,000m but must be filtered — giardia is present in vi
       category: Category.TREKKING,
       difficulty: Difficulty.CHALLENGING,
       durationDays: 21,
-      coverImageUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80",
+      coverImageUrl: "https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?w=1600&q=80",
       highlights: [
         "Mount Whitney summit (4,421m): highest point in the contiguous USA",
         "Thousand Island Lake: mirror granite lake with the Ritter Range reflected at sunrise",
@@ -2766,7 +2766,7 @@ The Svalbard Global Seed Vault is visible from Longyearbyen. The permafrost laye
       category: Category.SAFARI,
       difficulty: Difficulty.CHALLENGING,
       durationDays: 8,
-      coverImageUrl: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80",
+      coverImageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80",
       highlights: [
         "Polar bear sighting: the defining Arctic wildlife encounter — guide keeps watch at all times",
         "Walrus haul-out on a tundra beach: 40+ animals at close range from the Zodiac",
