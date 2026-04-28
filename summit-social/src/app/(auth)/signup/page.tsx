@@ -61,20 +61,13 @@ export default function SignupPage() {
             Create your account — it&apos;s free
           </p>
 
-          <div className="mt-10 space-y-3">
+          <div className="mt-10">
             <Button
               variant="outline"
               className="w-full justify-center"
               onClick={() => signIn("google", { callbackUrl: "/adventures" })}
             >
               Sign up with Google
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full justify-center"
-              onClick={() => signIn("github", { callbackUrl: "/adventures" })}
-            >
-              Sign up with GitHub
             </Button>
           </div>
 
