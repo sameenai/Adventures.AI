@@ -25,11 +25,12 @@ ENV NEXT_PHASE=phase-production-build
 
 RUN npm run build
 
-# Migration image — full node_modules so prisma CLI is available
+# Migration/seed image — full node_modules + generated Prisma client
 FROM base AS migrator
 RUN apk add --no-cache openssl
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY prisma ./prisma
 CMD ["node_modules/.bin/prisma", "migrate", "deploy"]
 
