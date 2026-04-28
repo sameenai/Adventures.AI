@@ -20,8 +20,19 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { cursor, limit, category, continent, difficulty, search, sortBy, duration, month, tag } =
-    parsed.data;
+  const {
+    cursor,
+    limit,
+    category,
+    continent,
+    difficulty,
+    search,
+    sortBy,
+    duration,
+    month,
+    climate,
+    tag,
+  } = parsed.data;
 
   const DURATION_RANGES = {
     weekend: { gte: 1, lte: 3 },
@@ -49,6 +60,7 @@ export async function GET(request: NextRequest) {
       month.length > 0 && {
         OR: month.map((m) => ({ bestMonths: { has: m } })),
       }),
+    ...(climate && { climate: { has: climate } }),
     ...(tag && { tags: { some: { name: tag } } }),
     ...(search && {
       OR: [

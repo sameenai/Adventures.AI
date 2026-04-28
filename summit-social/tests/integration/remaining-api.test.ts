@@ -809,6 +809,7 @@ describe("POST /api/adventures/[id]/duplicate", () => {
     highlights: ["Everest Base Camp"],
     gear: ["Ice axe"],
     bestMonths: [9, 10],
+    climate: [],
     estimatedCost: 3000,
     gpxTrackUrl: null,
     latitude: 27.9878,

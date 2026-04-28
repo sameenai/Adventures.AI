@@ -60,6 +60,10 @@ export default async function AdventuresPage({
         .map(Number)
         .filter((n) => n >= 1 && n <= 12)
     : [];
+  const climate =
+    params.climate === "hot" || params.climate === "cold" || params.climate === "mixed"
+      ? params.climate
+      : undefined;
   const tag = params.tag;
 
   const categories = params.category ? params.category.split(",") : [];
@@ -94,6 +98,7 @@ export default async function AdventuresPage({
     ...(months.length > 0 && {
       OR: months.map((m) => ({ bestMonths: { has: m } })),
     }),
+    ...(climate && { climate: { has: climate } }),
     ...(tag && { tags: { some: { name: tag } } }),
     ...(search && {
       OR: [
@@ -340,6 +345,37 @@ export default async function AdventuresPage({
           })}
         </div>
 
+        {/* Climate quick-filters */}
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+            Climate
+          </span>
+          {(
+            [
+              { value: "hot", label: "Hot", icon: "☀" },
+              { value: "cold", label: "Cold", icon: "❄" },
+              { value: "mixed", label: "Mixed", icon: "⛅" },
+            ] as const
+          ).map(({ value, label, icon }) => {
+            const active = climate === value;
+            const href = buildFilterUrl(params, { climate: active ? undefined : value });
+            return (
+              <Link
+                key={value}
+                href={href}
+                className={`flex items-center gap-1.5 px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
+                  active
+                    ? "border border-amber-500 text-amber-500"
+                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+                }`}
+              >
+                <span aria-hidden="true">{icon}</span>
+                {label}
+              </Link>
+            );
+          })}
+        </div>
+
         {/* Month quick-filters */}
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
@@ -399,6 +435,7 @@ export default async function AdventuresPage({
               params.difficulty,
               params.duration,
               params.month,
+              params.climate,
               params.tag,
               params.search,
               params.sortBy,
@@ -413,6 +450,7 @@ export default async function AdventuresPage({
             difficulty={params.difficulty}
             duration={params.duration}
             month={params.month}
+            climate={params.climate}
             tag={params.tag}
             search={params.search}
             sortBy={params.sortBy}

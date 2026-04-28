@@ -89,6 +89,7 @@ export const adventureFilterSchema = z.object({
     )
     .pipe(z.array(z.number().int().min(1).max(12)).min(1))
     .optional(),
+  climate: z.enum(["hot", "cold", "mixed"]).optional(),
   tag: z.string().max(50).optional(),
 });
 

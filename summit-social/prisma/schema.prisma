@@ -89,6 +89,7 @@ model Adventure {
   highlights    String[]
   gear          String[]
   bestMonths    Int[]
+  climate       String[] @default([])
   estimatedCost Int?
   gpxTrackUrl   String?
   latitude      Float?
