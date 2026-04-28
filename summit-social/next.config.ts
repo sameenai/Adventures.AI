@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV !== "production";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   // Log all fetch() calls with full URLs in development
   logging: isDev ? { fetches: { fullUrl: true } } : undefined,
   images: {

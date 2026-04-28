@@ -1,0 +1,17 @@
+.git
+.github
+.husky
+.next
+node_modules
+coverage
+tests
+.env
+.env.*
+!.env.example
+*.md
+Makefile
+docker-compose*.yml
+playwright.config.ts
+vitest.config.ts
+tsconfig.tsbuildinfo
+mapbox_token.txt

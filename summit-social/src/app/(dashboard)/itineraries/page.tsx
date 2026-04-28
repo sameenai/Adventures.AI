@@ -8,6 +8,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { DeleteItineraryButton } from "./delete-button";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = { title: "My Itineraries | Basecamp" };
 
 const PAGE_SIZE = 20;

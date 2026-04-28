@@ -7,6 +7,8 @@ import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Plan Trip | Basecamp" };
 
 export default async function ItineraryPage({

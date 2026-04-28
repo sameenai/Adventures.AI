@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 import { OpenAiKeyForm } from "./openai-key-form";
 import { ProfileEditForm } from "./profile-edit-form";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = { title: "Edit Profile | Basecamp" };
 
 export default async function ProfileEditPage() {

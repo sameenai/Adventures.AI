@@ -9,6 +9,8 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Adventures | Basecamp" };
 
 const PAGE_SIZE = 20;

@@ -5,6 +5,8 @@ import { getServerSession } from "next-auth";
 import { notFound, redirect } from "next/navigation";
 import { AdventureEditForm } from "./adventure-edit-form";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: Promise<{ id: string }>;
 }
