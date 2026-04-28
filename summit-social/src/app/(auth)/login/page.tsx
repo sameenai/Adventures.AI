@@ -69,20 +69,13 @@ export default function LoginPage() {
             Sign in to continue your expedition
           </p>
 
-          <div className="mt-10 space-y-3">
+          <div className="mt-10">
             <Button
               variant="outline"
               className="w-full justify-center"
               onClick={() => signIn("google", { callbackUrl: "/adventures" })}
             >
               Continue with Google
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full justify-center"
-              onClick={() => signIn("github", { callbackUrl: "/adventures" })}
-            >
-              Continue with GitHub
             </Button>
           </div>
 
