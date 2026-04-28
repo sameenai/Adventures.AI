@@ -27,7 +27,7 @@ export function AdventureCard({
       {/* Left accent bar colored by difficulty */}
       <div
         className={cn(
-          "absolute left-0 top-0 bottom-0 w-1 transition-opacity duration-300 group-hover:opacity-100 opacity-50",
+          "absolute left-0 top-0 bottom-0 w-0.5 transition-opacity duration-300 group-hover:opacity-100 opacity-40",
           difficultyAccentClass(adventure.difficulty),
         )}
       />

@@ -1,5 +1,6 @@
 import { InfiniteAdventureGrid } from "@/components/adventures/infinite-adventure-grid";
 import { SearchFilter } from "@/components/adventures/search-filter";
+import { ViewToggle } from "@/components/adventures/view-toggle";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
 import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
@@ -50,6 +51,7 @@ export default async function AdventuresPage({
   searchParams: Promise<Record<string, string | undefined>>;
 }) {
   const params = await searchParams;
+  const view = params.view === "list" ? "list" : "grid";
   const search = params.search?.trim();
   const sortBy = params.sortBy ?? "votes";
   const month = params.month ? Number(params.month) : undefined;
@@ -367,10 +369,17 @@ export default async function AdventuresPage({
           })}
         </div>
 
-        {/* Search + sort */}
-        <Suspense>
-          <SearchFilter />
-        </Suspense>
+        {/* Search + sort + view toggle */}
+        <div className="mt-4 flex items-center gap-2">
+          <div className="flex-1">
+            <Suspense>
+              <SearchFilter />
+            </Suspense>
+          </div>
+          <Suspense>
+            <ViewToggle current={view} />
+          </Suspense>
+        </div>
 
         <div className="mt-6">
           <InfiniteAdventureGrid
@@ -397,6 +406,7 @@ export default async function AdventuresPage({
             tag={params.tag}
             search={params.search}
             sortBy={params.sortBy}
+            view={view}
           />
         </div>
       </div>
