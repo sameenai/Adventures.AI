@@ -2,8 +2,7 @@ import { APP_URL } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import type { MetadataRoute } from "next";
 
-// Sitemap changes only when adventures are published — revalidate every 12 hours.
-export const revalidate = 43200;
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const adventures = await prisma.adventure.findMany({

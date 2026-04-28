@@ -6,6 +6,8 @@ import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = { title: "Go Pro | Basecamp" };
 
 const FREE_FEATURES = [

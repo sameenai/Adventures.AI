@@ -3,6 +3,8 @@ import { prisma } from "@/lib/db/prisma";
 import type { LeaderboardEntry } from "@/types";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Leaderboard | Basecamp" };
 
 export default async function LeaderboardPage({

@@ -8,6 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = { title: "Activity Feed | Basecamp" };
 
 export default async function FeedPage() {
