@@ -12,6 +12,7 @@ interface AdventureCardProps {
   currentUserId?: string;
   hasVoted?: boolean;
   hasBookmarked?: boolean;
+  featured?: boolean;
 }
 
 export function AdventureCard({
@@ -19,6 +20,7 @@ export function AdventureCard({
   currentUserId,
   hasVoted = false,
   hasBookmarked = false,
+  featured = false,
 }: AdventureCardProps) {
   const difficulty = DIFFICULTY_MAP.get(adventure.difficulty);
 
@@ -33,7 +35,9 @@ export function AdventureCard({
       />
 
       <Link href={`/adventures/${adventure.id}`}>
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div
+          className={cn("relative overflow-hidden", featured ? "aspect-[21/9]" : "aspect-[16/10]")}
+        >
           <Image
             src={adventure.coverImageUrl}
             alt={adventure.title}
