@@ -635,6 +635,7 @@ const baseAdventure: AdventureWithUser = {
   highlights: [],
   gear: [],
   bestMonths: [],
+  climate: [],
   estimatedCost: null,
   gpxTrackUrl: null,
   latitude: null,

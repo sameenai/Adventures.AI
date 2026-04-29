@@ -79,7 +79,17 @@ export const adventureFilterSchema = z.object({
   duration: z
     .enum(["weekend", "week", "fortnight", "expedition", "peregrination", "lifestyle"])
     .optional(),
-  month: z.coerce.number().int().min(1).max(12).optional(),
+  month: z
+    .string()
+    .transform((s) =>
+      s
+        .split(",")
+        .map((v) => Number(v.trim()))
+        .filter((n) => n >= 1 && n <= 12),
+    )
+    .pipe(z.array(z.number().int().min(1).max(12)).min(1))
+    .optional(),
+  climate: z.enum(["hot", "cold", "mixed"]).optional(),
   tag: z.string().max(50).optional(),
 });
 

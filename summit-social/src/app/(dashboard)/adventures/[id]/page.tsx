@@ -374,6 +374,99 @@ export default async function AdventureDetailPage({ params }: Props) {
               </section>
             )}
 
+            {/* Itinerary overview */}
+            <section>
+              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                Itinerary Overview
+              </h2>
+              {(() => {
+                const SHOW_HEAD = 5;
+                const SHOW_TAIL = 2;
+                const total = adventure.durationDays || 1;
+                const truncate = total > SHOW_HEAD + SHOW_TAIL + 1;
+                // Build the day indices to render
+                const headDays = Array.from({ length: Math.min(SHOW_HEAD, total) }, (_, i) => i);
+                const tailDays = truncate
+                  ? Array.from({ length: SHOW_TAIL }, (_, i) => total - SHOW_TAIL + i)
+                  : [];
+                const hiddenCount = truncate ? total - SHOW_HEAD - SHOW_TAIL : 0;
+
+                const renderDay = (dayIndex: number, isLast: boolean) => {
+                  const day = dayIndex + 1;
+                  const hi = Math.floor((dayIndex / total) * adventure.highlights.length);
+                  const highlight = adventure.highlights[hi];
+                  return (
+                    <div key={day} className="flex gap-4 group">
+                      <div className="flex flex-col items-center">
+                        <div
+                          className={`h-2 w-px bg-stone-800 ${dayIndex === 0 ? "invisible" : ""}`}
+                        />
+                        <div className="h-2 w-2 shrink-0 border border-stone-700 bg-stone-900 group-hover:border-amber-500/50 transition-colors" />
+                        <div className={`flex-1 w-px bg-stone-800 ${isLast ? "invisible" : ""}`} />
+                      </div>
+                      <div className="pb-3 pt-0.5 min-w-0">
+                        <span className="font-mono text-[10px] uppercase tracking-widest text-stone-600">
+                          Day {day}
+                        </span>
+                        {highlight && (
+                          <p className="mt-0.5 text-sm text-stone-400 leading-relaxed">
+                            {highlight}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  );
+                };
+
+                return (
+                  <div>
+                    {adventure.highlights.length === 0 && (
+                      <p className="mb-3 text-sm text-stone-600">
+                        No day-by-day breakdown yet — use the AI planner to build one.
+                      </p>
+                    )}
+                    {headDays.map((i) => renderDay(i, !truncate && i === total - 1))}
+                    {truncate && (
+                      <div className="flex gap-4">
+                        <div className="flex flex-col items-center">
+                          <div className="h-2 w-px bg-stone-800" />
+                          <div className="flex flex-col gap-1 py-1">
+                            <div className="h-1 w-1 bg-stone-700" />
+                            <div className="h-1 w-1 bg-stone-700" />
+                            <div className="h-1 w-1 bg-stone-700" />
+                          </div>
+                          <div className="flex-1 w-px bg-stone-800" />
+                        </div>
+                        <div className="pb-3 pt-1.5">
+                          <span className="font-mono text-[10px] text-stone-700">
+                            {hiddenCount} more {hiddenCount === 1 ? "day" : "days"}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                    {tailDays.map((i) => renderDay(i, i === total - 1))}
+                  </div>
+                );
+              })()}
+              <Link
+                href={`/itinerary?prompt=${encodeURIComponent(`Plan a ${adventure.durationDays}-day trip for "${adventure.title}" in ${adventure.location}, ${adventure.country}. Difficulty: ${adventure.difficulty.toLowerCase()}. Key highlights: ${adventure.highlights.slice(0, 5).join(", ")}.`)}`}
+                className="mt-4 inline-flex items-center gap-2 border border-amber-500/30 bg-amber-500/5 px-4 py-2 font-display text-xs uppercase tracking-widest text-amber-500 transition-colors hover:border-amber-500 hover:bg-amber-500/10"
+              >
+                Adjust with AI
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-3.5 w-3.5 fill-none stroke-current stroke-2"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </Link>
+            </section>
+
             {/* Map */}
             {(markers.length > 0 || adventure.gpxTrackUrl) && (
               <section>
@@ -600,16 +693,17 @@ export default async function AdventureDetailPage({ params }: Props) {
             {/* Plan this trip CTA */}
             <div className="border border-amber-500/20 bg-amber-500/5 p-5">
               <h3 className="font-display text-xs uppercase tracking-[0.35em] text-amber-500 mb-2">
-                Plan This Trip
+                Customise This Trip
               </h3>
               <p className="text-xs leading-relaxed text-stone-500 mb-4">
-                Use the AI Trip Planner to build a day-by-day itinerary inspired by this adventure.
+                Adjust dates, budget, and pace. The AI planner builds a personalised day-by-day
+                itinerary you can tweak in chat.
               </p>
               <Link
-                href={`/itinerary?prompt=${encodeURIComponent(`Plan a trip inspired by "${adventure.title}" in ${adventure.location}, ${adventure.country}. Duration: ${adventure.durationDays} days, difficulty: ${adventure.difficulty.toLowerCase()}.`)}`}
+                href={`/itinerary?prompt=${encodeURIComponent(`Plan a ${adventure.durationDays}-day trip for "${adventure.title}" in ${adventure.location}, ${adventure.country}. Difficulty: ${adventure.difficulty.toLowerCase()}. Key highlights: ${adventure.highlights.slice(0, 5).join(", ")}.`)}`}
                 className="block w-full border border-amber-500 bg-amber-500 py-2 text-center font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
               >
-                Open Planner
+                Adjust with AI Planner
               </Link>
             </div>
           </div>

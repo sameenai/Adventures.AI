@@ -324,15 +324,37 @@ describe("adventureFilterSchema", () => {
     expect(result.success).toBe(false);
   });
 
-  it("accepts a valid month value and coerces string to number", () => {
+  it("accepts a single month value and returns an array", () => {
     const result = adventureFilterSchema.safeParse({ month: "7" });
     expect(result.success).toBe(true);
-    if (result.success) expect(result.data.month).toBe(7);
+    if (result.success) expect(result.data.month).toEqual([7]);
+  });
+
+  it("accepts multiple comma-separated months", () => {
+    const result = adventureFilterSchema.safeParse({ month: "9,10" });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.month).toEqual([9, 10]);
   });
 
   it("rejects month below 1 or above 12", () => {
     expect(adventureFilterSchema.safeParse({ month: "0" }).success).toBe(false);
     expect(adventureFilterSchema.safeParse({ month: "13" }).success).toBe(false);
+  });
+
+  it("rejects month string where all values are out of range", () => {
+    expect(adventureFilterSchema.safeParse({ month: "0,13" }).success).toBe(false);
+  });
+
+  it("accepts valid climate values", () => {
+    for (const v of ["hot", "cold", "mixed"] as const) {
+      const result = adventureFilterSchema.safeParse({ climate: v });
+      expect(result.success).toBe(true);
+      if (result.success) expect(result.data.climate).toBe(v);
+    }
+  });
+
+  it("rejects invalid climate value", () => {
+    expect(adventureFilterSchema.safeParse({ climate: "tropical" }).success).toBe(false);
   });
 
   it("accepts a tag filter", () => {

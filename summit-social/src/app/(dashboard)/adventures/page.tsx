@@ -54,7 +54,16 @@ export default async function AdventuresPage({
   const view = params.view === "list" ? "list" : "grid";
   const search = params.search?.trim();
   const sortBy = params.sortBy ?? "votes";
-  const month = params.month ? Number(params.month) : undefined;
+  const months = params.month
+    ? params.month
+        .split(",")
+        .map(Number)
+        .filter((n) => n >= 1 && n <= 12)
+    : [];
+  const climate =
+    params.climate === "hot" || params.climate === "cold" || params.climate === "mixed"
+      ? params.climate
+      : undefined;
   const tag = params.tag;
 
   const categories = params.category ? params.category.split(",") : [];
@@ -86,15 +95,33 @@ export default async function AdventuresPage({
       params.duration in DURATION_RANGES && {
         durationDays: DURATION_RANGES[params.duration as keyof typeof DURATION_RANGES],
       }),
-    ...(month && { bestMonths: { has: month } }),
+    ...(climate && { climate: { has: climate } }),
     ...(tag && { tags: { some: { name: tag } } }),
-    ...(search && {
-      OR: [
-        { title: { contains: search, mode: "insensitive" as const } },
-        { description: { contains: search, mode: "insensitive" as const } },
-        { location: { contains: search, mode: "insensitive" as const } },
-      ],
-    }),
+    // month and search both use OR — merge into AND to avoid key collision
+    ...(months.length > 0 && search
+      ? {
+          AND: [
+            { OR: months.map((m) => ({ bestMonths: { has: m } })) },
+            {
+              OR: [
+                { title: { contains: search, mode: "insensitive" as const } },
+                { description: { contains: search, mode: "insensitive" as const } },
+                { location: { contains: search, mode: "insensitive" as const } },
+              ],
+            },
+          ],
+        }
+      : months.length > 0
+        ? { OR: months.map((m) => ({ bestMonths: { has: m } })) }
+        : search
+          ? {
+              OR: [
+                { title: { contains: search, mode: "insensitive" as const } },
+                { description: { contains: search, mode: "insensitive" as const } },
+                { location: { contains: search, mode: "insensitive" as const } },
+              ],
+            }
+          : {}),
   };
 
   const include = {
@@ -217,10 +244,13 @@ export default async function AdventuresPage({
 
       <div className="mx-auto max-w-7xl px-4 pt-6 pb-10 sm:px-6 lg:px-8">
         {/* Category filters */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+            Category
+          </span>
           <Link
             href={buildFilterUrl(params, { category: undefined })}
-            className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+            className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
               categories.length === 0
                 ? "border border-amber-500 text-amber-500"
                 : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -234,7 +264,7 @@ export default async function AdventuresPage({
               <Link
                 key={cat.value}
                 href={toggleMultiValue(params, "category", cat.value)}
-                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? "border border-amber-500 text-amber-500"
                     : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -247,7 +277,7 @@ export default async function AdventuresPage({
         </div>
 
         {/* Duration quick-filters */}
-        <div className="mt-3 flex flex-wrap items-center gap-2">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
             Duration
           </span>
@@ -267,7 +297,7 @@ export default async function AdventuresPage({
               <Link
                 key={value}
                 href={href}
-                className={`flex items-baseline gap-1.5 px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                className={`flex items-baseline gap-1.5 px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? "border border-amber-500 text-amber-500"
                     : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -283,7 +313,7 @@ export default async function AdventuresPage({
         </div>
 
         {/* Difficulty quick-filters */}
-        <div className="mt-3 flex flex-wrap items-center gap-2">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
             Level
           </span>
@@ -294,7 +324,7 @@ export default async function AdventuresPage({
               <Link
                 key={diff.value}
                 href={href}
-                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? `border ${diff.value === "EASY" ? "border-emerald-500 text-emerald-400" : diff.value === "MODERATE" ? "border-amber-500 text-amber-400" : diff.value === "CHALLENGING" ? "border-orange-500 text-orange-400" : diff.value === "EXTREME" ? "border-red-500 text-red-400" : "border-purple-500 text-purple-400"}`
                     : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -307,7 +337,7 @@ export default async function AdventuresPage({
         </div>
 
         {/* Continent quick-filters */}
-        <div className="mt-3 flex flex-wrap items-center gap-2">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
             Continent
           </span>
@@ -318,7 +348,7 @@ export default async function AdventuresPage({
               <Link
                 key={continent}
                 href={href}
-                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? "border border-amber-500 text-amber-500"
                     : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -330,8 +360,39 @@ export default async function AdventuresPage({
           })}
         </div>
 
+        {/* Climate quick-filters */}
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+            Climate
+          </span>
+          {(
+            [
+              { value: "hot", label: "Hot", icon: "☀" },
+              { value: "cold", label: "Cold", icon: "❄" },
+              { value: "mixed", label: "Mixed", icon: "⛅" },
+            ] as const
+          ).map(({ value, label, icon }) => {
+            const active = climate === value;
+            const href = buildFilterUrl(params, { climate: active ? undefined : value });
+            return (
+              <Link
+                key={value}
+                href={href}
+                className={`flex items-center gap-1.5 px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
+                  active
+                    ? "border border-amber-500 text-amber-500"
+                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+                }`}
+              >
+                <span aria-hidden="true">{icon}</span>
+                {label}
+              </Link>
+            );
+          })}
+        </div>
+
         {/* Month quick-filters */}
-        <div className="mt-3 flex flex-wrap items-center gap-2">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
             Season
           </span>
@@ -351,13 +412,13 @@ export default async function AdventuresPage({
               { value: 12, label: "Dec" },
             ] as const
           ).map(({ value, label }) => {
-            const active = params.month === String(value);
-            const href = buildFilterUrl(params, { month: active ? undefined : String(value) });
+            const active = months.includes(value);
+            const href = toggleMultiValue(params, "month", String(value));
             return (
               <Link
                 key={value}
                 href={href}
-                className={`px-3 py-1 font-display text-xs uppercase tracking-widest transition-colors ${
+                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
                   active
                     ? "border border-amber-500 text-amber-500"
                     : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
@@ -370,7 +431,7 @@ export default async function AdventuresPage({
         </div>
 
         {/* Search + sort + view toggle */}
-        <div className="mt-4 flex items-center gap-2">
+        <div className="mt-8 flex items-center gap-2">
           <div className="flex-1">
             <Suspense>
               <SearchFilter />
@@ -389,6 +450,7 @@ export default async function AdventuresPage({
               params.difficulty,
               params.duration,
               params.month,
+              params.climate,
               params.tag,
               params.search,
               params.sortBy,
@@ -403,6 +465,7 @@ export default async function AdventuresPage({
             difficulty={params.difficulty}
             duration={params.duration}
             month={params.month}
+            climate={params.climate}
             tag={params.tag}
             search={params.search}
             sortBy={params.sortBy}

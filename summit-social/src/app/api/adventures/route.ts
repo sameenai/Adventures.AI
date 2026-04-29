@@ -20,8 +20,19 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { cursor, limit, category, continent, difficulty, search, sortBy, duration, month, tag } =
-    parsed.data;
+  const {
+    cursor,
+    limit,
+    category,
+    continent,
+    difficulty,
+    search,
+    sortBy,
+    duration,
+    month,
+    climate,
+    tag,
+  } = parsed.data;
 
   const DURATION_RANGES = {
     weekend: { gte: 1, lte: 3 },
@@ -45,15 +56,33 @@ export async function GET(request: NextRequest) {
         difficulty.length === 1 ? (difficulty[0] as never) : ({ in: difficulty } as never),
     }),
     ...(duration && { durationDays: DURATION_RANGES[duration] }),
-    ...(month && { bestMonths: { has: month } }),
+    ...(climate && { climate: { has: climate } }),
     ...(tag && { tags: { some: { name: tag } } }),
-    ...(search && {
-      OR: [
-        { title: { contains: search, mode: "insensitive" as const } },
-        { description: { contains: search, mode: "insensitive" as const } },
-        { location: { contains: search, mode: "insensitive" as const } },
-      ],
-    }),
+    // month and search both use OR — merge into AND to avoid key collision
+    ...(month?.length && search
+      ? {
+          AND: [
+            { OR: month.map((m) => ({ bestMonths: { has: m } })) },
+            {
+              OR: [
+                { title: { contains: search, mode: "insensitive" as const } },
+                { description: { contains: search, mode: "insensitive" as const } },
+                { location: { contains: search, mode: "insensitive" as const } },
+              ],
+            },
+          ],
+        }
+      : month?.length
+        ? { OR: month.map((m) => ({ bestMonths: { has: m } })) }
+        : search
+          ? {
+              OR: [
+                { title: { contains: search, mode: "insensitive" as const } },
+                { description: { contains: search, mode: "insensitive" as const } },
+                { location: { contains: search, mode: "insensitive" as const } },
+              ],
+            }
+          : {}),
   };
 
   // Trending: rank by votes cast in the last 7 days
