@@ -200,6 +200,40 @@ describe("GET /api/adventures", () => {
     expect(call.where.OR[2]).toMatchObject({ location: { contains: "nepal", mode: "insensitive" } });
   });
 
+  it("applies month filter as OR over bestMonths array", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?month=9,10"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.where.OR).toEqual([
+      { bestMonths: { has: 9 } },
+      { bestMonths: { has: 10 } },
+    ]);
+  });
+
+  it("wraps month + search into AND to avoid OR key collision", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?month=7&search=nepal"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.where.OR).toBeUndefined();
+    expect(call.where.AND).toHaveLength(2);
+    expect(call.where.AND[0]).toEqual({ OR: [{ bestMonths: { has: 7 } }] });
+    expect(call.where.AND[1].OR).toHaveLength(3);
+    expect(call.where.AND[1].OR[0]).toMatchObject({ title: { contains: "nepal" } });
+  });
+
+  it("applies climate filter using array contains", async () => {
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    await getAdventures(makeRequest("http://localhost/api/adventures?climate=hot"));
+
+    const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.where.climate).toEqual({ has: "hot" });
+  });
+
   it("applies keyset where condition for votes sort when ?cursor= is provided", async () => {
     (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
 

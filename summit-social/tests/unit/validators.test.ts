@@ -341,6 +341,22 @@ describe("adventureFilterSchema", () => {
     expect(adventureFilterSchema.safeParse({ month: "13" }).success).toBe(false);
   });
 
+  it("rejects month string where all values are out of range", () => {
+    expect(adventureFilterSchema.safeParse({ month: "0,13" }).success).toBe(false);
+  });
+
+  it("accepts valid climate values", () => {
+    for (const v of ["hot", "cold", "mixed"] as const) {
+      const result = adventureFilterSchema.safeParse({ climate: v });
+      expect(result.success).toBe(true);
+      if (result.success) expect(result.data.climate).toBe(v);
+    }
+  });
+
+  it("rejects invalid climate value", () => {
+    expect(adventureFilterSchema.safeParse({ climate: "tropical" }).success).toBe(false);
+  });
+
   it("accepts a tag filter", () => {
     const result = adventureFilterSchema.safeParse({ tag: "glacier" });
     expect(result.success).toBe(true);

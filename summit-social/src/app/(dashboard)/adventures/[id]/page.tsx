@@ -382,7 +382,7 @@ export default async function AdventureDetailPage({ params }: Props) {
               {(() => {
                 const SHOW_HEAD = 5;
                 const SHOW_TAIL = 2;
-                const total = adventure.durationDays;
+                const total = adventure.durationDays || 1;
                 const truncate = total > SHOW_HEAD + SHOW_TAIL + 1;
                 // Build the day indices to render
                 const headDays = Array.from({ length: Math.min(SHOW_HEAD, total) }, (_, i) => i);

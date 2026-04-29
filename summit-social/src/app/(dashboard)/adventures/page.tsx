@@ -95,18 +95,33 @@ export default async function AdventuresPage({
       params.duration in DURATION_RANGES && {
         durationDays: DURATION_RANGES[params.duration as keyof typeof DURATION_RANGES],
       }),
-    ...(months.length > 0 && {
-      OR: months.map((m) => ({ bestMonths: { has: m } })),
-    }),
     ...(climate && { climate: { has: climate } }),
     ...(tag && { tags: { some: { name: tag } } }),
-    ...(search && {
-      OR: [
-        { title: { contains: search, mode: "insensitive" as const } },
-        { description: { contains: search, mode: "insensitive" as const } },
-        { location: { contains: search, mode: "insensitive" as const } },
-      ],
-    }),
+    // month and search both use OR — merge into AND to avoid key collision
+    ...(months.length > 0 && search
+      ? {
+          AND: [
+            { OR: months.map((m) => ({ bestMonths: { has: m } })) },
+            {
+              OR: [
+                { title: { contains: search, mode: "insensitive" as const } },
+                { description: { contains: search, mode: "insensitive" as const } },
+                { location: { contains: search, mode: "insensitive" as const } },
+              ],
+            },
+          ],
+        }
+      : months.length > 0
+        ? { OR: months.map((m) => ({ bestMonths: { has: m } })) }
+        : search
+          ? {
+              OR: [
+                { title: { contains: search, mode: "insensitive" as const } },
+                { description: { contains: search, mode: "insensitive" as const } },
+                { location: { contains: search, mode: "insensitive" as const } },
+              ],
+            }
+          : {}),
   };
 
   const include = {
