@@ -105,14 +105,19 @@ export function InfiniteAdventureGrid({
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((adventure) => (
-            <AdventureCard
+          {items.map((adventure, i) => (
+            <div
               key={adventure.id}
-              adventure={adventure}
-              currentUserId={currentUserId}
-              hasVoted={votedSet.has(adventure.id)}
-              hasBookmarked={bookmarkedSet.has(adventure.id)}
-            />
+              className={i === 0 && items.length > 1 ? "sm:col-span-2 lg:col-span-2" : ""}
+            >
+              <AdventureCard
+                adventure={adventure}
+                currentUserId={currentUserId}
+                hasVoted={votedSet.has(adventure.id)}
+                hasBookmarked={bookmarkedSet.has(adventure.id)}
+                featured={i === 0 && items.length > 1}
+              />
+            </div>
           ))}
         </div>
       )}

@@ -71,6 +71,16 @@ export default async function AdventuresPage({
   const continents = params.continent ? params.continent.split(",") : [];
   const difficulties = params.difficulty ? params.difficulty.split(",") : [];
 
+  const hasActiveFilters =
+    categories.length > 0 ||
+    continents.length > 0 ||
+    difficulties.length > 0 ||
+    !!params.duration ||
+    months.length > 0 ||
+    !!climate ||
+    !!tag ||
+    !!search;
+
   const DURATION_RANGES = {
     weekend: { gte: 1, lte: 3 },
     week: { gte: 4, lte: 7 },
@@ -256,8 +266,9 @@ export default async function AdventuresPage({
                 Adventures
               </h1>
               <p className="mt-5 font-mono text-xs text-stone-400">
-                {totalCount.toLocaleString()} {totalCount === 1 ? "expedition" : "expeditions"}{" "}
-                across 7 continents
+                {hasActiveFilters
+                  ? `${adventures.length}${hasMore ? "+" : ""} of ${totalCount.toLocaleString()} expeditions`
+                  : `${totalCount.toLocaleString()} expeditions across 7 continents`}
               </p>
               <p className="mt-1 font-mono text-xs text-stone-600">
                 Weekend escapes · week-long treks · multi-month expeditions
@@ -285,7 +296,8 @@ export default async function AdventuresPage({
                     {featured.title}
                   </p>
                   <p className="font-mono text-[10px] text-stone-500">
-                    {featured.country} · {featured.durationDays} days · {featured.voteCount} votes
+                    {featured.country} · {featured.durationDays || 1} days · {featured.voteCount}{" "}
+                    votes
                   </p>
                 </div>
               </Link>
