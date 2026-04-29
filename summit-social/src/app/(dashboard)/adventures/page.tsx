@@ -7,6 +7,7 @@ import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { encodeCursor } from "@/lib/pagination";
 import { getServerSession } from "next-auth";
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -70,6 +71,16 @@ export default async function AdventuresPage({
   const continents = params.continent ? params.continent.split(",") : [];
   const difficulties = params.difficulty ? params.difficulty.split(",") : [];
 
+  const hasActiveFilters =
+    categories.length > 0 ||
+    continents.length > 0 ||
+    difficulties.length > 0 ||
+    !!params.duration ||
+    months.length > 0 ||
+    !!climate ||
+    !!tag ||
+    !!search;
+
   const DURATION_RANGES = {
     weekend: { gte: 1, lte: 3 },
     week: { gte: 4, lte: 7 },
@@ -130,8 +141,23 @@ export default async function AdventuresPage({
     _count: { select: { comments: true } },
   };
 
-  const [session, rawAdventures] = await Promise.all([
+  // Fetch a featured (top-voted) adventure for the hero banner — independent of current filters.
+  const [session, featured, rawAdventures, totalCount] = await Promise.all([
     getServerSession(authOptions),
+    prisma.adventure.findFirst({
+      where: { published: true },
+      orderBy: { voteCount: "desc" },
+      select: {
+        id: true,
+        title: true,
+        country: true,
+        location: true,
+        category: true,
+        durationDays: true,
+        voteCount: true,
+        coverImageUrl: true,
+      },
+    }),
     sortBy === "trending"
       ? (async () => {
           const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
@@ -162,6 +188,7 @@ export default async function AdventuresPage({
           take: PAGE_SIZE + 1,
           include,
         }),
+    prisma.adventure.count({ where: { published: true } }),
   ]);
 
   const hasMore = rawAdventures.length > PAGE_SIZE;
@@ -199,37 +226,51 @@ export default async function AdventuresPage({
 
   return (
     <div>
-      {/* Hero banner */}
-      <div className="relative overflow-hidden border-b border-stone-800 bg-stone-950">
-        {/* Topographic dot grid */}
+      {/* Full-bleed hero with featured adventure background */}
+      <div className="relative h-[520px] overflow-hidden border-b border-stone-800">
+        {featured ? (
+          <>
+            <Image
+              src={featured.coverImageUrl}
+              alt={featured.title}
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+            />
+            {/* Dark vignette */}
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-stone-950/20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-stone-950/70 via-transparent to-transparent" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-stone-950" />
+        )}
+
+        {/* Topographic dot grid overlay */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: "radial-gradient(circle, var(--bc-amber-600) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, rgba(217,119,6,0.15) 1px, transparent 1px)",
             backgroundSize: "32px 32px",
-            opacity: "var(--dot-opacity)",
           }}
         />
-        {/* Diagonal accent */}
-        <div
-          className="absolute right-0 top-0 h-full w-0.5 opacity-20"
-          style={{ background: "linear-gradient(180deg, var(--bc-amber-600) 0%, transparent 70%)" }}
-        />
-        <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+
+        {/* Content */}
+        <div className="relative h-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-12">
           <div className="flex items-end justify-between">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.4em] text-amber-600/70">
+              <p className="font-mono text-xs uppercase tracking-[0.4em] text-amber-500/70">
                 ▲ Basecamp / Explore
               </p>
-              <h1 className="mt-3 font-display text-6xl uppercase leading-none tracking-widest text-stone-100 sm:text-8xl">
+              <h1 className="mt-3 font-display text-6xl uppercase leading-none tracking-widest text-stone-100 sm:text-8xl drop-shadow-2xl">
                 Adventures
               </h1>
-              <p className="mt-4 font-mono text-xs text-stone-500">
-                {rawAdventures.length > 0
-                  ? `${adventures.length}${hasMore ? "+" : ""} expeditions across 7 continents`
-                  : "No adventures found — adjust your filters"}
+              <p className="mt-5 font-mono text-xs text-stone-400">
+                {hasActiveFilters
+                  ? `${adventures.length}${hasMore ? "+" : ""} of ${totalCount.toLocaleString()} expeditions`
+                  : `${totalCount.toLocaleString()} expeditions across 7 continents`}
               </p>
-              <p className="mt-1 font-mono text-xs text-stone-700">
+              <p className="mt-1 font-mono text-xs text-stone-600">
                 Weekend escapes · week-long treks · multi-month expeditions
               </p>
             </div>
@@ -239,6 +280,29 @@ export default async function AdventuresPage({
               </Link>
             )}
           </div>
+
+          {/* Featured adventure card at bottom */}
+          {featured && (
+            <div className="mt-8">
+              <Link
+                href={`/adventures/${featured.id}`}
+                className="group inline-flex items-center gap-4"
+              >
+                <div className="border border-amber-500/40 bg-stone-950/80 px-4 py-2.5 backdrop-blur-sm group-hover:border-amber-500/80 transition-colors">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-amber-500/70">
+                    Featured
+                  </p>
+                  <p className="mt-0.5 font-display text-sm uppercase tracking-wider text-stone-100 group-hover:text-amber-400 transition-colors">
+                    {featured.title}
+                  </p>
+                  <p className="font-mono text-[10px] text-stone-500">
+                    {featured.country} · {featured.durationDays || 1} days · {featured.voteCount}{" "}
+                    votes
+                  </p>
+                </div>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 

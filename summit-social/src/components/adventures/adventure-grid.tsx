@@ -29,14 +29,19 @@ export function AdventureGrid({
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {adventures.map((adventure) => (
-        <AdventureCard
+      {adventures.map((adventure, i) => (
+        <div
           key={adventure.id}
-          adventure={adventure}
-          currentUserId={currentUserId}
-          hasVoted={votedAdventureIds.has(adventure.id)}
-          hasBookmarked={bookmarkedAdventureIds.has(adventure.id)}
-        />
+          className={i === 0 && adventures.length > 1 ? "sm:col-span-2 lg:col-span-2" : ""}
+        >
+          <AdventureCard
+            adventure={adventure}
+            currentUserId={currentUserId}
+            hasVoted={votedAdventureIds.has(adventure.id)}
+            hasBookmarked={bookmarkedAdventureIds.has(adventure.id)}
+            featured={i === 0 && adventures.length > 1}
+          />
+        </div>
       ))}
     </div>
   );
