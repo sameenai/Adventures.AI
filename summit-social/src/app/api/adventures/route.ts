@@ -43,6 +43,31 @@ export async function GET(request: NextRequest) {
     lifestyle: { gte: 91 },
   } as const;
 
+  // Collect OR-based conditions into an AND array to avoid key collisions
+  const andConditions: object[] = [];
+  if (duration?.length) {
+    andConditions.push({
+      OR: duration.map((d) => ({
+        durationDays: DURATION_RANGES[d as keyof typeof DURATION_RANGES],
+      })),
+    });
+  }
+  if (climate?.length) {
+    andConditions.push({ OR: climate.map((c) => ({ climate: { has: c } })) });
+  }
+  if (month?.length) {
+    andConditions.push({ OR: month.map((m) => ({ bestMonths: { has: m } })) });
+  }
+  if (search) {
+    andConditions.push({
+      OR: [
+        { title: { contains: search, mode: "insensitive" as const } },
+        { description: { contains: search, mode: "insensitive" as const } },
+        { location: { contains: search, mode: "insensitive" as const } },
+      ],
+    });
+  }
+
   const where = {
     published: true,
     ...(category && {
@@ -55,34 +80,8 @@ export async function GET(request: NextRequest) {
       difficulty:
         difficulty.length === 1 ? (difficulty[0] as never) : ({ in: difficulty } as never),
     }),
-    ...(duration && { durationDays: DURATION_RANGES[duration] }),
-    ...(climate && { climate: { has: climate } }),
     ...(tag && { tags: { some: { name: tag } } }),
-    // month and search both use OR — merge into AND to avoid key collision
-    ...(month?.length && search
-      ? {
-          AND: [
-            { OR: month.map((m) => ({ bestMonths: { has: m } })) },
-            {
-              OR: [
-                { title: { contains: search, mode: "insensitive" as const } },
-                { description: { contains: search, mode: "insensitive" as const } },
-                { location: { contains: search, mode: "insensitive" as const } },
-              ],
-            },
-          ],
-        }
-      : month?.length
-        ? { OR: month.map((m) => ({ bestMonths: { has: m } })) }
-        : search
-          ? {
-              OR: [
-                { title: { contains: search, mode: "insensitive" as const } },
-                { description: { contains: search, mode: "insensitive" as const } },
-                { location: { contains: search, mode: "insensitive" as const } },
-              ],
-            }
-          : {}),
+    ...(andConditions.length > 0 && { AND: andConditions }),
   };
 
   // Trending: rank by votes cast in the last 7 days
@@ -166,7 +165,7 @@ export async function GET(request: NextRequest) {
   // Paginated requests (cursor present) are per-session and not cached.
   const cacheKey = cursor
     ? null
-    : `adventures:${sortBy}:${(category ?? []).join(",")}:${(continent ?? []).join(",")}:${(difficulty ?? []).join(",")}:${duration ?? ""}:${month ?? ""}:${tag ?? ""}:${search ?? ""}:${limit}`;
+    : `adventures:${sortBy}:${(category ?? []).join(",")}:${(continent ?? []).join(",")}:${(difficulty ?? []).join(",")}:${(duration ?? []).join(",")}:${month ?? ""}:${(climate ?? []).join(",")}:${tag ?? ""}:${search ?? ""}:${limit}`;
 
   if (cacheKey) {
     const cached = await getCached<{ items: unknown[]; nextCursor?: string }>(cacheKey);

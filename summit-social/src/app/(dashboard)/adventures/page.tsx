@@ -61,23 +61,21 @@ export default async function AdventuresPage({
         .map(Number)
         .filter((n) => n >= 1 && n <= 12)
     : [];
-  const climate =
-    params.climate === "hot" || params.climate === "cold" || params.climate === "mixed"
-      ? params.climate
-      : undefined;
   const tag = params.tag;
 
   const categories = params.category ? params.category.split(",") : [];
   const continents = params.continent ? params.continent.split(",") : [];
   const difficulties = params.difficulty ? params.difficulty.split(",") : [];
+  const durations = params.duration ? params.duration.split(",") : [];
+  const climates = params.climate ? params.climate.split(",") : [];
 
   const hasActiveFilters =
     categories.length > 0 ||
     continents.length > 0 ||
     difficulties.length > 0 ||
-    !!params.duration ||
+    durations.length > 0 ||
     months.length > 0 ||
-    !!climate ||
+    climates.length > 0 ||
     !!tag ||
     !!search;
 
@@ -89,6 +87,31 @@ export default async function AdventuresPage({
     peregrination: { gte: 31, lte: 90 },
     lifestyle: { gte: 91 },
   } as const;
+
+  const andConditions: object[] = [];
+  if (durations.length > 0) {
+    const validDurations = durations.filter(
+      (d) => d in DURATION_RANGES,
+    ) as (keyof typeof DURATION_RANGES)[];
+    if (validDurations.length > 0) {
+      andConditions.push({ OR: validDurations.map((d) => ({ durationDays: DURATION_RANGES[d] })) });
+    }
+  }
+  if (climates.length > 0) {
+    andConditions.push({ OR: climates.map((c) => ({ climate: { has: c } })) });
+  }
+  if (months.length > 0) {
+    andConditions.push({ OR: months.map((m) => ({ bestMonths: { has: m } })) });
+  }
+  if (search) {
+    andConditions.push({
+      OR: [
+        { title: { contains: search, mode: "insensitive" as const } },
+        { description: { contains: search, mode: "insensitive" as const } },
+        { location: { contains: search, mode: "insensitive" as const } },
+      ],
+    });
+  }
 
   const where = {
     published: true,
@@ -102,37 +125,8 @@ export default async function AdventuresPage({
       difficulty:
         difficulties.length === 1 ? (difficulties[0] as never) : { in: difficulties as never[] },
     }),
-    ...(params.duration &&
-      params.duration in DURATION_RANGES && {
-        durationDays: DURATION_RANGES[params.duration as keyof typeof DURATION_RANGES],
-      }),
-    ...(climate && { climate: { has: climate } }),
     ...(tag && { tags: { some: { name: tag } } }),
-    // month and search both use OR — merge into AND to avoid key collision
-    ...(months.length > 0 && search
-      ? {
-          AND: [
-            { OR: months.map((m) => ({ bestMonths: { has: m } })) },
-            {
-              OR: [
-                { title: { contains: search, mode: "insensitive" as const } },
-                { description: { contains: search, mode: "insensitive" as const } },
-                { location: { contains: search, mode: "insensitive" as const } },
-              ],
-            },
-          ],
-        }
-      : months.length > 0
-        ? { OR: months.map((m) => ({ bestMonths: { has: m } })) }
-        : search
-          ? {
-              OR: [
-                { title: { contains: search, mode: "insensitive" as const } },
-                { description: { contains: search, mode: "insensitive" as const } },
-                { location: { contains: search, mode: "insensitive" as const } },
-              ],
-            }
-          : {}),
+    ...(andConditions.length > 0 && { AND: andConditions }),
   };
 
   const include = {
@@ -355,8 +349,8 @@ export default async function AdventuresPage({
               { value: "lifestyle", label: "Lifestyle", sub: "91+ days" },
             ] as const
           ).map(({ value, label, sub }) => {
-            const active = params.duration === value;
-            const href = buildFilterUrl(params, { duration: active ? undefined : value });
+            const active = isActive(params.duration, value);
+            const href = toggleMultiValue(params, "duration", value);
             return (
               <Link
                 key={value}
@@ -436,8 +430,8 @@ export default async function AdventuresPage({
               { value: "mixed", label: "Mixed", icon: "⛅" },
             ] as const
           ).map(({ value, label, icon }) => {
-            const active = climate === value;
-            const href = buildFilterUrl(params, { climate: active ? undefined : value });
+            const active = isActive(params.climate, value);
+            const href = toggleMultiValue(params, "climate", value);
             return (
               <Link
                 key={value}

@@ -76,9 +76,7 @@ export const adventureFilterSchema = z.object({
   difficulty: multiEnum(DIFFICULTY_VALUES),
   search: z.string().max(200).optional(),
   sortBy: z.enum(["votes", "newest", "duration", "trending"]).default("votes"),
-  duration: z
-    .enum(["weekend", "week", "fortnight", "expedition", "peregrination", "lifestyle"])
-    .optional(),
+  duration: multiEnum(["weekend", "week", "fortnight", "expedition", "peregrination", "lifestyle"]),
   month: z
     .string()
     .transform((s) =>
@@ -89,7 +87,7 @@ export const adventureFilterSchema = z.object({
     )
     .pipe(z.array(z.number().int().min(1).max(12)).min(1))
     .optional(),
-  climate: z.enum(["hot", "cold", "mixed"]).optional(),
+  climate: multiEnum(["hot", "cold", "mixed"]),
   tag: z.string().max(50).optional(),
 });
 

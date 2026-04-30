@@ -236,11 +236,18 @@ describe("adventureFilterSchema", () => {
     expect(result.success).toBe(false);
   });
 
-  it("accepts all valid duration values", () => {
+  it("accepts all valid duration values and returns them as an array", () => {
     for (const duration of ["weekend", "week", "fortnight", "expedition", "peregrination", "lifestyle"]) {
       const result = adventureFilterSchema.safeParse({ duration });
       expect(result.success).toBe(true);
+      if (result.success) expect(result.data.duration).toEqual([duration]);
     }
+  });
+
+  it("accepts comma-separated duration values and returns them as an array", () => {
+    const result = adventureFilterSchema.safeParse({ duration: "weekend,week" });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.duration).toEqual(["weekend", "week"]);
   });
 
   it("rejects an invalid duration value", () => {
@@ -345,12 +352,18 @@ describe("adventureFilterSchema", () => {
     expect(adventureFilterSchema.safeParse({ month: "0,13" }).success).toBe(false);
   });
 
-  it("accepts valid climate values", () => {
-    for (const v of ["hot", "cold", "mixed"] as const) {
+  it("accepts valid climate values and returns them as an array", () => {
+    for (const v of ["hot", "cold", "mixed"]) {
       const result = adventureFilterSchema.safeParse({ climate: v });
       expect(result.success).toBe(true);
-      if (result.success) expect(result.data.climate).toBe(v);
+      if (result.success) expect(result.data.climate).toEqual([v]);
     }
+  });
+
+  it("accepts comma-separated climate values and returns them as an array", () => {
+    const result = adventureFilterSchema.safeParse({ climate: "hot,cold" });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.climate).toEqual(["hot", "cold"]);
   });
 
   it("rejects invalid climate value", () => {
