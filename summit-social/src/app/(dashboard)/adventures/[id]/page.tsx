@@ -750,7 +750,7 @@ export default async function AdventureDetailPage({ params }: Props) {
                 </li>
                 <li>
                   <a
-                    href={`https://www.google.com/flights#flt=${encodeURIComponent(adventure.country)}`}
+                    href={`https://www.google.com/travel/flights/search?q=flights+to+${encodeURIComponent(adventure.country)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between font-mono text-xs text-stone-400 hover:text-amber-500 transition-colors group"

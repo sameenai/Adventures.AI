@@ -6,6 +6,7 @@ import { authOptions } from "@/lib/auth/config";
 import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { encodeCursor } from "@/lib/pagination";
+import type { Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
@@ -67,7 +68,8 @@ export default async function AdventuresPage({
   const continents = params.continent ? params.continent.split(",") : [];
   const difficulties = params.difficulty ? params.difficulty.split(",") : [];
   const durations = params.duration ? params.duration.split(",") : [];
-  const climates = params.climate ? params.climate.split(",") : [];
+  const VALID_CLIMATES = new Set(["hot", "cold", "mixed"]);
+  const climates = (params.climate?.split(",") ?? []).filter((c) => VALID_CLIMATES.has(c));
 
   const hasActiveFilters =
     categories.length > 0 ||
@@ -88,7 +90,7 @@ export default async function AdventuresPage({
     lifestyle: { gte: 91 },
   } as const;
 
-  const andConditions: object[] = [];
+  const andConditions: Prisma.AdventureWhereInput[] = [];
   if (durations.length > 0) {
     const validDurations = durations.filter(
       (d) => d in DURATION_RANGES,

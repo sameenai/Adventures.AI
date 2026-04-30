@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
   } as const;
 
   // Collect OR-based conditions into an AND array to avoid key collisions
-  const andConditions: object[] = [];
+  const andConditions: Prisma.AdventureWhereInput[] = [];
   if (duration?.length) {
     andConditions.push({
       OR: duration.map((d) => ({
