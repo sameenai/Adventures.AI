@@ -2,6 +2,55 @@ import { Category, Difficulty, ItineraryStatus, PrismaClient } from "@prisma/cli
 
 const prisma = new PrismaClient();
 
+// ---------------------------------------------------------------------------
+// Climate inference — assigns hot/cold/mixed to adventures that have none.
+// Run after all upserts so a fresh DB is always fully tagged.
+// ---------------------------------------------------------------------------
+const HOT_COUNTRIES = new Set([
+  "Kenya","Tanzania","South Africa","Botswana","Namibia","Zimbabwe","Uganda",
+  "Rwanda","Ethiopia","Morocco","Egypt","Senegal","Ghana","Madagascar",
+  "Mozambique","Zambia","Malawi","Comoros","Seychelles","Mauritius",
+  "India","Sri Lanka","Thailand","Vietnam","Cambodia","Laos","Myanmar",
+  "Malaysia","Indonesia","Philippines","Brunei","Timor-Leste",
+  "Oman","UAE","Jordan","Israel","Yemen","Saudi Arabia",
+  "Costa Rica","Panama","Guatemala","Belize","Honduras","Cuba",
+  "Dominican Republic","Jamaica","Trinidad and Tobago",
+  "Brazil","Colombia","Venezuela","Ecuador","Bolivia","Peru",
+  "Fiji","Vanuatu","Solomon Islands","Papua New Guinea","Maldives",
+]);
+const COLD_COUNTRIES = new Set([
+  "Iceland","Norway","Sweden","Finland","Greenland","Russia","Mongolia","Kazakhstan",
+]);
+const COLD_KW = ["arctic","polar","glacier","svalbard","greenland","iceland","antarctica","siberia","alaska","yukon","lapland","patagonia"];
+const HOT_KW  = ["sahara","desert","tropical","reef","coral","maldives","bali","caribbean","amazon","rainforest","jungle","savanna","savannah"];
+
+function inferClimate(a: { category: string; continent: string; country: string; location: string; title: string }): string {
+  const lower = `${a.title} ${a.location} ${a.country}`.toLowerCase();
+  if (a.category === "SKIING") return "cold";
+  if (a.category === "DIVING" || a.category === "SURFING") return "hot";
+  if (a.category === "SAFARI") return "hot";
+  if (COLD_KW.some((k) => lower.includes(k))) return "cold";
+  if (HOT_KW.some((k) => lower.includes(k))) return "hot";
+  if (HOT_COUNTRIES.has(a.country)) return "hot";
+  if (COLD_COUNTRIES.has(a.country)) return "cold";
+  if (a.continent === "Africa") return "hot";
+  if (a.continent === "Antarctica") return "cold";
+  if (a.continent === "Asia" && ["MOUNTAINEERING","TREKKING","EXPEDITION"].includes(a.category)) return "mixed";
+  return "mixed";
+}
+
+async function backfillClimate() {
+  const untagged = await prisma.adventure.findMany({
+    where: { climate: { equals: [] } },
+    select: { id: true, category: true, continent: true, country: true, location: true, title: true },
+  });
+  if (untagged.length === 0) return;
+  await prisma.$transaction(
+    untagged.map((a) => prisma.adventure.update({ where: { id: a.id }, data: { climate: [inferClimate(a)] } })),
+  );
+  console.log(`  Climate backfilled: ${untagged.length} adventures tagged`);
+}
+
 async function main() {
   // -------------------------------------------------------------------------
   // Users
@@ -33624,6 +33673,8 @@ Fly from Nairobi to Keekorok or Ol Kiombo airstrips directly into the Mara. Acco
     },
   });
   await prisma.vote.createMany({ data: [{ userId: user1.id, adventureId: adventure1000.id }, { userId: user2.id, adventureId: adventure1000.id }, { userId: user3.id, adventureId: adventure1000.id }], skipDuplicates: true });
+
+  await backfillClimate();
 
   const adventureCount = await prisma.adventure.count();
   console.log("Seed data created successfully");
