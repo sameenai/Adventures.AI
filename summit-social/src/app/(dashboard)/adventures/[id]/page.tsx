@@ -706,6 +706,63 @@ export default async function AdventureDetailPage({ params }: Props) {
                 Adjust with AI Planner
               </Link>
             </div>
+
+            {/* Book This Trip */}
+            <div className="border border-stone-800 p-5">
+              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                Book This Trip
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href={`https://www.viator.com/searchResults/all?text=${encodeURIComponent(`${adventure.title} ${adventure.country}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between font-mono text-xs text-stone-400 hover:text-amber-500 transition-colors group"
+                  >
+                    <span>Tours &amp; Guided Experiences</span>
+                    <span className="text-stone-600 group-hover:text-amber-500">Viator ↗</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`https://www.getyourguide.com/s/?q=${encodeURIComponent(`${adventure.location}, ${adventure.country}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between font-mono text-xs text-stone-400 hover:text-amber-500 transition-colors group"
+                  >
+                    <span>Activities &amp; Day Trips</span>
+                    <span className="text-stone-600 group-hover:text-amber-500">
+                      GetYourGuide ↗
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`https://www.booking.com/search.html?ss=${encodeURIComponent(`${adventure.location}, ${adventure.country}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between font-mono text-xs text-stone-400 hover:text-amber-500 transition-colors group"
+                  >
+                    <span>Accommodation</span>
+                    <span className="text-stone-600 group-hover:text-amber-500">Booking.com ↗</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`https://www.google.com/flights#flt=${encodeURIComponent(adventure.country)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between font-mono text-xs text-stone-400 hover:text-amber-500 transition-colors group"
+                  >
+                    <span>Flights</span>
+                    <span className="text-stone-600 group-hover:text-amber-500">
+                      Google Flights ↗
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
