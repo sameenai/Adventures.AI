@@ -4951,7 +4951,7 @@ October–November is the best combination of clear Himalayan views and the Thim
   // -------------------------------------------------------------------------
   const adventure82 = await prisma.adventure.upsert({
     where: { id: "seed-adventure-82" },
-    update: {},
+    update: { coverImageUrl: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1600&q=80" },
     create: {
       id: "seed-adventure-82",
       title: "Rajasthan Palace and Thar Desert Tour, India",
@@ -4968,7 +4968,7 @@ November–February is the best season. Holi (March) in Jaipur and Pushkar is an
       category: Category.CULTURAL,
       difficulty: Difficulty.EASY,
       durationDays: 14,
-      coverImageUrl: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?w=1600&q=80",
+      coverImageUrl: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1600&q=80",
       highlights: [
         "Mehrangarh Fort, Jodhpur — the most impressive fort in Rajasthan above the blue city",
         "Jaisalmer Desert Camp — camel safari into the Thar dunes at sunset",
