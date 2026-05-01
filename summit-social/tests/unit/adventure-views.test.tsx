@@ -126,6 +126,7 @@ const baseAdventure: AdventureWithUser = {
   voteCount: 42,
   albumUrl: null,
   albumPlatform: null,
+  galleryImages: [],
   highlights: [],
   gear: [],
   bestMonths: [],
