@@ -83,9 +83,10 @@ model Adventure {
   category      Category
   difficulty    Difficulty
   durationDays  Int
-  coverImageUrl String
-  albumUrl      String?
-  albumPlatform String?
+  coverImageUrl  String
+  galleryImages  String[] @default([])
+  albumUrl       String?
+  albumPlatform  String?
   highlights    String[]
   gear          String[]
   bestMonths    Int[]

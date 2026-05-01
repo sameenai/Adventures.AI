@@ -88,7 +88,6 @@ export default async function AdventureDetailPage({ params }: Props) {
     ? adventure.votes.some((v) => v.userId === session.user.id)
     : false;
 
-  // Fetch IDs of comments the viewer has reacted to
   let reactedCommentIds: string[] = [];
   if (session?.user?.id) {
     const allCommentIds = [
@@ -120,7 +119,6 @@ export default async function AdventureDetailPage({ params }: Props) {
           select: { id: true },
         })
       : Promise.resolve(null),
-    // First preference: same category + same continent (tightest match)
     prisma.adventure.findMany({
       where: {
         published: true,
@@ -140,7 +138,6 @@ export default async function AdventureDetailPage({ params }: Props) {
         tags: { select: { name: true } },
       },
     }),
-    // Fallback: same category globally, used if not enough continent matches
     prisma.adventure.findMany({
       where: { published: true, category: adventure.category, id: { not: id } },
       orderBy: { voteCount: "desc" },
@@ -157,8 +154,6 @@ export default async function AdventureDetailPage({ params }: Props) {
     }),
   ]);
 
-  // Build related list: continent matches first, then fill with tag-overlap
-  // adventures from the wider category pool, de-duplicated, capped at 4.
   const seenIds = new Set<string>([id]);
   const related: typeof relatedByCategory = [];
 
@@ -170,7 +165,6 @@ export default async function AdventureDetailPage({ params }: Props) {
   }
 
   if (related.length < 4 && tagNames.length > 0) {
-    // Sort remaining candidates by tag overlap (descending), then voteCount
     const withOverlap = relatedByCategory
       .filter((a) => !seenIds.has(a.id))
       .map((a) => ({
@@ -199,7 +193,6 @@ export default async function AdventureDetailPage({ params }: Props) {
   const relatedAdventures = related.slice(0, 4);
   const isBookmarked = !!isBookmarkedResult;
 
-  // Total comment count includes top-level comments and all their replies
   const totalCommentCount =
     adventure.comments.length +
     adventure.comments.reduce((sum, c) => sum + (c.replies?.length ?? 0), 0);
@@ -255,6 +248,15 @@ export default async function AdventureDetailPage({ params }: Props) {
     touristType: adventure.category.replace(/_/g, " "),
   };
 
+  // Gallery: cover + up to 4 extras
+  const allPhotos = [adventure.coverImageUrl, ...adventure.galleryImages].slice(0, 5);
+
+  const totalDays = adventure.durationDays || 1;
+  const highlights = adventure.highlights;
+  // Only render days that have a highlight; show a summary line for remaining days
+  const highlightedDays = highlights.map((h, i) => ({ day: i + 1, highlight: h }));
+  const remainingDays = totalDays - highlights.length;
+
   return (
     <>
       <script
@@ -272,39 +274,75 @@ export default async function AdventureDetailPage({ params }: Props) {
           <span className="text-stone-400">{adventure.title}</span>
         </nav>
 
-        {/* Hero image */}
-        <div className="relative aspect-[21/9] overflow-hidden border border-stone-800">
-          <Image
-            src={adventure.coverImageUrl}
-            alt={adventure.title}
-            fill
-            className="object-cover brightness-75"
-            priority
-            sizes="(max-width: 1024px) 100vw, 1024px"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <div className="flex items-center gap-3">
-              <span className="font-display text-xs uppercase tracking-[0.35em] text-amber-500">
-                {adventure.category.replace(/_/g, " ")}
-              </span>
-              {adventure.id.startsWith("seed-") && (
-                <span className="border border-stone-600 px-2 py-0.5 font-display text-xs uppercase tracking-widest text-stone-500">
-                  Demo
-                </span>
-              )}
+        {/* ── PHOTO GALLERY ── */}
+        <div className="mb-6">
+          {allPhotos.length === 1 ? (
+            /* Single image — wide hero */
+            <div className="relative aspect-[21/9] overflow-hidden border border-stone-800">
+              <Image
+                src={allPhotos[0]}
+                alt={adventure.title}
+                fill
+                className="object-cover brightness-75"
+                priority
+                sizes="(max-width: 1024px) 100vw, 1024px"
+              />
             </div>
-            <h1 className="mt-1 font-display text-3xl uppercase tracking-widest text-stone-100 sm:text-5xl">
-              {adventure.title}
-            </h1>
-            <p className="mt-2 font-mono text-sm text-stone-400">
-              {adventure.location} · {adventure.country}
-            </p>
+          ) : (
+            /* Cover + up to 4 gallery thumbs */
+            <div
+              className="grid grid-cols-4 grid-rows-2 gap-1 overflow-hidden"
+              style={{ height: "460px" }}
+            >
+              {/* Large cover — spans 2 cols × 2 rows */}
+              <div className="relative col-span-2 row-span-2 overflow-hidden border border-stone-800">
+                <Image
+                  src={allPhotos[0]}
+                  alt={adventure.title}
+                  fill
+                  className="object-cover brightness-80 hover:brightness-90 transition-all duration-300"
+                  priority
+                  sizes="(max-width: 1024px) 50vw, 512px"
+                />
+              </div>
+              {/* Up to 4 smaller thumbs */}
+              {allPhotos.slice(1, 5).map((url, i) => (
+                <div key={url} className="relative overflow-hidden border border-stone-800">
+                  <Image
+                    src={url}
+                    alt={`${adventure.title} — photo ${i + 2}`}
+                    fill
+                    className="object-cover brightness-75 hover:brightness-90 transition-all duration-300"
+                    sizes="(max-width: 1024px) 25vw, 256px"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Title block */}
+        <div className="mb-4">
+          <div className="flex items-center gap-3 mb-1">
+            <span className="font-display text-xs uppercase tracking-[0.35em] text-amber-500">
+              {adventure.category.replace(/_/g, " ")}
+            </span>
+            {adventure.id.startsWith("seed-") && (
+              <span className="border border-stone-600 px-2 py-0.5 font-display text-xs uppercase tracking-widest text-stone-500">
+                Demo
+              </span>
+            )}
           </div>
+          <h1 className="font-display text-3xl uppercase tracking-widest text-stone-100 sm:text-4xl">
+            {adventure.title}
+          </h1>
+          <p className="mt-1 font-mono text-sm text-stone-400">
+            {adventure.location} · {adventure.country}
+          </p>
         </div>
 
         {/* Stats bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone-800 py-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone-800 py-4 mb-8">
           <div className="flex flex-wrap items-center gap-6 font-mono text-xs">
             <span className={difficulty?.color ?? "text-stone-400"}>{difficulty?.label}</span>
             <span className="text-stone-500">{pluralise(adventure.durationDays, "day")}</span>
@@ -344,10 +382,10 @@ export default async function AdventureDetailPage({ params }: Props) {
           </div>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Main content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Description */}
+          <div className="lg:col-span-2 space-y-10">
+            {/* Overview */}
             <section>
               <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
                 Overview
@@ -357,102 +395,67 @@ export default async function AdventureDetailPage({ params }: Props) {
               </p>
             </section>
 
-            {/* Highlights */}
-            {adventure.highlights.length > 0 && (
-              <section>
-                <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                  Highlights
-                </h2>
-                <ul className="space-y-2">
-                  {adventure.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-3 text-sm text-stone-400">
-                      <span className="mt-1 h-1.5 w-1.5 shrink-0 bg-amber-500" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
-            {/* Itinerary overview */}
+            {/* ── ITINERARY ── */}
             <section>
-              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                Itinerary Overview
+              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
+                Day-by-Day Itinerary
               </h2>
-              {(() => {
-                const SHOW_HEAD = 5;
-                const SHOW_TAIL = 2;
-                const total = adventure.durationDays || 1;
-                const truncate = total > SHOW_HEAD + SHOW_TAIL + 1;
-                // Build the day indices to render
-                const headDays = Array.from({ length: Math.min(SHOW_HEAD, total) }, (_, i) => i);
-                const tailDays = truncate
-                  ? Array.from({ length: SHOW_TAIL }, (_, i) => total - SHOW_TAIL + i)
-                  : [];
-                const hiddenCount = truncate ? total - SHOW_HEAD - SHOW_TAIL : 0;
 
-                const renderDay = (dayIndex: number, isLast: boolean) => {
-                  const day = dayIndex + 1;
-                  const hi = Math.floor((dayIndex / total) * adventure.highlights.length);
-                  const highlight = adventure.highlights[hi];
-                  return (
-                    <div key={day} className="flex gap-4 group">
-                      <div className="flex flex-col items-center">
-                        <div
-                          className={`h-2 w-px bg-stone-800 ${dayIndex === 0 ? "invisible" : ""}`}
-                        />
-                        <div className="h-2 w-2 shrink-0 border border-stone-700 bg-stone-900 group-hover:border-amber-500/50 transition-colors" />
-                        <div className={`flex-1 w-px bg-stone-800 ${isLast ? "invisible" : ""}`} />
+              {highlights.length === 0 ? (
+                <p className="text-sm text-stone-600">
+                  No day-by-day breakdown yet — use the AI planner to build one.
+                </p>
+              ) : (
+                <div className="space-y-0">
+                  {highlightedDays.map(({ day, highlight }, i) => {
+                    const isLast = i === highlightedDays.length - 1 && remainingDays <= 0;
+                    return (
+                      <div key={day} className="flex gap-4 group">
+                        <div className="flex flex-col items-center shrink-0">
+                          <div
+                            className={`w-px bg-stone-800 ${i === 0 ? "h-2 invisible" : "h-2"}`}
+                          />
+                          <div className="h-2 w-2 shrink-0 border border-stone-700 bg-stone-900 group-hover:border-amber-500/60 transition-colors" />
+                          <div
+                            className={`flex-1 w-px bg-stone-800 min-h-[2rem] ${isLast ? "invisible" : ""}`}
+                          />
+                        </div>
+                        <div className="pb-4 pt-0 min-w-0 flex gap-4 items-start">
+                          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-600 shrink-0 w-12 pt-0.5">
+                            Day {day}
+                          </span>
+                          <p className="text-sm text-stone-300 leading-relaxed">{highlight}</p>
+                        </div>
                       </div>
-                      <div className="pb-3 pt-0.5 min-w-0">
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-stone-600">
-                          Day {day}
+                    );
+                  })}
+                  {remainingDays > 0 && (
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center shrink-0">
+                        <div className="h-2 w-px bg-stone-800" />
+                        <div className="flex flex-col gap-1 py-1">
+                          <div className="h-1 w-1 bg-stone-700" />
+                          <div className="h-1 w-1 bg-stone-700" />
+                          <div className="h-1 w-1 bg-stone-700" />
+                        </div>
+                        <div className="h-2 w-px bg-stone-800 invisible" />
+                      </div>
+                      <div className="pb-3 pt-1.5">
+                        <span className="font-mono text-[10px] text-stone-600">
+                          +{remainingDays} more {remainingDays === 1 ? "day" : "days"} — use AI
+                          planner for a full breakdown
                         </span>
-                        {highlight && (
-                          <p className="mt-0.5 text-sm text-stone-400 leading-relaxed">
-                            {highlight}
-                          </p>
-                        )}
                       </div>
                     </div>
-                  );
-                };
+                  )}
+                </div>
+              )}
 
-                return (
-                  <div>
-                    {adventure.highlights.length === 0 && (
-                      <p className="mb-3 text-sm text-stone-600">
-                        No day-by-day breakdown yet — use the AI planner to build one.
-                      </p>
-                    )}
-                    {headDays.map((i) => renderDay(i, !truncate && i === total - 1))}
-                    {truncate && (
-                      <div className="flex gap-4">
-                        <div className="flex flex-col items-center">
-                          <div className="h-2 w-px bg-stone-800" />
-                          <div className="flex flex-col gap-1 py-1">
-                            <div className="h-1 w-1 bg-stone-700" />
-                            <div className="h-1 w-1 bg-stone-700" />
-                            <div className="h-1 w-1 bg-stone-700" />
-                          </div>
-                          <div className="flex-1 w-px bg-stone-800" />
-                        </div>
-                        <div className="pb-3 pt-1.5">
-                          <span className="font-mono text-[10px] text-stone-700">
-                            {hiddenCount} more {hiddenCount === 1 ? "day" : "days"}
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                    {tailDays.map((i) => renderDay(i, i === total - 1))}
-                  </div>
-                );
-              })()}
               <Link
                 href={`/itinerary?prompt=${encodeURIComponent(`Plan a ${adventure.durationDays}-day trip for "${adventure.title}" in ${adventure.location}, ${adventure.country}. Difficulty: ${adventure.difficulty.toLowerCase()}. Key highlights: ${adventure.highlights.slice(0, 5).join(", ")}.`)}`}
                 className="mt-4 inline-flex items-center gap-2 border border-amber-500/30 bg-amber-500/5 px-4 py-2 font-display text-xs uppercase tracking-widest text-amber-500 transition-colors hover:border-amber-500 hover:bg-amber-500/10"
               >
-                Adjust with AI
+                Personalise with AI
                 <svg
                   viewBox="0 0 24 24"
                   className="h-3.5 w-3.5 fill-none stroke-current stroke-2"
@@ -466,6 +469,147 @@ export default async function AdventureDetailPage({ params }: Props) {
                 </svg>
               </Link>
             </section>
+
+            {/* ── BOOK THIS TRIP ── */}
+            <section>
+              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
+                Book This Trip
+              </h2>
+              <div className="grid grid-cols-2 gap-3">
+                {/* Viator */}
+                <a
+                  href={`https://www.viator.com/searchResults/all?text=${encodeURIComponent(`${adventure.title} ${adventure.country}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group border border-stone-800 p-4 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-display text-xs uppercase tracking-widest text-stone-300 group-hover:text-amber-500 transition-colors">
+                      Guided Tours
+                    </span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-3.5 w-3.5 fill-none stroke-stone-600 group-hover:stroke-amber-500 stroke-2 transition-colors"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                      />
+                    </svg>
+                  </div>
+                  <p className="font-mono text-xs text-stone-600 group-hover:text-stone-500">
+                    Tour operators &amp; guided experiences via{" "}
+                    <strong className="text-stone-500">Viator</strong>
+                  </p>
+                </a>
+
+                {/* GetYourGuide */}
+                <a
+                  href={`https://www.getyourguide.com/s/?q=${encodeURIComponent(`${adventure.location}, ${adventure.country}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group border border-stone-800 p-4 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-display text-xs uppercase tracking-widest text-stone-300 group-hover:text-amber-500 transition-colors">
+                      Activities
+                    </span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-3.5 w-3.5 fill-none stroke-stone-600 group-hover:stroke-amber-500 stroke-2 transition-colors"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                      />
+                    </svg>
+                  </div>
+                  <p className="font-mono text-xs text-stone-600 group-hover:text-stone-500">
+                    Day trips &amp; local activities via{" "}
+                    <strong className="text-stone-500">GetYourGuide</strong>
+                  </p>
+                </a>
+
+                {/* Booking.com */}
+                <a
+                  href={`https://www.booking.com/search.html?ss=${encodeURIComponent(`${adventure.location}, ${adventure.country}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group border border-stone-800 p-4 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-display text-xs uppercase tracking-widest text-stone-300 group-hover:text-amber-500 transition-colors">
+                      Accommodation
+                    </span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-3.5 w-3.5 fill-none stroke-stone-600 group-hover:stroke-amber-500 stroke-2 transition-colors"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                      />
+                    </svg>
+                  </div>
+                  <p className="font-mono text-xs text-stone-600 group-hover:text-stone-500">
+                    Hotels, huts &amp; lodges in {adventure.location} via{" "}
+                    <strong className="text-stone-500">Booking.com</strong>
+                  </p>
+                </a>
+
+                {/* Google Flights */}
+                <a
+                  href={`https://www.google.com/travel/flights/search?q=flights+to+${encodeURIComponent(adventure.country)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group border border-stone-800 p-4 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-display text-xs uppercase tracking-widest text-stone-300 group-hover:text-amber-500 transition-colors">
+                      Flights
+                    </span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-3.5 w-3.5 fill-none stroke-stone-600 group-hover:stroke-amber-500 stroke-2 transition-colors"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                      />
+                    </svg>
+                  </div>
+                  <p className="font-mono text-xs text-stone-600 group-hover:text-stone-500">
+                    Flights to {adventure.country} via{" "}
+                    <strong className="text-stone-500">Google Flights</strong>
+                  </p>
+                </a>
+              </div>
+            </section>
+
+            {/* Highlights */}
+            {adventure.highlights.length > 0 && (
+              <section>
+                <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
+                  Trip Highlights
+                </h2>
+                <ul className="space-y-2">
+                  {adventure.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-3 text-sm text-stone-400">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-amber-500" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
             {/* Map */}
             {(markers.length > 0 || adventure.gpxTrackUrl) && (
@@ -508,6 +652,23 @@ export default async function AdventureDetailPage({ params }: Props) {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {/* Plan CTA */}
+            <div className="border border-amber-500/20 bg-amber-500/5 p-5">
+              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-amber-500 mb-2">
+                Customise This Trip
+              </h3>
+              <p className="text-xs leading-relaxed text-stone-500 mb-4">
+                Adjust dates, budget, and pace. The AI planner builds a personalised day-by-day
+                itinerary you can tweak in chat.
+              </p>
+              <Link
+                href={`/itinerary?prompt=${encodeURIComponent(`Plan a ${adventure.durationDays}-day trip for "${adventure.title}" in ${adventure.location}, ${adventure.country}. Difficulty: ${adventure.difficulty.toLowerCase()}. Key highlights: ${adventure.highlights.slice(0, 5).join(", ")}.`)}`}
+                className="block w-full border border-amber-500 bg-amber-500 py-2 text-center font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
+              >
+                Plan with AI
+              </Link>
+            </div>
+
             {/* Gear */}
             {adventure.gear.length > 0 && (
               <div className="border border-stone-800 p-5">
@@ -605,7 +766,7 @@ export default async function AdventureDetailPage({ params }: Props) {
               </Link>
             </div>
 
-            {/* Album gallery */}
+            {/* Photo album link */}
             {adventure.albumUrl && (
               <div className="border border-stone-800 p-5">
                 <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
@@ -689,80 +850,6 @@ export default async function AdventureDetailPage({ params }: Props) {
                 </ul>
               </div>
             )}
-
-            {/* Plan this trip CTA */}
-            <div className="border border-amber-500/20 bg-amber-500/5 p-5">
-              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-amber-500 mb-2">
-                Customise This Trip
-              </h3>
-              <p className="text-xs leading-relaxed text-stone-500 mb-4">
-                Adjust dates, budget, and pace. The AI planner builds a personalised day-by-day
-                itinerary you can tweak in chat.
-              </p>
-              <Link
-                href={`/itinerary?prompt=${encodeURIComponent(`Plan a ${adventure.durationDays}-day trip for "${adventure.title}" in ${adventure.location}, ${adventure.country}. Difficulty: ${adventure.difficulty.toLowerCase()}. Key highlights: ${adventure.highlights.slice(0, 5).join(", ")}.`)}`}
-                className="block w-full border border-amber-500 bg-amber-500 py-2 text-center font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
-              >
-                Adjust with AI Planner
-              </Link>
-            </div>
-
-            {/* Book This Trip */}
-            <div className="border border-stone-800 p-5">
-              <h3 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                Book This Trip
-              </h3>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href={`https://www.viator.com/searchResults/all?text=${encodeURIComponent(`${adventure.title} ${adventure.country}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between font-mono text-xs text-stone-400 hover:text-amber-500 transition-colors group"
-                  >
-                    <span>Tours &amp; Guided Experiences</span>
-                    <span className="text-stone-600 group-hover:text-amber-500">Viator ↗</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`https://www.getyourguide.com/s/?q=${encodeURIComponent(`${adventure.location}, ${adventure.country}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between font-mono text-xs text-stone-400 hover:text-amber-500 transition-colors group"
-                  >
-                    <span>Activities &amp; Day Trips</span>
-                    <span className="text-stone-600 group-hover:text-amber-500">
-                      GetYourGuide ↗
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`https://www.booking.com/search.html?ss=${encodeURIComponent(`${adventure.location}, ${adventure.country}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between font-mono text-xs text-stone-400 hover:text-amber-500 transition-colors group"
-                  >
-                    <span>Accommodation</span>
-                    <span className="text-stone-600 group-hover:text-amber-500">Booking.com ↗</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`https://www.google.com/travel/flights/search?q=flights+to+${encodeURIComponent(adventure.country)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between font-mono text-xs text-stone-400 hover:text-amber-500 transition-colors group"
-                  >
-                    <span>Flights</span>
-                    <span className="text-stone-600 group-hover:text-amber-500">
-                      Google Flights ↗
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
