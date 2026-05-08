@@ -290,10 +290,7 @@ export default async function AdventureDetailPage({ params }: Props) {
             </div>
           ) : (
             /* Cover + up to 4 gallery thumbs */
-            <div
-              className="grid grid-cols-2 grid-rows-2 gap-1 overflow-hidden sm:grid-cols-4"
-              style={{ height: "320px" }}
-            >
+            <div className="grid grid-cols-2 grid-rows-2 gap-1 overflow-hidden h-[220px] sm:grid-cols-4 sm:h-[460px]">
               {/* Large cover — spans 2 cols × 2 rows */}
               <div className="relative col-span-2 row-span-2 overflow-hidden border border-stone-800">
                 <Image
