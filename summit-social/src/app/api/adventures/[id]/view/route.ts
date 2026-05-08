@@ -9,7 +9,8 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   const session = await getServerSession(authOptions);
 
   const body = await request.json().catch(() => ({}));
-  const fingerprint = typeof body.fingerprint === "string" ? body.fingerprint : null;
+  const rawFp = typeof body.fingerprint === "string" ? body.fingerprint : null;
+  const fingerprint = rawFp && rawFp.length <= 200 ? rawFp : null;
 
   if (!fingerprint) {
     return NextResponse.json({ error: "Missing fingerprint" }, { status: 400 });

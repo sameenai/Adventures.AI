@@ -1319,7 +1319,7 @@ describe("PATCH /api/itineraries/[id]", () => {
         body: JSON.stringify({
           title: "Nepal Trek",
           description: "Epic adventure",
-          status: "CONFIRMED",
+          status: "PLANNING",
           startDate: "2025-08-01",
           endDate: "2025-08-14",
           budget: 5000,
@@ -1335,7 +1335,7 @@ describe("PATCH /api/itineraries/[id]", () => {
         data: expect.objectContaining({
           title: "Nepal Trek",
           description: "Epic adventure",
-          status: "CONFIRMED",
+          status: "PLANNING",
           startDate: expect.any(Date),
           endDate: expect.any(Date),
           budget: 5000,

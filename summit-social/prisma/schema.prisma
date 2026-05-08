@@ -108,7 +108,9 @@ model Adventure {
   collectionItems CollectionItem[]
   views           AdventureView[]
 
-  @@index([voteCount(sort: Desc)])
+  @@index([voteCount(sort: Desc), id])
+  @@index([createdAt(sort: Desc), id])
+  @@index([durationDays, id])
   @@index([category])
   @@index([continent])
   @@index([difficulty])
@@ -123,6 +125,7 @@ model Vote {
   adventure   Adventure @relation(fields: [adventureId], references: [id], onDelete: Cascade)
 
   @@unique([userId, adventureId])
+  @@index([createdAt(sort: Desc)])
 }
 
 model Comment {
@@ -167,6 +170,7 @@ model Follow {
   following   User     @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@unique([followerId, followingId])
+  @@index([followingId])
 }
 
 model Bookmark {
@@ -271,6 +275,9 @@ model Notification {
   read      Boolean          @default(false)
   createdAt DateTime         @default(now())
   user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt(sort: Desc)])
 }
 
 enum NotificationType {

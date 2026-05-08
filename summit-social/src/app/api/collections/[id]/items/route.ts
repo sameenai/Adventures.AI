@@ -29,7 +29,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     );
   }
 
-  const body = await request.json();
+  const body = await request.json().catch(() => null);
   const adventureId = typeof body?.adventureId === "string" ? body.adventureId : null;
   if (!adventureId) {
     return NextResponse.json(

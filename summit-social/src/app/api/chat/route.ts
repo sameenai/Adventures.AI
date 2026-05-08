@@ -11,6 +11,7 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import OpenAI from "openai";
+import type { ChatCompletionAssistantMessageParam } from "openai/resources/chat/completions";
 
 type AccumulatedToolCall = {
   id: string;
@@ -118,7 +119,7 @@ export async function POST(request: NextRequest) {
   });
   const resolvedApiKey = userRecord?.openAiApiKey ?? process.env.OPENAI_API_KEY ?? null;
 
-  const body = await request.json();
+  const body = await request.json().catch(() => null);
   const parsed = chatMessageSchema.safeParse(body);
 
   if (!parsed.success) {
@@ -302,19 +303,16 @@ export async function POST(request: NextRequest) {
           }
 
           // Second streaming call with tool results injected
-          const followUpMessages = [
-            ...messages,
-            {
-              role: "assistant" as const,
-              content: null as unknown as string,
-              tool_calls: toolCalls.map((tc) => ({
-                id: tc.id,
-                type: "function" as const,
-                function: { name: tc.function.name, arguments: tc.function.arguments },
-              })),
-            },
-            ...toolResults,
-          ];
+          const assistantMsg: ChatCompletionAssistantMessageParam = {
+            role: "assistant",
+            content: null,
+            tool_calls: toolCalls.map((tc) => ({
+              id: tc.id,
+              type: "function" as const,
+              function: { name: tc.function.name, arguments: tc.function.arguments },
+            })),
+          };
+          const followUpMessages = [...messages, assistantMsg, ...toolResults];
 
           const followUpStream = await openaiClient.chat.completions.create({
             model: "gpt-4o",

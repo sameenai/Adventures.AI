@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const body = await request.json();
+  const body = await request.json().catch(() => null);
   const parsed = enhanceSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
@@ -58,13 +58,16 @@ ${description}
 
 Write an improved description (150–400 words). Be evocative and specific. Do not add information that wasn't implied by the original. Output only the improved description text, no headings or metadata.`;
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o",
-    messages: [{ role: "user", content: prompt }],
-    max_tokens: 600,
-    temperature: 0.7,
-  });
-
-  const enhanced = response.choices[0]?.message?.content?.trim() ?? description;
-  return NextResponse.json({ enhanced });
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [{ role: "user", content: prompt }],
+      max_tokens: 600,
+      temperature: 0.7,
+    });
+    const enhanced = response.choices[0]?.message?.content?.trim() ?? description;
+    return NextResponse.json({ enhanced });
+  } catch {
+    return NextResponse.json({ enhanced: description });
+  }
 }
