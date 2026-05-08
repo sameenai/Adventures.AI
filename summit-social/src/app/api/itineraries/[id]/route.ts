@@ -1,5 +1,6 @@
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
+import { updateItinerarySchema } from "@/lib/validators/itinerary";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -43,18 +44,31 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     return NextResponse.json({ error: "Itinerary not found", code: "NOT_FOUND" }, { status: 404 });
   }
 
-  const body = await request.json();
+  const body = await request.json().catch(() => null);
+  if (!body) {
+    return NextResponse.json({ error: "Invalid JSON", code: "VALIDATION_ERROR" }, { status: 400 });
+  }
+
+  const parsed = updateItinerarySchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Invalid input", code: "VALIDATION_ERROR", details: parsed.error.flatten() },
+      { status: 400 },
+    );
+  }
+
+  const { title, description, status, startDate, endDate, budget, travellers } = parsed.data;
 
   const updated = await prisma.itinerary.update({
     where: { id },
     data: {
-      ...(body.title && { title: body.title }),
-      ...(body.description !== undefined && { description: body.description }),
-      ...(body.status && { status: body.status }),
-      ...(body.startDate && { startDate: new Date(body.startDate) }),
-      ...(body.endDate && { endDate: new Date(body.endDate) }),
-      ...(body.budget !== undefined && { budget: body.budget }),
-      ...(body.travellers && { travellers: body.travellers }),
+      ...(title !== undefined && { title }),
+      ...(description !== undefined && { description }),
+      ...(status !== undefined && { status }),
+      ...(startDate !== undefined && { startDate: new Date(startDate) }),
+      ...(endDate !== undefined && { endDate: new Date(endDate) }),
+      ...(budget !== undefined && { budget }),
+      ...(travellers !== undefined && { travellers }),
     },
     include: {
       days: { orderBy: { dayNumber: "asc" } },
