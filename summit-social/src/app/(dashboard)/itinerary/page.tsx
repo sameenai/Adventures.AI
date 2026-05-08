@@ -66,7 +66,7 @@ export default async function ItineraryPage({
           )}
           {showCreditBanner && (
             <div
-              className={`mt-4 flex items-center justify-between border px-4 py-2 ${
+              className={`mt-4 flex flex-wrap items-center justify-between gap-2 border px-4 py-2 ${
                 creditsRemaining === 0
                   ? "border-red-800/60 bg-red-950/30"
                   : creditsRemaining === 1
@@ -98,7 +98,7 @@ export default async function ItineraryPage({
               </Link>
             </div>
           )}
-          <div className="mt-4 h-[600px] overflow-hidden border border-stone-800">
+          <div className="mt-4 h-[calc(100dvh-280px)] min-h-[400px] overflow-hidden border border-stone-800">
             <ChatWindow initialPrompt={prompt} />
           </div>
         </>

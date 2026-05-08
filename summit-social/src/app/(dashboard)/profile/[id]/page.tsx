@@ -116,8 +116,8 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       )}
       <ProfileHeader user={safeUser} />
 
-      <div className="mt-4 flex items-center gap-6">
-        <div className="flex gap-6 font-mono text-xs text-stone-500">
+      <div className="mt-4 flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap gap-4 font-mono text-xs text-stone-500">
           <span>
             <span className="text-stone-200">{safeUser._count.adventures}</span> adventures
           </span>

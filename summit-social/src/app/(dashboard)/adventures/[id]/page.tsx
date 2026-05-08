@@ -290,10 +290,7 @@ export default async function AdventureDetailPage({ params }: Props) {
             </div>
           ) : (
             /* Cover + up to 4 gallery thumbs */
-            <div
-              className="grid grid-cols-4 grid-rows-2 gap-1 overflow-hidden"
-              style={{ height: "460px" }}
-            >
+            <div className="grid grid-cols-2 grid-rows-2 gap-1 overflow-hidden h-[220px] sm:grid-cols-4 sm:h-[460px]">
               {/* Large cover — spans 2 cols × 2 rows */}
               <div className="relative col-span-2 row-span-2 overflow-hidden border border-stone-800">
                 <Image
@@ -342,7 +339,7 @@ export default async function AdventureDetailPage({ params }: Props) {
         </div>
 
         {/* Stats bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone-800 py-4 mb-8">
+        <div className="flex flex-col gap-3 border-b border-stone-800 py-4 mb-8 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-6 font-mono text-xs">
             <span className={difficulty?.color ?? "text-stone-400"}>{difficulty?.label}</span>
             <span className="text-stone-500">{pluralise(adventure.durationDays, "day")}</span>
@@ -475,7 +472,7 @@ export default async function AdventureDetailPage({ params }: Props) {
               <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
                 Book This Trip
               </h2>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {/* Viator */}
                 <a
                   href={`https://www.viator.com/searchResults/all?text=${encodeURIComponent(`${adventure.title} ${adventure.country}`)}`}

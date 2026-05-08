@@ -73,7 +73,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 flex items-center justify-between border-t border-stone-800/60 pt-8">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-stone-800/60 pt-8">
           <p className="font-mono text-xs text-stone-700">
             &copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.
           </p>

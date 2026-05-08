@@ -223,7 +223,7 @@ export default async function AdventuresPage({
   return (
     <div>
       {/* Full-bleed hero with featured adventure background */}
-      <div className="relative h-[520px] overflow-hidden border-b border-stone-800">
+      <div className="relative h-[380px] overflow-hidden border-b border-stone-800 sm:h-[520px]">
         {featured ? (
           <>
             <Image
@@ -252,13 +252,13 @@ export default async function AdventuresPage({
         />
 
         {/* Content */}
-        <div className="relative h-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-12">
-          <div className="flex items-end justify-between">
+        <div className="relative h-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-8 sm:pb-12">
+          <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.4em] text-amber-500/70">
                 ▲ Basecamp / Explore
               </p>
-              <h1 className="mt-3 font-display text-6xl uppercase leading-none tracking-widest text-stone-100 sm:text-8xl drop-shadow-2xl">
+              <h1 className="mt-3 font-display text-5xl uppercase leading-none tracking-widest text-stone-100 sm:text-8xl drop-shadow-2xl">
                 Adventures
               </h1>
               <p className="mt-5 font-mono text-xs text-stone-400">
