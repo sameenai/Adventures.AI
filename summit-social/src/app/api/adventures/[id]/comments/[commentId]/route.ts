@@ -27,8 +27,8 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "Forbidden", code: "FORBIDDEN" }, { status: 403 });
   }
 
-  const body = await request.json();
-  const rawBody = typeof body.body === "string" ? body.body.trim() : "";
+  const body = await request.json().catch(() => null);
+  const rawBody = typeof body?.body === "string" ? body.body.trim() : "";
 
   if (!rawBody || rawBody.length > 10000) {
     return NextResponse.json({ error: "Invalid input", code: "VALIDATION_ERROR" }, { status: 400 });
