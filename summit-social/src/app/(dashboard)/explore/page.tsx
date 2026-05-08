@@ -50,7 +50,7 @@ export default async function ExplorePage() {
         </p>
       </div>
 
-      <div className="h-[600px] border border-stone-800">
+      <div className="h-[400px] border border-stone-800 sm:h-[600px]">
         <ExploreMap markers={markers} />
       </div>
     </div>
