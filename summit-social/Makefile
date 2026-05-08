@@ -1,4 +1,9 @@
-.PHONY: setup run test test-unit test-integration test-e2e lint build db-migrate db-seed db-studio deploy-preview
+.PHONY: setup run test test-unit test-integration test-e2e lint build db-migrate db-seed db-studio deploy-preview deploy-gcp
+
+GCP_PROJECT    := basecamp-494710
+GCP_REGION     := europe-west2
+GCP_SERVICE    := summit-social
+GCP_IMAGE      := $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT)/$(GCP_SERVICE)/app:latest
 
 # ---------------------------------------------------------------------------
 # Local dev: Postgres and Redis via Homebrew (no Docker required)
@@ -65,3 +70,13 @@ db-studio:
 
 deploy-preview:
 	npx vercel
+
+deploy-gcp:
+	gcloud builds submit . \
+		--project=$(GCP_PROJECT) \
+		--tag=$(GCP_IMAGE)
+	gcloud run deploy $(GCP_SERVICE) \
+		--project=$(GCP_PROJECT) \
+		--region=$(GCP_REGION) \
+		--image=$(GCP_IMAGE) \
+		--quiet
