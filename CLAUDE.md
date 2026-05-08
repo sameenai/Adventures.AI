@@ -52,7 +52,29 @@ npm run db:generate # Regenerate Prisma client
 ```bash
 npm run build       # Next.js production build
 make deploy-preview # Deploy preview to Vercel
+make deploy-gcp     # Build Docker image via Cloud Build and deploy to Cloud Run
 ```
+
+### GCP Production Environment
+- **Project**: `basecamp-494710`
+- **Region**: `europe-west2`
+- **Service**: `summit-social`
+- **Image**: `europe-west2-docker.pkg.dev/basecamp-494710/summit-social/app:latest`
+- **URL**: https://summit-social-617967079491.europe-west2.run.app
+
+`make deploy-gcp` runs `gcloud builds submit` (remote build — no local Docker required) then
+`gcloud run deploy`. Requires `gcloud` CLI authenticated with the `basecamp-494710` project.
+
+## Session-End Requirement
+
+**At the end of every prompt session, deploy to GCP.** After all code changes have been merged to
+`main`, run the following from `summit-social/`:
+
+```bash
+make deploy-gcp
+```
+
+Do not skip this step. If the deploy fails, report the error before ending the session.
 
 ## Architecture
 
