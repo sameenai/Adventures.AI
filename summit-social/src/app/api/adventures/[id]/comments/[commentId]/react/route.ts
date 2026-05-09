@@ -1,5 +1,7 @@
 import { authOptions } from "@/lib/auth/config";
+import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import { rateLimit } from "@/lib/db/redis";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -13,6 +15,21 @@ export async function POST(
 
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
+  }
+
+  const rl = await rateLimit(
+    `comment-react:${session.user.id}`,
+    RATE_LIMITS.commentReact.limit,
+    RATE_LIMITS.commentReact.windowSeconds,
+  );
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests", code: "RATE_LIMITED" },
+      {
+        status: 429,
+        headers: { "Retry-After": String(rl.retryAfter) },
+      },
+    );
   }
 
   const comment = await prisma.comment.findUnique({

@@ -1,5 +1,7 @@
 import { authOptions } from "@/lib/auth/config";
+import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import { rateLimit } from "@/lib/db/redis";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -9,6 +11,21 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
 
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
+  }
+
+  const rl = await rateLimit(
+    `follow:${session.user.id}`,
+    RATE_LIMITS.follow.limit,
+    RATE_LIMITS.follow.windowSeconds,
+  );
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests", code: "RATE_LIMITED" },
+      {
+        status: 429,
+        headers: { "Retry-After": String(rl.retryAfter) },
+      },
+    );
   }
 
   if (session.user.id === followingId) {
