@@ -71,10 +71,28 @@ db-studio:
 deploy-preview:
 	npx vercel
 
+GCP_MIGRATE_IMAGE := $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT)/$(GCP_SERVICE)/app:migrate
+
 deploy-gcp:
+	@echo "→ Building app image..."
 	gcloud builds submit . \
 		--project=$(GCP_PROJECT) \
 		--tag=$(GCP_IMAGE)
+	@echo "→ Building migrator image..."
+	gcloud builds submit . \
+		--project=$(GCP_PROJECT) \
+		--config=cloudbuild-migrate.yaml
+	@echo "→ Running database migrations..."
+	gcloud run jobs update migrate-db \
+		--project=$(GCP_PROJECT) \
+		--region=$(GCP_REGION) \
+		--image=$(GCP_MIGRATE_IMAGE) \
+		--quiet
+	gcloud run jobs execute migrate-db \
+		--project=$(GCP_PROJECT) \
+		--region=$(GCP_REGION) \
+		--wait
+	@echo "→ Deploying app..."
 	gcloud run deploy $(GCP_SERVICE) \
 		--project=$(GCP_PROJECT) \
 		--region=$(GCP_REGION) \

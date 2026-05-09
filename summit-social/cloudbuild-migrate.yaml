@@ -1,0 +1,10 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - build
+      - --target=migrator
+      - -t
+      - europe-west2-docker.pkg.dev/basecamp-494710/summit-social/app:migrate
+      - .
+images:
+  - europe-west2-docker.pkg.dev/basecamp-494710/summit-social/app:migrate
