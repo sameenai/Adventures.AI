@@ -13,7 +13,6 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
     select: {
       id: true,
       name: true,
-      email: true,
       avatarUrl: true,
       bio: true,
       instagramUrl: true,
