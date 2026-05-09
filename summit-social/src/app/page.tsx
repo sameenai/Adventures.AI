@@ -53,7 +53,20 @@ export default async function LandingPage() {
     }),
     prisma.adventure.groupBy({
       by: ["continent"],
-      where: { published: true, continent: { not: undefined } },
+      where: {
+        published: true,
+        continent: {
+          in: [
+            "Africa",
+            "Antarctica",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America",
+          ],
+        },
+      },
     }),
   ]);
 
