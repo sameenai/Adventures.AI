@@ -14,33 +14,33 @@ const STAT_LABELS = [
 ] as const;
 
 const CATEGORIES = [
-  { label: "Trekking", icon: "⛰" },
-  { label: "Mountaineering", icon: "🧗" },
-  { label: "Cycling", icon: "🚵" },
-  { label: "Kayaking", icon: "🛶" },
-  { label: "Safari", icon: "🦁" },
-  { label: "Skiing", icon: "⛷" },
-  { label: "Surfing", icon: "🏄" },
-  { label: "Diving", icon: "🤿" },
-  { label: "Road Trip", icon: "🛣" },
-  { label: "Expedition", icon: "🗺" },
+  { label: "Trekking" },
+  { label: "Mountaineering" },
+  { label: "Cycling" },
+  { label: "Kayaking" },
+  { label: "Safari" },
+  { label: "Skiing" },
+  { label: "Surfing" },
+  { label: "Diving" },
+  { label: "Road Trip" },
+  { label: "Expedition" },
 ];
 
 const FEATURES = [
   {
-    tag: "Discover",
+    num: "01",
     title: "Real Routes",
-    body: "Browse adventures submitted by the community — filtered by difficulty, duration, continent, and category. Every route has been done by a real person.",
+    body: "Every adventure is submitted and verified by someone who has actually done it.",
   },
   {
-    tag: "Plan",
+    num: "02",
     title: "AI Itineraries",
-    body: "Chat with an AI co-pilot to build day-by-day itineraries tailored to your budget, fitness level, and travel dates. No generic travel advice.",
+    body: "Day-by-day plans built around your budget, fitness, and travel style.",
   },
   {
-    tag: "Connect",
+    num: "03",
     title: "Go Further",
-    body: "Vote on adventures, follow other explorers, bookmark your bucket list, and share your own routes with a community that actually goes.",
+    body: "Find and follow the people who actually make these trips happen.",
   },
 ];
 
@@ -68,143 +68,119 @@ export default async function LandingPage() {
       <Navbar />
 
       {/* ── Hero ──────────────────────────────────────────────────── */}
-      <section className="relative flex flex-1 flex-col items-center justify-center overflow-hidden px-4 py-32 sm:py-40">
-        {/* Dot-grid background — opacity comes from CSS var so it adapts per mode */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage: "radial-gradient(circle, var(--bc-amber-600) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-            opacity: "var(--dot-opacity)",
-          }}
-        />
-        {/* Radial vignette so text stays readable at center */}
-        <div className="pointer-events-none absolute inset-0 bg-radial-[ellipse_at_center] from-transparent via-transparent to-stone-950" />
-        {/* Amber glow */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-500/8 blur-3xl" />
-
-        <div className="relative z-10 mx-auto max-w-4xl text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-amber-500 mb-6">
-            ▲ The adventure social network
+      <section className="px-6 pb-20 pt-24 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-xs font-medium uppercase tracking-[0.25em] text-stone-500">
+            The adventure social network
           </p>
-
-          <h1 className="font-display text-6xl uppercase tracking-[0.08em] text-stone-100 leading-none sm:text-8xl lg:text-[7rem]">
+          <h1 className="mt-7 font-display text-6xl font-light leading-[1.0] tracking-[-0.5px] text-stone-100 sm:text-8xl lg:text-[6.5rem]">
             Your next
             <br />
-            <span className="text-amber-500">great adventure</span>
+            <em className="font-light italic text-amber-500">great</em> adventure
             <br />
-            starts here
+            starts here.
           </h1>
-
-          <p
-            className="mt-8 text-lg leading-relaxed text-stone-400 max-w-2xl mx-auto sm:text-xl"
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
-            Discover world-class routes, build AI-powered itineraries, and connect with the people
-            who go further.
-          </p>
-
-          <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <Link
-              href="/adventures"
-              className="inline-flex items-center gap-2 border-2 border-amber-500 bg-amber-500 px-8 py-3 font-display text-sm uppercase tracking-widest text-ink transition-colors hover:bg-amber-400 hover:border-amber-400"
-            >
-              Explore Adventures →
-            </Link>
-            <Link
-              href="/signup"
-              className="inline-flex items-center gap-2 border-2 border-stone-600 px-8 py-3 font-display text-sm uppercase tracking-widest text-stone-200 transition-colors hover:border-amber-500 hover:text-amber-500"
-            >
-              Join Basecamp
-            </Link>
+          <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+            <p className="max-w-sm text-sm font-light leading-[1.9] text-stone-500">
+              Discover world-class routes, build AI-powered itineraries, and connect with the people
+              who go further.
+            </p>
+            <div className="flex flex-col items-start gap-3 sm:items-end">
+              <Link
+                href="/adventures"
+                className="inline-block bg-amber-500 px-8 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-amber-400"
+              >
+                Start exploring
+              </Link>
+              <Link
+                href="/signup"
+                className="text-xs text-stone-500 underline underline-offset-4 transition-colors hover:text-stone-200"
+              >
+                Join the community
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Stats bar ─────────────────────────────────────────────── */}
-      <section className="border-y-2 border-stone-800 bg-stone-900/60">
-        <div className="mx-auto grid max-w-4xl grid-cols-3 divide-x-2 divide-stone-800">
-          {STAT_LABELS.map(({ key, label }) => (
-            <div key={key} className="flex flex-col items-center py-10 px-4">
-              <span className="font-display text-5xl uppercase tracking-wider text-amber-500 sm:text-6xl">
-                {stats[key]}
-              </span>
-              <span className="font-mono mt-2 text-xs uppercase tracking-[0.3em] text-stone-400">
-                {label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ── Rule ──────────────────────────────────────────────────── */}
+      <div className="border-t border-stone-800" />
 
-      {/* ── Category pills ────────────────────────────────────────── */}
-      <section className="mx-auto max-w-5xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <p className="font-mono text-xs uppercase tracking-[0.35em] text-amber-500/70 mb-8">
-          Every type of adventure
-        </p>
-        <div className="flex flex-wrap justify-center gap-2">
-          {CATEGORIES.map(({ label, icon }) => (
-            <Link
-              key={label}
-              href={`/adventures?category=${label.toUpperCase().replace(/ /g, "_")}`}
-              className="flex items-center gap-1.5 border border-stone-700 bg-stone-900 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-300 transition-colors hover:border-amber-500 hover:text-amber-500"
-            >
-              <span aria-hidden="true">{icon}</span>
-              {label}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Feature trio ──────────────────────────────────────────── */}
-      <section className="border-t-2 border-stone-800">
-        <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="grid gap-0 sm:grid-cols-3 sm:divide-x-2 sm:divide-stone-800">
-            {FEATURES.map(({ tag, title, body }) => (
-              <div key={tag} className="px-0 py-8 sm:px-8 sm:py-0 first:pl-0 last:pr-0">
-                <p className="font-display text-[11px] uppercase tracking-[0.35em] text-amber-500">
-                  {tag}
-                </p>
-                <h3 className="mt-2 font-display text-3xl uppercase tracking-wider text-stone-100">
-                  {title}
-                </h3>
-                <div className="mt-2 h-0.5 w-8 bg-amber-500/50" />
-                <p
-                  className="mt-4 text-sm leading-relaxed text-stone-400"
-                  style={{ fontFamily: "var(--font-sans)" }}
-                >
-                  {body}
-                </p>
+      {/* ── Stats ─────────────────────────────────────────────────── */}
+      <section className="px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex divide-x divide-stone-800">
+            {STAT_LABELS.map(({ key, label }) => (
+              <div key={key} className="flex flex-col px-12 py-10 first:pl-0">
+                <span className="font-display text-5xl font-light leading-none tracking-[-1px] text-stone-100">
+                  {stats[key]}
+                </span>
+                <span className="mt-2 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
+                  {label}
+                </span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Bottom CTA ────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-t-2 border-stone-800 py-24 text-center">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage: "radial-gradient(circle, var(--bc-amber-600) 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-            opacity: "var(--dot-opacity)",
-          }}
-        />
-        <div className="relative z-10">
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-amber-500/70 mb-4">
-            Ready?
+      {/* ── Rule ──────────────────────────────────────────────────── */}
+      <div className="border-t border-stone-800" />
+
+      {/* ── Category tabs ─────────────────────────────────────────── */}
+      <section className="px-6 py-16 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <p className="mb-8 text-[11px] font-medium uppercase tracking-[0.25em] text-stone-600">
+            Every type of adventure
           </p>
-          <h2 className="font-display text-5xl uppercase tracking-widest text-stone-100 mb-8 sm:text-6xl">
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map(({ label }) => (
+              <Link
+                key={label}
+                href={`/adventures?category=${label.toUpperCase().replace(/ /g, "_")}`}
+                className="border border-stone-800 px-4 py-2 text-xs text-stone-500 transition-colors hover:border-amber-500 hover:text-amber-500"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Feature trio ──────────────────────────────────────────── */}
+      <section className="border-t border-b border-stone-800">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid sm:grid-cols-3 sm:divide-x sm:divide-stone-800">
+            {FEATURES.map(({ num, title, body }) => (
+              <div key={num} className="px-0 py-14 sm:px-10 sm:first:pl-0 sm:last:pr-0">
+                <div className="font-display text-5xl font-light leading-none tracking-[-1px] text-stone-800">
+                  {num}
+                </div>
+                <h3 className="mt-4 font-display text-2xl font-light text-stone-100">{title}</h3>
+                <p className="mt-3 text-sm font-light leading-[1.9] text-stone-500">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ───────────────────────────────────────────────────── */}
+      <section className="px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="font-display text-5xl font-light leading-[1.05] tracking-[-0.5px] text-stone-100 sm:text-6xl lg:text-7xl">
             The mountain
             <br />
-            won&apos;t wait
+            <em className="italic text-amber-500">won&apos;t wait.</em>
           </h2>
+          <p className="mt-6 max-w-md text-sm font-light leading-[1.9] text-stone-500">
+            Let our AI plan your next expedition. Tell it where you want to go — it handles
+            everything else.
+          </p>
           <Link
-            href="/adventures"
-            className="inline-flex items-center gap-2 border-2 border-amber-500 bg-amber-500 px-12 py-4 font-display text-sm uppercase tracking-widest text-ink transition-colors hover:bg-amber-400 hover:border-amber-400"
+            href="/itinerary"
+            className="mt-8 inline-block bg-amber-500 px-8 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-amber-400"
           >
-            Start Exploring →
+            Start planning →
           </Link>
         </div>
       </section>

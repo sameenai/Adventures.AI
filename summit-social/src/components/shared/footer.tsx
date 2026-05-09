@@ -30,23 +30,19 @@ const FOOTER_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="border-t-2 border-stone-800 bg-stone-950">
-      <div className="h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <footer className="border-t border-stone-800 bg-stone-950">
+      <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="group flex items-center gap-2.5">
-              <span className="font-display text-base text-amber-500 transition-colors group-hover:text-amber-400">
-                ▲
-              </span>
-              <span className="font-display text-xl uppercase tracking-[0.25em] text-stone-100 transition-colors group-hover:text-amber-400">
-                {APP_NAME}
-              </span>
+            <Link
+              href="/"
+              className="font-display text-2xl font-light italic text-stone-100 transition-colors hover:text-amber-500"
+            >
+              {APP_NAME}
             </Link>
-            <p className="mt-4 text-xs leading-relaxed text-stone-500">
-              The expedition platform for serious adventurers. Discover world-class routes, plan
-              with AI, and share your journeys.
+            <p className="mt-4 text-xs font-light leading-relaxed text-stone-500">
+              The expedition platform for serious adventurers.
             </p>
             <p className="mt-5 font-mono text-xs text-stone-700">51°30′N 0°07′W · est. 2025</p>
           </div>
@@ -54,7 +50,7 @@ export function Footer() {
           {/* Link columns */}
           {FOOTER_LINKS.map(({ heading, links }) => (
             <div key={heading}>
-              <h3 className="font-display text-xs uppercase tracking-[0.3em] text-stone-500">
+              <h3 className="text-[10px] font-medium uppercase tracking-[0.2em] text-stone-600">
                 {heading}
               </h3>
               <ul className="mt-4 space-y-2.5">
@@ -62,7 +58,7 @@ export function Footer() {
                   <li key={href}>
                     <Link
                       href={href}
-                      className="text-xs text-stone-400 transition-colors hover:text-amber-500"
+                      className="text-xs text-stone-500 transition-colors hover:text-stone-200"
                     >
                       {label}
                     </Link>
@@ -73,20 +69,20 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-stone-800/60 pt-8">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-stone-800 pt-8">
           <p className="font-mono text-xs text-stone-700">
             &copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.
           </p>
           <div className="flex gap-6">
             <a
               href="/privacy"
-              className="font-mono text-xs text-stone-800 transition-colors hover:text-stone-600"
+              className="font-mono text-xs text-stone-800 transition-colors hover:text-stone-500"
             >
               Privacy
             </a>
             <a
               href="/terms"
-              className="font-mono text-xs text-stone-800 transition-colors hover:text-stone-600"
+              className="font-mono text-xs text-stone-800 transition-colors hover:text-stone-500"
             >
               Terms
             </a>

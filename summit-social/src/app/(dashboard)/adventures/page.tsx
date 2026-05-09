@@ -8,7 +8,6 @@ import { prisma } from "@/lib/db/prisma";
 import { encodeCursor } from "@/lib/pagination";
 import type { Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -220,125 +219,85 @@ export default async function AdventuresPage({
     bookmarkedIds = bookmarks.map((b) => b.adventureId);
   }
 
+  const filterChip = (active: boolean) =>
+    `px-3 py-1.5 text-xs transition-colors ${
+      active
+        ? "border border-amber-500 text-amber-500"
+        : "border border-stone-800 text-stone-500 hover:border-stone-700 hover:text-stone-300"
+    }`;
+
   return (
     <div>
-      {/* Full-bleed hero with featured adventure background */}
-      <div className="relative h-[380px] overflow-hidden border-b border-stone-800 sm:h-[520px]">
-        {featured ? (
-          <>
-            <Image
-              src={featured.coverImageUrl}
-              alt={featured.title}
-              fill
-              priority
-              className="object-cover"
-              sizes="100vw"
-            />
-            {/* Dark vignette */}
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-stone-950/20" />
-            <div className="absolute inset-0 bg-gradient-to-r from-stone-950/70 via-transparent to-transparent" />
-          </>
-        ) : (
-          <div className="absolute inset-0 bg-stone-950" />
-        )}
-
-        {/* Topographic dot grid overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(217,119,6,0.15) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-        />
-
-        {/* Content */}
-        <div className="relative h-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-8 sm:pb-12">
+      {/* Page header */}
+      <div className="border-b border-stone-800 px-6 py-10 lg:px-8">
+        <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.4em] text-amber-500/70">
-                ▲ Basecamp / Explore
+              <p className="text-xs font-medium uppercase tracking-[0.25em] text-stone-500">
+                Basecamp / Explore
               </p>
-              <h1 className="mt-3 font-display text-5xl uppercase leading-none tracking-widest text-stone-100 sm:text-8xl drop-shadow-2xl">
+              <h1 className="mt-3 font-display text-5xl font-light leading-none tracking-[-0.5px] text-stone-100 sm:text-7xl">
                 Adventures
               </h1>
-              <p className="mt-5 font-mono text-xs text-stone-400">
+              <p className="mt-3 text-xs text-stone-600">
                 {hasActiveFilters
                   ? `${adventures.length}${hasMore ? "+" : ""} of ${totalCount.toLocaleString()} expeditions`
                   : `${totalCount.toLocaleString()} expeditions across 7 continents`}
               </p>
-              <p className="mt-1 font-mono text-xs text-stone-600">
-                Weekend escapes · week-long treks · multi-month expeditions
-              </p>
             </div>
-            {session && (
-              <Link href="/adventures/new">
-                <Button size="sm">Share Adventure</Button>
-              </Link>
-            )}
-          </div>
-
-          {/* Featured adventure card at bottom */}
-          {featured && (
-            <div className="mt-8">
-              <Link
-                href={`/adventures/${featured.id}`}
-                className="group inline-flex items-center gap-4"
-              >
-                <div className="border border-amber-500/40 bg-stone-950/80 px-4 py-2.5 backdrop-blur-sm group-hover:border-amber-500/80 transition-colors">
-                  <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-amber-500/70">
-                    Featured
+            <div className="flex items-center gap-4">
+              {featured && (
+                <Link
+                  href={`/adventures/${featured.id}`}
+                  className="group hidden border border-stone-800 px-4 py-2.5 transition-colors hover:border-stone-700 sm:block"
+                >
+                  <p className="text-[9px] font-medium uppercase tracking-[0.2em] text-stone-600">
+                    Top voted
                   </p>
-                  <p className="mt-0.5 font-display text-sm uppercase tracking-wider text-stone-100 group-hover:text-amber-400 transition-colors">
+                  <p className="mt-0.5 font-display text-sm font-light text-stone-100 transition-colors group-hover:text-amber-500">
                     {featured.title}
                   </p>
-                  <p className="font-mono text-[10px] text-stone-500">
-                    {featured.country} · {featured.durationDays || 1} days · {featured.voteCount}{" "}
-                    votes
+                  <p className="font-mono text-[10px] text-stone-600">
+                    {featured.country} · {featured.durationDays || 1} days
                   </p>
-                </div>
-              </Link>
+                </Link>
+              )}
+              {session && (
+                <Link href="/adventures/new">
+                  <Button size="sm">Share Adventure</Button>
+                </Link>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 pt-6 pb-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 pb-10 pt-6 lg:px-8">
         {/* Category filters */}
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
             Category
           </span>
           <Link
             href={buildFilterUrl(params, { category: undefined })}
-            className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
-              categories.length === 0
-                ? "border border-amber-500 text-amber-500"
-                : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
-            }`}
+            className={filterChip(categories.length === 0)}
           >
             All
           </Link>
-          {CATEGORIES.map((cat) => {
-            const active = isActive(params.category, cat.value);
-            return (
-              <Link
-                key={cat.value}
-                href={toggleMultiValue(params, "category", cat.value)}
-                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
-                  active
-                    ? "border border-amber-500 text-amber-500"
-                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
-                }`}
-              >
-                {cat.label}
-              </Link>
-            );
-          })}
+          {CATEGORIES.map((cat) => (
+            <Link
+              key={cat.value}
+              href={toggleMultiValue(params, "category", cat.value)}
+              className={filterChip(isActive(params.category, cat.value))}
+            >
+              {cat.label}
+            </Link>
+          ))}
         </div>
 
         {/* Duration quick-filters */}
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
             Duration
           </span>
           {(
@@ -352,15 +311,14 @@ export default async function AdventuresPage({
             ] as const
           ).map(({ value, label, sub }) => {
             const active = isActive(params.duration, value);
-            const href = toggleMultiValue(params, "duration", value);
             return (
               <Link
                 key={value}
-                href={href}
-                className={`flex items-baseline gap-1.5 px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
+                href={toggleMultiValue(params, "duration", value)}
+                className={`flex items-baseline gap-1.5 px-3 py-1.5 text-xs transition-colors ${
                   active
                     ? "border border-amber-500 text-amber-500"
-                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+                    : "border border-stone-800 text-stone-500 hover:border-stone-700 hover:text-stone-300"
                 }`}
               >
                 {label}
@@ -373,21 +331,20 @@ export default async function AdventuresPage({
         </div>
 
         {/* Difficulty quick-filters */}
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
             Level
           </span>
           {DIFFICULTIES.map((diff) => {
             const active = isActive(params.difficulty, diff.value);
-            const href = toggleMultiValue(params, "difficulty", diff.value);
             return (
               <Link
                 key={diff.value}
-                href={href}
-                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
+                href={toggleMultiValue(params, "difficulty", diff.value)}
+                className={`px-3 py-1.5 text-xs transition-colors ${
                   active
                     ? `border ${diff.value === "EASY" ? "border-emerald-500 text-emerald-400" : diff.value === "MODERATE" ? "border-amber-500 text-amber-400" : diff.value === "CHALLENGING" ? "border-orange-500 text-orange-400" : diff.value === "EXTREME" ? "border-red-500 text-red-400" : "border-purple-500 text-purple-400"}`
-                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
+                    : "border border-stone-800 text-stone-500 hover:border-stone-700 hover:text-stone-300"
                 }`}
               >
                 {diff.label}
@@ -397,63 +354,46 @@ export default async function AdventuresPage({
         </div>
 
         {/* Continent quick-filters */}
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
             Continent
           </span>
-          {CONTINENTS.map((continent) => {
-            const active = isActive(params.continent, continent);
-            const href = toggleMultiValue(params, "continent", continent);
-            return (
-              <Link
-                key={continent}
-                href={href}
-                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
-                  active
-                    ? "border border-amber-500 text-amber-500"
-                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
-                }`}
-              >
-                {continent}
-              </Link>
-            );
-          })}
+          {CONTINENTS.map((continent) => (
+            <Link
+              key={continent}
+              href={toggleMultiValue(params, "continent", continent)}
+              className={filterChip(isActive(params.continent, continent))}
+            >
+              {continent}
+            </Link>
+          ))}
         </div>
 
         {/* Climate quick-filters */}
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
             Climate
           </span>
           {(
             [
-              { value: "hot", label: "Hot", icon: "☀" },
-              { value: "cold", label: "Cold", icon: "❄" },
-              { value: "mixed", label: "Mixed", icon: "⛅" },
+              { value: "hot", label: "Hot" },
+              { value: "cold", label: "Cold" },
+              { value: "mixed", label: "Mixed" },
             ] as const
-          ).map(({ value, label, icon }) => {
-            const active = isActive(params.climate, value);
-            const href = toggleMultiValue(params, "climate", value);
-            return (
-              <Link
-                key={value}
-                href={href}
-                className={`flex items-center gap-1.5 px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
-                  active
-                    ? "border border-amber-500 text-amber-500"
-                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
-                }`}
-              >
-                <span aria-hidden="true">{icon}</span>
-                {label}
-              </Link>
-            );
-          })}
+          ).map(({ value, label }) => (
+            <Link
+              key={value}
+              href={toggleMultiValue(params, "climate", value)}
+              className={filterChip(isActive(params.climate, value))}
+            >
+              {label}
+            </Link>
+          ))}
         </div>
 
         {/* Month quick-filters */}
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-700 pr-1">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
             Season
           </span>
           {(
@@ -471,27 +411,19 @@ export default async function AdventuresPage({
               { value: 11, label: "Nov" },
               { value: 12, label: "Dec" },
             ] as const
-          ).map(({ value, label }) => {
-            const active = months.includes(value);
-            const href = toggleMultiValue(params, "month", String(value));
-            return (
-              <Link
-                key={value}
-                href={href}
-                className={`px-3 py-1.5 font-display text-xs uppercase tracking-widest transition-colors ${
-                  active
-                    ? "border border-amber-500 text-amber-500"
-                    : "border border-stone-800 text-stone-500 hover:border-stone-600 hover:text-stone-300"
-                }`}
-              >
-                {label}
-              </Link>
-            );
-          })}
+          ).map(({ value, label }) => (
+            <Link
+              key={value}
+              href={toggleMultiValue(params, "month", String(value))}
+              className={filterChip(months.includes(value))}
+            >
+              {label}
+            </Link>
+          ))}
         </div>
 
         {/* Search + sort + view toggle */}
-        <div className="mt-8 flex items-center gap-2">
+        <div className="mt-6 flex items-center gap-2">
           <div className="flex-1">
             <Suspense>
               <SearchFilter />

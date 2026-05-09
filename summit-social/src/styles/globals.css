@@ -1,51 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  /* Basecamp fire — amber campfire tones */
-  --color-fire-50: #fffbeb;
-  --color-fire-100: #fef3c7;
-  --color-fire-200: #fde68a;
-  --color-fire-300: #fcd34d;
-  --color-fire-400: #fbbf24;
-  --color-fire-500: #f59e0b;
-  --color-fire-600: #d97706;
-  --color-fire-700: #b45309;
-  --color-fire-800: #92400e;
-  --color-fire-900: #78350f;
-
-  /* Basecamp terrain — forest greens */
-  --color-terrain-50: #f0fdf4;
-  --color-terrain-100: #dcfce7;
-  --color-terrain-200: #bbf7d0;
-  --color-terrain-300: #86efac;
-  --color-terrain-400: #4ade80;
-  --color-terrain-500: #22c55e;
-  --color-terrain-600: #16a34a;
-  --color-terrain-700: #15803d;
-  --color-terrain-800: #166534;
-  --color-terrain-900: #14532d;
-
-  /* Basecamp earth — warm dark backgrounds */
-  --color-earth-900: #1a1208;
-  --color-earth-950: #100c04;
+  /* Basecamp sage — forest green accent */
+  --color-accent-50: #f0f7f4;
+  --color-accent-100: #d6ece4;
+  --color-accent-200: #aed8c9;
+  --color-accent-300: #7dbfaa;
+  --color-accent-400: #4a7a65;
+  --color-accent-500: #2c4a3e;
+  --color-accent-600: #1e3329;
+  --color-accent-700: #15241c;
+  --color-accent-800: #0d1810;
+  --color-accent-900: #080e09;
 
   /* System */
-  --color-success: #34d399;
-  --color-warning: #fbbf24;
-  --color-danger: #f87171;
+  --color-success: #2c4a3e;
+  --color-warning: #b45309;
+  --color-danger: #dc2626;
 
-  /* Fixed near-black — always dark regardless of mode (for text on amber buttons) */
-  --color-ink: #1c1917;
+  /* ink: text on sage buttons. White because sage is a dark colour. */
+  --color-ink: #ffffff;
 
   /* Fonts — resolved at runtime via Next.js CSS vars */
-  --font-display: var(--font-teko), "Arial Narrow", sans-serif;
-  --font-sans: var(--font-lora), Georgia, serif;
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-space-mono), "Courier New", monospace;
 }
 
 /*
- * stone-* utilities reference CSS variables at runtime so the entire scale
- * can be swapped by redefining the variables in :root (dark) vs .light.
+ * stone-* and amber-* utilities reference CSS variables at runtime so the
+ * entire scale can be swapped between light (default) and dark mode.
  */
 @theme inline {
   --color-stone-50: var(--bc-stone-50);
@@ -60,18 +44,43 @@
   --color-stone-900: var(--bc-stone-900);
   --color-stone-950: var(--bc-stone-950);
 
-  /* Amber adapts per mode — bright yellow in dark, legible burnt orange in light */
-  --color-amber-400: var(--bc-amber-400);
-  --color-amber-500: var(--bc-amber-500);
-  --color-amber-600: var(--bc-amber-600);
+  /* Accent replaces amber throughout */
+  --color-amber-400: var(--bc-accent-400);
+  --color-amber-500: var(--bc-accent-500);
+  --color-amber-600: var(--bc-accent-600);
 }
 
 @layer base {
   /*
-   * Default (dark) — rich near-black with warm undertone.
-   * Borders and surfaces are meaningfully distinct from the background.
+   * Default (light) — warm off-white paper with V6 palette.
+   * stone-50 = ink (#1c1c1c), stone-950 = paper (#faf9f7).
    */
   :root {
+    color-scheme: light;
+
+    --bc-stone-50: #1c1c1c;
+    --bc-stone-100: #2e2924;
+    --bc-stone-200: #3e3a34;
+    --bc-stone-300: #5c5650;
+    --bc-stone-400: #7a7470;
+    --bc-stone-500: #9a9490;
+    --bc-stone-600: #b8b2ac;
+    --bc-stone-700: #d4cec8;
+    --bc-stone-800: #e2ddd8;
+    --bc-stone-900: #ede8e2;
+    --bc-stone-950: #faf9f7;
+
+    --bc-accent-400: #4a7a65;
+    --bc-accent-500: #2c4a3e;
+    --bc-accent-600: #1e3329;
+
+    --dot-opacity: 0.06;
+  }
+
+  /*
+   * Dark mode — warm near-black, sage accent stays.
+   */
+  .dark {
     color-scheme: dark;
 
     --bc-stone-50: #fafaf9;
@@ -86,44 +95,11 @@
     --bc-stone-900: #1e1a17;
     --bc-stone-950: #0e0b09;
 
-    /* Dark mode amber — classic bright campfire */
-    --bc-amber-400: #fbbf24;
-    --bc-amber-500: #f59e0b;
-    --bc-amber-600: #d97706;
+    --bc-accent-400: #5a9e82;
+    --bc-accent-500: #3d7a62;
+    --bc-accent-600: #2c5a48;
 
-    /* Dot grid opacity for dark backgrounds */
     --dot-opacity: 0.07;
-  }
-
-  /*
-   * Light mode — warm parchment with high contrast.
-   * NOT a simple inversion; designed for legibility and character.
-   * Background: warm off-white. Text: near-black brown. Borders: visible brown.
-   * Amber shifts to burnt orange for legibility on light surfaces.
-   */
-  .light {
-    color-scheme: light;
-
-    /* Parchment white → near-black brown (light reads as backgrounds, dark as text) */
-    --bc-stone-50: #1a110a;
-    --bc-stone-100: #2d1f14;
-    --bc-stone-200: #3d2b1c;
-    --bc-stone-300: #5c4033;
-    --bc-stone-400: #7a5c4a;
-    --bc-stone-500: #9a7c69;
-    --bc-stone-600: #c4a898;
-    --bc-stone-700: #ddd0c8;
-    --bc-stone-800: #ece4dc;
-    --bc-stone-900: #f5efe8;
-    --bc-stone-950: #fdf8f3;
-
-    /* Light mode amber — darker burnt orange reads well on warm white */
-    --bc-amber-400: #c2600a;
-    --bc-amber-500: #b45309;
-    --bc-amber-600: #92400e;
-
-    /* Dot grid more visible on light backgrounds */
-    --dot-opacity: 0.12;
   }
 
   body {
@@ -139,7 +115,7 @@
   h5,
   h6 {
     font-family: var(--font-display);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.01em;
   }
 
   /* Thin scrollbar */
@@ -155,6 +131,6 @@
     border-radius: 0;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--bc-amber-600);
+    background: var(--bc-accent-500);
   }
 }

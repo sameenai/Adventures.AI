@@ -4,7 +4,6 @@ import type { AdventureWithUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { BookmarkButton } from "./bookmark-button";
-import { difficultyAccentClass } from "./difficulty-accent";
 import { VoteButton } from "./vote-button";
 
 interface AdventureCardProps {
@@ -25,59 +24,29 @@ export function AdventureCard({
   const difficulty = DIFFICULTY_MAP.get(adventure.difficulty);
 
   return (
-    <div className="group relative border-2 border-stone-800 bg-stone-950 overflow-hidden transition-colors duration-300 hover:border-amber-500/50">
-      {/* Left accent bar colored by difficulty */}
-      <div
-        className={cn(
-          "absolute left-0 top-0 bottom-0 w-0.5 transition-opacity duration-300 group-hover:opacity-100 opacity-40",
-          difficultyAccentClass(adventure.difficulty),
-        )}
-      />
-
+    <div className="group relative overflow-hidden border border-stone-800 bg-stone-950 transition-colors duration-200 hover:border-stone-700">
       <Link href={`/adventures/${adventure.id}`}>
         <div
-          className={cn("relative overflow-hidden", featured ? "aspect-[21/9]" : "aspect-[16/10]")}
+          className={cn("relative overflow-hidden", featured ? "aspect-[21/9]" : "aspect-[4/3]")}
         >
           <Image
             src={adventure.coverImageUrl}
             alt={adventure.title}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105 brightness-75"
+            className="object-cover brightness-90 transition-transform duration-700 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          {/* Gradient overlay — heavier at bottom for text legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent" />
 
-          {/* Top-right: difficulty badge */}
-          <div className="absolute top-2.5 right-2.5">
-            <span
-              className={cn(
-                "px-2 py-0.5 font-display text-[10px] uppercase tracking-widest backdrop-blur-sm",
-                difficulty?.color,
-                "bg-stone-950/70",
-              )}
-            >
-              {difficulty?.label}
-            </span>
-          </div>
-
-          {/* Bottom-left: category + demo */}
-          <div className="absolute bottom-2.5 left-3 flex items-center gap-1.5">
-            <span className="font-display text-[10px] uppercase tracking-widest text-amber-500/90">
+          {/* Category label */}
+          <div className="absolute bottom-3 left-3">
+            <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-stone-300">
               {adventure.category.replace(/_/g, " ")}
             </span>
-            {adventure.id.startsWith("seed-") && (
-              <>
-                <span className="text-stone-600 text-[10px]">·</span>
-                <span className="font-display text-[10px] uppercase tracking-widest text-stone-600">
-                  Demo
-                </span>
-              </>
-            )}
           </div>
 
-          {/* Bottom-right: duration pill */}
-          <div className="absolute bottom-2.5 right-3">
+          {/* Duration */}
+          <div className="absolute bottom-3 right-3">
             <span className="font-mono text-[10px] text-stone-400">
               {pluralise(adventure.durationDays, "day")}
             </span>
@@ -85,45 +54,41 @@ export function AdventureCard({
         </div>
       </Link>
 
-      <div className="px-4 pt-3 pb-4">
-        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-amber-500/80 line-clamp-1">
+      <div className="px-4 pb-4 pt-3">
+        <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
           {adventure.country}
         </p>
         <Link href={`/adventures/${adventure.id}`}>
-          <h3 className="mt-0.5 font-display text-sm uppercase tracking-wider text-stone-100 transition-colors group-hover:text-amber-400 line-clamp-1 leading-snug">
+          <h3 className="mt-1 font-display text-lg font-light leading-snug text-stone-100 transition-colors group-hover:text-amber-500 line-clamp-2">
             {adventure.title}
           </h3>
         </Link>
-        <p className="mt-0.5 font-mono text-[11px] text-stone-500 line-clamp-1">
-          {adventure.location}
-        </p>
+        <p className="mt-0.5 text-xs text-stone-600 line-clamp-1">{adventure.location}</p>
 
         <div className="mt-3 flex items-center justify-between">
-          {/* Author */}
-          <div className="flex items-center gap-1.5 min-w-0">
+          <div className="flex items-center gap-2 min-w-0">
             {adventure.user.avatarUrl && (
               <Image
                 src={adventure.user.avatarUrl}
                 alt={adventure.user.name ?? ""}
-                width={16}
-                height={16}
+                width={14}
+                height={14}
                 className="rounded-full opacity-60 shrink-0"
               />
             )}
-            <span className="font-mono text-[11px] text-stone-500 truncate">
+            <span className="font-mono text-[10px] text-stone-600 truncate">
               {adventure.user.name}
             </span>
-            {adventure._count?.comments !== undefined && adventure._count.comments > 0 && (
+            {(adventure._count?.comments ?? 0) > 0 && (
               <>
-                <span className="text-stone-700 text-[11px] shrink-0">·</span>
-                <span className="font-mono text-[11px] text-stone-600 shrink-0">
-                  {pluralise(adventure._count.comments, "comment")}
+                <span className="text-stone-700 text-[10px]">·</span>
+                <span className="font-mono text-[10px] text-stone-700 shrink-0">
+                  {pluralise(adventure._count?.comments ?? 0, "comment")}
                 </span>
               </>
             )}
           </div>
 
-          {/* Actions */}
           <div className="flex items-center gap-1 shrink-0">
             <BookmarkButton
               adventureId={adventure.id}

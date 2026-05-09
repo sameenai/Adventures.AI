@@ -11,20 +11,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-amber-500 text-ink hover:bg-amber-400 focus-visible:ring-amber-500 font-semibold tracking-wide",
+  primary: "bg-amber-500 text-ink hover:bg-amber-400 focus-visible:ring-amber-500 font-medium",
   secondary:
     "bg-stone-800 text-stone-200 hover:bg-stone-700 border border-stone-700 focus-visible:ring-stone-500",
   outline:
-    "border border-stone-600 bg-transparent text-stone-300 hover:border-amber-500 hover:text-amber-400 focus-visible:ring-amber-500",
+    "border border-stone-700 bg-transparent text-stone-300 hover:border-amber-500 hover:text-amber-500 focus-visible:ring-amber-500",
   ghost: "text-stone-400 hover:text-stone-100 hover:bg-stone-800 focus-visible:ring-stone-500",
   danger: "bg-red-600 text-white hover:bg-red-500 focus-visible:ring-red-500",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-xs uppercase tracking-widest",
-  md: "px-4 py-2 text-xs uppercase tracking-widest",
-  lg: "px-6 py-3 text-sm uppercase tracking-widest",
+  sm: "px-4 py-1.5 text-xs",
+  md: "px-5 py-2 text-xs",
+  lg: "px-7 py-3 text-sm",
 };
 
 export function Button({
@@ -39,7 +38,7 @@ export function Button({
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center font-display transition-colors",
+        "inline-flex items-center justify-center transition-colors",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-950",
         "disabled:pointer-events-none disabled:opacity-40",
         variantStyles[variant],
