@@ -4,7 +4,6 @@ import type { AdventureWithUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { BookmarkButton } from "./bookmark-button";
-import { difficultyAccentClass } from "./difficulty-accent";
 import { VoteButton } from "./vote-button";
 
 interface AdventureListRowProps {
@@ -20,18 +19,12 @@ export function AdventureListRow({
   hasVoted = false,
   hasBookmarked = false,
 }: AdventureListRowProps) {
-  const difficulty = DIFFICULTY_MAP.get(adventure.difficulty);
-
   return (
-    <div className="group relative flex gap-4 border border-stone-800 bg-stone-950 p-3 transition-colors hover:border-amber-800/60 sm:gap-5 sm:p-4">
-      {/* Left accent bar colored by difficulty */}
-      <div
-        className={cn(
-          "absolute left-0 top-0 bottom-0 w-0.5 transition-opacity duration-300 group-hover:opacity-100 opacity-40",
-          difficultyAccentClass(adventure.difficulty),
-        )}
-      />
-
+    <div
+      className={cn(
+        "group flex gap-4 border-b border-stone-800 py-5 transition-colors hover:bg-stone-900/40",
+      )}
+    >
       {/* Thumbnail */}
       <Link
         href={`/adventures/${adventure.id}`}
@@ -41,52 +34,47 @@ export function AdventureListRow({
           src={adventure.coverImageUrl}
           alt={adventure.title}
           fill
-          className="object-cover brightness-75 transition-all duration-500 group-hover:brightness-90 group-hover:scale-105"
+          className="object-cover brightness-90 transition-transform duration-500 group-hover:scale-105"
           sizes="128px"
         />
       </Link>
 
       {/* Main content */}
       <div className="min-w-0 flex-1">
-        {/* Top line: country */}
-        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-stone-500">
+        <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
           {adventure.country}
         </p>
-
-        {/* Title */}
         <Link href={`/adventures/${adventure.id}`}>
-          <h3 className="mt-0.5 font-display text-sm uppercase tracking-wider text-stone-100 transition-colors group-hover:text-amber-400 line-clamp-1 leading-snug">
+          <h3 className="mt-0.5 font-display text-base font-light text-stone-100 transition-colors group-hover:text-amber-500 line-clamp-1">
             {adventure.title}
           </h3>
         </Link>
+        <p className="mt-0.5 text-xs text-stone-600 line-clamp-1">{adventure.location}</p>
 
-        {/* Location + tags row */}
-        <p className="mt-0.5 font-mono text-[11px] text-stone-600 line-clamp-1">
-          {adventure.location}
-        </p>
-
-        {/* Meta row */}
-        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span className="font-display text-[10px] uppercase tracking-widest text-amber-500/80">
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-stone-500">
             {adventure.category.replace(/_/g, " ")}
           </span>
-          <span
-            className={cn("font-display text-[10px] uppercase tracking-widest", difficulty?.color)}
-          >
-            {difficulty?.label ?? adventure.difficulty}
-          </span>
+          {(() => {
+            const diff = DIFFICULTY_MAP.get(adventure.difficulty);
+            return (
+              <span className="text-[10px] text-stone-600">
+                {diff?.label ?? adventure.difficulty}
+              </span>
+            );
+          })()}
           <span className="font-mono text-[10px] text-stone-600">
             {pluralise(adventure.durationDays, "day")}
           </span>
-          {adventure._count?.comments !== undefined && adventure._count.comments > 0 && (
+          {(adventure._count?.comments ?? 0) > 0 && (
             <span className="font-mono text-[10px] text-stone-700">
-              {pluralise(adventure._count.comments, "comment")}
+              {pluralise(adventure._count?.comments ?? 0, "comment")}
             </span>
           )}
         </div>
       </div>
 
-      {/* Right side: author + actions */}
+      {/* Right side */}
       <div className="flex shrink-0 flex-col items-end justify-between gap-2">
         <div className="flex items-center gap-1">
           <BookmarkButton

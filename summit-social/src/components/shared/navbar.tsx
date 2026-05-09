@@ -1,7 +1,6 @@
 "use client";
 
 import { NotificationBell } from "@/components/shared/notification-bell";
-import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -24,7 +23,7 @@ function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return <div className="h-7 w-7" />;
+  if (!mounted) return <div className="h-4 w-4" />;
 
   const isDark = resolvedTheme === "dark";
   return (
@@ -32,7 +31,7 @@ function ThemeToggle() {
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className="flex items-center justify-center text-stone-400 transition-colors hover:text-amber-500"
+      className="flex items-center justify-center text-stone-500 transition-colors hover:text-stone-200"
     >
       {isDark ? (
         <svg
@@ -40,7 +39,7 @@ function ThemeToggle() {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth={2}
+          strokeWidth={1.5}
           aria-hidden="true"
         >
           <circle cx="12" cy="12" r="4" />
@@ -55,7 +54,7 @@ function ThemeToggle() {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth={2}
+          strokeWidth={1.5}
           aria-hidden="true"
         >
           <path
@@ -75,67 +74,65 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-stone-800 bg-stone-950/98 backdrop-blur-md">
-      {/* Amber accent line across the top */}
-      <div className="h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-70" />
-      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-10">
-          <Link href="/" className="group flex items-center gap-2.5">
-            <span className="font-display text-base leading-none text-amber-500 transition-colors group-hover:text-amber-400">
-              ▲
-            </span>
-            <span className="font-display text-xl uppercase tracking-[0.25em] text-stone-100 transition-colors group-hover:text-amber-400">
-              Basecamp
-            </span>
-          </Link>
-          <div className="hidden items-center gap-6 md:flex">
-            {NAV_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="font-display text-xs uppercase tracking-widest text-stone-500 transition-colors hover:text-amber-500"
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="font-display text-2xl font-light italic text-stone-100 transition-colors hover:text-amber-500"
+        >
+          Basecamp
+        </Link>
+
+        {/* Centre nav */}
+        <div className="hidden items-center gap-7 md:flex">
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="text-xs font-normal text-stone-500 transition-colors hover:text-stone-100"
+            >
+              {label}
+            </Link>
+          ))}
         </div>
-        <div className="flex items-center gap-4">
+
+        {/* Right side */}
+        <div className="flex items-center gap-5">
           {session ? (
             <>
               <NotificationBell />
               <Link
-                href="/pro"
-                className="border border-amber-500/50 px-2 py-0.5 font-display text-[10px] uppercase tracking-widest text-amber-500 transition-colors hover:border-amber-500 hover:bg-amber-500/10"
-              >
-                Upgrade
-              </Link>
-              <Link
                 href={`/profile/${session.user.id}`}
-                className="hidden font-display text-xs uppercase tracking-widest text-stone-400 transition-colors hover:text-amber-500 sm:block"
+                className="hidden text-xs text-stone-500 transition-colors hover:text-stone-100 sm:block"
               >
                 {session.user.name ?? session.user.email}
               </Link>
               <button
                 type="button"
                 onClick={() => signOut()}
-                className="hidden font-display text-xs uppercase tracking-widest text-stone-600 transition-colors hover:text-stone-300 sm:block"
+                className="hidden text-xs text-stone-600 transition-colors hover:text-stone-400 sm:block"
               >
                 Sign out
               </button>
             </>
           ) : (
             <>
-              <Link href="/login">
-                <Button variant="ghost" size="sm">
-                  Log in
-                </Button>
+              <Link
+                href="/login"
+                className="text-xs text-stone-500 transition-colors hover:text-stone-100"
+              >
+                Log in
               </Link>
-              <Link href="/signup">
-                <Button size="sm">Join</Button>
+              <Link
+                href="/signup"
+                className="bg-amber-500 px-5 py-2 text-xs font-medium text-ink transition-colors hover:bg-amber-400"
+              >
+                Join
               </Link>
             </>
           )}
           <ThemeToggle />
+
           {/* Hamburger — mobile only */}
           <button
             type="button"
@@ -143,7 +140,7 @@ export function Navbar() {
             aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav"
-            className="flex flex-col items-center justify-center gap-1 p-1 text-stone-400 transition-colors hover:text-stone-200 md:hidden"
+            className="flex items-center justify-center text-stone-500 transition-colors hover:text-stone-200 md:hidden"
           >
             {mobileOpen ? (
               <svg
@@ -151,7 +148,7 @@ export function Navbar() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth={2}
+                strokeWidth={1.5}
                 aria-hidden="true"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -162,7 +159,7 @@ export function Navbar() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth={2}
+                strokeWidth={1.5}
                 aria-hidden="true"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -172,37 +169,37 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile nav drawer */}
+      {/* Mobile nav */}
       {mobileOpen && (
         <div
           id="mobile-nav"
-          className="border-t border-stone-800 bg-stone-950 px-4 pb-4 pt-3 md:hidden"
+          className="border-t border-stone-800 bg-stone-950 px-6 pb-5 pt-4 md:hidden"
         >
-          <nav className="flex flex-col gap-0.5">
+          <nav className="flex flex-col gap-1">
             {NAV_LINKS.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
                 onClick={() => setMobileOpen(false)}
-                className="py-2 font-display text-xs uppercase tracking-widest text-stone-400 transition-colors hover:text-amber-500"
+                className="py-2 text-xs text-stone-400 transition-colors hover:text-stone-100"
               >
                 {label}
               </Link>
             ))}
           </nav>
           {session && (
-            <div className="mt-3 flex items-center justify-between border-t border-stone-800 pt-3">
+            <div className="mt-4 flex items-center justify-between border-t border-stone-800 pt-4">
               <Link
                 href={`/profile/${session.user.id}`}
                 onClick={() => setMobileOpen(false)}
-                className="font-display text-xs uppercase tracking-widest text-stone-400 hover:text-amber-500"
+                className="text-xs text-stone-400 hover:text-stone-100"
               >
                 {session.user.name ?? session.user.email}
               </Link>
               <button
                 type="button"
                 onClick={() => signOut()}
-                className="font-display text-xs uppercase tracking-widest text-stone-600 hover:text-stone-300 transition-colors"
+                className="text-xs text-stone-600 transition-colors hover:text-stone-400"
               >
                 Sign out
               </button>

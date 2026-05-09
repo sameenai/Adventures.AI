@@ -2,21 +2,21 @@ import "@/styles/globals.css";
 import "@/lib/env";
 import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
 import type { Metadata, Viewport } from "next";
-import { Lora, Space_Mono, Teko } from "next/font/google";
+import { Cormorant_Garamond, Inter, Space_Mono } from "next/font/google";
 import { Providers } from "./providers";
 
-const teko = Teko({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-teko",
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
-const lora = Lora({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-lora",
+  weight: ["300", "400", "500"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0908",
+  themeColor: "#faf9f7",
   width: "device-width",
   initialScale: 1,
 };
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${teko.variable} ${lora.variable} ${spaceMono.variable}`}
+      className={`${cormorant.variable} ${inter.variable} ${spaceMono.variable}`}
       suppressHydrationWarning
     >
       <body>
