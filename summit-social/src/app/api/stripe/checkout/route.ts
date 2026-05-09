@@ -1,6 +1,7 @@
 import { authOptions } from "@/lib/auth/config";
-import { APP_URL } from "@/lib/constants";
+import { APP_URL, RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import { rateLimit } from "@/lib/db/redis";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
@@ -9,6 +10,21 @@ export async function POST() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
+  }
+
+  const rl = await rateLimit(
+    `stripe-checkout:${session.user.id}`,
+    RATE_LIMITS.stripeCheckout.limit,
+    RATE_LIMITS.stripeCheckout.windowSeconds,
+  );
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests", code: "RATE_LIMITED" },
+      {
+        status: 429,
+        headers: { "Retry-After": String(rl.retryAfter) },
+      },
+    );
   }
 
   const stripeKey = process.env.STRIPE_SECRET_KEY;

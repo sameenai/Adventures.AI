@@ -12,6 +12,12 @@ export const RATE_LIMITS = {
   flightSearch: { limit: 20, windowSeconds: 3600 },
   adventureCreate: { limit: 10, windowSeconds: 3600 },
   commentCreate: { limit: 30, windowSeconds: 3600 },
+  follow: { limit: 60, windowSeconds: 3600 },
+  itineraryCreate: { limit: 20, windowSeconds: 3600 },
+  collectionCreate: { limit: 20, windowSeconds: 3600 },
+  stripeCheckout: { limit: 5, windowSeconds: 3600 },
+  userSearch: { limit: 60, windowSeconds: 3600 },
+  commentReact: { limit: 120, windowSeconds: 3600 },
 } as const;
 
 export const CACHE_TTL = {
