@@ -783,6 +783,34 @@ describe("POST /api/collections/[id]/items", () => {
     );
     expect(response.status).toBe(400);
   });
+
+  it("returns 404 when collection does not exist", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    const response = await addToCollection(
+      new NextRequest("http://localhost/api/collections/missing/items", {
+        method: "POST",
+        body: JSON.stringify({ adventureId: "adv-1" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "missing" }) },
+    );
+    expect(response.status).toBe(404);
+  });
+
+  it("returns 403 when collection belongs to another user", async () => {
+    mockSession("user-2");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    const response = await addToCollection(
+      new NextRequest("http://localhost/api/collections/col-1/items", {
+        method: "POST",
+        body: JSON.stringify({ adventureId: "adv-1" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(403);
+  });
 });
 
 describe("DELETE /api/collections/[id]/items", () => {
@@ -807,6 +835,26 @@ describe("DELETE /api/collections/[id]/items", () => {
       { params: Promise.resolve({ id: "col-1" }) },
     );
     expect(response.status).toBe(400);
+  });
+
+  it("returns 404 when collection does not exist", async () => {
+    mockSession("user-1");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    const response = await removeFromCollection(
+      new NextRequest("http://localhost/api/collections/missing/items?adventureId=adv-1"),
+      { params: Promise.resolve({ id: "missing" }) },
+    );
+    expect(response.status).toBe(404);
+  });
+
+  it("returns 403 when collection belongs to another user", async () => {
+    mockSession("user-2");
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    const response = await removeFromCollection(
+      new NextRequest("http://localhost/api/collections/col-1/items?adventureId=adv-1"),
+      { params: Promise.resolve({ id: "col-1" }) },
+    );
+    expect(response.status).toBe(403);
   });
 });
 
@@ -1242,6 +1290,19 @@ describe("POST /api/itineraries", () => {
     );
     expect(response.status).toBe(429);
   });
+
+  it("returns 400 when body is invalid JSON", async () => {
+    mockSession();
+    mockRateLimit.mockResolvedValueOnce({ allowed: true, retryAfter: 0 });
+    const response = await createItinerary(
+      new Request("http://localhost/api/itineraries", {
+        method: "POST",
+        body: "not-json",
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    expect(response.status).toBe(400);
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -1585,6 +1646,19 @@ describe("PATCH /api/users/[id]", () => {
     expect(response.status).toBe(400);
     const data = await response.json();
     expect(data.code).toBe("VALIDATION_ERROR");
+  });
+
+  it("returns 400 when body is invalid JSON", async () => {
+    mockSession("user-1");
+    const response = await patchUser(
+      new NextRequest("http://localhost/api/users/user-1", {
+        method: "PATCH",
+        body: "not-json",
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "user-1" }) },
+    );
+    expect(response.status).toBe(400);
   });
 });
 

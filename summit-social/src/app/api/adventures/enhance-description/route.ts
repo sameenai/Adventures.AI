@@ -2,6 +2,7 @@ import { openai } from "@/lib/ai/openai";
 import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { rateLimit } from "@/lib/db/redis";
+import { logger } from "@/lib/logger";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -67,7 +68,8 @@ Write an improved description (150–400 words). Be evocative and specific. Do n
     });
     const enhanced = response.choices[0]?.message?.content?.trim() ?? description;
     return NextResponse.json({ enhanced });
-  } catch {
+  } catch (err) {
+    logger.error("OpenAI enhance-description failed", err);
     return NextResponse.json({ enhanced: description });
   }
 }
