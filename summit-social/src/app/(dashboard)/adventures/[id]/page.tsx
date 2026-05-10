@@ -591,23 +591,6 @@ export default async function AdventureDetailPage({ params }: Props) {
               </div>
             </section>
 
-            {/* Highlights */}
-            {adventure.highlights.length > 0 && (
-              <section>
-                <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-3">
-                  Trip Highlights
-                </h2>
-                <ul className="space-y-2">
-                  {adventure.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-3 text-sm text-stone-400">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-amber-500" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
             {/* Map */}
             {(markers.length > 0 || adventure.gpxTrackUrl) && (
               <section>
