@@ -338,6 +338,16 @@ describe("POST /api/users/[id]/follow", () => {
     expect(response.status).toBe(400);
   });
 
+  it("returns 429 when rate limited", async () => {
+    mockSession("user-1");
+    mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
+    const response = await followUser(
+      new Request("http://localhost/api/users/user-2/follow", { method: "POST" }),
+      { params: Promise.resolve({ id: "user-2" }) },
+    );
+    expect(response.status).toBe(429);
+  });
+
   it("creates a follow and sends NEW_FOLLOWER notification on first follow", async () => {
     mockSession("user-1");
     (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>)
@@ -628,6 +638,19 @@ describe("POST /api/collections", () => {
       }),
     );
     expect(response.status).toBe(400);
+  });
+
+  it("returns 429 when rate limited", async () => {
+    mockSession("user-1");
+    mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 60 });
+    const response = await createCollection(
+      new NextRequest("http://localhost/api/collections", {
+        method: "POST",
+        body: JSON.stringify({ name: "My List" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    expect(response.status).toBe(429);
   });
 });
 
@@ -1205,6 +1228,19 @@ describe("POST /api/itineraries", () => {
     const createCall = (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
     expect(createCall.data.startDate).toBeUndefined();
     expect(createCall.data.endDate).toBeUndefined();
+  });
+
+  it("returns 429 when rate limited", async () => {
+    mockSession();
+    mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 60 });
+    const response = await createItinerary(
+      new Request("http://localhost/api/itineraries", {
+        method: "POST",
+        body: JSON.stringify({ title: "My Trip" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    expect(response.status).toBe(429);
   });
 });
 
