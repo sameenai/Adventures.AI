@@ -281,6 +281,20 @@ describe("POST /api/adventures/[id]/comments/[commentId]/react", () => {
 describe("POST /api/adventures/[id]/view", () => {
   afterEach(() => vi.clearAllMocks());
 
+  it("returns 429 when rate limited", async () => {
+    noSession();
+    mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
+    const res = await recordView(
+      new NextRequest("http://localhost/api/adventures/adv-1/view", {
+        method: "POST",
+        body: JSON.stringify({ fingerprint: "fp-abc" }),
+        headers: { "Content-Type": "application/json" },
+      }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+    expect(res.status).toBe(429);
+  });
+
   it("returns 400 when fingerprint is missing", async () => {
     noSession();
     const res = await recordView(
