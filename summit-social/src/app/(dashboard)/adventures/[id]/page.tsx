@@ -251,12 +251,6 @@ export default async function AdventureDetailPage({ params }: Props) {
   // Gallery: cover + up to 4 extras
   const allPhotos = [adventure.coverImageUrl, ...adventure.galleryImages].slice(0, 5);
 
-  const totalDays = adventure.durationDays || 1;
-  const highlights = adventure.highlights;
-  // Only render days that have a highlight; show a summary line for remaining days
-  const highlightedDays = highlights.map((h, i) => ({ day: i + 1, highlight: h }));
-  const remainingDays = totalDays - highlights.length;
-
   return (
     <>
       <script
@@ -390,81 +384,6 @@ export default async function AdventureDetailPage({ params }: Props) {
               <p className="text-sm leading-relaxed text-stone-400 whitespace-pre-line">
                 {adventure.description}
               </p>
-            </section>
-
-            {/* ── ITINERARY ── */}
-            <section>
-              <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
-                Day-by-Day Itinerary
-              </h2>
-
-              {highlights.length === 0 ? (
-                <p className="text-sm text-stone-600">
-                  No day-by-day breakdown yet — use the AI planner to build one.
-                </p>
-              ) : (
-                <div className="space-y-0">
-                  {highlightedDays.map(({ day, highlight }, i) => {
-                    const isLast = i === highlightedDays.length - 1 && remainingDays <= 0;
-                    return (
-                      <div key={day} className="flex gap-4 group">
-                        <div className="flex flex-col items-center shrink-0">
-                          <div
-                            className={`w-px bg-stone-800 ${i === 0 ? "h-2 invisible" : "h-2"}`}
-                          />
-                          <div className="h-2 w-2 shrink-0 border border-stone-700 bg-stone-900 group-hover:border-amber-500/60 transition-colors" />
-                          <div
-                            className={`flex-1 w-px bg-stone-800 min-h-[2rem] ${isLast ? "invisible" : ""}`}
-                          />
-                        </div>
-                        <div className="pb-4 pt-0 min-w-0 flex gap-4 items-start">
-                          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-600 shrink-0 w-12 pt-0.5">
-                            Day {day}
-                          </span>
-                          <p className="text-sm text-stone-300 leading-relaxed">{highlight}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                  {remainingDays > 0 && (
-                    <div className="flex gap-4">
-                      <div className="flex flex-col items-center shrink-0">
-                        <div className="h-2 w-px bg-stone-800" />
-                        <div className="flex flex-col gap-1 py-1">
-                          <div className="h-1 w-1 bg-stone-700" />
-                          <div className="h-1 w-1 bg-stone-700" />
-                          <div className="h-1 w-1 bg-stone-700" />
-                        </div>
-                        <div className="h-2 w-px bg-stone-800 invisible" />
-                      </div>
-                      <div className="pb-3 pt-1.5">
-                        <span className="font-mono text-[10px] text-stone-600">
-                          +{remainingDays} more {remainingDays === 1 ? "day" : "days"} — use AI
-                          planner for a full breakdown
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              <Link
-                href={`/itinerary?prompt=${encodeURIComponent(`Plan a ${adventure.durationDays}-day trip for "${adventure.title}" in ${adventure.location}, ${adventure.country}. Difficulty: ${adventure.difficulty.toLowerCase()}. Key highlights: ${adventure.highlights.slice(0, 5).join(", ")}.`)}`}
-                className="mt-4 inline-flex items-center gap-2 border border-amber-500/30 bg-amber-500/5 px-4 py-2 font-display text-xs uppercase tracking-widest text-amber-500 transition-colors hover:border-amber-500 hover:bg-amber-500/10"
-              >
-                Personalise with AI
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-3.5 w-3.5 fill-none stroke-current stroke-2"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                  />
-                </svg>
-              </Link>
             </section>
 
             {/* ── BOOK THIS TRIP ── */}
