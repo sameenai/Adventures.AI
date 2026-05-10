@@ -1,5 +1,7 @@
 import { authOptions } from "@/lib/auth/config";
+import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import { rateLimit } from "@/lib/db/redis";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -7,6 +9,19 @@ import type { NextRequest } from "next/server";
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id: adventureId } = await params;
   const session = await getServerSession(authOptions);
+
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  const rl = await rateLimit(
+    `adventure-view:${ip}`,
+    RATE_LIMITS.adventureView.limit,
+    RATE_LIMITS.adventureView.windowSeconds,
+  );
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests", code: "RATE_LIMITED" },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
+  }
 
   const body = await request.json().catch(() => ({}));
   const rawFp = typeof body.fingerprint === "string" ? body.fingerprint : null;
