@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+*.DS_Store
+
+# Design scratch files
+design-v*.html
+v*-screenshot.png
+current-*.png
+screenshot-*.png
+
+# Token / secret files
+summit-social/mapbox_token.txt
+
+# Playwright MCP browser state
+.playwright-mcp/
+
+# Adventure JSON data files (large, used for seeding only)
+adventures-*.json
+seed-adventure.js
+add-adventures.sh
+
+# Node
+node_modules/
