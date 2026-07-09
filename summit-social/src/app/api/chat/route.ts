@@ -1,8 +1,9 @@
-import { ItineraryDaySchema } from "@/lib/ai/parser";
+import { ItineraryDaySchema, SearchAdventuresArgsSchema } from "@/lib/ai/parser";
 import { ITINERARY_SYSTEM_PROMPT, buildUserContextPrompt } from "@/lib/ai/prompts";
 import { chatTools } from "@/lib/ai/tools";
 import { authOptions } from "@/lib/auth/config";
-import { PLANS, RATE_LIMITS } from "@/lib/constants";
+import { CHAT_HISTORY_MAX_MESSAGES, PLANS, RATE_LIMITS } from "@/lib/constants";
+import { decrypt } from "@/lib/crypto";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
 import { logger } from "@/lib/logger";
@@ -51,13 +52,11 @@ async function persistItineraryDay(args: unknown, itineraryId: string): Promise<
 /** Handle search_adventures tool call — query the DB and return relevant adventures. */
 async function handleSearchAdventures(args: unknown): Promise<string> {
   try {
-    const a = args as {
-      query?: string;
-      category?: string;
-      continent?: string;
-      difficulty?: string;
-      maxDuration?: number;
-    };
+    const parsed = SearchAdventuresArgsSchema.safeParse(args);
+    if (!parsed.success) {
+      return JSON.stringify({ success: false, results: [], error: "Invalid arguments" });
+    }
+    const a = parsed.data;
 
     const results = await prisma.adventure.findMany({
       where: {
@@ -117,7 +116,9 @@ export async function POST(request: NextRequest) {
     where: { id: session.user.id },
     select: { openAiApiKey: true, plan: true, aiCreditsUsed: true, aiCreditsResetAt: true },
   });
-  const resolvedApiKey = userRecord?.openAiApiKey ?? process.env.OPENAI_API_KEY ?? null;
+  const storedKey = userRecord?.openAiApiKey;
+  const resolvedApiKey =
+    (storedKey ? decrypt(storedKey) : null) ?? process.env.OPENAI_API_KEY ?? null;
 
   const body = await request.json().catch(() => null);
   const parsed = chatMessageSchema.safeParse(body);
@@ -178,7 +179,7 @@ export async function POST(request: NextRequest) {
     activeItineraryId = created.id;
   }
 
-  // Load existing chat history.
+  // Load existing chat history (capped to prevent unbounded growth).
   let chatHistory: Array<{ role: string; content: string }> = [];
   if (incomingItineraryId) {
     const itinerary = await prisma.itinerary.findUnique({
@@ -186,7 +187,8 @@ export async function POST(request: NextRequest) {
       select: { chatHistory: true },
     });
     if (itinerary?.chatHistory) {
-      chatHistory = itinerary.chatHistory as Array<{ role: string; content: string }>;
+      const raw = itinerary.chatHistory as Array<{ role: string; content: string }>;
+      chatHistory = raw.slice(-CHAT_HISTORY_MAX_MESSAGES);
     }
   }
 
@@ -218,15 +220,14 @@ export async function POST(request: NextRequest) {
           controller.enqueue(encoder.encode(token));
           await new Promise<void>((r) => setTimeout(r, 18));
         }
+        const mockHistory = [
+          ...chatHistory,
+          { role: "user", content: message },
+          { role: "assistant", content: fullContent.trim() },
+        ].slice(-CHAT_HISTORY_MAX_MESSAGES);
         await prisma.itinerary.update({
           where: { id: activeItineraryId },
-          data: {
-            chatHistory: [
-              ...chatHistory,
-              { role: "user", content: message },
-              { role: "assistant", content: fullContent.trim() },
-            ],
-          },
+          data: { chatHistory: mockHistory },
         });
         controller.close();
       },
@@ -329,16 +330,15 @@ export async function POST(request: NextRequest) {
           }
         }
 
-        // Persist chat history
+        // Persist chat history (capped to prevent unbounded JSON growth)
+        const updatedHistory = [
+          ...chatHistory,
+          { role: "user", content: message },
+          { role: "assistant", content: fullContent },
+        ].slice(-CHAT_HISTORY_MAX_MESSAGES);
         await prisma.itinerary.update({
           where: { id: activeItineraryId },
-          data: {
-            chatHistory: [
-              ...chatHistory,
-              { role: "user", content: message },
-              { role: "assistant", content: fullContent },
-            ],
-          },
+          data: { chatHistory: updatedHistory },
         });
       } catch (error) {
         logger.error("Streaming error", error);

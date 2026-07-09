@@ -87,14 +87,16 @@ export function useChat({ itineraryId, initialMessages = [] }: UseChatOptions) {
           );
         }
       } catch (error) {
-        console.error("Chat error:", error);
+        const errorMessage =
+          error instanceof Error ? error.message : "Something went wrong. Please try again.";
         setMessages((prev) => [
           ...prev,
           {
             id: crypto.randomUUID(),
             role: "assistant",
-            content: "Sorry, something went wrong. Please try again.",
+            content: errorMessage,
             createdAt: new Date().toISOString(),
+            isError: true,
           },
         ]);
       } finally {

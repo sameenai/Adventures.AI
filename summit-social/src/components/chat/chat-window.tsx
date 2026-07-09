@@ -105,8 +105,22 @@ export function ChatWindow({ itineraryId, initialMessages = [], initialPrompt }:
             </div>
           </div>
         )}
-        {messages.map((message) => (
-          <MessageBubble key={message.id} message={message} />
+        {messages.map((message, idx) => (
+          <MessageBubble
+            key={message.id}
+            message={message}
+            onRetry={
+              message.isError && idx >= 2
+                ? () => {
+                    const lastUserMsg = messages
+                      .slice(0, idx)
+                      .filter((m) => m.role === "user")
+                      .pop();
+                    if (lastUserMsg) sendMessage(lastUserMsg.content);
+                  }
+                : undefined
+            }
+          />
         ))}
         {isStreaming && <TypingIndicator />}
         <div ref={messagesEndRef} />

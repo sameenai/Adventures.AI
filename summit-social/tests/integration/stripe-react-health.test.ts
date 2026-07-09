@@ -385,7 +385,7 @@ describe("POST /api/webhooks/stripe", () => {
     expect(data.received).toBe(true);
   });
 
-  it("returns received:true when webhook secrets are not configured (dev mode)", async () => {
+  it("returns 503 when webhook secrets are not configured", async () => {
     vi.unstubAllEnvs();
     vi.stubEnv("STRIPE_SECRET_KEY", "sk_test_abc");
     // No STRIPE_WEBHOOK_SECRET set
@@ -398,9 +398,9 @@ describe("POST /api/webhooks/stripe", () => {
       }),
     );
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(503);
     const data = await response.json();
-    expect(data.received).toBe(true);
+    expect(data.error).toBe("Billing not configured");
   });
 });
 

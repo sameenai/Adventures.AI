@@ -3,7 +3,8 @@ import { SearchFilter } from "@/components/adventures/search-filter";
 import { ViewToggle } from "@/components/adventures/view-toggle";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
-import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
+import { CATEGORIES, CONTINENTS, DIFFICULTIES, DURATION_RANGES } from "@/lib/constants";
+import type { DurationKey } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { encodeCursor } from "@/lib/pagination";
 import type { Prisma } from "@prisma/client";
@@ -80,20 +81,9 @@ export default async function AdventuresPage({
     !!tag ||
     !!search;
 
-  const DURATION_RANGES = {
-    weekend: { gte: 1, lte: 3 },
-    week: { gte: 4, lte: 7 },
-    fortnight: { gte: 8, lte: 14 },
-    expedition: { gte: 15, lte: 30 },
-    peregrination: { gte: 31, lte: 90 },
-    lifestyle: { gte: 91 },
-  } as const;
-
   const andConditions: Prisma.AdventureWhereInput[] = [];
   if (durations.length > 0) {
-    const validDurations = durations.filter(
-      (d) => d in DURATION_RANGES,
-    ) as (keyof typeof DURATION_RANGES)[];
+    const validDurations = durations.filter((d) => d in DURATION_RANGES) as DurationKey[];
     if (validDurations.length > 0) {
       andConditions.push({ OR: validDurations.map((d) => ({ durationDays: DURATION_RANGES[d] })) });
     }

@@ -60,6 +60,19 @@ export const DIFFICULTIES = [
   { value: "EXPEDITION_GRADE", label: "Expedition Grade", color: "text-purple-400" },
 ] as const;
 
+export const DURATION_RANGES = {
+  weekend: { gte: 1, lte: 3 },
+  week: { gte: 4, lte: 7 },
+  fortnight: { gte: 8, lte: 14 },
+  expedition: { gte: 15, lte: 30 },
+  peregrination: { gte: 31, lte: 90 },
+  lifestyle: { gte: 91 },
+} as const;
+
+export type DurationKey = keyof typeof DURATION_RANGES;
+
+export const CHAT_HISTORY_MAX_MESSAGES = 100;
+
 export const UPLOAD_MAX_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
 
 export const PLANS = {

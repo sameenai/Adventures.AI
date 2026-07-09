@@ -70,6 +70,9 @@ Write an improved description (150–400 words). Be evocative and specific. Do n
     return NextResponse.json({ enhanced });
   } catch (err) {
     logger.error("OpenAI enhance-description failed", err);
-    return NextResponse.json({ enhanced: description });
+    return NextResponse.json(
+      { enhanced: description, warning: "AI enhancement unavailable — original returned" },
+      { status: 200 },
+    );
   }
 }
