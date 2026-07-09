@@ -1,5 +1,6 @@
 import { authOptions } from "@/lib/auth/config";
-import { CACHE_TTL, RATE_LIMITS } from "@/lib/constants";
+import { CACHE_TTL, DURATION_RANGES, RATE_LIMITS } from "@/lib/constants";
+import type { DurationKey } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { getCached, rateLimit, setCache } from "@/lib/db/redis";
 import { decodeCursor, encodeCursor } from "@/lib/pagination";
@@ -34,21 +35,12 @@ export async function GET(request: NextRequest) {
     tag,
   } = parsed.data;
 
-  const DURATION_RANGES = {
-    weekend: { gte: 1, lte: 3 },
-    week: { gte: 4, lte: 7 },
-    fortnight: { gte: 8, lte: 14 },
-    expedition: { gte: 15, lte: 30 },
-    peregrination: { gte: 31, lte: 90 },
-    lifestyle: { gte: 91 },
-  } as const;
-
   // Collect OR-based conditions into an AND array to avoid key collisions
   const andConditions: Prisma.AdventureWhereInput[] = [];
   if (duration?.length) {
     andConditions.push({
       OR: duration.map((d) => ({
-        durationDays: DURATION_RANGES[d as keyof typeof DURATION_RANGES],
+        durationDays: DURATION_RANGES[d as DurationKey],
       })),
     });
   }

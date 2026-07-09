@@ -26,6 +26,16 @@ export type ParsedItinerary = z.infer<typeof ParsedItinerarySchema>;
 export type ItineraryDay = z.infer<typeof ItineraryDaySchema>;
 export type Activity = z.infer<typeof ActivitySchema>;
 
+export const SearchAdventuresArgsSchema = z.object({
+  query: z.string().optional(),
+  category: z.string().optional(),
+  continent: z.string().optional(),
+  difficulty: z.string().optional(),
+  maxDuration: z.number().optional(),
+});
+
+export type SearchAdventuresArgs = z.infer<typeof SearchAdventuresArgsSchema>;
+
 export function parseItineraryFromLLM(content: string): ParsedItinerary | null {
   const jsonMatch = content.match(/```json\s*([\s\S]*?)```/) || content.match(/(\{[\s\S]*\})/);
   if (!jsonMatch) return null;

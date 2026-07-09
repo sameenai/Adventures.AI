@@ -1,4 +1,5 @@
 import { authOptions } from "@/lib/auth/config";
+import { decrypt, encrypt } from "@/lib/crypto";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
@@ -25,14 +26,17 @@ export async function GET() {
     select: { openAiApiKey: true },
   });
 
-  const key = user?.openAiApiKey;
-  return NextResponse.json({
-    hasKey: !!key,
-    hint: key ? `${key.slice(0, 7)}…${key.slice(-4)}` : null,
-  });
+  const stored = user?.openAiApiKey;
+  if (!stored) {
+    return NextResponse.json({ hasKey: false, hint: null });
+  }
+
+  const raw = decrypt(stored);
+  const hint = raw?.startsWith("sk-") ? `${raw.slice(0, 7)}…${raw.slice(-4)}` : "sk-…****";
+  return NextResponse.json({ hasKey: true, hint });
 }
 
-/** Saves or replaces the user's OpenAI API key. */
+/** Saves or replaces the user's OpenAI API key (encrypted at rest). */
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
@@ -52,10 +56,11 @@ export async function POST(request: NextRequest) {
   }
 
   const key = parsed.data.key;
+  const encrypted = encrypt(key);
 
   await prisma.user.update({
     where: { id: session.user.id },
-    data: { openAiApiKey: key },
+    data: { openAiApiKey: encrypted },
   });
 
   return NextResponse.json({

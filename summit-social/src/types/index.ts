@@ -46,6 +46,7 @@ export type ChatMessage = {
   content: string;
   createdAt: string;
   toolCalls?: ToolCallResult[];
+  isError?: boolean;
 };
 
 export type ToolCallResult = {

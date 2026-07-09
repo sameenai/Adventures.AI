@@ -13,7 +13,10 @@ export async function POST(request: NextRequest) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   if (!webhookSecret || !stripeKey) {
-    return NextResponse.json({ received: true });
+    logger.error(
+      "Stripe webhook received but STRIPE_WEBHOOK_SECRET or STRIPE_SECRET_KEY not configured",
+    );
+    return NextResponse.json({ error: "Billing not configured" }, { status: 503 });
   }
 
   const stripe = new Stripe(stripeKey);

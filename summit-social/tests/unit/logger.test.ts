@@ -48,13 +48,17 @@ describe("logger", () => {
     it("includes data argument when provided", () => {
       const data = { key: "value" };
       logger.info("with data", data);
-      expect(console.info).toHaveBeenCalledWith(expect.stringContaining("with data"), data);
+      const args = (console.info as ReturnType<typeof vi.fn>).mock.calls[0];
+      const fullOutput = args.join(" ");
+      expect(fullOutput).toContain("with data");
+      expect(fullOutput).toContain("key");
     });
 
     it("does not include data argument when not provided", () => {
       logger.info("no data");
-      const args = (console.info as ReturnType<typeof vi.fn>).mock.calls[0];
-      expect(args).toHaveLength(1);
+      const call = (console.info as ReturnType<typeof vi.fn>).mock.calls[0][0];
+      expect(call).toContain("no data");
+      expect(call).not.toContain("undefined");
     });
 
     it("includes ISO timestamp in log output", () => {
@@ -75,13 +79,18 @@ describe("logger", () => {
       expect(console.error).toHaveBeenCalledOnce();
     });
 
-    it("suppresses info logs when NODE_ENV is production", async () => {
+    it("outputs structured JSON when NODE_ENV is production", async () => {
       vi.stubEnv("NODE_ENV", "production");
       vi.resetModules();
       const { logger: prodLogger } = await import("@/lib/logger");
-      const infoSpy = vi.spyOn(console, "info").mockImplementation(() => {});
-      prodLogger.info("should be suppressed");
-      expect(infoSpy).not.toHaveBeenCalled();
+      const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+      prodLogger.warn("structured test");
+      expect(warnSpy).toHaveBeenCalledOnce();
+      const output = warnSpy.mock.calls[0][0];
+      const parsed = JSON.parse(output);
+      expect(parsed.severity).toBe("WARN");
+      expect(parsed.message).toBe("structured test");
+      expect(parsed.timestamp).toBeDefined();
       vi.unstubAllEnvs();
       vi.resetModules();
     });

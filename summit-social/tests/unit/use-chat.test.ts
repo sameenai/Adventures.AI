@@ -111,7 +111,8 @@ describe("useChat", () => {
 
     const errorMsg = result.current.messages.at(-1);
     expect(errorMsg?.role).toBe("assistant");
-    expect(errorMsg?.content).toContain("something went wrong");
+    expect(errorMsg?.content).toContain("Network error");
+    expect(errorMsg?.isError).toBe(true);
   });
 
   it("adds error message when response is not ok", async () => {
@@ -125,10 +126,11 @@ describe("useChat", () => {
 
     const errorMsg = result.current.messages.at(-1);
     expect(errorMsg?.role).toBe("assistant");
-    expect(errorMsg?.content).toContain("something went wrong");
+    expect(errorMsg?.content).toContain("failed (500)");
+    expect(errorMsg?.isError).toBe(true);
   });
 
-  it("includes api error message in thrown error when response body has error field", async () => {
+  it("includes api error message in error bubble when response body has error field", async () => {
     vi.spyOn(global, "fetch").mockResolvedValueOnce(
       new Response(JSON.stringify({ error: "Unauthorized", code: "UNAUTHORIZED" }), {
         status: 401,
@@ -137,17 +139,15 @@ describe("useChat", () => {
     );
 
     const { result } = renderHook(() => useChat({}));
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
     await act(async () => {
       await result.current.sendMessage("hello");
     });
 
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "Chat error:",
-      expect.objectContaining({ message: "Unauthorized" }),
-    );
-    consoleSpy.mockRestore();
+    const errorMsg = result.current.messages.at(-1);
+    expect(errorMsg?.role).toBe("assistant");
+    expect(errorMsg?.content).toBe("Unauthorized");
+    expect(errorMsg?.isError).toBe(true);
   });
 
   it("posts to /api/chat with message content", async () => {
@@ -207,7 +207,8 @@ describe("useChat", () => {
 
     const errorMsg = result.current.messages.at(-1);
     expect(errorMsg?.role).toBe("assistant");
-    expect(errorMsg?.content).toContain("something went wrong");
+    expect(errorMsg?.content).toContain("No response body");
+    expect(errorMsg?.isError).toBe(true);
   });
 
   it("accumulates multiple chunks from stream", async () => {
