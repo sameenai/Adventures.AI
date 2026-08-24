@@ -1,4 +1,13 @@
-import type { Adventure, Comment, Itinerary, ItineraryDay, Tag, User, Vote } from "@prisma/client";
+import type {
+  Adventure,
+  Comment,
+  Itinerary,
+  ItineraryDay,
+  Operator,
+  Tag,
+  User,
+  Vote,
+} from "@prisma/client";
 
 export type AdventureWithUser = Adventure & {
   user: Pick<User, "id" | "name" | "avatarUrl">;
@@ -11,6 +20,7 @@ export type AdventureDetail = Adventure & {
   tags: Tag[];
   comments: CommentWithUser[];
   votes: Pick<Vote, "userId">[];
+  operator: Operator | null;
 };
 
 export type CommentWithUser = Comment & {
