@@ -17,6 +17,7 @@ vi.mock("ioredis", () => {
 
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
+    searchEvent: { create: vi.fn().mockResolvedValue({}) },
     adventure: {
       findMany: vi.fn(),
       findUnique: vi.fn(),

@@ -1,0 +1,181 @@
+{
+  "caseId": "revision-under-budget",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sa_1",
+      "name": "search_adventures",
+      "arguments": { "query": "chamonix alps hiking week", "difficulty": "MODERATE" }
+    }
+  ],
+  "turns": [
+    {
+      "userMessage": "I want a week of proper mountain hiking in the Alps in early July. Plan it for me.",
+      "finalText": "Early July is prime time in the Chamonix valley — snow-free trails up to about 2,500 m and long daylight. Here's a 7-day plan based from Chamonix: warm up on the Aiguillette des Houches, hike to Lac Blanc beneath the Aiguilles Rouges, traverse the Grand Balcon Nord to the Mer de Glace, and finish with the Albert 1er glacier viewpoint above Le Tour. I've based it on comfortable half-board mountain refuges and valley hotels, with the Flégère and Montenvers lifts to save your knees. Estimated cost: £1,650 including flights to Geneva, transfers, half-board refuge and hotel nights, and lift passes. Want me to book out the day-by-day details?",
+      "toolCalls": [
+        {
+          "id": "call_sa_1",
+          "name": "search_adventures",
+          "arguments": { "query": "chamonix alps hiking week", "difficulty": "MODERATE" }
+        }
+      ]
+    },
+    {
+      "userMessage": "That's over budget for me — I can only spend £1,200 all-in. Make it cheaper.",
+      "finalText": "Done — same valley, same summits, £1,080 all-in. The mountains are free; it was the refuges and lifts costing you, so the revised plan cuts those.\n\nHere's what changed to make it cheaper: you'll camp at a riverside campsite in Chamonix (£13/night, hot showers, Mont Blanc from your tent door) instead of half-board refuges; every route now starts on foot from the valley floor rather than a lift, which turns each day into a proper mountain day; and breakfasts and picnics come from the supermarket, with one celebratory fondue at the end. Budget airline seats to Geneva run about £120 return in early July if you book about six weeks out, and the shared shuttle to Chamonix is £25 each way.\n\nThe week itself keeps its shape: Aiguillette des Houches to warm up, Lac Blanc climbed the honest way from Les Praz, the Grand Balcon Nord to the Mer de Glace, and the Albert 1er glacier snout above Le Tour to finish. Full breakdown: £240 travel, £91 campsite, £140 food, £560 left as buffer for kit, one bad-weather lift ride and that fondue — £1,080 against your £1,200 ceiling.\n\nIf a storm rolls in, the £560 buffer also covers a night in the Chamonix youth hostel dorm to dry out. Want the day-by-day details locked in?",
+      "toolCalls": []
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Arrive and pitch camp in Chamonix",
+      "description": "Travel day with an evening leg-stretch",
+      "activities": [
+        {
+          "time": "14:00",
+          "activity": "Bus transfer from Geneva airport to the Chamonix campsite",
+          "location": "Camping les Arolles, Chamonix",
+          "notes": "Shared shuttle £25 — pitch the tent with Mont Blanc overhead",
+          "lat": 45.913,
+          "lng": 6.848
+        },
+        {
+          "time": "18:00",
+          "activity": "Flat warm-up walk around Lac des Gaillands",
+          "location": "Lac des Gaillands",
+          "lat": 45.9146,
+          "lng": 6.846
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Aiguillette des Houches",
+      "description": "Warm-up summit with the full Mont Blanc panorama",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Climb from Les Houches through the Chailloux alpage to the Aiguillette",
+          "location": "Aiguillette des Houches",
+          "notes": "About 1,000 m of ascent — a proper first day, picnic on top",
+          "lat": 45.9046,
+          "lng": 6.75
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Lac Blanc the honest way",
+      "description": "The valley's classic viewpoint, climbed on foot",
+      "activities": [
+        {
+          "time": "07:30",
+          "activity": "Hike from Les Praz up through the Aiguilles Rouges to Lac Blanc",
+          "location": "Lac Blanc",
+          "notes": "1,400 m up without the lift — start early; the lake mirrors the Drus by mid-morning",
+          "lat": 45.9843,
+          "lng": 6.888
+        },
+        {
+          "time": "16:00",
+          "activity": "Descend to Les Praz and recover with a river dip",
+          "location": "Les Praz de Chamonix",
+          "lat": 45.942,
+          "lng": 6.888
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Petit Balcon Sud and resupply",
+      "description": "Deliberately easier mid-week day",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Roll along the Petit Balcon Sud path above the valley",
+          "location": "Petit Balcon Sud, Chamonix",
+          "notes": "Gentle recovery day to keep legs fresh for the balcony traverse",
+          "lat": 45.925,
+          "lng": 6.86
+        },
+        {
+          "time": "15:00",
+          "activity": "Supermarket resupply and route check for tomorrow",
+          "location": "Chamonix centre",
+          "lat": 45.9237,
+          "lng": 6.8694
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "title": "Grand Balcon Nord to the Mer de Glace",
+      "description": "The big traverse day",
+      "activities": [
+        {
+          "time": "07:00",
+          "activity": "Climb to Plan de l'Aiguille and traverse the Grand Balcon Nord",
+          "location": "Grand Balcon Nord",
+          "notes": "Steady height gain on foot instead of the cable car — glaciers across the valley all day",
+          "lat": 45.926,
+          "lng": 6.879
+        },
+        {
+          "time": "13:30",
+          "activity": "Look over the Mer de Glace from Montenvers then walk back down",
+          "location": "Montenvers, Mer de Glace",
+          "notes": "Skipping the rack railway saves £36 and the descent path is lovely",
+          "lat": 45.933,
+          "lng": 6.917
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "title": "Albert 1er glacier viewpoint",
+      "description": "Glacier close-up above Le Tour",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "Hike from Le Tour village up the moraine path towards the Albert 1er refuge",
+          "location": "Refuge Albert 1er approach, Le Tour",
+          "notes": "Picnic at the glacier snout viewpoint — no hut fees, all the scenery",
+          "lat": 45.994,
+          "lng": 6.988
+        },
+        {
+          "time": "17:00",
+          "activity": "Descend for the one splurge: fondue night in Chamonix",
+          "location": "Rue des Moulins, Chamonix",
+          "lat": 45.924,
+          "lng": 6.871
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "title": "Market morning and home",
+      "description": "Pack down and departure",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Saturday market wander and pack down the tent",
+          "location": "Place du Mont-Blanc, Chamonix",
+          "lat": 45.9235,
+          "lng": 6.87
+        },
+        {
+          "time": "12:30",
+          "activity": "Bus back to Geneva airport for the flight home",
+          "location": "Geneva airport",
+          "lat": 46.2381,
+          "lng": 6.109
+        }
+      ]
+    }
+  ],
+  "finalText": "Done — same valley, same summits, £1,080 all-in. The mountains are free; it was the refuges and lifts costing you, so the revised plan cuts those.\n\nHere's what changed to make it cheaper: you'll camp at a riverside campsite in Chamonix (£13/night, hot showers, Mont Blanc from your tent door) instead of half-board refuges; every route now starts on foot from the valley floor rather than a lift, which turns each day into a proper mountain day; and breakfasts and picnics come from the supermarket, with one celebratory fondue at the end. Budget airline seats to Geneva run about £120 return in early July if you book about six weeks out, and the shared shuttle to Chamonix is £25 each way.\n\nThe week itself keeps its shape: Aiguillette des Houches to warm up, Lac Blanc climbed the honest way from Les Praz, the Grand Balcon Nord to the Mer de Glace, and the Albert 1er glacier snout above Le Tour to finish. Full breakdown: £240 travel, £91 campsite, £140 food, £560 left as buffer for kit, one bad-weather lift ride and that fondue — £1,080 against your £1,200 ceiling.\n\nIf a storm rolls in, the £560 buffer also covers a night in the Chamonix youth hostel dorm to dry out. Want the day-by-day details locked in?",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}

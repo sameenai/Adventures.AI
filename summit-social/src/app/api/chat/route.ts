@@ -181,6 +181,9 @@ export async function POST(request: NextRequest) {
           where: { id: itineraryId, userId },
           data: { chatHistory: JSON.parse(JSON.stringify(mockHistory)) },
         });
+        // Demo itineraries must not dead-end: mirror the canned 5-day plan
+        // into real ItineraryDay rows so the detail page has content.
+        await seedMockItineraryDays(itineraryId);
         controller.close();
       },
     });
@@ -273,4 +276,82 @@ A challenging 8-hour push to high camp. Elevation gain of ~900 m. Pace yourself 
 **Estimated budget:** £1,800–£2,400 per person including permits, guides, and accommodation.
 
 *Note: AI trip planner running in demo mode. Add an OpenAI API key to enable full personalised generation.*`;
+}
+
+// Structured counterpart of the canned buildMockResponse text (demo mode only).
+const MOCK_ITINERARY_DAYS = [
+  {
+    dayNumber: 1,
+    title: "Arrival & Orientation",
+    description:
+      "Arrive and transfer to your accommodation. Spend the afternoon acclimatising and checking your gear. Evening briefing with your guide.",
+    activities: [
+      {
+        time: "15:00",
+        activity: "Gear check and evening briefing",
+        location: "Base accommodation",
+      },
+    ],
+  },
+  {
+    dayNumber: 2,
+    title: "Acclimatisation Hike",
+    description:
+      "Short hike to a nearby viewpoint (3–4 hours). Excellent chance to assess fitness and spot wildlife. Return to base by early afternoon.",
+    activities: [
+      { time: "08:00", activity: "Acclimatisation hike (3–4 hours)", location: "Nearby viewpoint" },
+    ],
+  },
+  {
+    dayNumber: 3,
+    title: "Main Trail Begins",
+    description:
+      "Early start at 06:00. Trek through the primary zone, covering approximately 14 km. Stunning scenery and your first real taste of the terrain. Camp at altitude.",
+    activities: [
+      { time: "06:00", activity: "Trek the primary zone (~14 km)", location: "Main trail" },
+    ],
+  },
+  {
+    dayNumber: 4,
+    title: "High Camp",
+    description:
+      "A challenging 8-hour push to high camp. Elevation gain of ~900 m. Pace yourself — hydration is critical. Clear skies typical in the afternoon.",
+    activities: [{ time: "07:00", activity: "Push to high camp (+900 m)", location: "High camp" }],
+  },
+  {
+    dayNumber: 5,
+    title: "Summit Day",
+    description:
+      "02:30 wake-up, summit attempt by headtorch. Aim to reach the top by sunrise. Descend to base camp by midday. Celebration dinner.",
+    activities: [{ time: "02:30", activity: "Summit attempt by headtorch", location: "Summit" }],
+  },
+];
+
+/**
+ * Demo mode only: upsert the canned 5-day plan as real ItineraryDay rows so a
+ * demo itinerary is browsable instead of an empty dead end.
+ */
+async function seedMockItineraryDays(itineraryId: string): Promise<void> {
+  for (const day of MOCK_ITINERARY_DAYS) {
+    const existing = await prisma.itineraryDay.findFirst({
+      where: { itineraryId, dayNumber: day.dayNumber },
+      select: { id: true },
+    });
+    if (existing) {
+      await prisma.itineraryDay.update({
+        where: { id: existing.id },
+        data: { title: day.title, description: day.description, activities: day.activities },
+      });
+    } else {
+      await prisma.itineraryDay.create({
+        data: {
+          itineraryId,
+          dayNumber: day.dayNumber,
+          title: day.title,
+          description: day.description,
+          activities: day.activities,
+        },
+      });
+    }
+  }
 }

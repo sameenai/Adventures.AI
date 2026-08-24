@@ -6,6 +6,9 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+/** Cap the publish notification fan-out at the author's first 500 followers. */
+const PUBLISH_NOTIFY_FOLLOWER_CAP = 500;
+
 // POST /api/adventures/[id]/publish — toggle published for the owner
 export async function POST(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -29,7 +32,7 @@ export async function POST(_request: NextRequest, { params }: { params: Promise<
 
   const adventure = await prisma.adventure.findUnique({
     where: { id },
-    select: { userId: true, published: true },
+    select: { userId: true, published: true, title: true, user: { select: { name: true } } },
   });
 
   if (!adventure) {
@@ -45,6 +48,29 @@ export async function POST(_request: NextRequest, { params }: { params: Promise<
     data: { published: !adventure.published },
     select: { id: true, published: true },
   });
+
+  // Fan out ADVENTURE_PUBLISHED to the author's followers — only on the
+  // unpublished → published transition, never on unpublish, and capped at
+  // the first 500 followers.
+  if (!adventure.published && updated.published) {
+    const followers = await prisma.follow.findMany({
+      where: { followingId: session.user.id },
+      select: { followerId: true },
+      orderBy: { createdAt: "asc" },
+      take: PUBLISH_NOTIFY_FOLLOWER_CAP,
+    });
+
+    if (followers.length > 0) {
+      await prisma.notification.createMany({
+        data: followers.map((f) => ({
+          userId: f.followerId,
+          type: "ADVENTURE_PUBLISHED" as const,
+          message: `${adventure.user?.name ?? "Someone"} published "${adventure.title}"`,
+          linkUrl: `/adventures/${id}`,
+        })),
+      });
+    }
+  }
 
   return NextResponse.json(updated);
 }

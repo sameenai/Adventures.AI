@@ -43,6 +43,10 @@ model User {
   notifications    Notification[]
   collections      Collection[]
   flightBookings   FlightBooking[]
+  travelerProfile  TravelerProfile?
+  tripEvents       TripEvent[]
+  searchEvents     SearchEvent[]
+  cadenceRecs      CadenceRecommendation[]
   commentReactions CommentReaction[]
   adventureViews   AdventureView[]
 }
@@ -82,6 +86,8 @@ model Adventure {
   bookmarks       Bookmark[]
   collectionItems CollectionItem[]
   views           AdventureView[]
+  tripEvents      TripEvent[]
+  cadenceRecs     CadenceRecommendation[]
 
   @@index([voteCount(sort: Desc), id])
   @@index([createdAt(sort: Desc), id])
@@ -287,6 +293,8 @@ enum NotificationType {
   NEW_VOTE
   ADVENTURE_PUBLISHED
   SYSTEM
+  TRIP_DUE
+  SEASON_ALERT
 }
 
 model Collection {
@@ -344,4 +352,99 @@ model JobRun {
   stats      Json?
 
   @@index([jobName, startedAt(sort: Desc)])
+}
+
+// ---------------------------------------------------------------------------
+// Travel cadence substrate: stated preferences, trip history anchor, captured
+// demand, and persisted recommendations (see /next-trip and the cadence jobs).
+// ---------------------------------------------------------------------------
+
+model TravelerProfile {
+  id                  String      @id @default(cuid())
+  userId              String      @unique
+  user                User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  homeAirport         String? // IATA
+  homeCountry         String?
+  preferredCategories Category[]  @default([])
+  maxDifficulty       Difficulty?
+  typicalDurationDays Int?
+  budgetBandPence     Int?
+  // "I'm up for a trip every N months" — stated by the user, inferred later.
+  cadenceMonths       Int         @default(6)
+  fitnessLevel        String?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+}
+
+// The anchor the cadence clock ticks from: real trips taken.
+model TripEvent {
+  id                 String          @id @default(cuid())
+  userId             String
+  user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  source             TripEventSource
+  adventureId        String?
+  adventure          Adventure?      @relation(fields: [adventureId], references: [id], onDelete: SetNull)
+  itineraryId        String?
+  destinationCountry String?
+  startedAt          DateTime
+  endedAt            DateTime?
+  createdAt          DateTime        @default(now())
+
+  @@unique([userId, adventureId, source])
+  @@index([userId, startedAt(sort: Desc)])
+}
+
+enum TripEventSource {
+  MARKED_DONE
+  ITINERARY_COMPLETED
+  FLIGHT_BOOKED
+  IMPORTED
+}
+
+// Captured demand: what people search for (previously parsed and discarded).
+model SearchEvent {
+  id          String            @id @default(cuid())
+  userId      String?
+  user        User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
+  source      SearchEventSource
+  query       String?
+  filters     Json?
+  resultCount Int?
+  createdAt   DateTime          @default(now())
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([createdAt(sort: Desc)])
+}
+
+enum SearchEventSource {
+  ADVENTURE_LIST
+  CHAT
+  FLIGHTS
+}
+
+// Persisted per-window picks: makes nudges idempotent, explains "why am I
+// seeing this", and gives the scorer a feedback loop via status transitions.
+model CadenceRecommendation {
+  id          String           @id @default(cuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  adventureId String
+  adventure   Adventure        @relation(fields: [adventureId], references: [id], onDelete: Cascade)
+  score       Float
+  reasons     Json
+  windowStart DateTime
+  status      CadenceRecStatus @default(PENDING)
+  sentAt      DateTime?
+  createdAt   DateTime         @default(now())
+
+  @@unique([userId, adventureId, windowStart])
+  @@index([userId, windowStart(sort: Desc)])
+}
+
+enum CadenceRecStatus {
+  PENDING
+  SENT
+  CLICKED
+  PLANNED
+  DISMISSED
 }

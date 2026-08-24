@@ -53,14 +53,14 @@ vi.mock("@/lib/logger", () => ({
   logger: { error: vi.fn(), info: vi.fn(), warn: vi.fn() },
 }));
 
+import { POST as commentReact } from "@/app/api/adventures/[id]/comments/[commentId]/react/route";
+import { GET as healthCheck } from "@/app/api/health/route";
 // ---------------------------------------------------------------------------
 // Imports after mocks
 // ---------------------------------------------------------------------------
 import { POST as stripeCheckout } from "@/app/api/stripe/checkout/route";
-import { POST as stripeWebhook } from "@/app/api/webhooks/stripe/route";
-import { POST as commentReact } from "@/app/api/adventures/[id]/comments/[commentId]/react/route";
-import { GET as healthCheck } from "@/app/api/health/route";
 import { GET as userSearch } from "@/app/api/users/search/route";
+import { POST as stripeWebhook } from "@/app/api/webhooks/stripe/route";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
 import { getServerSession } from "next-auth";
@@ -76,6 +76,11 @@ function noSession() {
   mockGetSession.mockResolvedValue(null);
 }
 
+/** Fetch-style checkout request (Accept: application/json) unless overridden. */
+function makeCheckoutRequest(headers: Record<string, string> = { accept: "application/json" }) {
+  return new NextRequest("http://localhost/api/stripe/checkout", { method: "POST", headers });
+}
+
 // ---------------------------------------------------------------------------
 // POST /api/stripe/checkout
 // ---------------------------------------------------------------------------
@@ -88,14 +93,14 @@ describe("POST /api/stripe/checkout", () => {
 
   it("returns 401 when unauthenticated", async () => {
     noSession();
-    const response = await stripeCheckout();
+    const response = await stripeCheckout(makeCheckoutRequest());
     expect(response.status).toBe(401);
   });
 
   it("returns 429 when rate limited", async () => {
     mockSession();
     mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 60 });
-    const response = await stripeCheckout();
+    const response = await stripeCheckout(makeCheckoutRequest());
     expect(response.status).toBe(429);
     const data = await response.json();
     expect(data.code).toBe("RATE_LIMITED");
@@ -104,7 +109,7 @@ describe("POST /api/stripe/checkout", () => {
   it("returns 503 when Stripe key is missing", async () => {
     vi.stubEnv("STRIPE_SECRET_KEY", "");
     mockSession();
-    const response = await stripeCheckout();
+    const response = await stripeCheckout(makeCheckoutRequest());
     expect(response.status).toBe(503);
   });
 
@@ -116,7 +121,7 @@ describe("POST /api/stripe/checkout", () => {
       stripeCustomerId: null,
       plan: "FREE",
     });
-    const response = await stripeCheckout();
+    const response = await stripeCheckout(makeCheckoutRequest());
     expect(response.status).toBe(503);
   });
 
@@ -124,7 +129,7 @@ describe("POST /api/stripe/checkout", () => {
     vi.stubEnv("STRIPE_PRO_PRICE_ID", "price_abc");
     mockSession();
     (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
-    const response = await stripeCheckout();
+    const response = await stripeCheckout(makeCheckoutRequest());
     expect(response.status).toBe(404);
   });
 
@@ -136,7 +141,7 @@ describe("POST /api/stripe/checkout", () => {
       stripeCustomerId: "cus_123",
       plan: "PRO",
     });
-    const response = await stripeCheckout();
+    const response = await stripeCheckout(makeCheckoutRequest());
     expect(response.status).toBe(400);
   });
 
@@ -152,7 +157,7 @@ describe("POST /api/stripe/checkout", () => {
     (mockPrisma.user.update as ReturnType<typeof vi.fn>).mockResolvedValue({});
     mockStripeCheckoutCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session_abc" });
 
-    const response = await stripeCheckout();
+    const response = await stripeCheckout(makeCheckoutRequest());
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data.url).toBe("https://checkout.stripe.com/session_abc");
@@ -174,11 +179,62 @@ describe("POST /api/stripe/checkout", () => {
     });
     mockStripeCheckoutCreate.mockResolvedValue({ url: "https://checkout.stripe.com/sess_xyz" });
 
-    const response = await stripeCheckout();
+    const response = await stripeCheckout(makeCheckoutRequest());
     expect(response.status).toBe(200);
     expect(mockStripeCustomerCreate).not.toHaveBeenCalled();
     const data = await response.json();
     expect(data.url).toBe("https://checkout.stripe.com/sess_xyz");
+  });
+
+  it("303-redirects to Stripe for a native form navigation (no JSON Accept)", async () => {
+    vi.stubEnv("STRIPE_PRO_PRICE_ID", "price_abc");
+    mockSession();
+    (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      email: "alice@example.com",
+      stripeCustomerId: "cus_existing",
+      plan: "FREE",
+    });
+    mockStripeCheckoutCreate.mockResolvedValue({ url: "https://checkout.stripe.com/sess_form" });
+
+    const response = await stripeCheckout(
+      makeCheckoutRequest({ accept: "text/html,application/xhtml+xml" }),
+    );
+    expect(response.status).toBe(303);
+    expect(response.headers.get("location")).toBe("https://checkout.stripe.com/sess_form");
+  });
+
+  it("303-redirects when the body is form-encoded even if Accept includes JSON", async () => {
+    vi.stubEnv("STRIPE_PRO_PRICE_ID", "price_abc");
+    mockSession();
+    (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      email: "alice@example.com",
+      stripeCustomerId: "cus_existing",
+      plan: "FREE",
+    });
+    mockStripeCheckoutCreate.mockResolvedValue({ url: "https://checkout.stripe.com/sess_enc" });
+
+    const response = await stripeCheckout(
+      makeCheckoutRequest({
+        accept: "application/json",
+        "content-type": "application/x-www-form-urlencoded",
+      }),
+    );
+    expect(response.status).toBe(303);
+    expect(response.headers.get("location")).toBe("https://checkout.stripe.com/sess_enc");
+  });
+
+  it("returns 502 when the checkout session has no URL", async () => {
+    vi.stubEnv("STRIPE_PRO_PRICE_ID", "price_abc");
+    mockSession();
+    (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      email: "alice@example.com",
+      stripeCustomerId: "cus_existing",
+      plan: "FREE",
+    });
+    mockStripeCheckoutCreate.mockResolvedValue({ url: null });
+
+    const response = await stripeCheckout(makeCheckoutRequest());
+    expect(response.status).toBe(502);
   });
 });
 
@@ -499,7 +555,9 @@ describe("POST /api/adventures/[id]/comments/[commentId]/react", () => {
 
   it("removes reaction and returns reacted:false when already reacted", async () => {
     mockSession("user-1");
-    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "comment-1" });
+    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "comment-1",
+    });
     (mockPrisma.commentReaction.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
       id: "reaction-1",
     });
@@ -518,7 +576,9 @@ describe("POST /api/adventures/[id]/comments/[commentId]/react", () => {
 
   it("adds reaction and returns reacted:true with 201 when not yet reacted", async () => {
     mockSession("user-1");
-    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "comment-1" });
+    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "comment-1",
+    });
     (mockPrisma.commentReaction.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
     (mockPrisma.commentReaction.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
     (mockPrisma.commentReaction.count as ReturnType<typeof vi.fn>).mockResolvedValue(5);
@@ -568,25 +628,19 @@ describe("GET /api/users/search", () => {
 
   it("returns 429 when rate limited", async () => {
     mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
-    const response = await userSearch(
-      new NextRequest("http://localhost/api/users/search?q=alice"),
-    );
+    const response = await userSearch(new NextRequest("http://localhost/api/users/search?q=alice"));
     expect(response.status).toBe(429);
   });
 
   it("returns empty array for query shorter than 2 chars", async () => {
-    const response = await userSearch(
-      new NextRequest("http://localhost/api/users/search?q=a"),
-    );
+    const response = await userSearch(new NextRequest("http://localhost/api/users/search?q=a"));
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data).toEqual([]);
   });
 
   it("returns empty array when q is missing", async () => {
-    const response = await userSearch(
-      new NextRequest("http://localhost/api/users/search"),
-    );
+    const response = await userSearch(new NextRequest("http://localhost/api/users/search"));
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data).toEqual([]);
@@ -597,9 +651,7 @@ describe("GET /api/users/search", () => {
       { id: "user-1", name: "Alice", avatarUrl: null, _count: { adventures: 3 } },
     ]);
 
-    const response = await userSearch(
-      new NextRequest("http://localhost/api/users/search?q=alice"),
-    );
+    const response = await userSearch(new NextRequest("http://localhost/api/users/search?q=alice"));
 
     expect(response.status).toBe(200);
     const data = await response.json();
@@ -608,13 +660,9 @@ describe("GET /api/users/search", () => {
   });
 
   it("returns 500 when DB throws", async () => {
-    (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mockRejectedValue(
-      new Error("DB error"),
-    );
+    (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("DB error"));
 
-    const response = await userSearch(
-      new NextRequest("http://localhost/api/users/search?q=alice"),
-    );
+    const response = await userSearch(new NextRequest("http://localhost/api/users/search?q=alice"));
 
     expect(response.status).toBe(500);
     const data = await response.json();

@@ -1,0 +1,19 @@
+{
+  "caseId": "gear-request",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sg_1",
+      "name": "suggest_gear",
+      "arguments": {
+        "activity": "ski touring",
+        "conditions": "arctic winter, extreme cold, avalanche terrain",
+        "duration": 12
+      }
+    }
+  ],
+  "days": [],
+  "finalText": "Twelve days of ski touring above the Arctic Circle — Lyngen-style conditions — is a serious gear brief, so I've ordered this by what keeps you alive first.\n\n**Avalanche safety (non-negotiable, per person):**\n- 3-antenna avalanche transceiver, fresh batteries plus spares kept warm\n- Metal-bladed shovel and a 240 cm+ probe\n- Airbag pack (30–40 L touring size) if your baggage allowance stretches to it\n- The three of you should practise transceiver search drills before departure and daily on rest moments — check the regional avalanche forecast (varsom.no for Norway) every single morning and build your route choices around it\n\n**Ski system:**\n- Touring skis with pin bindings, climbing skins (glue struggles in extreme cold — take skin wax and a spare pair between the group)\n- Ski crampons — essential for refrozen Arctic crusts\n- Poles with large powder baskets\n\n**Clothing — the layering system is everything at these latitudes:**\n- Merino base layers (two sets), a gridded fleece mid layer, and a light synthetic insulated jacket to move in\n- A big 800-fill down parka for transitions and summits — when the wind comes off the sea at −20°C you'll want every gram of it\n- Hardshell jacket and bibs with full-length vents\n- Two pairs of gloves plus expedition mitts, a balaclava, and goggles with a spare low-light lens — February–March light up there is flat and low\n\n**Arctic specifics people forget:**\n- Headtorch with lithium batteries (alkalines die in the cold) — daylight is short in early winter\n- Vacuum flask, boot gloves or overboots, chemical warmers, sunscreen for the snow-glare double hit\n- Repair kit: binding screws, ski straps, pole splint, skin glue\n- Group kit: first aid with a foil bivvy bag, satellite communicator (much of the Lyngen backcountry has no signal), map, compass and GPS\n\nRough costs if you're buying the safety kit new: transceiver, shovel and probe bundle around £280; renting the full avalanche set locally in Tromsø runs about £70 for the trip if you'd rather not buy yet.\n\nHonest note on risk: Arctic Norway's maritime snowpack is more forgiving than continental ones but it still kills people every season, and rescue can be hours away in bad weather. If the three of you haven't done an avalanche course, book one for the first two days out there — several Lyngen guides run them — and consider hiring a guide for the bigger lines. Want a day-by-day packing and acclimatisation plan, or gear picks against a budget?",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}

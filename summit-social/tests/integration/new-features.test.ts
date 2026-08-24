@@ -45,6 +45,7 @@ vi.mock("@/lib/db/prisma", () => ({
     },
     user: { findUnique: vi.fn(), findMany: vi.fn() },
     follow: { findMany: vi.fn(), findUnique: vi.fn() },
+    notification: { create: vi.fn(), createMany: vi.fn() },
     $transaction: vi.fn(),
   },
 }));
@@ -60,19 +61,19 @@ vi.mock("@/lib/ai/openai", () => ({
   }),
 }));
 
+import { POST as reactToComment } from "@/app/api/adventures/[id]/comments/[commentId]/react/route";
 // ---------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------
 import {
-  PATCH as editComment,
   DELETE as deleteComment,
+  PATCH as editComment,
 } from "@/app/api/adventures/[id]/comments/[commentId]/route";
-import { POST as reactToComment } from "@/app/api/adventures/[id]/comments/[commentId]/react/route";
-import { POST as recordView, GET as getViewCount } from "@/app/api/adventures/[id]/view/route";
-import { GET as searchUsers } from "@/app/api/users/search/route";
 import { POST as togglePublish } from "@/app/api/adventures/[id]/publish/route";
+import { GET as getViewCount, POST as recordView } from "@/app/api/adventures/[id]/view/route";
 import { POST as enhanceDescription } from "@/app/api/adventures/enhance-description/route";
 import { GET as getAdventures } from "@/app/api/adventures/route";
+import { GET as searchUsers } from "@/app/api/users/search/route";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
 import { getServerSession } from "next-auth";
@@ -123,7 +124,9 @@ describe("PATCH /api/adventures/[id]/comments/[commentId]", () => {
 
   it("returns 403 when not the comment owner", async () => {
     mockSession("user-2");
-    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     const res = await editComment(
       new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1", {
         method: "PATCH",
@@ -137,7 +140,9 @@ describe("PATCH /api/adventures/[id]/comments/[commentId]", () => {
 
   it("updates the comment and returns 200", async () => {
     mockSession("user-1");
-    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     (mockPrisma.comment.update as ReturnType<typeof vi.fn>).mockResolvedValue({
       id: "c-1",
       body: "updated text",
@@ -158,7 +163,9 @@ describe("PATCH /api/adventures/[id]/comments/[commentId]", () => {
 
   it("returns 400 when body is empty", async () => {
     mockSession("user-1");
-    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     const res = await editComment(
       new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1", {
         method: "PATCH",
@@ -198,7 +205,9 @@ describe("DELETE /api/adventures/[id]/comments/[commentId]", () => {
 
   it("returns 403 when not the comment owner", async () => {
     mockSession("user-2");
-    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     const res = await deleteComment(
       new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1"),
       { params: Promise.resolve({ id: "adv-1", commentId: "c-1" }) },
@@ -208,7 +217,9 @@ describe("DELETE /api/adventures/[id]/comments/[commentId]", () => {
 
   it("deletes the comment and returns 204", async () => {
     mockSession("user-1");
-    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     (mockPrisma.comment.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
     const res = await deleteComment(
       new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1"),
@@ -227,7 +238,9 @@ describe("POST /api/adventures/[id]/comments/[commentId]/react", () => {
   it("returns 401 when unauthenticated", async () => {
     noSession();
     const res = await reactToComment(
-      new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1/react", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1/react", {
+        method: "POST",
+      }),
       { params: Promise.resolve({ id: "adv-1", commentId: "c-1" }) },
     );
     expect(res.status).toBe(401);
@@ -237,7 +250,9 @@ describe("POST /api/adventures/[id]/comments/[commentId]/react", () => {
     mockSession();
     (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
     const res = await reactToComment(
-      new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1/react", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1/react", {
+        method: "POST",
+      }),
       { params: Promise.resolve({ id: "adv-1", commentId: "c-1" }) },
     );
     expect(res.status).toBe(404);
@@ -250,7 +265,9 @@ describe("POST /api/adventures/[id]/comments/[commentId]/react", () => {
     (mockPrisma.commentReaction.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
     (mockPrisma.commentReaction.count as ReturnType<typeof vi.fn>).mockResolvedValue(1);
     const res = await reactToComment(
-      new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1/react", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1/react", {
+        method: "POST",
+      }),
       { params: Promise.resolve({ id: "adv-1", commentId: "c-1" }) },
     );
     expect(res.status).toBe(201);
@@ -262,11 +279,15 @@ describe("POST /api/adventures/[id]/comments/[commentId]/react", () => {
   it("removes an existing reaction and returns 200", async () => {
     mockSession("user-1");
     (mockPrisma.comment.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "c-1" });
-    (mockPrisma.commentReaction.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "r-1" });
+    (mockPrisma.commentReaction.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "r-1",
+    });
     (mockPrisma.commentReaction.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
     (mockPrisma.commentReaction.count as ReturnType<typeof vi.fn>).mockResolvedValue(0);
     const res = await reactToComment(
-      new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1/react", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/comments/c-1/react", {
+        method: "POST",
+      }),
       { params: Promise.resolve({ id: "adv-1", commentId: "c-1" }) },
     );
     expect(res.status).toBe(200);
@@ -391,9 +412,7 @@ describe("GET /api/users/search", () => {
   afterEach(() => vi.clearAllMocks());
 
   it("returns empty array when query is too short", async () => {
-    const res = await searchUsers(
-      new NextRequest("http://localhost/api/users/search?q=a"),
-    );
+    const res = await searchUsers(new NextRequest("http://localhost/api/users/search?q=a"));
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data).toEqual([]);
@@ -403,9 +422,7 @@ describe("GET /api/users/search", () => {
     (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
       { id: "u-1", name: "Alice Smith", avatarUrl: null, _count: { adventures: 3 } },
     ]);
-    const res = await searchUsers(
-      new NextRequest("http://localhost/api/users/search?q=alice"),
-    );
+    const res = await searchUsers(new NextRequest("http://localhost/api/users/search?q=alice"));
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data).toHaveLength(1);
@@ -413,9 +430,7 @@ describe("GET /api/users/search", () => {
   });
 
   it("returns empty array when query is missing", async () => {
-    const res = await searchUsers(
-      new NextRequest("http://localhost/api/users/search"),
-    );
+    const res = await searchUsers(new NextRequest("http://localhost/api/users/search"));
     const data = await res.json();
     expect(data).toEqual([]);
   });
@@ -464,11 +479,14 @@ describe("POST /api/adventures/[id]/publish", () => {
     (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
       userId: "user-1",
       published: false,
+      title: "Annapurna Circuit",
+      user: { name: "Alice" },
     });
     (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({
       id: "adv-1",
       published: true,
     });
+    (mockPrisma.follow.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
     const res = await togglePublish(
       new NextRequest("http://localhost/api/adventures/adv-1/publish", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
@@ -486,6 +504,8 @@ describe("POST /api/adventures/[id]/publish", () => {
     (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
       userId: "user-1",
       published: true,
+      title: "Annapurna Circuit",
+      user: { name: "Alice" },
     });
     (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({
       id: "adv-1",
@@ -498,6 +518,125 @@ describe("POST /api/adventures/[id]/publish", () => {
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.published).toBe(false);
+  });
+
+  it("notifies followers on the unpublished → published transition", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+      published: false,
+      title: "Annapurna Circuit",
+      user: { name: "Alice" },
+    });
+    (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      published: true,
+    });
+    (mockPrisma.follow.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { followerId: "user-2" },
+      { followerId: "user-3" },
+    ]);
+
+    const res = await togglePublish(
+      new NextRequest("http://localhost/api/adventures/adv-1/publish", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(res.status).toBe(200);
+    expect(mockPrisma.follow.findMany).toHaveBeenCalledWith({
+      where: { followingId: "user-1" },
+      select: { followerId: true },
+      orderBy: { createdAt: "asc" },
+      take: 500,
+    });
+    expect(mockPrisma.notification.createMany).toHaveBeenCalledWith({
+      data: [
+        {
+          userId: "user-2",
+          type: "ADVENTURE_PUBLISHED",
+          message: 'Alice published "Annapurna Circuit"',
+          linkUrl: "/adventures/adv-1",
+        },
+        {
+          userId: "user-3",
+          type: "ADVENTURE_PUBLISHED",
+          message: 'Alice published "Annapurna Circuit"',
+          linkUrl: "/adventures/adv-1",
+        },
+      ],
+    });
+  });
+
+  it("does not notify followers when unpublishing an already-published adventure", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+      published: true,
+      title: "Annapurna Circuit",
+      user: { name: "Alice" },
+    });
+    (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      published: false,
+    });
+
+    const res = await togglePublish(
+      new NextRequest("http://localhost/api/adventures/adv-1/publish", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(res.status).toBe(200);
+    expect(mockPrisma.follow.findMany).not.toHaveBeenCalled();
+    expect(mockPrisma.notification.createMany).not.toHaveBeenCalled();
+  });
+
+  it("skips createMany when the author has no followers", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+      published: false,
+      title: "Annapurna Circuit",
+      user: { name: "Alice" },
+    });
+    (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      published: true,
+    });
+    (mockPrisma.follow.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+
+    const res = await togglePublish(
+      new NextRequest("http://localhost/api/adventures/adv-1/publish", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(res.status).toBe(200);
+    expect(mockPrisma.notification.createMany).not.toHaveBeenCalled();
+  });
+
+  it("falls back to 'Someone' when the author has no name", async () => {
+    mockSession("user-1");
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+      published: false,
+      title: "Annapurna Circuit",
+      user: { name: null },
+    });
+    (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "adv-1",
+      published: true,
+    });
+    (mockPrisma.follow.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { followerId: "user-2" },
+    ]);
+
+    await togglePublish(
+      new NextRequest("http://localhost/api/adventures/adv-1/publish", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+
+    expect(mockPrisma.notification.createMany).toHaveBeenCalledWith({
+      data: [expect.objectContaining({ message: 'Someone published "Annapurna Circuit"' })],
+    });
   });
 });
 

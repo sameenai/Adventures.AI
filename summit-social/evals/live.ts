@@ -19,7 +19,7 @@ import { SearchAdventuresArgsSchema } from "../src/lib/ai/parser";
 import { ITINERARY_SYSTEM_PROMPT, buildUserContextPrompt } from "../src/lib/ai/prompts";
 import { chatTools } from "../src/lib/ai/tools";
 import { CHAT_MODEL } from "./snapshot";
-import type { EvalCase, EvalTranscript, TranscriptToolCall } from "./types";
+import type { EvalCase, EvalTranscript, TranscriptToolCall, TranscriptTurn } from "./types";
 
 const ADVENTURES_DATA_PATH = join(__dirname, "..", "prisma", "data", "adventures.json");
 
@@ -101,65 +101,121 @@ function safeParseArgs(raw: string): Record<string, unknown> {
   }
 }
 
+function safeParseJson(raw: string): unknown {
+  try {
+    return JSON.parse(raw) as unknown;
+  } catch {
+    return raw;
+  }
+}
+
+interface DayEntry {
+  turn: number;
+  args: Record<string, unknown>;
+}
+
+/**
+ * The itinerary's final state: a later turn re-creating the same dayNumber
+ * REPLACES the earlier turn's version (a revision), while duplicates within a
+ * single turn are kept so the days grader can still catch them.
+ */
+function mergeDays(entries: DayEntry[]): unknown[] {
+  const merged: DayEntry[] = [];
+  for (const entry of entries) {
+    const n = entry.args.dayNumber;
+    const priorIdx =
+      typeof n === "number"
+        ? merged.findIndex((m) => m.args.dayNumber === n && m.turn < entry.turn)
+        : -1;
+    if (priorIdx >= 0) merged[priorIdx] = entry;
+    else merged.push(entry);
+  }
+  return merged.map((m) => m.args);
+}
+
 export async function runLiveCase(
   evalCase: EvalCase,
   _options: { judge: boolean },
 ): Promise<EvalTranscript> {
   const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   const systemPrompt = ITINERARY_SYSTEM_PROMPT + buildUserContextPrompt(evalCase.preferences ?? {});
-  const messages: ChatCompletionMessageParam[] = [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: evalCase.message },
-  ];
+  const userTurns = evalCase.messages ?? [evalCase.message];
+  const history: ChatCompletionMessageParam[] = [{ role: "system", content: systemPrompt }];
 
-  const first = await client.chat.completions.create({
-    model: CHAT_MODEL,
-    messages,
-    tools: chatTools,
-  });
-
-  const choice = first.choices[0];
-  let finalText = choice.message.content ?? "";
   const toolCalls: TranscriptToolCall[] = [];
-  const days: unknown[] = [];
+  const toolResults: Record<string, unknown> = {};
+  const dayEntries: DayEntry[] = [];
+  const turns: TranscriptTurn[] = [];
+  let finalText = "";
+  let totalTokens = 0;
+  const startedAt = Date.now();
 
-  const rawToolCalls = (choice.message.tool_calls ?? []).filter(
-    (tc): tc is ChatCompletionMessageToolCall & { type: "function" } => tc.type === "function",
-  );
+  for (const [turnIndex, userMessage] of userTurns.entries()) {
+    history.push({ role: "user", content: userMessage });
 
-  if (choice.finish_reason === "tool_calls" && rawToolCalls.length > 0) {
-    const toolResults: ChatCompletionMessageParam[] = [];
-    for (const tc of rawToolCalls) {
-      const args = safeParseArgs(tc.function.arguments);
-      toolCalls.push({ name: tc.function.name, arguments: args });
-      if (tc.function.name === "create_itinerary_day") days.push(args);
-      toolResults.push({
-        role: "tool",
-        content: executeTool(tc.function.name, args),
-        tool_call_id: tc.id,
+    const first = await client.chat.completions.create({
+      model: CHAT_MODEL,
+      messages: history,
+      tools: chatTools,
+    });
+    totalTokens += first.usage?.total_tokens ?? 0;
+
+    const choice = first.choices[0];
+    let turnText = choice.message.content ?? "";
+    const turnToolCalls: TranscriptToolCall[] = [];
+
+    const rawToolCalls = (choice.message.tool_calls ?? []).filter(
+      (tc): tc is ChatCompletionMessageToolCall & { type: "function" } => tc.type === "function",
+    );
+
+    if (choice.finish_reason === "tool_calls" && rawToolCalls.length > 0) {
+      const toolMessages: ChatCompletionMessageParam[] = [];
+      for (const tc of rawToolCalls) {
+        const args = safeParseArgs(tc.function.arguments);
+        turnToolCalls.push({ id: tc.id, name: tc.function.name, arguments: args });
+        if (tc.function.name === "create_itinerary_day") {
+          dayEntries.push({ turn: turnIndex, args });
+        }
+        const result = executeTool(tc.function.name, args);
+        toolResults[tc.id] = safeParseJson(result);
+        toolMessages.push({ role: "tool", content: result, tool_call_id: tc.id });
+      }
+
+      const assistantMsg: ChatCompletionAssistantMessageParam = {
+        role: "assistant",
+        content: choice.message.content,
+        tool_calls: rawToolCalls,
+      };
+      history.push(assistantMsg, ...toolMessages);
+      // Production's follow-up call passes no tools — mirrored here.
+      const followUp = await client.chat.completions.create({
+        model: CHAT_MODEL,
+        messages: history,
       });
+      totalTokens += followUp.usage?.total_tokens ?? 0;
+      const followUpText = followUp.choices[0].message.content ?? "";
+      turnText += followUpText;
+      history.push({ role: "assistant", content: followUpText });
+    } else {
+      history.push({ role: "assistant", content: turnText });
     }
 
-    const assistantMsg: ChatCompletionAssistantMessageParam = {
-      role: "assistant",
-      content: choice.message.content,
-      tool_calls: rawToolCalls,
-    };
-    // Production's follow-up call passes no tools — mirrored here.
-    const followUp = await client.chat.completions.create({
-      model: CHAT_MODEL,
-      messages: [...messages, assistantMsg, ...toolResults],
-    });
-    finalText += followUp.choices[0].message.content ?? "";
+    toolCalls.push(...turnToolCalls);
+    turns.push({ userMessage, finalText: turnText, toolCalls: turnToolCalls });
+    finalText = turnText;
   }
 
   return {
     caseId: evalCase.id,
     source: "live",
     toolCalls,
-    days,
+    toolResults,
+    days: mergeDays(dayEntries),
     finalText,
+    ...(userTurns.length > 1 ? { turns } : {}),
     recordedAt: new Date().toISOString(),
     model: CHAT_MODEL,
+    totalTokens,
+    latencyMs: Date.now() - startedAt,
   };
 }

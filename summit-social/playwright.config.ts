@@ -11,6 +11,11 @@ export default defineConfig({
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
+    // Sandboxed/dev containers ship a system Chromium instead of the
+    // playwright-managed download; point at it via env when present.
+    ...(process.env.PLAYWRIGHT_CHROMIUM_PATH
+      ? { launchOptions: { executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH } }
+      : {}),
   },
   projects: [
     {
@@ -18,13 +23,19 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
     {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
+      // Mobile-friendliness is a product requirement, not an afterthought:
+      // every journey also runs at phone size.
+      name: "mobile-chromium",
+      use: { ...devices["Pixel 7"] },
     },
   ],
   webServer: {
     command: "npm run dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
+    env: {
+      ENABLE_DEV_LOGIN: "true",
+    },
+    timeout: 120_000,
   },
 });

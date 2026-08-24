@@ -3,6 +3,7 @@ import { gradeBudget } from "./budget";
 import { gradeContent, gradeSafety } from "./content";
 import { gradeDays } from "./days";
 import { gradeGeography } from "./geography";
+import { gradeGroundedness } from "./groundedness";
 import { gradeStructure } from "./structure";
 import { gradeToolUse } from "./tools";
 
@@ -13,6 +14,7 @@ export const GRADERS: Record<string, Grader> = {
   days: gradeDays,
   geography: gradeGeography,
   budget: gradeBudget,
+  groundedness: gradeGroundedness,
   toolUse: gradeToolUse,
   content: gradeContent,
   safety: gradeSafety,

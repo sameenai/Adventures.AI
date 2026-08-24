@@ -1,0 +1,203 @@
+{
+  "caseId": "advanced-technical-alpine",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sa_1",
+      "name": "search_adventures",
+      "arguments": { "query": "bernese oberland alpine climbing", "difficulty": "EXTREME" }
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Arrive in Grindelwald",
+      "description": "Base of operations under the Eiger north face",
+      "activities": [
+        {
+          "time": "14:00",
+          "activity": "Train transfer from Zurich and check-in below the north face",
+          "location": "Grindelwald",
+          "notes": "Meet your IFMGA guide for route briefing and the first look at the forecast",
+          "lat": 46.6244,
+          "lng": 8.0411
+        },
+        {
+          "time": "17:00",
+          "activity": "Gear check: rack, ropes, crampons, axes, helmet",
+          "location": "Grindelwald Sports, Grindelwald",
+          "lat": 46.624,
+          "lng": 8.0365
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Warm-up on the Schwarzhorn",
+      "description": "Shake out the travel legs on moving-together terrain",
+      "activities": [
+        {
+          "time": "07:00",
+          "activity": "Climb the Schwarzhorn west ridge (F+/PD) for acclimatisation",
+          "location": "Schwarzhorn, Grindelwald",
+          "notes": "2,928 m — a fast rock ridge to calibrate pace and rope work with your partner",
+          "lat": 46.687,
+          "lng": 8.129
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Up to the Mönchsjochhütte",
+      "description": "Onto the high glacier plateau",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Jungfraubahn train to Jungfraujoch",
+          "location": "Jungfraujoch",
+          "notes": "3,454 m — take it slow on arrival, altitude is real up here",
+          "lat": 46.5475,
+          "lng": 7.9851
+        },
+        {
+          "time": "13:00",
+          "activity": "Crevasse-rescue and short-roping refresher on the Jungfraufirn",
+          "location": "Mönchsjochhütte",
+          "notes": "Europe's highest serviced hut at 3,657 m — early night before the first objective",
+          "lat": 46.5486,
+          "lng": 7.9986
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Mönch by the southeast ridge",
+      "description": "First 4,000er of the trip",
+      "activities": [
+        {
+          "time": "05:00",
+          "activity": "Climb the Mönch southeast ridge (AD, mixed snow and rock)",
+          "location": "Mönch",
+          "notes": "4,107 m — exposed snow crest to finish; turn around by 11:00 if the window closes",
+          "lat": 46.5583,
+          "lng": 7.9978
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "title": "Descend and recover in the valley",
+      "description": "Planned rest before the main event",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Train down from Jungfraujoch and easy valley afternoon",
+          "location": "Grindelwald",
+          "notes": "Rest day — massage, sort photos, study the Mittellegi topo over coffee",
+          "lat": 46.6244,
+          "lng": 8.0412
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "title": "Approach to the Mittellegi hut",
+      "description": "Positioning day for the Eiger",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Check the weather window and avalanche/serac conditions with the guide office",
+          "location": "Bergführerbüro, Grindelwald",
+          "notes": "Go/no-go decision point — the ridge needs a dry 36-hour window",
+          "lat": 46.6238,
+          "lng": 8.0403
+        },
+        {
+          "time": "12:00",
+          "activity": "Train to Eismeer station and climb the fixed-rope access to the hut",
+          "location": "Mittellegihütte, Eiger",
+          "notes": "3,355 m eyrie on the ridge itself — one of the great hut positions in the Alps",
+          "lat": 46.5906,
+          "lng": 8.0271
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "title": "Eiger by the Mittellegi ridge",
+      "description": "The route you came for",
+      "activities": [
+        {
+          "time": "04:30",
+          "activity": "Climb the Mittellegi ridge (D, sustained exposure, fixed ropes on the steep step)",
+          "location": "Eiger",
+          "notes": "3,967 m — 10 to 12 hours summit-to-safety; abseils down the south ridge",
+          "lat": 46.5775,
+          "lng": 8.0053
+        },
+        {
+          "time": "16:00",
+          "activity": "Descend the south ridge and cross to the hut for a late meal",
+          "location": "Mönchsjochhütte, Jungfraufirn",
+          "notes": "Tired-legs terrain — stay roped for the crevasse zones",
+          "lat": 46.5487,
+          "lng": 7.9987
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "title": "Jungfrau, conditions permitting",
+      "description": "Third 4,000er if the forecast holds",
+      "activities": [
+        {
+          "time": "05:00",
+          "activity": "Climb the Jungfrau normal route via the Rottalsattel (AD-)",
+          "location": "Jungfrau",
+          "notes": "4,158 m — the Rottalsattel slope is the avalanche-prone crux; skip without regret if it's loaded",
+          "lat": 46.5367,
+          "lng": 7.9625
+        },
+        {
+          "time": "15:00",
+          "activity": "Train down to the valley for a celebration dinner",
+          "location": "Grindelwald village",
+          "lat": 46.6242,
+          "lng": 8.0418
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "title": "Buffer day",
+      "description": "Weather insurance built into the plan",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Spare day for a delayed objective, or sport climbing in the gorge",
+          "location": "Gletscherschlucht, Grindelwald",
+          "notes": "If everything already went to plan: via the Pfingstegg lift for an easy cragging day",
+          "lat": 46.6135,
+          "lng": 8.0492
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "title": "Depart",
+      "description": "Home with three summits in the bag",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Train back to Zurich airport",
+          "location": "Grindelwald station",
+          "lat": 46.6247,
+          "lng": 8.0347
+        }
+      ]
+    }
+  ],
+  "finalText": "With Mont Blanc and Gran Paradiso behind you, the Bernese Oberland trilogy above Grindelwald is exactly the right next step — and the Mittellegi ridge of the Eiger is the 'proper north-face-adjacent' line that's actually sensible for your level: D grade, hugely exposed, but on the crest rather than in the 1938 face itself (that's a different league and I won't pretend otherwise).\n\nThe plan builds logically: a warm-up ridge, a night at 3,657 m for acclimatisation, the Mönch as your first 4,000er of the trip, then the Eiger with a Jungfrau bonus if conditions allow. Day 9 is a deliberate buffer — in the Oberland you plan around the weather window, not the calendar, and the Mittellegi needs a dry ridge. Book an IFMGA guide (1:1 for the Eiger day is standard) and check the MeteoSwiss forecast and the hut's conditions reports in the final week; the Rottalsattel on the Jungfrau is the one slope with genuine avalanche risk in summer, so treat it as optional. Make sure your insurance covers helicopter rescue above 4,000 m in Switzerland.\n\nEstimated cost for the two of you: £3,700 total — guide days shared where the ratio allows, hut half-board, lift and rail passes, and flights — comfortably inside your £4,000 budget. Want me to check flight options to Zurich for next July, or adjust the objectives?",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}

@@ -1,6 +1,7 @@
 import { BookmarkButton } from "@/components/adventures/bookmark-button";
 import { CommentForm } from "@/components/adventures/comment-form";
 import { CommentSection } from "@/components/adventures/comment-section";
+import { MarkDoneButton } from "@/components/adventures/mark-done-button";
 import { ShareButtons } from "@/components/adventures/share-buttons";
 import { ViewCounter } from "@/components/adventures/view-counter";
 import { VoteButton } from "@/components/adventures/vote-button";
@@ -112,47 +113,54 @@ export default async function AdventureDetailPage({ params }: Props) {
 
   const tagNames = adventure.tags.map((t) => t.name);
 
-  const [isBookmarkedResult, relatedBySameContinent, relatedByCategory] = await Promise.all([
-    session?.user?.id
-      ? prisma.bookmark.findUnique({
-          where: { userId_adventureId: { userId: session.user.id, adventureId: id } },
-          select: { id: true },
-        })
-      : Promise.resolve(null),
-    prisma.adventure.findMany({
-      where: {
-        published: true,
-        category: adventure.category,
-        continent: adventure.continent,
-        id: { not: id },
-      },
-      orderBy: { voteCount: "desc" },
-      take: 4,
-      select: {
-        id: true,
-        title: true,
-        coverImageUrl: true,
-        location: true,
-        difficulty: true,
-        durationDays: true,
-        tags: { select: { name: true } },
-      },
-    }),
-    prisma.adventure.findMany({
-      where: { published: true, category: adventure.category, id: { not: id } },
-      orderBy: { voteCount: "desc" },
-      take: 8,
-      select: {
-        id: true,
-        title: true,
-        coverImageUrl: true,
-        location: true,
-        difficulty: true,
-        durationDays: true,
-        tags: { select: { name: true } },
-      },
-    }),
-  ]);
+  const [isBookmarkedResult, completedResult, relatedBySameContinent, relatedByCategory] =
+    await Promise.all([
+      session?.user?.id
+        ? prisma.bookmark.findUnique({
+            where: { userId_adventureId: { userId: session.user.id, adventureId: id } },
+            select: { id: true },
+          })
+        : Promise.resolve(null),
+      session?.user?.id
+        ? prisma.tripEvent.findFirst({
+            where: { userId: session.user.id, adventureId: id, source: "MARKED_DONE" },
+            select: { id: true },
+          })
+        : Promise.resolve(null),
+      prisma.adventure.findMany({
+        where: {
+          published: true,
+          category: adventure.category,
+          continent: adventure.continent,
+          id: { not: id },
+        },
+        orderBy: { voteCount: "desc" },
+        take: 4,
+        select: {
+          id: true,
+          title: true,
+          coverImageUrl: true,
+          location: true,
+          difficulty: true,
+          durationDays: true,
+          tags: { select: { name: true } },
+        },
+      }),
+      prisma.adventure.findMany({
+        where: { published: true, category: adventure.category, id: { not: id } },
+        orderBy: { voteCount: "desc" },
+        take: 8,
+        select: {
+          id: true,
+          title: true,
+          coverImageUrl: true,
+          location: true,
+          difficulty: true,
+          durationDays: true,
+          tags: { select: { name: true } },
+        },
+      }),
+    ]);
 
   const seenIds = new Set<string>([id]);
   const related: typeof relatedByCategory = [];
@@ -192,6 +200,7 @@ export default async function AdventureDetailPage({ params }: Props) {
 
   const relatedAdventures = related.slice(0, 4);
   const isBookmarked = !!isBookmarkedResult;
+  const hasCompleted = !!completedResult;
 
   const totalCommentCount =
     adventure.comments.length +
@@ -359,6 +368,11 @@ export default async function AdventureDetailPage({ params }: Props) {
               adventureId={adventure.id}
               isBookmarked={isBookmarked}
               disabled={!session?.user?.id}
+            />
+            <MarkDoneButton
+              adventureId={adventure.id}
+              initialCompleted={hasCompleted}
+              isAuthenticated={Boolean(session?.user?.id)}
             />
             <ShareButtons
               title={adventure.title}

@@ -24,6 +24,7 @@ vi.mock("@/lib/db/redis", () => ({
 }));
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
+    searchEvent: { create: vi.fn().mockResolvedValue({}) },
     adventure: { findUnique: vi.fn(), findMany: vi.fn(), update: vi.fn(), create: vi.fn() },
     collection: { findMany: vi.fn(), findUnique: vi.fn(), create: vi.fn(), delete: vi.fn() },
     collectionItem: { upsert: vi.fn(), deleteMany: vi.fn() },
@@ -31,44 +32,57 @@ vi.mock("@/lib/db/prisma", () => ({
     follow: { findUnique: vi.fn(), upsert: vi.fn(), deleteMany: vi.fn(), findMany: vi.fn() },
     vote: { findUnique: vi.fn(), create: vi.fn(), delete: vi.fn() },
     user: { findUnique: vi.fn(), update: vi.fn(), findMany: vi.fn() },
-    itinerary: { findMany: vi.fn(), findUnique: vi.fn(), create: vi.fn(), update: vi.fn(), delete: vi.fn() },
-    notification: { findMany: vi.fn(), updateMany: vi.fn(), create: vi.fn(), createMany: vi.fn() },
+    itinerary: {
+      findMany: vi.fn(),
+      findUnique: vi.fn(),
+      create: vi.fn(),
+      update: vi.fn(),
+      delete: vi.fn(),
+    },
+    itineraryDay: {
+      findFirst: vi.fn().mockResolvedValue(null),
+      create: vi.fn().mockResolvedValue({ id: "day-1" }),
+      update: vi.fn().mockResolvedValue({}),
+    },
+    notification: {
+      findMany: vi.fn(),
+      updateMany: vi.fn(),
+      create: vi.fn(),
+      createMany: vi.fn(),
+      count: vi.fn(),
+    },
     $transaction: vi.fn(),
   },
 }));
-vi.mock("@/lib/ai/openai", () => ({ getOpenAI: () => ({ chat: { completions: { create: vi.fn() } } }) }));
+vi.mock("@/lib/ai/openai", () => ({
+  getOpenAI: () => ({ chat: { completions: { create: vi.fn() } } }),
+}));
 
 // ---------------------------------------------------------------------------
 // Imports after mocks
 // ---------------------------------------------------------------------------
 import { POST as createComment } from "@/app/api/adventures/[id]/comments/route";
 import { POST as duplicateAdventure } from "@/app/api/adventures/[id]/duplicate/route";
-import {
-  GET as getCollections,
-  POST as createCollection,
-} from "@/app/api/collections/route";
-import { GET as getUserSuggestions } from "@/app/api/users/suggestions/route";
-import {
-  GET as getCollection,
-  DELETE as deleteCollection,
-} from "@/app/api/collections/[id]/route";
+import { PATCH as patchAdventure } from "@/app/api/adventures/[id]/route";
+import { POST as voteAdventure } from "@/app/api/adventures/[id]/vote/route";
+import { POST as chatRoute } from "@/app/api/chat/route";
 import {
   POST as addToCollection,
   DELETE as removeFromCollection,
 } from "@/app/api/collections/[id]/items/route";
-import { POST as voteAdventure } from "@/app/api/adventures/[id]/vote/route";
-import { PATCH as patchAdventure } from "@/app/api/adventures/[id]/route";
-import { POST as followUser, DELETE as unfollowUser } from "@/app/api/users/[id]/follow/route";
-import { GET as getNotifications } from "@/app/api/notifications/route";
-import { POST as markAllRead } from "@/app/api/notifications/read-all/route";
-import { POST as chatRoute } from "@/app/api/chat/route";
-import { GET as getItineraries, POST as createItinerary } from "@/app/api/itineraries/route";
+import { DELETE as deleteCollection, GET as getCollection } from "@/app/api/collections/[id]/route";
+import { POST as createCollection, GET as getCollections } from "@/app/api/collections/route";
 import {
+  DELETE as deleteItinerary,
   GET as getItinerary,
   PATCH as patchItinerary,
-  DELETE as deleteItinerary,
 } from "@/app/api/itineraries/[id]/route";
+import { POST as createItinerary, GET as getItineraries } from "@/app/api/itineraries/route";
+import { POST as markAllRead } from "@/app/api/notifications/read-all/route";
+import { GET as getNotifications } from "@/app/api/notifications/route";
+import { POST as followUser, DELETE as unfollowUser } from "@/app/api/users/[id]/follow/route";
 import { GET as getUser, PATCH as patchUser } from "@/app/api/users/[id]/route";
+import { GET as getUserSuggestions } from "@/app/api/users/suggestions/route";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
 import { getServerSession } from "next-auth";
@@ -291,10 +305,10 @@ describe("POST /api/adventures/[id]/comments — notification triggers", () => {
       user: { id: "user-2", name: "Bob", avatarUrl: null },
     });
     (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
-    (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
-      { id: "user-3" },
-    ]);
-    (mockPrisma.notification.createMany as ReturnType<typeof vi.fn>).mockResolvedValue({ count: 1 });
+    (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([{ id: "user-3" }]);
+    (mockPrisma.notification.createMany as ReturnType<typeof vi.fn>).mockResolvedValue({
+      count: 1,
+    });
 
     await createComment(
       new NextRequest("http://localhost/api/adventures/adv-1/comments", {
@@ -352,8 +366,8 @@ describe("POST /api/users/[id]/follow", () => {
   it("creates a follow and sends NEW_FOLLOWER notification on first follow", async () => {
     mockSession("user-1");
     (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>)
-      .mockResolvedValueOnce({ id: "user-2" })   // target exists
-      .mockResolvedValueOnce({ name: "Alice" });  // follower name lookup
+      .mockResolvedValueOnce({ id: "user-2" }) // target exists
+      .mockResolvedValueOnce({ name: "Alice" }); // follower name lookup
     (mockPrisma.follow.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
     (mockPrisma.follow.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
     (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
@@ -379,10 +393,9 @@ describe("POST /api/users/[id]/follow", () => {
     (mockPrisma.follow.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "f-1" });
     (mockPrisma.follow.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
-    await followUser(
-      new Request("http://localhost/api/users/user-2/follow", { method: "POST" }),
-      { params: Promise.resolve({ id: "user-2" }) },
-    );
+    await followUser(new Request("http://localhost/api/users/user-2/follow", { method: "POST" }), {
+      params: Promise.resolve({ id: "user-2" }),
+    });
 
     expect(mockPrisma.notification.create).not.toHaveBeenCalled();
   });
@@ -678,20 +691,18 @@ describe("GET /api/collections/[id]", () => {
 
   it("returns 401 when unauthenticated", async () => {
     noSession();
-    const response = await getCollection(
-      new Request("http://localhost/api/collections/col-1"),
-      { params: Promise.resolve({ id: "col-1" }) },
-    );
+    const response = await getCollection(new Request("http://localhost/api/collections/col-1"), {
+      params: Promise.resolve({ id: "col-1" }),
+    });
     expect(response.status).toBe(401);
   });
 
   it("returns 404 when collection not found", async () => {
     mockSession("user-1");
     (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
-    const response = await getCollection(
-      new Request("http://localhost/api/collections/missing"),
-      { params: Promise.resolve({ id: "missing" }) },
-    );
+    const response = await getCollection(new Request("http://localhost/api/collections/missing"), {
+      params: Promise.resolve({ id: "missing" }),
+    });
     expect(response.status).toBe(404);
   });
 
@@ -703,10 +714,9 @@ describe("GET /api/collections/[id]", () => {
       items: [],
       _count: { items: 0 },
     });
-    const response = await getCollection(
-      new Request("http://localhost/api/collections/col-1"),
-      { params: Promise.resolve({ id: "col-1" }) },
-    );
+    const response = await getCollection(new Request("http://localhost/api/collections/col-1"), {
+      params: Promise.resolve({ id: "col-1" }),
+    });
     expect(response.status).toBe(403);
   });
 
@@ -719,10 +729,9 @@ describe("GET /api/collections/[id]", () => {
       items: [],
       _count: { items: 0 },
     });
-    const response = await getCollection(
-      new Request("http://localhost/api/collections/col-1"),
-      { params: Promise.resolve({ id: "col-1" }) },
-    );
+    const response = await getCollection(new Request("http://localhost/api/collections/col-1"), {
+      params: Promise.resolve({ id: "col-1" }),
+    });
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data.name).toBe("My List");
@@ -734,22 +743,24 @@ describe("DELETE /api/collections/[id]", () => {
 
   it("deletes collection and returns 204", async () => {
     mockSession("user-1");
-    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     (mockPrisma.collection.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
-    const response = await deleteCollection(
-      new Request("http://localhost/api/collections/col-1"),
-      { params: Promise.resolve({ id: "col-1" }) },
-    );
+    const response = await deleteCollection(new Request("http://localhost/api/collections/col-1"), {
+      params: Promise.resolve({ id: "col-1" }),
+    });
     expect(response.status).toBe(204);
   });
 
   it("returns 403 when not owner", async () => {
     mockSession("user-2");
-    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
-    const response = await deleteCollection(
-      new Request("http://localhost/api/collections/col-1"),
-      { params: Promise.resolve({ id: "col-1" }) },
-    );
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
+    const response = await deleteCollection(new Request("http://localhost/api/collections/col-1"), {
+      params: Promise.resolve({ id: "col-1" }),
+    });
     expect(response.status).toBe(403);
   });
 });
@@ -772,7 +783,9 @@ describe("POST /api/collections/[id]/items", () => {
 
   it("adds adventure to collection and returns 201", async () => {
     mockSession("user-1");
-    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     (mockPrisma.collectionItem.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({
       id: "ci-1",
       collectionId: "col-1",
@@ -791,7 +804,9 @@ describe("POST /api/collections/[id]/items", () => {
 
   it("returns 400 when adventureId is missing", async () => {
     mockSession("user-1");
-    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     const response = await addToCollection(
       new NextRequest("http://localhost/api/collections/col-1/items", {
         method: "POST",
@@ -819,7 +834,9 @@ describe("POST /api/collections/[id]/items", () => {
 
   it("returns 403 when collection belongs to another user", async () => {
     mockSession("user-2");
-    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     const response = await addToCollection(
       new NextRequest("http://localhost/api/collections/col-1/items", {
         method: "POST",
@@ -837,7 +854,9 @@ describe("DELETE /api/collections/[id]/items", () => {
 
   it("removes adventure from collection and returns 204", async () => {
     mockSession("user-1");
-    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     (mockPrisma.collectionItem.deleteMany as ReturnType<typeof vi.fn>).mockResolvedValue({});
     const response = await removeFromCollection(
       new NextRequest("http://localhost/api/collections/col-1/items?adventureId=adv-1"),
@@ -848,7 +867,9 @@ describe("DELETE /api/collections/[id]/items", () => {
 
   it("returns 400 when adventureId query param is missing", async () => {
     mockSession("user-1");
-    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     const response = await removeFromCollection(
       new NextRequest("http://localhost/api/collections/col-1/items"),
       { params: Promise.resolve({ id: "col-1" }) },
@@ -868,7 +889,9 @@ describe("DELETE /api/collections/[id]/items", () => {
 
   it("returns 403 when collection belongs to another user", async () => {
     mockSession("user-2");
-    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     const response = await removeFromCollection(
       new NextRequest("http://localhost/api/collections/col-1/items?adventureId=adv-1"),
       { params: Promise.resolve({ id: "col-1" }) },
@@ -933,7 +956,9 @@ describe("POST /api/adventures/[id]/duplicate", () => {
 
   it("returns 403 when user is not the owner", async () => {
     mockSession("user-2");
-    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(originalAdventure);
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(
+      originalAdventure,
+    );
     const response = await duplicateAdventure(
       new Request("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
@@ -943,7 +968,9 @@ describe("POST /api/adventures/[id]/duplicate", () => {
 
   it("creates a draft duplicate with '(Copy)' suffix and returns 201", async () => {
     mockSession("user-1");
-    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(originalAdventure);
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(
+      originalAdventure,
+    );
     (mockPrisma.adventure.create as ReturnType<typeof vi.fn>).mockResolvedValue({
       ...originalAdventure,
       id: "adv-copy",
@@ -965,7 +992,9 @@ describe("POST /api/adventures/[id]/duplicate", () => {
 
   it("creates the duplicate as unpublished even if original was published", async () => {
     mockSession("user-1");
-    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(originalAdventure);
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(
+      originalAdventure,
+    );
     (mockPrisma.adventure.create as ReturnType<typeof vi.fn>).mockResolvedValue({
       ...originalAdventure,
       id: "adv-copy",
@@ -992,7 +1021,9 @@ describe("POST /api/chat", () => {
   beforeEach(() => {
     vi.stubEnv("OPENAI_API_KEY", "");
     // Route always auto-creates an itinerary on first message
-    (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "auto-itin-1" });
+    (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "auto-itin-1",
+    });
   });
   afterEach(() => {
     vi.clearAllMocks();
@@ -1376,7 +1407,10 @@ describe("PATCH /api/itineraries/[id]", () => {
 
   it("updates and returns the itinerary", async () => {
     mockSession();
-    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1", status: "DRAFT" });
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "itin-1",
+      status: "DRAFT",
+    });
     (mockPrisma.itinerary.update as ReturnType<typeof vi.fn>).mockResolvedValue({
       id: "itin-1",
       title: "Updated Trek",
@@ -1425,7 +1459,10 @@ describe("PATCH /api/itineraries/[id]", () => {
 
   it("passes all optional fields to prisma update when provided", async () => {
     mockSession();
-    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1", status: "DRAFT" });
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "itin-1",
+      status: "DRAFT",
+    });
     const updateMock = mockPrisma.itinerary.update as ReturnType<typeof vi.fn>;
     updateMock.mockResolvedValue({ id: "itin-1", title: "Nepal Trek", days: [] });
 
@@ -1463,7 +1500,10 @@ describe("PATCH /api/itineraries/[id]", () => {
 
   it("omits undefined optional fields from prisma update", async () => {
     mockSession();
-    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1", status: "DRAFT" });
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "itin-1",
+      status: "DRAFT",
+    });
     const updateMock = mockPrisma.itinerary.update as ReturnType<typeof vi.fn>;
     updateMock.mockResolvedValue({ id: "itin-1", days: [] });
 
@@ -1484,7 +1524,10 @@ describe("PATCH /api/itineraries/[id]", () => {
 
   it("sets description and budget to explicit values including falsy ones", async () => {
     mockSession();
-    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1", status: "DRAFT" });
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "itin-1",
+      status: "DRAFT",
+    });
     const updateMock = mockPrisma.itinerary.update as ReturnType<typeof vi.fn>;
     updateMock.mockResolvedValue({ id: "itin-1", days: [] });
 
@@ -1513,22 +1556,23 @@ describe("DELETE /api/itineraries/[id]", () => {
 
   it("deletes itinerary and returns 204", async () => {
     mockSession();
-    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1", status: "DRAFT" });
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: "itin-1",
+      status: "DRAFT",
+    });
     (mockPrisma.itinerary.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
-    const response = await deleteItinerary(
-      new Request("http://localhost/api/itineraries/itin-1"),
-      { params: Promise.resolve({ id: "itin-1" }) },
-    );
+    const response = await deleteItinerary(new Request("http://localhost/api/itineraries/itin-1"), {
+      params: Promise.resolve({ id: "itin-1" }),
+    });
     expect(response.status).toBe(204);
   });
 
   it("returns 401 when unauthenticated", async () => {
     noSession();
-    const response = await deleteItinerary(
-      new Request("http://localhost/api/itineraries/itin-1"),
-      { params: Promise.resolve({ id: "itin-1" }) },
-    );
+    const response = await deleteItinerary(new Request("http://localhost/api/itineraries/itin-1"), {
+      params: Promise.resolve({ id: "itin-1" }),
+    });
     expect(response.status).toBe(401);
   });
 
@@ -1755,7 +1799,10 @@ describe("PATCH /api/adventures/[id] owner edit", () => {
     (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue(updatedAdventure);
 
     const response = await patchAdventure(
-      makeRequest({ title: "Updated Title", description: "Updated description with enough characters here" }),
+      makeRequest({
+        title: "Updated Title",
+        description: "Updated description with enough characters here",
+      }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
 
@@ -1780,10 +1827,27 @@ describe("GET /api/notifications", () => {
   it("returns notifications and unread count", async () => {
     mockSession("user-1");
     const mockNotifications = [
-      { id: "n-1", message: "Someone followed you", read: false, createdAt: new Date(), type: "NEW_FOLLOWER", linkUrl: null },
-      { id: "n-2", message: "New comment on your adventure", read: true, createdAt: new Date(), type: "NEW_COMMENT", linkUrl: "/adventures/adv-1" },
+      {
+        id: "n-1",
+        message: "Someone followed you",
+        read: false,
+        createdAt: new Date(),
+        type: "NEW_FOLLOWER",
+        linkUrl: null,
+      },
+      {
+        id: "n-2",
+        message: "New comment on your adventure",
+        read: true,
+        createdAt: new Date(),
+        type: "NEW_COMMENT",
+        linkUrl: "/adventures/adv-1",
+      },
     ];
-    (mockPrisma.notification.findMany as ReturnType<typeof vi.fn>).mockResolvedValue(mockNotifications);
+    (mockPrisma.notification.findMany as ReturnType<typeof vi.fn>).mockResolvedValue(
+      mockNotifications,
+    );
+    (mockPrisma.notification.count as ReturnType<typeof vi.fn>).mockResolvedValue(1);
 
     const response = await getNotifications();
     expect(response.status).toBe(200);
@@ -1792,9 +1856,41 @@ describe("GET /api/notifications", () => {
     expect(data.unreadCount).toBe(1);
   });
 
+  it("computes unreadCount with a DB count query scoped to unread rows", async () => {
+    mockSession("user-1");
+    (mockPrisma.notification.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    (mockPrisma.notification.count as ReturnType<typeof vi.fn>).mockResolvedValue(0);
+
+    await getNotifications();
+    expect(mockPrisma.notification.count).toHaveBeenCalledWith({
+      where: { userId: "user-1", read: false },
+    });
+  });
+
+  it("reports unread beyond the 50 fetched rows (count is not derived from the page)", async () => {
+    mockSession("user-1");
+    // Page contains only read rows, but 120 older unread rows exist in the DB.
+    (mockPrisma.notification.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      {
+        id: "n-1",
+        message: "Read one",
+        read: true,
+        createdAt: new Date(),
+        type: "SYSTEM",
+        linkUrl: null,
+      },
+    ]);
+    (mockPrisma.notification.count as ReturnType<typeof vi.fn>).mockResolvedValue(120);
+
+    const response = await getNotifications();
+    const data = await response.json();
+    expect(data.unreadCount).toBe(120);
+  });
+
   it("returns empty array for user with no notifications", async () => {
     mockSession("user-1");
     (mockPrisma.notification.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    (mockPrisma.notification.count as ReturnType<typeof vi.fn>).mockResolvedValue(0);
 
     const response = await getNotifications();
     expect(response.status).toBe(200);
@@ -1818,7 +1914,9 @@ describe("POST /api/notifications/read-all", () => {
 
   it("marks all unread notifications as read", async () => {
     mockSession("user-1");
-    (mockPrisma.notification.updateMany as ReturnType<typeof vi.fn>).mockResolvedValue({ count: 3 });
+    (mockPrisma.notification.updateMany as ReturnType<typeof vi.fn>).mockResolvedValue({
+      count: 3,
+    });
 
     const response = await markAllRead();
     expect(response.status).toBe(200);

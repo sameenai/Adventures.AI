@@ -31,11 +31,28 @@ describe("robots", () => {
     expect(rule.allow).toContain("/leaderboard");
   });
 
+  it("allows the now-public /itinerary planner and /flights", () => {
+    const result = robots();
+    const rule = Array.isArray(result.rules) ? result.rules[0] : result.rules;
+    expect(rule.allow).toContain("/itinerary");
+    expect(rule.allow).toContain("/flights");
+    expect(rule.disallow).not.toContain("/itinerary");
+  });
+
   it("disallows private routes", () => {
     const result = robots();
     const rule = Array.isArray(result.rules) ? result.rules[0] : result.rules;
     expect(rule.disallow).toContain("/api/");
     expect(rule.disallow).toContain("/profile/edit");
+  });
+
+  it("disallows /feed (redirects unauthenticated visitors) and itinerary detail pages", () => {
+    const result = robots();
+    const rule = Array.isArray(result.rules) ? result.rules[0] : result.rules;
+    expect(rule.allow).not.toContain("/feed");
+    expect(rule.disallow).toContain("/feed");
+    expect(rule.disallow).toContain("/itinerary/");
+    expect(rule.disallow).toContain("/itineraries/");
   });
 
   it("includes a sitemap url", () => {
@@ -59,6 +76,18 @@ describe("sitemap", () => {
   it("includes the /adventures static route", async () => {
     const entries = await sitemap();
     expect(entries.some((e) => e.url === `${APP_URL}/adventures`)).toBe(true);
+  });
+
+  it("includes the public /flights and /itinerary routes", async () => {
+    const entries = await sitemap();
+    expect(entries.some((e) => e.url === `${APP_URL}/flights`)).toBe(true);
+    expect(entries.some((e) => e.url === `${APP_URL}/itinerary`)).toBe(true);
+  });
+
+  it("does not list gated routes like /feed or /bookmarks", async () => {
+    const entries = await sitemap();
+    expect(entries.some((e) => e.url === `${APP_URL}/feed`)).toBe(false);
+    expect(entries.some((e) => e.url === `${APP_URL}/bookmarks`)).toBe(false);
   });
 
   it("includes dynamic adventure routes from the DB", async () => {

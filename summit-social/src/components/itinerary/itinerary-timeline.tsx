@@ -1,8 +1,7 @@
-import type { ItineraryDay } from "@prisma/client";
-import { DayCard } from "./day-card";
+import { DayCard, type ItineraryDayData } from "./day-card";
 
 interface ItineraryTimelineProps {
-  days: ItineraryDay[];
+  days: ItineraryDayData[];
 }
 
 export function ItineraryTimeline({ days }: ItineraryTimelineProps) {

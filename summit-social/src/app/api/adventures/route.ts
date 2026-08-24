@@ -51,6 +51,32 @@ export async function GET(request: NextRequest) {
   const payload = await fetchAdventuresPage(filters);
   if (cacheKey) await setCache(cacheKey, payload, CACHE_TTL.adventureCounts);
 
+  // Demand capture (fire-and-forget, first page only): searches and filter
+  // combinations were previously parsed and discarded — they are the "based
+  // on past searches" half of the cadence vision.
+  const hasIntent =
+    Boolean(search) ||
+    Boolean(category?.length || continent?.length || difficulty?.length) ||
+    Boolean(duration?.length || month || climate?.length || tag);
+  if (!cursor && hasIntent) {
+    try {
+      const session = await getServerSession(authOptions).catch(() => null);
+      void prisma.searchEvent
+        .create({
+          data: {
+            userId: session?.user?.id ?? null,
+            source: "ADVENTURE_LIST",
+            query: search ?? null,
+            filters: { category, continent, difficulty, duration, month, climate, tag },
+            resultCount: payload.items.length,
+          },
+        })
+        .catch(() => undefined);
+    } catch {
+      // Analytics capture must never break the listing response.
+    }
+  }
+
   return NextResponse.json(payload);
 }
 

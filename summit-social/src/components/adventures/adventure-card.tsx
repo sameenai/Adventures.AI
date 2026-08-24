@@ -1,5 +1,5 @@
 import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
-import { cn, pluralise } from "@/lib/utils";
+import { cn, formatPrice, pluralise } from "@/lib/utils";
 import type { AdventureWithUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,6 +37,29 @@ export function AdventureCard({
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent" />
+
+          {/* Difficulty badge */}
+          {difficulty && (
+            <div className="absolute left-3 top-3">
+              <span
+                className={cn(
+                  "bg-stone-950/70 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.15em] backdrop-blur-sm",
+                  difficulty.color,
+                )}
+              >
+                {difficulty.label}
+              </span>
+            </div>
+          )}
+
+          {/* Estimated cost */}
+          {adventure.estimatedCost != null && adventure.estimatedCost > 0 && (
+            <div className="absolute right-3 top-3">
+              <span className="bg-stone-950/70 px-2 py-1 font-mono text-[10px] text-stone-300 backdrop-blur-sm">
+                {`~${formatPrice(adventure.estimatedCost)} est.`}
+              </span>
+            </div>
+          )}
 
           {/* Category label */}
           <div className="absolute bottom-3 left-3">

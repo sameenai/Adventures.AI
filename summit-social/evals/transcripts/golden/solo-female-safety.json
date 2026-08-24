@@ -1,0 +1,193 @@
+{
+  "caseId": "solo-female-safety",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sa_1",
+      "name": "search_adventures",
+      "arguments": { "query": "atlas mountains trek morocco", "category": "TREKKING" }
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Arrive in Marrakech",
+      "description": "Land, settle, get oriented",
+      "activities": [
+        {
+          "time": "15:00",
+          "activity": "Airport transfer arranged by your riad and a rooftop mint tea",
+          "location": "Riad in the Marrakech medina",
+          "notes": "Pre-book the transfer — it removes the one arrival hassle worth avoiding",
+          "lat": 31.6295,
+          "lng": -7.9811
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Into the High Atlas",
+      "description": "Meet your guide in Imlil",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Shared drive to Imlil and introductions with your licensed mountain guide",
+          "location": "Imlil",
+          "notes": "Booked through a local agency that can pair you with a female guide on request",
+          "lat": 31.1373,
+          "lng": -7.92
+        },
+        {
+          "time": "15:00",
+          "activity": "Acclimatisation walk through the walnut terraces to Aroumd village",
+          "location": "Aroumd",
+          "lat": 31.125,
+          "lng": -7.919
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Over the Tizi Mzik to the Azzaden valley",
+      "description": "First proper pass day",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "Climb west over the Tizi Mzik pass (2,489 m)",
+          "location": "Tizi Mzik",
+          "lat": 31.121,
+          "lng": -7.953
+        },
+        {
+          "time": "15:30",
+          "activity": "Descend to a village gîte and dinner with the family who run it",
+          "location": "Tizi Oussem, Azzaden valley",
+          "notes": "Mule support carries the bags; you carry a day pack",
+          "lat": 31.13,
+          "lng": -7.983
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Azzaden valley to the Toubkal refuge",
+      "description": "The long approach day",
+      "activities": [
+        {
+          "time": "07:30",
+          "activity": "Ascend via the Tizi n'Aguelzim (3,560 m) with its zigzag balcony path",
+          "location": "Tizi n'Aguelzim",
+          "lat": 31.09,
+          "lng": -7.96
+        },
+        {
+          "time": "16:00",
+          "activity": "Reach the mountain refuge and prep for summit day",
+          "location": "Refuge du Toubkal",
+          "notes": "Dorms are mixed but the guardians can usually arrange a women's room — your guide will ask",
+          "lat": 31.0664,
+          "lng": -7.9369
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "title": "Toubkal summit",
+      "description": "The roof of North Africa",
+      "activities": [
+        {
+          "time": "05:00",
+          "activity": "Summit Jebel Toubkal (4,167 m) for sunrise over the Sahara's edge",
+          "location": "Jebel Toubkal",
+          "notes": "April usually means snow on the upper slopes — crampons and ice axe provided and taught by the guide; altitude headaches are common, so flag symptoms early",
+          "lat": 31.0603,
+          "lng": -7.9151
+        },
+        {
+          "time": "13:00",
+          "activity": "Descend to Aroumd for a celebration tagine",
+          "location": "Aroumd village",
+          "lat": 31.1252,
+          "lng": -7.9192
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "title": "Rest day around Imlil",
+      "description": "Recovery among the orchards",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Gentle loop to the Imlil waterfalls and a hammam visit",
+          "location": "Imlil valley",
+          "notes": "The village hammam has women-only hours — your guide will confirm the schedule",
+          "lat": 31.1375,
+          "lng": -7.9205
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "title": "Ridge day to Ouirgane",
+      "description": "Quieter trails west",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Traverse mule paths through juniper forest to the Ouirgane valley",
+          "location": "Ouirgane",
+          "lat": 31.177,
+          "lng": -8.08
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "title": "Ouirgane villages and olive groves",
+      "description": "Culture at walking pace",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Village-to-village walk with a Berber lunch stop",
+          "location": "Ouirgane valley villages",
+          "notes": "Dress modestly in the villages — shoulders and knees covered goes a long way for respect and ease",
+          "lat": 31.169,
+          "lng": -8.089
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "title": "To the coast at Essaouira",
+      "description": "Sea air after the summits",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "Drive west to Essaouira and walk the ramparts and fishing port",
+          "location": "Essaouira medina",
+          "notes": "A relaxed, artsy town that solo women travellers consistently rate as easy-going",
+          "lat": 31.5085,
+          "lng": -9.7595
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "title": "Return to Marrakech and depart",
+      "description": "Souks and send-off",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Drive back to Marrakech for a final souk wander before the airport",
+          "location": "Marrakech medina souks",
+          "notes": "Keep valuables in a cross-body bag in the souks; agree taxi fares before getting in",
+          "lat": 31.6258,
+          "lng": -7.9891
+        }
+      ]
+    }
+  ],
+  "finalText": "Morocco in April is a superb call — snow still on Toubkal's summit, wildflowers below, and cool trekking temperatures. Here's a 10-day plan plus the honest safety picture you asked for.\n\nThe single best decision for this trip: book a licensed mountain guide through a reputable local agency rather than trekking alone. It's not just navigation — a guide changes every social interaction in the villages, handles gîte and refuge logistics, and several agencies can pair you with a female guide if you prefer. Solo female travellers do this route constantly and overwhelmingly report feeling safe; the friction you'll actually meet is persistent vendors in Marrakech, not the mountains, where hospitality is the rule.\n\nPractical safety notes, honestly given: dress modestly (covered shoulders and knees) as a matter of local custom — it noticeably reduces attention and shows respect; expect some staring and the occasional catcall in the city and ignore it as locals do; use registered taxis or riad transfers after dark; and share your route with your riad and someone at home. On the mountain itself the real risks are altitude and April snow on summit day — your guide sets the pace, provides crampons, and turning around is always a fine outcome. Get travel insurance that covers trekking to 4,200 m.\n\nEstimated cost: £1,550 all-in — flights, the guided trek package with mule support and half-board gîtes, riad nights in Marrakech and Essaouira — under your £1,800 budget. Want me to shortlist agencies with female guides, or adjust the route to add a second rest day?",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}

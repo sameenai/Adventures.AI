@@ -1,0 +1,280 @@
+{
+  "caseId": "family-multi-generation",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sa_1",
+      "name": "search_adventures",
+      "arguments": {
+        "query": "costa rica family wildlife",
+        "difficulty": "EASY",
+        "maxDuration": 14
+      }
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Arrive in San José",
+      "description": "Gentle landing day for all three generations",
+      "activities": [
+        {
+          "time": "15:00",
+          "activity": "Airport pickup and private transfer to a garden hotel",
+          "location": "Juan Santamaría International Airport, San José",
+          "notes": "Pre-booked driver — no navigating while jet-lagged",
+          "lat": 9.9981,
+          "lng": -84.2041
+        },
+        {
+          "time": "18:00",
+          "activity": "Easy first dinner of casados at the hotel restaurant",
+          "location": "Barrio Escalante, San José",
+          "lat": 9.9325,
+          "lng": -84.0795
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Drive to La Fortuna and first sloths",
+      "description": "Into the rainforest at family pace",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Private shuttle drive to La Fortuna with a coffee-farm stop",
+          "location": "San José to La Fortuna",
+          "notes": "About 3 hours — the kids can break it up at the playground in Zarcero",
+          "lat": 10.4678,
+          "lng": -84.6427
+        },
+        {
+          "time": "15:30",
+          "activity": "Guided sloth-spotting walk on the flat Bogarín Trail",
+          "location": "Bogarín Trail, La Fortuna",
+          "notes": "Level boardwalk-style paths, perfect for grandad — sloths almost guaranteed",
+          "lat": 10.4712,
+          "lng": -84.635
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Arenal hanging bridges and hot springs",
+      "description": "The volcano day, kept gentle",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Wildlife walk across the Arenal hanging bridges",
+          "location": "Místico Arenal Hanging Bridges Park",
+          "notes": "3 km loop, well-graded and handrailed throughout — toucans and howler monkeys overhead",
+          "lat": 10.4959,
+          "lng": -84.757
+        },
+        {
+          "time": "16:00",
+          "activity": "Soak in the volcano-heated pools",
+          "location": "Tabacón hot springs, Arenal",
+          "notes": "Shallow family pools and quiet adult corners — ideal for tired legs of all ages",
+          "lat": 10.489,
+          "lng": -84.722
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "La Fortuna waterfall and chocolate",
+      "description": "Adventure for the kids, culture for everyone",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Visit La Fortuna waterfall viewpoint and swim in the lower pools",
+          "location": "La Fortuna waterfall",
+          "notes": "There are 500 steps down — grandad can enjoy the upper viewpoint café instead",
+          "lat": 10.4437,
+          "lng": -84.6699
+        },
+        {
+          "time": "14:00",
+          "activity": "Bean-to-bar chocolate workshop the kids will talk about for years",
+          "location": "Rainforest Chocolate Tour, La Fortuna",
+          "lat": 10.4655,
+          "lng": -84.6512
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "title": "Rest day and safari float",
+      "description": "A deliberately slow day mid-trip",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Lazy morning by the hotel pool — no alarm clocks",
+          "location": "La Fortuna",
+          "notes": "Built-in rest day so nobody burns out at the halfway mark",
+          "lat": 10.4678,
+          "lng": -84.6427
+        },
+        {
+          "time": "14:30",
+          "activity": "Gentle safari float for caimans, herons and monkeys",
+          "location": "Peñas Blancas river",
+          "notes": "Guide paddles, you spot — zero effort, huge wildlife count",
+          "lat": 10.416,
+          "lng": -84.571
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "title": "Across Lake Arenal to Monteverde",
+      "description": "The classic boat-and-jeep transfer day",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Boat transfer across Lake Arenal then minibus climb to the cloud forest",
+          "location": "Lake Arenal to Monteverde",
+          "notes": "Half-day journey treated as an outing in itself — volcano views from the water",
+          "lat": 10.301,
+          "lng": -84.825
+        },
+        {
+          "time": "16:00",
+          "activity": "Stroll the town and try a batido at a local soda",
+          "location": "Santa Elena, Monteverde",
+          "lat": 10.3157,
+          "lng": -84.8252
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "title": "Monteverde cloud forest with a naturalist",
+      "description": "The wildlife centrepiece",
+      "activities": [
+        {
+          "time": "07:30",
+          "activity": "Guided naturalist walk looking for quetzals and hummingbirds",
+          "location": "Monteverde Cloud Forest Biological Reserve",
+          "notes": "Guides carry scopes so the kids and grandad see everything without straining",
+          "lat": 10.3009,
+          "lng": -84.7907
+        },
+        {
+          "time": "14:00",
+          "activity": "Relaxed afternoon at the hummingbird gallery and coffee shop",
+          "location": "Café Colibrí, Monteverde",
+          "lat": 10.3005,
+          "lng": -84.7922
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "title": "Sky bridges and a zipline taster",
+      "description": "Adventure levels each person can choose",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Walk the treetop suspension bridges above the cloud forest",
+          "location": "Sky Walk, Monteverde",
+          "notes": "Graded, handrailed bridges — grandad walks, the kids can add the family-friendly zipline",
+          "lat": 10.3536,
+          "lng": -84.7899
+        },
+        {
+          "time": "15:00",
+          "activity": "Visit the bat jungle exhibit — a hit in any weather",
+          "location": "Bat Jungle, Monteverde",
+          "lat": 10.3121,
+          "lng": -84.8189
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "title": "Down to the Pacific at Manuel Antonio",
+      "description": "Mountains to beach",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Private transfer drive from Monteverde to Manuel Antonio",
+          "location": "Monteverde to Manuel Antonio",
+          "notes": "About 4 hours with a crocodile-bridge stop at Tárcoles",
+          "lat": 9.431,
+          "lng": -84.162
+        },
+        {
+          "time": "16:00",
+          "activity": "First warm-water swim at Espadilla beach",
+          "location": "Playa Espadilla, Manuel Antonio",
+          "lat": 9.3961,
+          "lng": -84.1568
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "title": "Manuel Antonio National Park",
+      "description": "Wildlife and beaches in one morning",
+      "activities": [
+        {
+          "time": "07:00",
+          "activity": "Guided national park walk — sloths, capuchins and squirrel monkeys",
+          "location": "Manuel Antonio National Park",
+          "notes": "Flat, wide main trail; go early to beat heat and crowds. Park closed Tuesdays",
+          "lat": 9.392,
+          "lng": -84.137
+        },
+        {
+          "time": "13:00",
+          "activity": "Picnic and swim at the sheltered park beach",
+          "location": "Playa Manuel Antonio",
+          "lat": 9.3894,
+          "lng": -84.1417
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "title": "Mangroves and a slow final full day",
+      "description": "Easy day to close the loop",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Covered-boat mangrove tour spotting silky anteaters and boas",
+          "location": "Damas Island estuary",
+          "notes": "Shaded and seated — a relaxed morning everyone manages easily",
+          "lat": 9.478,
+          "lng": -84.203
+        },
+        {
+          "time": "15:00",
+          "activity": "Souvenir stroll and sunset ice cream in Quepos",
+          "location": "Quepos waterfront",
+          "lat": 9.4319,
+          "lng": -84.1614
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "title": "Return to San José and fly home",
+      "description": "Unhurried departure",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Drive back to San José airport with a fruit-stand stop",
+          "location": "Manuel Antonio to San José",
+          "notes": "Allow 3.5 hours plus buffer — evening flights are safest",
+          "lat": 9.9981,
+          "lng": -84.2041
+        }
+      ]
+    }
+  ],
+  "finalText": "Here's a 12-day Costa Rica loop built for three generations: San José → La Fortuna/Arenal → Monteverde → Manuel Antonio. July is the 'green season' — expect sunny mornings and short afternoon downpours, so every day front-loads the activity and keeps afternoons flexible.\n\nThe pacing is the point: no more than one headline activity per day, a full rest day in the middle, and every walk is on graded, handrailed or flat trails that an 8-year-old and a 68-year-old can genuinely enjoy together — the hanging bridges, the Bogarín sloth trail and the Manuel Antonio main path are all gentle. Where something is harder (the waterfall steps), there's a comfortable opt-out.\n\nWildlife is the thread throughout: sloths in La Fortuna, quetzals and hummingbirds in the cloud forest, monkeys in the rainforest of Manuel Antonio, and a mangrove boat safari to finish.\n\nEstimated cost for all five: £5,400 including flights, private transfers, mid-range family rooms, the guided walks and park fees — inside your £6,000 budget with room for souvenirs. Want me to add a white-water float alternative for the kids, or look at flight options for July?",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}

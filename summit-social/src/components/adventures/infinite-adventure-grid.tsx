@@ -2,6 +2,7 @@
 
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import type { AdventureWithUser } from "@/types";
+import Link from "next/link";
 import { useCallback } from "react";
 import { AdventureCard } from "./adventure-card";
 import { AdventureListRow } from "./adventure-list-row";
@@ -79,12 +80,27 @@ export function InfiniteAdventureGrid({
   });
 
   if (items.length === 0 && !loading) {
+    const planPrompt = search?.trim() || "Help me plan my next adventure";
     return (
       <div className="py-16 text-center">
         <p className="font-display text-lg uppercase tracking-widest text-stone-500">
           No adventures found
         </p>
         <p className="mt-1 text-sm text-stone-600">Try adjusting your filters or search query.</p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <Link
+            href="/adventures"
+            className="border border-stone-700 px-4 py-2 font-mono text-xs uppercase tracking-widest text-stone-400 transition-colors hover:border-stone-500 hover:text-stone-200"
+          >
+            Clear filters
+          </Link>
+          <Link
+            href={`/itinerary?prompt=${encodeURIComponent(planPrompt)}`}
+            className="border border-amber-500/60 px-4 py-2 font-mono text-xs uppercase tracking-widest text-amber-500 transition-colors hover:border-amber-500 hover:bg-amber-500/10"
+          >
+            Plan it with AI instead →
+          </Link>
+        </div>
       </div>
     );
   }

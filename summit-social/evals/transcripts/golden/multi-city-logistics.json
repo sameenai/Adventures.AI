@@ -1,0 +1,325 @@
+{
+  "caseId": "multi-city-logistics",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sa_1",
+      "name": "search_adventures",
+      "arguments": { "query": "patagonia trekking kayaking", "continent": "South America" }
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Fly to the bottom of the world",
+      "description": "Long-haul day to Chilean Patagonia",
+      "activities": [
+        {
+          "time": "20:00",
+          "activity": "Arrive by flight via Santiago and overnight near the plaza",
+          "location": "Punta Arenas",
+          "notes": "December flights fill early — book the Santiago–Punta Arenas leg on the same ticket",
+          "lat": -53.1638,
+          "lng": -70.9171
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "North to Puerto Natales",
+      "description": "Gateway town for Torres del Paine",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Bus up the steppe to Puerto Natales",
+          "location": "Puerto Natales",
+          "notes": "3 hours; grab your park entry passes and rental gear this afternoon",
+          "lat": -51.7263,
+          "lng": -72.5062
+        },
+        {
+          "time": "17:00",
+          "activity": "Trek briefing and waterfront king crab dinner",
+          "location": "Última Esperanza waterfront, Puerto Natales",
+          "lat": -51.7299,
+          "lng": -72.5102
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Into the park — W trek begins",
+      "description": "Torres del Paine from the west",
+      "activities": [
+        {
+          "time": "07:30",
+          "activity": "Bus into Torres del Paine and catamaran ferry across Lago Pehoé",
+          "location": "Pudeto, Torres del Paine",
+          "lat": -51.078,
+          "lng": -72.953
+        },
+        {
+          "time": "13:00",
+          "activity": "Warm-up walk to the Mirador and settle into camp",
+          "location": "Paine Grande",
+          "notes": "Refugio and platform camping — booked months ahead in December",
+          "lat": -51.073,
+          "lng": -73.09
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Grey Glacier and iceberg kayaking",
+      "description": "The western arm of the W",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "Hike the lakeshore trail to Refugio Grey",
+          "location": "Refugio Grey, Torres del Paine",
+          "notes": "11 km with the glacier growing in view the whole way",
+          "lat": -51.011,
+          "lng": -73.201
+        },
+        {
+          "time": "15:00",
+          "activity": "Guided kayak session among the icebergs on Lago Grey",
+          "location": "Lago Grey",
+          "notes": "Drysuits provided; December's long daylight makes the afternoon slot ideal",
+          "lat": -50.999,
+          "lng": -73.212
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "title": "Valle Francés",
+      "description": "The middle arm of the W",
+      "activities": [
+        {
+          "time": "07:00",
+          "activity": "Walk back east and climb into the French Valley to the Británico lookout",
+          "location": "Valle Francés, Torres del Paine",
+          "notes": "Hanging glaciers calving off Paine Grande all afternoon — listen for the cracks",
+          "lat": -51.028,
+          "lng": -73.005
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "title": "Beneath the horns to Los Cuernos",
+      "description": "Lakeshore traverse east",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Traverse the Nordenskjöld lakeshore under the Cuernos",
+          "location": "Refugio Los Cuernos",
+          "lat": -50.986,
+          "lng": -72.885
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "title": "Sunrise at the Torres",
+      "description": "The signature day of the trek",
+      "activities": [
+        {
+          "time": "03:30",
+          "activity": "Pre-dawn climb to the Torres base lookout for first light on the towers",
+          "location": "Mirador Las Torres, Torres del Paine",
+          "notes": "The steep morraine hour is the toughest of the trip — headtorch essential",
+          "lat": -50.9423,
+          "lng": -72.954
+        },
+        {
+          "time": "13:00",
+          "activity": "Descend to the Central sector for a well-earned asado",
+          "location": "Refugio Central, Torres del Paine",
+          "lat": -50.9622,
+          "lng": -72.9036
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "title": "Out of the park",
+      "description": "Back to town, feet up",
+      "activities": [
+        {
+          "time": "14:00",
+          "activity": "Bus from Laguna Amarga back to Puerto Natales",
+          "location": "Laguna Amarga gate, Torres del Paine",
+          "lat": -50.977,
+          "lng": -72.79
+        },
+        {
+          "time": "19:00",
+          "activity": "Laundry, pisco sour and an early night",
+          "location": "Puerto Natales town",
+          "lat": -51.7265,
+          "lng": -72.506
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "title": "Rest day in Puerto Natales",
+      "description": "Recovery between the two halves",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Slow morning at a café then a flat stroll to the old pier",
+          "location": "Muelle Histórico, Puerto Natales",
+          "notes": "Deliberate rest day — the Fitz Roy half needs fresh legs",
+          "lat": -51.7231,
+          "lng": -72.5115
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "title": "Across the border to Argentina",
+      "description": "Chile to El Calafate",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "International bus via the Cerro Castillo border crossing",
+          "location": "El Calafate",
+          "notes": "5–6 hours including formalities; keep your park receipts handy",
+          "lat": -50.3379,
+          "lng": -72.2648
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "title": "Perito Moreno Glacier",
+      "description": "Argentina's calving giant",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Walk the full boardwalk circuit facing the glacier's 70 m face",
+          "location": "Perito Moreno Glacier, Los Glaciares National Park",
+          "notes": "Optional one-hour boat to the south face; icefall is most active after midday",
+          "lat": -50.4967,
+          "lng": -73.1377
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "title": "North to El Chaltén",
+      "description": "Argentina's trekking capital",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Bus along Lago Viedma to El Chaltén",
+          "location": "El Chaltén",
+          "notes": "3 hours — sit on the left for the first Fitz Roy views",
+          "lat": -49.3315,
+          "lng": -72.8863
+        },
+        {
+          "time": "16:00",
+          "activity": "Shake-out walk to the Chorrillo del Salto waterfall",
+          "location": "Chorrillo del Salto",
+          "lat": -49.3062,
+          "lng": -72.8963
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "title": "Laguna de los Tres",
+      "description": "Face to face with Fitz Roy",
+      "activities": [
+        {
+          "time": "06:00",
+          "activity": "Hike to Laguna de los Tres beneath Monte Fitz Roy",
+          "location": "Laguna de los Tres",
+          "notes": "22 km round trip; the final 400 m climb is brutally steep — start early for still air",
+          "lat": -49.2727,
+          "lng": -72.993
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "title": "Easy day in El Chaltén",
+      "description": "Bakeries and viewpoints",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Short walk to the Mirador de los Cóndores and a slow afternoon of pastries",
+          "location": "Mirador de los Cóndores, El Chaltén",
+          "notes": "Recovery day between the two big hikes",
+          "lat": -49.3379,
+          "lng": -72.8788
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "title": "Laguna Torre",
+      "description": "Cerro Torre's iceberg lake",
+      "activities": [
+        {
+          "time": "07:30",
+          "activity": "Hike the valley trail to Laguna Torre and the Maestri viewpoint",
+          "location": "Laguna Torre",
+          "notes": "18 km round trip, gentler than Los Tres — icebergs drift below Cerro Torre's spire",
+          "lat": -49.339,
+          "lng": -72.955
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "title": "Kayak the Río de las Vueltas",
+      "description": "Paddling under Fitz Roy",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Half-day guided kayak descent of the Río de las Vueltas",
+          "location": "Río de las Vueltas, El Chaltén",
+          "notes": "Class II water, glacier views the whole run — the Argentine bookend to Lago Grey",
+          "lat": -49.3106,
+          "lng": -72.8899
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "title": "Return to El Calafate",
+      "description": "Positioning for the flight home",
+      "activities": [
+        {
+          "time": "15:00",
+          "activity": "Afternoon bus back to El Calafate and a farewell parrilla",
+          "location": "El Calafate town",
+          "lat": -50.3375,
+          "lng": -72.2652
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "title": "Fly home",
+      "description": "Departure day",
+      "activities": [
+        {
+          "time": "11:00",
+          "activity": "Flight from El Calafate via Buenos Aires",
+          "location": "El Calafate airport",
+          "lat": -50.2803,
+          "lng": -72.0531
+        }
+      ]
+    }
+  ],
+  "finalText": "Three weeks is the right length to do both sides of Patagonia properly, and December is peak season — long daylight, the full trail network open, and every refugio and bus seat booked out months ahead, so lock accommodation first and build the rest around it.\n\nThe logic of the route: fly into Punta Arenas, do the Chilean half first (the Torres del Paine W over five days, with iceberg kayaking on Lago Grey as your first paddle), recover in Puerto Natales, then cross the border by bus to El Calafate for Perito Moreno and on to El Chaltén for the Fitz Roy classics — Laguna de los Tres, Laguna Torre — and a second, wilder kayak on the Río de las Vueltas. One border crossing, no backtracking, and rest days placed exactly where your legs will demand them.\n\nBe straight about December's one catch: the wind. Gusts over 100 km/h are normal, forecasts shift daily, and the Torres and Los Tres viewpoints are worth re-ordering around any calm morning — build the flexibility in rather than fighting it.\n\nEstimated cost: £4,700 per person including international flights, buses, refugio half-board on the W, guided kayak sessions and park fees — inside your £5,000 budget. Want me to look at flight options into Punta Arenas and out of El Calafate, or firm up the refugio booking sequence?",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}

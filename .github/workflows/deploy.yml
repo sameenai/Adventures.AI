@@ -1,0 +1,64 @@
+# Continuous deploy to Cloud Run on merge to main.
+#
+# ACTIVATION (one-time, by a repo admin):
+#   1. Create a Workload Identity Federation provider for GitHub Actions in
+#      GCP project basecamp-494710 and a deploy service account with
+#      roles/run.admin + roles/cloudbuild.builds.editor + roles/iam.serviceAccountUser.
+#   2. Set repository variables:
+#        GCP_WIF_PROVIDER  — projects/…/locations/global/workloadIdentityPools/…/providers/…
+#        GCP_DEPLOY_SA     — deploy-sa@basecamp-494710.iam.gserviceaccount.com
+#   Until those variables exist this workflow skips itself; `make deploy-gcp`
+#   remains the manual path.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build & Deploy to Cloud Run
+    if: ${{ vars.GCP_WIF_PROVIDER != '' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    defaults:
+      run:
+        working-directory: summit-social
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SA }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build image (tagged with the commit SHA, not :latest)
+        run: >-
+          gcloud builds submit .
+          --project=basecamp-494710
+          --tag=europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:${{ github.sha }}
+
+      - name: Run database migrations
+        run: |
+          gcloud run jobs update migrate-db \
+            --project=basecamp-494710 --region=europe-west2 \
+            --image=europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:${{ github.sha }} \
+            --command=npx --args=prisma,migrate,deploy --quiet
+          gcloud run jobs execute migrate-db \
+            --project=basecamp-494710 --region=europe-west2 --wait
+
+      - name: Deploy
+        run: >-
+          gcloud run deploy basecamper
+          --project=basecamp-494710
+          --region=europe-west2
+          --image=europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:${{ github.sha }}
+          --quiet

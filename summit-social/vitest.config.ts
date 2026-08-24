@@ -12,6 +12,9 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["tests/**/*.test.ts", "tests/**/*.test.tsx"],
+    // The real-services tier (live Postgres/Redis) runs ONLY under
+    // vitest.db.config.ts — everything here is fully mocked.
+    exclude: ["**/node_modules/**", "tests/db/**"],
     coverage: {
       provider: "v8",
       include: ["src/**/*.ts", "src/**/*.tsx"],

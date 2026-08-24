@@ -122,10 +122,10 @@ export default async function LandingPage() {
       {/* ── Stats ─────────────────────────────────────────────────── */}
       <section className="px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="flex divide-x divide-stone-800">
+          <div className="flex flex-wrap divide-x divide-stone-800">
             {STAT_LABELS.map(({ key, label }) => (
-              <div key={key} className="flex flex-col px-12 py-10 first:pl-0">
-                <span className="font-display text-5xl font-light leading-none tracking-[-1px] text-stone-100">
+              <div key={key} className="flex flex-col px-6 py-6 first:pl-0 sm:px-12 sm:py-10">
+                <span className="font-display text-4xl font-light leading-none tracking-[-1px] text-stone-100 sm:text-5xl">
                   {stats[key]}
                 </span>
                 <span className="mt-2 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">

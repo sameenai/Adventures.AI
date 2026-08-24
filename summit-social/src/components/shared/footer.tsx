@@ -74,6 +74,12 @@ export function Footer() {
             &copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.
           </p>
           <div className="flex gap-6">
+            <Link
+              href="/pro"
+              className="font-mono text-xs text-stone-800 transition-colors hover:text-stone-500"
+            >
+              Pricing
+            </Link>
             <a
               href="/privacy"
               className="font-mono text-xs text-stone-800 transition-colors hover:text-stone-500"

@@ -146,7 +146,10 @@ export default function PrivacyPage() {
           <li>
             <strong className="text-stone-300">Export</strong> — download everything we hold about
             you as JSON from{" "}
-            <Link href="/profile/edit" className="text-amber-500 hover:text-amber-400">
+            <Link
+              href="/profile/edit"
+              className="text-amber-500 underline underline-offset-2 hover:text-amber-400"
+            >
               profile settings
             </Link>
             .
@@ -179,7 +182,10 @@ export default function PrivacyPage() {
 
       <p className="mt-12 border-t border-stone-800 pt-6 text-xs text-stone-600">
         See also our{" "}
-        <Link href="/terms" className="text-amber-500 hover:text-amber-400">
+        <Link
+          href="/terms"
+          className="text-amber-500 underline underline-offset-2 hover:text-amber-400"
+        >
           Terms of Service
         </Link>
         .

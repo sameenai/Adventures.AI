@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { AccountDangerZone } from "./account-danger-zone";
 import { OpenAiKeyForm } from "./openai-key-form";
 import { ProfileEditForm } from "./profile-edit-form";
+import { TravelerProfileForm } from "./traveler-profile-form";
 
 export const dynamic = "force-dynamic";
 
@@ -49,6 +50,7 @@ export default async function ProfileEditPage() {
       <div id="api-key" className="mt-10">
         <OpenAiKeyForm initialHasKey={!!openAiApiKey} initialHint={keyHint} />
       </div>
+      <TravelerProfileForm />
       <AccountDangerZone />
     </div>
   );

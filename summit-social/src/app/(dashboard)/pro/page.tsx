@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db/prisma";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { UpgradeButton } from "./upgrade-button";
 
 export const dynamic = "force-dynamic";
 
@@ -121,15 +122,5 @@ export default async function ProPage() {
         Cancel anytime. Billed monthly. Prices in GBP.
       </p>
     </div>
-  );
-}
-
-function UpgradeButton() {
-  return (
-    <form action="/api/stripe/checkout" method="POST">
-      <Button type="submit" className="w-full">
-        Upgrade to Pro
-      </Button>
-    </form>
   );
 }

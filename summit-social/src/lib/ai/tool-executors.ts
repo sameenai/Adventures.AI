@@ -54,6 +54,41 @@ const searchAdventures: ToolExecutor = async (rawArgs) => {
   return JSON.stringify({ success: true, results });
 };
 
+const searchAdventuresWithCapture: ToolExecutor = async (rawArgs, ctx) => {
+  const result = await searchAdventures(rawArgs, ctx);
+  // Demand capture: what people ask the AI for is the richest search signal.
+  const parsed = SearchAdventuresArgsSchema.safeParse(rawArgs);
+  if (parsed.success) {
+    let resultCount: number | null = null;
+    try {
+      resultCount = (JSON.parse(result) as { results?: unknown[] }).results?.length ?? null;
+    } catch {
+      resultCount = null;
+    }
+    try {
+      void prisma.searchEvent
+        .create({
+          data: {
+            userId: ctx.userId,
+            source: "CHAT",
+            query: parsed.data.query ?? null,
+            filters: {
+              category: parsed.data.category,
+              continent: parsed.data.continent,
+              difficulty: parsed.data.difficulty,
+              maxDuration: parsed.data.maxDuration,
+            },
+            resultCount,
+          },
+        })
+        .catch(() => undefined);
+    } catch {
+      // Demand capture must never break the tool result.
+    }
+  }
+  return result;
+};
+
 const createItineraryDay: ToolExecutor = async (rawArgs, ctx) => {
   const parsed = ItineraryDaySchema.safeParse(rawArgs);
   if (!parsed.success) {
@@ -228,7 +263,7 @@ const getWeatherForecast: ToolExecutor = async (rawArgs) => {
 };
 
 export const chatToolExecutors: Record<string, ToolExecutor> = {
-  search_adventures: searchAdventures,
+  search_adventures: searchAdventuresWithCapture,
   create_itinerary_day: createItineraryDay,
   search_flights: searchFlightsTool,
   suggest_gear: suggestGear,

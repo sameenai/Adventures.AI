@@ -12,9 +12,99 @@ export const metadata = { title: "Leaderboard | Basecamper" };
 
 const PAGE_SIZE = 25;
 
+// Windowed rankings draw from a bounded pool of the adventures with the most
+// votes cast inside the window; pages beyond the pool are simply empty.
+const WINDOW_POOL_SIZE = 100;
+
+// All-time top ranks fetched as the trend-comparison baseline for windowed views.
+const ALL_TIME_BASELINE_SIZE = 100;
+
+const LEADERBOARD_INCLUDE = {
+  user: { select: { id: true, name: true, avatarUrl: true } },
+  tags: true,
+} as const;
+
 interface LeaderboardData {
   total: number;
   entries: LeaderboardEntry[];
+}
+
+// "All time" ranks by the denormalised all-time voteCount.
+async function getAllTimeLeaderboard(page: number): Promise<LeaderboardData> {
+  const [total, adventures] = await Promise.all([
+    prisma.adventure.count({ where: { published: true } }),
+    prisma.adventure.findMany({
+      where: { published: true },
+      orderBy: { voteCount: "desc" },
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
+      include: LEADERBOARD_INCLUDE,
+    }),
+  ]);
+
+  const rankOffset = (page - 1) * PAGE_SIZE;
+  const entries: LeaderboardEntry[] = adventures.map((adventure, index) => ({
+    rank: rankOffset + index + 1,
+    adventure,
+    trend: "stable" as const,
+  }));
+
+  return { total, entries };
+}
+
+// Windowed views rank by votes CAST within the window (not all-time voteCount):
+// group votes since windowStart by adventure, order by that count, then fetch
+// the page's adventures and re-order them to match the ranking.
+async function getWindowedLeaderboard(windowStart: Date, page: number): Promise<LeaderboardData> {
+  const [voteGroups, allTimeTop] = await Promise.all([
+    prisma.vote.groupBy({
+      by: ["adventureId"],
+      where: {
+        createdAt: { gte: windowStart },
+        adventure: { is: { published: true } },
+      },
+      _count: { adventureId: true },
+      orderBy: { _count: { adventureId: "desc" } },
+      take: WINDOW_POOL_SIZE,
+    }),
+    prisma.adventure.findMany({
+      where: { published: true },
+      orderBy: { voteCount: "desc" },
+      take: ALL_TIME_BASELINE_SIZE,
+      select: { id: true },
+    }),
+  ]);
+
+  const rankedIds = voteGroups.map((g) => g.adventureId);
+  const rankOffset = (page - 1) * PAGE_SIZE;
+  const pageIds = rankedIds.slice(rankOffset, rankOffset + PAGE_SIZE);
+  if (pageIds.length === 0) return { total: rankedIds.length, entries: [] };
+
+  const adventuresById = await prisma.adventure
+    .findMany({
+      where: { id: { in: pageIds } },
+      include: LEADERBOARD_INCLUDE,
+    })
+    .then((list) => new Map(list.map((a) => [a.id, a])));
+
+  // Build a map of id → 1-based all-time rank for the trend comparison.
+  const allTimeRankMap = new Map(allTimeTop.map((a, i) => [a.id, i + 1]));
+
+  const entries: LeaderboardEntry[] = [];
+  pageIds.forEach((adventureId, index) => {
+    const adventure = adventuresById.get(adventureId);
+    if (!adventure) return;
+    const currentRank = rankOffset + index + 1;
+    const allTimeRank = allTimeRankMap.get(adventureId);
+    if (allTimeRank === undefined) {
+      entries.push({ rank: currentRank, adventure, trend: "new", previousRank: undefined });
+      return;
+    }
+    const trend = currentRank < allTimeRank ? "up" : currentRank > allTimeRank ? "down" : "stable";
+    entries.push({ rank: currentRank, adventure, trend, previousRank: allTimeRank });
+  });
+
+  return { total: rankedIds.length, entries };
 }
 
 // The leaderboard is identical for every visitor with the same window/page, so
@@ -25,7 +115,7 @@ async function getLeaderboardData(timeWindow: string, page: number): Promise<Lea
   const cached = await getCached<LeaderboardData>(cacheKey);
   if (cached) return cached;
 
-  const dateFilter =
+  const windowStart =
     timeWindow === "week"
       ? new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
       : timeWindow === "month"
@@ -34,55 +124,10 @@ async function getLeaderboardData(timeWindow: string, page: number): Promise<Lea
           ? new Date(Date.now() - 365 * 24 * 60 * 60 * 1000)
           : undefined;
 
-  const where = {
-    published: true,
-    ...(dateFilter && { createdAt: { gte: dateFilter } }),
-  };
+  const data = windowStart
+    ? await getWindowedLeaderboard(windowStart, page)
+    : await getAllTimeLeaderboard(page);
 
-  const includeOpts = {
-    user: { select: { id: true, name: true, avatarUrl: true } },
-    tags: true,
-  } as const;
-
-  const [total, adventures, allTimeAdventures] = await Promise.all([
-    prisma.adventure.count({ where }),
-    prisma.adventure.findMany({
-      where,
-      orderBy: { voteCount: "desc" },
-      skip: (page - 1) * PAGE_SIZE,
-      take: PAGE_SIZE,
-      include: includeOpts,
-    }),
-    // Always fetch all-time ranks as the comparison baseline
-    timeWindow !== "all"
-      ? prisma.adventure.findMany({
-          where: { published: true },
-          orderBy: { voteCount: "desc" },
-          take: 100,
-          select: { id: true },
-        })
-      : Promise.resolve([]),
-  ]);
-
-  const rankOffset = (page - 1) * PAGE_SIZE;
-
-  // Build a map of id → 1-based all-time rank
-  const allTimeRankMap = new Map(allTimeAdventures.map((a, i) => [a.id, i + 1]));
-
-  const entries: LeaderboardEntry[] = adventures.map((adventure, index) => {
-    const currentRank = rankOffset + index + 1;
-    if (timeWindow === "all") {
-      return { rank: currentRank, adventure, trend: "stable" as const };
-    }
-    const allTimeRank = allTimeRankMap.get(adventure.id);
-    if (allTimeRank === undefined) {
-      return { rank: currentRank, adventure, trend: "new" as const, previousRank: undefined };
-    }
-    const trend = currentRank < allTimeRank ? "up" : currentRank > allTimeRank ? "down" : "stable";
-    return { rank: currentRank, adventure, trend, previousRank: allTimeRank };
-  });
-
-  const data: LeaderboardData = { total, entries };
   await setCache(cacheKey, data, CACHE_TTL.leaderboardTop);
   return data;
 }

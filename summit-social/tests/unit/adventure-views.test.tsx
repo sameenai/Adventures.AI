@@ -30,7 +30,9 @@ vi.mock("next/link", () => ({
 
 // Stub out VoteButton and BookmarkButton — their own tests cover them
 vi.mock("@/components/adventures/vote-button", () => ({
-  VoteButton: ({ voteCount }: { voteCount: number }) => <span data-testid="vote-btn">{voteCount}</span>,
+  VoteButton: ({ voteCount }: { voteCount: number }) => (
+    <span data-testid="vote-btn">{voteCount}</span>
+  ),
 }));
 vi.mock("@/components/adventures/bookmark-button", () => ({
   BookmarkButton: () => <span data-testid="bookmark-btn" />,
@@ -172,9 +174,7 @@ describe("AdventureListRow", () => {
   });
 
   it("hides comment count when 0", () => {
-    render(
-      <AdventureListRow adventure={{ ...baseAdventure, _count: { comments: 0 } }} />,
-    );
+    render(<AdventureListRow adventure={{ ...baseAdventure, _count: { comments: 0 } }} />);
     expect(screen.queryByText(/comment/i)).toBeNull();
   });
 
@@ -214,6 +214,22 @@ describe("AdventureListRow", () => {
       <AdventureListRow adventure={{ ...baseAdventure, difficulty: "UNKNOWN_LEVEL" as never }} />,
     );
     expect(screen.getByText("UNKNOWN_LEVEL")).toBeTruthy();
+  });
+
+  it("colour-codes the difficulty label from DIFFICULTY_MAP", () => {
+    render(<AdventureListRow adventure={baseAdventure} />);
+    const label = screen.getByText("Challenging");
+    expect(label.className).toContain("text-orange-400");
+  });
+
+  it("renders estimated cost formatted from pence when set", () => {
+    render(<AdventureListRow adventure={{ ...baseAdventure, estimatedCost: 85000 }} />);
+    expect(screen.getByText("~£850 est.")).toBeTruthy();
+  });
+
+  it("does not render a cost when estimatedCost is null", () => {
+    render(<AdventureListRow adventure={baseAdventure} />);
+    expect(screen.queryByText(/est\./)).toBeNull();
   });
 
   it("is disabled (vote + bookmark) when no currentUserId", () => {

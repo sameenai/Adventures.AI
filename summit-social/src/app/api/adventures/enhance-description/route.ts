@@ -1,5 +1,6 @@
 import { CHAT_MODEL } from "@/lib/ai/model";
 import { getOpenAI } from "@/lib/ai/openai";
+import { buildEnhanceDescriptionPrompt } from "@/lib/ai/prompts";
 import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { rateLimit } from "@/lib/db/redis";
@@ -46,20 +47,8 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { title, description, location, category, difficulty, highlights } = parsed.data;
-
-  const prompt = `You are a passionate adventure travel writer. Rewrite the following adventure description to be compelling, vivid, and inspiring while keeping all factual content accurate.
-
-Adventure: ${title}
-Location: ${location}
-Category: ${category.replace(/_/g, " ")}
-Difficulty: ${difficulty.toLowerCase()}
-${highlights.length > 0 ? `Highlights: ${highlights.join(", ")}` : ""}
-
-Current description:
-${description}
-
-Write an improved description (150–400 words). Be evocative and specific. Do not add information that wasn't implied by the original. Output only the improved description text, no headings or metadata.`;
+  const { description } = parsed.data;
+  const prompt = buildEnhanceDescriptionPrompt(parsed.data);
 
   try {
     const response = await getOpenAI().chat.completions.create({

@@ -5,8 +5,12 @@ import { withAuth } from "next-auth/middleware";
  * Unauthenticated visitors are redirected to /login.
  *
  * Public routes (not matched here) need no authentication:
- *   /  /adventures  /adventures/[id]  /leaderboard  /feed
- *   /explore  /users/search  /profile/[id]  /login  /signup
+ *   /  /adventures  /adventures/[id]  /leaderboard  /explore
+ *   /itinerary  /flights  /users/search  /profile/[id]  /login  /signup
+ *
+ * /itinerary renders its own signed-out state and /flights is browsable
+ * without an account, so neither is gated here. /feed and /itinerary/[id]
+ * redirect unauthenticated visitors at the page level.
  */
 export default withAuth({
   pages: {
@@ -16,10 +20,8 @@ export default withAuth({
 
 export const config = {
   matcher: [
-    "/itinerary",
     "/itineraries/:path*",
     "/bookmarks",
-    "/flights",
     "/adventures/new",
     "/adventures/:id/edit",
     "/profile/edit",

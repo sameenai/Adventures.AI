@@ -1,3 +1,4 @@
+import { runCadenceScan } from "@/lib/jobs/cadence";
 import { runRetention } from "@/lib/jobs/retention";
 
 export type JobResult = Record<string, number>;
@@ -10,6 +11,10 @@ export type JobResult = Record<string, number>;
 export const JOBS: Record<string, () => Promise<JobResult>> = {
   retention: async () => {
     const stats = await runRetention();
+    return { ...stats };
+  },
+  "cadence-scan": async () => {
+    const stats = await runCadenceScan();
     return { ...stats };
   },
 };

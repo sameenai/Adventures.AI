@@ -1,0 +1,15 @@
+{
+  "caseId": "novice-vague-inspiration",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sa_1",
+      "name": "search_adventures",
+      "arguments": { "query": "warm beginner adventure", "difficulty": "EASY" }
+    }
+  ],
+  "days": [],
+  "finalText": "Love this brief — warm, memorable, and perfect for a first big trip. Before I build anything day-by-day I need two answers from you, because they change the shortlist completely: roughly when can you travel and for how long, and what's your total budget including flights?\n\nWhile you think about that, here are three first-trip ideas that consistently deliver, pulled from what our community rates highest for beginners:\n\n1. **Morocco — Atlas foothills to the coast.** Walk village-to-village below the High Atlas around Imlil with a local guide, sleep in family-run gîtes, then wind down in Essaouira on the Atlantic. Warm from April to June and again in autumn. Around £700–£900 for a week, all in.\n\n2. **Turkey — the easy sections of the Lycian Way.** Turquoise-coast walking between Fethiye and Kaş: short marked stages, swim stops, pension-to-pension comfort. Best in May or late September when the heat is friendly. Around £650–£850 for a week.\n\n3. **Costa Rica — rainforest, wildlife and surf.** The biggest step up in cost (£1,500–£1,800 with long-haul flights) but unbeatable for wow-per-day: sloths and toucans around Arenal, a beginner surf lesson on the Pacific side, hot springs at night.\n\nNone of these need any prior experience, and all three flex to one or two weeks. Tell me your dates, trip length and budget and I'll turn your favourite into a full day-by-day plan.",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}
