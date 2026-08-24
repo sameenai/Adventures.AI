@@ -1,3 +1,4 @@
+import { ManageBillingButton } from "@/components/billing/manage-billing-button";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
 import { PLANS } from "@/lib/constants";
@@ -106,7 +107,10 @@ export default async function ProPage() {
           </ul>
           <div className="mt-8">
             {isPro ? (
-              <p className="font-mono text-xs text-amber-500">You&apos;re on Pro — thank you!</p>
+              <div className="space-y-3">
+                <p className="font-mono text-xs text-amber-500">You&apos;re on Pro — thank you!</p>
+                <ManageBillingButton />
+              </div>
             ) : session ? (
               <UpgradeButton />
             ) : (

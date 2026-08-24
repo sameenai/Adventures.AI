@@ -209,6 +209,7 @@ describe("ItineraryDetailPage", () => {
     travellers: 1,
     budget: null,
     status: "DRAFT",
+    flightBookings: [],
   };
 
   afterEach(() => {
