@@ -1,8 +1,10 @@
-# Adventures.AI
+# Basecamper
 
 AI-powered adventure planning platform. Share and discover world-class expeditions, plan trips with an AI assistant, and compare flights — all in one place.
 
-The main application is **SummitSocial** (`summit-social/`), a full-stack Next.js 15 app.
+**Live at [basecamper.ai](https://basecamper.ai)**
+
+The main application lives in `summit-social/`, a full-stack Next.js 15 app.
 
 ---
 
@@ -38,7 +40,7 @@ No OAuth credentials are needed. On the login page, use the **Local Dev** form:
 - **Email** — any email address
 - **Password** — `dev`
 
-This creates the account on the fly. The seeded users (`alex@summitsocial.dev`, `maya@summitsocial.dev`, `james@summitsocial.dev`) are available with the same password.
+This creates the account on the fly. The seeded users (`alex@basecamper.ai`, `maya@basecamper.ai`, `james@basecamper.ai`) are available with the same password.
 
 ---
 

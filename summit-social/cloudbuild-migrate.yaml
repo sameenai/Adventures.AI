@@ -4,7 +4,7 @@ steps:
       - build
       - --target=migrator
       - -t
-      - europe-west2-docker.pkg.dev/basecamp-494710/summit-social/app:migrate
+      - europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:migrate
       - .
 images:
-  - europe-west2-docker.pkg.dev/basecamp-494710/summit-social/app:migrate
+  - europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:migrate

@@ -18,7 +18,7 @@ export default function NotFound() {
           href="/"
           className="mt-8 inline-flex border border-amber-500 bg-amber-500 px-8 py-3 font-display text-sm uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
         >
-          Back to Basecamp
+          Back to Basecamper
         </Link>
       </main>
       <Footer />

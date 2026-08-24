@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = { title: "Bucket List | Basecamp" };
+export const metadata: Metadata = { title: "Bucket List | Basecamper" };
 
 const PAGE_SIZE = 24;
 
@@ -54,7 +54,7 @@ export default async function BookmarksPage({
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="mb-8">
         <p className="font-mono text-xs uppercase tracking-[0.4em] text-amber-600/70">
-          ▲ Basecamp / Bucket List
+          ▲ Basecamper / Bucket List
         </p>
         <h1 className="mt-3 font-display text-4xl uppercase tracking-widest text-stone-100">
           Bucket List

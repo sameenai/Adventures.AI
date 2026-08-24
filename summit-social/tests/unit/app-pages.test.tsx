@@ -45,9 +45,9 @@ describe("DashboardError", () => {
 import GlobalError from "@/app/global-error";
 
 describe("GlobalError", () => {
-  it("renders 'Basecamp is unavailable' heading", () => {
+  it("renders 'Basecamper is unavailable' heading", () => {
     render(<GlobalError error={new Error("fatal")} reset={vi.fn()} />);
-    expect(screen.getByText(/basecamp is unavailable/i)).toBeTruthy();
+    expect(screen.getByText(/basecamper is unavailable/i)).toBeTruthy();
   });
 
   it("renders Try Again button and calls reset on click", () => {

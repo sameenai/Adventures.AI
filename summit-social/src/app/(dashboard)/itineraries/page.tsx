@@ -10,7 +10,7 @@ import { DeleteItineraryButton } from "./delete-button";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = { title: "My Itineraries | Basecamp" };
+export const metadata: Metadata = { title: "My Itineraries | Basecamper" };
 
 const PAGE_SIZE = 20;
 

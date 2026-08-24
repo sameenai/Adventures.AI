@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = { title: "Basecamp — Plan Your Next Great Adventure" };
+export const metadata = { title: "Basecamper — Plan Your Next Great Adventure" };
 
 const STAT_LABELS = [
   { key: "adventures", label: "Adventures" },

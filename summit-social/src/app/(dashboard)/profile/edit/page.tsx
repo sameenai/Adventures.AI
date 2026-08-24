@@ -8,7 +8,7 @@ import { ProfileEditForm } from "./profile-edit-form";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = { title: "Edit Profile | Basecamp" };
+export const metadata: Metadata = { title: "Edit Profile | Basecamper" };
 
 export default async function ProfileEditPage() {
   const session = await getServerSession(authOptions);

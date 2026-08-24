@@ -80,7 +80,7 @@ export function Navbar() {
           href="/"
           className="font-display text-2xl font-light italic text-stone-100 transition-colors hover:text-amber-500"
         >
-          Basecamp
+          Basecamper
         </Link>
 
         {/* Centre nav */}

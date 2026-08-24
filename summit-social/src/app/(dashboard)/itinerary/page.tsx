@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = { title: "Plan Trip | Basecamp" };
+export const metadata = { title: "Plan Trip | Basecamper" };
 
 export default async function ItineraryPage({
   searchParams,

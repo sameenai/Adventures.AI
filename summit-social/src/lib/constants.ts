@@ -1,4 +1,4 @@
-export const APP_NAME = "Basecamp";
+export const APP_NAME = "Basecamper";
 export const APP_DESCRIPTION =
   "The expedition platform for serious adventurers. Discover world-class routes, plan trips with AI, and share your journeys.";
 export const APP_URL = process.env.NEXTAUTH_URL ?? "http://localhost:3000";

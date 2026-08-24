@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = { title: "Welcome to Pro | Basecamp" };
+export const metadata: Metadata = { title: "Welcome to Pro | Basecamper" };
 
 export default function ProSuccessPage() {
   return (

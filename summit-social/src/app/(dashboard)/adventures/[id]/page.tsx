@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
   if (!adventure) return {};
 
-  const title = `${adventure.title} | Basecamp`;
+  const title = `${adventure.title} | Basecamper`;
   const description = adventure.description.slice(0, 155);
 
   return {
