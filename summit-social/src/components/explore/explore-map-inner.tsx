@@ -27,6 +27,16 @@ interface ExploreMapInnerProps {
   markers: ExploreMarker[];
 }
 
+/** Escape user-controlled text before interpolating into popup HTML (stored-XSS guard). */
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export function ExploreMapInner({ markers }: ExploreMapInnerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -45,10 +55,10 @@ export function ExploreMapInner({ markers }: ExploreMapInnerProps) {
     for (const { lat, lng, label, location, category, difficulty, id } of markers) {
       const popupContent = `
         <div style="font-family: monospace; font-size: 12px; min-width: 160px;">
-          <strong style="font-size: 13px; display: block; margin-bottom: 4px;">${label}</strong>
-          <span style="color: #78716c;">${location}</span><br/>
-          <span style="color: #78716c;">${category.replace(/_/g, " ")} · ${difficulty.toLowerCase()}</span><br/>
-          <a href="/adventures/${id}" style="color: #f59e0b; text-decoration: none; margin-top: 6px; display: inline-block;">View adventure →</a>
+          <strong style="font-size: 13px; display: block; margin-bottom: 4px;">${escapeHtml(label)}</strong>
+          <span style="color: #78716c;">${escapeHtml(location)}</span><br/>
+          <span style="color: #78716c;">${escapeHtml(category.replace(/_/g, " "))} · ${escapeHtml(difficulty.toLowerCase())}</span><br/>
+          <a href="/adventures/${encodeURIComponent(id)}" style="color: #f59e0b; text-decoration: none; margin-top: 6px; display: inline-block;">View adventure →</a>
         </div>
       `;
       L.marker([lat, lng], { icon: markerIcon }).addTo(map).bindPopup(popupContent);
