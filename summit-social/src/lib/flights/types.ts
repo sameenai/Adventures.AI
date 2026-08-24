@@ -21,6 +21,11 @@ export interface FlightOffer {
   durationMinutes: number;
   stops: number;
   stopCities: string[];
+  /** Return leg (round trips only) — the offer price covers both legs. */
+  returnDepartureAt?: string;
+  returnArrivalAt?: string;
+  returnDurationMinutes?: number;
+  returnStops?: number;
   priceGBP: number;
   currency: string;
   cabinClass: string;
@@ -32,4 +37,6 @@ export interface FlightSearchResult {
   search: FlightSearch;
   offers: FlightOffer[];
   cachedAt?: string;
+  /** True when no flight providers are configured and mock data is not permitted. */
+  providersUnavailable?: boolean;
 }
