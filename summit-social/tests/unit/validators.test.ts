@@ -627,6 +627,42 @@ describe("updateProfileSchema", () => {
     expect(result.success).toBe(false);
   });
 
+  it("rejects javascript:, data: and vbscript: scheme URLs (stored XSS guard)", () => {
+    for (const payload of [
+      "javascript:alert(document.cookie)",
+      "data:text/html,<script>alert(1)</script>",
+      "vbscript:msgbox(1)",
+    ]) {
+      expect(updateProfileSchema.safeParse({ websiteUrl: payload }).success).toBe(false);
+      expect(updateProfileSchema.safeParse({ instagramUrl: payload }).success).toBe(false);
+      expect(updateProfileSchema.safeParse({ twitterUrl: payload }).success).toBe(false);
+    }
+  });
+
+  it("rejects non-http schemes on adventure URL fields (stored XSS guard)", () => {
+    const base = {
+      title: "Test Adventure",
+      description: "A".repeat(60),
+      location: "Somewhere",
+      country: "France",
+      continent: "Europe",
+      category: "TREKKING",
+      difficulty: "MODERATE",
+      durationDays: 5,
+      coverImageUrl: "https://images.example.com/x.jpg",
+    };
+    expect(createAdventureSchema.safeParse(base).success).toBe(true);
+    expect(
+      createAdventureSchema.safeParse({ ...base, coverImageUrl: "javascript:alert(1)" }).success,
+    ).toBe(false);
+    expect(
+      createAdventureSchema.safeParse({ ...base, gpxTrackUrl: "data:text/html,x" }).success,
+    ).toBe(false);
+    expect(
+      createAdventureSchema.safeParse({ ...base, albumUrl: "javascript:void(0)" }).success,
+    ).toBe(false);
+  });
+
   it("rejects invalid URL for twitterUrl", () => {
     const result = updateProfileSchema.safeParse({ twitterUrl: "just-a-handle" });
     expect(result.success).toBe(false);

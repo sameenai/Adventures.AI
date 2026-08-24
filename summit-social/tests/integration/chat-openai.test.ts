@@ -130,8 +130,29 @@ describe("POST /api/chat — real OpenAI path", () => {
 
     expect(mockPrismaItinerary.update).toHaveBeenCalledWith(
       expect.objectContaining({
-        where: { id: "itin-42" },
+        where: { id: "itin-42", userId: "user-1" },
         data: expect.objectContaining({ chatHistory: expect.any(Array) }),
+      }),
+    );
+  });
+
+  it("returns 404 when the itineraryId does not belong to the caller (IDOR guard)", async () => {
+    mockSession("attacker-1");
+    // Ownership-scoped lookup finds nothing for this user
+    mockPrismaItinerary.findUnique.mockResolvedValue(null);
+
+    const response = await chatRoute(
+      makeRequest({ message: "inject days", itineraryId: "victims-itinerary" }),
+    );
+    expect(response.status).toBe(404);
+    const data = await response.json();
+    expect(data.code).toBe("NOT_FOUND");
+    // No write may ever happen to the foreign itinerary
+    expect(mockPrismaItinerary.update).not.toHaveBeenCalled();
+    // The lookup itself must be scoped by user
+    expect(mockPrismaItinerary.findUnique).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: "victims-itinerary", userId: "attacker-1" },
       }),
     );
   });
@@ -161,7 +182,7 @@ describe("POST /api/chat — real OpenAI path", () => {
     expect(mockPrismaItinerary.create).toHaveBeenCalled();
     expect(mockPrismaItinerary.update).toHaveBeenCalledWith(
       expect.objectContaining({
-        where: { id: "auto-itin-1" },
+        where: { id: "auto-itin-1", userId: "user-1" },
         data: expect.objectContaining({ chatHistory: expect.any(Array) }),
       }),
     );

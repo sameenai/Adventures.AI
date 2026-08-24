@@ -1085,7 +1085,7 @@ describe("POST /api/chat", () => {
     }
 
     expect(mockPrisma.itinerary.update).toHaveBeenCalledWith(
-      expect.objectContaining({ where: { id: "itin-1" } }),
+      expect.objectContaining({ where: { id: "itin-1", userId: "user-1" } }),
     );
   });
 

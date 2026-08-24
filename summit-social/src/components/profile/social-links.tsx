@@ -4,11 +4,16 @@ interface SocialLinksProps {
   websiteUrl?: string | null;
 }
 
+/** Render-time defence in depth: only http(s) URLs may become links. */
+function safeHref(url?: string | null): string | null {
+  return url && /^https?:\/\//i.test(url) ? url : null;
+}
+
 export function SocialLinks({ instagramUrl, twitterUrl, websiteUrl }: SocialLinksProps) {
   const links = [
-    instagramUrl && { label: "Instagram", href: instagramUrl },
-    twitterUrl && { label: "Twitter", href: twitterUrl },
-    websiteUrl && { label: "Website", href: websiteUrl },
+    safeHref(instagramUrl) && { label: "Instagram", href: safeHref(instagramUrl) },
+    safeHref(twitterUrl) && { label: "Twitter", href: safeHref(twitterUrl) },
+    safeHref(websiteUrl) && { label: "Website", href: safeHref(websiteUrl) },
   ].filter(Boolean) as Array<{ label: string; href: string }>;
 
   if (links.length === 0) return null;
