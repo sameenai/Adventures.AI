@@ -35,12 +35,24 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
           },
         },
       },
-      votes: { select: { userId: true } },
     },
   });
 
   if (!adventure) {
     return NextResponse.json({ error: "Adventure not found", code: "NOT_FOUND" }, { status: 404 });
+  }
+
+  // Unpublished adventures are drafts: visible only to their owner or an
+  // admin. The public detail page enforces this; the API must match it.
+  if (!adventure.published) {
+    const session = await getServerSession(authOptions);
+    const isOwner = session?.user?.id === adventure.userId;
+    if (!isOwner && !isAdmin(session?.user?.email)) {
+      return NextResponse.json(
+        { error: "Adventure not found", code: "NOT_FOUND" },
+        { status: 404 },
+      );
+    }
   }
 
   return NextResponse.json(adventure);

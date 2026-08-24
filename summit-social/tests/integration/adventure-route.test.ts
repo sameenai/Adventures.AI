@@ -52,12 +52,55 @@ describe("GET /api/adventures/[id]", () => {
   });
 
   it("returns adventure data when found", async () => {
-    const adv = { id: "adv-1", title: "Nepal Trek", user: { id: "u-1" }, comments: [], votes: [] };
+    const adv = {
+      id: "adv-1",
+      title: "Nepal Trek",
+      published: true,
+      userId: "u-1",
+      user: { id: "u-1" },
+      comments: [],
+    };
     mockAdventure.findUnique.mockResolvedValue(adv);
     const res = await GET(new Request("http://localhost"), makeParams("adv-1"));
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.id).toBe("adv-1");
+  });
+
+  it("does not select voter userIds", async () => {
+    mockAdventure.findUnique.mockResolvedValue({ id: "adv-1", published: true, userId: "u-1" });
+    await GET(new Request("http://localhost"), makeParams("adv-1"));
+    const include = mockAdventure.findUnique.mock.calls[0][0].include;
+    expect(include.votes).toBeUndefined();
+  });
+
+  it("hides unpublished adventures from anonymous callers (404)", async () => {
+    mockGetSession.mockResolvedValue(null);
+    mockAdventure.findUnique.mockResolvedValue({ id: "adv-1", published: false, userId: "u-1" });
+    const res = await GET(new Request("http://localhost"), makeParams("adv-1"));
+    expect(res.status).toBe(404);
+  });
+
+  it("hides unpublished adventures from other users (404)", async () => {
+    mockSession("someone-else");
+    mockAdventure.findUnique.mockResolvedValue({ id: "adv-1", published: false, userId: "u-1" });
+    const res = await GET(new Request("http://localhost"), makeParams("adv-1"));
+    expect(res.status).toBe(404);
+  });
+
+  it("returns unpublished adventures to their owner", async () => {
+    mockSession("u-1");
+    mockAdventure.findUnique.mockResolvedValue({ id: "adv-1", published: false, userId: "u-1" });
+    const res = await GET(new Request("http://localhost"), makeParams("adv-1"));
+    expect(res.status).toBe(200);
+  });
+
+  it("returns unpublished adventures to admins", async () => {
+    process.env.ADMIN_EMAILS = "admin@basecamper.ai";
+    mockSession("someone-else", "admin@basecamper.ai");
+    mockAdventure.findUnique.mockResolvedValue({ id: "adv-1", published: false, userId: "u-1" });
+    const res = await GET(new Request("http://localhost"), makeParams("adv-1"));
+    expect(res.status).toBe(200);
   });
 });
 
