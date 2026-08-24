@@ -2,6 +2,11 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 
 vi.mock("next-auth", () => ({ getServerSession: vi.fn() }));
+vi.mock("@/lib/db/redis", () => ({
+  rateLimit: vi.fn().mockResolvedValue({ allowed: true, retryAfter: 0 }),
+  getCached: vi.fn().mockResolvedValue(null),
+  setCache: vi.fn().mockResolvedValue(undefined),
+}));
 vi.mock("@/lib/auth/config", () => ({ authOptions: {} }));
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
