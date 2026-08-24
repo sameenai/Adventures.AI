@@ -65,22 +65,26 @@ const searchAdventuresWithCapture: ToolExecutor = async (rawArgs, ctx) => {
     } catch {
       resultCount = null;
     }
-    void prisma.searchEvent
-      .create({
-        data: {
-          userId: ctx.userId,
-          source: "CHAT",
-          query: parsed.data.query ?? null,
-          filters: {
-            category: parsed.data.category,
-            continent: parsed.data.continent,
-            difficulty: parsed.data.difficulty,
-            maxDuration: parsed.data.maxDuration,
+    try {
+      void prisma.searchEvent
+        .create({
+          data: {
+            userId: ctx.userId,
+            source: "CHAT",
+            query: parsed.data.query ?? null,
+            filters: {
+              category: parsed.data.category,
+              continent: parsed.data.continent,
+              difficulty: parsed.data.difficulty,
+              maxDuration: parsed.data.maxDuration,
+            },
+            resultCount,
           },
-          resultCount,
-        },
-      })
-      .catch(() => undefined);
+        })
+        .catch(() => undefined);
+    } catch {
+      // Demand capture must never break the tool result.
+    }
   }
   return result;
 };

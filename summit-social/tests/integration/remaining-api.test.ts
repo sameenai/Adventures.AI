@@ -24,6 +24,7 @@ vi.mock("@/lib/db/redis", () => ({
 }));
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
+    searchEvent: { create: vi.fn().mockResolvedValue({}) },
     adventure: { findUnique: vi.fn(), findMany: vi.fn(), update: vi.fn(), create: vi.fn() },
     collection: { findMany: vi.fn(), findUnique: vi.fn(), create: vi.fn(), delete: vi.fn() },
     collectionItem: { upsert: vi.fn(), deleteMany: vi.fn() },
