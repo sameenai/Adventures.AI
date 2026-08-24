@@ -1,7 +1,7 @@
+import { useChat } from "@/hooks/useChat";
 // @vitest-environment jsdom
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { useChat } from "@/hooks/useChat";
 
 afterEach(() => vi.restoreAllMocks());
 
@@ -150,6 +150,55 @@ describe("useChat", () => {
     expect(errorMsg?.isError).toBe(true);
   });
 
+  it("sets limitReached on 402 UPGRADE_REQUIRED instead of adding an error bubble", async () => {
+    vi.spyOn(global, "fetch").mockResolvedValueOnce(
+      new Response(
+        JSON.stringify({
+          error: "Monthly AI message limit reached",
+          code: "UPGRADE_REQUIRED",
+          creditsLimit: 5,
+        }),
+        { status: 402, headers: { "Content-Type": "application/json" } },
+      ),
+    );
+
+    const { result } = renderHook(() => useChat({}));
+    expect(result.current.limitReached).toBe(false);
+
+    await act(async () => {
+      await result.current.sendMessage("hello");
+    });
+
+    expect(result.current.limitReached).toBe(true);
+    expect(result.current.creditsLimit).toBe(5);
+    expect(result.current.isStreaming).toBe(false);
+    // The user's message stays, but no error/upsell text is injected into the transcript
+    expect(result.current.messages).toHaveLength(1);
+    expect(result.current.messages[0].role).toBe("user");
+    expect(result.current.messages.some((m) => m.isError)).toBe(false);
+    expect(result.current.messages.some((m) => m.content.includes("/pro"))).toBe(false);
+  });
+
+  it("treats a 402 without UPGRADE_REQUIRED code as a normal error", async () => {
+    vi.spyOn(global, "fetch").mockResolvedValueOnce(
+      new Response(JSON.stringify({ error: "Payment required" }), {
+        status: 402,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+
+    const { result } = renderHook(() => useChat({}));
+
+    await act(async () => {
+      await result.current.sendMessage("hello");
+    });
+
+    expect(result.current.limitReached).toBe(false);
+    const errorMsg = result.current.messages.at(-1);
+    expect(errorMsg?.isError).toBe(true);
+    expect(errorMsg?.content).toBe("Payment required");
+  });
+
   it("posts to /api/chat with message content", async () => {
     const fetchSpy = vi.spyOn(global, "fetch").mockResolvedValueOnce(makeStreamResponse("ok"));
 
@@ -220,9 +269,7 @@ describe("useChat", () => {
         controller.close();
       },
     });
-    vi.spyOn(global, "fetch").mockResolvedValueOnce(
-      new Response(readable, { status: 200 }),
-    );
+    vi.spyOn(global, "fetch").mockResolvedValueOnce(new Response(readable, { status: 200 }));
 
     const { result } = renderHook(() => useChat({}));
 

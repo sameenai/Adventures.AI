@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
-import { render, screen, fireEvent, cleanup } from "@testing-library/react";
-import { describe, expect, it, vi, afterEach } from "vitest";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 afterEach(() => cleanup());
 
@@ -20,13 +20,17 @@ vi.mock("next/image", () => ({
 // ---------------------------------------------------------------------------
 // UI Primitives: Card, Input, Modal
 // ---------------------------------------------------------------------------
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 
 describe("Card", () => {
   it("renders children", () => {
-    render(<Card><span>content</span></Card>);
+    render(
+      <Card>
+        <span>content</span>
+      </Card>,
+    );
     expect(screen.getByText("content")).toBeInTheDocument();
   });
 
@@ -111,23 +115,39 @@ describe("Input", () => {
 
 describe("Modal", () => {
   it("renders nothing when open=false", () => {
-    render(<Modal open={false} onClose={vi.fn()}>content</Modal>);
+    render(
+      <Modal open={false} onClose={vi.fn()}>
+        content
+      </Modal>,
+    );
     expect(screen.queryByText("content")).not.toBeInTheDocument();
   });
 
   it("renders children when open=true", () => {
-    render(<Modal open={true} onClose={vi.fn()}>modal content</Modal>);
+    render(
+      <Modal open={true} onClose={vi.fn()}>
+        modal content
+      </Modal>,
+    );
     expect(screen.getByText("modal content")).toBeInTheDocument();
   });
 
   it("renders title when provided", () => {
-    render(<Modal open={true} onClose={vi.fn()} title="Confirm Action">body</Modal>);
+    render(
+      <Modal open={true} onClose={vi.fn()} title="Confirm Action">
+        body
+      </Modal>,
+    );
     expect(screen.getByText("Confirm Action")).toBeInTheDocument();
   });
 
   it("calls onClose when backdrop is clicked", () => {
     const onClose = vi.fn();
-    const { container } = render(<Modal open={true} onClose={onClose}>content</Modal>);
+    const { container } = render(
+      <Modal open={true} onClose={onClose}>
+        content
+      </Modal>,
+    );
     const backdrop = container.querySelector(".fixed.inset-0.bg-stone-950\\/80");
     fireEvent.click(backdrop!);
     expect(onClose).toHaveBeenCalledOnce();
@@ -135,18 +155,30 @@ describe("Modal", () => {
 
   it("calls onClose when Escape key is pressed", () => {
     const onClose = vi.fn();
-    render(<Modal open={true} onClose={onClose}>content</Modal>);
+    render(
+      <Modal open={true} onClose={onClose}>
+        content
+      </Modal>,
+    );
     fireEvent.keyDown(document, { key: "Escape" });
     expect(onClose).toHaveBeenCalledOnce();
   });
 
   it("does not render title element when title is not provided", () => {
-    render(<Modal open={true} onClose={vi.fn()}>body only</Modal>);
+    render(
+      <Modal open={true} onClose={vi.fn()}>
+        body only
+      </Modal>,
+    );
     expect(screen.queryByRole("heading")).not.toBeInTheDocument();
   });
 
   it("cleans up keydown listener and restores body overflow on unmount", () => {
-    const { unmount } = render(<Modal open={true} onClose={vi.fn()}>content</Modal>);
+    const { unmount } = render(
+      <Modal open={true} onClose={vi.fn()}>
+        content
+      </Modal>,
+    );
     expect(document.body.style.overflow).toBe("hidden");
     unmount();
     expect(document.body.style.overflow).toBe("");
@@ -154,7 +186,11 @@ describe("Modal", () => {
 
   it("backdrop onKeyDown handler is a no-op (accessibility placeholder)", () => {
     const onClose = vi.fn();
-    const { container } = render(<Modal open={true} onClose={onClose}>content</Modal>);
+    const { container } = render(
+      <Modal open={true} onClose={onClose}>
+        content
+      </Modal>,
+    );
     // The backdrop has backdrop-blur-sm which is safe to select on
     const backdrop = container.querySelector(".backdrop-blur-sm");
     expect(backdrop).not.toBeNull();
@@ -438,7 +474,7 @@ describe("LeaderboardTable", () => {
   it("renders adventure links", () => {
     render(<LeaderboardTable entries={mockEntries} />);
     const links = screen.getAllByRole("link");
-    const adventureLinks = links.filter(l => l.getAttribute("href")?.startsWith("/adventures/"));
+    const adventureLinks = links.filter((l) => l.getAttribute("href")?.startsWith("/adventures/"));
     expect(adventureLinks.length).toBeGreaterThanOrEqual(2);
   });
 
@@ -488,65 +524,39 @@ const commentWithReply: CommentWithUser = {
 
 describe("CommentSection", () => {
   it("renders empty state when no comments", () => {
-    render(
-      <CommentSection adventureId="adv-1" comments={[]} currentUserId={null} />,
-    );
+    render(<CommentSection adventureId="adv-1" comments={[]} currentUserId={null} />);
     expect(screen.getByText(/No comments yet/i)).toBeInTheDocument();
   });
 
   it("renders comment body text", () => {
-    render(
-      <CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId={null} />,
-    );
+    render(<CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId={null} />);
     expect(screen.getByText("Great adventure!")).toBeInTheDocument();
   });
 
   it("renders comment author name", () => {
-    render(
-      <CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId={null} />,
-    );
+    render(<CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId={null} />);
     expect(screen.getByText("Alice")).toBeInTheDocument();
   });
 
   it("does not show Reply button when not logged in", () => {
-    render(
-      <CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId={null} />,
-    );
+    render(<CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId={null} />);
     expect(screen.queryByText("Reply")).not.toBeInTheDocument();
   });
 
   it("shows Reply button when logged in", () => {
-    render(
-      <CommentSection
-        adventureId="adv-1"
-        comments={[baseComment]}
-        currentUserId="user-2"
-      />,
-    );
+    render(<CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId="user-2" />);
     expect(screen.getByText("Reply")).toBeInTheDocument();
   });
 
   it("toggles reply form on Reply click", () => {
-    render(
-      <CommentSection
-        adventureId="adv-1"
-        comments={[baseComment]}
-        currentUserId="user-2"
-      />,
-    );
+    render(<CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId="user-2" />);
     fireEvent.click(screen.getByText("Reply"));
     // Reply form textarea appears
     expect(screen.getByPlaceholderText("Write a reply…")).toBeInTheDocument();
   });
 
   it("hides reply form when Cancel is clicked in the toggle button", () => {
-    render(
-      <CommentSection
-        adventureId="adv-1"
-        comments={[baseComment]}
-        currentUserId="user-2"
-      />,
-    );
+    render(<CommentSection adventureId="adv-1" comments={[baseComment]} currentUserId="user-2" />);
     fireEvent.click(screen.getByText("Reply"));
     expect(screen.getByPlaceholderText("Write a reply…")).toBeInTheDocument();
     // toggle button now says "Cancel"
@@ -556,11 +566,7 @@ describe("CommentSection", () => {
 
   it("renders nested replies", () => {
     render(
-      <CommentSection
-        adventureId="adv-1"
-        comments={[commentWithReply]}
-        currentUserId={null}
-      />,
+      <CommentSection adventureId="adv-1" comments={[commentWithReply]} currentUserId={null} />,
     );
     expect(screen.getByText("Top-level comment")).toBeInTheDocument();
     expect(screen.getByText("A reply here")).toBeInTheDocument();
@@ -591,11 +597,7 @@ describe("CommentSection", () => {
       user: { id: "user-1", name: "Alice", avatarUrl: "https://example.com/avatar.jpg" },
     };
     render(
-      <CommentSection
-        adventureId="adv-1"
-        comments={[commentWithAvatar]}
-        currentUserId={null}
-      />,
+      <CommentSection adventureId="adv-1" comments={[commentWithAvatar]} currentUserId={null} />,
     );
     expect(screen.getByRole("img", { name: "Alice" })).toBeInTheDocument();
   });
@@ -653,34 +655,60 @@ const baseAdventure: AdventureWithUser = {
 
 describe("AdventureCard comment count", () => {
   it("shows comment count when _count.comments > 0", () => {
-    render(
-      <AdventureCard
-        adventure={{ ...baseAdventure, _count: { comments: 3 } }}
-      />,
-    );
+    render(<AdventureCard adventure={{ ...baseAdventure, _count: { comments: 3 } }} />);
     expect(screen.getByText("3 comments")).toBeInTheDocument();
   });
 
   it("shows singular 'comment' for count of 1", () => {
-    render(
-      <AdventureCard
-        adventure={{ ...baseAdventure, _count: { comments: 1 } }}
-      />,
-    );
+    render(<AdventureCard adventure={{ ...baseAdventure, _count: { comments: 1 } }} />);
     expect(screen.getByText("1 comment")).toBeInTheDocument();
   });
 
   it("does not show comment count when _count.comments is 0", () => {
-    render(
-      <AdventureCard
-        adventure={{ ...baseAdventure, _count: { comments: 0 } }}
-      />,
-    );
+    render(<AdventureCard adventure={{ ...baseAdventure, _count: { comments: 0 } }} />);
     expect(screen.queryByText(/comment/)).not.toBeInTheDocument();
   });
 
   it("does not show comment count when _count is absent", () => {
     render(<AdventureCard adventure={baseAdventure} />);
     expect(screen.queryByText(/comment/)).not.toBeInTheDocument();
+  });
+});
+
+describe("AdventureCard difficulty and cost", () => {
+  it("renders a colour-coded difficulty badge", () => {
+    render(<AdventureCard adventure={baseAdventure} />);
+    const badge = screen.getByText("Moderate");
+    expect(badge).toBeInTheDocument();
+    expect(badge.className).toContain("text-amber-400");
+  });
+
+  it("uses the DIFFICULTY_MAP colour for each level", () => {
+    render(<AdventureCard adventure={{ ...baseAdventure, difficulty: "EXTREME" as never }} />);
+    const badge = screen.getByText("Extreme");
+    expect(badge.className).toContain("text-red-400");
+  });
+
+  it("renders no difficulty badge for unknown difficulty values", () => {
+    render(
+      <AdventureCard adventure={{ ...baseAdventure, difficulty: "UNKNOWN_LEVEL" as never }} />,
+    );
+    expect(screen.queryByText("UNKNOWN_LEVEL")).not.toBeInTheDocument();
+    expect(screen.queryByText("Moderate")).not.toBeInTheDocument();
+  });
+
+  it("renders estimated cost formatted from pence when set", () => {
+    render(<AdventureCard adventure={{ ...baseAdventure, estimatedCost: 120000 }} />);
+    expect(screen.getByText("~£1,200 est.")).toBeInTheDocument();
+  });
+
+  it("does not render a cost when estimatedCost is null", () => {
+    render(<AdventureCard adventure={baseAdventure} />);
+    expect(screen.queryByText(/est\./)).not.toBeInTheDocument();
+  });
+
+  it("does not render a cost when estimatedCost is 0", () => {
+    render(<AdventureCard adventure={{ ...baseAdventure, estimatedCost: 0 }} />);
+    expect(screen.queryByText(/est\./)).not.toBeInTheDocument();
   });
 });

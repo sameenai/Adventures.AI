@@ -1,15 +1,20 @@
 // @vitest-environment jsdom
-import { render, screen, fireEvent, waitFor, cleanup } from "@testing-library/react";
-import { describe, expect, it, vi, afterEach, beforeEach } from "vitest";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Ensure DOM is cleaned up between every test
 afterEach(() => cleanup());
+
+// VoteButton reads the current pathname for the signed-out login redirect
+vi.mock("next/navigation", () => ({
+  usePathname: () => "/adventures",
+}));
+import { VoteButton } from "@/components/adventures/vote-button";
 import { MessageBubble } from "@/components/chat/message-bubble";
 import { TypingIndicator } from "@/components/chat/typing-indicator";
 import { RankBadge } from "@/components/leaderboard/rank-badge";
 import { TrendArrow } from "@/components/leaderboard/trend-arrow";
 import { ErrorBoundary } from "@/components/shared/error-boundary";
-import { VoteButton } from "@/components/adventures/vote-button";
 
 // ---------------------------------------------------------------------------
 // MessageBubble
@@ -51,13 +56,63 @@ describe("MessageBubble", () => {
     expect(wrapper.className).toContain("justify-start");
   });
 
+  it("renders assistant markdown bold as <strong>, not literal asterisks", () => {
+    const md = {
+      ...assistantMessage,
+      content: "**Day 1 — Arrival & Orientation**\n\nArrive and transfer to your hotel.",
+    };
+    const { container } = render(<MessageBubble message={md} />);
+    const strong = container.querySelector("strong");
+    expect(strong).not.toBeNull();
+    expect(strong!.textContent).toBe("Day 1 — Arrival & Orientation");
+    expect(container.textContent).not.toContain("**");
+  });
+
+  it("renders assistant markdown lists as real list items", () => {
+    const md = { ...assistantMessage, content: "- Pack crampons\n- Book permits" };
+    const { container } = render(<MessageBubble message={md} />);
+    const items = container.querySelectorAll("ul li");
+    expect(items).toHaveLength(2);
+    expect(items[0].textContent).toBe("Pack crampons");
+  });
+
+  it("renders assistant markdown links safely (new tab, noopener noreferrer)", () => {
+    const md = { ...assistantMessage, content: "See [the route](https://example.com/route)." };
+    const { container } = render(<MessageBubble message={md} />);
+    const link = container.querySelector("a");
+    expect(link).not.toBeNull();
+    expect(link!.getAttribute("href")).toBe("https://example.com/route");
+    expect(link!.getAttribute("target")).toBe("_blank");
+    expect(link!.getAttribute("rel")).toBe("noopener noreferrer");
+  });
+
+  it("does not render raw HTML from assistant content", () => {
+    const md = { ...assistantMessage, content: 'Hi <img src=x onerror="alert(1)" /> there' };
+    const { container } = render(<MessageBubble message={md} />);
+    expect(container.querySelector("img")).toBeNull();
+  });
+
+  it("keeps user message content as plain text (no markdown parsing)", () => {
+    const md = { ...userMessage, content: "**not bold** just text" };
+    const { container } = render(<MessageBubble message={md} />);
+    expect(container.querySelector("strong")).toBeNull();
+    expect(container.textContent).toContain("**not bold** just text");
+  });
+
+  it("renders error messages as plain text even for assistant role", () => {
+    const md = { ...assistantMessage, content: "**failed**", isError: true };
+    const { container } = render(<MessageBubble message={md} />);
+    expect(container.querySelector("strong")).toBeNull();
+    expect(container.textContent).toContain("**failed**");
+  });
+
   it("renders tool calls when present", () => {
     const msgWithTools = {
       ...assistantMessage,
       toolCalls: [
-      { name: "search_flights", args: {}, result: null },
-      { name: "get_weather", args: {}, result: null },
-    ],
+        { name: "search_flights", args: {}, result: null },
+        { name: "get_weather", args: {}, result: null },
+      ],
     };
     render(<MessageBubble message={msgWithTools} />);
     expect(screen.getByText("↳ search_flights")).toBeInTheDocument();
@@ -247,9 +302,7 @@ describe("VoteButton", () => {
   });
 
   it("renders the vote count", () => {
-    render(
-      <VoteButton adventureId="adv-1" voteCount={42} hasVoted={false} />,
-    );
+    render(<VoteButton adventureId="adv-1" voteCount={42} hasVoted={false} />);
     expect(screen.getByText("42")).toBeInTheDocument();
   });
 
@@ -263,25 +316,31 @@ describe("VoteButton", () => {
     expect(screen.getByRole("button", { name: "Remove vote" })).toBeInTheDocument();
   });
 
-  it("is disabled when disabled prop is true", () => {
-    render(
-      <VoteButton adventureId="adv-1" voteCount={10} hasVoted={false} disabled={true} />,
-    );
-    const button = screen.getByRole("button");
-    expect(button).toBeDisabled();
+  it("renders a login link instead of a button when disabled (signed out)", () => {
+    render(<VoteButton adventureId="adv-1" voteCount={10} hasVoted={false} disabled={true} />);
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    const link = screen.getByRole("link", { name: "Sign in to vote" });
+    expect(link).toHaveAttribute("href", "/login?callbackUrl=%2Fadventures");
   });
 
-  it("shows sign in aria-label when disabled", () => {
-    render(
-      <VoteButton adventureId="adv-1" voteCount={10} hasVoted={false} disabled={true} />,
-    );
-    expect(screen.getByRole("button", { name: "Sign in to vote" })).toBeInTheDocument();
+  it("shows a sign-in tooltip and the vote count when disabled", () => {
+    render(<VoteButton adventureId="adv-1" voteCount={10} hasVoted={false} disabled={true} />);
+    const link = screen.getByRole("link", { name: "Sign in to vote" });
+    expect(link).toHaveAttribute("title", "Sign in to vote");
+    expect(link).toHaveTextContent("10");
+  });
+
+  it("does not call the vote API when the signed-out link is clicked", () => {
+    const fetchSpy = vi.spyOn(global, "fetch");
+    render(<VoteButton adventureId="adv-1" voteCount={10} hasVoted={false} disabled={true} />);
+    fireEvent.click(screen.getByRole("link", { name: "Sign in to vote" }));
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 
   it("calls fetch when clicked", async () => {
-    const fetchSpy = vi.spyOn(global, "fetch").mockResolvedValueOnce(
-      new Response(JSON.stringify({ voted: true }), { status: 200 }),
-    );
+    const fetchSpy = vi
+      .spyOn(global, "fetch")
+      .mockResolvedValueOnce(new Response(JSON.stringify({ voted: true }), { status: 200 }));
 
     render(<VoteButton adventureId="adv-1" voteCount={10} hasVoted={false} />);
 

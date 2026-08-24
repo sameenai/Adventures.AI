@@ -41,6 +41,11 @@ vi.mock("@/lib/db/prisma", () => ({
       create: vi.fn().mockResolvedValue({ id: "auto-itin-1" }),
       update: vi.fn().mockResolvedValue({}),
     },
+    itineraryDay: {
+      findFirst: vi.fn().mockResolvedValue(null),
+      create: vi.fn().mockResolvedValue({ id: "day-1" }),
+      update: vi.fn().mockResolvedValue({}),
+    },
   },
 }));
 // Mock the openai npm package — the chat route creates OpenAI instances directly.
@@ -50,11 +55,11 @@ vi.mock("openai", () => ({
   })),
 }));
 
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { NextRequest } from "next/server";
 import { POST as chatRoute } from "@/app/api/chat/route";
-import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/db/prisma";
+import { getServerSession } from "next-auth";
+import { NextRequest } from "next/server";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockGetSession = getServerSession as ReturnType<typeof vi.fn>;
 const mockPrismaItinerary = prisma.itinerary as unknown as Record<string, ReturnType<typeof vi.fn>>;
@@ -127,7 +132,9 @@ describe("POST /api/chat — real OpenAI path", () => {
     mockCreate.mockResolvedValue(makeAsyncStream(["Great plan!"]));
     mockPrismaItinerary.findUnique.mockResolvedValue({ chatHistory: [] });
 
-    const response = await chatRoute(makeRequest({ message: "Plan Nepal", itineraryId: "itin-42" }));
+    const response = await chatRoute(
+      makeRequest({ message: "Plan Nepal", itineraryId: "itin-42" }),
+    );
     await drainStream(response);
 
     expect(mockPrismaItinerary.update).toHaveBeenCalledWith(
@@ -216,7 +223,11 @@ describe("POST /api/chat — real OpenAI path", () => {
       yield {
         choices: [
           {
-            delta: { tool_calls: [{ index: 0, id: "", function: { name: "ights", arguments: '{"origin":"LHR"}' } }] },
+            delta: {
+              tool_calls: [
+                { index: 0, id: "", function: { name: "ights", arguments: '{"origin":"LHR"}' } },
+              ],
+            },
             finish_reason: "tool_calls",
           },
         ],
@@ -238,18 +249,6 @@ describe("POST /api/chat — real OpenAI path", () => {
 
   it("handles create_itinerary_day tool call and persists day", async () => {
     mockSession();
-    const { prisma: mockPrismaModule } = await import("@/lib/db/prisma");
-    const mockPrismaFull = mockPrismaModule as typeof mockPrismaModule & {
-      itinerary: Record<string, ReturnType<typeof vi.fn>>;
-      itineraryDay: Record<string, ReturnType<typeof vi.fn>>;
-    };
-
-    // Add itineraryDay mock
-    (mockPrismaFull as unknown as Record<string, unknown>).itineraryDay = {
-      findFirst: vi.fn().mockResolvedValue(null),
-      create: vi.fn().mockResolvedValue({ id: "day-1" }),
-      update: vi.fn().mockResolvedValue({}),
-    };
 
     const dayArgs = JSON.stringify({
       dayNumber: 1,
@@ -263,7 +262,13 @@ describe("POST /api/chat — real OpenAI path", () => {
         choices: [
           {
             delta: {
-              tool_calls: [{ index: 0, id: "call-itin", function: { name: "create_itinerary_day", arguments: dayArgs } }],
+              tool_calls: [
+                {
+                  index: 0,
+                  id: "call-itin",
+                  function: { name: "create_itinerary_day", arguments: dayArgs },
+                },
+              ],
             },
             finish_reason: null,
           },
@@ -390,6 +395,70 @@ describe("POST /api/chat — credit metering", () => {
     await drainStream(response);
 
     expect(mockPrismaUser.updateMany).not.toHaveBeenCalled();
+  });
+
+  it("seeds the 5 canned itinerary days in demo mode so the itinerary is not empty", async () => {
+    delete process.env.OPENAI_API_KEY;
+    mockSession();
+    const mockPrismaDay = prisma.itineraryDay as unknown as Record<
+      string,
+      ReturnType<typeof vi.fn>
+    >;
+    mockPrismaDay.findFirst.mockResolvedValue(null);
+
+    const response = await chatRoute(makeRequest({ message: "demo trip" }));
+    expect(response.status).toBe(200);
+    const text = await drainStream(response);
+    expect(text).toContain("Day 1");
+
+    // One upsert-check per day, all scoped to the auto-created itinerary
+    expect(mockPrismaDay.findFirst).toHaveBeenCalledTimes(5);
+    expect(mockPrismaDay.create).toHaveBeenCalledTimes(5);
+    const createdDays = mockPrismaDay.create.mock.calls.map(
+      ([arg]) => (arg as { data: { dayNumber: number } }).data,
+    );
+    expect(createdDays.map((d) => d.dayNumber)).toEqual([1, 2, 3, 4, 5]);
+    for (const day of createdDays as unknown as Array<{
+      itineraryId: string;
+      title: string;
+      description: string;
+      activities: Array<{ time: string; activity: string; location: string }>;
+    }>) {
+      expect(day.itineraryId).toBe("auto-itin-1");
+      expect(day.title).toBeTruthy();
+      expect(day.description).toBeTruthy();
+      expect(day.activities).toHaveLength(1);
+      expect(day.activities[0].time).toBeTruthy();
+      expect(day.activities[0].activity).toBeTruthy();
+      expect(day.activities[0].location).toBeTruthy();
+    }
+    expect(createdDays.map((d) => (d as unknown as { title: string }).title)).toEqual([
+      "Arrival & Orientation",
+      "Acclimatisation Hike",
+      "Main Trail Begins",
+      "High Camp",
+      "Summit Day",
+    ]);
+  });
+
+  it("updates existing rows instead of duplicating days when demo mode re-runs", async () => {
+    delete process.env.OPENAI_API_KEY;
+    mockSession();
+    const mockPrismaDay = prisma.itineraryDay as unknown as Record<
+      string,
+      ReturnType<typeof vi.fn>
+    >;
+    mockPrismaDay.findFirst.mockResolvedValue({ id: "existing-day" });
+    mockPrismaItinerary.findUnique.mockResolvedValue({ chatHistory: [] });
+
+    const response = await chatRoute(makeRequest({ message: "again", itineraryId: "itin-42" }));
+    await drainStream(response);
+
+    expect(mockPrismaDay.create).not.toHaveBeenCalled();
+    expect(mockPrismaDay.update).toHaveBeenCalledTimes(5);
+    expect(mockPrismaDay.update).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: "existing-day" } }),
+    );
   });
 
   it("refunds the credit when the OpenAI stream fails", async () => {

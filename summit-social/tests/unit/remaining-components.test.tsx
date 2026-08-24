@@ -202,9 +202,7 @@ describe("CollectionsPanel", () => {
 
   it("deletes a collection when confirmed", async () => {
     (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({ ok: true });
-    const collections = [
-      { id: "col-1", name: "To Delete", _count: { items: 0 }, items: [] },
-    ];
+    const collections = [{ id: "col-1", name: "To Delete", _count: { items: 0 }, items: [] }];
     render(<CollectionsPanel initialCollections={collections} />);
     fireEvent.click(screen.getByRole("button", { name: /delete to delete/i }));
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
@@ -213,9 +211,7 @@ describe("CollectionsPanel", () => {
 
   it("does not delete when confirm is cancelled", async () => {
     vi.spyOn(window, "confirm").mockReturnValue(false);
-    const collections = [
-      { id: "col-1", name: "Keep Me", _count: { items: 0 }, items: [] },
-    ];
+    const collections = [{ id: "col-1", name: "Keep Me", _count: { items: 0 }, items: [] }];
     render(<CollectionsPanel initialCollections={collections} />);
     fireEvent.click(screen.getByRole("button", { name: /delete keep me/i }));
     expect(global.fetch).not.toHaveBeenCalled();
@@ -262,9 +258,7 @@ describe("FollowSuggestions", () => {
   it("shows adventure count with correct plural", async () => {
     (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
       ok: true,
-      json: async () => [
-        { id: "u-1", name: "Alice", avatarUrl: null, _count: { adventures: 1 } },
-      ],
+      json: async () => [{ id: "u-1", name: "Alice", avatarUrl: null, _count: { adventures: 1 } }],
     });
     render(<FollowSuggestions />);
     await waitFor(() => expect(screen.getByText("1 adventure")).toBeTruthy());
@@ -418,6 +412,46 @@ describe("InfiniteAdventureGrid", () => {
       />,
     );
     expect(screen.getByText(/no adventures found/i)).toBeTruthy();
+  });
+
+  it("empty state links to unfiltered /adventures via Clear filters", () => {
+    render(
+      <InfiniteAdventureGrid
+        initialAdventures={[]}
+        votedAdventureIds={[]}
+        bookmarkedAdventureIds={[]}
+        category="TREKKING"
+      />,
+    );
+    const clear = screen.getByRole("link", { name: /clear filters/i });
+    expect(clear.getAttribute("href")).toBe("/adventures");
+  });
+
+  it("empty state links to the AI planner with the current search as prompt", () => {
+    render(
+      <InfiniteAdventureGrid
+        initialAdventures={[]}
+        votedAdventureIds={[]}
+        bookmarkedAdventureIds={[]}
+        search="volcano trek iceland"
+      />,
+    );
+    const plan = screen.getByRole("link", { name: /plan it with ai instead/i });
+    expect(plan.getAttribute("href")).toBe("/itinerary?prompt=volcano%20trek%20iceland");
+  });
+
+  it("empty state uses a generic planning prompt when there is no search text", () => {
+    render(
+      <InfiniteAdventureGrid
+        initialAdventures={[]}
+        votedAdventureIds={[]}
+        bookmarkedAdventureIds={[]}
+      />,
+    );
+    const plan = screen.getByRole("link", { name: /plan it with ai instead/i });
+    expect(plan.getAttribute("href")).toBe(
+      `/itinerary?prompt=${encodeURIComponent("Help me plan my next adventure")}`,
+    );
   });
 
   it("shows 'All adventures loaded' when no more cursor", () => {
