@@ -31,6 +31,7 @@ vi.mock("@/lib/db/prisma", () => ({
         aiCreditsResetAt: new Date(),
       }),
       update: vi.fn().mockResolvedValue({}),
+      updateMany: vi.fn().mockResolvedValue({ count: 1 }),
     },
     adventure: {
       findMany: vi.fn().mockResolvedValue([]),
@@ -281,5 +282,127 @@ describe("POST /api/chat — real OpenAI path", () => {
     expect(response.status).toBe(200);
     const text = await drainStream(response);
     expect(text).toContain("Here's your itinerary");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// AI credit metering — the monetization gate
+// ---------------------------------------------------------------------------
+describe("POST /api/chat — credit metering", () => {
+  const mockPrismaUser = prisma.user as unknown as Record<string, ReturnType<typeof vi.fn>>;
+
+  beforeEach(() => {
+    process.env.OPENAI_API_KEY = "sk-live-test-key";
+    mockPrismaUser.findUnique.mockResolvedValue({
+      openAiApiKey: null,
+      plan: "FREE",
+      aiCreditsUsed: 0,
+      aiCreditsResetAt: new Date(),
+    });
+    mockPrismaUser.updateMany.mockResolvedValue({ count: 1 });
+  });
+
+  afterEach(() => {
+    delete process.env.OPENAI_API_KEY;
+    vi.clearAllMocks();
+  });
+
+  it("charges one credit per message with a conditional atomic increment", async () => {
+    mockSession();
+    mockCreate.mockResolvedValue(makeAsyncStream(["ok"]));
+
+    const response = await chatRoute(makeRequest({ message: "Plan my trip" }));
+    await drainStream(response);
+
+    expect(mockPrismaUser.updateMany).toHaveBeenCalledWith({
+      where: { id: "user-1", aiCreditsUsed: { lt: expect.any(Number) } },
+      data: { aiCreditsUsed: { increment: 1 } },
+    });
+  });
+
+  it("meters resumed sessions too — itineraryId does not bypass the cap", async () => {
+    mockSession();
+    mockCreate.mockResolvedValue(makeAsyncStream(["ok"]));
+    mockPrismaItinerary.findUnique.mockResolvedValue({ chatHistory: [] });
+
+    const response = await chatRoute(makeRequest({ message: "more", itineraryId: "itin-42" }));
+    await drainStream(response);
+
+    expect(mockPrismaUser.updateMany).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { aiCreditsUsed: { increment: 1 } } }),
+    );
+  });
+
+  it("returns 402 UPGRADE_REQUIRED when the conditional increment matches no row", async () => {
+    mockSession();
+    mockPrismaUser.updateMany.mockResolvedValue({ count: 0 });
+
+    const response = await chatRoute(makeRequest({ message: "Plan my trip" }));
+    expect(response.status).toBe(402);
+    const body = await response.json();
+    expect(body.code).toBe("UPGRADE_REQUIRED");
+    expect(body.creditsLimit).toBeGreaterThan(0);
+    expect(mockCreate).not.toHaveBeenCalled();
+  });
+
+  it("resets the counter when the calendar month rolled over", async () => {
+    mockSession();
+    mockCreate.mockResolvedValue(makeAsyncStream(["ok"]));
+    mockPrismaUser.findUnique.mockResolvedValue({
+      openAiApiKey: null,
+      plan: "FREE",
+      aiCreditsUsed: 60,
+      aiCreditsResetAt: new Date("2020-01-15T00:00:00Z"),
+    });
+
+    const response = await chatRoute(makeRequest({ message: "new month" }));
+    await drainStream(response);
+
+    expect(mockPrismaUser.update).toHaveBeenCalledWith({
+      where: { id: "user-1" },
+      data: { aiCreditsUsed: 0, aiCreditsResetAt: expect.any(Date) },
+    });
+    expect(mockPrismaUser.updateMany).toHaveBeenCalled();
+  });
+
+  it("exempts PRO users from metering", async () => {
+    mockSession();
+    mockCreate.mockResolvedValue(makeAsyncStream(["ok"]));
+    mockPrismaUser.findUnique.mockResolvedValue({
+      openAiApiKey: null,
+      plan: "PRO",
+      aiCreditsUsed: 0,
+      aiCreditsResetAt: new Date(),
+    });
+
+    const response = await chatRoute(makeRequest({ message: "pro user" }));
+    await drainStream(response);
+
+    expect(mockPrismaUser.updateMany).not.toHaveBeenCalled();
+  });
+
+  it("does not charge in demo mode (no API key anywhere)", async () => {
+    delete process.env.OPENAI_API_KEY;
+    mockSession();
+
+    const response = await chatRoute(makeRequest({ message: "demo" }));
+    expect(response.status).toBe(200);
+    await drainStream(response);
+
+    expect(mockPrismaUser.updateMany).not.toHaveBeenCalled();
+  });
+
+  it("refunds the credit when the OpenAI stream fails", async () => {
+    mockSession();
+    mockCreate.mockRejectedValue(new Error("upstream exploded"));
+
+    const response = await chatRoute(makeRequest({ message: "Plan my trip" }));
+    const text = await drainStream(response);
+    expect(text).toContain("Something went wrong");
+
+    expect(mockPrismaUser.updateMany).toHaveBeenCalledWith({
+      where: { id: "user-1", aiCreditsUsed: { gt: 0 } },
+      data: { aiCreditsUsed: { decrement: 1 } },
+    });
   });
 });

@@ -78,13 +78,16 @@ export const UPLOAD_MAX_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
 export const PLANS = {
   FREE: {
     name: "Free",
-    aiCreditsPerMonth: 5,
+    // Metered per message (not per session): a session-based credit was
+    // bypassable by resuming an itinerary, leaving platform GPT-4o spend
+    // uncapped. 60 messages ≈ five full planning sessions.
+    aiMessagesPerMonth: 60,
     bookmarkLimit: 20,
     priceGBP: 0,
   },
   PRO: {
     name: "Pro",
-    aiCreditsPerMonth: Number.POSITIVE_INFINITY,
+    aiMessagesPerMonth: Number.POSITIVE_INFINITY,
     bookmarkLimit: Number.POSITIVE_INFINITY,
     priceGBP: 9,
   },

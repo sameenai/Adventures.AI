@@ -40,7 +40,7 @@ export default async function ItineraryPage({
     }
   }
 
-  const limit = PLANS.FREE.aiCreditsPerMonth;
+  const limit = PLANS.FREE.aiMessagesPerMonth;
   const creditsRemaining = Math.max(0, limit - creditsUsed);
   const showCreditBanner = session && !isPro && !isByok;
 
@@ -75,19 +75,18 @@ export default async function ItineraryPage({
               }`}
             >
               <div className="flex items-center gap-3">
-                <div className="flex gap-1">
-                  {Array.from({ length: limit }).map((_, i) => (
-                    <div
-                      // biome-ignore lint/suspicious/noArrayIndexKey: static indicator dots
-                      key={i}
-                      className={`h-1.5 w-5 ${i < creditsUsed ? "bg-stone-700" : "bg-amber-500"}`}
-                    />
-                  ))}
+                <div className="h-1.5 w-32 bg-stone-800">
+                  <div
+                    className="h-full bg-amber-500"
+                    style={{
+                      width: `${Math.max(0, Math.min(100, (creditsRemaining / limit) * 100))}%`,
+                    }}
+                  />
                 </div>
                 <span className="font-mono text-[10px] text-stone-500">
                   {creditsRemaining === 0
-                    ? "Monthly sessions used"
-                    : `${creditsRemaining} of ${limit} sessions remaining`}
+                    ? "Monthly AI messages used"
+                    : `${creditsRemaining} of ${limit} AI messages remaining`}
                 </span>
               </div>
               <Link

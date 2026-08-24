@@ -154,41 +154,47 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // On the first message of a new session, check and consume an AI credit.
-  // Pro users and BYOK users are exempt, and demo-mode responses (no API key
+  // Every message on the platform key consumes one AI credit for free users.
+  // Metering per message (not per new session) closes the resume bypass where
+  // any request carrying an itineraryId ran unmetered GPT-4o on the platform
+  // key. Pro and BYOK users are exempt, and demo-mode responses (no API key
   // available at all) are free — never charge a credit for canned output.
   const isByok = Boolean(userRecord?.openAiApiKey);
   const isPro = userRecord?.plan === "PRO";
-  if (resolvedApiKey && !incomingItineraryId && !isPro && !isByok) {
-    const limit = PLANS.FREE.aiCreditsPerMonth;
-    // Reset counter if we've rolled into a new calendar month
-    const resetAt = userRecord?.aiCreditsResetAt ?? new Date();
+  let creditCharged = false;
+  if (resolvedApiKey && !isPro && !isByok) {
+    const limit = PLANS.FREE.aiMessagesPerMonth;
     const now = new Date();
+    const resetAt = userRecord?.aiCreditsResetAt ?? now;
     const sameMonth =
       resetAt.getUTCFullYear() === now.getUTCFullYear() &&
       resetAt.getUTCMonth() === now.getUTCMonth();
-    const creditsUsed = sameMonth ? (userRecord?.aiCreditsUsed ?? 0) : 0;
+    if (!sameMonth) {
+      // Calendar month rolled over: reset before metering. Racing requests
+      // both writing zero is harmless.
+      await prisma.user.update({
+        where: { id: userId },
+        data: { aiCreditsUsed: 0, aiCreditsResetAt: now },
+      });
+    }
 
-    if (creditsUsed >= limit) {
+    // Conditional atomic increment: concurrent requests cannot exceed the cap
+    // and the counter can never be clobbered by a stale read.
+    const charged = await prisma.user.updateMany({
+      where: { id: userId, aiCreditsUsed: { lt: limit } },
+      data: { aiCreditsUsed: { increment: 1 } },
+    });
+    if (charged.count === 0) {
       return NextResponse.json(
         {
-          error: "Monthly AI session limit reached",
+          error: "Monthly AI message limit reached",
           code: "UPGRADE_REQUIRED",
-          creditsUsed,
           creditsLimit: limit,
         },
         { status: 402 },
       );
     }
-
-    // Increment credit usage (reset counter if new month)
-    await prisma.user.update({
-      where: { id: userId },
-      data: {
-        aiCreditsUsed: sameMonth ? creditsUsed + 1 : 1,
-        aiCreditsResetAt: sameMonth ? undefined : now,
-      },
-    });
+    creditCharged = true;
   }
 
   // Ensure an itinerary record always exists so we can persist chat history from message 1.
@@ -351,6 +357,15 @@ export async function POST(request: NextRequest) {
         });
       } catch (error) {
         logger.error("Streaming error", error);
+        if (creditCharged) {
+          // The user paid a credit for a response they never received.
+          await prisma.user
+            .updateMany({
+              where: { id: userId, aiCreditsUsed: { gt: 0 } },
+              data: { aiCreditsUsed: { decrement: 1 } },
+            })
+            .catch((refundErr) => logger.error("Credit refund failed", refundErr));
+        }
         const errMsg =
           error instanceof Error && error.message.toLowerCase().includes("api key")
             ? "\n\n⚠️ Invalid OpenAI API key. Please update it in your profile settings."
