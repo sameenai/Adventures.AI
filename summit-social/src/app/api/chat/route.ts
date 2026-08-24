@@ -133,11 +133,32 @@ export async function POST(request: NextRequest) {
   const { message, itineraryId: incomingItineraryId, preferences } = parsed.data;
   const userId = session.user.id;
 
+  // Ownership check: a request-supplied itineraryId must belong to the caller
+  // before it is used as a write target (itinerary days, chat history).
+  let chatHistory: Array<{ role: string; content: string }> = [];
+  if (incomingItineraryId) {
+    const itinerary = await prisma.itinerary.findUnique({
+      where: { id: incomingItineraryId, userId },
+      select: { chatHistory: true },
+    });
+    if (!itinerary) {
+      return NextResponse.json(
+        { error: "Itinerary not found", code: "NOT_FOUND" },
+        { status: 404 },
+      );
+    }
+    if (itinerary.chatHistory) {
+      const raw = itinerary.chatHistory as Array<{ role: string; content: string }>;
+      chatHistory = raw.slice(-CHAT_HISTORY_MAX_MESSAGES);
+    }
+  }
+
   // On the first message of a new session, check and consume an AI credit.
-  // Pro users and BYOK users are exempt from the monthly limit.
+  // Pro users and BYOK users are exempt, and demo-mode responses (no API key
+  // available at all) are free — never charge a credit for canned output.
   const isByok = Boolean(userRecord?.openAiApiKey);
   const isPro = userRecord?.plan === "PRO";
-  if (!incomingItineraryId && !isPro && !isByok) {
+  if (resolvedApiKey && !incomingItineraryId && !isPro && !isByok) {
     const limit = PLANS.FREE.aiCreditsPerMonth;
     // Reset counter if we've rolled into a new calendar month
     const resetAt = userRecord?.aiCreditsResetAt ?? new Date();
@@ -179,19 +200,6 @@ export async function POST(request: NextRequest) {
     activeItineraryId = created.id;
   }
 
-  // Load existing chat history (capped to prevent unbounded growth).
-  let chatHistory: Array<{ role: string; content: string }> = [];
-  if (incomingItineraryId) {
-    const itinerary = await prisma.itinerary.findUnique({
-      where: { id: incomingItineraryId, userId },
-      select: { chatHistory: true },
-    });
-    if (itinerary?.chatHistory) {
-      const raw = itinerary.chatHistory as Array<{ role: string; content: string }>;
-      chatHistory = raw.slice(-CHAT_HISTORY_MAX_MESSAGES);
-    }
-  }
-
   const systemPrompt = ITINERARY_SYSTEM_PROMPT + buildUserContextPrompt(preferences ?? {});
 
   const messages = [
@@ -226,7 +234,7 @@ export async function POST(request: NextRequest) {
           { role: "assistant", content: fullContent.trim() },
         ].slice(-CHAT_HISTORY_MAX_MESSAGES);
         await prisma.itinerary.update({
-          where: { id: activeItineraryId },
+          where: { id: activeItineraryId, userId },
           data: { chatHistory: mockHistory },
         });
         controller.close();
@@ -337,7 +345,7 @@ export async function POST(request: NextRequest) {
           { role: "assistant", content: fullContent },
         ].slice(-CHAT_HISTORY_MAX_MESSAGES);
         await prisma.itinerary.update({
-          where: { id: activeItineraryId },
+          where: { id: activeItineraryId, userId },
           data: { chatHistory: updatedHistory },
         });
       } catch (error) {

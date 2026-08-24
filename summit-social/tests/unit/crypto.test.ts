@@ -1,16 +1,28 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { decrypt, encrypt } from "@/lib/crypto";
+import { decrypt, encrypt, isEncryptionConfigured } from "@/lib/crypto";
 
 describe("crypto", () => {
   afterEach(() => {
     vi.unstubAllEnvs();
   });
 
-  it("returns plaintext when no ENCRYPTION_KEY is set", () => {
+  it("fails closed on encrypt when no ENCRYPTION_KEY is set", () => {
     vi.stubEnv("ENCRYPTION_KEY", "");
     const text = "sk-test-key-12345678";
-    expect(encrypt(text)).toBe(text);
+    expect(encrypt(text)).toBeNull();
+    // decrypt stays legacy-tolerant so pre-encryption rows keep working
     expect(decrypt(text)).toBe(text);
+  });
+
+  it("treats a malformed ENCRYPTION_KEY as unconfigured", () => {
+    vi.stubEnv("ENCRYPTION_KEY", "deadbeef");
+    expect(isEncryptionConfigured()).toBe(false);
+    expect(encrypt("sk-test-key-12345678")).toBeNull();
+  });
+
+  it("reports encryption configured with a valid key", () => {
+    vi.stubEnv("ENCRYPTION_KEY", "a".repeat(64));
+    expect(isEncryptionConfigured()).toBe(true);
   });
 
   it("encrypts and decrypts correctly with a valid key", () => {

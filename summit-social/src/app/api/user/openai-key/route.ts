@@ -57,6 +57,16 @@ export async function POST(request: NextRequest) {
 
   const key = parsed.data.key;
   const encrypted = encrypt(key);
+  if (!encrypted) {
+    // Fail closed: never store a user's API key as plaintext.
+    return NextResponse.json(
+      {
+        error: "Key storage is not available: server-side encryption is not configured",
+        code: "ENCRYPTION_UNAVAILABLE",
+      },
+      { status: 503 },
+    );
+  }
 
   await prisma.user.update({
     where: { id: session.user.id },

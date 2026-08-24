@@ -1,0 +1,552 @@
+{
+  "caseId": "trekking-ebc-classic",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "name": "search_adventures",
+      "arguments": { "query": "everest base camp", "category": "TREKKING" }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 1,
+        "title": "Arrival in Kathmandu",
+        "description": "Land, sort permits, gear check",
+        "activities": [
+          {
+            "time": "14:00",
+            "activity": "Airport pickup and transfer to Thamel",
+            "location": "Tribhuvan International Airport",
+            "lat": 27.6966,
+            "lng": 85.3591
+          },
+          {
+            "time": "17:00",
+            "activity": "Trek briefing and TIMS/permit check",
+            "location": "Thamel, Kathmandu",
+            "lat": 27.7154,
+            "lng": 85.3123
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 2,
+        "title": "Fly to Lukla, trek to Phakding",
+        "description": "Short first day to ease in",
+        "activities": [
+          {
+            "time": "06:30",
+            "activity": "Scenic mountain flight to Lukla",
+            "location": "Tenzing-Hillary Airport, Lukla",
+            "notes": "Weather delays are common — keep a buffer day",
+            "lat": 27.6869,
+            "lng": 86.7314
+          },
+          {
+            "time": "09:30",
+            "activity": "Trek down the Dudh Koshi valley",
+            "location": "Phakding",
+            "lat": 27.74,
+            "lng": 86.71
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 3,
+        "title": "Climb to Namche Bazaar",
+        "description": "First big ascent through the pine forests",
+        "activities": [
+          {
+            "time": "08:00",
+            "activity": "Cross the Hillary Suspension Bridge",
+            "location": "Dudh Koshi gorge",
+            "lat": 27.78,
+            "lng": 86.72
+          },
+          {
+            "time": "14:00",
+            "activity": "Arrive Namche Bazaar, first Everest view",
+            "location": "Namche Bazaar",
+            "lat": 27.8069,
+            "lng": 86.714
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 4,
+        "title": "Acclimatisation day in Namche",
+        "description": "Climb high, sleep low",
+        "activities": [
+          {
+            "time": "09:00",
+            "activity": "Acclimatisation hike to the Everest View Hotel",
+            "location": "Syangboche ridge",
+            "notes": "3,880 m — take it slowly, hydrate",
+            "lat": 27.8206,
+            "lng": 86.7156
+          },
+          {
+            "time": "15:00",
+            "activity": "Visit the Sherpa Culture Museum",
+            "location": "Namche Bazaar museum quarter",
+            "lat": 27.8081,
+            "lng": 86.7152
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 5,
+        "title": "Namche to Tengboche",
+        "description": "Rhododendron forest and monastery",
+        "activities": [
+          {
+            "time": "08:00",
+            "activity": "Contour the Khumbu valley trail",
+            "location": "Kyangjuma",
+            "lat": 27.8203,
+            "lng": 86.7351
+          },
+          {
+            "time": "15:30",
+            "activity": "Attend afternoon prayers at Tengboche Monastery",
+            "location": "Tengboche",
+            "lat": 27.836,
+            "lng": 86.7646
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 6,
+        "title": "Tengboche to Dingboche",
+        "description": "Above the treeline",
+        "activities": [
+          {
+            "time": "08:00",
+            "activity": "Trek via Pangboche village",
+            "location": "Pangboche",
+            "lat": 27.857,
+            "lng": 86.7936
+          },
+          {
+            "time": "14:30",
+            "activity": "Arrive Dingboche, rest and rehydrate",
+            "location": "Dingboche",
+            "lat": 27.8925,
+            "lng": 86.8314
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 7,
+        "title": "Acclimatisation at Dingboche",
+        "description": "Second climb-high-sleep-low day",
+        "activities": [
+          {
+            "time": "09:00",
+            "activity": "Hike Nangkartshang Peak viewpoint",
+            "location": "Nangkartshang ridge above Dingboche",
+            "notes": "5,083 m — watch for symptoms of AMS",
+            "lat": 27.9,
+            "lng": 86.84
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 8,
+        "title": "Dingboche to Lobuche",
+        "description": "Past the Thukla memorials",
+        "activities": [
+          {
+            "time": "08:00",
+            "activity": "Climb Thukla Pass and the climbers' memorials",
+            "location": "Thukla Pass",
+            "lat": 27.9264,
+            "lng": 86.8107
+          },
+          {
+            "time": "14:00",
+            "activity": "Overnight at Lobuche teahouse",
+            "location": "Lobuche",
+            "lat": 27.9481,
+            "lng": 86.8104
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 9,
+        "title": "Base Camp day",
+        "description": "The big one",
+        "activities": [
+          {
+            "time": "07:00",
+            "activity": "Trek along the Khumbu Glacier moraine to Gorak Shep",
+            "location": "Gorak Shep",
+            "lat": 27.9808,
+            "lng": 86.8286
+          },
+          {
+            "time": "11:30",
+            "activity": "Reach Everest Base Camp",
+            "location": "Everest Base Camp",
+            "notes": "5,364 m — photos at the boulder then back before dark",
+            "lat": 28.0026,
+            "lng": 86.8528
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 10,
+        "title": "Kala Patthar sunrise and descent",
+        "description": "Best Everest panorama of the trek",
+        "activities": [
+          {
+            "time": "04:30",
+            "activity": "Pre-dawn ascent of Kala Patthar",
+            "location": "Kala Patthar",
+            "notes": "5,545 m — coldest part of the trip, pack down layers",
+            "lat": 27.9959,
+            "lng": 86.8285
+          },
+          {
+            "time": "10:00",
+            "activity": "Long descent to Pheriche",
+            "location": "Pheriche",
+            "lat": 27.8964,
+            "lng": 86.8194
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 11,
+        "title": "Pheriche to Namche",
+        "description": "Retracing at speed with thick air",
+        "activities": [
+          {
+            "time": "08:00",
+            "activity": "Descend through Tengboche and Kyangjuma",
+            "location": "Khumbu main trail",
+            "lat": 27.83,
+            "lng": 86.75
+          },
+          {
+            "time": "16:00",
+            "activity": "Celebration bakery stop",
+            "location": "Namche Bazaar bakery",
+            "lat": 27.8065,
+            "lng": 86.7138
+          }
+        ]
+      }
+    },
+    {
+      "name": "create_itinerary_day",
+      "arguments": {
+        "dayNumber": 12,
+        "title": "Return to Lukla and fly out",
+        "description": "Final trekking day and flight",
+        "activities": [
+          {
+            "time": "07:00",
+            "activity": "Final descent to Lukla",
+            "location": "Lukla",
+            "lat": 27.6869,
+            "lng": 86.7314
+          },
+          {
+            "time": "15:00",
+            "activity": "Flight back to Kathmandu, farewell dinner",
+            "location": "Kathmandu",
+            "notes": "Flight — weather dependent",
+            "lat": 27.7172,
+            "lng": 85.324
+          }
+        ]
+      }
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Arrival in Kathmandu",
+      "description": "Land, sort permits, gear check",
+      "activities": [
+        {
+          "time": "14:00",
+          "activity": "Airport pickup and transfer to Thamel",
+          "location": "Tribhuvan International Airport",
+          "lat": 27.6966,
+          "lng": 85.3591
+        },
+        {
+          "time": "17:00",
+          "activity": "Trek briefing and TIMS/permit check",
+          "location": "Thamel, Kathmandu",
+          "lat": 27.7154,
+          "lng": 85.3123
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Fly to Lukla, trek to Phakding",
+      "description": "Short first day to ease in",
+      "activities": [
+        {
+          "time": "06:30",
+          "activity": "Scenic mountain flight to Lukla",
+          "location": "Tenzing-Hillary Airport, Lukla",
+          "notes": "Weather delays are common — keep a buffer day",
+          "lat": 27.6869,
+          "lng": 86.7314
+        },
+        {
+          "time": "09:30",
+          "activity": "Trek down the Dudh Koshi valley",
+          "location": "Phakding",
+          "lat": 27.74,
+          "lng": 86.71
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Climb to Namche Bazaar",
+      "description": "First big ascent through the pine forests",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "Cross the Hillary Suspension Bridge",
+          "location": "Dudh Koshi gorge",
+          "lat": 27.78,
+          "lng": 86.72
+        },
+        {
+          "time": "14:00",
+          "activity": "Arrive Namche Bazaar, first Everest view",
+          "location": "Namche Bazaar",
+          "lat": 27.8069,
+          "lng": 86.714
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Acclimatisation day in Namche",
+      "description": "Climb high, sleep low",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Acclimatisation hike to the Everest View Hotel",
+          "location": "Syangboche ridge",
+          "notes": "3,880 m — take it slowly, hydrate",
+          "lat": 27.8206,
+          "lng": 86.7156
+        },
+        {
+          "time": "15:00",
+          "activity": "Visit the Sherpa Culture Museum",
+          "location": "Namche Bazaar museum quarter",
+          "lat": 27.8081,
+          "lng": 86.7152
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "title": "Namche to Tengboche",
+      "description": "Rhododendron forest and monastery",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "Contour the Khumbu valley trail",
+          "location": "Kyangjuma",
+          "lat": 27.8203,
+          "lng": 86.7351
+        },
+        {
+          "time": "15:30",
+          "activity": "Attend afternoon prayers at Tengboche Monastery",
+          "location": "Tengboche",
+          "lat": 27.836,
+          "lng": 86.7646
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "title": "Tengboche to Dingboche",
+      "description": "Above the treeline",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "Trek via Pangboche village",
+          "location": "Pangboche",
+          "lat": 27.857,
+          "lng": 86.7936
+        },
+        {
+          "time": "14:30",
+          "activity": "Arrive Dingboche, rest and rehydrate",
+          "location": "Dingboche",
+          "lat": 27.8925,
+          "lng": 86.8314
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "title": "Acclimatisation at Dingboche",
+      "description": "Second climb-high-sleep-low day",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Hike Nangkartshang Peak viewpoint",
+          "location": "Nangkartshang ridge above Dingboche",
+          "notes": "5,083 m — watch for symptoms of AMS",
+          "lat": 27.9,
+          "lng": 86.84
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "title": "Dingboche to Lobuche",
+      "description": "Past the Thukla memorials",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "Climb Thukla Pass and the climbers' memorials",
+          "location": "Thukla Pass",
+          "lat": 27.9264,
+          "lng": 86.8107
+        },
+        {
+          "time": "14:00",
+          "activity": "Overnight at Lobuche teahouse",
+          "location": "Lobuche",
+          "lat": 27.9481,
+          "lng": 86.8104
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "title": "Base Camp day",
+      "description": "The big one",
+      "activities": [
+        {
+          "time": "07:00",
+          "activity": "Trek along the Khumbu Glacier moraine to Gorak Shep",
+          "location": "Gorak Shep",
+          "lat": 27.9808,
+          "lng": 86.8286
+        },
+        {
+          "time": "11:30",
+          "activity": "Reach Everest Base Camp",
+          "location": "Everest Base Camp",
+          "notes": "5,364 m — photos at the boulder then back before dark",
+          "lat": 28.0026,
+          "lng": 86.8528
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "title": "Kala Patthar sunrise and descent",
+      "description": "Best Everest panorama of the trek",
+      "activities": [
+        {
+          "time": "04:30",
+          "activity": "Pre-dawn ascent of Kala Patthar",
+          "location": "Kala Patthar",
+          "notes": "5,545 m — coldest part of the trip, pack down layers",
+          "lat": 27.9959,
+          "lng": 86.8285
+        },
+        {
+          "time": "10:00",
+          "activity": "Long descent to Pheriche",
+          "location": "Pheriche",
+          "lat": 27.8964,
+          "lng": 86.8194
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "title": "Pheriche to Namche",
+      "description": "Retracing at speed with thick air",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "Descend through Tengboche and Kyangjuma",
+          "location": "Khumbu main trail",
+          "lat": 27.83,
+          "lng": 86.75
+        },
+        {
+          "time": "16:00",
+          "activity": "Celebration bakery stop",
+          "location": "Namche Bazaar bakery",
+          "lat": 27.8065,
+          "lng": 86.7138
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "title": "Return to Lukla and fly out",
+      "description": "Final trekking day and flight",
+      "activities": [
+        {
+          "time": "07:00",
+          "activity": "Final descent to Lukla",
+          "location": "Lukla",
+          "lat": 27.6869,
+          "lng": 86.7314
+        },
+        {
+          "time": "15:00",
+          "activity": "Flight back to Kathmandu, farewell dinner",
+          "location": "Kathmandu",
+          "notes": "Flight — weather dependent",
+          "lat": 27.7172,
+          "lng": 85.324
+        }
+      ]
+    }
+  ],
+  "finalText": "Here's a 12-day Everest Base Camp itinerary for October — the best trekking window of the year with stable skies and clear mountain views. I've built in two dedicated acclimatisation days (Namche and Dingboche) because altitude sickness is the number one reason people abandon this trek; going slower is genuinely faster here. October teahouse availability is tight, so book Namche and Gorak Shep nights ahead through your operator.\n\nKey risks to respect: AMS above 4,000 m (know the symptoms, descend if they worsen), the Lukla flight's weather delays (keep a buffer day before your international flight), and cold nights above Lobuche — pack a four-season sleeping bag. A licensed guide is now required for foreign trekkers in the Khumbu, and rescue insurance covering helicopter evacuation above 5,000 m is essential.\n\nEstimated cost: £2,450 per person, including the Kathmandu–Lukla flights (£320), Sagarmatha permits, a licensed guide and porter, teahouse accommodation and meals. Your £3,000 budget covers this comfortably with a contingency for a rest-day bakery habit in Namche Bazaar.\n\nSay the word and I'll search flights from your home airport to Kathmandu, or adjust the pacing — this plan suits someone running a couple of times a week."
+}

@@ -113,7 +113,19 @@ describe("POST /api/user/openai-key", () => {
     expect(res.status).toBe(400);
   });
 
-  it("saves the key and returns hint on success", async () => {
+  it("returns 503 and stores nothing when encryption is not configured", async () => {
+    vi.stubEnv("ENCRYPTION_KEY", "");
+    mockSession();
+    const res = await POST(postRequest({ key: "sk-proj-aaaaaaaaaaaaaaaaaaaaaaaaaaaa1234" }));
+    expect(res.status).toBe(503);
+    const data = await res.json();
+    expect(data.code).toBe("ENCRYPTION_UNAVAILABLE");
+    expect(mockUser.update).not.toHaveBeenCalled();
+    vi.unstubAllEnvs();
+  });
+
+  it("saves the key encrypted (never plaintext) and returns hint on success", async () => {
+    vi.stubEnv("ENCRYPTION_KEY", "a".repeat(64));
     mockSession();
     mockUser.update.mockResolvedValue({});
     const key = "sk-proj-aaaaaaaaaaaaaaaaaaaaaaaaaaaa1234";
@@ -123,14 +135,17 @@ describe("POST /api/user/openai-key", () => {
     expect(data.hasKey).toBe(true);
     expect(data.hint).toMatch(/sk-proj/);
     expect(data.hint).toMatch(/1234/);
-    expect(mockUser.update).toHaveBeenCalledWith(
-      expect.objectContaining({
-        data: { openAiApiKey: key },
-      }),
-    );
+    const updateArg = mockUser.update.mock.calls[0][0] as {
+      data: { openAiApiKey: string };
+    };
+    expect(updateArg.data.openAiApiKey).toBeTruthy();
+    expect(updateArg.data.openAiApiKey).not.toBe(key);
+    expect(updateArg.data.openAiApiKey).not.toContain("sk-");
+    vi.unstubAllEnvs();
   });
 
   it("hint does not contain the full key", async () => {
+    vi.stubEnv("ENCRYPTION_KEY", "a".repeat(64));
     mockSession();
     mockUser.update.mockResolvedValue({});
     const key = "sk-proj-aaaaaaaaaaaaaaaaaaaaaaaaaaaa1234";
@@ -138,6 +153,7 @@ describe("POST /api/user/openai-key", () => {
     const data = await res.json();
     expect(data.hint).not.toBe(key);
     expect(data.hint.length).toBeLessThan(key.length);
+    vi.unstubAllEnvs();
   });
 });
 

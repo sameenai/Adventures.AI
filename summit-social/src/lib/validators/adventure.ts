@@ -1,4 +1,5 @@
 import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
+import { httpUrlSchema } from "@/lib/validators/user";
 import { z } from "zod";
 
 export const createAdventureSchema = z.object({
@@ -31,14 +32,14 @@ export const createAdventureSchema = z.object({
   ]),
   difficulty: z.enum(["EASY", "MODERATE", "CHALLENGING", "EXTREME", "EXPEDITION_GRADE"]),
   durationDays: z.number().int().min(1).max(365),
-  coverImageUrl: z.string().url(),
-  albumUrl: z.string().url().optional(),
+  coverImageUrl: httpUrlSchema,
+  albumUrl: httpUrlSchema.optional(),
   albumPlatform: z.enum(["instagram", "google_photos", "flickr", "custom"]).optional(),
   highlights: z.array(z.string().max(500)).max(20).default([]),
   gear: z.array(z.string().max(200)).max(50).default([]),
   bestMonths: z.array(z.number().int().min(1).max(12)).max(12).default([]),
   estimatedCost: z.number().int().positive().optional(),
-  gpxTrackUrl: z.string().url().optional(),
+  gpxTrackUrl: httpUrlSchema.optional(),
   latitude: z.number().min(-90).max(90).optional(),
   longitude: z.number().min(-180).max(180).optional(),
   tags: z.array(z.string().max(50)).max(10).default([]),

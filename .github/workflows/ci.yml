@@ -36,3 +36,6 @@ jobs:
 
       - name: Integration tests
         run: npm run test:integration
+
+      - name: AI eval regression suite (replay)
+        run: npm run eval
