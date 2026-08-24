@@ -1,0 +1,13 @@
+{
+  "caseId": "cadence-repeat-traveller",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "name": "search_adventures",
+      "arguments": { "query": "alpine trek", "category": "TREKKING", "difficulty": "CHALLENGING" }
+    }
+  ],
+  "days": [],
+  "finalText": "Since you've done the Tour du Mont Blanc and the Laugavegur, you clearly like big-scenery hut-to-hut routes with a wild edge — and three months out puts you in late November, which shapes the shortlist. Based on your history, here are the three I'd pick between:\n\n1. **Torres del Paine W Trek, Chile** — my top recommendation. Late November is early summer in Patagonia: the W is the natural next step up from the TMB — similar hut (refugio) logistics, wilder weather, bigger drama. 5 days on trail, book refugios now as they sell out. ~£2,200 including flights.\n\n2. **GR20 south half, Corsica** — not viable in November (snow), but bookmark it for June. Given you handled Laugavegur's terrain, the GR20 is the technical step up you're ready for.\n\n3. **Everest region: Gokyo Lakes, Nepal** — late November is post-monsoon shoulder season: cold, crystal-clear and quiet. A step up in altitude rather than terrain — the natural progression if Iceland gave you a taste for otherworldly landscapes. ~£1,900 including flights.\n\nThe seasonal window makes Patagonia the strongest match for your dates and your trajectory. Want me to build the full Torres del Paine itinerary, including the Santiago–Puerto Natales connections?"
+}

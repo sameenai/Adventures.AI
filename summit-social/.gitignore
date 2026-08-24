@@ -12,3 +12,6 @@ playwright-report/
 .vercel
 .DS_Store
 *.DS_Store
+
+# AI eval harness local run output
+evals/results/

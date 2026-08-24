@@ -1,0 +1,137 @@
+{
+  "caseId": "novice-first-adventure",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "name": "search_adventures",
+      "arguments": { "query": "julian alps", "continent": "Europe", "difficulty": "EASY" }
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Arrive in Ljubljana",
+      "description": "Gentle start in Slovenia's tiny capital",
+      "activities": [
+        {
+          "time": "15:00",
+          "activity": "Airport transfer and old town wander",
+          "location": "Ljubljana old town",
+          "lat": 46.0511,
+          "lng": 14.5051
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Lake Bled and Vintgar Gorge",
+      "description": "Postcard Slovenia on easy paths",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Walk the boardwalks of Vintgar Gorge",
+          "location": "Vintgar Gorge",
+          "notes": "Flat, spectacular, 1.6 km each way",
+          "lat": 46.3939,
+          "lng": 14.0872
+        },
+        {
+          "time": "14:00",
+          "activity": "Row to the island church on Lake Bled",
+          "location": "Lake Bled",
+          "lat": 46.3625,
+          "lng": 14.0936
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Lake Bohinj day",
+      "description": "Quieter, wilder sister lake",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Lakeshore walk and swim",
+          "location": "Lake Bohinj",
+          "lat": 46.2833,
+          "lng": 13.8853
+        },
+        {
+          "time": "14:00",
+          "activity": "Cable car up Vogel for Julian Alps views",
+          "location": "Vogel viewpoint",
+          "lat": 46.2633,
+          "lng": 13.8403
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Triglav valley walk",
+      "description": "A real mountain day, without the scary bits",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Guided walk in the Seven Lakes Valley (lower section)",
+          "location": "Triglav National Park",
+          "notes": "Guesthouse picnic lunch included",
+          "lat": 46.3167,
+          "lng": 13.7833
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "title": "Soča Valley adventure day",
+      "description": "Turquoise water, gentle adrenaline",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Beginner-friendly whitewater rafting on the Soča",
+          "location": "Bovec",
+          "notes": "Grade II — full safety briefing and gear provided",
+          "lat": 46.3381,
+          "lng": 13.5525
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "title": "Kobarid history and waterfalls",
+      "description": "Culture plus one last short hike",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Walk to Kozjak Waterfall",
+          "location": "Kozjak, near Kobarid",
+          "lat": 46.2536,
+          "lng": 13.5919
+        },
+        {
+          "time": "13:00",
+          "activity": "Lunch of local trout at Hiša Franko village",
+          "location": "Kobarid",
+          "lat": 46.2475,
+          "lng": 13.5786
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "title": "Return to Ljubljana and fly home",
+      "description": "Easy morning, afternoon departure",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Scenic drive back through the Julian Alps foothills",
+          "location": "Ljubljana",
+          "notes": "Transfer approx 2 hours",
+          "lat": 46.0511,
+          "lng": 14.5051
+        }
+      ]
+    }
+  ],
+  "finalText": "For a first adventure holiday, Slovenia in September is close to perfect: warm days, thin crowds, and a compact country where nothing is more than two hours from anything else. This 7-day Julian Alps plan mixes genuinely adventurous moments — a guided national-park walk, beginner rafting on the Soča — with soft landings every evening in family-run guesthouses (expect great breakfasts).\n\nNothing here needs prior experience or a head for heights, and every day has an easy bail-out option if legs are tired. September water levels make the rafting gentle, and the Vintgar Gorge boardwalks reopen fully after summer maintenance.\n\nEstimated cost for two people: £1,350 total including flights from the UK, guesthouse B&B accommodation, the guided walk and rafting day — comfortably inside your £1,500 budget. Want me to search current flights to Ljubljana, or swap the rafting for a kayaking taster on Lake Bohinj?"
+}

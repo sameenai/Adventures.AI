@@ -1,0 +1,195 @@
+{
+  "caseId": "budget-constrained-backpacker",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "name": "search_adventures",
+      "arguments": { "query": "west highland way", "maxDuration": 10 }
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Train to Glasgow, first miles to Milngavie",
+      "description": "Start the West Highland Way",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Train from home to Glasgow, suburban rail to the obelisk trailhead",
+          "location": "Milngavie",
+          "notes": "Advance train tickets from ~£45 return",
+          "lat": 55.9421,
+          "lng": -4.3178
+        },
+        {
+          "time": "14:00",
+          "activity": "Walk the gentle opening section",
+          "location": "Mugdock Country Park",
+          "lat": 55.9647,
+          "lng": -4.3208
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Drymen to Balmaha over Conic Hill",
+      "description": "First views over Loch Lomond",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Climb Conic Hill",
+          "location": "Conic Hill",
+          "notes": "361 m — the Highland Boundary Fault underfoot",
+          "lat": 56.0733,
+          "lng": -4.5286
+        },
+        {
+          "time": "15:00",
+          "activity": "Camp at the lochside site",
+          "location": "Milarrochy Bay campsite, Balmaha",
+          "lat": 56.0919,
+          "lng": -4.5561
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Loch Lomond east shore",
+      "description": "The rough and beautiful bit",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Rocky lochside path past Rob Roy's cave",
+          "location": "Inversnaid",
+          "lat": 56.2497,
+          "lng": -4.6828
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Inverarnan to Tyndrum",
+      "description": "Open glen walking",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Follow the old military road up Glen Falloch",
+          "location": "Glen Falloch",
+          "lat": 56.3339,
+          "lng": -4.7133
+        },
+        {
+          "time": "16:00",
+          "activity": "Hostel night and pub dinner",
+          "location": "Tyndrum hostel",
+          "lat": 56.4364,
+          "lng": -4.7108
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "title": "Tyndrum to Kingshouse over Rannoch Moor",
+      "description": "The wildest stretch",
+      "activities": [
+        {
+          "time": "08:00",
+          "activity": "Cross Rannoch Moor by the drovers' road",
+          "location": "Rannoch Moor",
+          "notes": "No shelter for 15 km — pack waterproofs regardless of forecast",
+          "lat": 56.5936,
+          "lng": -4.7736
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "title": "Devil's Staircase to Kinlochleven",
+      "description": "Highest point of the Way",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Climb the Devil's Staircase",
+          "location": "Devil's Staircase, Glen Coe",
+          "notes": "548 m pass with Buachaille Etive Mòr behind you",
+          "lat": 56.6472,
+          "lng": -4.9294
+        },
+        {
+          "time": "15:00",
+          "activity": "Descend to the aluminium village",
+          "location": "Kinlochleven",
+          "lat": 56.7136,
+          "lng": -4.9614
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "title": "Lairig Mòr to Fort William",
+      "description": "Finish line day",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Walk the long glen of Lairig Mòr",
+          "location": "Lairig Mòr",
+          "lat": 56.7708,
+          "lng": -5.0664
+        },
+        {
+          "time": "15:30",
+          "activity": "Touch the Man with Sore Feet statue",
+          "location": "Gordon Square, Fort William",
+          "lat": 56.8198,
+          "lng": -5.1052
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "title": "Ben Nevis by the Mountain Track",
+      "description": "Optional summit day — the UK's highest point",
+      "activities": [
+        {
+          "time": "07:00",
+          "activity": "Ascend the Mountain Track from Glen Nevis",
+          "location": "Ben Nevis",
+          "notes": "1,345 m; 7–9 hours round trip. Check the mountain forecast, navigation skills essential in cloud",
+          "lat": 56.7969,
+          "lng": -5.0036
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "title": "Rest day in Fort William",
+      "description": "Earned idleness by the loch",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Loch Linnhe shoreline wander and seafood shack lunch",
+          "location": "Loch Linnhe, Fort William",
+          "lat": 56.8126,
+          "lng": -5.1177
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "title": "Scenic railway home",
+      "description": "One of the world's great train rides",
+      "activities": [
+        {
+          "time": "11:40",
+          "activity": "West Highland Line back to Glasgow, onward connection home",
+          "location": "Fort William railway station",
+          "notes": "Train — book the left side for Rannoch Moor views",
+          "lat": 56.8204,
+          "lng": -5.1062
+        }
+      ]
+    }
+  ],
+  "finalText": "£800 all-in from the UK is tight for flying anywhere worthwhile in May — but it's a generous budget for one of the world's classic walks on your doorstep: the West Highland Way, 154 km from Milngavie to Fort William, finished off with Ben Nevis if the weather plays.\n\nBudget breakdown for 10 days: trains ~£90 return, campsites and two hostel nights ~£140 (wild camping is legal in Scotland outside the Loch Lomond east-shore restriction zone in summer — carry the map of the camping management zones), food and pub meals ~£250, gear you may need to top up ~£100. Total ~£580, leaving £220 of headroom for a B&B night if the rain gets biblical, which in May it might.\n\nMay is the sweet spot: long daylight, few midges yet, and drier than average. Book the Milarrochy Bay campsite ahead for the Saturday night; everything else you can wing.\n\nIf you'd rather go abroad, the same budget stretches to the High Tatras in Slovakia (fly to Kraków from ~£60 return, mountain huts ~£25/night) — say the word and I'll plan that instead."
+}

@@ -1,0 +1,37 @@
+{
+  "promptSnapshotHash": "3bb450459aed157091b20133445ca1a7641f90c4768e37256bf806b7b0a3ecd3",
+  "aggregateScore": 0.9792,
+  "updatedAt": "2026-08-24T15:49:42.703Z",
+  "cases": [
+    {
+      "caseId": "budget-constrained-backpacker",
+      "transcript": "golden/budget-constrained-backpacker.json",
+      "score": 1
+    },
+    {
+      "caseId": "cadence-repeat-traveller",
+      "transcript": "golden/cadence-repeat-traveller.json",
+      "score": 1
+    },
+    {
+      "caseId": "flight-search-explicit",
+      "transcript": "golden/flight-search-explicit.json",
+      "score": 1
+    },
+    {
+      "caseId": "novice-first-adventure",
+      "transcript": "golden/novice-first-adventure.json",
+      "score": 1
+    },
+    {
+      "caseId": "seasonality-wrong-season",
+      "transcript": "golden/seasonality-wrong-season.json",
+      "score": 0.875
+    },
+    {
+      "caseId": "trekking-ebc-classic",
+      "transcript": "golden/trekking-ebc-classic.json",
+      "score": 1
+    }
+  ]
+}

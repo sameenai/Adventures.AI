@@ -1,0 +1,10 @@
+{
+  "caseId": "seasonality-wrong-season",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    { "name": "search_adventures", "arguments": { "query": "annapurna", "category": "TREKKING" } }
+  ],
+  "days": [],
+  "finalText": "I need to be honest with you before planning this: late July is the heart of the monsoon in the Annapurna region, and I wouldn't recommend the classic Circuit then. Expect daily heavy rain, near-permanent cloud hiding the peaks you're going for, leech-infested lower trails, and a real landslide risk on the road sections around Besisabar and the Marsyangdi valley. Flight and road delays compound the safety risk if your dates are tight.\n\nTwo alternatives I'd genuinely recommend instead:\n\n1. **Same dates, different mountains** — Upper Mustang or Ladakh's Markha Valley sit in rain shadows and are at their best in late July. Mustang gives you dramatic desert canyons and walled medieval villages; two weeks fits the classic Lo Manthang route perfectly.\n\n2. **Same trek, different dates** — shift the Annapurna Circuit to mid-October and you'll get the trip you're imagining: stable skies, clear views of Annapurna II and Gangapurna, and lively teahouses. I can plan either right now.\n\nIf you must go in July regardless, go in with eyes open: budget rest days for weather, hire a guide who knows current landslide conditions, carry leech socks and full rain protection, and check trail-condition reports weekly. Which direction would you like to take — Mustang in July, or Annapurna in October?"
+}
