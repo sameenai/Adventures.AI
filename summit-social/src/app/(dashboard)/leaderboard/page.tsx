@@ -1,6 +1,8 @@
 import { LeaderboardTable } from "@/components/leaderboard/leaderboard-table";
 import { Pagination } from "@/components/shared/pagination";
+import { CACHE_TTL } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import { getCached, setCache } from "@/lib/db/redis";
 import type { LeaderboardEntry } from "@/types";
 import Link from "next/link";
 
@@ -10,14 +12,18 @@ export const metadata = { title: "Leaderboard | Basecamper" };
 
 const PAGE_SIZE = 25;
 
-export default async function LeaderboardPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | undefined>>;
-}) {
-  const params = await searchParams;
-  const timeWindow = params.window ?? "all";
-  const page = Math.max(1, Number.parseInt(params.page ?? "1", 10) || 1);
+interface LeaderboardData {
+  total: number;
+  entries: LeaderboardEntry[];
+}
+
+// The leaderboard is identical for every visitor with the same window/page, so
+// serve it from Redis (CACHE_TTL.leaderboardTop) instead of re-running the
+// ranking queries on every request.
+async function getLeaderboardData(timeWindow: string, page: number): Promise<LeaderboardData> {
+  const cacheKey = `leaderboard:${timeWindow}:${page}`;
+  const cached = await getCached<LeaderboardData>(cacheKey);
+  if (cached) return cached;
 
   const dateFilter =
     timeWindow === "week"
@@ -58,7 +64,6 @@ export default async function LeaderboardPage({
       : Promise.resolve([]),
   ]);
 
-  const totalPages = Math.ceil(total / PAGE_SIZE);
   const rankOffset = (page - 1) * PAGE_SIZE;
 
   // Build a map of id → 1-based all-time rank
@@ -76,6 +81,23 @@ export default async function LeaderboardPage({
     const trend = currentRank < allTimeRank ? "up" : currentRank > allTimeRank ? "down" : "stable";
     return { rank: currentRank, adventure, trend, previousRank: allTimeRank };
   });
+
+  const data: LeaderboardData = { total, entries };
+  await setCache(cacheKey, data, CACHE_TTL.leaderboardTop);
+  return data;
+}
+
+export default async function LeaderboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
+  const params = await searchParams;
+  const timeWindow = params.window ?? "all";
+  const page = Math.max(1, Number.parseInt(params.page ?? "1", 10) || 1);
+
+  const { total, entries } = await getLeaderboardData(timeWindow, page);
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
   const windows = [
     { value: "all", label: "All Time" },

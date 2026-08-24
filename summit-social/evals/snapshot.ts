@@ -2,8 +2,10 @@ import { createHash } from "node:crypto";
 import { GEAR_SYSTEM_PROMPT, ITINERARY_SYSTEM_PROMPT } from "../src/lib/ai/prompts";
 import { chatTools } from "../src/lib/ai/tools";
 
-/** Model id used by api/chat — keep in sync with src/app/api/chat/route.ts. */
-export const CHAT_MODEL = "gpt-4o";
+// Single-sourced with production (src/lib/ai/model.ts) so the certified
+// surface can never diverge from what api/chat actually calls.
+export { CHAT_MODEL } from "../src/lib/ai/model";
+import { CHAT_MODEL } from "../src/lib/ai/model";
 
 /**
  * Hash of the complete AI surface: system prompts, tool definitions and model.

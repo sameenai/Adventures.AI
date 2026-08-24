@@ -36,7 +36,7 @@ vi.mock("@/lib/db/prisma", () => ({
     $transaction: vi.fn(),
   },
 }));
-vi.mock("@/lib/ai/openai", () => ({ openai: { chat: { completions: { create: vi.fn() } } } }));
+vi.mock("@/lib/ai/openai", () => ({ getOpenAI: () => ({ chat: { completions: { create: vi.fn() } } }) }));
 
 // ---------------------------------------------------------------------------
 // Imports after mocks
@@ -452,12 +452,19 @@ describe("POST /api/adventures/[id]/vote", () => {
 
   it("removes vote when already voted", async () => {
     mockSession("user-1");
-    (mockPrisma.vote.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "v-1" });
+    // Interactive transaction: the callback receives a tx client whose
+    // deleteMany reports an existing vote was removed.
     (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockImplementation(
-      (ops: unknown[]) => Promise.all(ops),
+      async (arg: unknown) => {
+        if (typeof arg === "function") {
+          return (arg as (tx: unknown) => Promise<unknown>)({
+            vote: { deleteMany: vi.fn().mockResolvedValue({ count: 1 }) },
+            adventure: { update: vi.fn().mockResolvedValue({}) },
+          });
+        }
+        return Promise.all(arg as unknown[]);
+      },
     );
-    (mockPrisma.vote.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
-    (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
     const response = await voteAdventure(
       new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
@@ -470,11 +477,17 @@ describe("POST /api/adventures/[id]/vote", () => {
 
   it("adds vote and sends milestone notification at 10 votes", async () => {
     mockSession("user-2");
-    (mockPrisma.vote.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
-    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockResolvedValue([
-      {},
-      { userId: "user-1", title: "Nepal Trek", voteCount: 10 },
-    ]);
+    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockImplementation(
+      async (arg: unknown) => {
+        if (typeof arg === "function") {
+          return (arg as (tx: unknown) => Promise<unknown>)({
+            vote: { deleteMany: vi.fn().mockResolvedValue({ count: 0 }) },
+            adventure: { update: vi.fn() },
+          });
+        }
+        return [{}, { userId: "user-1", title: "Nepal Trek", voteCount: 10 }];
+      },
+    );
     (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
     const response = await voteAdventure(
@@ -494,12 +507,17 @@ describe("POST /api/adventures/[id]/vote", () => {
 
   it("does not send milestone notification at non-milestone vote count", async () => {
     mockSession("user-2");
-    (mockPrisma.vote.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
-    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockResolvedValue([
-      {},
-      { userId: "user-1", title: "Nepal Trek", voteCount: 7 },
-    ]);
-
+    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockImplementation(
+      async (arg: unknown) => {
+        if (typeof arg === "function") {
+          return (arg as (tx: unknown) => Promise<unknown>)({
+            vote: { deleteMany: vi.fn().mockResolvedValue({ count: 0 }) },
+            adventure: { update: vi.fn() },
+          });
+        }
+        return [{}, { userId: "user-1", title: "Nepal Trek", voteCount: 7 }];
+      },
+    );
     const response = await voteAdventure(
       new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
@@ -1358,7 +1376,7 @@ describe("PATCH /api/itineraries/[id]", () => {
 
   it("updates and returns the itinerary", async () => {
     mockSession();
-    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1" });
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1", status: "DRAFT" });
     (mockPrisma.itinerary.update as ReturnType<typeof vi.fn>).mockResolvedValue({
       id: "itin-1",
       title: "Updated Trek",
@@ -1407,7 +1425,7 @@ describe("PATCH /api/itineraries/[id]", () => {
 
   it("passes all optional fields to prisma update when provided", async () => {
     mockSession();
-    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1" });
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1", status: "DRAFT" });
     const updateMock = mockPrisma.itinerary.update as ReturnType<typeof vi.fn>;
     updateMock.mockResolvedValue({ id: "itin-1", title: "Nepal Trek", days: [] });
 
@@ -1445,7 +1463,7 @@ describe("PATCH /api/itineraries/[id]", () => {
 
   it("omits undefined optional fields from prisma update", async () => {
     mockSession();
-    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1" });
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1", status: "DRAFT" });
     const updateMock = mockPrisma.itinerary.update as ReturnType<typeof vi.fn>;
     updateMock.mockResolvedValue({ id: "itin-1", days: [] });
 
@@ -1466,7 +1484,7 @@ describe("PATCH /api/itineraries/[id]", () => {
 
   it("sets description and budget to explicit values including falsy ones", async () => {
     mockSession();
-    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1" });
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1", status: "DRAFT" });
     const updateMock = mockPrisma.itinerary.update as ReturnType<typeof vi.fn>;
     updateMock.mockResolvedValue({ id: "itin-1", days: [] });
 
@@ -1495,7 +1513,7 @@ describe("DELETE /api/itineraries/[id]", () => {
 
   it("deletes itinerary and returns 204", async () => {
     mockSession();
-    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1" });
+    (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "itin-1", status: "DRAFT" });
     (mockPrisma.itinerary.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
     const response = await deleteItinerary(

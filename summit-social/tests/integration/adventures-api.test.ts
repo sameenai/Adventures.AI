@@ -28,6 +28,7 @@ vi.mock("@/lib/db/prisma", () => ({
       findUnique: vi.fn(),
       create: vi.fn().mockResolvedValue({}),
       delete: vi.fn().mockResolvedValue({}),
+      groupBy: vi.fn(),
     },
     $transaction: vi.fn().mockResolvedValue([]),
   },
@@ -47,15 +48,12 @@ vi.mock("@/lib/db/redis", () => ({
   setCache: vi.fn().mockResolvedValue(undefined),
 }));
 
+import { DELETE as deleteAdventure, GET as getAdventure } from "@/app/api/adventures/[id]/route";
+import { POST as voteOnAdventure } from "@/app/api/adventures/[id]/vote/route";
 // ---------------------------------------------------------------------------
 // Imports after mocks
 // ---------------------------------------------------------------------------
-import { GET as getAdventures, POST as createAdventure } from "@/app/api/adventures/route";
-import {
-  GET as getAdventure,
-  DELETE as deleteAdventure,
-} from "@/app/api/adventures/[id]/route";
-import { POST as voteOnAdventure } from "@/app/api/adventures/[id]/vote/route";
+import { POST as createAdventure, GET as getAdventures } from "@/app/api/adventures/route";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
 import { getServerSession } from "next-auth";
@@ -67,7 +65,10 @@ const mockRateLimit = rateLimit as ReturnType<typeof vi.fn>;
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-function makeRequest(url = "http://localhost/api/adventures", init?: ConstructorParameters<typeof NextRequest>[1]) {
+function makeRequest(
+  url = "http://localhost/api/adventures",
+  init?: ConstructorParameters<typeof NextRequest>[1],
+) {
   return new NextRequest(url, init);
 }
 
@@ -106,7 +107,9 @@ describe("GET /api/adventures", () => {
   afterEach(() => vi.clearAllMocks());
 
   it("returns 200 with adventure list", async () => {
-    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([sampleAdventure]);
+    (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      sampleAdventure,
+    ]);
 
     const response = await getAdventures(makeRequest());
     expect(response.status).toBe(200);
@@ -118,12 +121,13 @@ describe("GET /api/adventures", () => {
   });
 
   it("returns pagination cursor when there are more items", async () => {
-    const adventures = Array.from({ length: 21 }, (_, i) => ({ ...sampleAdventure, id: `adv-${i}` }));
+    const adventures = Array.from({ length: 21 }, (_, i) => ({
+      ...sampleAdventure,
+      id: `adv-${i}`,
+    }));
     (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mockResolvedValue(adventures);
 
-    const response = await getAdventures(
-      makeRequest("http://localhost/api/adventures?limit=20"),
-    );
+    const response = await getAdventures(makeRequest("http://localhost/api/adventures?limit=20"));
     const data = await response.json();
 
     expect(data.items).toHaveLength(20);
@@ -151,7 +155,8 @@ describe("GET /api/adventures", () => {
     );
     expect(response.status).toBe(200);
 
-    const findManyCall = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    const findManyCall = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock
+      .calls[0][0];
     expect(findManyCall.where.category).toBe("TREKKING");
   });
 
@@ -219,11 +224,15 @@ describe("GET /api/adventures", () => {
     );
     expect(searchCondition).toBeDefined();
     expect(searchCondition.OR).toHaveLength(3);
-    expect(searchCondition.OR[0]).toMatchObject({ title: { contains: "nepal", mode: "insensitive" } });
+    expect(searchCondition.OR[0]).toMatchObject({
+      title: { contains: "nepal", mode: "insensitive" },
+    });
     expect(searchCondition.OR[1]).toMatchObject({
       description: { contains: "nepal", mode: "insensitive" },
     });
-    expect(searchCondition.OR[2]).toMatchObject({ location: { contains: "nepal", mode: "insensitive" } });
+    expect(searchCondition.OR[2]).toMatchObject({
+      location: { contains: "nepal", mode: "insensitive" },
+    });
   });
 
   it("applies month filter as OR over bestMonths array inside AND", async () => {
@@ -281,7 +290,10 @@ describe("GET /api/adventures", () => {
       (c: { OR?: unknown[] }) => c.OR?.[0] && "climate" in (c.OR[0] as object),
     );
     expect(climateCondition).toBeDefined();
-    expect(climateCondition.OR).toEqual([{ climate: { has: "hot" } }, { climate: { has: "cold" } }]);
+    expect(climateCondition.OR).toEqual([
+      { climate: { has: "hot" } },
+      { climate: { has: "cold" } },
+    ]);
   });
 
   it("applies keyset where condition for votes sort when ?cursor= is provided", async () => {
@@ -343,6 +355,97 @@ describe("GET /api/adventures", () => {
 
     const call = (mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
     expect(call.where.OR).toBeUndefined();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// GET /api/adventures?sortBy=trending
+// ---------------------------------------------------------------------------
+describe("GET /api/adventures?sortBy=trending", () => {
+  afterEach(() => vi.clearAllMocks());
+
+  const mockGroupBy = () => mockPrisma.vote.groupBy as ReturnType<typeof vi.fn>;
+  const mockFindMany = () => mockPrisma.adventure.findMany as ReturnType<typeof vi.fn>;
+
+  it("returns adventures ordered by the 7-day vote ranking", async () => {
+    mockGroupBy().mockResolvedValue([
+      { adventureId: "adv-b", _count: { adventureId: 9 } },
+      { adventureId: "adv-a", _count: { adventureId: 5 } },
+      { adventureId: "adv-c", _count: { adventureId: 2 } },
+    ]);
+    // findMany deliberately returns the rows out of ranking order
+    mockFindMany().mockResolvedValue([
+      { ...sampleAdventure, id: "adv-a" },
+      { ...sampleAdventure, id: "adv-c" },
+      { ...sampleAdventure, id: "adv-b" },
+    ]);
+
+    const response = await getAdventures(
+      makeRequest("http://localhost/api/adventures?sortBy=trending"),
+    );
+    expect(response.status).toBe(200);
+
+    const data = await response.json();
+    expect(data.items.map((i: { id: string }) => i.id)).toEqual(["adv-b", "adv-a", "adv-c"]);
+    expect(data.nextCursor).toBeUndefined();
+  });
+
+  it("restricts the vote groupBy to published adventures matching the active filters", async () => {
+    mockGroupBy().mockResolvedValue([]);
+
+    await getAdventures(
+      makeRequest("http://localhost/api/adventures?sortBy=trending&category=TREKKING"),
+    );
+
+    const groupByCall = mockGroupBy().mock.calls[0][0];
+    expect(groupByCall.by).toEqual(["adventureId"]);
+    expect(groupByCall.where.createdAt.gte).toBeInstanceOf(Date);
+    expect(groupByCall.where.adventure).toEqual({
+      is: expect.objectContaining({ published: true, category: "TREKKING" }),
+    });
+    expect(groupByCall.orderBy).toEqual({ _count: { adventureId: "desc" } });
+    // findMany is skipped entirely when nothing ranked
+    expect(mockFindMany()).not.toHaveBeenCalled();
+  });
+
+  it("paginates by rank offset: nextCursor fetches the next slice", async () => {
+    const ranked = Array.from({ length: 25 }, (_, i) => ({
+      adventureId: `adv-${i}`,
+      _count: { adventureId: 25 - i },
+    }));
+    mockGroupBy().mockResolvedValue(ranked);
+    mockFindMany().mockImplementation((args: { where: { id: { in: string[] } } }) =>
+      Promise.resolve(args.where.id.in.map((id) => ({ ...sampleAdventure, id }))),
+    );
+
+    const res1 = await getAdventures(
+      makeRequest("http://localhost/api/adventures?sortBy=trending&limit=20"),
+    );
+    const page1 = await res1.json();
+    expect(page1.items).toHaveLength(20);
+    expect(page1.items[0].id).toBe("adv-0");
+    expect(page1.items[19].id).toBe("adv-19");
+    // Cursor uses the shared base64url encoding of a rank offset
+    expect(Buffer.from(page1.nextCursor, "base64url").toString("utf8")).toBe("trending:20");
+
+    const res2 = await getAdventures(
+      makeRequest(
+        `http://localhost/api/adventures?sortBy=trending&limit=20&cursor=${page1.nextCursor}`,
+      ),
+    );
+    const page2 = await res2.json();
+    expect(page2.items.map((i: { id: string }) => i.id)).toEqual([
+      "adv-20",
+      "adv-21",
+      "adv-22",
+      "adv-23",
+      "adv-24",
+    ]);
+    expect(page2.nextCursor).toBeUndefined();
+
+    // The offset moved: page 2 only fetched the second slice of ranked ids
+    const secondFetch = mockFindMany().mock.calls[1][0];
+    expect(secondFetch.where.id.in).toEqual(["adv-20", "adv-21", "adv-22", "adv-23", "adv-24"]);
   });
 });
 
@@ -491,7 +594,9 @@ describe("DELETE /api/adventures/[id]", () => {
 
   it("deletes adventure and returns 204", async () => {
     mockSession("user-1");
-    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
     (mockPrisma.adventure.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
     const response = await deleteAdventure(new Request("http://localhost/api/adventures/adv-1"), {
@@ -502,7 +607,9 @@ describe("DELETE /api/adventures/[id]", () => {
 
   it("returns 401 when not authenticated", async () => {
     noSession();
-    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
 
     const response = await deleteAdventure(new Request("http://localhost/api/adventures/adv-1"), {
       params: Promise.resolve({ id: "adv-1" }),
@@ -522,7 +629,9 @@ describe("DELETE /api/adventures/[id]", () => {
 
   it("returns 403 when user doesn't own the adventure", async () => {
     mockSession("user-2");
-    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ userId: "user-1" });
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      userId: "user-1",
+    });
 
     const response = await deleteAdventure(new Request("http://localhost/api/adventures/adv-1"), {
       params: Promise.resolve({ id: "adv-1" }),
@@ -541,15 +650,24 @@ describe("POST /api/adventures/[id]/vote", () => {
 
   it("creates a vote and returns { voted: true }", async () => {
     mockSession("user-1");
-    (mockPrisma.vote.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
-    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockResolvedValue([
-      {},
-      { userId: "owner-1", title: "Nepal Trek", voteCount: 5 },
-    ]);
+    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockImplementation(
+      async (arg: unknown) => {
+        if (typeof arg === "function") {
+          return (arg as (tx: unknown) => Promise<unknown>)({
+            vote: { deleteMany: vi.fn().mockResolvedValue({ count: 0 }) },
+            adventure: { update: vi.fn().mockResolvedValue({}) },
+          });
+        }
+        return [{}, { userId: "owner-1", title: "Nepal Trek", voteCount: 5 }];
+      },
+    );
 
-    const response = await voteOnAdventure(new Request("http://localhost/api/adventures/adv-1/vote"), {
-      params: Promise.resolve({ id: "adv-1" }),
-    });
+    const response = await voteOnAdventure(
+      new Request("http://localhost/api/adventures/adv-1/vote"),
+      {
+        params: Promise.resolve({ id: "adv-1" }),
+      },
+    );
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data.voted).toBe(true);
@@ -557,12 +675,24 @@ describe("POST /api/adventures/[id]/vote", () => {
 
   it("removes an existing vote and returns { voted: false }", async () => {
     mockSession("user-1");
-    (mockPrisma.vote.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "vote-1" });
-    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    (mockPrisma.$transaction as ReturnType<typeof vi.fn>).mockImplementation(
+      async (arg: unknown) => {
+        if (typeof arg === "function") {
+          return (arg as (tx: unknown) => Promise<unknown>)({
+            vote: { deleteMany: vi.fn().mockResolvedValue({ count: 1 }) },
+            adventure: { update: vi.fn().mockResolvedValue({}) },
+          });
+        }
+        return [];
+      },
+    );
 
-    const response = await voteOnAdventure(new Request("http://localhost/api/adventures/adv-1/vote"), {
-      params: Promise.resolve({ id: "adv-1" }),
-    });
+    const response = await voteOnAdventure(
+      new Request("http://localhost/api/adventures/adv-1/vote"),
+      {
+        params: Promise.resolve({ id: "adv-1" }),
+      },
+    );
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data.voted).toBe(false);
@@ -571,9 +701,12 @@ describe("POST /api/adventures/[id]/vote", () => {
   it("returns 401 when not authenticated", async () => {
     noSession();
 
-    const response = await voteOnAdventure(new Request("http://localhost/api/adventures/adv-1/vote"), {
-      params: Promise.resolve({ id: "adv-1" }),
-    });
+    const response = await voteOnAdventure(
+      new Request("http://localhost/api/adventures/adv-1/vote"),
+      {
+        params: Promise.resolve({ id: "adv-1" }),
+      },
+    );
     expect(response.status).toBe(401);
   });
 
@@ -581,9 +714,12 @@ describe("POST /api/adventures/[id]/vote", () => {
     mockSession("user-1");
     mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
 
-    const response = await voteOnAdventure(new Request("http://localhost/api/adventures/adv-1/vote"), {
-      params: Promise.resolve({ id: "adv-1" }),
-    });
+    const response = await voteOnAdventure(
+      new Request("http://localhost/api/adventures/adv-1/vote"),
+      {
+        params: Promise.resolve({ id: "adv-1" }),
+      },
+    );
     expect(response.status).toBe(429);
   });
 });

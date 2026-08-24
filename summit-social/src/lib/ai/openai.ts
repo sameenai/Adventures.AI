@@ -1,16 +1,17 @@
 import OpenAI from "openai";
 
-const globalForOpenAI = globalThis as unknown as { openai: OpenAI | undefined };
+const clients = new Map<string, OpenAI>();
 
-function getOpenAI(): OpenAI {
-  if (!globalForOpenAI.openai) {
-    globalForOpenAI.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+/**
+ * OpenAI client factory. Pass a BYOK key for per-user clients; omit for the
+ * platform key. Instances are cached per key.
+ */
+export function getOpenAI(apiKey?: string): OpenAI {
+  const key = apiKey ?? process.env.OPENAI_API_KEY ?? "";
+  let client = clients.get(key);
+  if (!client) {
+    client = new OpenAI({ apiKey: key });
+    clients.set(key, client);
   }
-  return globalForOpenAI.openai;
+  return client;
 }
-
-export const openai = new Proxy({} as OpenAI, {
-  get(_target, prop) {
-    return (getOpenAI() as unknown as Record<string | symbol, unknown>)[prop];
-  },
-});

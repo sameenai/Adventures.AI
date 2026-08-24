@@ -4,6 +4,7 @@ import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
 import { getClientIp } from "@/lib/request";
+import { Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -44,18 +45,37 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
   const fingerprint = `${viewerKey(request, session?.user?.id)}:${adventureId}`;
 
-  await prisma.adventureView.upsert({
-    where: { adventureId_fingerprint: { adventureId, fingerprint } },
-    create: { adventureId, fingerprint, userId: session?.user?.id ?? null },
-    update: {},
-  });
-
-  const count = await prisma.adventureView.count({ where: { adventureId } });
-  return NextResponse.json({ count });
+  // Denormalized counter (mirrors voteCount): increment only when this viewer
+  // key is new, so the hottest read path never runs COUNT(*) over view rows —
+  // which also lets the retention job prune old rows without losing totals.
+  try {
+    await prisma.adventureView.create({
+      data: { adventureId, fingerprint, userId: session?.user?.id ?? null },
+    });
+    const adventure = await prisma.adventure.update({
+      where: { id: adventureId },
+      data: { viewCount: { increment: 1 } },
+      select: { viewCount: true },
+    });
+    return NextResponse.json({ count: adventure.viewCount });
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
+      // Repeat view within this key's window — count unchanged.
+      const adventure = await prisma.adventure.findUnique({
+        where: { id: adventureId },
+        select: { viewCount: true },
+      });
+      return NextResponse.json({ count: adventure?.viewCount ?? 0 });
+    }
+    throw err;
+  }
 }
 
 export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id: adventureId } = await params;
-  const count = await prisma.adventureView.count({ where: { adventureId } });
-  return NextResponse.json({ count });
+  const adventure = await prisma.adventure.findUnique({
+    where: { id: adventureId },
+    select: { viewCount: true },
+  });
+  return NextResponse.json({ count: adventure?.viewCount ?? 0 });
 }

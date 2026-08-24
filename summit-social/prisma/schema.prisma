@@ -37,49 +37,14 @@ model User {
   votes            Vote[]
   itineraries      Itinerary[]
   comments         Comment[]
-  accounts         Account[]
-  sessions         Session[]
   following        Follow[]          @relation("Follower")
   followers        Follow[]          @relation("Following")
   bookmarks        Bookmark[]
   notifications    Notification[]
   collections      Collection[]
+  flightBookings   FlightBooking[]
   commentReactions CommentReaction[]
   adventureViews   AdventureView[]
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
 }
 
 model Adventure {
@@ -113,6 +78,7 @@ model Adventure {
   comments      Comment[]
   tags          Tag[]
   voteCount     Int        @default(0)
+  viewCount     Int        @default(0)
   bookmarks       Bookmark[]
   collectionItems CollectionItem[]
   views           AdventureView[]
@@ -222,22 +188,48 @@ model ItineraryDay {
 }
 
 model FlightBooking {
-  id           String     @id @default(cuid())
-  provider     String
-  providerRef  String
-  origin       String
-  destination  String
-  departureAt  DateTime
-  arrivalAt    DateTime
-  airline      String
-  flightNumber String
-  priceGBP     Int
-  currency     String     @default("GBP")
-  cabinClass   String     @default("economy")
-  deepLink     String
-  itineraryId  String?
-  itinerary    Itinerary? @relation(fields: [itineraryId], references: [id])
-  createdAt    DateTime   @default(now())
+  id                    String              @id @default(cuid())
+  status                FlightBookingStatus @default(SELECTED)
+  provider              String
+  providerRef           String
+  origin                String
+  destination           String
+  departureAt           DateTime
+  arrivalAt             DateTime
+  airline               String
+  flightNumber          String
+  priceGBP              Int
+  currency              String              @default("GBP")
+  cabinClass            String              @default("economy")
+  deepLink              String?
+  // Return leg for round trips (a single-row simplification until multi-leg
+  // segments are needed; segments Json can hold connections).
+  returnDepartureAt     DateTime?
+  returnArrivalAt       DateTime?
+  segments              Json?
+  passengers            Json?
+  stripePaymentIntentId String?
+  orderRef              String?
+  userId                String?
+  user                  User?               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itineraryId           String?
+  itinerary             Itinerary?          @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  @@index([userId, createdAt(sort: Desc)])
+}
+
+// SELECTED: user picked an offer. PRICE_CONFIRMED: re-validated with the
+// provider. PAID: money captured. TICKETED: PNR issued. Terminal states:
+// CANCELLED, REFUNDED. Transitions are enforced in the API layer.
+enum FlightBookingStatus {
+  SELECTED
+  PRICE_CONFIRMED
+  PAID
+  TICKETED
+  CANCELLED
+  REFUNDED
 }
 
 enum Category {

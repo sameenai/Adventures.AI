@@ -124,6 +124,7 @@ const baseAdventure: AdventureWithUser = {
   continent: "Asia",
   published: true,
   voteCount: 42,
+  viewCount: 0,
   albumUrl: null,
   albumPlatform: null,
   galleryImages: [],

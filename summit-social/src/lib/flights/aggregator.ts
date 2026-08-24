@@ -1,14 +1,25 @@
 import { createHash } from "node:crypto";
+import { CACHE_TTL } from "@/lib/constants";
 import { getCached, setCache } from "@/lib/db/redis";
 import { logger } from "@/lib/logger";
 import { searchAmadeusFlights } from "./amadeus";
 import { searchSkyscannerFlights } from "./skyscanner";
 import type { FlightOffer, FlightSearch, FlightSearchResult } from "./types";
 
-const NO_PROVIDERS =
-  !process.env.AMADEUS_CLIENT_ID &&
-  !process.env.AMADEUS_CLIENT_SECRET &&
-  !process.env.SKYSCANNER_API_KEY;
+// Evaluated per call, not at module load — env vars can change between
+// Cloud Run revisions sharing a warm container.
+function hasConfiguredProviders(): boolean {
+  return Boolean(
+    (process.env.AMADEUS_CLIENT_ID && process.env.AMADEUS_CLIENT_SECRET) ||
+      process.env.SKYSCANNER_API_KEY,
+  );
+}
+
+// Mock offers are a dev/demo convenience only — production must never
+// fabricate flights.
+function mockOffersAllowed(): boolean {
+  return process.env.NODE_ENV !== "production" || process.env.DEMO_MODE === "true";
+}
 
 function buildMockOffers(search: FlightSearch): FlightOffer[] {
   const dep = new Date(`${search.departureDate}T08:30:00Z`);
@@ -45,7 +56,9 @@ function buildMockOffers(search: FlightSearch): FlightOffer[] {
   });
 }
 
-const CACHE_TTL_SECONDS = 900; // 15 minutes
+// Empty result sets are cached only briefly — a transient provider outage
+// must not pin "no flights" for the full TTL.
+const EMPTY_RESULT_TTL_SECONDS = 60;
 
 function searchCacheKey(search: FlightSearch): string {
   const hash = createHash("sha256").update(JSON.stringify(search)).digest("hex").slice(0, 16);
@@ -59,11 +72,20 @@ export async function searchFlights(search: FlightSearch): Promise<FlightSearchR
     return { ...cached, cachedAt: cached.cachedAt };
   }
 
-  if (NO_PROVIDERS) {
+  if (!hasConfiguredProviders()) {
+    if (mockOffersAllowed()) {
+      return {
+        search,
+        offers: buildMockOffers(search),
+        cachedAt: new Date().toISOString(),
+      };
+    }
+    logger.error("No flight providers configured — returning empty result");
     return {
       search,
-      offers: buildMockOffers(search),
+      offers: [],
       cachedAt: new Date().toISOString(),
+      providersUnavailable: true,
     };
   }
 
@@ -94,6 +116,7 @@ export async function searchFlights(search: FlightSearch): Promise<FlightSearchR
     cachedAt: new Date().toISOString(),
   };
 
-  await setCache(cacheKey, result, CACHE_TTL_SECONDS);
+  const ttlSeconds = offers.length > 0 ? CACHE_TTL.flightResults : EMPTY_RESULT_TTL_SECONDS;
+  await setCache(cacheKey, result, ttlSeconds);
   return result;
 }

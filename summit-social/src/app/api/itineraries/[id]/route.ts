@@ -2,7 +2,7 @@ import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
-import { updateItinerarySchema } from "@/lib/validators/itinerary";
+import { isLegalStatusTransition, updateItinerarySchema } from "@/lib/validators/itinerary";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -51,7 +51,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   const itinerary = await prisma.itinerary.findUnique({
     where: { id, userId: session.user.id },
-    select: { id: true },
+    select: { id: true, status: true },
   });
 
   if (!itinerary) {
@@ -72,6 +72,16 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   }
 
   const { title, description, status, startDate, endDate, budget, travellers } = parsed.data;
+
+  if (status !== undefined && !isLegalStatusTransition(itinerary.status, status)) {
+    return NextResponse.json(
+      {
+        error: `Cannot move itinerary from ${itinerary.status} to ${status}`,
+        code: "ILLEGAL_TRANSITION",
+      },
+      { status: 409 },
+    );
+  }
 
   const updated = await prisma.itinerary.update({
     where: { id },

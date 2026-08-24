@@ -34,7 +34,7 @@ vi.mock("@/lib/db/prisma", () => ({
       count: vi.fn(),
     },
     adventureView: {
-      upsert: vi.fn(),
+      create: vi.fn(),
       count: vi.fn(),
     },
     vote: {
@@ -49,7 +49,7 @@ vi.mock("@/lib/db/prisma", () => ({
   },
 }));
 vi.mock("@/lib/ai/openai", () => ({
-  openai: {
+  getOpenAI: () => ({
     chat: {
       completions: {
         create: vi.fn().mockResolvedValue({
@@ -57,7 +57,7 @@ vi.mock("@/lib/ai/openai", () => ({
         }),
       },
     },
-  },
+  }),
 }));
 
 // ---------------------------------------------------------------------------
@@ -296,8 +296,8 @@ describe("POST /api/adventures/[id]/view", () => {
 
   it("derives the viewer key server-side — no client fingerprint accepted", async () => {
     noSession();
-    (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
-    (mockPrisma.adventureView.count as ReturnType<typeof vi.fn>).mockResolvedValue(1);
+    (mockPrisma.adventureView.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
+    (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({ viewCount: 1 });
     await recordView(
       new NextRequest("http://localhost/api/adventures/adv-1/view", {
         method: "POST",
@@ -308,8 +308,8 @@ describe("POST /api/adventures/[id]/view", () => {
       }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
-    const arg = (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mock.calls[0][0];
-    const fp = arg.where.adventureId_fingerprint.fingerprint as string;
+    const arg = (mockPrisma.adventureView.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    const fp = arg.data.fingerprint as string;
     // anonymous viewers get a salted hash, never raw network data
     expect(fp).toMatch(/^anon:[0-9a-f]{32}:adv-1$/);
     expect(fp).not.toContain("203.0.113.9");
@@ -318,21 +318,21 @@ describe("POST /api/adventures/[id]/view", () => {
 
   it("keys signed-in views on the user id", async () => {
     mockGetSession.mockResolvedValue({ user: { id: "user-77" } });
-    (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
-    (mockPrisma.adventureView.count as ReturnType<typeof vi.fn>).mockResolvedValue(1);
+    (mockPrisma.adventureView.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
+    (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({ viewCount: 1 });
     await recordView(
       new NextRequest("http://localhost/api/adventures/adv-1/view", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
-    const arg = (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mock.calls[0][0];
-    expect(arg.where.adventureId_fingerprint.fingerprint).toBe("user:user-77:adv-1");
-    expect(arg.create.userId).toBe("user-77");
+    const arg = (mockPrisma.adventureView.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(arg.data.fingerprint).toBe("user:user-77:adv-1");
+    expect(arg.data.userId).toBe("user-77");
   });
 
-  it("records a view and returns the count", async () => {
+  it("records a new view by incrementing the denormalized counter", async () => {
     noSession();
-    (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
-    (mockPrisma.adventureView.count as ReturnType<typeof vi.fn>).mockResolvedValue(5);
+    (mockPrisma.adventureView.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
+    (mockPrisma.adventure.update as ReturnType<typeof vi.fn>).mockResolvedValue({ viewCount: 5 });
     const res = await recordView(
       new NextRequest("http://localhost/api/adventures/adv-1/view", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
@@ -340,19 +340,28 @@ describe("POST /api/adventures/[id]/view", () => {
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.count).toBe(5);
+    expect(mockPrisma.adventure.update).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { viewCount: { increment: 1 } } }),
+    );
   });
 
-  it("upserts by fingerprint so duplicate views are deduplicated", async () => {
+  it("does not increment on repeat views (unique violation)", async () => {
     noSession();
-    (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
-    (mockPrisma.adventureView.count as ReturnType<typeof vi.fn>).mockResolvedValue(1);
-    await recordView(
+    const { Prisma } = await import("@prisma/client");
+    (mockPrisma.adventureView.create as ReturnType<typeof vi.fn>).mockRejectedValue(
+      new Prisma.PrismaClientKnownRequestError("dup", { code: "P2002", clientVersion: "6" }),
+    );
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      viewCount: 9,
+    });
+    const res = await recordView(
       new NextRequest("http://localhost/api/adventures/adv-1/view", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
-    expect(mockPrisma.adventureView.upsert).toHaveBeenCalledWith(
-      expect.objectContaining({ update: {} }),
-    );
+    expect(res.status).toBe(200);
+    const data = await res.json();
+    expect(data.count).toBe(9);
+    expect(mockPrisma.adventure.update).not.toHaveBeenCalled();
   });
 });
 
@@ -362,12 +371,13 @@ describe("POST /api/adventures/[id]/view", () => {
 describe("GET /api/adventures/[id]/view", () => {
   afterEach(() => vi.clearAllMocks());
 
-  it("returns the view count", async () => {
-    (mockPrisma.adventureView.count as ReturnType<typeof vi.fn>).mockResolvedValue(42);
-    const res = await getViewCount(
-      new NextRequest("http://localhost/api/adventures/adv-1/view"),
-      { params: Promise.resolve({ id: "adv-1" }) },
-    );
+  it("returns the denormalized view count", async () => {
+    (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
+      viewCount: 42,
+    });
+    const res = await getViewCount(new NextRequest("http://localhost/api/adventures/adv-1/view"), {
+      params: Promise.resolve({ id: "adv-1" }),
+    });
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.count).toBe(42);

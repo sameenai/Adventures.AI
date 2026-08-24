@@ -1,5 +1,7 @@
-import { ItineraryDaySchema, SearchAdventuresArgsSchema } from "@/lib/ai/parser";
+import { runAgentLoop, sanitizeStoredHistory } from "@/lib/ai/chat-service";
+import { CHAT_MODEL } from "@/lib/ai/model";
 import { ITINERARY_SYSTEM_PROMPT, buildUserContextPrompt } from "@/lib/ai/prompts";
+import { chatToolExecutors } from "@/lib/ai/tool-executors";
 import { chatTools } from "@/lib/ai/tools";
 import { authOptions } from "@/lib/auth/config";
 import { CHAT_HISTORY_MAX_MESSAGES, PLANS, RATE_LIMITS } from "@/lib/constants";
@@ -12,12 +14,6 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import OpenAI from "openai";
-import type { ChatCompletionAssistantMessageParam } from "openai/resources/chat/completions";
-
-type AccumulatedToolCall = {
-  id: string;
-  function: { name: string; arguments: string };
-};
 
 const STREAMING_HEADERS = {
   "Content-Type": "text/event-stream",
@@ -25,72 +21,9 @@ const STREAMING_HEADERS = {
   Connection: "keep-alive",
 };
 
-/** Persist a create_itinerary_day tool call result to the DB. */
-async function persistItineraryDay(args: unknown, itineraryId: string): Promise<void> {
-  const parsed = ItineraryDaySchema.safeParse(args);
-  if (!parsed.success) return;
-
-  const { dayNumber, title, description, activities } = parsed.data;
-
-  const existing = await prisma.itineraryDay.findFirst({
-    where: { itineraryId, dayNumber },
-    select: { id: true },
-  });
-
-  if (existing) {
-    await prisma.itineraryDay.update({
-      where: { id: existing.id },
-      data: { title, description, activities },
-    });
-  } else {
-    await prisma.itineraryDay.create({
-      data: { itineraryId, dayNumber, title, description, activities },
-    });
-  }
-}
-
-/** Handle search_adventures tool call — query the DB and return relevant adventures. */
-async function handleSearchAdventures(args: unknown): Promise<string> {
-  try {
-    const parsed = SearchAdventuresArgsSchema.safeParse(args);
-    if (!parsed.success) {
-      return JSON.stringify({ success: false, results: [], error: "Invalid arguments" });
-    }
-    const a = parsed.data;
-
-    const results = await prisma.adventure.findMany({
-      where: {
-        published: true,
-        ...(a.category && { category: a.category as never }),
-        ...(a.continent && { continent: a.continent }),
-        ...(a.difficulty && { difficulty: a.difficulty as never }),
-        ...(a.maxDuration && { durationDays: { lte: a.maxDuration } }),
-        ...(a.query && {
-          OR: [
-            { title: { contains: a.query, mode: "insensitive" as const } },
-            { description: { contains: a.query, mode: "insensitive" as const } },
-            { location: { contains: a.query, mode: "insensitive" as const } },
-          ],
-        }),
-      },
-      take: 5,
-      orderBy: { voteCount: "desc" },
-      select: {
-        id: true,
-        title: true,
-        location: true,
-        country: true,
-        category: true,
-        difficulty: true,
-        durationDays: true,
-        description: true,
-      },
-    });
-
-    return JSON.stringify({ success: true, results });
-  } catch {
-    return JSON.stringify({ success: false, results: [] });
-  }
+/** Demo mode fabricates output — it must never masquerade as the product in production. */
+function demoModeAllowed(): boolean {
+  return process.env.NODE_ENV !== "production" || process.env.DEMO_MODE === "true";
 }
 
 export async function POST(request: NextRequest) {
@@ -134,9 +67,18 @@ export async function POST(request: NextRequest) {
   const { message, itineraryId: incomingItineraryId, preferences } = parsed.data;
   const userId = session.user.id;
 
+  // Misconfiguration must fail loudly in production, not stream canned text.
+  if (!resolvedApiKey && !demoModeAllowed()) {
+    logger.error("Chat requested but no OpenAI key is configured in production");
+    return NextResponse.json(
+      { error: "AI planning is temporarily unavailable", code: "AI_UNCONFIGURED" },
+      { status: 503 },
+    );
+  }
+
   // Ownership check: a request-supplied itineraryId must belong to the caller
   // before it is used as a write target (itinerary days, chat history).
-  let chatHistory: Array<{ role: string; content: string }> = [];
+  let storedHistory: unknown = [];
   if (incomingItineraryId) {
     const itinerary = await prisma.itinerary.findUnique({
       where: { id: incomingItineraryId, userId },
@@ -148,11 +90,9 @@ export async function POST(request: NextRequest) {
         { status: 404 },
       );
     }
-    if (itinerary.chatHistory) {
-      const raw = itinerary.chatHistory as Array<{ role: string; content: string }>;
-      chatHistory = raw.slice(-CHAT_HISTORY_MAX_MESSAGES);
-    }
+    storedHistory = itinerary.chatHistory;
   }
+  const chatHistory = sanitizeStoredHistory(storedHistory).slice(-CHAT_HISTORY_MAX_MESSAGES);
 
   // Every message on the platform key consumes one AI credit for free users.
   // Metering per message (not per new session) closes the resume bypass where
@@ -206,23 +146,20 @@ export async function POST(request: NextRequest) {
     });
     activeItineraryId = created.id;
   }
+  const itineraryId = activeItineraryId;
 
   const systemPrompt = ITINERARY_SYSTEM_PROMPT + buildUserContextPrompt(preferences ?? {});
-
   const messages = [
     { role: "system" as const, content: systemPrompt },
-    ...chatHistory.map((m) => ({
-      role: m.role as "user" | "assistant",
-      content: m.content,
-    })),
+    ...chatHistory,
     { role: "user" as const, content: message },
   ];
 
   const encoder = new TextEncoder();
   // Return the itinerary ID in a response header so the client can use it in subsequent messages.
-  const responseHeaders = { ...STREAMING_HEADERS, "X-Itinerary-Id": activeItineraryId };
+  const responseHeaders = { ...STREAMING_HEADERS, "X-Itinerary-Id": itineraryId };
 
-  // Stream a mock response when no API key is available.
+  // Stream a mock response when no API key is available (dev/demo only).
   if (!resolvedApiKey) {
     const mockText = buildMockResponse(message);
     const readable = new ReadableStream({
@@ -241,8 +178,8 @@ export async function POST(request: NextRequest) {
           { role: "assistant", content: fullContent.trim() },
         ].slice(-CHAT_HISTORY_MAX_MESSAGES);
         await prisma.itinerary.update({
-          where: { id: activeItineraryId, userId },
-          data: { chatHistory: mockHistory },
+          where: { id: itineraryId, userId },
+          data: { chatHistory: JSON.parse(JSON.stringify(mockHistory)) },
         });
         controller.close();
       },
@@ -254,106 +191,28 @@ export async function POST(request: NextRequest) {
 
   const readable = new ReadableStream({
     async start(controller) {
-      let fullContent = "";
-
       try {
-        const stream = await openaiClient.chat.completions.create({
-          model: "gpt-4o",
+        const { transcript } = await runAgentLoop({
+          client: openaiClient,
+          model: CHAT_MODEL,
           messages,
           tools: chatTools,
-          stream: true,
+          executors: chatToolExecutors,
+          ctx: { userId, itineraryId, client: openaiClient },
+          onToken: (token) => controller.enqueue(encoder.encode(token)),
         });
 
-        // Accumulate tool call deltas; index → partial call
-        const toolCallsMap = new Map<number, AccumulatedToolCall>();
-        let finishReason: string | null = null;
-
-        for await (const chunk of stream) {
-          const delta = chunk.choices[0]?.delta;
-          finishReason = chunk.choices[0]?.finish_reason ?? finishReason;
-
-          if (delta?.content) {
-            fullContent += delta.content;
-            controller.enqueue(encoder.encode(delta.content));
-          }
-
-          if (delta?.tool_calls) {
-            for (const tc of delta.tool_calls) {
-              const existing = toolCallsMap.get(tc.index) ?? {
-                id: "",
-                function: { name: "", arguments: "" },
-              };
-              if (tc.id) existing.id = tc.id;
-              if (tc.function?.name) existing.function.name += tc.function.name;
-              if (tc.function?.arguments) existing.function.arguments += tc.function.arguments;
-              toolCallsMap.set(tc.index, existing);
-            }
-          }
-        }
-
-        // Process tool calls if the model requested them
-        if (finishReason === "tool_calls" && toolCallsMap.size > 0) {
-          const toolCalls = Array.from(toolCallsMap.values());
-          const toolResults: Array<{ role: "tool"; content: string; tool_call_id: string }> = [];
-
-          for (const tc of toolCalls) {
-            let resultContent: string;
-
-            if (tc.function.name === "create_itinerary_day") {
-              try {
-                const args = JSON.parse(tc.function.arguments) as unknown;
-                await persistItineraryDay(args, activeItineraryId);
-                resultContent = JSON.stringify({ success: true });
-              } catch (err) {
-                logger.error("create_itinerary_day failed", err);
-                resultContent = JSON.stringify({ success: false, error: "Failed to save day" });
-              }
-            } else if (tc.function.name === "search_adventures") {
-              const args = JSON.parse(tc.function.arguments) as unknown;
-              resultContent = await handleSearchAdventures(args);
-            } else {
-              resultContent = JSON.stringify({ success: true, results: [] });
-            }
-
-            toolResults.push({ role: "tool", content: resultContent, tool_call_id: tc.id });
-          }
-
-          // Second streaming call with tool results injected
-          const assistantMsg: ChatCompletionAssistantMessageParam = {
-            role: "assistant",
-            content: null,
-            tool_calls: toolCalls.map((tc) => ({
-              id: tc.id,
-              type: "function" as const,
-              function: { name: tc.function.name, arguments: tc.function.arguments },
-            })),
-          };
-          const followUpMessages = [...messages, assistantMsg, ...toolResults];
-
-          const followUpStream = await openaiClient.chat.completions.create({
-            model: "gpt-4o",
-            messages: followUpMessages,
-            stream: true,
-          });
-
-          for await (const chunk of followUpStream) {
-            const delta = chunk.choices[0]?.delta?.content;
-            if (delta) {
-              fullContent += delta;
-              controller.enqueue(encoder.encode(delta));
-            }
-          }
-        }
-
-        // Persist chat history (capped to prevent unbounded JSON growth)
+        // Persist the FULL exchange including tool calls/results so the model
+        // keeps its own context (which flights it found, which days it wrote)
+        // on the next turn. Capped to prevent unbounded JSON growth.
         const updatedHistory = [
           ...chatHistory,
           { role: "user", content: message },
-          { role: "assistant", content: fullContent },
+          ...transcript,
         ].slice(-CHAT_HISTORY_MAX_MESSAGES);
         await prisma.itinerary.update({
-          where: { id: activeItineraryId, userId },
-          data: { chatHistory: updatedHistory },
+          where: { id: itineraryId, userId },
+          data: { chatHistory: JSON.parse(JSON.stringify(updatedHistory)) },
         });
       } catch (error) {
         logger.error("Streaming error", error);
@@ -413,7 +272,5 @@ A challenging 8-hour push to high camp. Elevation gain of ~900 m. Pace yourself 
 
 **Estimated budget:** £1,800–£2,400 per person including permits, guides, and accommodation.
 
-To search for flights, just tell me your departure airport and travel dates. I can also refine any day in this itinerary — just ask!
-
-*Note: AI trip planner running in demo mode. Add your OpenAI API key in profile settings for full personalised generation.*`;
+*Note: AI trip planner running in demo mode. Add an OpenAI API key to enable full personalised generation.*`;
 }

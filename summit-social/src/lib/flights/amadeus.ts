@@ -13,6 +13,19 @@ type AmadeusItinerary = {
   segments: AmadeusSegment[];
 };
 
+const FETCH_TIMEOUT_MS = 8_000;
+
+/** Fetch with a timeout, retrying once on network error or a 5xx response. */
+async function fetchWithRetry(url: string, init: RequestInit = {}): Promise<Response> {
+  const attempt = () => fetch(url, { ...init, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+  try {
+    const response = await attempt();
+    return response.status >= 500 ? await attempt() : response;
+  } catch {
+    return attempt();
+  }
+}
+
 let accessToken: string | null = null;
 let tokenExpiresAt = 0;
 
@@ -22,7 +35,7 @@ async function getAccessToken(): Promise<string> {
   }
 
   const baseUrl = process.env.AMADEUS_BASE_URL ?? "https://test.api.amadeus.com";
-  const response = await fetch(`${baseUrl}/v1/security/oauth2/token`, {
+  const response = await fetchWithRetry(`${baseUrl}/v1/security/oauth2/token`, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
@@ -55,7 +68,7 @@ export async function searchAmadeusFlights(search: FlightSearch): Promise<Flight
     destinationLocationCode: search.destination,
     departureDate: search.departureDate,
     adults: String(search.passengers),
-    travelClass: search.cabinClass.toUpperCase().replace("_", " "),
+    travelClass: search.cabinClass.toUpperCase(),
     max: "20",
     currencyCode: "GBP",
   });
@@ -64,7 +77,7 @@ export async function searchAmadeusFlights(search: FlightSearch): Promise<Flight
     params.set("returnDate", search.returnDate);
   }
 
-  const response = await fetch(`${baseUrl}/v2/shopping/flight-offers?${params}`, {
+  const response = await fetchWithRetry(`${baseUrl}/v2/shopping/flight-offers?${params}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -80,7 +93,7 @@ export async function searchAmadeusFlights(search: FlightSearch): Promise<Flight
     const lastSegment = itineraries[0].segments.at(-1) ?? firstSegment;
     const segments = itineraries[0].segments;
 
-    return {
+    const flightOffer: FlightOffer = {
       id: `amadeus-${offer.id}`,
       provider: "amadeus",
       providerRef: offer.id as string,
@@ -99,6 +112,20 @@ export async function searchAmadeusFlights(search: FlightSearch): Promise<Flight
       deepLink: "",
       baggageIncluded: true,
     };
+
+    // Round trips: price.grandTotal covers both legs, so surface the return
+    // itinerary instead of silently discarding it.
+    const returnItinerary = itineraries.at(1);
+    if (returnItinerary) {
+      const returnFirst = returnItinerary.segments[0];
+      const returnLast = returnItinerary.segments.at(-1) ?? returnFirst;
+      flightOffer.returnDepartureAt = returnFirst.departure.at;
+      flightOffer.returnArrivalAt = returnLast.arrival.at;
+      flightOffer.returnDurationMinutes = parseDuration(returnItinerary.duration);
+      flightOffer.returnStops = returnItinerary.segments.length - 1;
+    }
+
+    return flightOffer;
   });
 }
 

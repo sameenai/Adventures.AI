@@ -2,12 +2,11 @@ import { InfiniteAdventureGrid } from "@/components/adventures/infinite-adventur
 import { SearchFilter } from "@/components/adventures/search-filter";
 import { ViewToggle } from "@/components/adventures/view-toggle";
 import { Button } from "@/components/ui/button";
+import { fetchAdventuresPage } from "@/lib/adventures/query";
 import { authOptions } from "@/lib/auth/config";
-import { CATEGORIES, CONTINENTS, DIFFICULTIES, DURATION_RANGES } from "@/lib/constants";
-import type { DurationKey } from "@/lib/constants";
+import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
-import { encodeCursor } from "@/lib/pagination";
-import type { Prisma } from "@prisma/client";
+import { adventureFilterSchema } from "@/lib/validators/adventure";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -15,8 +14,6 @@ import { Suspense } from "react";
 export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Adventures | Basecamper" };
-
-const PAGE_SIZE = 20;
 
 // Toggle a value in/out of a comma-separated param, then return the new URL.
 function buildFilterUrl(
@@ -54,80 +51,37 @@ export default async function AdventuresPage({
 }) {
   const params = await searchParams;
   const view = params.view === "list" ? "list" : "grid";
-  const search = params.search?.trim();
-  const sortBy = params.sortBy ?? "votes";
-  const months = params.month
-    ? params.month
-        .split(",")
-        .map(Number)
-        .filter((n) => n >= 1 && n <= 12)
-    : [];
-  const tag = params.tag;
 
-  const categories = params.category ? params.category.split(",") : [];
-  const continents = params.continent ? params.continent.split(",") : [];
-  const difficulties = params.difficulty ? params.difficulty.split(",") : [];
-  const durations = params.duration ? params.duration.split(",") : [];
-  const VALID_CLIMATES = new Set(["hot", "cold", "mixed"]);
-  const climates = (params.climate?.split(",") ?? []).filter((c) => VALID_CLIMATES.has(c));
+  // Parse the URL filters through the exact same schema the API route uses so
+  // page and API can never drift. Invalid params fall back to the defaults
+  // (unfiltered, votes sort) instead of erroring the page render.
+  const parsedFilters = adventureFilterSchema.safeParse({
+    category: params.category,
+    continent: params.continent,
+    difficulty: params.difficulty,
+    duration: params.duration,
+    month: params.month,
+    climate: params.climate,
+    tag: params.tag,
+    search: params.search?.trim() || undefined,
+    sortBy: params.sortBy,
+  });
+  const filters = parsedFilters.success ? parsedFilters.data : adventureFilterSchema.parse({});
+  const months = filters.month ?? [];
 
-  const hasActiveFilters =
-    categories.length > 0 ||
-    continents.length > 0 ||
-    difficulties.length > 0 ||
-    durations.length > 0 ||
-    months.length > 0 ||
-    climates.length > 0 ||
-    !!tag ||
-    !!search;
-
-  const andConditions: Prisma.AdventureWhereInput[] = [];
-  if (durations.length > 0) {
-    const validDurations = durations.filter((d) => d in DURATION_RANGES) as DurationKey[];
-    if (validDurations.length > 0) {
-      andConditions.push({ OR: validDurations.map((d) => ({ durationDays: DURATION_RANGES[d] })) });
-    }
-  }
-  if (climates.length > 0) {
-    andConditions.push({ OR: climates.map((c) => ({ climate: { has: c } })) });
-  }
-  if (months.length > 0) {
-    andConditions.push({ OR: months.map((m) => ({ bestMonths: { has: m } })) });
-  }
-  if (search) {
-    andConditions.push({
-      OR: [
-        { title: { contains: search, mode: "insensitive" as const } },
-        { description: { contains: search, mode: "insensitive" as const } },
-        { location: { contains: search, mode: "insensitive" as const } },
-      ],
-    });
-  }
-
-  const where = {
-    published: true,
-    ...(categories.length > 0 && {
-      category: categories.length === 1 ? (categories[0] as never) : { in: categories as never[] },
-    }),
-    ...(continents.length > 0 && {
-      continent: continents.length === 1 ? continents[0] : { in: continents },
-    }),
-    ...(difficulties.length > 0 && {
-      difficulty:
-        difficulties.length === 1 ? (difficulties[0] as never) : { in: difficulties as never[] },
-    }),
-    ...(tag && { tags: { some: { name: tag } } }),
-    ...(andConditions.length > 0 && { AND: andConditions }),
-  };
-
-  const include = {
-    user: { select: { id: true, name: true, avatarUrl: true } },
-    tags: true,
-    _count: { select: { comments: true } },
-  };
+  const hasActiveFilters = Boolean(
+    filters.category?.length ||
+      filters.continent?.length ||
+      filters.difficulty?.length ||
+      filters.duration?.length ||
+      filters.month?.length ||
+      filters.climate?.length ||
+      filters.tag ||
+      filters.search,
+  );
 
   // Fetch a featured (top-voted) adventure for the hero banner — independent of current filters.
-  const [session, featured, rawAdventures, totalCount] = await Promise.all([
+  const [session, featured, { items: adventures, nextCursor }, totalCount] = await Promise.all([
     getServerSession(authOptions),
     prisma.adventure.findFirst({
       where: { published: true },
@@ -143,53 +97,11 @@ export default async function AdventuresPage({
         coverImageUrl: true,
       },
     }),
-    sortBy === "trending"
-      ? (async () => {
-          const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-          const recentVotes = await prisma.vote.groupBy({
-            by: ["adventureId"],
-            where: { createdAt: { gte: sevenDaysAgo } },
-            _count: { adventureId: true },
-            orderBy: { _count: { adventureId: "desc" } },
-            take: PAGE_SIZE + 1,
-          });
-          const orderedIds = recentVotes.map((v) => v.adventureId);
-          const map = await prisma.adventure
-            .findMany({ where: { ...where, id: { in: orderedIds } }, include })
-            .then((list) => new Map(list.map((a) => [a.id, a])));
-          return orderedIds.flatMap((id) => {
-            const a = map.get(id);
-            return a ? [a] : [];
-          });
-        })()
-      : prisma.adventure.findMany({
-          where,
-          orderBy:
-            sortBy === "newest"
-              ? [{ createdAt: "desc" as const }, { id: "asc" as const }]
-              : sortBy === "duration"
-                ? [{ durationDays: "asc" as const }, { id: "asc" as const }]
-                : [{ voteCount: "desc" as const }, { id: "asc" as const }],
-          take: PAGE_SIZE + 1,
-          include,
-        }),
+    fetchAdventuresPage(filters),
     prisma.adventure.count({ where: { published: true } }),
   ]);
 
-  const hasMore = rawAdventures.length > PAGE_SIZE;
-  const adventures = hasMore ? rawAdventures.slice(0, PAGE_SIZE) : rawAdventures;
-
-  let nextCursor: string | undefined;
-  if (hasMore) {
-    const last = adventures[adventures.length - 1];
-    if (sortBy === "newest") {
-      nextCursor = encodeCursor({ c: last.createdAt.toISOString(), id: last.id });
-    } else if (sortBy === "duration") {
-      nextCursor = encodeCursor({ d: last.durationDays, id: last.id });
-    } else {
-      nextCursor = encodeCursor({ v: last.voteCount, id: last.id });
-    }
-  }
+  const hasMore = nextCursor !== undefined;
 
   let votedIds: string[] = [];
   let bookmarkedIds: string[] = [];
@@ -270,7 +182,7 @@ export default async function AdventuresPage({
           </span>
           <Link
             href={buildFilterUrl(params, { category: undefined })}
-            className={filterChip(categories.length === 0)}
+            className={filterChip(!filters.category?.length)}
           >
             All
           </Link>
