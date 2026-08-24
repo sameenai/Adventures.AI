@@ -98,3 +98,27 @@ deploy-gcp:
 		--region=$(GCP_REGION) \
 		--image=$(GCP_IMAGE) \
 		--quiet
+
+# ---------------------------------------------------------------------------
+# Scheduled jobs (Cloud Scheduler → POST /api/jobs/<name> with shared secret)
+# Requires: JOBS_SECRET set on the Cloud Run service AND exported locally when
+# running this target. Run once per environment; re-running updates in place.
+# ---------------------------------------------------------------------------
+scheduler-setup:
+	@test -n "$(JOBS_SECRET)" || (echo "Set JOBS_SECRET first (openssl rand -hex 24)" && exit 1)
+	gcloud scheduler jobs create http basecamper-retention \
+		--project=$(GCP_PROJECT) \
+		--location=$(GCP_REGION) \
+		--schedule="0 3 * * *" \
+		--uri="https://basecamper.ai/api/jobs/retention" \
+		--http-method=POST \
+		--headers="x-jobs-secret=$(JOBS_SECRET)" \
+		--attempt-deadline=300s \
+		|| gcloud scheduler jobs update http basecamper-retention \
+		--project=$(GCP_PROJECT) \
+		--location=$(GCP_REGION) \
+		--schedule="0 3 * * *" \
+		--uri="https://basecamper.ai/api/jobs/retention" \
+		--http-method=POST \
+		--update-headers="x-jobs-secret=$(JOBS_SECRET)" \
+		--attempt-deadline=300s

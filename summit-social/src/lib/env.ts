@@ -34,6 +34,7 @@ const optional = z.object({
   SKYSCANNER_BASE_URL: z.string().url().optional(),
   SKYSCANNER_AFFILIATE_ID: z.string().optional(),
   ADMIN_EMAILS: z.string().optional(),
+  JOBS_SECRET: z.string().min(16).optional(),
   ENABLE_DEV_LOGIN: z.enum(["true", "false"]).optional(),
 });
 
