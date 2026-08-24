@@ -25,6 +25,19 @@ function validate() {
     }
     console.warn(`[startup] ${message}`);
   }
+
+  const encryptionKey = process.env.ENCRYPTION_KEY;
+  if (!encryptionKey) {
+    console.warn(
+      "[startup] ENCRYPTION_KEY is not set — user API key storage (BYOK) is disabled. " +
+        "Generate one with: openssl rand -hex 32",
+    );
+  } else if (!/^[0-9a-fA-F]{64}$/.test(encryptionKey)) {
+    console.warn(
+      "[startup] ENCRYPTION_KEY is malformed (expected 64 hex chars) — treated as unset; " +
+        "user API key storage (BYOK) is disabled.",
+    );
+  }
 }
 
 validate();
