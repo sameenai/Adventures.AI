@@ -646,6 +646,7 @@ const baseAdventure: AdventureWithUser = {
   updatedAt: new Date(),
   userId: "user-1",
   voteCount: 5,
+  viewCount: 0,
   user: { id: "user-1", name: "Alice", avatarUrl: null },
   tags: [],
 };
