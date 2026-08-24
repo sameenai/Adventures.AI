@@ -241,3 +241,51 @@ describe("searchFlights — mock mode (no providers)", () => {
     expect(result.providersUnavailable).toBeUndefined();
   });
 });
+
+// ---------------------------------------------------------------------------
+// Rust service opt-in (strangler pattern)
+// ---------------------------------------------------------------------------
+describe("FLIGHT_SERVICE_URL opt-in", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
+  });
+
+  const search = {
+    origin: "LHR",
+    destination: "KTM",
+    departureDate: "2026-10-01",
+    passengers: 1,
+    cabinClass: "economy" as const,
+  };
+
+  it("serves offers from the rust service when configured", async () => {
+    vi.stubEnv("FLIGHT_SERVICE_URL", "http://flight-search:8080");
+    const rustOffer = { id: "r1", provider: "amadeus", priceGBP: 50000, airline: "Qatar Airways" };
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ offers: [rustOffer] }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { searchFlights } = await import("@/lib/flights/aggregator");
+    const result = await searchFlights(search);
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://flight-search:8080/v1/flights/search",
+      expect.objectContaining({ method: "POST" }),
+    );
+    expect(result.offers[0]).toMatchObject({ id: "r1", airline: "Qatar Airways" });
+  });
+
+  it("falls back to in-process adapters when the service fails", async () => {
+    vi.stubEnv("FLIGHT_SERVICE_URL", "http://flight-search:8080");
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("ECONNREFUSED")));
+
+    const { searchFlights } = await import("@/lib/flights/aggregator");
+    const result = await searchFlights(search);
+    // No providers configured in tests → dev mock offers still flow.
+    expect(result.offers.length).toBeGreaterThan(0);
+    expect(result.offers[0].id).toContain("mock");
+  });
+});

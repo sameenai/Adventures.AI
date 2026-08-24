@@ -1,0 +1,40 @@
+{
+  "meta": { "count": 1 },
+  "data": [
+    {
+      "type": "flight-offer",
+      "id": "rt-1",
+      "itineraries": [
+        {
+          "duration": "PT7H30M",
+          "segments": [
+            {
+              "carrierCode": "BA",
+              "number": "117",
+              "departure": { "iataCode": "LHR", "at": "2025-08-01T10:00:00" },
+              "arrival": { "iataCode": "JFK", "at": "2025-08-01T17:30:00" }
+            }
+          ]
+        },
+        {
+          "duration": "PT9H15M",
+          "segments": [
+            {
+              "carrierCode": "BA",
+              "number": "118",
+              "departure": { "iataCode": "JFK", "at": "2025-08-15T18:00:00" },
+              "arrival": { "iataCode": "BOS", "at": "2025-08-15T19:10:00" }
+            },
+            {
+              "carrierCode": "BA",
+              "number": "212",
+              "departure": { "iataCode": "BOS", "at": "2025-08-15T21:00:00" },
+              "arrival": { "iataCode": "LHR", "at": "2025-08-16T08:15:00" }
+            }
+          ]
+        }
+      ],
+      "price": { "currency": "GBP", "grandTotal": "820.00" }
+    }
+  ]
+}

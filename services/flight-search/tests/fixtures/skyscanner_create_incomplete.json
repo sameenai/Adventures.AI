@@ -1,0 +1,12 @@
+{
+  "sessionToken": "sess-1",
+  "status": "RESULT_STATUS_INCOMPLETE",
+  "content": {
+    "status": "RESULT_STATUS_INCOMPLETE",
+    "results": {
+      "itineraries": {},
+      "legs": {},
+      "carriers": {}
+    }
+  }
+}

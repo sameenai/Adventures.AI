@@ -1,0 +1,72 @@
+{
+  "sessionToken": "sess-1",
+  "status": "RESULT_STATUS_COMPLETE",
+  "content": {
+    "status": "RESULT_STATUS_COMPLETE",
+    "results": {
+      "itineraries": {
+        "itin-1": {
+          "legIds": ["leg-1"],
+          "pricingOptions": [
+            {
+              "price": { "amount": "380.00" },
+              "items": [{ "deepLink": "https://skyscanner.com/link" }]
+            }
+          ]
+        },
+        "itin-missing-carrier": {
+          "legIds": ["leg-x"],
+          "pricingOptions": [{ "price": { "amount": "120.00" }, "items": [{ "deepLink": "" }] }]
+        },
+        "itin-missing-leg": {
+          "legIds": ["no-such-leg"],
+          "pricingOptions": [{ "price": { "amount": "100.00" }, "items": [{ "deepLink": "" }] }]
+        },
+        "itin-rt": {
+          "legIds": ["leg-out", "leg-back"],
+          "pricingOptions": [
+            {
+              "price": { "amount": "500.00" },
+              "items": [{ "deepLink": "https://skyscanner.com/rt-link?foo=1" }]
+            }
+          ]
+        }
+      },
+      "legs": {
+        "leg-1": {
+          "departureDateTime": { "year": 2025, "month": 8, "day": 1, "hour": 10, "minute": 30 },
+          "arrivalDateTime": { "year": 2025, "month": 8, "day": 1, "hour": 18, "minute": 45 },
+          "durationInMinutes": 495,
+          "stopCount": 1,
+          "operatingCarrierIds": ["carrier-ba"],
+          "marketingCarrierIds": ["carrier-ba"]
+        },
+        "leg-out": {
+          "departureDateTime": { "year": 2025, "month": 8, "day": 1, "hour": 9, "minute": 0 },
+          "arrivalDateTime": { "year": 2025, "month": 8, "day": 1, "hour": 17, "minute": 0 },
+          "durationInMinutes": 480,
+          "stopCount": 0,
+          "operatingCarrierIds": ["carrier-ek"]
+        },
+        "leg-back": {
+          "departureDateTime": { "year": 2025, "month": 8, "day": 15, "hour": 20, "minute": 5 },
+          "arrivalDateTime": { "year": 2025, "month": 8, "day": 16, "hour": 8, "minute": 30 },
+          "durationInMinutes": 445,
+          "stopCount": 1,
+          "operatingCarrierIds": ["carrier-ek"]
+        },
+        "leg-x": {
+          "departureDateTime": { "year": 2025, "month": 8, "day": 1, "hour": 6, "minute": 0 },
+          "arrivalDateTime": { "year": 2025, "month": 8, "day": 1, "hour": 9, "minute": 0 },
+          "durationInMinutes": 180,
+          "stopCount": 0,
+          "operatingCarrierIds": ["ghost-carrier"]
+        }
+      },
+      "carriers": {
+        "carrier-ba": { "name": "British Airways" },
+        "carrier-ek": { "name": "Emirates" }
+      }
+    }
+  }
+}
