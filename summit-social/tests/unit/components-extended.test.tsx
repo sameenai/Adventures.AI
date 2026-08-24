@@ -649,6 +649,7 @@ const baseAdventure: AdventureWithUser = {
   userId: "user-1",
   voteCount: 5,
   viewCount: 0,
+  operatorId: null,
   user: { id: "user-1", name: "Alice", avatarUrl: null },
   tags: [],
 };
