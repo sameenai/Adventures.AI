@@ -30,6 +30,40 @@ export const chatTools: ChatCompletionTool[] = [
   {
     type: "function",
     function: {
+      name: "save_flight",
+      description:
+        "Save a specific flight offer (previously returned by search_flights) to the user's itinerary so they can confirm the fare and pay. Only use offers verbatim from search_flights results — never invent flight details.",
+      parameters: {
+        type: "object",
+        properties: {
+          airline: { type: "string", description: "Airline name exactly as returned" },
+          flightNumber: { type: "string", description: "Flight number exactly as returned" },
+          origin: { type: "string", description: "Origin IATA airport code" },
+          destination: { type: "string", description: "Destination IATA airport code" },
+          departureAt: { type: "string", description: "Departure ISO datetime as returned" },
+          arrivalAt: { type: "string", description: "Arrival ISO datetime as returned" },
+          priceGBP: { type: "number", description: "Price in pence exactly as returned" },
+          cabinClass: {
+            type: "string",
+            enum: ["economy", "premium_economy", "business", "first"],
+            default: "economy",
+          },
+        },
+        required: [
+          "airline",
+          "flightNumber",
+          "origin",
+          "destination",
+          "departureAt",
+          "arrivalAt",
+          "priceGBP",
+        ],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
       name: "search_adventures",
       description: "Search the Basecamper adventure database for inspiration",
       parameters: {

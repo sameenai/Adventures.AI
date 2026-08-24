@@ -155,6 +155,75 @@ const searchFlightsTool: ToolExecutor = async (rawArgs) => {
   });
 };
 
+const isoDateTime = z.string().refine((v) => !Number.isNaN(Date.parse(v)), "Invalid datetime");
+
+const saveFlightArgs = z.object({
+  airline: z.string().min(1).max(100),
+  flightNumber: z.string().min(1).max(20),
+  origin: z.string().regex(/^[A-Z]{3}$/),
+  destination: z.string().regex(/^[A-Z]{3}$/),
+  departureAt: isoDateTime,
+  arrivalAt: isoDateTime,
+  priceGBP: z.number().int().positive(),
+  cabinClass: z.enum(["economy", "premium_economy", "business", "first"]).default("economy"),
+});
+
+/**
+ * The agentic booking step: persist a flight the user chose in chat against
+ * their itinerary (status SELECTED) and advance DRAFT → PLANNING. Payment is
+ * deliberately NOT agentic — the user confirms the fare and pays through
+ * Stripe Checkout themselves; the agent only stages the booking.
+ */
+const saveFlight: ToolExecutor = async (rawArgs, ctx) => {
+  const parsed = saveFlightArgs.safeParse(rawArgs);
+  if (!parsed.success) {
+    return JSON.stringify({
+      success: false,
+      error: "Invalid flight details — only save offers exactly as returned by search_flights",
+    });
+  }
+  const offer = parsed.data;
+
+  const itinerary = await prisma.itinerary.findFirst({
+    where: { id: ctx.itineraryId, userId: ctx.userId },
+    select: { id: true, status: true },
+  });
+  if (!itinerary) {
+    return JSON.stringify({ success: false, error: "Itinerary not found" });
+  }
+
+  const booking = await prisma.flightBooking.create({
+    data: {
+      status: "SELECTED",
+      provider: "chat",
+      providerRef: `chat-${offer.flightNumber}-${offer.departureAt}`,
+      origin: offer.origin,
+      destination: offer.destination,
+      departureAt: new Date(offer.departureAt),
+      arrivalAt: new Date(offer.arrivalAt),
+      airline: offer.airline,
+      flightNumber: offer.flightNumber,
+      priceGBP: offer.priceGBP,
+      cabinClass: offer.cabinClass,
+      userId: ctx.userId,
+      itineraryId: itinerary.id,
+    },
+  });
+
+  if (itinerary.status === "DRAFT") {
+    await prisma.itinerary.update({
+      where: { id: itinerary.id, userId: ctx.userId },
+      data: { status: "PLANNING" },
+    });
+  }
+
+  return JSON.stringify({
+    success: true,
+    bookingId: booking.id,
+    note: "Flight saved to the trip. Tell the user to confirm the fare and pay from their itinerary page — do not claim it is booked or paid.",
+  });
+};
+
 const suggestGearArgs = z.object({
   activity: z.string().min(1),
   conditions: z.string().min(1),
@@ -266,6 +335,7 @@ export const chatToolExecutors: Record<string, ToolExecutor> = {
   search_adventures: searchAdventuresWithCapture,
   create_itinerary_day: createItineraryDay,
   search_flights: searchFlightsTool,
+  save_flight: saveFlight,
   suggest_gear: suggestGear,
   get_weather_forecast: getWeatherForecast,
 };

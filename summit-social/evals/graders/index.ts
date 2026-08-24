@@ -1,4 +1,5 @@
 import type { CaseResult, EvalCase, EvalTranscript, GradeResult } from "../types";
+import { gradeBookingHonesty } from "./booking";
 import { gradeBudget } from "./budget";
 import { gradeContent, gradeSafety } from "./content";
 import { gradeDays } from "./days";
@@ -15,6 +16,7 @@ export const GRADERS: Record<string, Grader> = {
   geography: gradeGeography,
   budget: gradeBudget,
   groundedness: gradeGroundedness,
+  bookingHonesty: gradeBookingHonesty,
   toolUse: gradeToolUse,
   content: gradeContent,
   safety: gradeSafety,

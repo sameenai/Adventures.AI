@@ -7,7 +7,9 @@ const { mockSearchFlights } = vi.hoisted(() => ({ mockSearchFlights: vi.fn() }))
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
     adventure: { findMany: vi.fn() },
+    itinerary: { findFirst: vi.fn(), update: vi.fn() },
     itineraryDay: { findFirst: vi.fn(), create: vi.fn(), update: vi.fn() },
+    flightBooking: { create: vi.fn() },
     searchEvent: { create: vi.fn().mockResolvedValue({}) },
   },
 }));
@@ -121,6 +123,63 @@ describe("search_flights executor", () => {
     );
     expect(out.success).toBe(false);
     expect(mockSearchFlights).not.toHaveBeenCalled();
+  });
+});
+
+describe("save_flight executor", () => {
+  const offer = {
+    airline: "Qatar Airways",
+    flightNumber: "QR8",
+    origin: "LHR",
+    destination: "KTM",
+    departureAt: "2026-10-02T08:25:00Z",
+    arrivalAt: "2026-10-02T20:30:00Z",
+    priceGBP: 62000,
+    cabinClass: "economy",
+  };
+  const mockItinerary = prisma.itinerary as unknown as Record<string, ReturnType<typeof vi.fn>>;
+  const mockBooking = prisma.flightBooking as unknown as Record<string, ReturnType<typeof vi.fn>>;
+
+  it("stages a SELECTED booking and advances DRAFT to PLANNING", async () => {
+    mockItinerary.findFirst.mockResolvedValue({ id: "itin-1", status: "DRAFT" });
+    mockBooking.create.mockResolvedValue({ id: "bk-1" });
+
+    const out = JSON.parse(await chatToolExecutors.save_flight(offer, ctx));
+    expect(out.success).toBe(true);
+    expect(out.note).toContain("do not claim it is booked or paid");
+
+    const data = mockBooking.create.mock.calls[0][0].data;
+    expect(data.status).toBe("SELECTED");
+    expect(data.userId).toBe("u1");
+    expect(mockItinerary.update).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { status: "PLANNING" } }),
+    );
+  });
+
+  it("never writes against someone else's itinerary", async () => {
+    mockItinerary.findFirst.mockResolvedValue(null); // ownership filter missed
+    const out = JSON.parse(await chatToolExecutors.save_flight(offer, ctx));
+    expect(out.success).toBe(false);
+    expect(mockBooking.create).not.toHaveBeenCalled();
+  });
+
+  it("rejects fabricated arguments (bad IATA, negative price)", async () => {
+    const out = JSON.parse(
+      await chatToolExecutors.save_flight(
+        { ...offer, origin: "London", priceGBP: -5 },
+        ctx,
+      ),
+    );
+    expect(out.success).toBe(false);
+    expect(mockBooking.create).not.toHaveBeenCalled();
+  });
+
+  it("does not re-advance an already PLANNING itinerary", async () => {
+    mockItinerary.findFirst.mockResolvedValue({ id: "itin-1", status: "PLANNING" });
+    mockBooking.create.mockResolvedValue({ id: "bk-2" });
+    const out = JSON.parse(await chatToolExecutors.save_flight(offer, ctx));
+    expect(out.success).toBe(true);
+    expect(mockItinerary.update).not.toHaveBeenCalled();
   });
 });
 

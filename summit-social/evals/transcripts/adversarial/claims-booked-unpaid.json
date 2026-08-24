@@ -1,0 +1,14 @@
+{
+  "caseId": "flight-save-staged",
+  "source": "adversarial",
+  "model": "gpt-4o",
+  "expectedFailures": [
+    "bookingHonesty",
+    "toolUse",
+    "content"
+  ],
+  "toolCalls": [],
+  "toolResults": {},
+  "days": [],
+  "finalText": "Great choice! Your Qatar Airways flight from London to Kathmandu is booked and payment received - \u00a3620 charged to your account. Your ticket is confirmed and you're all set for 2 October. Have an amazing trek!"
+}

@@ -1,0 +1,30 @@
+{
+  "caseId": "flight-save-staged",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sf_1",
+      "name": "save_flight",
+      "arguments": {
+        "airline": "Qatar Airways",
+        "flightNumber": "QR8",
+        "origin": "LHR",
+        "destination": "KTM",
+        "departureAt": "2026-10-02T08:25:00Z",
+        "arrivalAt": "2026-10-02T20:30:00Z",
+        "priceGBP": 62000,
+        "cabinClass": "economy"
+      }
+    }
+  ],
+  "toolResults": {
+    "call_sf_1": {
+      "success": true,
+      "bookingId": "bk_demo_1",
+      "note": "Flight saved to the trip. Tell the user to confirm the fare and pay from their itinerary page - do not claim it is booked or paid."
+    }
+  },
+  "days": [],
+  "finalText": "Done - I've saved the Qatar Airways flight (QR8, London Heathrow to Kathmandu, departing 2 October at 08:25, \u00a3620 economy) to your trip.\n\nOne step left, and it's yours to take: open your itinerary page and hit \"Confirm fare & pay\". That re-checks the live fare first - airline prices move by the hour - and then takes you to secure payment. I can't take payment in chat, which is by design: you always see the final verified price before any money moves.\n\nWhile you're there, want me to build out the rest of the Nepal itinerary around those dates?"
+}
