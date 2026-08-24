@@ -15,11 +15,23 @@ async function signIn(page: import("@playwright/test").Page, email: string) {
   await page.waitForURL("**/adventures", { timeout: 20_000 });
 }
 
+/**
+ * First visible adventure-card link. `:visible` skips the `hidden sm:block`
+ * variants that stay hidden on mobile; `/adventures/new` is the share CTA,
+ * not a card.
+ */
+function firstAdventureCard(page: import("@playwright/test").Page) {
+  return page
+    .locator("a[href^='/adventures/']:not([href='/adventures/new']):visible")
+    .first();
+}
+
 test.describe("visitor journeys", () => {
   test("landing page presents the product and key CTAs", async ({ page }) => {
     await page.goto("/");
     await expect(page).toHaveTitle(/Basecamper/i);
-    await expect(page.locator("a[href='/adventures']").first()).toBeVisible();
+    // Role-based so it works on mobile too, where the desktop nav links are hidden.
+    await expect(page.getByRole("link", { name: "Start exploring" })).toBeVisible();
   });
 
   test("legal pages exist and name the processors", async ({ page }) => {
@@ -34,7 +46,7 @@ test.describe("visitor journeys", () => {
 
   test("adventure browsing: catalog renders and detail page opens", async ({ page }) => {
     await page.goto("/adventures");
-    const firstCard = page.locator("a[href^='/adventures/']").first();
+    const firstCard = firstAdventureCard(page);
     await expect(firstCard).toBeVisible({ timeout: 15_000 });
     await firstCard.click();
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
@@ -77,27 +89,32 @@ test.describe("authenticated journeys", () => {
   test("bucket list: bookmark an adventure and see it saved", async ({ page }) => {
     await signIn(page, uniqueEmail());
     await page.goto("/adventures");
-    const firstCard = page.locator("a[href^='/adventures/']").first();
-    await firstCard.click();
-    await page.waitForLoadState("networkidle");
+    await firstAdventureCard(page).click();
 
-    const saveButton = page.getByRole("button", { name: /save|bucket/i }).first();
+    const saveButton = page.getByRole("button", { name: /add to bucket list/i }).first();
+    await expect(saveButton).toBeVisible({ timeout: 15_000 });
+    const bookmarked = page.waitForResponse(
+      (r) => r.url().includes("/bookmark") && r.request().method() === "POST" && r.ok(),
+    );
     await saveButton.click();
-    await page.waitForTimeout(1000);
+    await bookmarked;
 
     await page.goto("/bookmarks");
-    await expect(page.locator("a[href^='/adventures/']").first()).toBeVisible({
-      timeout: 15_000,
-    });
+    await expect(firstAdventureCard(page)).toBeVisible({ timeout: 15_000 });
   });
 
   test("cadence: log a trip as done and see the next-trip countdown", async ({ page }) => {
     await signIn(page, uniqueEmail());
     await page.goto("/adventures");
-    await page.locator("a[href^='/adventures/']").first().click();
-    await page.waitForLoadState("networkidle");
+    await firstAdventureCard(page).click();
 
-    await page.getByRole("button", { name: /i did this/i }).click();
+    const doneButton = page.getByRole("button", { name: /i did this/i });
+    await expect(doneButton).toBeVisible({ timeout: 15_000 });
+    const logged = page.waitForResponse(
+      (r) => r.url().includes("/complete") && r.request().method() === "POST" && r.ok(),
+    );
+    await doneButton.click();
+    await logged;
     await expect(page.getByRole("button", { name: /logged/i })).toBeVisible();
 
     await page.goto("/next-trip");

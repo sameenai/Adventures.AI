@@ -1,24 +1,28 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
+// NOTE: the previous version of this spec asserted pre-redesign copy and
+// only ever "ran" in the dead nested CI workflow — it had been failing
+// silently since the v6 design landed. Kept aligned with the real page now
+// that e2e actually gates merges.
 test.describe("Landing Page", () => {
-  test("displays hero section with CTA", async ({ page }) => {
+  test("displays the hero with primary CTAs", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByText("Your next adventure starts here")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Start Planning" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Browse Adventures" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("adventure");
+    await expect(page.getByRole("link", { name: "Start exploring" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Start planning →" })).toBeVisible();
   });
 
-  test("displays feature cards", async ({ page }) => {
+  test("shows live catalog stats", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByText("AI Trip Planner")).toBeVisible();
-    await expect(page.getByText("Community Adventures")).toBeVisible();
-    await expect(page.getByText("Flight Comparison")).toBeVisible();
+    // Seeded database: the adventures stat must be a real non-zero number.
+    const stat = page.locator("section span.font-display").first();
+    await expect(stat).not.toHaveText("0");
   });
 
   test("navigates to login page", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: "Log in" }).click();
-    await expect(page).toHaveURL("/login");
+    await page.getByRole("link", { name: "Log in" }).first().click();
+    await expect(page).toHaveURL(/\/login/);
     await expect(page.getByText("Welcome back")).toBeVisible();
   });
 });
