@@ -35,7 +35,10 @@ export default function TermsPage() {
           Basecamper is a platform for discovering adventures, planning trips with an AI assistant,
           and sharing them with a community. By creating an account or using the site you agree to
           these terms and to our{" "}
-          <Link href="/privacy" className="text-amber-500 hover:text-amber-400">
+          <Link
+            href="/privacy"
+            className="text-amber-500 underline underline-offset-2 hover:text-amber-400"
+          >
             Privacy Policy
           </Link>
           .
