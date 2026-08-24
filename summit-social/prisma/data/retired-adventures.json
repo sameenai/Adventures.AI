@@ -1,0 +1,1059 @@
+{
+ "retired": [
+  {
+   "id": "seed-adventure-123",
+   "duplicateOf": "seed-adventure-63",
+   "reason": "Both are the 170 km, ~11-day Tour du Mont Blanc hiking circuit through France, Italy and Switzerland."
+  },
+  {
+   "id": "seed-adventure-124",
+   "duplicateOf": "seed-adventure-41",
+   "reason": "All are the classic Nepal-side Everest Base Camp trek from Lukla through the Khumbu to 5,364 m — same 14-day route."
+  },
+  {
+   "id": "seed-adventure-126",
+   "duplicateOf": "seed-adventure-4",
+   "reason": "Both are the Walker's Haute Route trek, Chamonix to Zermatt, 180 km / ~12,000 m ascent. The ski tour (771) is a genuinely different winter ski-mountaineering product requiring glacier and avalanche skills."
+  },
+  {
+   "id": "seed-adventure-129",
+   "duplicateOf": "seed-adventure-56",
+   "reason": "All four are the full GR20 across Corsica from Calenzana to Conca (~180 km) — 481's description confirms the full fourteen-stage traverse despite its 7-day field."
+  },
+  {
+   "id": "seed-adventure-130",
+   "duplicateOf": "seed-adventure-42",
+   "reason": "Both are the John Muir Trail, ~340 km from Yosemite Valley to Mount Whitney through the High Sierra."
+  },
+  {
+   "id": "seed-adventure-131",
+   "duplicateOf": "seed-adventure-60",
+   "reason": "All three are the Alta Via 1, ~120 km from Lago di Braies to Belluno through the Dolomites — same rifugio-to-rifugio route."
+  },
+  {
+   "id": "seed-adventure-132",
+   "duplicateOf": "seed-adventure-118",
+   "reason": "Both describe the ~220 km, ~14-day Drakensberg Grand Traverse along the uKhahlamba escarpment — the same route despite conflicting endpoint claims."
+  },
+  {
+   "id": "seed-adventure-135",
+   "duplicateOf": "seed-adventure-38",
+   "reason": "All are the Mont Blanc summit climb via the Gouter Route / Voie Normale to 4,808 m — same mountaineering product under different titles."
+  },
+  {
+   "id": "seed-adventure-136",
+   "duplicateOf": "seed-adventure-39",
+   "reason": "Despite the title 'Matterhorn North Face', member 136's description explicitly describes the Hornli Ridge northeast-arete standard route — the same climb as member 39. Same real-world product with a mistitled record."
+  },
+  {
+   "id": "seed-adventure-138",
+   "duplicateOf": "seed-adventure-37",
+   "reason": "All describe the Classic 4-day, 43 km Inca Trail from Km 82/Ollantaytambo over Dead Woman's Pass to the Sun Gate and Machu Picchu — same permit-capped route with cosmetic title/location differences."
+  },
+  {
+   "id": "seed-adventure-145",
+   "duplicateOf": "seed-adventure-92",
+   "reason": "Both are Great Barrier Reef liveaboard dive trips from Cairns/Port Douglas to the outer Ribbon Reefs and Coral Sea — same product."
+  },
+  {
+   "id": "seed-adventure-148",
+   "duplicateOf": "seed-adventure-7",
+   "reason": "All four are the same experience: a poled mokoro (dugout canoe) safari through the Okavango Delta channels. Expedition/Safari naming and 6-8 day spreads are cosmetic."
+  },
+  {
+   "id": "seed-adventure-151",
+   "duplicateOf": "seed-adventure-65",
+   "reason": "Same Niseko (Hokkaido) powder-skiing week across the Grand Hirafu/Hanazono/Annupuri/Niseko Village resorts — identical product with cosmetic title differences"
+  },
+  {
+   "id": "seed-adventure-152",
+   "duplicateOf": "seed-adventure-72",
+   "reason": "Both are a winter-season surf trip to the Banzai Pipeline on Oahu's North Shore — same break, same season, same experience with cosmetic title/location differences (Ehukai Beach vs Haleiwa are both North Shore)."
+  },
+  {
+   "id": "seed-adventure-153",
+   "duplicateOf": "seed-adventure-74",
+   "reason": "Both are Mentawai Islands boat-based surf charters hitting the same famous breaks (HT's, Lance's Right, Macaronis)."
+  },
+  {
+   "id": "seed-adventure-155",
+   "duplicateOf": "seed-adventure-86",
+   "reason": "Both are the complete Iceland Ring Road (Route 1) self-drive circuit, 1,332 km around the island."
+  },
+  {
+   "id": "seed-adventure-164",
+   "duplicateOf": "seed-adventure-35",
+   "reason": "All five are the same product: multi-day coastal/sea-cliff hiking in the Faroe Islands (Slaettaratindur, Gasadalur, Sorvagsvatn, Enniberg). Denmark vs Faroe Islands country labels are equivalent. 222 is Flores, Indonesia — unrelated."
+  },
+  {
+   "id": "seed-adventure-175",
+   "duplicateOf": "seed-adventure-23",
+   "reason": "Same hike: the 19.4 km Tongariro Alpine Crossing, New Zealand's classic one-day volcanic traverse from Mangatepopo to Ketetahi."
+  },
+  {
+   "id": "seed-adventure-187",
+   "duplicateOf": "seed-adventure-9",
+   "reason": "All the same trip: the Rwenzori central circuit through the giant-lobelia zones to the Mount Stanley/Margherita glaciers (8-10 days is the normal range for this route)."
+  },
+  {
+   "id": "seed-adventure-216",
+   "duplicateOf": "seed-adventure-36",
+   "reason": "Both are the El Chaltén-based Fitz Roy massif trail trek in Los Glaciares NP (Laguna de los Tres etc.), identical 6-day duration and coordinates — same product."
+  },
+  {
+   "id": "seed-adventure-225",
+   "duplicateOf": "seed-adventure-2",
+   "reason": "All the same ride: cycling the Karakoram Highway from Islamabad over the 4,693 m Khunjerab Pass. Title and duration differences (16 vs 21 days) are cosmetic variants of one route."
+  },
+  {
+   "id": "seed-adventure-247",
+   "duplicateOf": "seed-adventure-45",
+   "reason": "Both are the standard Normal Route ascent of Aconcagua (6,961m) from Mendoza via the Horcones Valley/Plaza de Mulas — same mountain, same route, same 18-20 day expedition profile."
+  },
+  {
+   "id": "seed-adventure-252",
+   "duplicateOf": "seed-adventure-234",
+   "reason": "All describe the ~3-week Kanchenjunga circuit from Taplejung linking BOTH north and south base camps — same restricted-area product."
+  },
+  {
+   "id": "seed-adventure-255",
+   "duplicateOf": "seed-adventure-2",
+   "reason": "All the same ride: cycling the Karakoram Highway from Islamabad over the 4,693 m Khunjerab Pass. Title and duration differences (16 vs 21 days) are cosmetic variants of one route."
+  },
+  {
+   "id": "seed-adventure-256",
+   "duplicateOf": "seed-adventure-61",
+   "reason": "All are the K2 Base Camp trek up the Baltoro Glacier via Concordia in Pakistan's Karakoram."
+  },
+  {
+   "id": "seed-adventure-274",
+   "duplicateOf": "seed-adventure-5",
+   "reason": "Identical product: 8-day Lofoten Islands sea kayaking under the midnight sun. The Cook Islands, Andaman, and Baffin trips are different oceans and different products despite rhyming titles."
+  },
+  {
+   "id": "seed-adventure-277",
+   "duplicateOf": "seed-adventure-117",
+   "reason": "Identical 7-day Kumano Kodo (Nakahechi) pilgrimage from Tanabe on the Kii Peninsula; only the category label and cost differ slightly."
+  },
+  {
+   "id": "seed-adventure-278",
+   "duplicateOf": "seed-adventure-32",
+   "reason": "All four are the Ha Giang Loop motorbike circuit through Dong Van Karst Plateau, Meo Vac, and the Lung Cu border area — 278's 'Northern Loop' description is the same Ha Giang route. 5-8 day spreads are cosmetic variants."
+  },
+  {
+   "id": "seed-adventure-284",
+   "duplicateOf": "seed-adventure-165",
+   "reason": "All four are the standard Simien Mountains trek (Sankaber escarpment route toward Ras Dashen, gelada baboons, UNESCO plateau) — same product."
+  },
+  {
+   "id": "seed-adventure-285",
+   "duplicateOf": "seed-adventure-22",
+   "reason": "All the same hike: the 22 km round-trip to the Trolltunga ledge above Lake Ringedalsvatnet in Hardanger. 592's 7-day duration is bad data, not a different product."
+  },
+  {
+   "id": "seed-adventure-286",
+   "duplicateOf": "seed-adventure-9",
+   "reason": "All the same trip: the Rwenzori central circuit through the giant-lobelia zones to the Mount Stanley/Margherita glaciers (8-10 days is the normal range for this route)."
+  },
+  {
+   "id": "seed-adventure-290",
+   "duplicateOf": "seed-adventure-90",
+   "reason": "Same Palau dive safari product centred on Blue Corner and Blue Hole out of Koror; 10-day duration matches and the title/description differences are cosmetic"
+  },
+  {
+   "id": "seed-adventure-292",
+   "duplicateOf": "seed-adventure-211",
+   "reason": "All four are the full coast-to-coast Greenland Ice Sheet ski crossing with pulks on the Nansen route (~500-600 km, 3-4 weeks) — same expedition product despite one garbled endpoint."
+  },
+  {
+   "id": "seed-adventure-294",
+   "duplicateOf": "seed-adventure-193",
+   "reason": "All the same product: a multi-day Bedouin-guided trek within Wadi Rum itself (traverse/circuit naming is cosmetic). 33 is a different combined Petra + Wadi Rum itinerary; 457 is the 40-day Jordan Trail thru-hike from Umm Qais to Aqaba, a completely different product."
+  },
+  {
+   "id": "seed-adventure-295",
+   "duplicateOf": "seed-adventure-11",
+   "reason": "All four are the same experience: living/travelling with Kazakh berkutchi eagle-hunter families in Bayan-Ulgii, western Mongolian Altai. Expedition/Journey/Trek naming and 5-12 day spreads are cosmetic variants."
+  },
+  {
+   "id": "seed-adventure-301",
+   "duplicateOf": "seed-adventure-121",
+   "reason": "Both are the standard Laugavegur trek, Landmannalaugar to Thorsmork, 55 km — identical route and landscape description. 301 merely mentions the Fimmvorduhals as an optional extension, so it is still the same base product."
+  },
+  {
+   "id": "seed-adventure-303",
+   "duplicateOf": "seed-adventure-179",
+   "reason": "All four are Bhutan's Snowman Trek — the same ~30-day, 11-high-pass expedition-grade traverse of northern Bhutan from Paro/Laya toward Lunana and Bumthang/Sephu."
+  },
+  {
+   "id": "seed-adventure-304",
+   "duplicateOf": "seed-adventure-60",
+   "reason": "All three are the Alta Via 1, ~120 km from Lago di Braies to Belluno through the Dolomites — same rifugio-to-rifugio route."
+  },
+  {
+   "id": "seed-adventure-316",
+   "duplicateOf": "seed-adventure-217",
+   "reason": "All three are the Jebel Toubkal ascent/circuit from Imlil in the High Atlas — same Toubkal massif trekking product."
+  },
+  {
+   "id": "seed-adventure-317",
+   "duplicateOf": "seed-adventure-182",
+   "reason": "All four are the 96 km Kokoda Track across the Owen Stanley Range in Papua New Guinea following the 1942 WWII campaign route — the same trek with typical 7-10 day durations."
+  },
+  {
+   "id": "seed-adventure-318",
+   "duplicateOf": "seed-adventure-47",
+   "reason": "All are the standard Antarctic Peninsula expedition voyage from Ushuaia across the Drake Passage with zodiac landings — same product with varying itinerary lengths."
+  },
+  {
+   "id": "seed-adventure-319",
+   "duplicateOf": "seed-adventure-125",
+   "reason": "All four are the Camino Primitivo, the original 320 km Way of St James from Oviedo to Santiago de Compostela — same route with cosmetic title/location variations."
+  },
+  {
+   "id": "seed-adventure-321",
+   "duplicateOf": "seed-adventure-56",
+   "reason": "All four are the full GR20 across Corsica from Calenzana to Conca (~180 km) — 481's description confirms the full fourteen-stage traverse despite its 7-day field."
+  },
+  {
+   "id": "seed-adventure-326",
+   "duplicateOf": "seed-adventure-35",
+   "reason": "All five are the same product: multi-day coastal/sea-cliff hiking in the Faroe Islands (Slaettaratindur, Gasadalur, Sorvagsvatn, Enniberg). Denmark vs Faroe Islands country labels are equivalent. 222 is Flores, Indonesia — unrelated."
+  },
+  {
+   "id": "seed-adventure-335",
+   "duplicateOf": "seed-adventure-226",
+   "reason": "All three are the 65 km Overland Track from Cradle Mountain to Lake St Clair with Mount Ossa side trip; same iconic Tasmanian walk."
+  },
+  {
+   "id": "seed-adventure-354",
+   "duplicateOf": "seed-adventure-127",
+   "reason": "Both are the classic Annapurna Circuit from Besisahar over Thorong La (5,416 m) to Muktinath — identical route, identical 18-day duration, same start point and coordinates."
+  },
+  {
+   "id": "seed-adventure-356",
+   "duplicateOf": "seed-adventure-159",
+   "reason": "Both are the classic Moscow-Vladivostok Trans-Siberian Railway journey with optional Trans-Mongolian branch — same real-world product with cosmetic title difference."
+  },
+  {
+   "id": "seed-adventure-377",
+   "duplicateOf": "seed-adventure-218",
+   "reason": "All three are the standard Mount Kinabalu summit climb via Timpohon Gate and Laban Rata to Low's Peak; title and category differences are cosmetic."
+  },
+  {
+   "id": "seed-adventure-378",
+   "duplicateOf": "seed-adventure-208",
+   "reason": "Both are the Gangotri to Gomukh/Gaumukh trek to the Ganges source with Tapovan extension; identical pilgrimage route."
+  },
+  {
+   "id": "seed-adventure-402",
+   "duplicateOf": "seed-adventure-7",
+   "reason": "All four are the same experience: a poled mokoro (dugout canoe) safari through the Okavango Delta channels. Expedition/Safari naming and 6-8 day spreads are cosmetic."
+  },
+  {
+   "id": "seed-adventure-407",
+   "duplicateOf": "seed-adventure-236",
+   "reason": "Both are Kerama Islands diving trips based out of Naha, Okinawa — same destination product; 236 merely adds the optional Yonaguni extension to the same core trip."
+  },
+  {
+   "id": "seed-adventure-426",
+   "duplicateOf": "seed-adventure-34",
+   "reason": "All are camel treks into the Erg Chebbi dunes from Merzouga (426 names Chebbi/Chigaga generically but is located at Merzouga); 3-7 day spreads are variants of the same product. 170 departs from M'Hamid into Erg Chigaga, a different dune field ~300 km away — a distinct product."
+  },
+  {
+   "id": "seed-adventure-432",
+   "duplicateOf": "seed-adventure-12",
+   "reason": "Both are Skeleton-Coast-focused overland/self-drive trips along the Namibian fog coast (12 adds a kayak component; same core product). 87 is a different product — a country-wide Namibia grand tour (Sossusvlei, Etosha, Swakopmund); 936 is a cycling expedition, a different activity."
+  },
+  {
+   "id": "seed-adventure-462",
+   "duplicateOf": "seed-adventure-144",
+   "reason": "Both are the Galapagos liveaboard dive expedition to Wolf and Darwin Islands (hammerhead schools, whale sharks) — the same product."
+  },
+  {
+   "id": "seed-adventure-464",
+   "duplicateOf": "seed-adventure-13",
+   "reason": "Both are the combined Laugavegur + Fimmvorduhals trek from Landmannalaugar through Thorsmork to Skogar — same 6-day combined route, same product."
+  },
+  {
+   "id": "seed-adventure-469",
+   "duplicateOf": "seed-adventure-174",
+   "reason": "All three are extreme sea-kayak expeditions on the Beagle Channel / Tierra del Fuego fjords out of Ushuaia (Darwin Range, williwaws, Magellanic penguins) — same product with varying trip lengths."
+  },
+  {
+   "id": "seed-adventure-475",
+   "duplicateOf": "seed-adventure-19",
+   "reason": "Same walk: the classic circuit trail beneath the Tre Cime di Lavaredo (9-10 km loop from the Misurina/Auronzo side), both 2-day versions with hut overnight."
+  },
+  {
+   "id": "seed-adventure-479",
+   "duplicateOf": "seed-adventure-37",
+   "reason": "All describe the Classic 4-day, 43 km Inca Trail from Km 82/Ollantaytambo over Dead Woman's Pass to the Sun Gate and Machu Picchu — same permit-capped route with cosmetic title/location differences."
+  },
+  {
+   "id": "seed-adventure-481",
+   "duplicateOf": "seed-adventure-56",
+   "reason": "All four are the full GR20 across Corsica from Calenzana to Conca (~180 km) — 481's description confirms the full fourteen-stage traverse despite its 7-day field."
+  },
+  {
+   "id": "seed-adventure-484",
+   "duplicateOf": "seed-adventure-302",
+   "reason": "Both are Alborz Mountains ski touring out of Tehran featuring Damavand (5,610 m), Tochal, Dizin and Shemshak — the same ski product."
+  },
+  {
+   "id": "seed-adventure-487",
+   "duplicateOf": "seed-adventure-182",
+   "reason": "All four are the 96 km Kokoda Track across the Owen Stanley Range in Papua New Guinea following the 1942 WWII campaign route — the same trek with typical 7-10 day durations."
+  },
+  {
+   "id": "seed-adventure-488",
+   "duplicateOf": "seed-adventure-430",
+   "reason": "Same Azores volcanic-island trekking product — crater lakes, Pico summit (highest point in Portugal), whales and thermal pools."
+  },
+  {
+   "id": "seed-adventure-491",
+   "duplicateOf": "seed-adventure-125",
+   "reason": "All four are the Camino Primitivo, the original 320 km Way of St James from Oviedo to Santiago de Compostela — same route with cosmetic title/location variations."
+  },
+  {
+   "id": "seed-adventure-494",
+   "duplicateOf": "seed-adventure-361",
+   "reason": "Both are a generic Maldives liveaboard dive safari through the central atolls (manta cleaning stations, channel drift dives, outer-atoll reefs) from the same embarkation area. Same product with cosmetic title/duration variation."
+  },
+  {
+   "id": "seed-adventure-495",
+   "duplicateOf": "seed-adventure-217",
+   "reason": "All three are the Jebel Toubkal ascent/circuit from Imlil in the High Atlas — same Toubkal massif trekking product."
+  },
+  {
+   "id": "seed-adventure-496",
+   "duplicateOf": "seed-adventure-267",
+   "reason": "All three are the Ciudad Perdida (Lost City) trek in the Sierra Nevada de Santa Marta, Colombia — same regulated route to the same Tayrona site, only title/duration/cost vary."
+  },
+  {
+   "id": "seed-adventure-499",
+   "duplicateOf": "seed-adventure-264",
+   "reason": "All three are the Ausangate Circuit around the 6,384 m sacred peak near Cusco with passes above 5,000 m and the Rainbow Mountain area; same trek."
+  },
+  {
+   "id": "seed-adventure-500",
+   "duplicateOf": "seed-adventure-47",
+   "reason": "All are the standard Antarctic Peninsula expedition voyage from Ushuaia across the Drake Passage with zodiac landings — same product with varying itinerary lengths."
+  },
+  {
+   "id": "seed-adventure-502",
+   "duplicateOf": "seed-adventure-35",
+   "reason": "All five are the same product: multi-day coastal/sea-cliff hiking in the Faroe Islands (Slaettaratindur, Gasadalur, Sorvagsvatn, Enniberg). Denmark vs Faroe Islands country labels are equivalent. 222 is Flores, Indonesia — unrelated."
+  },
+  {
+   "id": "seed-adventure-503",
+   "duplicateOf": "seed-adventure-165",
+   "reason": "All four are the standard Simien Mountains trek (Sankaber escarpment route toward Ras Dashen, gelada baboons, UNESCO plateau) — same product."
+  },
+  {
+   "id": "seed-adventure-506",
+   "duplicateOf": "seed-adventure-251",
+   "reason": "All three are the Manaslu Circuit around the world's 8th-highest peak crossing the Larkya La at 5,106 m."
+  },
+  {
+   "id": "seed-adventure-507",
+   "duplicateOf": "seed-adventure-211",
+   "reason": "All four are the full coast-to-coast Greenland Ice Sheet ski crossing with pulks on the Nansen route (~500-600 km, 3-4 weeks) — same expedition product despite one garbled endpoint."
+  },
+  {
+   "id": "seed-adventure-509",
+   "duplicateOf": "seed-adventure-32",
+   "reason": "All four are the Ha Giang Loop motorbike circuit through Dong Van Karst Plateau, Meo Vac, and the Lung Cu border area — 278's 'Northern Loop' description is the same Ha Giang route. 5-8 day spreads are cosmetic variants."
+  },
+  {
+   "id": "seed-adventure-510",
+   "duplicateOf": "seed-adventure-283",
+   "reason": "All three are the technical rock/ice climb of Mount Kenya's twin summits Batian (5,199 m) and Nelion (5,188 m) with Point Lenana as the trekking option — same product from Nanyuki/park gates."
+  },
+  {
+   "id": "seed-adventure-519",
+   "duplicateOf": "seed-adventure-365",
+   "reason": "Both are a 7-day moderate lift-served Dolomites ski week centred on the Sella Ronda circuit, same area, identical duration and cost — the same product marketed under slightly different titles"
+  },
+  {
+   "id": "seed-adventure-522",
+   "duplicateOf": "seed-adventure-193",
+   "reason": "All the same product: a multi-day Bedouin-guided trek within Wadi Rum itself (traverse/circuit naming is cosmetic). 33 is a different combined Petra + Wadi Rum itinerary; 457 is the 40-day Jordan Trail thru-hike from Umm Qais to Aqaba, a completely different product."
+  },
+  {
+   "id": "seed-adventure-523",
+   "duplicateOf": "seed-adventure-342",
+   "reason": "All three are the helicopter-supported Kamchatka volcanoes trek/expedition around Klyuchevskaya, Mutnovsky and the Petropavlovsk volcano groups — the same generic product with degraded data in two records."
+  },
+  {
+   "id": "seed-adventure-524",
+   "duplicateOf": "seed-adventure-308",
+   "reason": "Both are the same generic Madagascar lemur wildlife trekking safari product (SAFARI/MODERATE, near-identical titles); the descriptions merely highlight different park name-drops of the standard lemur circuit."
+  },
+  {
+   "id": "seed-adventure-535",
+   "duplicateOf": "seed-adventure-291",
+   "reason": "Both are the Headhunters' Trail, the historic Iban raiding route in Sarawak connecting Gunung Mulu National Park with the Limbang/Medamit area — same named real-world route despite category/duration drift."
+  },
+  {
+   "id": "seed-adventure-536",
+   "duplicateOf": "seed-adventure-422",
+   "reason": "All three are the Choquequirao trek from the Cachora side across the Apurimac Canyon to the Inca citadel — the same real-world route."
+  },
+  {
+   "id": "seed-adventure-538",
+   "duplicateOf": "seed-adventure-10",
+   "reason": "Identical titles and the same experience: a horse trek with nomad guides through the central Tian Shan on the Kochkor-Son Kul-Jumgal corridor. Duration spread (5 vs 12 days) is catalog noise, not a different product."
+  },
+  {
+   "id": "seed-adventure-540",
+   "duplicateOf": "seed-adventure-34",
+   "reason": "All are camel treks into the Erg Chebbi dunes from Merzouga (426 names Chebbi/Chigaga generically but is located at Merzouga); 3-7 day spreads are variants of the same product. 170 departs from M'Hamid into Erg Chigaga, a different dune field ~300 km away — a distinct product."
+  },
+  {
+   "id": "seed-adventure-542",
+   "duplicateOf": "seed-adventure-375",
+   "reason": "Both are the Inle Lake / Shan Hills cycling tour (Intha villages, markets, pagoda fields) — same cycling product with cosmetic title difference."
+  },
+  {
+   "id": "seed-adventure-545",
+   "duplicateOf": "seed-adventure-61",
+   "reason": "All are the K2 Base Camp trek up the Baltoro Glacier via Concordia in Pakistan's Karakoram."
+  },
+  {
+   "id": "seed-adventure-546",
+   "duplicateOf": "seed-adventure-52",
+   "reason": "Both are Tasmania's 65 km Overland Track from Cradle Mountain to Lake St Clair; identical route and highlights, 6 vs 7 days are the standard variants."
+  },
+  {
+   "id": "seed-adventure-547",
+   "duplicateOf": "seed-adventure-179",
+   "reason": "All four are Bhutan's Snowman Trek — the same ~30-day, 11-high-pass expedition-grade traverse of northern Bhutan from Paro/Laya toward Lunana and Bumthang/Sephu."
+  },
+  {
+   "id": "seed-adventure-555",
+   "duplicateOf": "seed-adventure-253",
+   "reason": "All three are the Upper Dolpo restricted-area circuit via Shey Phoksundo and Shey Gompa, the Snow Leopard landscape; same product."
+  },
+  {
+   "id": "seed-adventure-561",
+   "duplicateOf": "seed-adventure-204",
+   "reason": "Both are the Upper Mustang restricted-area trek to the walled capital Lo Manthang; identical route and cultural product."
+  },
+  {
+   "id": "seed-adventure-563",
+   "duplicateOf": "seed-adventure-1",
+   "reason": "Both are the classic Torres del Paine W Trek (Grey Glacier, French Valley, Mirador Las Torres). 563's own description calls it a 5-day route despite its 7-day field."
+  },
+  {
+   "id": "seed-adventure-570",
+   "duplicateOf": "seed-adventure-95",
+   "reason": "All three are guided sea kayak expeditions in Gwaii Haanas National Park Reserve, Haida Gwaii, visiting the Haida heritage sites — same product at varying lengths."
+  },
+  {
+   "id": "seed-adventure-577",
+   "duplicateOf": "seed-adventure-458",
+   "reason": "Both are the classic Churchill, Manitoba polar bear safari — October/November tundra buggy viewing on Hudson Bay, 5 days, same product with cosmetic title differences."
+  },
+  {
+   "id": "seed-adventure-583",
+   "duplicateOf": "seed-adventure-174",
+   "reason": "All three are extreme sea-kayak expeditions on the Beagle Channel / Tierra del Fuego fjords out of Ushuaia (Darwin Range, williwaws, Magellanic penguins) — same product with varying trip lengths."
+  },
+  {
+   "id": "seed-adventure-590",
+   "duplicateOf": "seed-adventure-258",
+   "reason": "Both are the classic Spiti Valley motorcycle loop from Manali over Kunzum La to Kaza with the same monastery highlights; same product with different itinerary lengths."
+  },
+  {
+   "id": "seed-adventure-592",
+   "duplicateOf": "seed-adventure-22",
+   "reason": "All the same hike: the 22 km round-trip to the Trolltunga ledge above Lake Ringedalsvatnet in Hardanger. 592's 7-day duration is bad data, not a different product."
+  },
+  {
+   "id": "seed-adventure-597",
+   "duplicateOf": "seed-adventure-276",
+   "reason": "Both describe the classic Tour du Mont Blanc 170 km circuit through France, Italy, and Switzerland from Chamonix; same product despite title differences."
+  },
+  {
+   "id": "seed-adventure-601",
+   "duplicateOf": "seed-adventure-11",
+   "reason": "All four are the same experience: living/travelling with Kazakh berkutchi eagle-hunter families in Bayan-Ulgii, western Mongolian Altai. Expedition/Journey/Trek naming and 5-12 day spreads are cosmetic variants."
+  },
+  {
+   "id": "seed-adventure-603",
+   "duplicateOf": "seed-adventure-362",
+   "reason": "Both are the Kilimanjaro Lemosho Route climb from the western Londorossi side — same route, cosmetic location differences."
+  },
+  {
+   "id": "seed-adventure-604",
+   "duplicateOf": "seed-adventure-438",
+   "reason": "Both are the same El Nido / Bacuit Archipelago sea-kayaking trip in Palawan with cosmetic title reordering and near-identical coordinates."
+  },
+  {
+   "id": "seed-adventure-606",
+   "duplicateOf": "seed-adventure-455",
+   "reason": "Both are the Adam's Peak (Sri Pada) night pilgrimage climb to the sacred summit footprint — same single experience."
+  },
+  {
+   "id": "seed-adventure-610",
+   "duplicateOf": "seed-adventure-188",
+   "reason": "Both are guided winter visits to the seasonal crystal-blue ice caves of Vatnajokull glacier at Jokulsarlon — the same experience; 313 is a waterfall ice-climbing trip, a different activity."
+  },
+  {
+   "id": "seed-adventure-611",
+   "duplicateOf": "seed-adventure-325",
+   "reason": "All three are Silk Road cycling across Uzbekistan connecting Tashkent, Samarkand, Bukhara (and Khiva) — the same touring product with varying duration data."
+  },
+  {
+   "id": "seed-adventure-612",
+   "duplicateOf": "seed-adventure-300",
+   "reason": "All three are multi-day paddling expeditions in the Manu / Madre de Dios headwaters of the Peruvian Amazon descending from the Andes into lowland jungle — same product."
+  },
+  {
+   "id": "seed-adventure-618",
+   "duplicateOf": "seed-adventure-444",
+   "reason": "Both are the classic Colca Canyon descent trek from Cabanaconde: Cruz del Condor condor viewing, descent to the canyon-bottom oasis/hot springs, pre-Inca terracing. Same product with a rebranded title."
+  },
+  {
+   "id": "seed-adventure-619",
+   "duplicateOf": "seed-adventure-158",
+   "reason": "Both are the walking Shikoku 88-temple Henro pilgrimage (1,200 km circuit); 778 is the cycling version of the circuit, a genuinely different activity and duration."
+  },
+  {
+   "id": "seed-adventure-620",
+   "duplicateOf": "seed-adventure-332",
+   "reason": "Both are the multi-day Sepik River canoe journey through crocodile-clan spirit-house villages in northern PNG — the same cultural river trip despite category/difficulty drift."
+  },
+  {
+   "id": "seed-adventure-624",
+   "duplicateOf": "seed-adventure-218",
+   "reason": "All three are the standard Mount Kinabalu summit climb via Timpohon Gate and Laban Rata to Low's Peak; title and category differences are cosmetic."
+  },
+  {
+   "id": "seed-adventure-630",
+   "duplicateOf": "seed-adventure-231",
+   "reason": "All three are the full O-Circuit around the Paine Massif (John Gardner Pass, Los Perros, back side of the massif) — the same product, distinct from the W."
+  },
+  {
+   "id": "seed-adventure-636",
+   "duplicateOf": "seed-adventure-37",
+   "reason": "All describe the Classic 4-day, 43 km Inca Trail from Km 82/Ollantaytambo over Dead Woman's Pass to the Sun Gate and Machu Picchu — same permit-capped route with cosmetic title/location differences."
+  },
+  {
+   "id": "seed-adventure-640",
+   "duplicateOf": "seed-adventure-24",
+   "reason": "Both describe a winter ascent of Ben Nevis from Fort William — same mountain, same season, same winter-mountaineering experience (both descs cover the winter Mountain Track plus north face conditions); title and duration differences are packaging, not a different route."
+  },
+  {
+   "id": "seed-adventure-642",
+   "duplicateOf": "seed-adventure-401",
+   "reason": "Both are the standard El Chalten Fitz Roy trekking circuit centred on Laguna de los Tres in Los Glaciares NP — 'Trek' vs 'Circuit' is cosmetic."
+  },
+  {
+   "id": "seed-adventure-652",
+   "duplicateOf": "seed-adventure-262",
+   "reason": "All three are the Wakhan Corridor trek accessed from the Tajik side through Wakhi villages along the Panj/Pamir highlands; same product."
+  },
+  {
+   "id": "seed-adventure-655",
+   "duplicateOf": "seed-adventure-355",
+   "reason": "Both are the 19.4 km Tongariro Alpine Crossing day walk; the Northern Circuit record is a distinct multi-day 43 km product that merely includes the Crossing."
+  },
+  {
+   "id": "seed-adventure-676",
+   "duplicateOf": "seed-adventure-261",
+   "reason": "Both describe Fann Mountains trekking linking the Seven Lakes chain and Iskanderkul; same product with cosmetic title difference (Traverse vs Trek)."
+  },
+  {
+   "id": "seed-adventure-692",
+   "duplicateOf": "seed-adventure-45",
+   "reason": "Both are the Aconcagua Normal Route summit expedition from Mendoza — identical mountain, route, and coordinates."
+  },
+  {
+   "id": "seed-adventure-696",
+   "duplicateOf": "seed-adventure-200",
+   "reason": "Both describe the Nanda Devi Sanctuary trek via the Rishi Gorge in Uttarakhand's Garhwal Himalaya; same restricted-area product."
+  },
+  {
+   "id": "seed-adventure-705",
+   "duplicateOf": "seed-adventure-416",
+   "reason": "Both describe cycling the full 2,500 km Wild Atlantic Way from Donegal to Cork — same end-to-end route product; 705's duration is a data error, not a different trip."
+  },
+  {
+   "id": "seed-adventure-712",
+   "duplicateOf": "seed-adventure-197",
+   "reason": "Both are the classic Everest Three Passes circuit crossing Renjo La, Cho La and Kongma La plus EBC and Gokyo; identical route."
+  },
+  {
+   "id": "seed-adventure-720",
+   "duplicateOf": "seed-adventure-254",
+   "reason": "All three are the Rolwaling Valley trek beneath Gauri Shankar with the Tashi Lapcha pass (5,755 m) connection to the Khumbu; same product."
+  },
+  {
+   "id": "seed-adventure-721",
+   "duplicateOf": "seed-adventure-382",
+   "reason": "Both are the classic Fish River Canyon multi-day through-hike from Hobas to Ai-Ais — same permit-controlled May-September route."
+  },
+  {
+   "id": "seed-adventure-736",
+   "duplicateOf": "seed-adventure-40",
+   "reason": "Both are the classic Annapurna Circuit circumnavigating the Annapurna massif via the Kali Gandaki gorge and Thorong La (5,416 m)."
+  },
+  {
+   "id": "seed-adventure-739",
+   "duplicateOf": "seed-adventure-459",
+   "reason": "Both are the Gokyo Lakes valley trek culminating in the Gokyo Ri viewpoint ascent — Gokyo Ri is the standard high point of the Gokyo trek, not a separate climb."
+  },
+  {
+   "id": "seed-adventure-740",
+   "duplicateOf": "seed-adventure-664",
+   "reason": "Both describe the same Julian Alps experience combining the emerald Soca Valley with the Triglav (2,864 m) summit ascent inside Triglav National Park; titles differ cosmetically but route content is the same"
+  },
+  {
+   "id": "seed-adventure-745",
+   "duplicateOf": "seed-adventure-240",
+   "reason": "Both are Raja Ampat reef diving in West Papua covering the same headline biodiversity and species (walking sharks, mantas, 75% of coral species); same dive product with cosmetic title differences."
+  },
+  {
+   "id": "seed-adventure-752",
+   "duplicateOf": "seed-adventure-106",
+   "reason": "Both are the same easy multi-day Mekong Delta cycling trip around Can Tho/Ben Tre/Vinh Long with floating markets; title and location differences are cosmetic."
+  },
+  {
+   "id": "seed-adventure-760",
+   "duplicateOf": "seed-adventure-259",
+   "reason": "Both are the Markha Valley trek in Ladakh through Hemis National Park crossing Kongmaru La; same classic route."
+  },
+  {
+   "id": "seed-adventure-764",
+   "duplicateOf": "seed-adventure-297",
+   "reason": "Both are the multi-day self-drive dogsled expedition from Longyearbyen across Svalbard's frozen fjords with mandatory polar-bear protection — same activity, same operator territory, same coordinates; the spring vs deep-winter wording is seasonal marketing variation on the same product."
+  },
+  {
+   "id": "seed-adventure-766",
+   "duplicateOf": "seed-adventure-262",
+   "reason": "All three are the Wakhan Corridor trek accessed from the Tajik side through Wakhi villages along the Panj/Pamir highlands; same product."
+  },
+  {
+   "id": "seed-adventure-767",
+   "duplicateOf": "seed-adventure-645",
+   "reason": "Same Ningaloo Reef diving/snorkelling trip built around the March-July whale shark aggregation with resident mantas, based at Exmouth/Coral Bay."
+  },
+  {
+   "id": "seed-adventure-768",
+   "duplicateOf": "seed-adventure-266",
+   "reason": "Both are the classic independent Quilotoa Loop trek in the Ecuadorian Andes (Latacunga/Cotopaxi Province, crater lake at 3,914 m, same villages) — cosmetic title/duration differences only."
+  },
+  {
+   "id": "seed-adventure-770",
+   "duplicateOf": "seed-adventure-165",
+   "reason": "All four are the standard Simien Mountains trek (Sankaber escarpment route toward Ras Dashen, gelada baboons, UNESCO plateau) — same product."
+  },
+  {
+   "id": "seed-adventure-772",
+   "duplicateOf": "seed-adventure-351",
+   "reason": "Both are cycling Colombia's UNESCO Coffee Cultural Landscape (Eje Cafetero) between fincas and coffee towns — same product; coordinates match despite one mislabeled location."
+  },
+  {
+   "id": "seed-adventure-773",
+   "duplicateOf": "seed-adventure-637",
+   "reason": "Same easy trekking product in Doi Inthanon National Park (Thailand's highest peak, Royal Pagodas, cloud-forest birding); Summit vs Highland in the title is cosmetic."
+  },
+  {
+   "id": "seed-adventure-774",
+   "duplicateOf": "seed-adventure-211",
+   "reason": "All four are the full coast-to-coast Greenland Ice Sheet ski crossing with pulks on the Nansen route (~500-600 km, 3-4 weeks) — same expedition product despite one garbled endpoint."
+  },
+  {
+   "id": "seed-adventure-775",
+   "duplicateOf": "seed-adventure-517",
+   "reason": "Identical titles and the same Lycian Way long-distance coastal trail along Turkey's Turquoise Coast (Fethiye-Antalya corridor)."
+  },
+  {
+   "id": "seed-adventure-777",
+   "duplicateOf": "seed-adventure-422",
+   "reason": "All three are the Choquequirao trek from the Cachora side across the Apurimac Canyon to the Inca citadel — the same real-world route."
+  },
+  {
+   "id": "seed-adventure-779",
+   "duplicateOf": "seed-adventure-458",
+   "reason": "Identical Churchill, Manitoba Tundra Buggy polar bear viewing trip, same 5-day format and October-November season."
+  },
+  {
+   "id": "seed-adventure-780",
+   "duplicateOf": "seed-adventure-625",
+   "reason": "Identical titles and identical route: the Mardi Himal ridge trek to High Camp at 4,500 m below Machapuchare in the Annapurna region."
+  },
+  {
+   "id": "seed-adventure-781",
+   "duplicateOf": "seed-adventure-35",
+   "reason": "All five are the same product: multi-day coastal/sea-cliff hiking in the Faroe Islands (Slaettaratindur, Gasadalur, Sorvagsvatn, Enniberg). Denmark vs Faroe Islands country labels are equivalent. 222 is Flores, Indonesia — unrelated."
+  },
+  {
+   "id": "seed-adventure-785",
+   "duplicateOf": "seed-adventure-448",
+   "reason": "Same restricted-zone Skeleton Coast fly-in safari — light-aircraft access, seal-hunting lions, brown hyena; one lists gateway Windhoek as location."
+  },
+  {
+   "id": "seed-adventure-789",
+   "duplicateOf": "seed-adventure-7",
+   "reason": "All four are the same experience: a poled mokoro (dugout canoe) safari through the Okavango Delta channels. Expedition/Safari naming and 6-8 day spreads are cosmetic."
+  },
+  {
+   "id": "seed-adventure-790",
+   "duplicateOf": "seed-adventure-254",
+   "reason": "All three are the Rolwaling Valley trek beneath Gauri Shankar with the Tashi Lapcha pass (5,755 m) connection to the Khumbu; same product."
+  },
+  {
+   "id": "seed-adventure-793",
+   "duplicateOf": "seed-adventure-607",
+   "reason": "Same 7-day dive trip in the Bazaruto Archipelago, Mozambique — identical location, activity, duration and highlights (dugong, mantas, whale sharks); only the titles differ cosmetically"
+  },
+  {
+   "id": "seed-adventure-796",
+   "duplicateOf": "seed-adventure-245",
+   "reason": "Same 12-day Spiti Valley high-altitude trek featuring the Pin Parvati Pass (5,319 m) and the Key/Tabo/Dhankar monasteries — the same real-world product"
+  },
+  {
+   "id": "seed-adventure-797",
+   "duplicateOf": "seed-adventure-119",
+   "reason": "Both are the GR10 traverse of the French Pyrenees, Hendaye to Banyuls-sur-Mer, 866 km — same route; 243 is the GR11 on the Spanish side, a different trail."
+  },
+  {
+   "id": "seed-adventure-798",
+   "duplicateOf": "seed-adventure-149",
+   "reason": "Both are the standard Bwindi Impenetrable Forest mountain gorilla trek in Uganda: same park, same 5-day format, same one-hour habituated-family visit. Title/location differences are cosmetic."
+  },
+  {
+   "id": "seed-adventure-809",
+   "duplicateOf": "seed-adventure-11",
+   "reason": "All four are the same experience: living/travelling with Kazakh berkutchi eagle-hunter families in Bayan-Ulgii, western Mongolian Altai. Expedition/Journey/Trek naming and 5-12 day spreads are cosmetic variants."
+  },
+  {
+   "id": "seed-adventure-810",
+   "duplicateOf": "seed-adventure-24",
+   "reason": "Both are winter mountaineering on Ben Nevis's north face classics (Tower Ridge, graded ice/mixed gullies) from Fort William — same product with cosmetic title differences."
+  },
+  {
+   "id": "seed-adventure-812",
+   "duplicateOf": "seed-adventure-242",
+   "reason": "Both are week-long Picos de Europa trekking centred on the Cares Gorge and the high limestone massifs; same product."
+  },
+  {
+   "id": "seed-adventure-814",
+   "duplicateOf": "seed-adventure-263",
+   "reason": "Both are the classic Karakol-based high-lakes trek in the Terskey Ala-Too range of the Tien Shan (Ak-Suu/Ala-Kul traverse territory): same base town, same range, same category/difficulty, near-identical coordinates and comparable 10-12 day durations. Cosmetic title differences only."
+  },
+  {
+   "id": "seed-adventure-816",
+   "duplicateOf": "seed-adventure-264",
+   "reason": "All three are the Ausangate Circuit around the 6,384 m sacred peak near Cusco with passes above 5,000 m and the Rainbow Mountain area; same trek."
+  },
+  {
+   "id": "seed-adventure-817",
+   "duplicateOf": "seed-adventure-477",
+   "reason": "Same Hardangervidda winter ski traverse between Finse and Haukeliseter, both citing the Amundsen training history and DNT huts; duration difference (5 vs 6 days) is within the normal 4-6 day range for this crossing"
+  },
+  {
+   "id": "seed-adventure-818",
+   "duplicateOf": "seed-adventure-179",
+   "reason": "All four are Bhutan's Snowman Trek — the same ~30-day, 11-high-pass expedition-grade traverse of northern Bhutan from Paro/Laya toward Lunana and Bumthang/Sephu."
+  },
+  {
+   "id": "seed-adventure-819",
+   "duplicateOf": "seed-adventure-367",
+   "reason": "Same Selous/Nyerere walking safari product — armed-ranger foot safari on the Rufiji River system; one uses gateway city Dar es Salaam as location."
+  },
+  {
+   "id": "seed-adventure-822",
+   "duplicateOf": "seed-adventure-567",
+   "reason": "Both are the same Jebel Shams / Wadi Ghul 'Grand Canyon of Arabia' trekking trip in Oman's Hajar Mountains, sharing the same canyon-rim highlights and abandoned Ghul village."
+  },
+  {
+   "id": "seed-adventure-827",
+   "duplicateOf": "seed-adventure-339",
+   "reason": "Both are the ~700-740 km Yukon River canoe expedition from Whitehorse to Dawson City along the Klondike Gold Rush route — same trip."
+  },
+  {
+   "id": "seed-adventure-833",
+   "duplicateOf": "seed-adventure-45",
+   "reason": "Both are the Aconcagua Normal Route non-technical expedition from Mendoza with the same acclimatisation camp structure and ~3-week schedule."
+  },
+  {
+   "id": "seed-adventure-840",
+   "duplicateOf": "seed-adventure-271",
+   "reason": "Both are an expedition-grade wilderness backpacking traverse in Gates of the Arctic National Park / Brooks Range with bush-plane access from Bettles — same park, same coordinates, same trailless-traverse product; 'United States' vs 'USA' is cosmetic."
+  },
+  {
+   "id": "seed-adventure-843",
+   "duplicateOf": "seed-adventure-325",
+   "reason": "All three are Silk Road cycling across Uzbekistan connecting Tashkent, Samarkand, Bukhara (and Khiva) — the same touring product with varying duration data."
+  },
+  {
+   "id": "seed-adventure-845",
+   "duplicateOf": "seed-adventure-193",
+   "reason": "All the same product: a multi-day Bedouin-guided trek within Wadi Rum itself (traverse/circuit naming is cosmetic). 33 is a different combined Petra + Wadi Rum itinerary; 457 is the 40-day Jordan Trail thru-hike from Umm Qais to Aqaba, a completely different product."
+  },
+  {
+   "id": "seed-adventure-849",
+   "duplicateOf": "seed-adventure-622",
+   "reason": "Identical titles for the same Drakensberg escarpment traverse trek in KwaZulu-Natal (Cathedral Peak area, San rock art, basalt escarpment)."
+  },
+  {
+   "id": "seed-adventure-851",
+   "duplicateOf": "seed-adventure-342",
+   "reason": "All three are the helicopter-supported Kamchatka volcanoes trek/expedition around Klyuchevskaya, Mutnovsky and the Petropavlovsk volcano groups — the same generic product with degraded data in two records."
+  },
+  {
+   "id": "seed-adventure-853",
+   "duplicateOf": "seed-adventure-368",
+   "reason": "Identically titled Jungfrau Region ski touring product in the Bernese Oberland — duplicates despite one description drifting off-topic."
+  },
+  {
+   "id": "seed-adventure-858",
+   "duplicateOf": "seed-adventure-125",
+   "reason": "All four are the Camino Primitivo, the original 320 km Way of St James from Oviedo to Santiago de Compostela — same route with cosmetic title/location variations."
+  },
+  {
+   "id": "seed-adventure-860",
+   "duplicateOf": "seed-adventure-508",
+   "reason": "Same end-to-end Larapinta Trail walk (223 km, West MacDonnell Ranges); title difference Hike vs Trek is cosmetic."
+  },
+  {
+   "id": "seed-adventure-863",
+   "duplicateOf": "seed-adventure-574",
+   "reason": "Same guided multi-day open-canoe safari on the Lower Zambezi with sandbank bush camps; titles differ only by the word Safari."
+  },
+  {
+   "id": "seed-adventure-867",
+   "duplicateOf": "seed-adventure-101",
+   "reason": "Both are the Chobe National Park elephant safari from Kasane combining river cruises with game drives — same product."
+  },
+  {
+   "id": "seed-adventure-869",
+   "duplicateOf": "seed-adventure-300",
+   "reason": "All three are multi-day paddling expeditions in the Manu / Madre de Dios headwaters of the Peruvian Amazon descending from the Andes into lowland jungle — same product."
+  },
+  {
+   "id": "seed-adventure-870",
+   "duplicateOf": "seed-adventure-550",
+   "reason": "Same Nakasendo post-road walk through the Kiso Valley centered on the preserved Magome-Tsumago section; title and duration differences are cosmetic."
+  },
+  {
+   "id": "seed-adventure-871",
+   "duplicateOf": "seed-adventure-182",
+   "reason": "All four are the 96 km Kokoda Track across the Owen Stanley Range in Papua New Guinea following the 1942 WWII campaign route — the same trek with typical 7-10 day durations."
+  },
+  {
+   "id": "seed-adventure-872",
+   "duplicateOf": "seed-adventure-346",
+   "reason": "Both are the Chilkoot Trail from Dyea, Alaska to Bennett Lake, BC over the 1,067 m Chilkoot Pass — the same Klondike Gold Rush historic route; 3 vs 5 days is just pacing of the same 53 km trek."
+  },
+  {
+   "id": "seed-adventure-874",
+   "duplicateOf": "seed-adventure-497",
+   "reason": "Both are the classic Cape Town to Cape Point road cycle around the Cape Peninsula (Chapman's Peak, Cape of Good Hope, Boulders Beach penguins); the Winelands add-on in 497 is a cosmetic extension of the same product."
+  },
+  {
+   "id": "seed-adventure-878",
+   "duplicateOf": "seed-adventure-413",
+   "reason": "Same Fiordland sea kayaking product covering Milford and Doubtful Sounds — identical title and experience."
+  },
+  {
+   "id": "seed-adventure-880",
+   "duplicateOf": "seed-adventure-437",
+   "reason": "Both are the Manali-Leh Highway cycling route (~475-490 km over the great Himalayan passes) — the same real-world ride."
+  },
+  {
+   "id": "seed-adventure-885",
+   "duplicateOf": "seed-adventure-267",
+   "reason": "All three are the Ciudad Perdida (Lost City) trek in the Sierra Nevada de Santa Marta, Colombia — same regulated route to the same Tayrona site, only title/duration/cost vary."
+  },
+  {
+   "id": "seed-adventure-888",
+   "duplicateOf": "seed-adventure-234",
+   "reason": "All describe the ~3-week Kanchenjunga circuit from Taplejung linking BOTH north and south base camps — same restricted-area product."
+  },
+  {
+   "id": "seed-adventure-893",
+   "duplicateOf": "seed-adventure-32",
+   "reason": "All four are the Ha Giang Loop motorbike circuit through Dong Van Karst Plateau, Meo Vac, and the Lung Cu border area — 278's 'Northern Loop' description is the same Ha Giang route. 5-8 day spreads are cosmetic variants."
+  },
+  {
+   "id": "seed-adventure-895",
+   "duplicateOf": "seed-adventure-194",
+   "reason": "Both are the same multi-island trekking trip across the Azores (Sete Cidades caldera, Pico summit at 2,351 m, whale watching from Faial); title and category differences are cosmetic."
+  },
+  {
+   "id": "seed-adventure-905",
+   "duplicateOf": "seed-adventure-643",
+   "reason": "Both are the same winter mountaineering ascent of Jebel Toubkal (4,167 m) with crampons and ice axe from the Imlil/Refuge du Toubkal side."
+  },
+  {
+   "id": "seed-adventure-911",
+   "duplicateOf": "seed-adventure-206",
+   "reason": "Both are the Masoala Peninsula rainforest trek in northeast Madagascar, boat access from Maroantsetra; same product."
+  },
+  {
+   "id": "seed-adventure-913",
+   "duplicateOf": "seed-adventure-76",
+   "reason": "Same Siargao surf trip centred on the Cloud 9 reef break at General Luna — the same real-world product with cosmetic title/duration differences"
+  },
+  {
+   "id": "seed-adventure-916",
+   "duplicateOf": "seed-adventure-226",
+   "reason": "All three are the 65 km Overland Track from Cradle Mountain to Lake St Clair with Mount Ossa side trip; same iconic Tasmanian walk."
+  },
+  {
+   "id": "seed-adventure-924",
+   "duplicateOf": "seed-adventure-713",
+   "reason": "Both are the same Andaman Islands dive trip from Port Blair/Havelock featuring Barren Island volcano diving; 924's 'and Trekking' suffix is cosmetic padding on the same product."
+  },
+  {
+   "id": "seed-adventure-925",
+   "duplicateOf": "seed-adventure-683",
+   "reason": "Both are the North Yungas 'Death Road' mountain bike descent from La Cumbre/La Paz to Coroico — the same world-famous commercial ride."
+  },
+  {
+   "id": "seed-adventure-926",
+   "duplicateOf": "seed-adventure-467",
+   "reason": "Both are the Maasai Mara walking safari with Maasai guides timed around the Great Migration river crossings — same product, spelling variants."
+  },
+  {
+   "id": "seed-adventure-931",
+   "duplicateOf": "seed-adventure-283",
+   "reason": "All three are the technical rock/ice climb of Mount Kenya's twin summits Batian (5,199 m) and Nelion (5,188 m) with Point Lenana as the trekking option — same product from Nanyuki/park gates."
+  },
+  {
+   "id": "seed-adventure-932",
+   "duplicateOf": "seed-adventure-345",
+   "reason": "Both are the San Pedro de Atacama trekking-plus-stargazing product (Valle de la Luna, El Tatio geysers, salt flats) — same trip; the cycling record is a different activity."
+  },
+  {
+   "id": "seed-adventure-939",
+   "duplicateOf": "seed-adventure-709",
+   "reason": "Same multi-day sea kayaking trip among the tidewater glaciers and marine wildlife of Kenai Fjords National Park out of Seward; Kayak vs Kayaking is cosmetic."
+  },
+  {
+   "id": "seed-adventure-941",
+   "duplicateOf": "seed-adventure-20",
+   "reason": "Both are the standard overnight Mount Fuji climb for the goraiko sunrise from the summit; identical mountain, season, and experience."
+  },
+  {
+   "id": "seed-adventure-946",
+   "duplicateOf": "seed-adventure-399",
+   "reason": "Both are 5-day moderate treks on the trails of Tierra del Fuego National Park (End of the World / Coastal Trail along the Beagle Channel) — same experience."
+  },
+  {
+   "id": "seed-adventure-950",
+   "duplicateOf": "seed-adventure-265",
+   "reason": "Both are Cordillera Real trekking circuits above La Paz centred on the Condoriri/Huayna Potosi valleys; same broad product."
+  },
+  {
+   "id": "seed-adventure-951",
+   "duplicateOf": "seed-adventure-669",
+   "reason": "Both are a week-long hut-based Jotunheimen National Park trek headlined by the Besseggen Ridge above Lake Gjende and Galdhopiggen — the same generic Jotunheimen trekking product."
+  },
+  {
+   "id": "seed-adventure-952",
+   "duplicateOf": "seed-adventure-680",
+   "reason": "Both are the Valley of Flowers National Park trek in Chamoli, Uttarakhand with the Hemkund Sahib (4,329 m) side trip from Ghangaria — identical UNESCO site, identical route structure, near-identical duration."
+  },
+  {
+   "id": "seed-adventure-955",
+   "duplicateOf": "seed-adventure-231",
+   "reason": "All three are the full O-Circuit around the Paine Massif (John Gardner Pass, Los Perros, back side of the massif) — the same product, distinct from the W."
+  },
+  {
+   "id": "seed-adventure-956",
+   "duplicateOf": "seed-adventure-679",
+   "reason": "Identical titles for the same expedition-grade Dhaulagiri Circuit crossing French Pass and Dhampus Pass around the 8,167 m peak."
+  },
+  {
+   "id": "seed-adventure-961",
+   "duplicateOf": "seed-adventure-444",
+   "reason": "Both are the classic Colca Canyon trek from Cabanaconde to the Sangalle oasis with the Cruz del Condor condor viewpoint — the same real-world product"
+  },
+  {
+   "id": "seed-adventure-962",
+   "duplicateOf": "seed-adventure-34",
+   "reason": "All are camel treks into the Erg Chebbi dunes from Merzouga (426 names Chebbi/Chigaga generically but is located at Merzouga); 3-7 day spreads are variants of the same product. 170 departs from M'Hamid into Erg Chigaga, a different dune field ~300 km away — a distinct product."
+  },
+  {
+   "id": "seed-adventure-965",
+   "duplicateOf": "seed-adventure-662",
+   "reason": "Same restricted-permit Nar Phu Valley trek north of the Annapurna Circuit visiting the Tibetan Buddhist villages of Nar and Phu; 'Remote' in the title is cosmetic."
+  },
+  {
+   "id": "seed-adventure-967",
+   "duplicateOf": "seed-adventure-95",
+   "reason": "All three are guided sea kayak expeditions in Gwaii Haanas National Park Reserve, Haida Gwaii, visiting the Haida heritage sites — same product at varying lengths."
+  },
+  {
+   "id": "seed-adventure-970",
+   "duplicateOf": "seed-adventure-253",
+   "reason": "All three are the Upper Dolpo restricted-area circuit via Shey Phoksundo and Shey Gompa, the Snow Leopard landscape; same product."
+  },
+  {
+   "id": "seed-adventure-972",
+   "duplicateOf": "seed-adventure-635",
+   "reason": "Same Rapa Nui exploration product visiting the moai sites, Rano Raraku quarry and Rano Kau crater; the optional bicycle circuit on this 24 km island is a cosmetic mode variation, not a different trip."
+  },
+  {
+   "id": "seed-adventure-973",
+   "duplicateOf": "seed-adventure-651",
+   "reason": "Both are the same generic Kungsleden section hike centred on the classic Abisko/Kebnekaise northern stretch (moderate, roughly a week, Lapland) — the same product with cosmetic title differences, unlike the full 22-day thru-hike"
+  },
+  {
+   "id": "seed-adventure-976",
+   "duplicateOf": "seed-adventure-336",
+   "reason": "Both are the South Georgia Island wildlife expedition voyage (Grytviken, Shackleton's grave, king penguin colonies) — same ship-based product."
+  },
+  {
+   "id": "seed-adventure-977",
+   "duplicateOf": "seed-adventure-700",
+   "reason": "Both are the Tsum Valley trek in Gorkha district — the same restricted sacred valley opened in 2008, same Tibetan Buddhist culture, Mu Gompa/Rachen monasteries. Same product with different marketing titles."
+  },
+  {
+   "id": "seed-adventure-979",
+   "duplicateOf": "seed-adventure-314",
+   "reason": "Both are the Bactrian camel trek through Mongolia's South Gobi featuring the Khongoryn Els dunes and dinosaur fossil beds — same product with cosmetic title/category differences."
+  },
+  {
+   "id": "seed-adventure-981",
+   "duplicateOf": "seed-adventure-147",
+   "reason": "Both are the classic Serengeti Great Migration safari timed to the Grumeti/Mara river crossings — same product."
+  },
+  {
+   "id": "seed-adventure-986",
+   "duplicateOf": "seed-adventure-653",
+   "reason": "Both are the standard Denali West Buttress guided expedition from Kahiltna Glacier base camp; 653's own description states a 21-day expedition matching 986."
+  },
+  {
+   "id": "seed-adventure-987",
+   "duplicateOf": "seed-adventure-699",
+   "reason": "Both are the same multi-day sea kayaking circuit product around Sardinia's coast (sea caves, turquoise coves, granite/porphyry cliffs); title and route-detail differences are cosmetic"
+  },
+  {
+   "id": "seed-adventure-988",
+   "duplicateOf": "seed-adventure-750",
+   "reason": "Both are the Lower Dolpo trek from Juphal to Shey Phoksundo Lake via Chhepka and Ringmo village — same restricted region, same lake centrepiece, same route waypoints. Title variation only."
+  },
+  {
+   "id": "seed-adventure-994",
+   "duplicateOf": "seed-adventure-251",
+   "reason": "All three are the Manaslu Circuit around the world's 8th-highest peak crossing the Larkya La at 5,106 m."
+  },
+  {
+   "id": "seed-adventure-999",
+   "duplicateOf": "seed-adventure-41",
+   "reason": "All are the classic Nepal-side Everest Base Camp trek from Lukla through the Khumbu to 5,364 m — same 14-day route."
+  },
+  {
+   "id": "seed-adventure-1000",
+   "duplicateOf": "seed-adventure-38",
+   "reason": "All are the Mont Blanc summit climb via the Gouter Route / Voie Normale to 4,808 m — same mountaineering product under different titles."
+  }
+ ]
+}
