@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = { title: "Go Pro | Basecamp" };
+export const metadata: Metadata = { title: "Go Pro | Basecamper" };
 
 const FREE_FEATURES = [
   `${PLANS.FREE.aiCreditsPerMonth} AI planning sessions / month`,

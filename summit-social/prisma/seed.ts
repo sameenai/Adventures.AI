@@ -56,10 +56,10 @@ async function main() {
   // Users
   // -------------------------------------------------------------------------
   const user1 = await prisma.user.upsert({
-    where: { email: "alex@summitsocial.dev" },
+    where: { email: "alex@basecamper.ai" },
     update: {},
     create: {
-      email: "alex@summitsocial.dev",
+      email: "alex@basecamper.ai",
       name: "Alex Summit",
       bio: "Mountain enthusiast and adventure photographer. 50+ countries explored, 6 continents trekked.",
       avatarUrl: "https://api.dicebear.com/9.x/adventurer/svg?seed=Alex",
@@ -68,10 +68,10 @@ async function main() {
   });
 
   const user2 = await prisma.user.upsert({
-    where: { email: "maya@summitsocial.dev" },
+    where: { email: "maya@basecamper.ai" },
     update: {},
     create: {
-      email: "maya@summitsocial.dev",
+      email: "maya@basecamper.ai",
       name: "Maya Trails",
       bio: "Ultra-runner, trekking guide, and Patagonia specialist. Happiest above 3,000m.",
       avatarUrl: "https://api.dicebear.com/9.x/adventurer/svg?seed=Maya",
@@ -80,10 +80,10 @@ async function main() {
   });
 
   const user3 = await prisma.user.upsert({
-    where: { email: "james@summitsocial.dev" },
+    where: { email: "james@basecamper.ai" },
     update: {},
     create: {
-      email: "james@summitsocial.dev",
+      email: "james@basecamper.ai",
       name: "James Explorer",
       bio: "Cycling the world one continent at a time. Currently: Central Asia.",
       avatarUrl: "https://api.dicebear.com/9.x/adventurer/svg?seed=James",

@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = { title: "Activity Feed | Basecamp" };
+export const metadata: Metadata = { title: "Activity Feed | Basecamper" };
 
 const PAGE_SIZE = 20;
 // Fetch a generous window per source so the merged + sorted slice has enough items

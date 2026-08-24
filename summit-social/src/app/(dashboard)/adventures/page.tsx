@@ -14,7 +14,7 @@ import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = { title: "Adventures | Basecamp" };
+export const metadata = { title: "Adventures | Basecamper" };
 
 const PAGE_SIZE = 20;
 
@@ -224,7 +224,7 @@ export default async function AdventuresPage({
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-xs font-medium uppercase tracking-[0.25em] text-stone-500">
-                Basecamp / Explore
+                Basecamper / Explore
               </p>
               <h1 className="mt-3 font-display text-5xl font-light leading-none tracking-[-0.5px] text-stone-100 sm:text-7xl">
                 Adventures

@@ -2,7 +2,7 @@ import { ExploreMap } from "@/components/explore/explore-map";
 import { prisma } from "@/lib/db/prisma";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Explore | Basecamp" };
+export const metadata: Metadata = { title: "Explore | Basecamper" };
 
 export const dynamic = "force-dynamic";
 

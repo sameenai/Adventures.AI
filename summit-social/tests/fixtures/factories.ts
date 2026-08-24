@@ -2,7 +2,7 @@ import type { Category, Difficulty } from "@prisma/client";
 
 export function buildUser(overrides: Record<string, unknown> = {}) {
   return {
-    email: `test-${Date.now()}@summitsocial.dev`,
+    email: `test-${Date.now()}@basecamper.ai`,
     name: "Test User",
     ...overrides,
   };

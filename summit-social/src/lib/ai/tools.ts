@@ -31,7 +31,7 @@ export const chatTools: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "search_adventures",
-      description: "Search the Basecamp adventure database for inspiration",
+      description: "Search the Basecamper adventure database for inspiration",
       parameters: {
         type: "object",
         properties: {

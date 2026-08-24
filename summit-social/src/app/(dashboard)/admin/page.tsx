@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = { title: "Moderation Queue | Basecamp" };
+export const metadata = { title: "Moderation Queue | Basecamper" };
 
 function isAdmin(email: string | null | undefined): boolean {
   if (!email) return false;

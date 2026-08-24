@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = { title: "Leaderboard | Basecamp" };
+export const metadata = { title: "Leaderboard | Basecamper" };
 
 const PAGE_SIZE = 25;
 

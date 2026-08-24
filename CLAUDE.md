@@ -8,7 +8,7 @@ When receiving a short or ambiguous request (e.g. a single word like "tui"), ask
 
 ## Project
 
-**Adventures.AI** — An automated tour and itinerary builder with social features. The main application lives in `summit-social/`, a Next.js 15 full-stack app.
+**Basecamper** (basecamper.ai) — An automated tour and itinerary builder with social features. The main application lives in `summit-social/`, a Next.js 15 full-stack app.
 
 All commands below should be run from `summit-social/`.
 
@@ -58,9 +58,9 @@ make deploy-gcp     # Build Docker image via Cloud Build and deploy to Cloud Run
 ### GCP Production Environment
 - **Project**: `basecamp-494710`
 - **Region**: `europe-west2`
-- **Service**: `summit-social`
-- **Image**: `europe-west2-docker.pkg.dev/basecamp-494710/summit-social/app:latest`
-- **URL**: https://summit-social-617967079491.europe-west2.run.app
+- **Service**: `basecamper`
+- **Image**: `europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:latest`
+- **URL**: https://basecamper.ai (Cloud Run custom domain mapped)
 
 `make deploy-gcp` runs `gcloud builds submit` (remote build — no local Docker required) then
 `gcloud run deploy`. Requires `gcloud` CLI authenticated with the `basecamp-494710` project.

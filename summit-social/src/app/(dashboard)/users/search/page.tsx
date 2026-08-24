@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = { title: "Find People | Basecamp" };
+export const metadata: Metadata = { title: "Find People | Basecamper" };
 
 async function UserResults({ q }: { q: string }) {
   if (!q || q.trim().length < 2) {

@@ -2,7 +2,7 @@
 
 GCP_PROJECT    := basecamp-494710
 GCP_REGION     := europe-west2
-GCP_SERVICE    := summit-social
+GCP_SERVICE    := basecamper
 GCP_IMAGE      := $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT)/$(GCP_SERVICE)/app:latest
 
 # ---------------------------------------------------------------------------

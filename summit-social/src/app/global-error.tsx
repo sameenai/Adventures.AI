@@ -53,7 +53,7 @@ export default function GlobalError({
             fontWeight: 600,
           }}
         >
-          Basecamp is unavailable
+          Basecamper is unavailable
         </h1>
         <p
           style={{

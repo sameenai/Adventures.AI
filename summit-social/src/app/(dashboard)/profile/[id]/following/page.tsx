@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const user = await prisma.user.findUnique({ where: { id }, select: { name: true } });
   if (!user) return {};
-  return { title: `${user.name ?? "User"} · Following | Basecamp` };
+  return { title: `${user.name ?? "User"} · Following | Basecamper` };
 }
 
 export default async function FollowingPage({ params }: { params: Promise<{ id: string }> }) {
