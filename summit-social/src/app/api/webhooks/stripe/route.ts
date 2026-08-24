@@ -1,3 +1,4 @@
+import { handleFlightBookingPaid, handleFlightBookingRefund } from "@/lib/billing/flight-booking";
 import { prisma } from "@/lib/db/prisma";
 import { logger } from "@/lib/logger";
 import { Prisma } from "@prisma/client";
@@ -49,6 +50,10 @@ export async function POST(request: NextRequest) {
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
+        if (session.metadata?.kind === "flight_booking") {
+          await handleFlightBookingPaid(session);
+          break;
+        }
         const userId = session.metadata?.userId;
         const subId = typeof session.subscription === "string" ? session.subscription : null;
         if (userId && subId) {
@@ -57,6 +62,11 @@ export async function POST(request: NextRequest) {
             data: { plan: "PRO", stripeSubId: subId },
           });
         }
+        break;
+      }
+
+      case "charge.refunded": {
+        await handleFlightBookingRefund(event.data.object as Stripe.Charge);
         break;
       }
 
