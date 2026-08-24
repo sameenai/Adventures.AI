@@ -1,5 +1,7 @@
 import { authOptions } from "@/lib/auth/config";
+import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import { rateLimit } from "@/lib/db/redis";
 import { updateAdventureSchema } from "@/lib/validators/adventure";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
@@ -46,14 +48,28 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
 
 export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const [session, adventure] = await Promise.all([
-    getServerSession(authOptions),
-    prisma.adventure.findUnique({ where: { id }, select: { userId: true } }),
-  ]);
+  const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
   }
+
+  const rl = await rateLimit(
+    `adventure:mutate:${session.user.id}`,
+    RATE_LIMITS.adventureMutate.limit,
+    RATE_LIMITS.adventureMutate.windowSeconds,
+  );
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
+  }
+
+  const adventure = await prisma.adventure.findUnique({
+    where: { id },
+    select: { userId: true },
+  });
 
   if (!adventure) {
     return NextResponse.json({ error: "Adventure not found", code: "NOT_FOUND" }, { status: 404 });
@@ -73,6 +89,18 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
+  }
+
+  const rl = await rateLimit(
+    `adventure:mutate:${session.user.id}`,
+    RATE_LIMITS.adventureMutate.limit,
+    RATE_LIMITS.adventureMutate.windowSeconds,
+  );
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
   }
 
   const adventure = await prisma.adventure.findUnique({
