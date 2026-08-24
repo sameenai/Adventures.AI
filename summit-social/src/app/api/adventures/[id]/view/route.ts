@@ -2,6 +2,7 @@ import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
+import { getClientIp } from "@/lib/request";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -10,7 +11,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   const { id: adventureId } = await params;
   const session = await getServerSession(authOptions);
 
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  const ip = getClientIp(request);
   const rl = await rateLimit(
     `adventure-view:${ip}`,
     RATE_LIMITS.adventureView.limit,
