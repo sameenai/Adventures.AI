@@ -1,3 +1,4 @@
+import { TERMS_VERSION } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -56,6 +57,28 @@ export const authOptions: NextAuthOptions = {
     maxAge: 7 * 24 * 60 * 60,
   },
   callbacks: {
+    // OAuth providers hand us THEIR profile id, not a database row. Without
+    // an adapter, every session must be re-keyed to the upserted User row or
+    // all prisma lookups keyed on session.user.id silently miss.
+    async signIn({ user, account }) {
+      if (account?.provider === "google") {
+        if (!user.email) return false;
+        const dbUser = await prisma.user.upsert({
+          where: { email: user.email },
+          update: {
+            name: user.name ?? undefined,
+            avatarUrl: user.image ?? undefined,
+          },
+          create: {
+            email: user.email,
+            name: user.name,
+            avatarUrl: user.image,
+          },
+        });
+        user.id = dbUser.id;
+      }
+      return true;
+    },
     async session({ session, token }) {
       if (session.user && token.sub) {
         session.user.id = token.sub;
@@ -67,6 +90,19 @@ export const authOptions: NextAuthOptions = {
         token.sub = user.id;
       }
       return token;
+    },
+  },
+  events: {
+    // Click-wrap record: /login and /signup state that continuing accepts the
+    // Terms & Privacy Policy; the first sign-in stamps which version.
+    async signIn({ user }) {
+      if (!user?.email) return;
+      await prisma.user
+        .updateMany({
+          where: { email: user.email, termsAcceptedAt: null },
+          data: { termsAcceptedAt: new Date(), termsVersion: TERMS_VERSION },
+        })
+        .catch(() => undefined);
     },
   },
   pages: {

@@ -288,25 +288,45 @@ describe("POST /api/adventures/[id]/view", () => {
     const res = await recordView(
       new NextRequest("http://localhost/api/adventures/adv-1/view", {
         method: "POST",
-        body: JSON.stringify({ fingerprint: "fp-abc" }),
-        headers: { "Content-Type": "application/json" },
       }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
     expect(res.status).toBe(429);
   });
 
-  it("returns 400 when fingerprint is missing", async () => {
+  it("derives the viewer key server-side — no client fingerprint accepted", async () => {
     noSession();
-    const res = await recordView(
+    (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
+    (mockPrisma.adventureView.count as ReturnType<typeof vi.fn>).mockResolvedValue(1);
+    await recordView(
       new NextRequest("http://localhost/api/adventures/adv-1/view", {
         method: "POST",
-        body: JSON.stringify({}),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "x-forwarded-for": "203.0.113.9",
+          "user-agent": "TestBrowser/1.0",
+        },
       }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
-    expect(res.status).toBe(400);
+    const arg = (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    const fp = arg.where.adventureId_fingerprint.fingerprint as string;
+    // anonymous viewers get a salted hash, never raw network data
+    expect(fp).toMatch(/^anon:[0-9a-f]{32}:adv-1$/);
+    expect(fp).not.toContain("203.0.113.9");
+    expect(fp).not.toContain("TestBrowser");
+  });
+
+  it("keys signed-in views on the user id", async () => {
+    mockGetSession.mockResolvedValue({ user: { id: "user-77" } });
+    (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
+    (mockPrisma.adventureView.count as ReturnType<typeof vi.fn>).mockResolvedValue(1);
+    await recordView(
+      new NextRequest("http://localhost/api/adventures/adv-1/view", { method: "POST" }),
+      { params: Promise.resolve({ id: "adv-1" }) },
+    );
+    const arg = (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(arg.where.adventureId_fingerprint.fingerprint).toBe("user:user-77:adv-1");
+    expect(arg.create.userId).toBe("user-77");
   });
 
   it("records a view and returns the count", async () => {
@@ -314,11 +334,7 @@ describe("POST /api/adventures/[id]/view", () => {
     (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
     (mockPrisma.adventureView.count as ReturnType<typeof vi.fn>).mockResolvedValue(5);
     const res = await recordView(
-      new NextRequest("http://localhost/api/adventures/adv-1/view", {
-        method: "POST",
-        body: JSON.stringify({ fingerprint: "fp-abc:adv-1" }),
-        headers: { "Content-Type": "application/json" },
-      }),
+      new NextRequest("http://localhost/api/adventures/adv-1/view", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
     expect(res.status).toBe(200);
@@ -331,18 +347,11 @@ describe("POST /api/adventures/[id]/view", () => {
     (mockPrisma.adventureView.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
     (mockPrisma.adventureView.count as ReturnType<typeof vi.fn>).mockResolvedValue(1);
     await recordView(
-      new NextRequest("http://localhost/api/adventures/adv-1/view", {
-        method: "POST",
-        body: JSON.stringify({ fingerprint: "fp-abc:adv-1" }),
-        headers: { "Content-Type": "application/json" },
-      }),
+      new NextRequest("http://localhost/api/adventures/adv-1/view", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
     expect(mockPrisma.adventureView.upsert).toHaveBeenCalledWith(
-      expect.objectContaining({
-        where: { adventureId_fingerprint: { adventureId: "adv-1", fingerprint: "fp-abc:adv-1" } },
-        update: {},
-      }),
+      expect.objectContaining({ update: {} }),
     );
   });
 });

@@ -71,6 +71,21 @@ export default function SignupPage() {
             </Button>
           </div>
 
+          <p
+            className="mt-4 text-center text-xs text-stone-600"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
+            By continuing you agree to our{" "}
+            <Link href="/terms" className="text-stone-400 underline hover:text-amber-500">
+              Terms
+            </Link>{" "}
+            and{" "}
+            <Link href="/privacy" className="text-stone-400 underline hover:text-amber-500">
+              Privacy Policy
+            </Link>
+            .
+          </p>
+
           {/* Dev signup — build-time gated: never rendered in production bundles */}
           {process.env.NODE_ENV !== "production" && (
             <>
