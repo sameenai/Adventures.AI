@@ -104,13 +104,19 @@ jobs:
       - run: npm ci
       - name: Apply every migration to a clean database
         run: npx prisma migrate deploy
+      # The drift check needs its OWN shadow database: prisma migrate diff
+      # RESETS the shadow DB to replay migrations, so pointing it at
+      # $DATABASE_URL wipes the migration history migrate deploy just wrote
+      # (P3005 downstream).
       - name: Schema drift check (schema.prisma vs migrations)
-        run: >-
-          npx prisma migrate diff
-          --from-migrations ./prisma/migrations
-          --to-schema-datamodel ./prisma/schema.prisma
-          --shadow-database-url "$DATABASE_URL"
-          --exit-code
+        run: |
+          PGPASSWORD=summit psql -h localhost -U summit -d summitsocial_ci \
+            -c "CREATE DATABASE summitsocial_shadow"
+          npx prisma migrate diff \
+            --from-migrations ./prisma/migrations \
+            --to-schema-datamodel ./prisma/schema.prisma \
+            --shadow-database-url "postgresql://summit:summit@localhost:5432/summitsocial_shadow" \
+            --exit-code
       - name: Seed the full catalog (validates the data-driven seed end-to-end)
         run: npm run db:seed
       - name: Real-services test tier (query semantics, races, limiter windows)
