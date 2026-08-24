@@ -1,11 +1,8 @@
-import { authOptions } from "@/lib/auth/config";
+import { withApi } from "@/lib/api/handler";
 import { getOrCreateStripeCustomer } from "@/lib/billing/customer";
-import { APP_URL, RATE_LIMITS } from "@/lib/constants";
+import { APP_URL } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
-import { rateLimit } from "@/lib/db/redis";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import Stripe from "stripe";
 
 /**
@@ -15,83 +12,63 @@ import Stripe from "stripe";
  * (checkout.session.completed with metadata.kind=flight_booking) flips the
  * booking to PAID and the itinerary to BOOKED.
  */
-export async function POST(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
+export const POST = withApi(
+  { rateLimit: { name: "stripeCheckout", prefix: "stripe-checkout", failClosed: true } },
+  async ({ userId, params }) => {
+    const stripeKey = process.env.STRIPE_SECRET_KEY;
+    if (!stripeKey) {
+      return NextResponse.json({ error: "Payments not configured" }, { status: 503 });
+    }
 
-  const rl = await rateLimit(
-    `stripe-checkout:${session.user.id}`,
-    RATE_LIMITS.stripeCheckout.limit,
-    RATE_LIMITS.stripeCheckout.windowSeconds,
-    { failClosed: true },
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Too many requests", code: "RATE_LIMITED" },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
+    const booking = await prisma.flightBooking.findUnique({ where: { id: params.id } });
+    if (!booking || booking.userId !== userId) {
+      return NextResponse.json({ error: "Booking not found", code: "NOT_FOUND" }, { status: 404 });
+    }
+    if (booking.status !== "PRICE_CONFIRMED") {
+      return NextResponse.json(
+        { error: "Confirm the fare before paying", code: "INVALID_STATE" },
+        { status: 409 },
+      );
+    }
 
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
-  if (!stripeKey) {
-    return NextResponse.json({ error: "Payments not configured" }, { status: 503 });
-  }
+    const stripe = new Stripe(stripeKey);
+    const customerId = await getOrCreateStripeCustomer(stripe, userId);
+    if (!customerId) {
+      return NextResponse.json({ error: "User not found", code: "NOT_FOUND" }, { status: 404 });
+    }
 
-  const booking = await prisma.flightBooking.findUnique({ where: { id } });
-  if (!booking || booking.userId !== session.user.id) {
-    return NextResponse.json({ error: "Booking not found", code: "NOT_FOUND" }, { status: 404 });
-  }
-  if (booking.status !== "PRICE_CONFIRMED") {
-    return NextResponse.json(
-      { error: "Confirm the fare before paying", code: "INVALID_STATE" },
-      { status: 409 },
-    );
-  }
+    const returnPath = booking.itineraryId ? `/itinerary/${booking.itineraryId}` : "/itineraries";
+    const metadata = { kind: "flight_booking", bookingId: booking.id, userId };
 
-  const stripe = new Stripe(stripeKey);
-  const customerId = await getOrCreateStripeCustomer(stripe, session.user.id);
-  if (!customerId) {
-    return NextResponse.json({ error: "User not found", code: "NOT_FOUND" }, { status: 404 });
-  }
-
-  const returnPath = booking.itineraryId ? `/itinerary/${booking.itineraryId}` : "/itineraries";
-  const metadata = {
-    kind: "flight_booking",
-    bookingId: booking.id,
-    userId: session.user.id,
-  };
-
-  const checkoutSession = await stripe.checkout.sessions.create({
-    customer: customerId,
-    mode: "payment",
-    line_items: [
-      {
-        price_data: {
-          currency: "gbp",
-          product_data: {
-            name: `Flight ${booking.origin} → ${booking.destination}`,
-            description: `${booking.airline} ${booking.flightNumber} · departs ${booking.departureAt
-              .toISOString()
-              .slice(0, 16)
-              .replace("T", " ")} UTC`,
+    const checkoutSession = await stripe.checkout.sessions.create({
+      customer: customerId,
+      mode: "payment",
+      line_items: [
+        {
+          price_data: {
+            currency: "gbp",
+            product_data: {
+              name: `Flight ${booking.origin} → ${booking.destination}`,
+              description: `${booking.airline} ${booking.flightNumber} · departs ${booking.departureAt
+                .toISOString()
+                .slice(0, 16)
+                .replace("T", " ")} UTC`,
+            },
+            unit_amount: booking.priceGBP,
           },
-          unit_amount: booking.priceGBP,
+          quantity: 1,
         },
-        quantity: 1,
-      },
-    ],
-    success_url: `${APP_URL}${returnPath}?payment=success`,
-    cancel_url: `${APP_URL}${returnPath}?payment=cancelled`,
-    metadata,
-    payment_intent_data: { metadata },
-  });
+      ],
+      success_url: `${APP_URL}${returnPath}?payment=success`,
+      cancel_url: `${APP_URL}${returnPath}?payment=cancelled`,
+      metadata,
+      payment_intent_data: { metadata },
+    });
 
-  if (!checkoutSession.url) {
-    return NextResponse.json({ error: "Could not create checkout session" }, { status: 502 });
-  }
+    if (!checkoutSession.url) {
+      return NextResponse.json({ error: "Could not create checkout session" }, { status: 502 });
+    }
 
-  return NextResponse.json({ url: checkoutSession.url });
-}
+    return NextResponse.json({ url: checkoutSession.url });
+  },
+);
