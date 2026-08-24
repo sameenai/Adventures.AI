@@ -42,7 +42,10 @@ type RouteContext = { params: Promise<Record<string, string>> };
 export function withApi<TBody = undefined>(
   options: ApiOptions<TBody>,
   handler: (ctx: ApiContext<TBody>) => Promise<NextResponse>,
-): (request: NextRequest, route?: RouteContext) => Promise<NextResponse> {
+  // Next's route type check requires the context param to be non-optional on
+  // dynamic routes, so the declared signature requires it; the implementation
+  // tolerates its absence (static routes, direct test calls).
+): (request: NextRequest, route: RouteContext) => Promise<NextResponse> {
   return async (request: NextRequest, route?: RouteContext) => {
     try {
       const session = await getServerSession(authOptions);

@@ -95,6 +95,7 @@ describe("PUT /api/user/traveler-profile — stated preferences", () => {
         maxDifficulty: "CHALLENGING",
         budgetBandPence: 250000,
       }),
+      { params: Promise.resolve({}) },
     );
     expect(res.status).toBe(200);
     expect(p.travelerProfile.upsert).toHaveBeenCalledWith(
@@ -103,7 +104,9 @@ describe("PUT /api/user/traveler-profile — stated preferences", () => {
   });
 
   it("rejects invalid cadence and airports", async () => {
-    const res = await putProfile(req("PUT", { cadenceMonths: 0, homeAirport: "Heathrow" }));
+    const res = await putProfile(req("PUT", { cadenceMonths: 0, homeAirport: "Heathrow" }), {
+      params: Promise.resolve({}),
+    });
     expect(res.status).toBe(400);
     expect(p.travelerProfile.upsert).not.toHaveBeenCalled();
   });
