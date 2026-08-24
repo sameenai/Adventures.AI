@@ -22,14 +22,12 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       select: {
         id: true,
         name: true,
-        email: true,
         avatarUrl: true,
         bio: true,
         instagramUrl: true,
         twitterUrl: true,
         websiteUrl: true,
         plan: true,
-        openAiApiKey: true,
         adventures: {
           orderBy: { voteCount: "desc" },
           include: {
@@ -68,9 +66,20 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
 
   if (!user) notFound();
 
-  const { openAiApiKey, ...safeUser } = user;
-  const hasApiKey = Boolean(openAiApiKey);
+  const safeUser = user;
   const isOwnProfile = session?.user?.id === id;
+  // Data minimisation: the key flag is only ever queried for the owner —
+  // sensitive columns must not flow into a public page's component tree.
+  const hasApiKey = isOwnProfile
+    ? Boolean(
+        (
+          await prisma.user.findUnique({
+            where: { id },
+            select: { openAiApiKey: true },
+          })
+        )?.openAiApiKey,
+      )
+    : false;
 
   // Non-owners only see published adventures
   const visibleAdventures = isOwnProfile

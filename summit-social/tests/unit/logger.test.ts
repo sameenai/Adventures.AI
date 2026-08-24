@@ -96,3 +96,61 @@ describe("logger", () => {
     });
   });
 });
+
+// ---------------------------------------------------------------------------
+// Redaction — secrets and PII must never reach log output
+// ---------------------------------------------------------------------------
+import { scrub } from "@/lib/logger";
+
+describe("logger scrub", () => {
+  it("redacts OpenAI-style keys inside strings", () => {
+    expect(scrub("failed with key sk-proj-abcdef1234567890")).not.toContain("sk-proj");
+    expect(scrub("failed with key sk-proj-abcdef1234567890")).toContain("[REDACTED]");
+  });
+
+  it("redacts Stripe secrets and webhook secrets", () => {
+    expect(scrub("sk_live_abcdefgh12345678 whsec_zyxwvut987654321")).toBe(
+      "[REDACTED] [REDACTED]",
+    );
+  });
+
+  it("redacts bearer tokens", () => {
+    expect(scrub("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.payload.sig")).toContain(
+      "[REDACTED]",
+    );
+  });
+
+  it("redacts email addresses", () => {
+    const out = scrub("user sameen.jalal@example.com hit an error") as string;
+    expect(out).not.toContain("@example.com");
+  });
+
+  it("redacts sensitive keys in nested objects", () => {
+    const out = scrub({
+      request: { apiKey: "super-secret", ok: true },
+      authorization: "Bearer abc",
+    }) as Record<string, { apiKey: string; ok: boolean }> & { authorization: string };
+    expect(out.request.apiKey).toBe("[REDACTED]");
+    expect(out.authorization).toBe("[REDACTED]");
+    expect(out.request.ok).toBe(true);
+  });
+
+  it("keeps Error name/message and truncates deep stacks", () => {
+    const err = new Error("boom sk-abcdefgh87654321");
+    const out = scrub(err) as { name: string; message: string; stack?: string };
+    expect(out.name).toBe("Error");
+    expect(out.message).toContain("[REDACTED]");
+    expect((out.stack ?? "").split("\n").length).toBeLessThanOrEqual(8);
+  });
+
+  it("truncates very long strings", () => {
+    const out = scrub("x".repeat(5000)) as string;
+    expect(out.length).toBeLessThan(2100);
+  });
+
+  it("caps recursion depth", () => {
+    const deep = { a: { b: { c: { d: { e: { f: 1 } } } } } };
+    const out = JSON.stringify(scrub(deep));
+    expect(out).toContain("[truncated]");
+  });
+});

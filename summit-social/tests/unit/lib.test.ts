@@ -115,6 +115,7 @@ vi.mock("ioredis", () => {
   const mockRedis = {
     get: vi.fn(),
     set: vi.fn(),
+    eval: vi.fn().mockResolvedValue([1, 3600]),
     incr: vi.fn(),
     expire: vi.fn(),
     ttl: vi.fn().mockResolvedValue(30),
@@ -127,7 +128,7 @@ vi.mock("ioredis", () => {
 import { getCached, setCache, rateLimit } from "@/lib/db/redis";
 import Redis from "ioredis";
 
-const redisMock = (Redis as unknown as { _mock: ReturnType<typeof vi.fn> & { get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn>; incr: ReturnType<typeof vi.fn>; expire: ReturnType<typeof vi.fn>; ttl: ReturnType<typeof vi.fn> } })._mock;
+const redisMock = (Redis as unknown as { _mock: ReturnType<typeof vi.fn> & { get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn>; eval: ReturnType<typeof vi.fn>; incr: ReturnType<typeof vi.fn>; expire: ReturnType<typeof vi.fn>; ttl: ReturnType<typeof vi.fn> } })._mock;
 
 describe("getCached", () => {
   afterEach(() => vi.clearAllMocks());
@@ -167,43 +168,33 @@ describe("rateLimit", () => {
   afterEach(() => vi.clearAllMocks());
 
   it("returns allowed=true when under the limit (first request)", async () => {
-    redisMock.incr.mockResolvedValue(1);
-    redisMock.expire.mockResolvedValue(1);
+    redisMock.eval.mockResolvedValue([1, 60]);
     const result = await rateLimit("user-key", 10, 60);
     expect(result.allowed).toBe(true);
     expect(result.retryAfter).toBe(0);
   });
 
-  it("sets expiry on first request (incr returns 1)", async () => {
-    redisMock.incr.mockResolvedValue(1);
-    redisMock.expire.mockResolvedValue(1);
+  it("passes the key and window to the atomic script", async () => {
+    redisMock.eval.mockResolvedValue([1, 60]);
     await rateLimit("user-key", 10, 60);
-    expect(redisMock.expire).toHaveBeenCalledWith("user-key", 60);
-  });
-
-  it("does not set expiry on subsequent requests (incr > 1)", async () => {
-    redisMock.incr.mockResolvedValue(5);
-    await rateLimit("user-key", 10, 60);
-    expect(redisMock.expire).not.toHaveBeenCalled();
+    expect(redisMock.eval).toHaveBeenCalledWith(expect.any(String), 1, "user-key", 60);
   });
 
   it("returns allowed=true when at the limit", async () => {
-    redisMock.incr.mockResolvedValue(10);
+    redisMock.eval.mockResolvedValue([10, 45]);
     const result = await rateLimit("user-key", 10, 60);
     expect(result.allowed).toBe(true);
   });
 
   it("returns allowed=false with retryAfter when over the limit", async () => {
-    redisMock.incr.mockResolvedValue(11);
-    redisMock.ttl.mockResolvedValue(45);
+    redisMock.eval.mockResolvedValue([11, 45]);
     const result = await rateLimit("user-key", 10, 60);
     expect(result.allowed).toBe(false);
     expect(result.retryAfter).toBe(45);
   });
 
-  it("falls back to windowSeconds when ttl returns -1", async () => {
-    redisMock.incr.mockResolvedValue(11);
-    redisMock.ttl.mockResolvedValue(-1);
+  it("falls back to windowSeconds when ttl is not positive", async () => {
+    redisMock.eval.mockResolvedValue([11, -1]);
     const result = await rateLimit("user-key", 10, 60);
     expect(result.allowed).toBe(false);
     expect(result.retryAfter).toBe(60);

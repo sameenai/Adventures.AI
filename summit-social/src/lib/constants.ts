@@ -11,10 +11,17 @@ export const RATE_LIMITS = {
   vote: { limit: 60, windowSeconds: 3600 },
   flightSearch: { limit: 20, windowSeconds: 3600 },
   adventureCreate: { limit: 10, windowSeconds: 3600 },
+  adventureMutate: { limit: 60, windowSeconds: 3600 },
   commentCreate: { limit: 30, windowSeconds: 3600 },
   follow: { limit: 60, windowSeconds: 3600 },
   itineraryCreate: { limit: 20, windowSeconds: 3600 },
+  itineraryMutate: { limit: 60, windowSeconds: 3600 },
   collectionCreate: { limit: 20, windowSeconds: 3600 },
+  collectionItems: { limit: 120, windowSeconds: 3600 },
+  bookmark: { limit: 120, windowSeconds: 3600 },
+  profileUpdate: { limit: 30, windowSeconds: 3600 },
+  apiKeyUpdate: { limit: 10, windowSeconds: 3600 },
+  notificationsMutate: { limit: 60, windowSeconds: 3600 },
   stripeCheckout: { limit: 5, windowSeconds: 3600 },
   userSearch: { limit: 60, windowSeconds: 3600 },
   commentReact: { limit: 120, windowSeconds: 3600 },
@@ -78,13 +85,16 @@ export const UPLOAD_MAX_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
 export const PLANS = {
   FREE: {
     name: "Free",
-    aiCreditsPerMonth: 5,
+    // Metered per message (not per session): a session-based credit was
+    // bypassable by resuming an itinerary, leaving platform GPT-4o spend
+    // uncapped. 60 messages ≈ five full planning sessions.
+    aiMessagesPerMonth: 60,
     bookmarkLimit: 20,
     priceGBP: 0,
   },
   PRO: {
     name: "Pro",
-    aiCreditsPerMonth: Number.POSITIVE_INFINITY,
+    aiMessagesPerMonth: Number.POSITIVE_INFINITY,
     bookmarkLimit: Number.POSITIVE_INFINITY,
     priceGBP: 9,
   },

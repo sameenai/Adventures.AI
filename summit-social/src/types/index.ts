@@ -24,17 +24,11 @@ export type ItineraryWithDays = Itinerary & {
   days: ItineraryDay[];
 };
 
+// Deliberately excludes email: this type describes PUBLIC profile data and
+// must never grow columns that would leak through an RSC payload.
 export type UserProfile = Pick<
   User,
-  | "id"
-  | "name"
-  | "email"
-  | "avatarUrl"
-  | "bio"
-  | "instagramUrl"
-  | "twitterUrl"
-  | "websiteUrl"
-  | "plan"
+  "id" | "name" | "avatarUrl" | "bio" | "instagramUrl" | "twitterUrl" | "websiteUrl" | "plan"
 > & {
   adventures: AdventureWithUser[];
   _count: { adventures: number; votes: number };

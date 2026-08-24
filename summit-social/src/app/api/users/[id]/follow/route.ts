@@ -74,6 +74,18 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
   }
 
+  const rl = await rateLimit(
+    `follow:${session.user.id}`,
+    RATE_LIMITS.follow.limit,
+    RATE_LIMITS.follow.windowSeconds,
+  );
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
+  }
+
   await prisma.follow.deleteMany({
     where: { followerId: session.user.id, followingId },
   });

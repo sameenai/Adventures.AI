@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Go Pro | Basecamper" };
 
 const FREE_FEATURES = [
-  `${PLANS.FREE.aiCreditsPerMonth} AI planning sessions / month`,
+  `${PLANS.FREE.aiMessagesPerMonth} AI planner messages / month`,
   `Up to ${PLANS.FREE.bookmarkLimit} bookmarks`,
   "Unlimited adventure posts",
   "Community feed & leaderboard",

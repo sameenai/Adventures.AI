@@ -3,34 +3,40 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
-const devProvider =
-  process.env.NODE_ENV !== "production"
-    ? [
-        // Local dev login — works without any OAuth credentials.
-        // Sign in with any email + password "dev". NOT included in production builds.
-        CredentialsProvider({
-          id: "credentials",
-          name: "Dev Login",
-          credentials: {
-            email: { label: "Email", type: "email" },
-            password: { label: "Password", type: "password" },
-          },
-          async authorize(credentials) {
-            if (!credentials?.email || credentials.password !== "dev") return null;
-            const user = await prisma.user.upsert({
-              where: { email: credentials.email },
-              update: {},
-              create: {
-                email: credentials.email,
-                name: credentials.email.split("@")[0],
-                avatarUrl: `https://api.dicebear.com/9.x/adventurer/svg?seed=${encodeURIComponent(credentials.email)}`,
-              },
-            });
-            return { id: user.id, email: user.email, name: user.name, image: user.avatarUrl };
-          },
-        }),
-      ]
-    : [];
+// The dev login mints a session for ANY email, so it must never be reachable
+// in a deployed environment. NODE_ENV alone is a fragile boundary (one env
+// var away from account takeover on a staging revision), so it also requires
+// an explicit opt-in that no deploy config ever sets.
+const devLoginEnabled =
+  process.env.NODE_ENV !== "production" && process.env.ENABLE_DEV_LOGIN === "true";
+
+const devProvider = devLoginEnabled
+  ? [
+      // Local dev login — works without any OAuth credentials.
+      // Sign in with any email + password "dev". NOT included in production builds.
+      CredentialsProvider({
+        id: "credentials",
+        name: "Dev Login",
+        credentials: {
+          email: { label: "Email", type: "email" },
+          password: { label: "Password", type: "password" },
+        },
+        async authorize(credentials) {
+          if (!credentials?.email || credentials.password !== "dev") return null;
+          const user = await prisma.user.upsert({
+            where: { email: credentials.email },
+            update: {},
+            create: {
+              email: credentials.email,
+              name: credentials.email.split("@")[0],
+              avatarUrl: `https://api.dicebear.com/9.x/adventurer/svg?seed=${encodeURIComponent(credentials.email)}`,
+            },
+          });
+          return { id: user.id, email: user.email, name: user.name, image: user.avatarUrl };
+        },
+      }),
+    ]
+  : [];
 
 export const authOptions: NextAuthOptions = {
   // No database adapter: session.strategy is "jwt", which is fully self-contained.
@@ -45,6 +51,9 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
+    // JWT sessions cannot be revoked server-side, so keep the exposure window
+    // of a stolen cookie short (NextAuth default is 30 days).
+    maxAge: 7 * 24 * 60 * 60,
   },
   callbacks: {
     async session({ session, token }) {

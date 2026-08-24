@@ -8,6 +8,7 @@ vi.mock("ioredis", () => {
   const Redis = vi.fn().mockImplementation(() => ({
     get: vi.fn().mockResolvedValue(null),
     set: vi.fn().mockResolvedValue("OK"),
+    eval: vi.fn().mockResolvedValue([1, 3600]),
     incr: vi.fn().mockResolvedValue(1),
     expire: vi.fn().mockResolvedValue(1),
   }));
@@ -36,6 +37,7 @@ vi.mock("stripe", () => {
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
     user: { findUnique: vi.fn(), update: vi.fn(), updateMany: vi.fn(), findMany: vi.fn() },
+    stripeEvent: { create: vi.fn().mockResolvedValue({}) },
     comment: { findUnique: vi.fn() },
     commentReaction: {
       findUnique: vi.fn(),
@@ -401,6 +403,60 @@ describe("POST /api/webhooks/stripe", () => {
     expect(response.status).toBe(503);
     const data = await response.json();
     expect(data.error).toBe("Billing not configured");
+  });
+
+  it("records the event id and short-circuits duplicate deliveries", async () => {
+    const { Prisma } = await import("@prisma/client");
+    const event = {
+      id: "evt_dup_1",
+      type: "checkout.session.completed",
+      data: { object: { metadata: { userId: "user-1" }, subscription: "sub_123" } },
+    };
+    mockStripeWebhooksConstruct.mockReturnValue(event);
+    (mockPrisma.stripeEvent.create as ReturnType<typeof vi.fn>).mockRejectedValue(
+      new Prisma.PrismaClientKnownRequestError("Unique constraint failed", {
+        code: "P2002",
+        clientVersion: "6.0.0",
+      }),
+    );
+
+    const response = await stripeWebhook(
+      new NextRequest("http://localhost/api/webhooks/stripe", {
+        method: "POST",
+        body: "{}",
+        headers: { "stripe-signature": "sig" },
+      }),
+    );
+
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.duplicate).toBe(true);
+    // The plan mutation must not run twice
+    expect(mockPrisma.user.update).not.toHaveBeenCalled();
+  });
+
+  it("falls back to stripeSubId when subscription.updated has no metadata", async () => {
+    const event = {
+      id: "evt_upd_1",
+      type: "customer.subscription.updated",
+      data: { object: { id: "sub_999", status: "past_due", metadata: {} } },
+    };
+    mockStripeWebhooksConstruct.mockReturnValue(event);
+    (mockPrisma.stripeEvent.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
+
+    const response = await stripeWebhook(
+      new NextRequest("http://localhost/api/webhooks/stripe", {
+        method: "POST",
+        body: "{}",
+        headers: { "stripe-signature": "sig" },
+      }),
+    );
+
+    expect(response.status).toBe(200);
+    expect(mockPrisma.user.updateMany).toHaveBeenCalledWith({
+      where: { stripeSubId: "sub_999" },
+      data: { plan: "FREE" },
+    });
   });
 });
 

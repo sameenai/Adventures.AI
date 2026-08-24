@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
     `enhance:${session.user.id}`,
     RATE_LIMITS.adventureCreate.limit,
     RATE_LIMITS.adventureCreate.windowSeconds,
+    { failClosed: true },
   );
   if (!allowed) {
     return NextResponse.json(

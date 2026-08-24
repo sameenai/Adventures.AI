@@ -134,3 +134,32 @@ describe("timeAgo", () => {
     expect(timeAgo(new Date("2023-06-15T12:00:00Z"))).toBe("2y ago");
   });
 });
+
+// ---------------------------------------------------------------------------
+// getClientIp (lib/request.ts)
+// ---------------------------------------------------------------------------
+import { getClientIp } from "@/lib/request";
+import { NextRequest } from "next/server";
+
+describe("getClientIp", () => {
+  const withXff = (value?: string) =>
+    new NextRequest("http://localhost/api/test", {
+      headers: value ? { "x-forwarded-for": value } : {},
+    });
+
+  it("returns unknown when the header is absent", () => {
+    expect(getClientIp(withXff())).toBe("unknown");
+  });
+
+  it("uses the LAST hop — the one appended by the trusted proxy", () => {
+    expect(getClientIp(withXff("1.2.3.4, 5.6.7.8"))).toBe("5.6.7.8");
+  });
+
+  it("cannot be spoofed by a client-supplied leading entry", () => {
+    expect(getClientIp(withXff("evil-fake-ip, 9.9.9.9"))).toBe("9.9.9.9");
+  });
+
+  it("handles a single-hop header", () => {
+    expect(getClientIp(withXff("8.8.4.4"))).toBe("8.8.4.4");
+  });
+});

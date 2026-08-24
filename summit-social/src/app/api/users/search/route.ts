@@ -1,11 +1,12 @@
 import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
+import { getClientIp } from "@/lib/request";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  const ip = getClientIp(request);
   const rl = await rateLimit(
     `user-search:${ip}`,
     RATE_LIMITS.userSearch.limit,

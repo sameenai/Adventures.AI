@@ -1,5 +1,7 @@
 import { authOptions } from "@/lib/auth/config";
+import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import { rateLimit } from "@/lib/db/redis";
 import { updateItinerarySchema } from "@/lib/validators/itinerary";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
@@ -33,6 +35,18 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
+  }
+
+  const rl = await rateLimit(
+    `itinerary:mutate:${session.user.id}`,
+    RATE_LIMITS.itineraryMutate.limit,
+    RATE_LIMITS.itineraryMutate.windowSeconds,
+  );
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
   }
 
   const itinerary = await prisma.itinerary.findUnique({
@@ -84,6 +98,18 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
 
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
+  }
+
+  const rl = await rateLimit(
+    `itinerary:mutate:${session.user.id}`,
+    RATE_LIMITS.itineraryMutate.limit,
+    RATE_LIMITS.itineraryMutate.windowSeconds,
+  );
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
   }
 
   const itinerary = await prisma.itinerary.findUnique({
