@@ -34,6 +34,7 @@ const localStorageMock = (() => {
   return {
     getItem: (k: string) => store[k] ?? null,
     setItem: (k: string, v: string) => { store[k] = v; },
+    removeItem: (k: string) => { delete store[k]; },
     clear: () => { store = {}; },
   };
 })();
@@ -75,7 +76,7 @@ describe("ViewCounter", () => {
     expect(screen.getByText("1 view")).toBeTruthy();
   });
 
-  it("posts to the view endpoint with fingerprint", async () => {
+  it("posts to the view endpoint without sending any client identifier", async () => {
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({ count: 3 }),
@@ -85,8 +86,19 @@ describe("ViewCounter", () => {
     const [url, options] = (global.fetch as ReturnType<typeof vi.fn>).mock.calls[0];
     expect(url).toBe("/api/adventures/adv-42/view");
     expect(options.method).toBe("POST");
-    const body = JSON.parse(options.body);
-    expect(body.fingerprint).toContain("adv-42");
+    // Viewer identity is derived server-side; the request carries no body.
+    expect(options.body).toBeUndefined();
+  });
+
+  it("removes the legacy localStorage fingerprint", async () => {
+    localStorageMock.setItem("ss_fp", "legacy-uuid");
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ count: 3 }),
+    });
+    render(<ViewCounter adventureId="adv-42" isAuthor={false} />);
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+    expect(localStorageMock.getItem("ss_fp")).toBeNull();
   });
 });
 

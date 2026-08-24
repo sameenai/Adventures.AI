@@ -11,18 +11,16 @@ export function ViewCounter({ adventureId, isAuthor }: ViewCounterProps) {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
-    // Generate a stable per-browser fingerprint using localStorage
-    let fp = localStorage.getItem("ss_fp");
-    if (!fp) {
-      fp = crypto.randomUUID();
-      localStorage.setItem("ss_fp", fp);
+    // View identity is derived server-side (salted daily-rotating hash) —
+    // nothing is stored on the visitor's device. Clean up the identifier a
+    // previous version of the app kept in localStorage.
+    try {
+      localStorage.removeItem("ss_fp");
+    } catch {
+      // storage unavailable (private mode) — nothing to clean
     }
 
-    fetch(`/api/adventures/${adventureId}/view`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fingerprint: `${fp}:${adventureId}` }),
-    })
+    fetch(`/api/adventures/${adventureId}/view`, { method: "POST" })
       .then((r) => r.json())
       .then((data: { count: number }) => {
         if (isAuthor) setCount(data.count);

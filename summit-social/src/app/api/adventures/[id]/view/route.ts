@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
@@ -6,6 +7,23 @@ import { getClientIp } from "@/lib/request";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+
+/**
+ * Privacy-preserving view identifier. Nothing is stored on the visitor's
+ * device (PECR: no consent banner needed). Signed-in views key on the user
+ * id; anonymous views key on a salted hash of network data that rotates
+ * daily, so anonymous browsing history cannot be reassembled across days.
+ */
+function viewerKey(request: NextRequest, userId: string | undefined | null): string {
+  if (userId) return `user:${userId}`;
+  const day = new Date().toISOString().slice(0, 10);
+  const salt = process.env.NEXTAUTH_SECRET ?? "dev-salt";
+  const ua = request.headers.get("user-agent") ?? "";
+  const digest = createHash("sha256")
+    .update(`${salt}:${day}:${getClientIp(request)}:${ua}`)
+    .digest("hex");
+  return `anon:${digest.slice(0, 32)}`;
+}
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id: adventureId } = await params;
@@ -24,13 +42,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     );
   }
 
-  const body = await request.json().catch(() => ({}));
-  const rawFp = typeof body.fingerprint === "string" ? body.fingerprint : null;
-  const fingerprint = rawFp && rawFp.length <= 200 ? rawFp : null;
-
-  if (!fingerprint) {
-    return NextResponse.json({ error: "Missing fingerprint" }, { status: 400 });
-  }
+  const fingerprint = `${viewerKey(request, session?.user?.id)}:${adventureId}`;
 
   await prisma.adventureView.upsert({
     where: { adventureId_fingerprint: { adventureId, fingerprint } },
