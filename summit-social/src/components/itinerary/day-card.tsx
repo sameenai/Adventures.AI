@@ -1,19 +1,30 @@
 import { Card, CardContent } from "@/components/ui/card";
-import type { ItineraryDay } from "@prisma/client";
 
 interface Activity {
-  time: string;
-  activity: string;
-  location: string;
+  time?: string;
+  activity?: string;
+  location?: string;
   notes?: string;
 }
 
+/**
+ * Structural subset of the Prisma ItineraryDay model — lets pages pass
+ * `select`-narrowed rows without dragging in relation fields.
+ */
+export interface ItineraryDayData {
+  id: string;
+  dayNumber: number;
+  title: string;
+  description: string | null;
+  activities: unknown;
+}
+
 interface DayCardProps {
-  day: ItineraryDay;
+  day: ItineraryDayData;
 }
 
 export function DayCard({ day }: DayCardProps) {
-  const activities = day.activities as unknown as Activity[];
+  const activities = Array.isArray(day.activities) ? (day.activities as Activity[]) : [];
 
   return (
     <Card>

@@ -12,6 +12,10 @@ export function useChat({ itineraryId, initialMessages = [] }: UseChatOptions) {
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+  // Set when the server answers 402 UPGRADE_REQUIRED — the UI renders a real
+  // upsell (link to /pro) instead of a markdown error bubble.
+  const [limitReached, setLimitReached] = useState(false);
+  const [creditsLimit, setCreditsLimit] = useState<number | undefined>(undefined);
   // Tracks the active itinerary for this session — may be assigned by the server on first message
   const [activeItineraryId, setActiveItineraryId] = useState<string | undefined>(itineraryId);
 
@@ -41,11 +45,16 @@ export function useChat({ itineraryId, initialMessages = [] }: UseChatOptions) {
           const errData = (await response.json().catch(() => ({}))) as {
             error?: string;
             code?: string;
+            creditsLimit?: number;
           };
           if (response.status === 402 && errData.code === "UPGRADE_REQUIRED") {
-            throw new Error(
-              "You've used all 5 free AI sessions this month. [Upgrade to Pro](/pro) for unlimited planning.",
-            );
+            // Structured state, not a transcript message — the chat window
+            // renders a real upsell banner with a working link.
+            setLimitReached(true);
+            if (typeof errData.creditsLimit === "number") {
+              setCreditsLimit(errData.creditsLimit);
+            }
+            return;
           }
           throw new Error(errData.error ?? `Chat request failed (${response.status})`);
         }
@@ -106,5 +115,14 @@ export function useChat({ itineraryId, initialMessages = [] }: UseChatOptions) {
     [activeItineraryId],
   );
 
-  return { messages, input, setInput, sendMessage, isStreaming, itineraryId: activeItineraryId };
+  return {
+    messages,
+    input,
+    setInput,
+    sendMessage,
+    isStreaming,
+    limitReached,
+    creditsLimit,
+    itineraryId: activeItineraryId,
+  };
 }

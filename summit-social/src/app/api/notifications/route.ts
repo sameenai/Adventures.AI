@@ -9,13 +9,16 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
   }
 
-  const notifications = await prisma.notification.findMany({
-    where: { userId: session.user.id },
-    orderBy: { createdAt: "desc" },
-    take: 50,
-  });
-
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  // unreadCount must be a real DB count — deriving it from the 50 fetched rows
+  // undercounts as soon as unread notifications fall outside the page.
+  const [notifications, unreadCount] = await Promise.all([
+    prisma.notification.findMany({
+      where: { userId: session.user.id },
+      orderBy: { createdAt: "desc" },
+      take: 50,
+    }),
+    prisma.notification.count({ where: { userId: session.user.id, read: false } }),
+  ]);
 
   return NextResponse.json({ notifications, unreadCount });
 }

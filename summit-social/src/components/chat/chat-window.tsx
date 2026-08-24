@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useChat } from "@/hooks/useChat";
 import type { ChatMessage } from "@/types";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { MessageBubble } from "./message-bubble";
 import { TypingIndicator } from "./typing-indicator";
@@ -21,22 +22,37 @@ export function ChatWindow({ itineraryId, initialMessages = [], initialPrompt }:
     setInput,
     sendMessage,
     isStreaming,
+    limitReached,
+    creditsLimit,
     itineraryId: activeItineraryId,
   } = useChat({
     itineraryId,
     initialMessages,
   });
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const promptSentRef = useRef(false);
 
-  // Auto-send a pre-filled prompt exactly once on mount (e.g. from "Plan this trip" CTA).
+  // Auto-send a pre-filled prompt exactly once on mount (e.g. from "Plan this trip" CTA),
+  // then strip ?prompt= from the URL so a refresh cannot re-send it (and re-burn a credit).
   const initialPromptRef = useRef(initialPrompt);
   const sendMessageRef = useRef(sendMessage);
+  const routerRef = useRef(router);
+  const pathnameRef = useRef(pathname);
+  const searchParamsRef = useRef(searchParams);
   useEffect(() => {
     const prompt = initialPromptRef.current;
     if (prompt && !promptSentRef.current) {
       promptSentRef.current = true;
       sendMessageRef.current(prompt);
+      const params = new URLSearchParams(searchParamsRef.current?.toString() ?? "");
+      params.delete("prompt");
+      const query = params.toString();
+      routerRef.current.replace(query ? `${pathnameRef.current}?${query}` : pathnameRef.current, {
+        scroll: false,
+      });
     }
   }, []);
 
@@ -123,6 +139,25 @@ export function ChatWindow({ itineraryId, initialMessages = [], initialPrompt }:
           />
         ))}
         {isStreaming && <TypingIndicator />}
+        {limitReached && (
+          <div className="flex justify-start">
+            <div className="max-w-[80%] border border-amber-500/40 bg-amber-500/10 px-4 py-3">
+              <p className="font-display text-xs uppercase tracking-widest text-amber-500">
+                Monthly limit reached
+              </p>
+              <p className="mt-1 text-sm leading-relaxed text-stone-300">
+                You&apos;ve used {creditsLimit ? `all ${creditsLimit} of` : "all of"} your free AI
+                messages this month. Upgrade for unlimited planning.
+              </p>
+              <Link
+                href="/pro"
+                className="mt-3 inline-block border border-amber-500 bg-amber-500 px-4 py-2 font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
+              >
+                Upgrade to Pro
+              </Link>
+            </div>
+          </div>
+        )}
         <div ref={messagesEndRef} />
       </div>
 

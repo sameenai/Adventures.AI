@@ -1,5 +1,5 @@
 import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
-import { cn, pluralise } from "@/lib/utils";
+import { cn, formatPrice, pluralise } from "@/lib/utils";
 import type { AdventureWithUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -58,7 +58,7 @@ export function AdventureListRow({
           {(() => {
             const diff = DIFFICULTY_MAP.get(adventure.difficulty);
             return (
-              <span className="text-[10px] text-stone-600">
+              <span className={cn("text-[10px]", diff?.color ?? "text-stone-600")}>
                 {diff?.label ?? adventure.difficulty}
               </span>
             );
@@ -66,6 +66,11 @@ export function AdventureListRow({
           <span className="font-mono text-[10px] text-stone-600">
             {pluralise(adventure.durationDays, "day")}
           </span>
+          {adventure.estimatedCost != null && adventure.estimatedCost > 0 && (
+            <span className="font-mono text-[10px] text-stone-600">
+              {`~${formatPrice(adventure.estimatedCost)} est.`}
+            </span>
+          )}
           {(adventure._count?.comments ?? 0) > 0 && (
             <span className="font-mono text-[10px] text-stone-700">
               {pluralise(adventure._count?.comments ?? 0, "comment")}

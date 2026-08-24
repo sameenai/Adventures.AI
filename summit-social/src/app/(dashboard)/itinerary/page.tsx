@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth/config";
 import { PLANS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import type { ChatMessage } from "@/types";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 
@@ -11,13 +12,56 @@ export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Plan Trip | Basecamper" };
 
+type StoredChatEntry = { role?: unknown; content?: unknown };
+
+/**
+ * Persisted chat history includes tool-call plumbing (assistant turns with
+ * tool_calls and null content, role "tool" results). Only user/assistant
+ * turns with string content are displayable in the transcript.
+ */
+function chatHistoryToMessages(
+  itineraryId: string,
+  history: unknown,
+  savedAt: Date,
+): ChatMessage[] {
+  if (!Array.isArray(history)) return [];
+  const messages: ChatMessage[] = [];
+  for (const [index, entry] of history.entries()) {
+    if (!entry || typeof entry !== "object") continue;
+    const { role, content } = entry as StoredChatEntry;
+    if (role !== "user" && role !== "assistant") continue;
+    if (typeof content !== "string" || content.length === 0) continue;
+    messages.push({
+      id: `${itineraryId}-${index}`,
+      role,
+      content,
+      createdAt: savedAt.toISOString(),
+    });
+  }
+  return messages;
+}
+
 export default async function ItineraryPage({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string | undefined>>;
 }) {
   const session = await getServerSession(authOptions);
-  const { prompt } = await searchParams;
+  const { prompt, resume } = await searchParams;
+
+  // Resume an existing session: reload its chat history (ownership-scoped).
+  let resumeItineraryId: string | undefined;
+  let resumeMessages: ChatMessage[] = [];
+  if (session?.user?.id && resume) {
+    const resumed = await prisma.itinerary.findUnique({
+      where: { id: resume, userId: session.user.id },
+      select: { id: true, chatHistory: true, updatedAt: true },
+    });
+    if (resumed) {
+      resumeItineraryId = resumed.id;
+      resumeMessages = chatHistoryToMessages(resumed.id, resumed.chatHistory, resumed.updatedAt);
+    }
+  }
 
   // Fetch credit info for authenticated users
   let creditsUsed = 0;
@@ -98,7 +142,11 @@ export default async function ItineraryPage({
             </div>
           )}
           <div className="mt-4 h-[calc(100dvh-280px)] min-h-[400px] overflow-hidden border border-stone-800">
-            <ChatWindow initialPrompt={prompt} />
+            <ChatWindow
+              itineraryId={resumeItineraryId}
+              initialMessages={resumeMessages}
+              initialPrompt={prompt}
+            />
           </div>
         </>
       ) : (

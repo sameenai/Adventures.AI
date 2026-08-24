@@ -1,11 +1,14 @@
+import { AdventureCard } from "@/components/adventures/adventure-card";
 import { InfiniteAdventureGrid } from "@/components/adventures/infinite-adventure-grid";
 import { SearchFilter } from "@/components/adventures/search-filter";
 import { ViewToggle } from "@/components/adventures/view-toggle";
 import { Button } from "@/components/ui/button";
-import { fetchAdventuresPage } from "@/lib/adventures/query";
+import { ADVENTURE_LIST_INCLUDE, fetchAdventuresPage } from "@/lib/adventures/query";
+import type { AdventureListItem } from "@/lib/adventures/query";
 import { authOptions } from "@/lib/auth/config";
 import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
+import { getCached, setCache } from "@/lib/db/redis";
 import { adventureFilterSchema } from "@/lib/validators/adventure";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -44,6 +47,26 @@ function isActive(param: string | undefined, value: string): boolean {
   return param ? param.split(",").includes(value) : false;
 }
 
+const IN_SEASON_LIMIT = 6;
+const IN_SEASON_TTL_SECONDS = 600;
+
+// Top-voted published adventures whose bestMonths include the current month.
+// Identical for every visitor, so served from Redis for 10 minutes.
+async function getInSeasonAdventures(month: number): Promise<AdventureListItem[]> {
+  const cacheKey = `in-season:${month}`;
+  const cached = await getCached<AdventureListItem[]>(cacheKey);
+  if (cached) return cached;
+
+  const adventures = await prisma.adventure.findMany({
+    where: { published: true, bestMonths: { has: month } },
+    orderBy: { voteCount: "desc" },
+    take: IN_SEASON_LIMIT,
+    include: ADVENTURE_LIST_INCLUDE,
+  });
+  await setCache(cacheKey, adventures, IN_SEASON_TTL_SECONDS);
+  return adventures;
+}
+
 export default async function AdventuresPage({
   searchParams,
 }: {
@@ -80,33 +103,40 @@ export default async function AdventuresPage({
       filters.search,
   );
 
+  const now = new Date();
+  const currentMonth = now.getMonth() + 1;
+  const currentMonthName = now.toLocaleString("en-GB", { month: "long" });
+
   // Fetch a featured (top-voted) adventure for the hero banner — independent of current filters.
-  const [session, featured, { items: adventures, nextCursor }, totalCount] = await Promise.all([
-    getServerSession(authOptions),
-    prisma.adventure.findFirst({
-      where: { published: true },
-      orderBy: { voteCount: "desc" },
-      select: {
-        id: true,
-        title: true,
-        country: true,
-        location: true,
-        category: true,
-        durationDays: true,
-        voteCount: true,
-        coverImageUrl: true,
-      },
-    }),
-    fetchAdventuresPage(filters),
-    prisma.adventure.count({ where: { published: true } }),
-  ]);
+  const [session, featured, { items: adventures, nextCursor }, totalCount, inSeason] =
+    await Promise.all([
+      getServerSession(authOptions),
+      prisma.adventure.findFirst({
+        where: { published: true },
+        orderBy: { voteCount: "desc" },
+        select: {
+          id: true,
+          title: true,
+          country: true,
+          location: true,
+          category: true,
+          durationDays: true,
+          voteCount: true,
+          coverImageUrl: true,
+        },
+      }),
+      fetchAdventuresPage(filters),
+      prisma.adventure.count({ where: { published: true } }),
+      // In-season rail only renders on the unfiltered view — skip the query otherwise.
+      hasActiveFilters ? Promise.resolve([]) : getInSeasonAdventures(currentMonth),
+    ]);
 
   const hasMore = nextCursor !== undefined;
 
   let votedIds: string[] = [];
   let bookmarkedIds: string[] = [];
   if (session?.user?.id) {
-    const adventureIds = adventures.map((a) => a.id);
+    const adventureIds = [...new Set([...adventures, ...inSeason].map((a) => a.id))];
     const [votes, bookmarks] = await Promise.all([
       prisma.vote.findMany({
         where: { userId: session.user.id, adventureId: { in: adventureIds } },
@@ -335,6 +365,27 @@ export default async function AdventuresPage({
             <ViewToggle current={view} />
           </Suspense>
         </div>
+
+        {/* In-season rail — only on the unfiltered view */}
+        {!hasActiveFilters && inSeason.length > 0 && (
+          <section className="mt-8">
+            <h2 className="text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
+              In season in {currentMonthName}
+            </h2>
+            <div className="mt-3 flex gap-4 overflow-x-auto pb-2">
+              {inSeason.map((adventure) => (
+                <div key={adventure.id} className="w-72 shrink-0">
+                  <AdventureCard
+                    adventure={adventure}
+                    currentUserId={session?.user?.id}
+                    hasVoted={votedIds.includes(adventure.id)}
+                    hasBookmarked={bookmarkedIds.includes(adventure.id)}
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         <div className="mt-6">
           <InfiniteAdventureGrid
