@@ -148,6 +148,10 @@ export function ChatWindow({ itineraryId, initialMessages = [], initialPrompt }:
           </Button>
         </div>
       </form>
+      <p className="border-t border-stone-800/60 px-4 py-1.5 text-center font-mono text-[10px] text-stone-600">
+        Plans are generated with OpenAI — your conversation is processed to build your itinerary.
+        Verify critical details before booking.
+      </p>
     </div>
   );
 }
