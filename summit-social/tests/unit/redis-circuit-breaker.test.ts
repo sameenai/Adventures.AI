@@ -2,9 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("ioredis", () => {
   const RedisMock = vi.fn(() => ({
-    incr: vi.fn(),
-    expire: vi.fn(),
-    ttl: vi.fn(),
+    eval: vi.fn(),
     get: vi.fn(),
     set: vi.fn(),
   }));
@@ -31,7 +29,7 @@ describe("redis circuit breaker", () => {
   it("fails open and logs when Redis is unavailable", async () => {
     const { redis, rateLimit } = await import("@/lib/db/redis");
     const { logger } = await import("@/lib/logger");
-    (redis.incr as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("Connection refused"));
+    (redis.eval as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("Connection refused"));
 
     const result = await rateLimit("test-key", 10, 60);
     expect(result.allowed).toBe(true);
@@ -44,7 +42,7 @@ describe("redis circuit breaker", () => {
   it("opens circuit after consecutive failures", async () => {
     const { redis, rateLimit } = await import("@/lib/db/redis");
     const { logger } = await import("@/lib/logger");
-    (redis.incr as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("Connection refused"));
+    (redis.eval as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("Connection refused"));
 
     // Trigger 5 failures to open the circuit
     for (let i = 0; i < 5; i++) {
@@ -54,10 +52,10 @@ describe("redis circuit breaker", () => {
     expect(logger.error).toHaveBeenCalledWith(expect.stringContaining("circuit breaker OPEN"));
 
     // Next call should not even hit Redis
-    (redis.incr as ReturnType<typeof vi.fn>).mockClear();
+    (redis.eval as ReturnType<typeof vi.fn>).mockClear();
     const result = await rateLimit("another-key", 10, 60);
     expect(result.allowed).toBe(true);
-    expect(redis.incr).not.toHaveBeenCalled();
+    expect(redis.eval).not.toHaveBeenCalled();
   });
 
   it("getCached returns null and logs on failure", async () => {

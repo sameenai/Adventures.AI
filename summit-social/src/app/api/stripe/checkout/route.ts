@@ -16,6 +16,7 @@ export async function POST() {
     `stripe-checkout:${session.user.id}`,
     RATE_LIMITS.stripeCheckout.limit,
     RATE_LIMITS.stripeCheckout.windowSeconds,
+    { failClosed: true },
   );
   if (!rl.allowed) {
     return NextResponse.json(

@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
     `flights:${session.user.id}`,
     RATE_LIMITS.flightSearch.limit,
     RATE_LIMITS.flightSearch.windowSeconds,
+    { failClosed: true },
   );
   if (!allowed) {
     return NextResponse.json(

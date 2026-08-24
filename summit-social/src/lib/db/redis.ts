@@ -42,28 +42,60 @@ function recordSuccess(): void {
   consecutiveFailures = 0;
 }
 
+// Atomically INCR the counter and guarantee a TTL exists, healing keys that
+// lost their expiry (e.g. a crash between INCR and EXPIRE in older versions).
+// Returns {count, ttl} in one round trip.
+const RATE_LIMIT_SCRIPT = `
+local c = redis.call('INCR', KEYS[1])
+local ttl = redis.call('TTL', KEYS[1])
+if ttl < 0 then
+  redis.call('EXPIRE', KEYS[1], ARGV[1])
+  ttl = tonumber(ARGV[1])
+end
+return {c, ttl}
+`;
+
+/** Retry-After returned when a fail-closed limiter cannot reach Redis. */
+const UNAVAILABLE_RETRY_AFTER_SECONDS = 30;
+
+export interface RateLimitOptions {
+  /**
+   * Cost-bearing routes (AI chat, flight search, checkout) must DENY when the
+   * limiter is unavailable — a Redis outage must not silently unmeter paid
+   * upstream calls. Low-risk social routes keep the availability-first
+   * fail-open default.
+   */
+  failClosed?: boolean;
+}
+
 export async function rateLimit(
   key: string,
   limit: number,
   windowSeconds: number,
+  options: RateLimitOptions = {},
 ): Promise<{ allowed: boolean; retryAfter: number }> {
   if (isCircuitOpen()) {
-    return { allowed: true, retryAfter: 0 };
+    return options.failClosed
+      ? { allowed: false, retryAfter: UNAVAILABLE_RETRY_AFTER_SECONDS }
+      : { allowed: true, retryAfter: 0 };
   }
 
   try {
-    const current = await redis.incr(key);
-    if (current === 1) {
-      await redis.expire(key, windowSeconds);
-    }
+    const [current, ttl] = (await redis.eval(RATE_LIMIT_SCRIPT, 1, key, windowSeconds)) as [
+      number,
+      number,
+    ];
     recordSuccess();
     if (current <= limit) {
       return { allowed: true, retryAfter: 0 };
     }
-    const ttl = await redis.ttl(key);
     return { allowed: false, retryAfter: ttl > 0 ? ttl : windowSeconds };
   } catch (err) {
     recordFailure();
+    if (options.failClosed) {
+      logger.warn("Redis rateLimit failed — failing CLOSED for cost-bearing route", err);
+      return { allowed: false, retryAfter: UNAVAILABLE_RETRY_AFTER_SECONDS };
+    }
     logger.warn("Redis rateLimit failed — failing open", err);
     return { allowed: true, retryAfter: 0 };
   }

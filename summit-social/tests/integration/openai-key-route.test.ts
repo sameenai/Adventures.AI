@@ -6,6 +6,7 @@ vi.mock("ioredis", () => {
   const Redis = vi.fn().mockImplementation(() => ({
     get: vi.fn().mockResolvedValue(null),
     set: vi.fn().mockResolvedValue("OK"),
+    eval: vi.fn().mockResolvedValue([1, 3600]),
     incr: vi.fn().mockResolvedValue(1),
     expire: vi.fn().mockResolvedValue(1),
   }));

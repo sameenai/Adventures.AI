@@ -103,6 +103,7 @@ export async function POST(request: NextRequest) {
     `chat:${session.user.id}`,
     RATE_LIMITS.chat.limit,
     RATE_LIMITS.chat.windowSeconds,
+    { failClosed: true },
   );
   if (!allowed) {
     return NextResponse.json(
