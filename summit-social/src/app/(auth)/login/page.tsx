@@ -79,34 +79,42 @@ export default function LoginPage() {
             </Button>
           </div>
 
-          {/* Dev login */}
-          <div className="relative mt-8">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-stone-800" />
-            </div>
-            <div className="relative flex justify-center">
-              <span className="bg-stone-950 px-3 font-mono text-xs text-stone-500">local dev</span>
-            </div>
-          </div>
+          {/* Dev login — build-time gated: never rendered in production bundles */}
+          {process.env.NODE_ENV !== "production" && (
+            <>
+              <div className="relative mt-8">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-stone-800" />
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="bg-stone-950 px-3 font-mono text-xs text-stone-500">
+                    local dev
+                  </span>
+                </div>
+              </div>
 
-          <form onSubmit={handleDevLogin} className="mt-6 space-y-3">
-            <Input
-              label="Email"
-              type="email"
-              name="email"
-              autoComplete="email"
-              spellCheck={false}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required
-            />
-            <p className="font-mono text-xs text-stone-500">Password is always &ldquo;dev&rdquo;</p>
-            {devError && <p className="font-mono text-xs text-red-400">{devError}</p>}
-            <Button type="submit" className="w-full justify-center">
-              Sign in
-            </Button>
-          </form>
+              <form onSubmit={handleDevLogin} className="mt-6 space-y-3">
+                <Input
+                  label="Email"
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  spellCheck={false}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  required
+                />
+                <p className="font-mono text-xs text-stone-500">
+                  Password is always &ldquo;dev&rdquo;
+                </p>
+                {devError && <p className="font-mono text-xs text-red-400">{devError}</p>}
+                <Button type="submit" className="w-full justify-center">
+                  Sign in
+                </Button>
+              </form>
+            </>
+          )}
 
           <p
             className="mt-6 text-center text-xs text-stone-500"
