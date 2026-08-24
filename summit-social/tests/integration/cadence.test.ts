@@ -14,16 +14,26 @@ vi.mock("@/lib/db/prisma", () => ({
     adventure: { findUnique: vi.fn(), findMany: vi.fn() },
     tripEvent: { upsert: vi.fn(), deleteMany: vi.fn(), groupBy: vi.fn(), findMany: vi.fn() },
     travelerProfile: { findUnique: vi.fn(), upsert: vi.fn() },
-    cadenceRecommendation: { count: vi.fn(), createMany: vi.fn() },
+    cadenceRecommendation: {
+      count: vi.fn(),
+      createMany: vi.fn(),
+      findMany: vi.fn().mockResolvedValue([]),
+      updateMany: vi.fn(),
+    },
     notification: { create: vi.fn() },
     bookmark: { findMany: vi.fn() },
     vote: { findMany: vi.fn() },
     adventureView: { findMany: vi.fn() },
+    user: { findUnique: vi.fn() },
   },
+}));
+vi.mock("@/lib/email/send", () => ({
+  sendEmail: vi.fn().mockResolvedValue({ status: "SENT" }),
 }));
 
 import { POST as markDone, DELETE as unmarkDone } from "@/app/api/adventures/[id]/complete/route";
 import { PUT as putProfile } from "@/app/api/user/traveler-profile/route";
+import { sendEmail } from "@/lib/email/send";
 import { runCadenceScan } from "@/lib/jobs/cadence";
 import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/db/prisma";
@@ -177,5 +187,56 @@ describe("runCadenceScan", () => {
     expect(stats.usersDue).toBe(1);
     expect(stats.recommendationsCreated).toBe(0);
     expect(p.notification.create).not.toHaveBeenCalled();
+  });
+
+  it("emails consented users with an unsubscribe link and flips recs to SENT", async () => {
+    process.env.NEXTAUTH_SECRET = "test-secret-for-unsubscribe-tokens";
+    p.tripEvent.groupBy.mockResolvedValue([
+      { userId: "user-1", _max: { startedAt: monthsAgo(7) } },
+    ]);
+    p.travelerProfile.findUnique.mockResolvedValue({ cadenceMonths: 6 });
+    p.cadenceRecommendation.count.mockResolvedValue(0);
+    primeSignalMocks();
+    p.user.findUnique.mockResolvedValue({
+      email: "sam@example.com",
+      name: "Sam",
+      marketingConsent: true,
+    });
+    p.cadenceRecommendation.findMany.mockResolvedValue([
+      {
+        score: 6,
+        adventure: { id: "adv-picked", title: "EBC Trek", location: "Khumbu", country: "Nepal" },
+      },
+    ] as never);
+
+    const stats = await runCadenceScan();
+    expect(stats.emailsSent).toBe(1);
+
+    const send = vi.mocked(sendEmail).mock.calls[0][0];
+    expect(send.to).toBe("sam@example.com");
+    expect(send.template).toBe("trip-due");
+    expect(send.html).toContain("/api/email/unsubscribe?token=");
+    expect(send.html).toContain("EBC Trek");
+    expect(p.cadenceRecommendation.updateMany).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ status: "SENT" }) }),
+    );
+  });
+
+  it("never emails without marketing consent", async () => {
+    p.tripEvent.groupBy.mockResolvedValue([
+      { userId: "user-1", _max: { startedAt: monthsAgo(7) } },
+    ]);
+    p.travelerProfile.findUnique.mockResolvedValue({ cadenceMonths: 6 });
+    p.cadenceRecommendation.count.mockResolvedValue(0);
+    primeSignalMocks();
+    p.user.findUnique.mockResolvedValue({
+      email: "sam@example.com",
+      name: "Sam",
+      marketingConsent: false,
+    });
+
+    const stats = await runCadenceScan();
+    expect(stats.emailsSent).toBe(0);
+    expect(sendEmail).not.toHaveBeenCalled();
   });
 });

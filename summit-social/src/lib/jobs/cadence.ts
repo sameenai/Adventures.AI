@@ -1,4 +1,7 @@
 import { prisma } from "@/lib/db/prisma";
+import { sendEmail } from "@/lib/email/send";
+import { tripDueEmail } from "@/lib/email/templates";
+import { unsubscribeToken } from "@/lib/email/unsubscribe";
 import { getTasteProfile, topEntries } from "@/lib/personalization/taste-profile";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -6,11 +9,27 @@ const DUE_HORIZON_DAYS = 45;
 const RECS_PER_USER = 5;
 const DIFFICULTY_ORDER = ["EASY", "MODERATE", "CHALLENGING", "EXTREME", "EXPEDITION_GRADE"];
 
+const MONTH_NAMES = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 export interface CadenceStats {
   usersScanned: number;
   usersDue: number;
   recommendationsCreated: number;
   notificationsCreated: number;
+  emailsSent: number;
 }
 
 /**
@@ -29,6 +48,7 @@ export async function runCadenceScan(now = new Date()): Promise<CadenceStats> {
     usersDue: 0,
     recommendationsCreated: 0,
     notificationsCreated: 0,
+    emailsSent: 0,
   };
 
   // Users with any trip history anchor.
@@ -86,10 +106,72 @@ export async function runCadenceScan(now = new Date()): Promise<CadenceStats> {
         },
       });
       stats.notificationsCreated += 1;
+
+      const sent = await sendTripDueEmail(anchor.userId, windowStart, targetMonth);
+      if (sent) stats.emailsSent += 1;
     }
   }
 
   return stats;
+}
+
+/**
+ * The email channel: only for users who opted in (marketingConsent), with a
+ * one-tap unsubscribe in every send. Recommendations flip PENDING→SENT only
+ * when the provider accepted the message, so the CTR loop measures real sends.
+ */
+async function sendTripDueEmail(
+  userId: string,
+  windowStart: Date,
+  targetMonth: number,
+): Promise<boolean> {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { email: true, name: true, marketingConsent: true },
+  });
+  if (!user?.marketingConsent) return false;
+
+  const recs = await prisma.cadenceRecommendation.findMany({
+    where: { userId, windowStart, status: "PENDING" },
+    orderBy: { score: "desc" },
+    include: {
+      adventure: { select: { id: true, title: true, location: true, country: true } },
+    },
+  });
+  if (recs.length === 0) return false;
+
+  const base = process.env.NEXTAUTH_URL ?? "http://localhost:3000";
+  const content = tripDueEmail({
+    name: user.name,
+    monthLabel: MONTH_NAMES[targetMonth - 1] ?? "your next window",
+    recommendations: recs.map((r) => ({
+      title: r.adventure.title,
+      location: r.adventure.location,
+      country: r.adventure.country,
+      url: `${base}/adventures/${r.adventure.id}`,
+    })),
+    nextTripUrl: `${base}/next-trip`,
+    unsubscribeUrl: `${base}/api/email/unsubscribe?token=${unsubscribeToken(userId)}`,
+  });
+
+  const result = await sendEmail({
+    to: user.email,
+    userId,
+    template: "trip-due",
+    subject: content.subject,
+    html: content.html,
+    text: content.text,
+    meta: { windowStart: windowStart.toISOString(), recommendations: recs.length },
+  });
+
+  if (result.status === "SENT") {
+    await prisma.cadenceRecommendation.updateMany({
+      where: { userId, windowStart, status: "PENDING" },
+      data: { status: "SENT", sentAt: new Date() },
+    });
+    return true;
+  }
+  return false;
 }
 
 async function buildRecommendations(
