@@ -23,6 +23,12 @@ model User {
   plan             Plan              @default(FREE)
   stripeCustomerId String?           @unique
   stripeSubId      String?           @unique
+  // Consent & legal acceptance records (see /privacy, /terms)
+  marketingConsent   Boolean   @default(false)
+  marketingConsentAt DateTime?
+  termsAcceptedAt    DateTime?
+  termsVersion       String?
+
   aiCreditsUsed    Int               @default(0)
   aiCreditsResetAt DateTime          @default(now())
   createdAt        DateTime          @default(now())
@@ -102,7 +108,7 @@ model Adventure {
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   userId        String
-  user          User       @relation(fields: [userId], references: [id])
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   votes         Vote[]
   comments      Comment[]
   tags          Tag[]
@@ -124,7 +130,7 @@ model Vote {
   userId      String
   adventureId String
   createdAt   DateTime  @default(now())
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   adventure   Adventure @relation(fields: [adventureId], references: [id], onDelete: Cascade)
 
   @@unique([userId, adventureId])
@@ -139,7 +145,7 @@ model Comment {
   parentId    String?
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
-  user        User              @relation(fields: [userId], references: [id])
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   adventure   Adventure         @relation(fields: [adventureId], references: [id], onDelete: Cascade)
   parent      Comment?          @relation("Replies", fields: [parentId], references: [id])
   replies     Comment[]         @relation("Replies")
@@ -200,7 +206,7 @@ model Itinerary {
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   userId         String
-  user           User            @relation(fields: [userId], references: [id])
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   days           ItineraryDay[]
   flightBookings FlightBooking[]
 }
@@ -333,4 +339,17 @@ model StripeEvent {
   id          String   @id
   type        String
   processedAt DateTime @default(now())
+}
+
+// One row per scheduled-job execution (POST /api/jobs/[job]) so a silently
+// failing schedule is visible and double-runs are auditable.
+model JobRun {
+  id         String    @id @default(cuid())
+  jobName    String
+  status     String // RUNNING | SUCCEEDED | FAILED
+  startedAt  DateTime  @default(now())
+  finishedAt DateTime?
+  stats      Json?
+
+  @@index([jobName, startedAt(sort: Desc)])
 }
