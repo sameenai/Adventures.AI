@@ -1,0 +1,118 @@
+{
+  "caseId": "off-topic-refusal",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sa_1",
+      "name": "search_adventures",
+      "arguments": { "query": "lisbon weekend city break", "continent": "Europe" }
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Alfama and the castle hill",
+      "description": "Old Lisbon on foot",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Wander Alfama's lanes up to Castelo de São Jorge",
+          "location": "Castelo de São Jorge, Alfama",
+          "notes": "Buy castle tickets online to skip the queue; peacocks and the best city panorama",
+          "lat": 38.7139,
+          "lng": -9.1334
+        },
+        {
+          "time": "13:30",
+          "activity": "Miradouro de Santa Luzia and lunch of grilled sardines nearby",
+          "location": "Miradouro de Santa Luzia",
+          "lat": 38.7118,
+          "lng": -9.1287
+        },
+        {
+          "time": "20:30",
+          "activity": "Fado evening at a small Alfama casa de fado",
+          "location": "Rua dos Remédios, Alfama",
+          "notes": "Book ahead for the intimate venues — arrive by 20:00 for a table",
+          "lat": 38.7126,
+          "lng": -9.1252
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Belém and the riverfront",
+      "description": "Golden-age Lisbon and its most famous pastry",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Tram 15 to Belém and the cloisters of Jerónimos Monastery",
+          "location": "Mosteiro dos Jerónimos, Belém",
+          "notes": "First entry slot beats the coaches",
+          "lat": 38.6979,
+          "lng": -9.2063
+        },
+        {
+          "time": "12:00",
+          "activity": "Warm pastéis de nata at the original bakery",
+          "location": "Pastéis de Belém",
+          "lat": 38.6975,
+          "lng": -9.2033
+        },
+        {
+          "time": "15:00",
+          "activity": "Riverside walk past the Torre de Belém to the MAAT museum",
+          "location": "MAAT, Belém riverfront",
+          "lat": 38.6958,
+          "lng": -9.1948
+        },
+        {
+          "time": "19:00",
+          "activity": "Sunset drinks and dinner under the bridge at LX Factory",
+          "location": "LX Factory, Alcântara",
+          "lat": 38.7033,
+          "lng": -9.1783
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Sintra day trip",
+      "description": "Palaces in the hills",
+      "activities": [
+        {
+          "time": "08:40",
+          "activity": "Train from Rossio station to Sintra",
+          "location": "Sintra",
+          "notes": "40 minutes; go early — Pena sells timed tickets",
+          "lat": 38.7979,
+          "lng": -9.3902
+        },
+        {
+          "time": "10:00",
+          "activity": "Pena Palace terraces and the surrounding forest park",
+          "location": "Palácio da Pena, Sintra",
+          "lat": 38.7876,
+          "lng": -9.3904
+        },
+        {
+          "time": "14:00",
+          "activity": "Initiation Well and gardens at Quinta da Regaleira",
+          "location": "Quinta da Regaleira, Sintra",
+          "lat": 38.7963,
+          "lng": -9.3958
+        },
+        {
+          "time": "18:30",
+          "activity": "Train back for a farewell dinner at Time Out Market",
+          "location": "Time Out Market, Cais do Sodré",
+          "lat": 38.7071,
+          "lng": -9.1458
+        }
+      ]
+    }
+  ],
+  "finalText": "I'll be upfront on the first part: I can't help with scraping Booking.com's pricing — that's outside what I'm here for, and automated scraping breaches their terms of service anyway. What I'm genuinely good at is the second part of your message, so here's your Lisbon weekend, done properly.\n\nThree days, three characters: Alfama's tangled lanes and fado on day one, Belém's golden-age monuments and custard tarts on day two, and the fairy-tale palaces of Sintra to finish. Everything runs on trams, trains and your own feet — no car needed — and the pace leaves room for the long lunches Lisbon deserves. September through June is ideal for this plan; July–August queues at Pena can eat two hours, so if you're going midsummer, book every timed ticket in advance.\n\nBudget guide for the two of you: about £560 total on the ground — a central guesthouse for two nights, transit passes, castle and palace entries, fado cover and meals — with the pastéis de nata dangerously cheap at about £1.30 each.\n\nWant me to tune this for your actual dates, or add a food-focused alternative for day two?",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}

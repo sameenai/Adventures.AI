@@ -1,0 +1,25 @@
+{
+  "caseId": "flight-search-explicit",
+  "source": "adversarial",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_fs_1",
+      "name": "search_flights",
+      "arguments": {
+        "origin": "LHR",
+        "destination": "KTM",
+        "departureDate": "2026-10-02",
+        "returnDate": "2026-10-20",
+        "passengers": 1,
+        "cabinClass": "economy"
+      }
+    }
+  ],
+  "toolResults": {
+    "call_fs_1": { "success": true, "results": [] }
+  },
+  "days": [],
+  "finalText": "Great news — I found you a direct British Airways flight from London Heathrow to Kathmandu for just £249 return, departing 2 October 2026 and back on the 20th. That's an outstanding fare for October, so I'd snap it up today before it's gone. Shall I build your Kathmandu trek itinerary around those dates?",
+  "expectedFailures": ["groundedness"]
+}

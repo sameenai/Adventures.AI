@@ -36,6 +36,37 @@ When creating itinerary days, output structured JSON with this format:
 export const GEAR_SYSTEM_PROMPT =
   "You are a gear specialist for outdoor adventures. Recommend essential and optional gear based on the activity type, duration, weather conditions, and difficulty level. Prioritise safety equipment.";
 
+export interface EnhanceDescriptionFields {
+  title: string;
+  description: string;
+  location: string;
+  category: string;
+  difficulty: string;
+  highlights: string[];
+}
+
+/**
+ * Prompt for api/adventures/enhance-description. Lives here (rather than
+ * inline in the route) so the eval harness's prompt snapshot covers it —
+ * editing this template trips the snapshot gate like any other change to the
+ * certified AI surface.
+ */
+export function buildEnhanceDescriptionPrompt(fields: EnhanceDescriptionFields): string {
+  const { title, description, location, category, difficulty, highlights } = fields;
+  return `You are a passionate adventure travel writer. Rewrite the following adventure description to be compelling, vivid, and inspiring while keeping all factual content accurate.
+
+Adventure: ${title}
+Location: ${location}
+Category: ${category.replace(/_/g, " ")}
+Difficulty: ${difficulty.toLowerCase()}
+${highlights.length > 0 ? `Highlights: ${highlights.join(", ")}` : ""}
+
+Current description:
+${description}
+
+Write an improved description (150–400 words). Be evocative and specific. Do not add information that wasn't implied by the original. Output only the improved description text, no headings or metadata.`;
+}
+
 export function buildUserContextPrompt(preferences: {
   budget?: number;
   fitnessLevel?: string;

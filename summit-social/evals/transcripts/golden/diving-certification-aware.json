@@ -1,0 +1,15 @@
+{
+  "caseId": "diving-certification-aware",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sa_1",
+      "name": "search_adventures",
+      "arguments": { "query": "red sea diving liveaboard" }
+    }
+  ],
+  "days": [],
+  "finalText": "Before we book anything I have to flag the certification question, because it changes the whole plan: standard Red Sea liveaboards require you to be a certified diver — usually PADI or SSI Open Water as a minimum, and the best routes (Brothers, Daedalus, Elphinstone) want an Advanced card plus 30–50 logged dives. As a snorkeller you can't join those yet, and any operator who says otherwise is one to avoid for safety reasons alone.\n\nThe good news: March is a great month to fix that, and you have two honest routes in:\n\n1. **Learn first, then sail (my recommendation).** Fly to Hurghada or El Gouna and take the PADI Open Water course over the first 4 days (about £380 with materials). Then join a 3–4 night mini-liveaboard or daily-boat package on the gentler northern reefs — Giftun island, Abu Nuhas wrecks — where depths suit a brand-new diver. Total around £1,450 including flights, the course, accommodation and the boat nights, inside your £2,000 budget.\n\n2. **A liveaboard that teaches aboard.** A few northern-route boats run the Open Water course on the trip itself. It works, but you'll spend the first days on skills in sheltered bays while others dive the good stuff, and if you discover diving isn't for you, you're stuck on a boat. I'd only pick this if your dates are immovable.\n\nMarch notes: water is 22–24°C, so a 5 mm wetsuit is standard; seas can be lively, so pack seasickness tablets. Get dive-specific travel insurance (DAN covers recompression treatment), and complete the medical questionnaire before you fly — some conditions need a doctor's sign-off.\n\nWant me to plan option 1 day by day, including the course schedule and which mini-liveaboard fits your dates?",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}

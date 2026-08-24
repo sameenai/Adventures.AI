@@ -4,6 +4,7 @@
   "model": "gpt-4o",
   "toolCalls": [
     {
+      "id": "call_fs_1",
       "name": "search_flights",
       "arguments": {
         "origin": "LHR",
@@ -15,6 +16,29 @@
       }
     }
   ],
+  "toolResults": {
+    "call_fs_1": {
+      "success": true,
+      "results": [
+        {
+          "airline": "Qatar Airways",
+          "via": "DOH",
+          "priceGBP": 620,
+          "outbound": "2026-10-02T08:25:00",
+          "inbound": "2026-10-20T19:40:00",
+          "cabinClass": "economy"
+        },
+        {
+          "airline": "Air India",
+          "via": "DEL",
+          "priceGBP": 780,
+          "outbound": "2026-10-02T09:55:00",
+          "inbound": "2026-10-20T13:05:00",
+          "cabinClass": "economy"
+        }
+      ]
+    }
+  },
   "days": [],
   "finalText": "I searched flights from London Heathrow (LHR) to Kathmandu (KTM) departing 2 October 2026, returning 20 October 2026, for one passenger in economy.\n\nThe strongest options on this route are one-stop services via Doha (Qatar Airways) or Delhi (Air India), typically £620–£780 return in October — book 8–10 weeks out for the best fares. Direct services don't operate on this route, so allow at least a 2h30 connection; Doha is the smoother transfer.\n\nA tip for this itinerary: your return on the 20th leaves a sensible buffer if you're trekking in the Khumbu — Lukla flights slip with weather, so never book an international departure within 48 hours of your planned return to Kathmandu. Want me to build the full trek itinerary around these dates?"
 }

@@ -1,0 +1,175 @@
+{
+  "caseId": "accessibility-mobility",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sa_1",
+      "name": "search_adventures",
+      "arguments": { "query": "switzerland lakes and mountains easy walking", "difficulty": "EASY" }
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Arrive in Interlaken",
+      "description": "Trains do the work from the moment you land",
+      "activities": [
+        {
+          "time": "14:00",
+          "activity": "Rail transfer from Zurich airport and check in between the two lakes",
+          "location": "Interlaken",
+          "notes": "Swiss stations have lifts and level boarding — no stairs anywhere on this route",
+          "lat": 46.6863,
+          "lng": 7.8632
+        },
+        {
+          "time": "17:00",
+          "activity": "Level lakeside stroll along the Höheweg promenade",
+          "location": "Höheweg, Interlaken",
+          "notes": "Flat, benches every couple of hundred metres, Jungfrau views to whet the appetite",
+          "lat": 46.6866,
+          "lng": 7.8556
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Lauterbrunnen valley floor",
+      "description": "Waterfall country on the flat",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Train to Lauterbrunnen and walk the paved valley-floor path to Staubbach Falls",
+          "location": "Lauterbrunnen",
+          "notes": "About 2 km each way, entirely flat with a smooth surface — one of the great easy walks in the Alps, 72 waterfalls overhead",
+          "lat": 46.5936,
+          "lng": 7.9078
+        },
+        {
+          "time": "15:00",
+          "activity": "Coffee at a terrace café below the falls, bus back if legs are done",
+          "location": "Staubbach Falls viewpoint",
+          "lat": 46.592,
+          "lng": 7.906
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Mürren and the Allmendhubel meadows",
+      "description": "High mountain scenery, zero climbing",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Cable car and mountain railway up to car-free Mürren",
+          "location": "Mürren",
+          "notes": "The lifts carry you to 1,650 m — the village lanes are gentle and compact",
+          "lat": 46.5593,
+          "lng": 7.8926
+        },
+        {
+          "time": "13:00",
+          "activity": "Funicular to Allmendhubel and the flower-trail loop",
+          "location": "Allmendhubel",
+          "notes": "A 20-minute gravel loop, gently graded, face to face with Eiger, Mönch and Jungfrau",
+          "lat": 46.565,
+          "lng": 7.888
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Lake Brienz by boat",
+      "description": "Rest-paced day on the water",
+      "activities": [
+        {
+          "time": "11:00",
+          "activity": "Boat cruise across turquoise Lake Brienz to Giessbach",
+          "location": "Lake Brienz",
+          "notes": "Step-free boarding at Interlaken Ost; lunch aboard",
+          "lat": 46.7259,
+          "lng": 7.9662
+        },
+        {
+          "time": "14:00",
+          "activity": "Historic funicular from the jetty to the Giessbach Falls terrace",
+          "location": "Giessbach Falls",
+          "notes": "The funicular removes all the climbing — the falls terrace is a 200 m level path",
+          "lat": 46.735,
+          "lng": 7.988
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "title": "Grindelwald First boardwalk",
+      "description": "The trip's headline adventure",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Gondola to First and the cliff-edge boardwalk",
+          "location": "First, Grindelwald",
+          "notes": "The First Cliff Walk is a railed, level boardwalk bolted to the cliff — genuinely thrilling, no steps",
+          "lat": 46.6592,
+          "lng": 8.05
+        },
+        {
+          "time": "11:30",
+          "activity": "Walk the wide gravel trail towards Bachalpsee, turning at the halfway bench",
+          "location": "Bachalpsee trail, First",
+          "notes": "Gently rolling; the 2 km out-and-back version keeps well inside your 5 km comfort zone",
+          "lat": 46.669,
+          "lng": 8.023
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "title": "Schynige Platte heritage railway",
+      "description": "1893 cog railway to a natural balcony",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Vintage cog train from Wilderswil up to Schynige Platte",
+          "location": "Schynige Platte",
+          "notes": "50 scenic minutes each way — the viewpoint is beside the station",
+          "lat": 46.655,
+          "lng": 7.907
+        },
+        {
+          "time": "12:00",
+          "activity": "Short walk through the alpine botanical garden and panorama lunch",
+          "location": "Alpine Garden, Schynige Platte",
+          "notes": "Paths are graded and short, with the whole Jungfrau range laid out in front",
+          "lat": 46.6545,
+          "lng": 7.9086
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "title": "Spiez and home",
+      "description": "One last lake before the airport",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Train along Lake Thun to Spiez castle gardens",
+          "location": "Spiez",
+          "notes": "Level gardens above the bay — an easy, beautiful full stop",
+          "lat": 46.686,
+          "lng": 7.68
+        },
+        {
+          "time": "14:00",
+          "activity": "Direct rail connection to Zurich airport for the flight home",
+          "location": "Spiez station",
+          "lat": 46.6865,
+          "lng": 7.6798
+        }
+      ]
+    }
+  ],
+  "finalText": "The Bernese Oberland in spring is made for exactly your brief: some of the most dramatic landscape in Europe, with a transport network — trains, boats, cable cars and funiculars — that does all the climbing so your legs never have to. This is a real mountain trip, not a compromise: you'll stand on a boardwalk bolted to a cliff at 2,168 m, ride an 1893 cog railway to a flower meadow, and walk beneath a 300 m waterfall, all on flat, well-surfaced, accessible paths.\n\nEvery walking day stays within your 5 km ceiling and each one has a shorter fallback: the valley-floor path at Lauterbrunnen is pancake-flat with benches, the Allmendhubel loop is 20 gentle minutes, and the Bachalpsee trail has a natural turnaround bench at halfway. Nothing here involves steps you can't avoid — Swiss stations and boats offer level or step-free boarding throughout, and May means fewer crowds on the lifts.\n\nEstimated cost for two: £2,400 including flights, a half-board hotel in Interlaken all week (no hotel-hopping — one base, day trips out), and a regional travel pass covering the trains, boats and most lifts — just inside your £2,500 budget. Switzerland isn't cheap, but the pass makes the daily adventures feel free.\n\nWant me to check spring opening dates for the First gondola and the Schynige Platte railway (both typically open from late May), or look at flight options?",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}

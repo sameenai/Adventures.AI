@@ -21,7 +21,14 @@ import { gradeCase } from "./graders/index";
 import { judgeTranscript } from "./judge";
 import { runLiveCase } from "./live";
 import { computePromptSnapshotHash } from "./snapshot";
-import type { Baseline, CaseResult, EvalCase, EvalTranscript, Scorecard } from "./types";
+import type {
+  Baseline,
+  CaseResult,
+  EvalCase,
+  EvalTranscript,
+  Scorecard,
+  ScorecardUsage,
+} from "./types";
 
 const EVALS_DIR = __dirname;
 const CASES_PATH = join(EVALS_DIR, "datasets", "itinerary-cases.json");
@@ -31,6 +38,10 @@ const RESULTS_DIR = join(EVALS_DIR, "results");
 
 /** Replay score drops beyond this against baseline fail the run. */
 const REGRESSION_TOLERANCE = 0.005;
+
+/** Soft per-case usage budgets for live runs — reported on the scorecard, never gating. */
+const SOFT_TOKEN_BUDGET_PER_CASE = 12000;
+const SOFT_LATENCY_BUDGET_MS_PER_CASE = 45000;
 
 interface CliArgs {
   mode: "replay" | "live";
@@ -137,6 +148,27 @@ async function replay(args: CliArgs, hash: string): Promise<void> {
   const golden = loadTranscripts("golden").filter(
     (t) => !args.caseFilter || t.transcript.caseId === args.caseFilter,
   );
+
+  // 1a. Completeness: every dataset case must be pinned by at least one golden
+  //     transcript, otherwise a whole intent can silently drop out of the
+  //     regression net.
+  if (!args.caseFilter) {
+    const covered = new Set(golden.map((g) => g.transcript.caseId));
+    const missing = cases.filter((c) => !covered.has(c.id)).map((c) => c.id);
+    if (missing.length > 0) {
+      console.error(
+        [
+          `✗ Golden coverage incomplete: ${missing.length} dataset case(s) have no golden transcript:`,
+          ...missing.map((id) => `    - ${id}`),
+          "  Every case in evals/datasets/itinerary-cases.json needs at least one transcript in",
+          "  evals/transcripts/golden/ — record one with `npm run eval:live`, review it, then",
+          "  promote it from evals/results/live-*/ into evals/transcripts/golden/.",
+        ].join("\n"),
+      );
+      failed = true;
+    }
+  }
+
   const results: CaseResult[] = [];
   for (const { name, transcript } of golden) {
     const evalCase = byId.get(transcript.caseId);
@@ -256,6 +288,8 @@ async function live(args: CliArgs, hash: string): Promise<void> {
       const file = `${evalCase.id}.json`;
       writeFileSync(join(runDir, file), `${JSON.stringify(transcript, null, 2)}\n`);
       const result = gradeCase(evalCase, transcript, `live/${file}`);
+      result.totalTokens = transcript.totalTokens;
+      result.latencyMs = transcript.latencyMs;
       if (args.judge) {
         const judgeGrade = await judgeTranscript(evalCase, transcript);
         result.grades.push(judgeGrade);
@@ -280,7 +314,29 @@ async function live(args: CliArgs, hash: string): Promise<void> {
 
   printScorecard(results);
   const aggregateScore = aggregate(results);
+  const usage: ScorecardUsage = {
+    totalTokens: results.reduce((s, r) => s + (r.totalTokens ?? 0), 0),
+    totalLatencyMs: results.reduce((s, r) => s + (r.latencyMs ?? 0), 0),
+    softTokenBudgetPerCase: SOFT_TOKEN_BUDGET_PER_CASE,
+    softLatencyBudgetMsPerCase: SOFT_LATENCY_BUDGET_MS_PER_CASE,
+    casesOverTokenBudget: results
+      .filter((r) => (r.totalTokens ?? 0) > SOFT_TOKEN_BUDGET_PER_CASE)
+      .map((r) => r.caseId),
+    casesOverLatencyBudget: results
+      .filter((r) => (r.latencyMs ?? 0) > SOFT_LATENCY_BUDGET_MS_PER_CASE)
+      .map((r) => r.caseId),
+  };
   console.log(`Aggregate (live): ${aggregateScore.toFixed(4)}`);
+  console.log(
+    `Usage: ${usage.totalTokens} tokens, ${(usage.totalLatencyMs / 1000).toFixed(1)}s wall clock ` +
+      `(soft budgets per case: ${SOFT_TOKEN_BUDGET_PER_CASE} tokens / ${SOFT_LATENCY_BUDGET_MS_PER_CASE} ms — informational only).`,
+  );
+  if (usage.casesOverTokenBudget.length > 0) {
+    console.log(`  Over token budget: ${usage.casesOverTokenBudget.join(", ")}`);
+  }
+  if (usage.casesOverLatencyBudget.length > 0) {
+    console.log(`  Over latency budget: ${usage.casesOverLatencyBudget.join(", ")}`);
+  }
   console.log(`Transcripts recorded in evals/results/live-${stamp}/`);
   console.log(
     "Promote good transcripts into evals/transcripts/golden/ to extend the replay regression set.",
@@ -292,6 +348,7 @@ async function live(args: CliArgs, hash: string): Promise<void> {
     promptSnapshotHash: hash,
     aggregateScore,
     cases: results,
+    usage,
   });
 }
 

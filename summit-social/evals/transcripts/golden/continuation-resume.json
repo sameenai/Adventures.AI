@@ -1,0 +1,145 @@
+{
+  "caseId": "continuation-resume",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sa_1",
+      "name": "search_adventures",
+      "arguments": { "query": "lake district fell walking", "maxDuration": 5 }
+    }
+  ],
+  "turns": [
+    {
+      "userMessage": "Plan me 5 days of fell walking in the Lake District in June, based in Keswick.",
+      "finalText": "Keswick is the perfect base for this — here are your 5 days, building from a warm-up to the big one and back down: Day 1 arrival and the little Castlehead viewpoint; Day 2 Skiddaw, your big summit day via Jenkin Hill; Day 3 the Catbells ridge with a launch across Derwentwater to start and a lakeshore return; Day 4 over to Buttermere for the lake circuit with Haystacks as an option; Day 5 Walla Crag and Ashness Bridge before you head home. June gives you 17 hours of daylight and the best odds of dry rock all year. Total walking is around 55 km with one genuinely big ascent — comfortably in reach at your fitness. Want the full details of any day?",
+      "toolCalls": [
+        {
+          "id": "call_sa_1",
+          "name": "search_adventures",
+          "arguments": { "query": "lake district fell walking", "maxDuration": 5 }
+        }
+      ]
+    },
+    {
+      "userMessage": "Tell me more about day 3 — how tough is it really, and what should I bring?",
+      "finalText": "Day 3 is the Catbells ridge day — deliberately placed after Skiddaw because it's about half the effort for arguably the better views, a classic recovery-day summit.\n\nHow tough it really is: from the Hawse End jetty, where the Derwentwater launch drops you, it's roughly 6 km with about 450 m of ascent — 3 to 4 hours of walking at a relaxed pace before the lakeshore return path back towards Keswick. The ridge is grassy and obvious, but be straight about the two short rocky steps just below the summit: you'll want hands out of pockets for a couple of minutes of easy clambering. It's polished from a century of boots, so it gets slippery when wet — if it's raining hard, save it for a drier day and swap with day 5. Nothing about it needs a head for heights beyond those steps, and the descent to High Brandelhow is gentle.\n\nWhat to bring: a windproof and a light waterproof (the ridge catches every breeze off Derwentwater, even in June), a litre of water each, lunch for the summit, sun cream, and the OS Explorer OL4 map even though the path is clear. Boots with decent grip matter more here than anywhere else in your week because of those polished rocks. Check the launch timetable the night before — the £11 return ticket from the Keswick jetty is worth it for the approach across the water alone, and the last boat back means you can linger at Brandelhow Bay without watching the clock.",
+      "toolCalls": []
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Arrive in Keswick and Castlehead",
+      "description": "Settle in with a mini summit",
+      "activities": [
+        {
+          "time": "15:00",
+          "activity": "Check in and stroll to the Castlehead viewpoint",
+          "location": "Castlehead, Keswick",
+          "notes": "20 minutes up through the woods — the whole week's geography laid out below",
+          "lat": 54.596,
+          "lng": -3.129
+        },
+        {
+          "time": "18:00",
+          "activity": "Evening walk along the Derwentwater foreshore to Friar's Crag",
+          "location": "Friar's Crag, Derwentwater",
+          "lat": 54.5921,
+          "lng": -3.1394
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Skiddaw via Jenkin Hill",
+      "description": "The big summit day",
+      "activities": [
+        {
+          "time": "08:30",
+          "activity": "Climb Skiddaw by the Jenkin Hill path from the Latrigg car park",
+          "location": "Skiddaw",
+          "notes": "931 m and England's fourth-highest — a steady grind, wild wind at the top even in June",
+          "lat": 54.6396,
+          "lng": -3.1466
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Catbells ridge and the Derwentwater shore",
+      "description": "The classic Keswick horseshoe in miniature",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Launch across Derwentwater to Hawse End jetty",
+          "location": "Hawse End, Derwentwater",
+          "notes": "Boat approach — check the timetable the night before",
+          "lat": 54.585,
+          "lng": -3.167
+        },
+        {
+          "time": "10:15",
+          "activity": "Climb the Catbells ridge to the summit",
+          "location": "Catbells",
+          "notes": "451 m; two short rocky steps below the top — hands needed briefly",
+          "lat": 54.568,
+          "lng": -3.17
+        },
+        {
+          "time": "13:30",
+          "activity": "Descend to High Brandelhow and take the lakeshore path back",
+          "location": "Brandelhow Bay, Derwentwater",
+          "lat": 54.562,
+          "lng": -3.162
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Buttermere and Haystacks",
+      "description": "Over Newlands to the quieter valley",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Drive over the Newlands Pass to Buttermere village",
+          "location": "Newlands Pass",
+          "lat": 54.548,
+          "lng": -3.245
+        },
+        {
+          "time": "10:00",
+          "activity": "Walk the Buttermere lake circuit",
+          "location": "Buttermere",
+          "notes": "Flat 7 km loop; add Haystacks from Gatesgarth if legs vote yes",
+          "lat": 54.541,
+          "lng": -3.277
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "title": "Walla Crag and Ashness Bridge",
+      "description": "Farewell round before the drive home",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Climb Walla Crag from Great Wood",
+          "location": "Walla Crag",
+          "notes": "379 m — the best effort-to-view ratio in the valley",
+          "lat": 54.585,
+          "lng": -3.112
+        },
+        {
+          "time": "12:30",
+          "activity": "Descend past Ashness Bridge for the classic photo and a farewell cream tea",
+          "location": "Ashness Bridge, Borrowdale",
+          "lat": 54.571,
+          "lng": -3.118
+        }
+      ]
+    }
+  ],
+  "finalText": "Day 3 is the Catbells ridge day — deliberately placed after Skiddaw because it's about half the effort for arguably the better views, a classic recovery-day summit.\n\nHow tough it really is: from the Hawse End jetty, where the Derwentwater launch drops you, it's roughly 6 km with about 450 m of ascent — 3 to 4 hours of walking at a relaxed pace before the lakeshore return path back towards Keswick. The ridge is grassy and obvious, but be straight about the two short rocky steps just below the summit: you'll want hands out of pockets for a couple of minutes of easy clambering. It's polished from a century of boots, so it gets slippery when wet — if it's raining hard, save it for a drier day and swap with day 5. Nothing about it needs a head for heights beyond those steps, and the descent to High Brandelhow is gentle.\n\nWhat to bring: a windproof and a light waterproof (the ridge catches every breeze off Derwentwater, even in June), a litre of water each, lunch for the summit, sun cream, and the OS Explorer OL4 map even though the path is clear. Boots with decent grip matter more here than anywhere else in your week because of those polished rocks. Check the launch timetable the night before — the £11 return ticket from the Keswick jetty is worth it for the approach across the water alone, and the last boat back means you can linger at Brandelhow Bay without watching the clock.",
+  "recordedAt": "2026-08-24T12:00:00.000Z"
+}

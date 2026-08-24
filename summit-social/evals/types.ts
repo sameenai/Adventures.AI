@@ -39,14 +39,31 @@ export interface EvalCase {
   id: string;
   persona: string;
   description: string;
+  /** First (or only) user turn. */
   message: string;
+  /**
+   * Multi-turn cases: the full ordered list of user turns. When set, live mode
+   * runs each turn through the production loop with the prior conversation as
+   * history. `message` stays the first turn for single-turn compatibility.
+   */
+  messages?: string[];
   preferences?: EvalPreferences;
   expectations: EvalExpectations;
 }
 
 export interface TranscriptToolCall {
+  /** Provider tool_call id — keys the matching entry in EvalTranscript.toolResults. */
+  id?: string;
   name: string;
   arguments: Record<string, unknown>;
+}
+
+/** One user→assistant exchange within a multi-turn transcript. */
+export interface TranscriptTurn {
+  userMessage: string;
+  /** The assistant's complete reply for this turn. */
+  finalText: string;
+  toolCalls?: TranscriptToolCall[];
 }
 
 export interface EvalTranscript {
@@ -54,12 +71,30 @@ export interface EvalTranscript {
   source: "golden" | "adversarial" | "live";
   /** Graders listed here are EXPECTED to fail — used to prove the harness catches bad outputs. */
   expectedFailures?: string[];
+  /** All tool calls across every turn, in order. */
   toolCalls: TranscriptToolCall[];
-  /** Raw arguments of every create_itinerary_day call, in order. */
+  /**
+   * Tool RESULTS keyed by tool_call id (parsed JSON or raw string). Populated
+   * by live mode and by hand in goldens — the groundedness grader traces
+   * quoted flight prices back to these.
+   */
+  toolResults?: Record<string, unknown>;
+  /**
+   * The itinerary's final state: create_itinerary_day arguments, in order. In
+   * multi-turn transcripts a later turn re-creating a dayNumber replaces the
+   * earlier version (a revision), so graders see the finished itinerary.
+   */
   days: unknown[];
+  /** The assistant's final reply — for multi-turn transcripts, the LAST turn's text. */
   finalText: string;
+  /** Per-turn detail for multi-turn cases; absent on single-turn transcripts. */
+  turns?: TranscriptTurn[];
   recordedAt?: string;
   model?: string;
+  /** Total OpenAI tokens consumed producing this transcript (live mode only). */
+  totalTokens?: number;
+  /** Wall-clock time to produce this transcript (live mode only). */
+  latencyMs?: number;
 }
 
 export interface GradeResult {
@@ -78,6 +113,19 @@ export interface CaseResult {
   /** Mean of grader scores. */
   score: number;
   passed: boolean;
+  /** Live mode only — copied from the transcript for the scorecard. */
+  totalTokens?: number;
+  latencyMs?: number;
+}
+
+/** Soft, informational usage budgets — reported on live scorecards, never gating. */
+export interface ScorecardUsage {
+  totalTokens: number;
+  totalLatencyMs: number;
+  softTokenBudgetPerCase: number;
+  softLatencyBudgetMsPerCase: number;
+  casesOverTokenBudget: string[];
+  casesOverLatencyBudget: string[];
 }
 
 export interface Scorecard {
@@ -86,6 +134,8 @@ export interface Scorecard {
   promptSnapshotHash: string;
   aggregateScore: number;
   cases: CaseResult[];
+  /** Live mode only — replay ignores usage entirely. */
+  usage?: ScorecardUsage;
 }
 
 export interface BaselineEntry {

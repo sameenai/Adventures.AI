@@ -250,5 +250,40 @@
       ],
       "budgetCeilingGBP": 2500
     }
+  },
+  {
+    "id": "revision-under-budget",
+    "persona": "budget",
+    "description": "Multi-turn revision: the first plan overshoots, the user pushes back with a £1,200 ceiling, and the revised final answer must genuinely come in cheaper.",
+    "message": "I want a week of proper mountain hiking in the Alps in early July. Plan it for me.",
+    "messages": [
+      "I want a week of proper mountain hiking in the Alps in early July. Plan it for me.",
+      "That's over budget for me — I can only spend £1,200 all-in. Make it cheaper."
+    ],
+    "preferences": { "budget": 120000, "fitnessLevel": "intermediate", "travellers": 1 },
+    "expectations": {
+      "dayCountMin": 5,
+      "dayCountMax": 8,
+      "budgetCeilingGBP": 1200,
+      "mustMentionAny": [["camp", "campsite", "hostel", "dorm", "gîte", "cheaper", "budget"]],
+      "maxLegKm": 150
+    }
+  },
+  {
+    "id": "continuation-resume",
+    "persona": "intermediate",
+    "description": "Multi-turn continuation: the second turn asks about day 3 of the itinerary already created — the answer must describe THAT day 3, not invent a new one.",
+    "message": "Plan me 5 days of fell walking in the Lake District in June, based in Keswick.",
+    "messages": [
+      "Plan me 5 days of fell walking in the Lake District in June, based in Keswick.",
+      "Tell me more about day 3 — how tough is it really, and what should I bring?"
+    ],
+    "preferences": { "fitnessLevel": "intermediate", "travellers": 2 },
+    "expectations": {
+      "dayCountMin": 4,
+      "dayCountMax": 6,
+      "mustMentionAny": [["catbells"], ["keswick", "derwentwater", "derwent water"]],
+      "maxLegKm": 60
+    }
   }
 ]

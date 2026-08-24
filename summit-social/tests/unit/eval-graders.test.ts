@@ -1,10 +1,11 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { gradeBudget, extractGbpAmounts } from "../../evals/graders/budget";
+import { extractGbpAmounts, gradeBudget } from "../../evals/graders/budget";
 import { gradeContent, gradeSafety } from "../../evals/graders/content";
 import { gradeDays } from "../../evals/graders/days";
 import { gradeGeography, haversineKm } from "../../evals/graders/geography";
+import { gradeGroundedness } from "../../evals/graders/groundedness";
 import { gradeCase } from "../../evals/graders/index";
 import { gradeStructure } from "../../evals/graders/structure";
 import { gradeToolUse } from "../../evals/graders/tools";
@@ -175,6 +176,101 @@ describe("gradeBudget", () => {
   });
 });
 
+describe("gradeGroundedness", () => {
+  const flightCall = {
+    id: "call_1",
+    name: "search_flights",
+    arguments: { origin: "LHR", destination: "KTM", departureDate: "2026-10-02" },
+  };
+  const resultsWith = (prices: number[]) => ({
+    call_1: {
+      success: true,
+      results: prices.map((priceGBP) => ({ airline: "Qatar Airways", priceGBP })),
+    },
+  });
+
+  it("passes when all flight prices trace to search_flights results", () => {
+    const t = makeTranscript({
+      toolCalls: [flightCall],
+      toolResults: resultsWith([620, 780]),
+      finalText: "Best fares are £620 with Qatar Airways or £780 via Delhi.",
+    });
+    const g = gradeGroundedness(makeCase(), t);
+    expect(g.passed).toBe(true);
+    expect(g.score).toBe(1);
+  });
+
+  it("fails an invented flight fare", () => {
+    const t = makeTranscript({
+      toolCalls: [flightCall],
+      toolResults: resultsWith([620]),
+      finalText: "I found a direct flight for just £249 return — a steal.",
+    });
+    const g = gradeGroundedness(makeCase(), t);
+    expect(g.passed).toBe(false);
+    expect(g.details).toContain("£249");
+  });
+
+  it("fails a fare invented against empty search results", () => {
+    const t = makeTranscript({
+      toolCalls: [flightCall],
+      toolResults: { call_1: { success: true, results: [] } },
+      finalText: "British Airways flies this route for £310 return.",
+    });
+    expect(gradeGroundedness(makeCase(), t).passed).toBe(false);
+  });
+
+  it("attributes a price via an airline name from the results", () => {
+    const t = makeTranscript({
+      toolCalls: [flightCall],
+      toolResults: resultsWith([620]),
+      finalText: "Qatar Airways will get you there for £999 return.",
+    });
+    expect(gradeGroundedness(makeCase(), t).passed).toBe(false);
+  });
+
+  it("passes when no flight-attributed prices are claimed", () => {
+    const t = makeTranscript({
+      toolCalls: [flightCall],
+      toolResults: resultsWith([620]),
+      finalText: "Guesthouses run about £45 a night and dinner is £15.",
+    });
+    expect(gradeGroundedness(makeCase(), t).passed).toBe(true);
+  });
+
+  it("treats trip totals including flights as non-fare claims", () => {
+    const t = makeTranscript({
+      toolCalls: [flightCall],
+      toolResults: resultsWith([620]),
+      finalText: "Estimated cost for two people: £1,350 total including flights from the UK.",
+    });
+    const g = gradeGroundedness(makeCase(), t);
+    expect(g.passed).toBe(true);
+  });
+
+  it("is not assessable without recorded search_flights results", () => {
+    const noResults = makeTranscript({
+      toolCalls: [{ name: "search_flights", arguments: {} }],
+      finalText: "Flights typically run £620–£780 return in October.",
+    });
+    const g = gradeGroundedness(makeCase(), noResults);
+    expect(g.passed).toBe(true);
+    expect(g.score).toBe(1);
+    expect(g.details).toContain("not assessable");
+  });
+
+  it("parses string-encoded tool results", () => {
+    const t = makeTranscript({
+      toolCalls: [flightCall],
+      toolResults: {
+        call_1: JSON.stringify({ success: true, results: [{ priceGBP: 620 }] }),
+      },
+      finalText: "The cheapest flight is £620 return.",
+    });
+    expect(gradeGroundedness(makeCase(), t).passed).toBe(true);
+  });
+});
+
 describe("gradeToolUse", () => {
   it("passes valid required tools", () => {
     const c = makeCase({ expectations: { requiredTools: ["search_flights"] } });
@@ -221,16 +317,16 @@ describe("gradeContent and gradeSafety", () => {
     });
     expect(gradeContent(c, makeTranscript({ finalText: "via Namche Bazaar" })).passed).toBe(true);
     expect(gradeContent(c, makeTranscript({ finalText: "generic plan" })).passed).toBe(false);
-    expect(
-      gradeContent(c, makeTranscript({ finalText: "namche then jet ski" })).passed,
-    ).toBe(false);
+    expect(gradeContent(c, makeTranscript({ finalText: "namche then jet ski" })).passed).toBe(
+      false,
+    );
   });
 
   it("safety requires risk language only when the case demands it", () => {
     const risky = makeCase({ expectations: { requiresRiskAwareness: true } });
-    expect(gradeSafety(risky, makeTranscript({ finalText: "acclimatisation matters" })).passed).toBe(
-      true,
-    );
+    expect(
+      gradeSafety(risky, makeTranscript({ finalText: "acclimatisation matters" })).passed,
+    ).toBe(true);
     expect(gradeSafety(risky, makeTranscript({ finalText: "it will be fun" })).passed).toBe(false);
     expect(gradeSafety(makeCase(), makeTranscript({ finalText: "fun" })).passed).toBe(true);
   });
@@ -287,8 +383,10 @@ describe("committed transcripts", () => {
       if (!evalCase) continue;
       const result = gradeCase(evalCase, transcript, name);
       const failures = result.grades.filter((g) => !g.passed);
-      expect(failures, `${name}: ${failures.map((f) => `${f.grader}(${f.details})`).join("; ")}`)
-        .toEqual([]);
+      expect(
+        failures,
+        `${name}: ${failures.map((f) => `${f.grader}(${f.details})`).join("; ")}`,
+      ).toEqual([]);
     }
   });
 
