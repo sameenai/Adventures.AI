@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db/prisma";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { AccountDangerZone } from "./account-danger-zone";
 import { OpenAiKeyForm } from "./openai-key-form";
 import { ProfileEditForm } from "./profile-edit-form";
 
@@ -24,13 +25,15 @@ export default async function ProfileEditPage() {
       twitterUrl: true,
       websiteUrl: true,
       openAiApiKey: true,
+      openAiApiKeyHint: true,
     },
   });
 
   if (!user) redirect("/login");
 
-  const { openAiApiKey, ...profileUser } = user;
-  const keyHint = openAiApiKey ? `${openAiApiKey.slice(0, 7)}…${openAiApiKey.slice(-4)}` : null;
+  const { openAiApiKey, openAiApiKeyHint, ...profileUser } = user;
+  // The hint is precomputed at save time — never derived from the ciphertext.
+  const keyHint = openAiApiKey ? (openAiApiKeyHint ?? "sk-…????") : null;
 
   return (
     <div className="mx-auto max-w-lg px-4 py-10 sm:px-6 lg:px-8">
@@ -46,6 +49,7 @@ export default async function ProfileEditPage() {
       <div id="api-key" className="mt-10">
         <OpenAiKeyForm initialHasKey={!!openAiApiKey} initialHint={keyHint} />
       </div>
+      <AccountDangerZone />
     </div>
   );
 }
