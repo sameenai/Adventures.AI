@@ -80,6 +80,10 @@ export type DurationKey = keyof typeof DURATION_RANGES;
 
 export const CHAT_HISTORY_MAX_MESSAGES = 100;
 
+// Bump when /terms materially changes; first sign-in after a bump re-stamps
+// User.termsVersion via the auth signIn event.
+export const TERMS_VERSION = "2026-08-24";
+
 export const UPLOAD_MAX_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
 
 export const PLANS = {
