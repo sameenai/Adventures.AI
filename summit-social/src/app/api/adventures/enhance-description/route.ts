@@ -1,4 +1,5 @@
-import { openai } from "@/lib/ai/openai";
+import { CHAT_MODEL } from "@/lib/ai/model";
+import { getOpenAI } from "@/lib/ai/openai";
 import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { rateLimit } from "@/lib/db/redis";
@@ -61,8 +62,8 @@ ${description}
 Write an improved description (150–400 words). Be evocative and specific. Do not add information that wasn't implied by the original. Output only the improved description text, no headings or metadata.`;
 
   try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+    const response = await getOpenAI().chat.completions.create({
+      model: CHAT_MODEL,
       messages: [{ role: "user", content: prompt }],
       max_tokens: 600,
       temperature: 0.7,
