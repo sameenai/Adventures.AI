@@ -12,6 +12,7 @@ interface TravelerProfileState {
   preferredCategories: string[];
   budgetBandPence: string; // pounds in the input, converted on save
   typicalDurationDays: string;
+  emailOptIn: boolean;
 }
 
 /**
@@ -26,6 +27,7 @@ export function TravelerProfileForm() {
     preferredCategories: [],
     budgetBandPence: "",
     typicalDurationDays: "",
+    emailOptIn: false,
   });
   const [status, setStatus] = useState<"idle" | "loading" | "saving" | "saved" | "error">(
     "loading",
@@ -34,18 +36,24 @@ export function TravelerProfileForm() {
   useEffect(() => {
     fetch("/api/user/traveler-profile")
       .then((r) => r.json())
-      .then((data: { profile: Record<string, unknown> | null }) => {
+      .then((data: { profile: Record<string, unknown> | null; emailOptIn?: boolean }) => {
         const p = data.profile;
-        if (p) {
-          setState({
-            homeAirport: (p.homeAirport as string) ?? "",
-            cadenceMonths: (p.cadenceMonths as number) ?? 6,
-            maxDifficulty: (p.maxDifficulty as string) ?? "",
-            preferredCategories: (p.preferredCategories as string[]) ?? [],
-            budgetBandPence: p.budgetBandPence ? String((p.budgetBandPence as number) / 100) : "",
-            typicalDurationDays: p.typicalDurationDays ? String(p.typicalDurationDays) : "",
-          });
-        }
+        setState((s) => ({
+          ...s,
+          emailOptIn: data.emailOptIn ?? false,
+          ...(p
+            ? {
+                homeAirport: (p.homeAirport as string) ?? "",
+                cadenceMonths: (p.cadenceMonths as number) ?? 6,
+                maxDifficulty: (p.maxDifficulty as string) ?? "",
+                preferredCategories: (p.preferredCategories as string[]) ?? [],
+                budgetBandPence: p.budgetBandPence
+                  ? String((p.budgetBandPence as number) / 100)
+                  : "",
+                typicalDurationDays: p.typicalDurationDays ? String(p.typicalDurationDays) : "",
+              }
+            : {}),
+        }));
         setStatus("idle");
       })
       .catch(() => setStatus("idle"));
@@ -76,6 +84,7 @@ export function TravelerProfileForm() {
             ? Math.round(Number(state.budgetBandPence) * 100)
             : null,
           typicalDurationDays: state.typicalDurationDays ? Number(state.typicalDurationDays) : null,
+          emailOptIn: state.emailOptIn,
         }),
       });
       setStatus(res.ok ? "saved" : "error");
@@ -164,6 +173,21 @@ export function TravelerProfileForm() {
             ))}
           </div>
         </div>
+
+        <label className="flex cursor-pointer items-start gap-3 border border-stone-800 bg-stone-900/40 p-3">
+          <input
+            type="checkbox"
+            checked={state.emailOptIn}
+            onChange={(e) => setState((s) => ({ ...s, emailOptIn: e.target.checked }))}
+            className="mt-0.5 h-4 w-4 accent-amber-500"
+          />
+          <span>
+            <span className="block text-sm text-stone-300">Email me when my trip window opens</span>
+            <span className="mt-0.5 block font-mono text-[10px] text-stone-600">
+              One email per travel window with your picks — unsubscribe any time
+            </span>
+          </span>
+        </label>
 
         <div className="flex items-center gap-3">
           <Button type="submit" disabled={status === "saving" || status === "loading"}>

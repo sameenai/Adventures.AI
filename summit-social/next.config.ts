@@ -19,7 +19,10 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com",
+      // unsafe-eval is a dev-only concession (React Refresh needs it); the
+      // production bundle runs without it. unsafe-inline remains for Next's
+      // hydration bootstrap — migrating to nonces is tracked platform debt.
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob: https://*.r2.cloudflarestorage.com https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://images.unsplash.com https://api.dicebear.com https://unpkg.com https://*.tile.openstreetmap.org https://api.mapbox.com https://events.mapbox.com",

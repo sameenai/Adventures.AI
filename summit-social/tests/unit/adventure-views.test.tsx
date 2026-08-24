@@ -127,6 +127,7 @@ const baseAdventure: AdventureWithUser = {
   published: true,
   voteCount: 42,
   viewCount: 0,
+  operatorId: null,
   albumUrl: null,
   albumPlatform: null,
   galleryImages: [],

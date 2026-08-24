@@ -22,3 +22,4 @@ add-adventures.sh
 # Node
 node_modules/
 dump.rdb
+.claude/worktrees/

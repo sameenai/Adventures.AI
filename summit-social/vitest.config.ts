@@ -17,6 +17,15 @@ export default defineConfig({
     exclude: ["**/node_modules/**", "tests/db/**"],
     coverage: {
       provider: "v8",
+      // Ratchet: measured 90.2/88.6/91.6/90.2 (stmts/branch/funcs/lines) at
+      // the time thresholds landed. Raise these as coverage rises — never
+      // lower them to make a PR pass.
+      thresholds: {
+        statements: 88,
+        branches: 86,
+        functions: 89,
+        lines: 88,
+      },
       include: ["src/**/*.ts", "src/**/*.tsx"],
       exclude: [
         "src/**/*.d.ts",

@@ -19,6 +19,7 @@ vi.mock("next-auth", () => ({ getServerSession: vi.fn() }));
 vi.mock("@/lib/auth/config", () => ({ authOptions: {} }));
 vi.mock("@/lib/db/redis", () => ({
   rateLimit: vi.fn().mockResolvedValue({ allowed: true, retryAfter: 0 }),
+  redis: { ping: vi.fn().mockResolvedValue("PONG") },
 }));
 
 const mockStripeCheckoutCreate = vi.fn();
@@ -616,7 +617,18 @@ describe("GET /api/health", () => {
     expect(response.status).toBe(503);
     const data = await response.json();
     expect(data.status).toBe("error");
-    expect(data.detail).toBe("db_unreachable");
+    expect(data.db).toBe("unreachable");
+  });
+
+  it("reports degraded (200) when only Redis is down — app up, limits fail closed", async () => {
+    (mockPrisma.$queryRaw as ReturnType<typeof vi.fn>).mockResolvedValue([{ "?column?": 1 }]);
+    const { redis } = await import("@/lib/db/redis");
+    (redis.ping as ReturnType<typeof vi.fn>).mockRejectedValueOnce(new Error("down"));
+    const response = await healthCheck();
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.status).toBe("degraded");
+    expect(data.redis).toBe("unreachable");
   });
 });
 

@@ -43,6 +43,7 @@ model User {
   notifications    Notification[]
   collections      Collection[]
   flightBookings   FlightBooking[]
+  emailLogs        EmailLog[]
   travelerProfile  TravelerProfile?
   tripEvents       TripEvent[]
   searchEvents     SearchEvent[]
@@ -88,6 +89,8 @@ model Adventure {
   views           AdventureView[]
   tripEvents      TripEvent[]
   cadenceRecs     CadenceRecommendation[]
+  operatorId      String?
+  operator        Operator? @relation(fields: [operatorId], references: [id], onDelete: SetNull)
 
   @@index([voteCount(sort: Desc), id])
   @@index([createdAt(sort: Desc), id])
@@ -295,6 +298,7 @@ enum NotificationType {
   SYSTEM
   TRIP_DUE
   SEASON_ALERT
+  BOOKING_CONFIRMED
 }
 
 model Collection {
@@ -343,6 +347,50 @@ model StripeEvent {
 
 // One row per scheduled-job execution (POST /api/jobs/[job]) so a silently
 // failing schedule is visible and double-runs are auditable.
+// The person or company that actually runs a listed adventure. Surfaced on
+// the adventure page ("run by X — book direct") and used by the partner
+// deep-link rail; nullable because most catalog entries are community routes
+// with no single operator.
+model Operator {
+  id                 String      @id @default(cuid())
+  name               String
+  slug               String      @unique
+  website            String?
+  // Template for direct-booking links; {date} and {pax} placeholders are
+  // filled from the itinerary at render time.
+  bookingUrlTemplate String?
+  description        String?     @db.Text
+  adventures         Adventure[]
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+}
+
+// Every transactional email the platform attempts, whether or not a provider
+// is configured — the audit trail for "did the confirmation actually send".
+// Cascade-deleted with the user so account deletion removes the address.
+model EmailLog {
+  id         String      @id @default(cuid())
+  userId     String?
+  user       User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  toEmail    String
+  template   String
+  subject    String
+  status     EmailStatus
+  providerId String?
+  error      String?
+  meta       Json?
+  createdAt  DateTime    @default(now())
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([template, createdAt(sort: Desc)])
+}
+
+enum EmailStatus {
+  SENT
+  FAILED
+  SKIPPED
+}
+
 model JobRun {
   id         String    @id @default(cuid())
   jobName    String

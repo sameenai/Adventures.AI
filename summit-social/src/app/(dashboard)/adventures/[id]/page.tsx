@@ -9,6 +9,12 @@ import { MapView } from "@/components/itinerary/map-view";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
+import {
+  formatDepartureLabel,
+  nextBestDeparture,
+  operatorBookingUrl,
+  partnerLinks,
+} from "@/lib/partners/deep-links";
 import { formatPrice, pluralise } from "@/lib/utils";
 import type { AdventureDetail } from "@/types";
 import type { Metadata } from "next";
@@ -78,6 +84,7 @@ export default async function AdventureDetailPage({ params }: Props) {
           },
         },
         votes: { select: { userId: true } },
+        operator: true,
       },
     }) as Promise<AdventureDetail | null>,
   ]);
@@ -210,6 +217,27 @@ export default async function AdventureDetailPage({ params }: Props) {
     adventure.latitude && adventure.longitude
       ? [{ lat: adventure.latitude, lng: adventure.longitude, label: adventure.location }]
       : [];
+
+  // Partner deep links, prefilled for the next best-season departure window.
+  const departure = nextBestDeparture(adventure.bestMonths);
+  const departureLabel = formatDepartureLabel(departure);
+  const partnerRail = partnerLinks(
+    {
+      location: adventure.location,
+      country: adventure.country,
+      bestMonths: adventure.bestMonths,
+      durationDays: adventure.durationDays,
+    },
+    { departure },
+  );
+  const operatorTemplateUrl = adventure.operator?.bookingUrlTemplate
+    ? operatorBookingUrl(adventure.operator.bookingUrlTemplate, departure, 1)
+    : null;
+  const operatorDirectUrl =
+    operatorTemplateUrl ??
+    (adventure.operator?.website
+      ? operatorBookingUrl(adventure.operator.website, departure, 1)
+      : null);
 
   const MONTH_NAMES = [
     "Jan",
@@ -405,122 +433,82 @@ export default async function AdventureDetailPage({ params }: Props) {
               <h2 className="font-display text-xs uppercase tracking-[0.35em] text-stone-500 mb-4">
                 Book This Trip
               </h2>
+
+              {/* Operator — the outfit that actually runs this trip */}
+              {adventure.operator && (
+                <div className="mb-6 border border-amber-500/30 bg-amber-500/5 p-5">
+                  <p className="font-display text-xs uppercase tracking-[0.35em] text-amber-500 mb-1">
+                    Run by
+                  </p>
+                  <p className="font-display text-xl uppercase tracking-widest text-stone-100">
+                    {adventure.operator.name}
+                  </p>
+                  {adventure.operator.description && (
+                    <p className="mt-2 text-xs leading-relaxed text-stone-500">
+                      {adventure.operator.description}
+                    </p>
+                  )}
+                  {operatorDirectUrl && (
+                    <>
+                      <a
+                        href={operatorDirectUrl}
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                        className="mt-4 inline-block border border-amber-500 bg-amber-500 px-5 py-2 font-display text-xs uppercase tracking-widest text-ink transition-colors hover:bg-amber-400"
+                      >
+                        Book Direct
+                      </a>
+                      <p className="mt-2 font-mono text-xs text-stone-600">
+                        {operatorTemplateUrl
+                          ? `Prefilled for ${departureLabel} · 1 traveller — opens the operator's site in a new tab`
+                          : "Opens the operator's site in a new tab"}
+                      </p>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {/* Partner rail — pre-filled searches, honestly labelled */}
+              <h3 className="font-display text-xs uppercase tracking-widest text-stone-400 mb-1">
+                Plan Your Dates
+              </h3>
+              <p className="font-mono text-xs text-stone-600 mb-4">
+                Prefilled for {departureLabel}
+                {adventure.bestMonths.length > 0
+                  ? " — the next best-season window"
+                  : " — about two months out"}
+                . Search on partner sites — opens in a new tab.
+              </p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {/* Viator */}
-                <a
-                  href={`https://www.viator.com/searchResults/all?text=${encodeURIComponent(`${adventure.title} ${adventure.country}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group border border-stone-800 p-4 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-display text-xs uppercase tracking-widest text-stone-300 group-hover:text-amber-500 transition-colors">
-                      Guided Tours
-                    </span>
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-3.5 w-3.5 fill-none stroke-stone-600 group-hover:stroke-amber-500 stroke-2 transition-colors"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                      />
-                    </svg>
-                  </div>
-                  <p className="font-mono text-xs text-stone-600 group-hover:text-stone-500">
-                    Tour operators &amp; guided experiences via{" "}
-                    <strong className="text-stone-500">Viator</strong>
-                  </p>
-                </a>
-
-                {/* GetYourGuide */}
-                <a
-                  href={`https://www.getyourguide.com/s/?q=${encodeURIComponent(`${adventure.location}, ${adventure.country}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group border border-stone-800 p-4 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-display text-xs uppercase tracking-widest text-stone-300 group-hover:text-amber-500 transition-colors">
-                      Activities
-                    </span>
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-3.5 w-3.5 fill-none stroke-stone-600 group-hover:stroke-amber-500 stroke-2 transition-colors"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                      />
-                    </svg>
-                  </div>
-                  <p className="font-mono text-xs text-stone-600 group-hover:text-stone-500">
-                    Day trips &amp; local activities via{" "}
-                    <strong className="text-stone-500">GetYourGuide</strong>
-                  </p>
-                </a>
-
-                {/* Booking.com */}
-                <a
-                  href={`https://www.booking.com/search.html?ss=${encodeURIComponent(`${adventure.location}, ${adventure.country}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group border border-stone-800 p-4 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-display text-xs uppercase tracking-widest text-stone-300 group-hover:text-amber-500 transition-colors">
-                      Accommodation
-                    </span>
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-3.5 w-3.5 fill-none stroke-stone-600 group-hover:stroke-amber-500 stroke-2 transition-colors"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                      />
-                    </svg>
-                  </div>
-                  <p className="font-mono text-xs text-stone-600 group-hover:text-stone-500">
-                    Hotels, huts &amp; lodges in {adventure.location} via{" "}
-                    <strong className="text-stone-500">Booking.com</strong>
-                  </p>
-                </a>
-
-                {/* Google Flights */}
-                <a
-                  href={`https://www.google.com/travel/flights/search?q=flights+to+${encodeURIComponent(adventure.country)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group border border-stone-800 p-4 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-display text-xs uppercase tracking-widest text-stone-300 group-hover:text-amber-500 transition-colors">
-                      Flights
-                    </span>
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-3.5 w-3.5 fill-none stroke-stone-600 group-hover:stroke-amber-500 stroke-2 transition-colors"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                      />
-                    </svg>
-                  </div>
-                  <p className="font-mono text-xs text-stone-600 group-hover:text-stone-500">
-                    Flights to {adventure.country} via{" "}
-                    <strong className="text-stone-500">Google Flights</strong>
-                  </p>
-                </a>
+                {partnerRail.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    className="group border border-stone-800 p-4 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-display text-xs uppercase tracking-widest text-stone-300 group-hover:text-amber-500 transition-colors">
+                        {link.label}
+                      </span>
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="h-3.5 w-3.5 fill-none stroke-stone-600 group-hover:stroke-amber-500 stroke-2 transition-colors"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                        />
+                      </svg>
+                    </div>
+                    <p className="font-mono text-xs text-stone-600 group-hover:text-stone-500">
+                      {link.note}
+                    </p>
+                  </a>
+                ))}
               </div>
             </section>
 

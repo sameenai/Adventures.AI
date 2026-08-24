@@ -1,3 +1,4 @@
+import { BookingList } from "@/components/flights/booking-list";
 import type { ItineraryDayData } from "@/components/itinerary/day-card";
 import { ExportButton } from "@/components/itinerary/export-button";
 import { ItineraryTimeline } from "@/components/itinerary/itinerary-timeline";
@@ -60,6 +61,19 @@ export default async function ItineraryDetailPage({ params }: Props) {
       days: {
         orderBy: { dayNumber: "asc" },
         select: { id: true, dayNumber: true, title: true, description: true, activities: true },
+      },
+      flightBookings: {
+        orderBy: { createdAt: "desc" },
+        select: {
+          id: true,
+          status: true,
+          origin: true,
+          destination: true,
+          airline: true,
+          flightNumber: true,
+          departureAt: true,
+          priceGBP: true,
+        },
       },
     },
   });
@@ -125,6 +139,17 @@ export default async function ItineraryDetailPage({ params }: Props) {
           </Link>
         </div>
       </div>
+
+      {itinerary.flightBookings.length > 0 && (
+        <div className="mb-8">
+          <BookingList
+            bookings={itinerary.flightBookings.map((b) => ({
+              ...b,
+              departureAt: b.departureAt.toISOString(),
+            }))}
+          />
+        </div>
+      )}
 
       {itinerary.days.length === 0 ? (
         <div className="border border-stone-800 p-8 text-center">

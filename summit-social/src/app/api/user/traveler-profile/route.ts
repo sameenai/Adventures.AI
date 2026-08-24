@@ -1,10 +1,6 @@
-import { authOptions } from "@/lib/auth/config";
-import { RATE_LIMITS } from "@/lib/constants";
+import { withApi } from "@/lib/api/handler";
 import { prisma } from "@/lib/db/prisma";
-import { rateLimit } from "@/lib/db/redis";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import { z } from "zod";
 
 const CATEGORY_VALUES = [
@@ -42,53 +38,48 @@ const travelerProfileSchema = z.object({
   budgetBandPence: z.number().int().min(0).nullable().optional(),
   cadenceMonths: z.number().int().min(1).max(24).optional(),
   fitnessLevel: z.enum(["beginner", "intermediate", "advanced", "expert"]).nullable().optional(),
+  // Marketing-email consent lives on User, not the profile — carried here so
+  // one form saves the whole cadence setup in a single request.
+  emailOptIn: z.boolean().optional(),
 });
 
-export async function GET() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
-  const profile = await prisma.travelerProfile.findUnique({
-    where: { userId: session.user.id },
-  });
-  return NextResponse.json({ profile });
-}
+export const GET = withApi({}, async ({ userId }) => {
+  const [profile, user] = await Promise.all([
+    prisma.travelerProfile.findUnique({ where: { userId } }),
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: { marketingConsent: true },
+    }),
+  ]);
+  return NextResponse.json({ profile, emailOptIn: user?.marketingConsent ?? false });
+});
 
 /** Stated preferences: the cadence engine's highest-quality input. */
-export async function PUT(request: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
+export const PUT = withApi(
+  {
+    rateLimit: { name: "profileUpdate", prefix: "traveler-profile" },
+    schema: travelerProfileSchema,
+  },
+  async ({ userId, body }) => {
+    const { emailOptIn, ...data } = body;
+    const profile = await prisma.travelerProfile.upsert({
+      where: { userId },
+      update: data,
+      create: { userId, ...data },
+    });
 
-  const rl = await rateLimit(
-    `traveler-profile:${session.user.id}`,
-    RATE_LIMITS.profileUpdate.limit,
-    RATE_LIMITS.profileUpdate.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
+    if (emailOptIn !== undefined) {
+      await prisma.user.update({
+        where: { id: userId },
+        data: {
+          marketingConsent: emailOptIn,
+          // The consent timestamp records when consent was GIVEN; withdrawal
+          // keeps the historic grant date alongside consent=false.
+          ...(emailOptIn ? { marketingConsentAt: new Date() } : {}),
+        },
+      });
+    }
 
-  const body = await request.json().catch(() => null);
-  const parsed = travelerProfileSchema.safeParse(body);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "Invalid input", code: "VALIDATION_ERROR", details: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
-
-  const data = parsed.data;
-  const profile = await prisma.travelerProfile.upsert({
-    where: { userId: session.user.id },
-    update: data,
-    create: { userId: session.user.id, ...data },
-  });
-
-  return NextResponse.json({ profile });
-}
+    return NextResponse.json({ profile, ...(emailOptIn !== undefined ? { emailOptIn } : {}) });
+  },
+);
