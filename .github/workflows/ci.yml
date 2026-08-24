@@ -6,36 +6,181 @@ on:
   pull_request:
     branches: [main]
 
+defaults:
+  run:
+    working-directory: summit-social
+
 jobs:
-  lint-and-test:
-    name: Lint & Test
+  lint:
+    name: Lint & Type Check
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: summit-social
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
           cache-dependency-path: summit-social/package-lock.json
+      - run: npm ci
+      - run: npm run lint
 
-      - name: Install dependencies
-        run: npm ci
+  test:
+    name: Unit & Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: summit-social/package-lock.json
+      - run: npm ci
+      - name: Unit + integration with coverage thresholds
+        run: npx vitest run --coverage
 
-      - name: Lint (Biome + TypeScript)
-        run: npm run lint
+  evals:
+    name: AI Eval Regression (replay)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: summit-social/package-lock.json
+      - run: npm ci
+      - run: npm run eval
 
-      - name: Unit tests
-        run: npm run test:unit
+  build:
+    name: Production Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: summit-social/package-lock.json
+      - run: npm ci
+      - run: npm run build
 
-      - name: Integration tests
-        run: npm run test:integration
+  migrations:
+    name: Data Layer (real Postgres + Redis)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: summit
+          POSTGRES_PASSWORD: summit
+          POSTGRES_DB: summitsocial_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://summit:summit@localhost:5432/summitsocial_ci
+      TEST_DATABASE_URL: postgresql://summit:summit@localhost:5432/summitsocial_ci
+      REDIS_URL: redis://localhost:6379
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: summit-social/package-lock.json
+      - run: npm ci
+      - name: Apply every migration to a clean database
+        run: npx prisma migrate deploy
+      - name: Schema drift check (schema.prisma vs migrations)
+        run: >-
+          npx prisma migrate diff
+          --from-migrations ./prisma/migrations
+          --to-schema-datamodel ./prisma/schema.prisma
+          --shadow-database-url "$DATABASE_URL"
+          --exit-code
+      - name: Seed the full catalog (validates the data-driven seed end-to-end)
+        run: npm run db:seed
+      - name: Real-services test tier (query semantics, races, limiter windows)
+        run: npm run test:db
 
-      - name: AI eval regression suite (replay)
-        run: npm run eval
+  rust:
+    name: Rust Services (fmt, clippy, test)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/flight-search
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: services/flight-search
+      - run: cargo fmt --check
+      - run: cargo clippy --all-targets -- -D warnings
+      - run: cargo test
+
+  e2e:
+    name: E2E Journeys (Playwright, desktop + mobile)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: summit
+          POSTGRES_PASSWORD: summit
+          POSTGRES_DB: summitsocial
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://summit:summit@localhost:5432/summitsocial
+      REDIS_URL: redis://localhost:6379
+      NEXTAUTH_SECRET: e2e-ci-secret-0123456789abcdef
+      NEXTAUTH_URL: http://localhost:3000
+      ENABLE_DEV_LOGIN: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: summit-social/package-lock.json
+      - run: npm ci
+      - run: npx prisma migrate deploy
+      - run: npm run db:seed
+      - run: npx playwright install chromium --with-deps
+      - run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: summit-social/playwright-report/
+          retention-days: 14

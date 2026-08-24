@@ -1,0 +1,50 @@
+# Weekly live certification of the AI surface against the real model.
+# Replay evals in CI catch grader/prompt drift; only a live run catches the
+# MODEL drifting (silent gpt-4o updates, tool-calling format changes).
+# Requires the OPENAI_API_KEY repository secret; skips itself when absent.
+name: Live AI Evals
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  live-evals:
+    name: Live eval run (+ judge)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: summit-social
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: summit-social/package-lock.json
+      - run: npm ci
+      - name: Check key availability
+        id: key
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::OPENAI_API_KEY secret not set — live evals skipped"
+          else
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Run live evals with judge
+        if: steps.key.outputs.available == 'true'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: npm run eval:live -- --judge
+      - name: Upload scorecard + transcripts
+        if: steps.key.outputs.available == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-eval-results
+          path: |
+            summit-social/evals/results/
+          retention-days: 90

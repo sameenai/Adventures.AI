@@ -18,13 +18,19 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
     {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
+      // Mobile-friendliness is a product requirement, not an afterthought:
+      // every journey also runs at phone size.
+      name: "mobile-chromium",
+      use: { ...devices["Pixel 7"] },
     },
   ],
   webServer: {
     command: "npm run dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
+    env: {
+      ENABLE_DEV_LOGIN: "true",
+    },
+    timeout: 120_000,
   },
 });

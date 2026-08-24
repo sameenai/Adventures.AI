@@ -21,7 +21,8 @@
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
     "postinstall": "prisma generate",
-    "prepare": "cd .. && husky summit-social/.husky"
+    "prepare": "cd .. && husky summit-social/.husky",
+    "test:db": "vitest run --config vitest.db.config.ts"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -41,11 +42,15 @@
     "openai": "^4.85.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "rehype-sanitize": "^6.0.0",
+    "remark-gfm": "^4.0.1",
     "stripe": "^17.7.0",
     "tailwind-merge": "^3.5.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@biomejs/biome": "^1.9.4",
     "@commitlint/cli": "^20.4.3",
     "@commitlint/config-conventional": "^20.4.3",

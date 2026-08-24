@@ -28,9 +28,12 @@ Unit and integration tests run **without any external services** — Prisma, Red
 ```bash
 npm run test:unit          # Vitest unit tests (tests/unit/)
 npm run test:integration   # Vitest integration tests (tests/integration/)
+npm run test:db            # Real-services tier: live Postgres + Redis (races, cursors, limiter windows)
 npx vitest run --coverage  # Full suite with v8 coverage report
 npm run test:watch         # Vitest in watch mode
-npm run test:e2e           # Playwright e2e tests (requires running app + DB)
+npm run test:e2e           # Playwright e2e journeys, desktop + mobile viewports (requires running app + DB)
+npm run eval               # AI eval regression suite (replay mode, offline — runs in CI)
+npm run eval:live          # AI evals against the real model (requires OPENAI_API_KEY)
 ```
 
 ### Linting & Formatting
@@ -78,6 +81,13 @@ Do not skip this step. If the deploy fails, report the error before ending the s
 
 ## Architecture
 
+### Repository layout
+- `summit-social/` — the Next.js full-stack app (web + BFF layer)
+- `services/flight-search/` — Rust (Axum) flight-search service: the first
+  strangler-pattern backend extraction. The Next.js aggregator proxies to it
+  when `FLIGHT_SERVICE_URL` is set, and falls back to the in-process TS
+  adapters otherwise. `cargo fmt/clippy/test` run in CI for every check-in.
+
 ### Stack
 - **Framework**: Next.js 15 (App Router)
 - **Database**: PostgreSQL via Prisma ORM
@@ -109,6 +119,8 @@ Key routes:
 - `db/redis.ts` — Redis client + `rateLimit()` helper
 - `flights/` — Amadeus and Skyscanner adapters + aggregator
 - `validators/` — Zod schemas for all API inputs
+- `jobs/` — scheduled jobs (retention, cadence-scan) run via secret-gated `/api/jobs/[job]`
+- `personalization/` — taste profile aggregation for the cadence engine
 - `constants.ts` — Rate limit configs and other app-wide constants
 
 ### Data Model Highlights
