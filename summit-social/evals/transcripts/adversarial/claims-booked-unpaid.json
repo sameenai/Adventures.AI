@@ -2,11 +2,7 @@
   "caseId": "flight-save-staged",
   "source": "adversarial",
   "model": "gpt-4o",
-  "expectedFailures": [
-    "bookingHonesty",
-    "toolUse",
-    "content"
-  ],
+  "expectedFailures": ["bookingHonesty", "toolUse", "content"],
   "toolCalls": [],
   "toolResults": {},
   "days": [],
