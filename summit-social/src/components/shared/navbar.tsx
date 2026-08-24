@@ -4,6 +4,7 @@ import { NotificationBell } from "@/components/shared/notification-bell";
 import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
@@ -15,8 +16,16 @@ const NAV_LINKS = [
   { href: "/itineraries", label: "My Trips" },
   { href: "/bookmarks", label: "Bucket List" },
   { href: "/itinerary", label: "Plan" },
+  { href: "/next-trip", label: "Next Trip" },
   { href: "/flights", label: "Flights" },
+  { href: "/pro", label: "Pro" },
 ];
+
+/** "/" only matches exactly; other hrefs match themselves and their sub-paths. */
+function isActivePath(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -70,6 +79,7 @@ function ThemeToggle() {
 
 export function Navbar() {
   const { data: session } = useSession();
+  const pathname = usePathname() ?? "";
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -85,15 +95,21 @@ export function Navbar() {
 
         {/* Centre nav */}
         <div className="hidden items-center gap-7 md:flex">
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="text-xs font-normal text-stone-500 transition-colors hover:text-stone-100"
-            >
-              {label}
-            </Link>
-          ))}
+          {NAV_LINKS.map(({ href, label }) => {
+            const active = isActivePath(pathname, href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                aria-current={active ? "page" : undefined}
+                className={`text-xs font-normal transition-colors ${
+                  active ? "text-amber-500" : "text-stone-500 hover:text-stone-100"
+                }`}
+              >
+                {label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Right side */}
@@ -176,16 +192,22 @@ export function Navbar() {
           className="border-t border-stone-800 bg-stone-950 px-6 pb-5 pt-4 md:hidden"
         >
           <nav className="flex flex-col gap-1">
-            {NAV_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setMobileOpen(false)}
-                className="py-2 text-xs text-stone-400 transition-colors hover:text-stone-100"
-              >
-                {label}
-              </Link>
-            ))}
+            {NAV_LINKS.map(({ href, label }) => {
+              const active = isActivePath(pathname, href);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={`py-2 text-xs transition-colors ${
+                    active ? "text-amber-500" : "text-stone-400 hover:text-stone-100"
+                  }`}
+                >
+                  {label}
+                </Link>
+              );
+            })}
           </nav>
           {session && (
             <div className="mt-4 flex items-center justify-between border-t border-stone-800 pt-4">

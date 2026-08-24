@@ -6,7 +6,21 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-export async function POST() {
+/**
+ * A native <form method="POST"> navigation cannot consume a JSON body — it would
+ * render raw JSON in the browser. Detect that case (no explicit JSON Accept, or a
+ * form-encoded submission) so we can 303-redirect straight to Stripe instead.
+ */
+function isFormNavigation(request: Request): boolean {
+  const accept = request.headers.get("accept") ?? "";
+  const contentType = request.headers.get("content-type") ?? "";
+  return (
+    !accept.includes("application/json") ||
+    contentType.includes("application/x-www-form-urlencoded")
+  );
+}
+
+export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
@@ -77,6 +91,15 @@ export async function POST() {
     metadata: { userId: session.user.id },
     subscription_data: { metadata: { userId: session.user.id } },
   });
+
+  if (!checkoutSession.url) {
+    return NextResponse.json({ error: "Checkout session has no URL" }, { status: 502 });
+  }
+
+  // Browser form navigations must be redirected to Stripe; fetch callers get JSON.
+  if (isFormNavigation(request)) {
+    return NextResponse.redirect(checkoutSession.url, 303);
+  }
 
   return NextResponse.json({ url: checkoutSession.url });
 }

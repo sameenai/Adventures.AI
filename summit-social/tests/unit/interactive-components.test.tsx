@@ -4,11 +4,20 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ refresh: vi.fn() }),
+  usePathname: () => "/adventures/adv-1",
   useSearchParams: () => ({
     get: vi.fn().mockReturnValue(null),
     toString: () => "",
   }),
   useTransition: () => [false, (fn: () => void) => fn()],
+}));
+
+vi.mock("next/link", () => ({
+  default: ({ href, children, ...props }: { href: string; children: React.ReactNode }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
 }));
 
 afterEach(cleanup);
@@ -61,22 +70,69 @@ describe("BookmarkButton", () => {
   });
 
   it("does not change state when fetch fails", async () => {
-    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({ ok: false });
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({ ok: false, status: 500 });
     render(<BookmarkButton adventureId="adv-1" isBookmarked={false} />);
     fireEvent.click(screen.getByRole("button"));
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
     expect(screen.getByText("Save")).toBeTruthy();
   });
 
-  it("is disabled when disabled prop is true", () => {
+  it("renders a login link with callbackUrl when logged out (disabled prop)", () => {
     render(<BookmarkButton adventureId="adv-1" isBookmarked={false} disabled={true} />);
-    expect(screen.getByRole("button")).toBeDisabled();
+    expect(screen.queryByRole("button")).toBeNull();
+    const link = screen.getByRole("link", { name: /log in to save/i });
+    expect(link).toHaveAttribute("href", "/login?callbackUrl=%2Fadventures%2Fadv-1");
   });
 
-  it("does not call fetch when disabled", async () => {
+  it("does not call fetch when logged out", async () => {
     render(<BookmarkButton adventureId="adv-1" isBookmarked={false} disabled={true} />);
-    fireEvent.click(screen.getByRole("button"));
+    fireEvent.click(screen.getByRole("link", { name: /log in to save/i }));
     expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it("shows an upgrade prompt with a /pro link on 402 UPGRADE_REQUIRED", async () => {
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({ ok: false, status: 402 });
+    render(<BookmarkButton adventureId="adv-1" isBookmarked={false} />);
+    fireEvent.click(screen.getByRole("button"));
+    await waitFor(() => expect(screen.getByRole("alert")).toBeTruthy());
+    expect(screen.getByRole("alert").textContent).toContain("Bucket list full");
+    expect(screen.getByRole("link", { name: /basecamper pro/i })).toHaveAttribute("href", "/pro");
+    // Still not bookmarked
+    expect(screen.getByText("Save")).toBeTruthy();
+  });
+
+  it("dismisses the upgrade prompt via its close button", async () => {
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({ ok: false, status: 402 });
+    render(<BookmarkButton adventureId="adv-1" isBookmarked={false} />);
+    fireEvent.click(screen.getByRole("button", { name: /add to bucket list/i }));
+    await waitFor(() => expect(screen.getByRole("alert")).toBeTruthy());
+    fireEvent.click(screen.getByRole("button", { name: /dismiss/i }));
+    expect(screen.queryByRole("alert")).toBeNull();
+  });
+
+  it("shows the add-to-collection affordance after a successful save", async () => {
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({ ok: true });
+    render(<BookmarkButton adventureId="adv-1" isBookmarked={false} />);
+    fireEvent.click(screen.getByRole("button"));
+    await waitFor(() => expect(screen.getByText("Saved to bucket list")).toBeTruthy());
+    expect(screen.getByRole("button", { name: /add to collection\?/i })).toBeTruthy();
+  });
+
+  it("hides the add-to-collection affordance when dismissed", async () => {
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({ ok: true });
+    render(<BookmarkButton adventureId="adv-1" isBookmarked={false} />);
+    fireEvent.click(screen.getByRole("button"));
+    await waitFor(() => expect(screen.getByText("Saved to bucket list")).toBeTruthy());
+    fireEvent.click(screen.getByRole("button", { name: /dismiss/i }));
+    expect(screen.queryByText("Saved to bucket list")).toBeNull();
+  });
+
+  it("does not show the add-to-collection affordance after unsaving", async () => {
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({ ok: true });
+    render(<BookmarkButton adventureId="adv-1" isBookmarked={true} />);
+    fireEvent.click(screen.getByRole("button"));
+    await waitFor(() => expect(screen.getByText("Save")).toBeTruthy());
+    expect(screen.queryByText("Saved to bucket list")).toBeNull();
   });
 });
 
@@ -207,6 +263,7 @@ import { SearchFilter } from "@/components/adventures/search-filter";
 const mockRouterPush = vi.fn();
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockRouterPush, refresh: vi.fn() }),
+  usePathname: () => "/adventures/adv-1",
   useSearchParams: () => ({
     get: (key: string) => (key === "sortBy" ? "votes" : null),
     toString: () => "",
