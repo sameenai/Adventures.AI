@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db/prisma";
 import { logger } from "@/lib/logger";
+import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import Stripe from "stripe";
@@ -28,6 +29,20 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     logger.error("Stripe webhook signature verification failed", err);
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+  }
+
+  // Stripe retries deliveries and may replay events within the signing
+  // window. The unique ledger insert makes reprocessing a no-op.
+  try {
+    await prisma.stripeEvent.create({ data: { id: event.id, type: event.type } });
+  } catch (err) {
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2002" // unique violation: already processed
+    ) {
+      return NextResponse.json({ received: true, duplicate: true });
+    }
+    throw err;
   }
 
   try {
@@ -70,6 +85,14 @@ export async function POST(request: NextRequest) {
         if (userId) {
           await prisma.user.update({
             where: { id: userId },
+            data: { plan: isActive ? "PRO" : "FREE" },
+          });
+        } else {
+          // Metadata can be absent on subscriptions mutated outside checkout
+          // (dashboard edits, API changes) — fall back to the stored sub id
+          // so plan state cannot silently go stale.
+          await prisma.user.updateMany({
+            where: { stripeSubId: sub.id },
             data: { plan: isActive ? "PRO" : "FREE" },
           });
         }
