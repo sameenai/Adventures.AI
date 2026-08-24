@@ -17,6 +17,9 @@ model User {
   twitterUrl       String?
   websiteUrl       String?
   openAiApiKey     String?           @db.Text
+  // Display hint (last 4 chars) precomputed at save time so settings pages
+  // never need to decrypt the stored key just to render "sk-…abcd".
+  openAiApiKeyHint String?
   plan             Plan              @default(FREE)
   stripeCustomerId String?           @unique
   stripeSubId      String?           @unique

@@ -25,16 +25,25 @@ export async function GET() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { openAiApiKey: true },
+    select: { openAiApiKey: true, openAiApiKeyHint: true },
   });
 
-  const stored = user?.openAiApiKey;
-  if (!stored) {
+  if (!user?.openAiApiKey) {
     return NextResponse.json({ hasKey: false, hint: null });
   }
 
-  const raw = decrypt(stored);
-  const hint = raw?.startsWith("sk-") ? `${raw.slice(0, 7)}…${raw.slice(-4)}` : "sk-…****";
+  // The hint is precomputed at save time; the stored key is never decrypted
+  // just to render a settings page. Legacy rows (saved before the hint
+  // column existed) are backfilled once here.
+  let hint = user.openAiApiKeyHint;
+  if (!hint) {
+    const raw = decrypt(user.openAiApiKey);
+    hint = raw ? `sk-…${raw.slice(-4)}` : "sk-…????";
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: { openAiApiKeyHint: hint },
+    });
+  }
   return NextResponse.json({ hasKey: true, hint });
 }
 
@@ -82,15 +91,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Last-4 only: enough for the owner to recognise their key, minimal
+  // identifying material if the hint ever leaks.
+  const hint = `sk-…${key.slice(-4)}`;
   await prisma.user.update({
     where: { id: session.user.id },
-    data: { openAiApiKey: encrypted },
+    data: { openAiApiKey: encrypted, openAiApiKeyHint: hint },
   });
 
-  return NextResponse.json({
-    hasKey: true,
-    hint: `${key.slice(0, 7)}…${key.slice(-4)}`,
-  });
+  return NextResponse.json({ hasKey: true, hint });
 }
 
 /** Removes the user's stored OpenAI API key. */
@@ -114,7 +123,7 @@ export async function DELETE() {
 
   await prisma.user.update({
     where: { id: session.user.id },
-    data: { openAiApiKey: null },
+    data: { openAiApiKey: null, openAiApiKeyHint: null },
   });
 
   return NextResponse.json({ hasKey: false, hint: null });

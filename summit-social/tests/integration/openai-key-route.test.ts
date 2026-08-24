@@ -69,15 +69,33 @@ describe("GET /api/user/openai-key", () => {
     expect(data.hint).toBeNull();
   });
 
-  it("returns hasKey=true and hint when key is stored", async () => {
+  it("returns hasKey=true and the stored hint without decrypting", async () => {
     mockSession();
     mockUser.findUnique.mockResolvedValue({
-      openAiApiKey: "sk-proj-aaaaaaaaaaaaaaaaaaaaaaaaaaaa1234",
+      openAiApiKey: "encrypted-blob",
+      openAiApiKeyHint: "sk-…1234",
     });
     const res = await GET();
     const data = await res.json();
     expect(data.hasKey).toBe(true);
-    expect(data.hint).toMatch(/^sk-proj.*1234$/);
+    expect(data.hint).toBe("sk-…1234");
+    // no legacy backfill write when a hint is already stored
+    expect(mockUser.update).not.toHaveBeenCalled();
+  });
+
+  it("backfills the hint once for legacy rows without one", async () => {
+    mockSession();
+    mockUser.findUnique.mockResolvedValue({
+      openAiApiKey: "sk-proj-aaaaaaaaaaaaaaaaaaaaaaaaaaaa1234",
+      openAiApiKeyHint: null,
+    });
+    mockUser.update.mockResolvedValue({});
+    const res = await GET();
+    const data = await res.json();
+    expect(data.hint).toBe("sk-…1234");
+    expect(mockUser.update).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { openAiApiKeyHint: "sk-…1234" } }),
+    );
   });
 
   it("never returns the raw key", async () => {
@@ -134,14 +152,13 @@ describe("POST /api/user/openai-key", () => {
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.hasKey).toBe(true);
-    expect(data.hint).toMatch(/sk-proj/);
-    expect(data.hint).toMatch(/1234/);
+    expect(data.hint).toBe("sk-…1234");
     const updateArg = mockUser.update.mock.calls[0][0] as {
       data: { openAiApiKey: string };
     };
     expect(updateArg.data.openAiApiKey).toBeTruthy();
     expect(updateArg.data.openAiApiKey).not.toBe(key);
-    expect(updateArg.data.openAiApiKey).not.toContain("sk-");
+    expect(updateArg.data.openAiApiKey).not.toContain("sk-proj");
     vi.unstubAllEnvs();
   });
 
@@ -178,7 +195,7 @@ describe("DELETE /api/user/openai-key", () => {
     expect(data.hint).toBeNull();
     expect(mockUser.update).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: { openAiApiKey: null },
+        data: { openAiApiKey: null, openAiApiKeyHint: null },
       }),
     );
   });
