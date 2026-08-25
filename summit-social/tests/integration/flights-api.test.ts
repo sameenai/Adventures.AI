@@ -103,6 +103,7 @@ describe("POST /api/flights", () => {
         body: JSON.stringify(validFlightBody),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(200);
 
@@ -120,6 +121,7 @@ describe("POST /api/flights", () => {
         body: JSON.stringify(validFlightBody),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(401);
     const data = await response.json();
@@ -135,6 +137,7 @@ describe("POST /api/flights", () => {
         body: JSON.stringify(validFlightBody),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(429);
     const data = await response.json();
@@ -148,6 +151,7 @@ describe("POST /api/flights", () => {
         body: JSON.stringify({ ...validFlightBody, origin: "INVALID" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(400);
     const data = await response.json();
@@ -161,6 +165,7 @@ describe("POST /api/flights", () => {
         body: JSON.stringify({ ...validFlightBody, departureDate: "Aug 1 2025" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(400);
   });
@@ -172,6 +177,7 @@ describe("POST /api/flights", () => {
         body: JSON.stringify({ ...validFlightBody, passengers: 2, cabinClass: "business" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
 
     expect(mockSearchFlights).toHaveBeenCalledWith(
@@ -186,6 +192,7 @@ describe("POST /api/flights", () => {
         body: JSON.stringify(validFlightBody),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     const data = await response.json();
     expect(data.cachedAt).toBeDefined();

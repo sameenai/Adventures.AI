@@ -1,63 +1,49 @@
-import { authOptions } from "@/lib/auth/config";
-import { RATE_LIMITS } from "@/lib/constants";
+import { withApi } from "@/lib/api/handler";
 import { prisma } from "@/lib/db/prisma";
-import { rateLimit } from "@/lib/db/redis";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
-export async function POST(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const session = await getServerSession(authOptions);
+export const POST = withApi(
+  { rateLimit: { name: "adventureCreate", prefix: "adventure:create" } },
+  async ({ userId, params }) => {
+    const { id } = params;
 
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
+    const original = await prisma.adventure.findUnique({
+      where: { id },
+      include: { tags: { select: { name: true } } },
+    });
 
-  const rl = await rateLimit(
-    `adventure:create:${session.user.id}`,
-    RATE_LIMITS.adventureCreate.limit,
-    RATE_LIMITS.adventureCreate.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
+    if (!original) {
+      return NextResponse.json(
+        { error: "Adventure not found", code: "NOT_FOUND" },
+        { status: 404 },
+      );
+    }
 
-  const original = await prisma.adventure.findUnique({
-    where: { id },
-    include: { tags: { select: { name: true } } },
-  });
+    if (original.userId !== userId) {
+      return NextResponse.json({ error: "Forbidden", code: "FORBIDDEN" }, { status: 403 });
+    }
 
-  if (!original) {
-    return NextResponse.json({ error: "Adventure not found", code: "NOT_FOUND" }, { status: 404 });
-  }
+    const { id: _id, createdAt: _c, updatedAt: _u, userId: _uid, tags, ...rest } = original;
 
-  if (original.userId !== session.user.id) {
-    return NextResponse.json({ error: "Forbidden", code: "FORBIDDEN" }, { status: 403 });
-  }
-
-  const { id: _id, createdAt: _c, updatedAt: _u, userId: _uid, tags, ...rest } = original;
-
-  const duplicate = await prisma.adventure.create({
-    data: {
-      ...rest,
-      title: `${rest.title} (Copy)`,
-      published: false,
-      userId: session.user.id,
-      tags: {
-        connectOrCreate: tags.map((t) => ({
-          where: { name: t.name },
-          create: { name: t.name },
-        })),
+    const duplicate = await prisma.adventure.create({
+      data: {
+        ...rest,
+        title: `${rest.title} (Copy)`,
+        published: false,
+        userId,
+        tags: {
+          connectOrCreate: tags.map((t) => ({
+            where: { name: t.name },
+            create: { name: t.name },
+          })),
+        },
       },
-    },
-    include: {
-      user: { select: { id: true, name: true, avatarUrl: true } },
-      tags: true,
-    },
-  });
+      include: {
+        user: { select: { id: true, name: true, avatarUrl: true } },
+        tags: true,
+      },
+    });
 
-  return NextResponse.json(duplicate, { status: 201 });
-}
+    return NextResponse.json(duplicate, { status: 201 });
+  },
+);

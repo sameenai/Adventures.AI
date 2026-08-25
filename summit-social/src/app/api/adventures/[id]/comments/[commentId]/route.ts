@@ -1,18 +1,9 @@
-import { authOptions } from "@/lib/auth/config";
+import { withApi } from "@/lib/api/handler";
 import { prisma } from "@/lib/db/prisma";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-type Params = { params: Promise<{ id: string; commentId: string }> };
-
-export async function PATCH(request: NextRequest, { params }: Params) {
-  const { commentId } = await params;
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
+export const PATCH = withApi({}, async ({ request, userId, params }) => {
+  const { commentId } = params;
 
   const comment = await prisma.comment.findUnique({
     where: { id: commentId },
@@ -23,7 +14,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "Comment not found", code: "NOT_FOUND" }, { status: 404 });
   }
 
-  if (comment.userId !== session.user.id) {
+  if (comment.userId !== userId) {
     return NextResponse.json({ error: "Forbidden", code: "FORBIDDEN" }, { status: 403 });
   }
 
@@ -41,15 +32,10 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   });
 
   return NextResponse.json(updated);
-}
+});
 
-export async function DELETE(_request: NextRequest, { params }: Params) {
-  const { commentId } = await params;
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
+export const DELETE = withApi({}, async ({ userId, params }) => {
+  const { commentId } = params;
 
   const comment = await prisma.comment.findUnique({
     where: { id: commentId },
@@ -60,10 +46,10 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "Comment not found", code: "NOT_FOUND" }, { status: 404 });
   }
 
-  if (comment.userId !== session.user.id) {
+  if (comment.userId !== userId) {
     return NextResponse.json({ error: "Forbidden", code: "FORBIDDEN" }, { status: 403 });
   }
 
   await prisma.comment.delete({ where: { id: commentId } });
   return new NextResponse(null, { status: 204 });
-}
+});

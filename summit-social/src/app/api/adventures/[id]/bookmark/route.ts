@@ -1,30 +1,11 @@
 import { track } from "@/lib/analytics/track";
-import { authOptions } from "@/lib/auth/config";
-import { PLANS, RATE_LIMITS } from "@/lib/constants";
+import { withApi } from "@/lib/api/handler";
+import { PLANS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
-import { rateLimit } from "@/lib/db/redis";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
-export async function POST(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id: adventureId } = await params;
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
-
-  const rl = await rateLimit(
-    `bookmark:${session.user.id}`,
-    RATE_LIMITS.bookmark.limit,
-    RATE_LIMITS.bookmark.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
+export const POST = withApi({ rateLimit: { name: "bookmark" } }, async ({ userId, params }) => {
+  const adventureId = params.id;
 
   const adventure = await prisma.adventure.findUnique({
     where: { id: adventureId, published: true },
@@ -36,12 +17,12 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
 
   // Enforce bookmark limit for free users
   const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
+    where: { id: userId },
     select: { plan: true },
   });
   const limit = user?.plan === "PRO" ? PLANS.PRO.bookmarkLimit : PLANS.FREE.bookmarkLimit;
   if (Number.isFinite(limit)) {
-    const existing = await prisma.bookmark.count({ where: { userId: session.user.id } });
+    const existing = await prisma.bookmark.count({ where: { userId } });
     if (existing >= limit) {
       return NextResponse.json(
         { error: "Bookmark limit reached", code: "UPGRADE_REQUIRED", limit },
@@ -50,39 +31,20 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
     }
   }
 
-  track("bookmark_added", { userId: session.user.id, props: { adventureId } });
+  track("bookmark_added", { userId, props: { adventureId } });
   await prisma.bookmark.upsert({
-    where: { userId_adventureId: { userId: session.user.id, adventureId } },
-    create: { userId: session.user.id, adventureId },
+    where: { userId_adventureId: { userId, adventureId } },
+    create: { userId, adventureId },
     update: {},
   });
 
   return NextResponse.json({ bookmarked: true });
-}
+});
 
-export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id: adventureId } = await params;
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
-
-  const rl = await rateLimit(
-    `bookmark:${session.user.id}`,
-    RATE_LIMITS.bookmark.limit,
-    RATE_LIMITS.bookmark.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
-
+export const DELETE = withApi({ rateLimit: { name: "bookmark" } }, async ({ userId, params }) => {
   await prisma.bookmark.deleteMany({
-    where: { userId: session.user.id, adventureId },
+    where: { userId, adventureId: params.id },
   });
 
   return NextResponse.json({ bookmarked: false });
-}
+});

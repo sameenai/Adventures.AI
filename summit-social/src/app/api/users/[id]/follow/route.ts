@@ -1,34 +1,11 @@
-import { authOptions } from "@/lib/auth/config";
-import { RATE_LIMITS } from "@/lib/constants";
+import { withApi } from "@/lib/api/handler";
 import { prisma } from "@/lib/db/prisma";
-import { rateLimit } from "@/lib/db/redis";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
-export async function POST(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id: followingId } = await params;
-  const session = await getServerSession(authOptions);
+export const POST = withApi({ rateLimit: { name: "follow" } }, async ({ userId, params }) => {
+  const followingId = params.id;
 
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
-
-  const rl = await rateLimit(
-    `follow:${session.user.id}`,
-    RATE_LIMITS.follow.limit,
-    RATE_LIMITS.follow.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Too many requests", code: "RATE_LIMITED" },
-      {
-        status: 429,
-        headers: { "Retry-After": String(rl.retryAfter) },
-      },
-    );
-  }
-
-  if (session.user.id === followingId) {
+  if (userId === followingId) {
     return NextResponse.json({ error: "Cannot follow yourself", code: "INVALID" }, { status: 400 });
   }
 
@@ -38,19 +15,19 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
   }
 
   const existing = await prisma.follow.findUnique({
-    where: { followerId_followingId: { followerId: session.user.id, followingId } },
+    where: { followerId_followingId: { followerId: userId, followingId } },
   });
 
   await prisma.follow.upsert({
-    where: { followerId_followingId: { followerId: session.user.id, followingId } },
-    create: { followerId: session.user.id, followingId },
+    where: { followerId_followingId: { followerId: userId, followingId } },
+    create: { followerId: userId, followingId },
     update: {},
   });
 
   // Only notify on new follows (not re-follows)
   if (!existing) {
     const follower = await prisma.user.findUnique({
-      where: { id: session.user.id },
+      where: { id: userId },
       select: { name: true },
     });
     await prisma.notification.create({
@@ -58,37 +35,18 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
         userId: followingId,
         type: "NEW_FOLLOWER",
         message: `${follower?.name ?? "Someone"} started following you`,
-        linkUrl: `/profile/${session.user.id}`,
+        linkUrl: `/profile/${userId}`,
       },
     });
   }
 
   return NextResponse.json({ following: true });
-}
+});
 
-export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id: followingId } = await params;
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
-
-  const rl = await rateLimit(
-    `follow:${session.user.id}`,
-    RATE_LIMITS.follow.limit,
-    RATE_LIMITS.follow.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
-
+export const DELETE = withApi({ rateLimit: { name: "follow" } }, async ({ userId, params }) => {
   await prisma.follow.deleteMany({
-    where: { followerId: session.user.id, followingId },
+    where: { followerId: userId, followingId: params.id },
   });
 
   return NextResponse.json({ following: false });
-}
+});
