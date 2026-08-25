@@ -2,7 +2,7 @@
 
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const markerIcon = L.icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
@@ -37,6 +37,23 @@ interface GeoResponse {
 
 /** Viewport refetches wait this long after the last move before firing. */
 const VIEWPORT_DEBOUNCE_MS = 300;
+
+/**
+ * Status line shown over the map after a viewport fetch settles: `null`
+ * clears it (success), 429 names the per-IP limit — waiting genuinely fixes
+ * it — and anything else gets the generic notice. Either way the last
+ * successfully drawn layer stays put; the map degrades, it never blanks.
+ * Aborted fetches (a newer pan superseded this one) must change nothing and
+ * never reach this function.
+ */
+export function geoFetchStatus(
+  result: { ok: true } | { ok: false; httpStatus: number | null },
+): string | null {
+  if (result.ok) return null;
+  return result.httpStatus === 429
+    ? "Map data paused — too many requests, try again in a minute"
+    : "Map data unavailable";
+}
 
 /** Escape user-controlled text before interpolating into popup HTML (stored-XSS guard). */
 function escapeHtml(value: string): string {
@@ -74,6 +91,7 @@ function clusterIcon(count: number): L.DivIcon {
 export function ExploreMapInner() {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -118,7 +136,8 @@ export function ExploreMapInner() {
 
     const loadViewport = async () => {
       controller?.abort();
-      controller = new AbortController();
+      const ownController = new AbortController();
+      controller = ownController;
       const bounds = map.getBounds();
       const query = new URLSearchParams({
         west: String(bounds.getWest()),
@@ -128,16 +147,24 @@ export function ExploreMapInner() {
         zoom: String(Math.min(Math.max(map.getZoom(), 1), 18)),
       });
       try {
-        const res = await fetch(`/api/adventures/geo?${query}`, { signal: controller.signal });
-        if (!res.ok) return;
+        const res = await fetch(`/api/adventures/geo?${query}`, { signal: ownController.signal });
+        if (!res.ok) {
+          // Keep the last successfully drawn layer, but say why it froze.
+          setStatusMessage(geoFetchStatus({ ok: false, httpStatus: res.status }));
+          return;
+        }
         const data = (await res.json()) as GeoResponse;
         if (data.clusters) {
           renderClusters(data.clusters);
         } else {
           renderMarkers(data.markers ?? []);
         }
+        setStatusMessage(geoFetchStatus({ ok: true }));
       } catch {
-        // Aborted pan or network hiccup — keep the last successfully drawn layer.
+        // A newer pan superseded this fetch — it will report its own outcome.
+        if (ownController.signal.aborted) return;
+        // Network hiccup: keep the last drawn layer, surface the notice.
+        setStatusMessage(geoFetchStatus({ ok: false, httpStatus: null }));
       }
     };
 
@@ -158,5 +185,14 @@ export function ExploreMapInner() {
     };
   }, []);
 
-  return <div ref={containerRef} className="h-full w-full" />;
+  return (
+    <div className="relative h-full w-full">
+      <div ref={containerRef} className="h-full w-full" />
+      {statusMessage && (
+        <output className="pointer-events-none absolute bottom-3 left-1/2 z-[1000] block -translate-x-1/2 whitespace-nowrap border border-stone-700 bg-stone-900/90 px-3 py-1 font-mono text-xs text-amber-500">
+          {statusMessage}
+        </output>
+      )}
+    </div>
+  );
 }
