@@ -54,8 +54,11 @@ Required in production (see `summit-social/.env.example` for the full list):
   `canary` tag URL, gets smoke-tested there (health + critical pages inside
   a 5s budget), and only then is promoted to live traffic. A failed smoke
   leaves production on the previous revision.
-- Rollback: `make rollback` routes 100% of traffic back to the previous
-  ready revision in seconds (`make rollback REVISION=<name>` to pick one).
+- Rollback: `make rollback` finds the revision currently receiving traffic,
+  walks the most recent revisions newest-first, and routes 100% of traffic
+  to the first other one whose Ready condition is True — it verifies
+  readiness per revision, so it never rolls back onto a broken revision
+  (`make rollback REVISION=<name>` skips detection and uses that revision).
 - Migrations: `npx prisma migrate deploy` runs against the production DB
   before traffic shifts. Never `db push`, never edit applied migrations.
 - Rust service: build/deploy separately (`services/flight-search/Dockerfile`),

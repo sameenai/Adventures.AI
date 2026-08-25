@@ -179,18 +179,33 @@ alerts-setup:
 	fi
 
 # ---------------------------------------------------------------------------
-# Roll traffic back to the previous revision (or REVISION=<name> explicitly).
-# The canary deploy keeps the prior revision warm, so this takes seconds.
+# Roll traffic back to the previous *verified-ready* revision (or pass
+# REVISION=<name> to skip detection entirely). Detection finds the revision
+# currently receiving traffic, walks the newest ~10 revisions, skips the
+# current one, and picks the first whose Ready condition is True — so an
+# incident never rolls back onto a broken revision. The canary deploy keeps
+# the prior revision warm, so this takes seconds.
 # ---------------------------------------------------------------------------
 rollback:
 	@target="$(REVISION)"; \
 	if [ -z "$$target" ]; then \
-		target=$$(gcloud run revisions list \
+		current=$$(gcloud run services describe $(GCP_SERVICE) \
+			--project=$(GCP_PROJECT) --region=$(GCP_REGION) \
+			--format=json | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const s=JSON.parse(d);const t=((s.status||{}).traffic||[]).find(x=>(x.percent||0)>0);process.stdout.write(t&&t.revisionName?t.revisionName:'');})"); \
+		echo "→ Currently serving: $${current:-unknown}"; \
+		candidates=$$(gcloud run revisions list \
 			--project=$(GCP_PROJECT) --region=$(GCP_REGION) \
 			--service=$(GCP_SERVICE) \
-			--filter="status.conditions.type:Ready AND status.conditions.status:True" \
 			--sort-by="~metadata.creationTimestamp" \
-			--format="value(metadata.name)" | sed -n 2p); \
+			--format="value(metadata.name)" | head -n 10); \
+		for rev in $$candidates; do \
+			if [ "$$rev" = "$$current" ]; then continue; fi; \
+			ready=$$(gcloud run revisions describe "$$rev" \
+				--project=$(GCP_PROJECT) --region=$(GCP_REGION) \
+				--format=json | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const r=JSON.parse(d);const c=((r.status||{}).conditions||[]).find(x=>x.type==='Ready');process.stdout.write(c?String(c.status):'');})"); \
+			if [ "$$ready" = "True" ]; then target="$$rev"; break; fi; \
+			echo "→ Skipping $$rev (Ready=$${ready:-unknown})"; \
+		done; \
 	fi; \
 	test -n "$$target" || (echo "No previous ready revision found; pass REVISION=<name>" && exit 1); \
 	echo "→ Routing 100% of traffic to $$target"; \
