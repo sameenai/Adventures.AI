@@ -131,9 +131,16 @@ when "no emails went out last night". Cadence emails go only to users with
 
 ## CI gates (every PR)
 
-Biome + tsc · 1,100+ mocked unit/integration tests with coverage thresholds
+Biome + tsc · supply-chain gate (`scripts/audit-gate.mjs`: high/critical
+production advisories fail unless pinned by GHSA id in the allowlist —
+a liability ledger whose entries carry a `reviewBy` date that expires) ·
+1,100+ mocked unit/integration tests with coverage thresholds
 (88/86/89/88) · AI eval replay gate (19 goldens + adversarial teeth-check +
-prompt-surface hash) · production build · real-Postgres/Redis tier
-(migrations, schema-drift check, seed, concurrency) · Rust fmt/clippy/test ·
-Playwright e2e, desktop + mobile. Do not merge red; do not lower thresholds
-to pass.
+prompt-surface hash) · production build + bundle-budget gate
+(`scripts/check-bundle-budget.mjs` vs `bundle-budget.json`) + csp-prerender
+gate (`scripts/check-csp-prerender.mjs`: no scripted route may slip back
+into the prerender manifest, or it ships nonce-less scripts the CSP blocks) ·
+real-Postgres/Redis tier (migrations, schema-drift check, seed, concurrency)
+· Rust fmt/clippy/test · Playwright e2e, desktop + mobile. Do not merge red;
+do not lower thresholds to pass. Dependabot opens weekly npm/cargo/actions
+update PRs (security fixes immediately), judged by this same suite.
