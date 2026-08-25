@@ -56,14 +56,18 @@ afterEach(() => {
 describe("GET /api/user/openai-key", () => {
   it("returns 401 when not authenticated", async () => {
     mockGetSession.mockResolvedValue(null);
-    const res = await GET();
+    const res = await GET(new NextRequest("http://localhost/api/user/openai-key"), {
+      params: Promise.resolve({}),
+    });
     expect(res.status).toBe(401);
   });
 
   it("returns hasKey=false when no key is stored", async () => {
     mockSession();
     mockUser.findUnique.mockResolvedValue({ openAiApiKey: null });
-    const res = await GET();
+    const res = await GET(new NextRequest("http://localhost/api/user/openai-key"), {
+      params: Promise.resolve({}),
+    });
     const data = await res.json();
     expect(data.hasKey).toBe(false);
     expect(data.hint).toBeNull();
@@ -75,7 +79,9 @@ describe("GET /api/user/openai-key", () => {
       openAiApiKey: "encrypted-blob",
       openAiApiKeyHint: "sk-…1234",
     });
-    const res = await GET();
+    const res = await GET(new NextRequest("http://localhost/api/user/openai-key"), {
+      params: Promise.resolve({}),
+    });
     const data = await res.json();
     expect(data.hasKey).toBe(true);
     expect(data.hint).toBe("sk-…1234");
@@ -90,7 +96,9 @@ describe("GET /api/user/openai-key", () => {
       openAiApiKeyHint: null,
     });
     mockUser.update.mockResolvedValue({});
-    const res = await GET();
+    const res = await GET(new NextRequest("http://localhost/api/user/openai-key"), {
+      params: Promise.resolve({}),
+    });
     const data = await res.json();
     expect(data.hint).toBe("sk-…1234");
     expect(mockUser.update).toHaveBeenCalledWith(
@@ -102,7 +110,9 @@ describe("GET /api/user/openai-key", () => {
     const rawKey = "sk-proj-aaaaaaaaaaaaaaaaaaaaaaaaaaaa1234";
     mockSession();
     mockUser.findUnique.mockResolvedValue({ openAiApiKey: rawKey });
-    const res = await GET();
+    const res = await GET(new NextRequest("http://localhost/api/user/openai-key"), {
+      params: Promise.resolve({}),
+    });
     const body = await res.text();
     expect(body).not.toContain(rawKey);
   });
@@ -114,13 +124,13 @@ describe("GET /api/user/openai-key", () => {
 describe("POST /api/user/openai-key", () => {
   it("returns 401 when not authenticated", async () => {
     mockGetSession.mockResolvedValue(null);
-    const res = await POST(postRequest({ key: "sk-validkeyabcdefghijk" }));
+    const res = await POST(postRequest({ key: "sk-validkeyabcdefghijk" }), { params: Promise.resolve({}) });
     expect(res.status).toBe(401);
   });
 
   it("returns 400 for a key that doesn't start with sk-", async () => {
     mockSession();
-    const res = await POST(postRequest({ key: "invalid-key-aaaaaaaaaaaaa" }));
+    const res = await POST(postRequest({ key: "invalid-key-aaaaaaaaaaaaa" }), { params: Promise.resolve({}) });
     expect(res.status).toBe(400);
     const data = await res.json();
     expect(data.code).toBe("VALIDATION_ERROR");
@@ -128,14 +138,14 @@ describe("POST /api/user/openai-key", () => {
 
   it("returns 400 for a key that is too short", async () => {
     mockSession();
-    const res = await POST(postRequest({ key: "sk-short" }));
+    const res = await POST(postRequest({ key: "sk-short" }), { params: Promise.resolve({}) });
     expect(res.status).toBe(400);
   });
 
   it("returns 503 and stores nothing when encryption is not configured", async () => {
     vi.stubEnv("ENCRYPTION_KEY", "");
     mockSession();
-    const res = await POST(postRequest({ key: "sk-proj-aaaaaaaaaaaaaaaaaaaaaaaaaaaa1234" }));
+    const res = await POST(postRequest({ key: "sk-proj-aaaaaaaaaaaaaaaaaaaaaaaaaaaa1234" }), { params: Promise.resolve({}) });
     expect(res.status).toBe(503);
     const data = await res.json();
     expect(data.code).toBe("ENCRYPTION_UNAVAILABLE");
@@ -148,7 +158,7 @@ describe("POST /api/user/openai-key", () => {
     mockSession();
     mockUser.update.mockResolvedValue({});
     const key = "sk-proj-aaaaaaaaaaaaaaaaaaaaaaaaaaaa1234";
-    const res = await POST(postRequest({ key }));
+    const res = await POST(postRequest({ key }), { params: Promise.resolve({}) });
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.hasKey).toBe(true);
@@ -167,7 +177,7 @@ describe("POST /api/user/openai-key", () => {
     mockSession();
     mockUser.update.mockResolvedValue({});
     const key = "sk-proj-aaaaaaaaaaaaaaaaaaaaaaaaaaaa1234";
-    const res = await POST(postRequest({ key }));
+    const res = await POST(postRequest({ key }), { params: Promise.resolve({}) });
     const data = await res.json();
     expect(data.hint).not.toBe(key);
     expect(data.hint.length).toBeLessThan(key.length);
@@ -181,14 +191,18 @@ describe("POST /api/user/openai-key", () => {
 describe("DELETE /api/user/openai-key", () => {
   it("returns 401 when not authenticated", async () => {
     mockGetSession.mockResolvedValue(null);
-    const res = await DELETE();
+    const res = await DELETE(new NextRequest("http://localhost/api/user/openai-key"), {
+      params: Promise.resolve({}),
+    });
     expect(res.status).toBe(401);
   });
 
   it("clears the key and returns hasKey=false", async () => {
     mockSession();
     mockUser.update.mockResolvedValue({});
-    const res = await DELETE();
+    const res = await DELETE(new NextRequest("http://localhost/api/user/openai-key"), {
+      params: Promise.resolve({}),
+    });
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.hasKey).toBe(false);

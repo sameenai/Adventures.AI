@@ -612,7 +612,9 @@ describe("GET /api/collections", () => {
 
   it("returns 401 when unauthenticated", async () => {
     noSession();
-    const response = await getCollections();
+    const response = await getCollections(new NextRequest("http://localhost/api/collections"), {
+      params: Promise.resolve({}),
+    });
     expect(response.status).toBe(401);
   });
 
@@ -621,7 +623,9 @@ describe("GET /api/collections", () => {
     (mockPrisma.collection.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
       { id: "col-1", name: "Favourites", _count: { items: 2 }, items: [] },
     ]);
-    const response = await getCollections();
+    const response = await getCollections(new NextRequest("http://localhost/api/collections"), {
+      params: Promise.resolve({}),
+    });
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data).toHaveLength(1);
@@ -640,6 +644,7 @@ describe("POST /api/collections", () => {
         body: JSON.stringify({ name: "My List" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(401);
   });
@@ -658,6 +663,7 @@ describe("POST /api/collections", () => {
         body: JSON.stringify({ name: "My List" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(201);
     const data = await response.json();
@@ -672,6 +678,7 @@ describe("POST /api/collections", () => {
         body: JSON.stringify({ name: "" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(400);
   });
@@ -685,6 +692,7 @@ describe("POST /api/collections", () => {
         body: JSON.stringify({ name: "My List" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(429);
   });
@@ -695,7 +703,7 @@ describe("GET /api/collections/[id]", () => {
 
   it("returns 401 when unauthenticated", async () => {
     noSession();
-    const response = await getCollection(new Request("http://localhost/api/collections/col-1"), {
+    const response = await getCollection(new NextRequest("http://localhost/api/collections/col-1"), {
       params: Promise.resolve({ id: "col-1" }),
     });
     expect(response.status).toBe(401);
@@ -704,7 +712,7 @@ describe("GET /api/collections/[id]", () => {
   it("returns 404 when collection not found", async () => {
     mockSession("user-1");
     (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
-    const response = await getCollection(new Request("http://localhost/api/collections/missing"), {
+    const response = await getCollection(new NextRequest("http://localhost/api/collections/missing"), {
       params: Promise.resolve({ id: "missing" }),
     });
     expect(response.status).toBe(404);
@@ -718,7 +726,7 @@ describe("GET /api/collections/[id]", () => {
       items: [],
       _count: { items: 0 },
     });
-    const response = await getCollection(new Request("http://localhost/api/collections/col-1"), {
+    const response = await getCollection(new NextRequest("http://localhost/api/collections/col-1"), {
       params: Promise.resolve({ id: "col-1" }),
     });
     expect(response.status).toBe(403);
@@ -733,7 +741,7 @@ describe("GET /api/collections/[id]", () => {
       items: [],
       _count: { items: 0 },
     });
-    const response = await getCollection(new Request("http://localhost/api/collections/col-1"), {
+    const response = await getCollection(new NextRequest("http://localhost/api/collections/col-1"), {
       params: Promise.resolve({ id: "col-1" }),
     });
     expect(response.status).toBe(200);
@@ -751,7 +759,7 @@ describe("DELETE /api/collections/[id]", () => {
       userId: "user-1",
     });
     (mockPrisma.collection.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
-    const response = await deleteCollection(new Request("http://localhost/api/collections/col-1"), {
+    const response = await deleteCollection(new NextRequest("http://localhost/api/collections/col-1"), {
       params: Promise.resolve({ id: "col-1" }),
     });
     expect(response.status).toBe(204);
@@ -762,7 +770,7 @@ describe("DELETE /api/collections/[id]", () => {
     (mockPrisma.collection.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({
       userId: "user-1",
     });
-    const response = await deleteCollection(new Request("http://localhost/api/collections/col-1"), {
+    const response = await deleteCollection(new NextRequest("http://localhost/api/collections/col-1"), {
       params: Promise.resolve({ id: "col-1" }),
     });
     expect(response.status).toBe(403);
@@ -1208,7 +1216,9 @@ describe("GET /api/itineraries", () => {
 
   it("returns 401 when unauthenticated", async () => {
     noSession();
-    const response = await getItineraries();
+    const response = await getItineraries(new NextRequest("http://localhost/api/itineraries"), {
+      params: Promise.resolve({}),
+    });
     expect(response.status).toBe(401);
   });
 
@@ -1218,7 +1228,9 @@ describe("GET /api/itineraries", () => {
       { id: "itin-1", title: "Nepal Trek", days: [], _count: { flightBookings: 0 } },
     ]);
 
-    const response = await getItineraries();
+    const response = await getItineraries(new NextRequest("http://localhost/api/itineraries"), {
+      params: Promise.resolve({}),
+    });
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data).toHaveLength(1);
@@ -1228,7 +1240,9 @@ describe("GET /api/itineraries", () => {
   it("returns empty array when user has no itineraries", async () => {
     mockSession();
     (mockPrisma.itinerary.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
-    const response = await getItineraries();
+    const response = await getItineraries(new NextRequest("http://localhost/api/itineraries"), {
+      params: Promise.resolve({}),
+    });
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data).toEqual([]);
@@ -1250,11 +1264,12 @@ describe("POST /api/itineraries", () => {
     });
 
     const response = await createItinerary(
-      new Request("http://localhost/api/itineraries", {
+      new NextRequest("http://localhost/api/itineraries", {
         method: "POST",
         body: JSON.stringify({ title: "My Trip" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
 
     expect(response.status).toBe(201);
@@ -1270,11 +1285,12 @@ describe("POST /api/itineraries", () => {
     });
 
     await createItinerary(
-      new Request("http://localhost/api/itineraries", {
+      new NextRequest("http://localhost/api/itineraries", {
         method: "POST",
         body: JSON.stringify({}),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
 
     const createCall = (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
@@ -1284,10 +1300,11 @@ describe("POST /api/itineraries", () => {
   it("returns 401 when unauthenticated", async () => {
     noSession();
     const response = await createItinerary(
-      new Request("http://localhost/api/itineraries", {
+      new NextRequest("http://localhost/api/itineraries", {
         method: "POST",
         body: JSON.stringify({ title: "Trip" }),
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(401);
   });
@@ -1300,11 +1317,12 @@ describe("POST /api/itineraries", () => {
     });
 
     await createItinerary(
-      new Request("http://localhost/api/itineraries", {
+      new NextRequest("http://localhost/api/itineraries", {
         method: "POST",
         body: JSON.stringify({ title: "My Trip", startDate: "2025-08-01", endDate: "2025-08-14" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
 
     const createCall = (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
@@ -1320,11 +1338,12 @@ describe("POST /api/itineraries", () => {
     });
 
     await createItinerary(
-      new Request("http://localhost/api/itineraries", {
+      new NextRequest("http://localhost/api/itineraries", {
         method: "POST",
         body: JSON.stringify({ title: "My Trip" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
 
     const createCall = (mockPrisma.itinerary.create as ReturnType<typeof vi.fn>).mock.calls[0][0];
@@ -1336,11 +1355,12 @@ describe("POST /api/itineraries", () => {
     mockSession();
     mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 60 });
     const response = await createItinerary(
-      new Request("http://localhost/api/itineraries", {
+      new NextRequest("http://localhost/api/itineraries", {
         method: "POST",
         body: JSON.stringify({ title: "My Trip" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(429);
   });
@@ -1349,11 +1369,12 @@ describe("POST /api/itineraries", () => {
     mockSession();
     mockRateLimit.mockResolvedValueOnce({ allowed: true, retryAfter: 0 });
     const response = await createItinerary(
-      new Request("http://localhost/api/itineraries", {
+      new NextRequest("http://localhost/api/itineraries", {
         method: "POST",
         body: "not-json",
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(400);
   });
@@ -1367,7 +1388,7 @@ describe("GET /api/itineraries/[id]", () => {
 
   it("returns 401 when unauthenticated", async () => {
     noSession();
-    const response = await getItinerary(new Request("http://localhost/api/itineraries/itin-1"), {
+    const response = await getItinerary(new NextRequest("http://localhost/api/itineraries/itin-1"), {
       params: Promise.resolve({ id: "itin-1" }),
     });
     expect(response.status).toBe(401);
@@ -1382,7 +1403,7 @@ describe("GET /api/itineraries/[id]", () => {
       flightBookings: [],
     });
 
-    const response = await getItinerary(new Request("http://localhost/api/itineraries/itin-1"), {
+    const response = await getItinerary(new NextRequest("http://localhost/api/itineraries/itin-1"), {
       params: Promise.resolve({ id: "itin-1" }),
     });
     expect(response.status).toBe(200);
@@ -1394,7 +1415,7 @@ describe("GET /api/itineraries/[id]", () => {
     mockSession();
     (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
 
-    const response = await getItinerary(new Request("http://localhost/api/itineraries/missing"), {
+    const response = await getItinerary(new NextRequest("http://localhost/api/itineraries/missing"), {
       params: Promise.resolve({ id: "missing" }),
     });
     expect(response.status).toBe(404);
@@ -1422,7 +1443,7 @@ describe("PATCH /api/itineraries/[id]", () => {
     });
 
     const response = await patchItinerary(
-      new Request("http://localhost/api/itineraries/itin-1", {
+      new NextRequest("http://localhost/api/itineraries/itin-1", {
         method: "PATCH",
         body: JSON.stringify({ title: "Updated Trek" }),
         headers: { "Content-Type": "application/json" },
@@ -1438,7 +1459,7 @@ describe("PATCH /api/itineraries/[id]", () => {
   it("returns 401 when unauthenticated", async () => {
     noSession();
     const response = await patchItinerary(
-      new Request("http://localhost/api/itineraries/itin-1", {
+      new NextRequest("http://localhost/api/itineraries/itin-1", {
         method: "PATCH",
         body: JSON.stringify({ title: "X" }),
       }),
@@ -1452,7 +1473,7 @@ describe("PATCH /api/itineraries/[id]", () => {
     (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
 
     const response = await patchItinerary(
-      new Request("http://localhost/api/itineraries/missing", {
+      new NextRequest("http://localhost/api/itineraries/missing", {
         method: "PATCH",
         body: JSON.stringify({ title: "X" }),
       }),
@@ -1471,7 +1492,7 @@ describe("PATCH /api/itineraries/[id]", () => {
     updateMock.mockResolvedValue({ id: "itin-1", title: "Nepal Trek", days: [] });
 
     await patchItinerary(
-      new Request("http://localhost/api/itineraries/itin-1", {
+      new NextRequest("http://localhost/api/itineraries/itin-1", {
         method: "PATCH",
         body: JSON.stringify({
           title: "Nepal Trek",
@@ -1512,7 +1533,7 @@ describe("PATCH /api/itineraries/[id]", () => {
     updateMock.mockResolvedValue({ id: "itin-1", days: [] });
 
     await patchItinerary(
-      new Request("http://localhost/api/itineraries/itin-1", {
+      new NextRequest("http://localhost/api/itineraries/itin-1", {
         method: "PATCH",
         body: JSON.stringify({}),
         headers: { "Content-Type": "application/json" },
@@ -1536,7 +1557,7 @@ describe("PATCH /api/itineraries/[id]", () => {
     updateMock.mockResolvedValue({ id: "itin-1", days: [] });
 
     await patchItinerary(
-      new Request("http://localhost/api/itineraries/itin-1", {
+      new NextRequest("http://localhost/api/itineraries/itin-1", {
         method: "PATCH",
         body: JSON.stringify({ description: null, budget: 0 }),
         headers: { "Content-Type": "application/json" },
@@ -1566,7 +1587,7 @@ describe("DELETE /api/itineraries/[id]", () => {
     });
     (mockPrisma.itinerary.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
-    const response = await deleteItinerary(new Request("http://localhost/api/itineraries/itin-1"), {
+    const response = await deleteItinerary(new NextRequest("http://localhost/api/itineraries/itin-1"), {
       params: Promise.resolve({ id: "itin-1" }),
     });
     expect(response.status).toBe(204);
@@ -1574,7 +1595,7 @@ describe("DELETE /api/itineraries/[id]", () => {
 
   it("returns 401 when unauthenticated", async () => {
     noSession();
-    const response = await deleteItinerary(new Request("http://localhost/api/itineraries/itin-1"), {
+    const response = await deleteItinerary(new NextRequest("http://localhost/api/itineraries/itin-1"), {
       params: Promise.resolve({ id: "itin-1" }),
     });
     expect(response.status).toBe(401);
@@ -1585,7 +1606,7 @@ describe("DELETE /api/itineraries/[id]", () => {
     (mockPrisma.itinerary.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
 
     const response = await deleteItinerary(
-      new Request("http://localhost/api/itineraries/missing"),
+      new NextRequest("http://localhost/api/itineraries/missing"),
       { params: Promise.resolve({ id: "missing" }) },
     );
     expect(response.status).toBe(404);
@@ -1824,7 +1845,9 @@ describe("GET /api/notifications", () => {
 
   it("returns 401 when not authenticated", async () => {
     noSession();
-    const response = await getNotifications();
+    const response = await getNotifications(new NextRequest("http://localhost/api/notifications"), {
+      params: Promise.resolve({}),
+    });
     expect(response.status).toBe(401);
   });
 
@@ -1853,7 +1876,9 @@ describe("GET /api/notifications", () => {
     );
     (mockPrisma.notification.count as ReturnType<typeof vi.fn>).mockResolvedValue(1);
 
-    const response = await getNotifications();
+    const response = await getNotifications(new NextRequest("http://localhost/api/notifications"), {
+      params: Promise.resolve({}),
+    });
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data.notifications).toHaveLength(2);
@@ -1865,7 +1890,9 @@ describe("GET /api/notifications", () => {
     (mockPrisma.notification.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
     (mockPrisma.notification.count as ReturnType<typeof vi.fn>).mockResolvedValue(0);
 
-    await getNotifications();
+    await getNotifications(new NextRequest("http://localhost/api/notifications"), {
+      params: Promise.resolve({}),
+    });
     expect(mockPrisma.notification.count).toHaveBeenCalledWith({
       where: { userId: "user-1", read: false },
     });
@@ -1886,7 +1913,9 @@ describe("GET /api/notifications", () => {
     ]);
     (mockPrisma.notification.count as ReturnType<typeof vi.fn>).mockResolvedValue(120);
 
-    const response = await getNotifications();
+    const response = await getNotifications(new NextRequest("http://localhost/api/notifications"), {
+      params: Promise.resolve({}),
+    });
     const data = await response.json();
     expect(data.unreadCount).toBe(120);
   });
@@ -1896,7 +1925,9 @@ describe("GET /api/notifications", () => {
     (mockPrisma.notification.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([]);
     (mockPrisma.notification.count as ReturnType<typeof vi.fn>).mockResolvedValue(0);
 
-    const response = await getNotifications();
+    const response = await getNotifications(new NextRequest("http://localhost/api/notifications"), {
+      params: Promise.resolve({}),
+    });
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data.notifications).toHaveLength(0);
@@ -1912,7 +1943,9 @@ describe("POST /api/notifications/read-all", () => {
 
   it("returns 401 when not authenticated", async () => {
     noSession();
-    const response = await markAllRead();
+    const response = await markAllRead(new NextRequest("http://localhost/api/notifications/read-all"), {
+      params: Promise.resolve({}),
+    });
     expect(response.status).toBe(401);
   });
 
@@ -1922,7 +1955,9 @@ describe("POST /api/notifications/read-all", () => {
       count: 3,
     });
 
-    const response = await markAllRead();
+    const response = await markAllRead(new NextRequest("http://localhost/api/notifications/read-all"), {
+      params: Promise.resolve({}),
+    });
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data.ok).toBe(true);

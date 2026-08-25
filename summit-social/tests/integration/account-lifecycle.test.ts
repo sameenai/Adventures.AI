@@ -53,18 +53,18 @@ describe("DELETE /api/user/me", () => {
 
   it("returns 401 when not authenticated", async () => {
     mockSession.mockResolvedValue(null);
-    const res = await DELETE(deleteRequest({ confirm: "DELETE" }));
+    const res = await DELETE(deleteRequest({ confirm: "DELETE" }), { params: Promise.resolve({}) });
     expect(res.status).toBe(401);
   });
 
   it("requires the typed confirmation", async () => {
-    const res = await DELETE(deleteRequest({ confirm: "yes please" }));
+    const res = await DELETE(deleteRequest({ confirm: "yes please" }), { params: Promise.resolve({}) });
     expect(res.status).toBe(400);
     expect(mockUser.delete).not.toHaveBeenCalled();
   });
 
   it("deletes the user row (cascading all owned content)", async () => {
-    const res = await DELETE(deleteRequest({ confirm: "DELETE" }));
+    const res = await DELETE(deleteRequest({ confirm: "DELETE" }), { params: Promise.resolve({}) });
     expect(res.status).toBe(204);
     expect(mockUser.delete).toHaveBeenCalledWith({ where: { id: "user-1" } });
   });
@@ -74,7 +74,7 @@ describe("DELETE /api/user/me", () => {
     mockUser.findUnique.mockResolvedValue({ stripeCustomerId: "cus_123" });
     mockCustomersDel.mockResolvedValue({});
 
-    const res = await DELETE(deleteRequest({ confirm: "DELETE" }));
+    const res = await DELETE(deleteRequest({ confirm: "DELETE" }), { params: Promise.resolve({}) });
     expect(res.status).toBe(204);
     expect(mockCustomersDel).toHaveBeenCalledWith("cus_123");
     vi.unstubAllEnvs();
@@ -85,7 +85,7 @@ describe("DELETE /api/user/me", () => {
     mockUser.findUnique.mockResolvedValue({ stripeCustomerId: "cus_123" });
     mockCustomersDel.mockRejectedValue(new Error("stripe down"));
 
-    const res = await DELETE(deleteRequest({ confirm: "DELETE" }));
+    const res = await DELETE(deleteRequest({ confirm: "DELETE" }), { params: Promise.resolve({}) });
     expect(res.status).toBe(204);
     expect(mockUser.delete).toHaveBeenCalled();
     vi.unstubAllEnvs();
@@ -117,12 +117,16 @@ describe("GET /api/user/me/export", () => {
 
   it("returns 401 when not authenticated", async () => {
     mockSession.mockResolvedValue(null);
-    const res = await exportRoute();
+    const res = await exportRoute(new NextRequest("http://localhost/api/user/me/export"), {
+      params: Promise.resolve({}),
+    });
     expect(res.status).toBe(401);
   });
 
   it("returns a complete bundle as a download, never the raw key", async () => {
-    const res = await exportRoute();
+    const res = await exportRoute(new NextRequest("http://localhost/api/user/me/export"), {
+      params: Promise.resolve({}),
+    });
     expect(res.status).toBe(200);
     expect(res.headers.get("Content-Disposition")).toContain("basecamper-export.json");
 

@@ -1,10 +1,6 @@
-import { authOptions } from "@/lib/auth/config";
-import { RATE_LIMITS } from "@/lib/constants";
+import { withApi } from "@/lib/api/handler";
 import { prisma } from "@/lib/db/prisma";
-import { rateLimit } from "@/lib/db/redis";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
 async function getOwnedCollection(id: string, userId: string) {
   const collection = await prisma.collection.findUnique({
@@ -16,93 +12,64 @@ async function getOwnedCollection(id: string, userId: string) {
   return { collection };
 }
 
-export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
+export const POST = withApi(
+  { rateLimit: { name: "collectionItems", prefix: "collection:items" } },
+  async ({ request, userId, params }) => {
+    const { id } = params;
 
-  const rl = await rateLimit(
-    `collection:items:${session.user.id}`,
-    RATE_LIMITS.collectionItems.limit,
-    RATE_LIMITS.collectionItems.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
+    const result = await getOwnedCollection(id, userId);
+    if ("error" in result) {
+      return NextResponse.json(
+        { error: result.error, code: result.status === 404 ? "NOT_FOUND" : "FORBIDDEN" },
+        { status: result.status },
+      );
+    }
 
-  const result = await getOwnedCollection(id, session.user.id);
-  if ("error" in result) {
-    return NextResponse.json(
-      { error: result.error, code: result.status === 404 ? "NOT_FOUND" : "FORBIDDEN" },
-      { status: result.status },
-    );
-  }
+    const body = await request.json().catch(() => null);
+    const adventureId = typeof body?.adventureId === "string" ? body.adventureId : null;
+    if (!adventureId) {
+      return NextResponse.json(
+        { error: "adventureId required", code: "VALIDATION_ERROR" },
+        { status: 400 },
+      );
+    }
 
-  const body = await request.json().catch(() => null);
-  const adventureId = typeof body?.adventureId === "string" ? body.adventureId : null;
-  if (!adventureId) {
-    return NextResponse.json(
-      { error: "adventureId required", code: "VALIDATION_ERROR" },
-      { status: 400 },
-    );
-  }
+    const item = await prisma.collectionItem.upsert({
+      where: { collectionId_adventureId: { collectionId: id, adventureId } },
+      create: { collectionId: id, adventureId },
+      update: {},
+    });
 
-  const item = await prisma.collectionItem.upsert({
-    where: { collectionId_adventureId: { collectionId: id, adventureId } },
-    create: { collectionId: id, adventureId },
-    update: {},
-  });
+    return NextResponse.json(item, { status: 201 });
+  },
+);
 
-  return NextResponse.json(item, { status: 201 });
-}
+export const DELETE = withApi(
+  { rateLimit: { name: "collectionItems", prefix: "collection:items" } },
+  async ({ request, userId, params }) => {
+    const { id } = params;
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const { id } = await params;
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
+    const result = await getOwnedCollection(id, userId);
+    if ("error" in result) {
+      return NextResponse.json(
+        { error: result.error, code: result.status === 404 ? "NOT_FOUND" : "FORBIDDEN" },
+        { status: result.status },
+      );
+    }
 
-  const rl = await rateLimit(
-    `collection:items:${session.user.id}`,
-    RATE_LIMITS.collectionItems.limit,
-    RATE_LIMITS.collectionItems.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
+    const { searchParams } = new URL(request.url);
+    const adventureId = searchParams.get("adventureId");
+    if (!adventureId) {
+      return NextResponse.json(
+        { error: "adventureId required", code: "VALIDATION_ERROR" },
+        { status: 400 },
+      );
+    }
 
-  const result = await getOwnedCollection(id, session.user.id);
-  if ("error" in result) {
-    return NextResponse.json(
-      { error: result.error, code: result.status === 404 ? "NOT_FOUND" : "FORBIDDEN" },
-      { status: result.status },
-    );
-  }
+    await prisma.collectionItem.deleteMany({
+      where: { collectionId: id, adventureId },
+    });
 
-  const { searchParams } = new URL(request.url);
-  const adventureId = searchParams.get("adventureId");
-  if (!adventureId) {
-    return NextResponse.json(
-      { error: "adventureId required", code: "VALIDATION_ERROR" },
-      { status: 400 },
-    );
-  }
-
-  await prisma.collectionItem.deleteMany({
-    where: { collectionId: id, adventureId },
-  });
-
-  return new Response(null, { status: 204 });
-}
+    return new NextResponse(null, { status: 204 });
+  },
+);

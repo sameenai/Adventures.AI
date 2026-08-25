@@ -1,11 +1,7 @@
-import { authOptions } from "@/lib/auth/config";
-import { RATE_LIMITS } from "@/lib/constants";
+import { withApi } from "@/lib/api/handler";
 import { decrypt, encrypt } from "@/lib/crypto";
 import { prisma } from "@/lib/db/prisma";
-import { rateLimit } from "@/lib/db/redis";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import { z } from "zod";
 
 const saveKeySchema = z.object({
@@ -17,14 +13,9 @@ const saveKeySchema = z.object({
 });
 
 /** Returns whether the current user has a key saved (never returns the key itself). */
-export async function GET() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
-
+export const GET = withApi({}, async ({ userId }) => {
   const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
+    where: { id: userId },
     select: { openAiApiKey: true, openAiApiKeyHint: true },
   });
 
@@ -40,91 +31,66 @@ export async function GET() {
     const raw = decrypt(user.openAiApiKey);
     hint = raw ? `sk-…${raw.slice(-4)}` : "sk-…????";
     await prisma.user.update({
-      where: { id: session.user.id },
+      where: { id: userId },
       data: { openAiApiKeyHint: hint },
     });
   }
   return NextResponse.json({ hasKey: true, hint });
-}
+});
 
 /** Saves or replaces the user's OpenAI API key (encrypted at rest). */
-export async function POST(request: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
+export const POST = withApi(
+  { rateLimit: { name: "apiKeyUpdate", prefix: "api-key" } },
+  async ({ request, userId }) => {
+    const body = await request.json().catch(() => null);
+    if (!body) {
+      return NextResponse.json(
+        { error: "Invalid JSON", code: "VALIDATION_ERROR" },
+        { status: 400 },
+      );
+    }
+    const parsed = saveKeySchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: parsed.error.issues[0]?.message ?? "Invalid key", code: "VALIDATION_ERROR" },
+        { status: 400 },
+      );
+    }
 
-  const rl = await rateLimit(
-    `api-key:${session.user.id}`,
-    RATE_LIMITS.apiKeyUpdate.limit,
-    RATE_LIMITS.apiKeyUpdate.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
+    const key = parsed.data.key;
+    const encrypted = encrypt(key);
+    if (!encrypted) {
+      // Fail closed: never store a user's API key as plaintext.
+      return NextResponse.json(
+        {
+          error: "Key storage is not available: server-side encryption is not configured",
+          code: "ENCRYPTION_UNAVAILABLE",
+        },
+        { status: 503 },
+      );
+    }
 
-  const body = await request.json().catch(() => null);
-  if (!body) {
-    return NextResponse.json({ error: "Invalid JSON", code: "VALIDATION_ERROR" }, { status: 400 });
-  }
-  const parsed = saveKeySchema.safeParse(body);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: parsed.error.issues[0]?.message ?? "Invalid key", code: "VALIDATION_ERROR" },
-      { status: 400 },
-    );
-  }
+    // Last-4 only: enough for the owner to recognise their key, minimal
+    // identifying material if the hint ever leaks.
+    const hint = `sk-…${key.slice(-4)}`;
+    await prisma.user.update({
+      where: { id: userId },
+      data: { openAiApiKey: encrypted, openAiApiKeyHint: hint },
+    });
 
-  const key = parsed.data.key;
-  const encrypted = encrypt(key);
-  if (!encrypted) {
-    // Fail closed: never store a user's API key as plaintext.
-    return NextResponse.json(
-      {
-        error: "Key storage is not available: server-side encryption is not configured",
-        code: "ENCRYPTION_UNAVAILABLE",
-      },
-      { status: 503 },
-    );
-  }
-
-  // Last-4 only: enough for the owner to recognise their key, minimal
-  // identifying material if the hint ever leaks.
-  const hint = `sk-…${key.slice(-4)}`;
-  await prisma.user.update({
-    where: { id: session.user.id },
-    data: { openAiApiKey: encrypted, openAiApiKeyHint: hint },
-  });
-
-  return NextResponse.json({ hasKey: true, hint });
-}
+    return NextResponse.json({ hasKey: true, hint });
+  },
+);
 
 /** Removes the user's stored OpenAI API key. */
-export async function DELETE() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
+export const DELETE = withApi(
+  { rateLimit: { name: "apiKeyUpdate", prefix: "api-key" } },
+  async ({ userId }) => {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { openAiApiKey: null, openAiApiKeyHint: null },
+    });
 
-  const rl = await rateLimit(
-    `api-key:${session.user.id}`,
-    RATE_LIMITS.apiKeyUpdate.limit,
-    RATE_LIMITS.apiKeyUpdate.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
-
-  await prisma.user.update({
-    where: { id: session.user.id },
-    data: { openAiApiKey: null, openAiApiKeyHint: null },
-  });
-
-  return NextResponse.json({ hasKey: false, hint: null });
-}
+    return NextResponse.json({ hasKey: false, hint: null });
+  },
+);
