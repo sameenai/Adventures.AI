@@ -86,11 +86,11 @@ home airport), `TripEvent` (the "last trip" anchor: `MARKED_DONE` today, booking
 user×adventure×window, `PENDING → SENT → …` with CTR feedback).
 
 **AI quality** — `MessageFeedback` (thumbs up/down on assistant chat messages with optional
-comment and the conversation transcript captured verbatim — the AI quality loop's raw material;
-one row per user × itinerary × message, enforced by a compound unique constraint, so re-rating
-upserts in place and clears `exportedAt` — the marker for rows already promoted into eval
-candidates, so the feedback → eval-case pipeline never double-exports; cascade-deletes with the
-user).
+comment; a thumbs-down captures the conversation transcript verbatim — the AI quality loop's raw
+material — while a thumbs-up stores no transcript, only the rating; one row per user × itinerary
+× message, enforced by a compound unique constraint, so re-rating upserts in place and clears
+`exportedAt` — the marker for rows already promoted into eval candidates, so the feedback →
+eval-case pipeline never double-exports; cascade-deletes with the user).
 
 **Ops & audit** — `StripeEvent` (webhook idempotency ledger), `EmailLog` (every send attempt:
 SENT/FAILED/SKIPPED), `JobRun` (scheduled-job observability), `AnalyticsEvent` (product analytics:
@@ -146,13 +146,13 @@ keeps 9 deliberately-flawed adversarial transcripts failing (teeth-check), and h
 prompt/tool/model surface — any change forces a live re-certification (`npm run eval:live`)
 before the replay baseline is trusted again. CI runs `npm run eval` on every PR.
 
-Production closes the loop: every assistant reply carries thumbs up/down in the chat window, and
-a rating lands in `MessageFeedback` with a snapshot of the conversation up to that reply (plus an
-optional comment on a thumbs down). One known limitation: a freshly streamed reply is located in
-the stored history by its text, so if the assistant repeats the exact same reply twice in one
-conversation, a rating on the earlier copy is attributed to the last occurrence — streamed
-messages carry no client-side identity, and the freshest reply is overwhelmingly the one being
-rated. `npm run eval:candidates` exports unprocessed DOWN ratings as
+Production closes the loop: every assistant reply carries thumbs up/down in the chat window. A
+thumbs-down lands in `MessageFeedback` with a snapshot of the conversation up to that reply (plus
+an optional comment); a thumbs-up stores just the rating. One known limitation: a freshly
+streamed reply is located in the stored history by its text, so if the assistant repeats the
+exact same reply twice in one conversation, a rating on the earlier copy is attributed to the
+last occurrence — streamed messages carry no client-side identity, and the freshest reply is
+overwhelmingly the one being rated. `npm run eval:candidates` exports unprocessed DOWN ratings as
 candidate transcripts for triage into the golden/adversarial sets — see `evals/README.md`.
 
 ## 6. The booking rail

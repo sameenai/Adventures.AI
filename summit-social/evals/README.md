@@ -91,10 +91,11 @@ mode ignores usage entirely.
 
 ## From production feedback
 
-The chat UI puts thumbs up/down on every assistant reply. A rating is stored in
-`MessageFeedback` together with a snapshot of the conversation up to and
-including the rated reply (plus an optional user comment on a thumbs down) —
-the input side of the quality loop this harness closes.
+The chat UI puts thumbs up/down on every assistant reply. A thumbs-down is
+stored in `MessageFeedback` together with a snapshot of the conversation up to
+and including the rated reply (plus an optional user comment); a thumbs-up
+stores only the rating, no conversation text — the input side of the quality
+loop this harness closes.
 
 ```bash
 npm run eval:candidates            # requires DATABASE_URL — reads the real DB

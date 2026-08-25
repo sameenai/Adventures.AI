@@ -165,6 +165,16 @@ describe("POST /api/chat/feedback", () => {
     expect(transcript[1].content).toBe("Great — here is a plan for the Khumbu.");
   });
 
+  it("stores only the rating for a thumbs-up — no conversation text", async () => {
+    // Nothing downstream reads UP transcripts (evals export DOWN only, and
+    // retention treats UP as a counter), so none is collected.
+    const res = await feedback(req({ itineraryId: "it-1", messageIndex: 5, rating: "UP" }), route);
+    expect(res.status).toBe(201);
+    const args = p.messageFeedback.upsert.mock.calls[0][0];
+    expect(args.create.transcript).toEqual([]);
+    expect(args.update.transcript).toEqual([]);
+  });
+
   it("re-rating replaces the row for the (user, itinerary, index) triple", async () => {
     // The row already exists, so upsert's update path runs: the same triple
     // still ends with exactly one row and the latest rating wins.

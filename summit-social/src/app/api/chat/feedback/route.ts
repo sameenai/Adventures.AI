@@ -8,10 +8,11 @@ import { NextResponse } from "next/server";
 /**
  * Thumbs on an assistant reply — the input side of the AI quality loop.
  *
- * The rating is stored WITH a snapshot of the conversation up to and including
- * the rated reply, so a bad answer stays reproducible even after the chat
- * continues or the itinerary is deleted. DOWN-rated rows are later exported as
- * eval candidate transcripts by `npm run eval:candidates`.
+ * A DOWN rating is stored WITH a snapshot of the conversation up to and
+ * including the rated reply, so a bad answer stays reproducible even after the
+ * chat continues or the itinerary is deleted — those rows are later exported
+ * as eval candidate transcripts by `npm run eval:candidates`. An UP rating is
+ * only ever read as a counter, so it stores no conversation text.
  *
  * One row per (user, itinerary, messageIndex), enforced by a compound unique
  * constraint: re-rating upserts on the triple. The update overwrites rating,
@@ -58,8 +59,12 @@ export const POST = withApi(
       );
     }
 
-    // Snapshot everything up to and including the rated reply.
-    const transcript = history.slice(0, messageIndex + 1) as Prisma.InputJsonValue;
+    // Snapshot everything up to and including the rated reply — DOWN only.
+    // Nothing ever reads UP transcripts, so storing them would be pure
+    // over-collection; the column is non-nullable, so UP keeps an empty array.
+    const transcript = (
+      rating === "DOWN" ? history.slice(0, messageIndex + 1) : []
+    ) as Prisma.InputJsonValue;
 
     const feedback = await prisma.messageFeedback.upsert({
       where: { userId_itineraryId_messageIndex: { userId, itineraryId, messageIndex } },
