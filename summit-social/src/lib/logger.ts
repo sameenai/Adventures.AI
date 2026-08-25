@@ -84,3 +84,49 @@ export const logger = {
   warn: (message: string, data?: unknown) => log("warn", message, data),
   error: (message: string, data?: unknown) => log("error", message, data),
 };
+
+export interface ErrorContext {
+  /** Where it happened, e.g. "POST /api/bookings/[id]/checkout" or "job:cadence-scan". */
+  route?: string;
+  /** Correlation id (x-request-id) so one failure traces across log lines. */
+  requestId?: string;
+  userId?: string;
+}
+
+/**
+ * Exception reporting without an agent: in production this emits a log entry
+ * shaped for GCP Error Reporting (@type ReportedErrorEvent + a stack trace in
+ * message), which Cloud Run ingests automatically — errors get grouped,
+ * counted, and alertable with zero extra dependencies or vendors. Dev prints
+ * the same information readably. Everything passes the scrubber first.
+ */
+export function reportError(err: unknown, context: ErrorContext = {}): void {
+  const error = err instanceof Error ? err : new Error(String(err));
+  const stack = scrubString(error.stack ?? `${error.name}: ${error.message}`);
+
+  // Evaluated per call (not the module-load const) so tests can exercise the
+  // production shape; in a real deployment the two never differ.
+  if (process.env.NODE_ENV === "production") {
+    console.error(
+      JSON.stringify({
+        severity: "ERROR",
+        "@type":
+          "type.googleapis.com/google.devtools.clouderrorreporting.v1beta1.ReportedErrorEvent",
+        message: stack,
+        serviceContext: { service: "basecamper" },
+        context: {
+          httpRequest: context.route ? { url: context.route } : undefined,
+          reportLocation: undefined,
+          user: context.userId,
+        },
+        requestId: context.requestId,
+        timestamp: new Date().toISOString(),
+      }),
+    );
+  } else {
+    log("error", `${context.route ?? "unhandled"}: ${error.message}`, {
+      requestId: context.requestId,
+      stack,
+    });
+  }
+}

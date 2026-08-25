@@ -3,6 +3,7 @@ import { CHAT_MODEL } from "@/lib/ai/model";
 import { ITINERARY_SYSTEM_PROMPT, buildUserContextPrompt } from "@/lib/ai/prompts";
 import { chatToolExecutors } from "@/lib/ai/tool-executors";
 import { chatTools } from "@/lib/ai/tools";
+import { track } from "@/lib/analytics/track";
 import { authOptions } from "@/lib/auth/config";
 import { CHAT_HISTORY_MAX_MESSAGES, PLANS, RATE_LIMITS } from "@/lib/constants";
 import { decrypt } from "@/lib/crypto";
@@ -137,10 +138,16 @@ export async function POST(request: NextRequest) {
     creditCharged = true;
   }
 
+  track("chat_message", {
+    userId,
+    props: { demo: !resolvedApiKey, resumed: Boolean(incomingItineraryId) },
+  });
+
   // Ensure an itinerary record always exists so we can persist chat history from message 1.
   let activeItineraryId = incomingItineraryId;
   if (!activeItineraryId) {
     const title = message.length > 80 ? `${message.slice(0, 77)}…` : message;
+    track("itinerary_created", { userId, props: { via: "chat" } });
     const created = await prisma.itinerary.create({
       data: { title, chatHistory: [], userId },
     });

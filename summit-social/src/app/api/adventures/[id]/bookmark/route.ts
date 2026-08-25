@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { authOptions } from "@/lib/auth/config";
 import { PLANS, RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
@@ -49,6 +50,7 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
     }
   }
 
+  track("bookmark_added", { userId: session.user.id, props: { adventureId } });
   await prisma.bookmark.upsert({
     where: { userId_adventureId: { userId: session.user.id, adventureId } },
     create: { userId: session.user.id, adventureId },

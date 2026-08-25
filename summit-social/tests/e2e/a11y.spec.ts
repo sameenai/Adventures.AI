@@ -12,14 +12,10 @@ for (const path of PAGES) {
     await page.goto(path);
     await page.waitForLoadState("networkidle");
 
-    const results = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      // KNOWN DESIGN DEBT: the muted stone-on-dark palette fails WCAG AA
-      // contrast on hundreds of nodes. Fixing it is a deliberate design-system
-      // pass (tracked in the review artifact), not a per-page patch — so the
-      // gate holds every OTHER serious/critical rule while that lands.
-      .disableRules(["color-contrast"])
-      .analyze();
+    // Full gate, no exemptions: the muted text tiers (stone-400/500/600) hold
+    // >=4.5:1 in both themes and decorative display text uses the ghost token
+    // at the 3:1 large-text line — see src/styles/globals.css.
+    const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
 
     const serious = results.violations.filter(
       (v) => v.impact === "serious" || v.impact === "critical",

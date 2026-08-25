@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { handleFlightBookingPaid, handleFlightBookingRefund } from "@/lib/billing/flight-booking";
 import { prisma } from "@/lib/db/prisma";
 import { logger } from "@/lib/logger";
@@ -61,6 +62,7 @@ export async function POST(request: NextRequest) {
             where: { id: userId },
             data: { plan: "PRO", stripeSubId: subId },
           });
+          track("pro_subscribed", { userId });
         }
         break;
       }
@@ -73,6 +75,7 @@ export async function POST(request: NextRequest) {
       case "customer.subscription.deleted": {
         const sub = event.data.object as Stripe.Subscription;
         const userId = sub.metadata?.userId;
+        track("pro_cancelled", { userId: userId ?? undefined });
         if (userId) {
           await prisma.user.update({
             where: { id: userId },

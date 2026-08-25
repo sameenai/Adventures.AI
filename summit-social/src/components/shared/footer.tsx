@@ -44,7 +44,7 @@ export function Footer() {
             <p className="mt-4 text-xs font-light leading-relaxed text-stone-500">
               The expedition platform for serious adventurers.
             </p>
-            <p className="mt-5 font-mono text-xs text-stone-700">51°30′N 0°07′W · est. 2025</p>
+            <p className="mt-5 font-mono text-xs text-stone-500">51°30′N 0°07′W · est. 2025</p>
           </div>
 
           {/* Link columns */}
@@ -70,25 +70,25 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-stone-800 pt-8">
-          <p className="font-mono text-xs text-stone-700">
+          <p className="font-mono text-xs text-stone-500">
             &copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link
               href="/pro"
-              className="font-mono text-xs text-stone-800 transition-colors hover:text-stone-500"
+              className="font-mono text-xs text-stone-500 transition-colors hover:text-stone-200"
             >
               Pricing
             </Link>
             <a
               href="/privacy"
-              className="font-mono text-xs text-stone-800 transition-colors hover:text-stone-500"
+              className="font-mono text-xs text-stone-500 transition-colors hover:text-stone-200"
             >
               Privacy
             </a>
             <a
               href="/terms"
-              className="font-mono text-xs text-stone-800 transition-colors hover:text-stone-500"
+              className="font-mono text-xs text-stone-500 transition-colors hover:text-stone-200"
             >
               Terms
             </a>

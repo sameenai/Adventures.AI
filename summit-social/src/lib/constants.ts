@@ -26,6 +26,7 @@ export const RATE_LIMITS = {
   userSearch: { limit: 60, windowSeconds: 3600 },
   commentReact: { limit: 120, windowSeconds: 3600 },
   adventureView: { limit: 300, windowSeconds: 3600 },
+  analyticsCollect: { limit: 600, windowSeconds: 3600 },
 } as const;
 
 export const CACHE_TTL = {

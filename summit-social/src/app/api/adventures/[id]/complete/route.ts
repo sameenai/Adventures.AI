@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
@@ -53,6 +54,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   }
 
   const startedAt = parsed.data.completedAt ? new Date(parsed.data.completedAt) : new Date();
+  track("trip_logged", { userId: session.user.id, props: { adventureId } });
   const event = await prisma.tripEvent.upsert({
     where: {
       userId_adventureId_source: {

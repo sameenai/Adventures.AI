@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { TERMS_VERSION } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import type { NextAuthOptions } from "next-auth";
@@ -97,12 +98,14 @@ export const authOptions: NextAuthOptions = {
     // Terms & Privacy Policy; the first sign-in stamps which version.
     async signIn({ user }) {
       if (!user?.email) return;
-      await prisma.user
+      const stamped = await prisma.user
         .updateMany({
           where: { email: user.email, termsAcceptedAt: null },
           data: { termsAcceptedAt: new Date(), termsVersion: TERMS_VERSION },
         })
-        .catch(() => undefined);
+        .catch(() => ({ count: 0 }));
+      // First terms stamp == first sign-in == the signup funnel moment.
+      if (stamped.count > 0 && user.id) track("signup", { userId: user.id });
     },
   },
   pages: {

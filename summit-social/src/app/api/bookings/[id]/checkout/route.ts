@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { withApi } from "@/lib/api/handler";
 import { getOrCreateStripeCustomer } from "@/lib/billing/customer";
 import { APP_URL } from "@/lib/constants";
@@ -40,6 +41,10 @@ export const POST = withApi(
     const returnPath = booking.itineraryId ? `/itinerary/${booking.itineraryId}` : "/itineraries";
     const metadata = { kind: "flight_booking", bookingId: booking.id, userId };
 
+    track("checkout_started", {
+      userId,
+      props: { kind: "flight", amountGBP: booking.priceGBP },
+    });
     const checkoutSession = await stripe.checkout.sessions.create({
       customer: customerId,
       mode: "payment",
