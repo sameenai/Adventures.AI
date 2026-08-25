@@ -1,0 +1,114 @@
+{
+  "caseId": "weather-tool-degraded",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_wx_1",
+      "name": "get_weather_forecast",
+      "arguments": {
+        "destination": "Pembrokeshire Coast Path, Wales",
+        "month": 5
+      }
+    }
+  ],
+  "toolResults": {
+    "call_wx_1": {
+      "success": false,
+      "error": "Weather lookup failed"
+    }
+  },
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Whitesands Bay and St Davids Head",
+      "description": "A short, dramatic opener on the tip of the peninsula",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Walk the coast path loop from Whitesands Bay around St Davids Head",
+          "location": "Whitesands Bay, St Davids",
+          "notes": "6 km loop past the Coetan Arthur burial chamber — seals often haul out below",
+          "lat": 51.897,
+          "lng": -5.295
+        },
+        {
+          "time": "15:00",
+          "activity": "Visit St Davids Cathedral and settle into the city",
+          "location": "St Davids",
+          "lat": 51.882,
+          "lng": -5.269
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Porthgain to Abereiddi and the Blue Lagoon",
+      "description": "Industrial heritage and the famous flooded slate quarry",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Take the Strumble Shuttle to Porthgain and walk the cliff path to Abereiddi",
+          "location": "Porthgain",
+          "notes": "Bus approach — 5 km of the path's best cliff scenery",
+          "lat": 51.947,
+          "lng": -5.181
+        },
+        {
+          "time": "13:00",
+          "activity": "Lunch above the Blue Lagoon and watch the coasteering groups",
+          "location": "Blue Lagoon, Abereiddi",
+          "lat": 51.937,
+          "lng": -5.207
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Solva to St Davids via Caerfai",
+      "description": "The classic harbour-to-cathedral stage",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Walk the coast path from Solva harbour to Caerfai Bay",
+          "location": "Solva",
+          "notes": "10 km of switchback headlands — the toughest walking of the week",
+          "lat": 51.87,
+          "lng": -5.195
+        },
+        {
+          "time": "14:30",
+          "activity": "Descend to Caerfai Bay for a swim if the sea allows, then up to St Davids",
+          "location": "Caerfai Bay, St Davids",
+          "lat": 51.874,
+          "lng": -5.262
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Marloes Sands and the Deer Park",
+      "description": "A farewell circuit at the island end of the coast",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Drive south to Marloes and walk the Marloes Sands circuit",
+          "location": "Marloes Sands",
+          "notes": "Transfer by car (40 min), then an easy 8 km loop",
+          "lat": 51.727,
+          "lng": -5.213
+        },
+        {
+          "time": "13:30",
+          "activity": "Round the Deer Park headland at Martin's Haven for Skomer views",
+          "location": "Martin's Haven, Marloes",
+          "notes": "Puffin season on Skomer — add the boat crossing if you have a spare morning",
+          "lat": 51.735,
+          "lng": -5.243
+        }
+      ]
+    }
+  ],
+  "finalText": "Here's your 4-day Pembrokeshire Coast Path plan, based in St Davids: day 1 the Whitesands and St Davids Head loop to find your legs, day 2 the Strumble Shuttle out to Porthgain for the cliff path to Abereiddi's Blue Lagoon, day 3 the classic Solva-to-St Davids stage via Caerfai (your biggest day at 10 km), and day 4 the Marloes Sands circuit with the Deer Park headland and Skomer views to finish.\n\nOn conditions: I tried to pull the typical early-May figures for Pembrokeshire, but the weather lookup is unavailable right now, so I couldn't retrieve historical data — and I'd rather tell you that than invent numbers. What I can say from the character of the place: early May on the Welsh coast is usually mild but changeable, with real wind on the headlands and a decent chance of showers, so pack a windproof shell, and the wildflowers on the clifftops are at their absolute best. I can try the lookup again shortly and give you proper figures.\n\nOn cost: guesthouses in St Davids run about £70–£90 a night in May, and the coastal shuttle buses are a couple of pounds per hop, so budget roughly £450 per person for the four days with meals. Want me to adjust the pacing or add the Skomer boat crossing?",
+  "recordedAt": "2026-08-25T09:00:00.000Z"
+}

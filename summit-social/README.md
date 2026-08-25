@@ -124,9 +124,11 @@ never claim booked/paid, enforced by the `bookingHonesty` eval grader) · `creat
 Credits are metered atomically per message with refund-on-failure; demo mode (no
 `OPENAI_API_KEY`, or `DEMO_MODE=true`) streams canned content and never burns credits.
 
-**Quality is a tested surface**: `evals/` replays 19 golden transcripts through 9 deterministic
-graders (schema, geography, budget, groundedness, booking honesty, tool discipline, safety…),
-keeps 7 deliberately-flawed adversarial transcripts failing (teeth-check), and hashes the entire
+**Quality is a tested surface**: `evals/` replays 22 golden transcripts through 9 deterministic
+graders (schema, geography, budget, groundedness, booking honesty, tool discipline, safety…) —
+including tool-failure resilience cases where a flight search, weather lookup or save_flight
+fails and the assistant must degrade honestly —
+keeps 9 deliberately-flawed adversarial transcripts failing (teeth-check), and hashes the entire
 prompt/tool/model surface — any change forces a live re-certification (`npm run eval:live`)
 before the replay baseline is trusted again. CI runs `npm run eval` on every PR.
 
