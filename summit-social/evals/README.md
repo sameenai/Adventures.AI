@@ -120,6 +120,14 @@ usually also means teaching a grader to catch it. The shaping logic is pure
 (`feedback-transcript.ts`) and unit-tested in
 `tests/unit/feedback-transcript.test.ts`.
 
+**Erasure & hygiene**: candidate files are working copies of user
+conversation text on the operator's machine, outside the app's
+retention/erasure machinery — deleting the `MessageFeedback` row does not
+delete an already-exported file. Delete candidates once they are triaged or
+promoted, and include wiping `transcripts/candidates/` (on every machine that
+ran the export) in any account-erasure request handling. The directory is
+gitignored and its files must never be committed.
+
 ## Commands
 
 ```bash

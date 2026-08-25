@@ -128,6 +128,13 @@ when "no emails went out last night". Cadence emails go only to users with
   `SearchEvent` rows are deleted after 365 days.
   `MessageFeedback` UP ratings are deleted after 90 days, DOWN ratings after
   365 days (DOWN feeds the eval suite, so it keeps the longer window).
+- Eval candidate files: `npm run eval:candidates` writes raw feedback
+  conversation snapshots to `summit-social/evals/transcripts/candidates/` on
+  the operator's machine — working copies of user text, outside the app's
+  retention machinery (they are gitignored and never committed). Delete them
+  once triaged/promoted, and when handling an erasure request include wiping
+  that directory on any machine that ran the export — deleting the DB rows
+  does not reach these files.
 
 ## CI gates (every PR)
 
