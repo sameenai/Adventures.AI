@@ -154,3 +154,52 @@ describe("logger scrub", () => {
     expect(out).toContain("[truncated]");
   });
 });
+
+// ---------------------------------------------------------------------------
+// Request latency telemetry — GCP httpRequest shape, production only
+// ---------------------------------------------------------------------------
+import { logRequest } from "@/lib/logger";
+
+describe("logRequest", () => {
+  it("is silent outside production", () => {
+    const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    logRequest({
+      method: "GET",
+      path: "/api/adventures",
+      status: 200,
+      latencyMs: 42,
+      requestId: "req-1",
+    });
+    expect(logSpy).not.toHaveBeenCalled();
+    logSpy.mockRestore();
+  });
+
+  it("emits the Cloud Logging httpRequest shape in production", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.resetModules();
+    const { logRequest: prodLogRequest } = await import("@/lib/logger");
+    const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    prodLogRequest({
+      method: "POST",
+      path: "/api/feedback",
+      status: 429,
+      latencyMs: 1234,
+      requestId: "req-2",
+      userId: "user-9",
+    });
+    expect(logSpy).toHaveBeenCalledOnce();
+    const parsed = JSON.parse(logSpy.mock.calls[0][0]);
+    expect(parsed.severity).toBe("INFO");
+    expect(parsed.httpRequest).toEqual({
+      requestMethod: "POST",
+      status: 429,
+      latency: "1.234s",
+    });
+    expect(parsed.route).toBe("/api/feedback");
+    expect(parsed.requestId).toBe("req-2");
+    expect(parsed.user).toBe("user-9");
+    logSpy.mockRestore();
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+});
