@@ -50,11 +50,18 @@ function isActive(param: string | undefined, value: string): boolean {
 const IN_SEASON_LIMIT = 6;
 const IN_SEASON_TTL_SECONDS = 600;
 
+function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms)),
+  ]);
+}
+
 // Top-voted published adventures whose bestMonths include the current month.
 // Identical for every visitor, so served from Redis for 10 minutes.
 async function getInSeasonAdventures(month: number): Promise<AdventureListItem[]> {
   const cacheKey = `in-season:${month}`;
-  const cached = await getCached<AdventureListItem[]>(cacheKey);
+  const cached = await withTimeout(getCached<AdventureListItem[]>(cacheKey), 500, null);
   if (cached) return cached;
 
   const adventures = await prisma.adventure.findMany({
@@ -63,7 +70,7 @@ async function getInSeasonAdventures(month: number): Promise<AdventureListItem[]
     take: IN_SEASON_LIMIT,
     include: ADVENTURE_LIST_INCLUDE,
   });
-  await setCache(cacheKey, adventures, IN_SEASON_TTL_SECONDS);
+  setCache(cacheKey, adventures, IN_SEASON_TTL_SECONDS).catch(() => {});
   return adventures;
 }
 
@@ -128,7 +135,9 @@ export default async function AdventuresPage({
       fetchAdventuresPage(filters),
       prisma.adventure.count({ where: { published: true } }),
       // In-season rail only renders on the unfiltered view — skip the query otherwise.
-      hasActiveFilters ? Promise.resolve([]) : getInSeasonAdventures(currentMonth),
+      hasActiveFilters
+        ? Promise.resolve([])
+        : withTimeout(getInSeasonAdventures(currentMonth), 2000, []),
     ]);
 
   const hasMore = nextCursor !== undefined;
