@@ -18,11 +18,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: summit-social/package-lock.json
       - run: npm ci
       - run: npm run lint
+      - name: Supply-chain gate (high+ production advisories fail; allowlist is a ledger)
+        run: node scripts/audit-gate.mjs
 
   test:
     name: Unit & Integration Tests
@@ -31,7 +33,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: summit-social/package-lock.json
       - run: npm ci
@@ -45,7 +47,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: summit-social/package-lock.json
       - run: npm ci
@@ -58,7 +60,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: summit-social/package-lock.json
       - run: npm ci
@@ -98,7 +100,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: summit-social/package-lock.json
       - run: npm ci
@@ -176,7 +178,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: summit-social/package-lock.json
       - run: npm ci
