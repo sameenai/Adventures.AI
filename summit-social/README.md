@@ -83,6 +83,10 @@ home airport), `TripEvent` (the "last trip" anchor: `MARKED_DONE` today, booking
 `SearchEvent` (demand capture from chat + catalog), `CadenceRecommendation` (idempotent per
 user×adventure×window, `PENDING → SENT → …` with CTR feedback).
 
+**AI quality** — `MessageFeedback` (thumbs up/down on assistant chat messages with optional
+comment and the conversation transcript captured verbatim; `exportedAt` marks rows already
+promoted into eval candidates, so the feedback → eval-case pipeline never double-exports).
+
 **Ops & audit** — `StripeEvent` (webhook idempotency ledger), `EmailLog` (every send attempt:
 SENT/FAILED/SKIPPED), `JobRun` (scheduled-job observability), `AnalyticsEvent` (product analytics:
 one row per funnel event, captured server-side where the thing actually happened — payment via the
@@ -160,7 +164,11 @@ Errors are reported without an agent or vendor: `reportError()` (in `src/lib/log
 GCP Error Reporting-shaped log entries that Cloud Run ingests automatically — grouped, counted,
 alertable. The shared route envelope stamps every request with an `x-request-id` (accepted or
 generated) and includes it in error responses and reports, so one failure traces across log lines.
-`/api/health` reports db + redis component status.
+In production the envelope also logs every request in the Cloud Logging `httpRequest` shape
+(method, status, latency) with `route` + `requestId`, so per-route p95 is a log-based metric away.
+`/api/health` reports db + redis component status. Alert policies live as code in
+`ops/alerts/*.json` (5xx rate, p95 latency, error-log spikes, uptime) — `make alerts-setup`
+upserts them; see RUNBOOK.md for triage.
 
 Product analytics is server-side-first (`src/lib/analytics/track.ts`): funnel events — signup,
 chat_message, itinerary_created, flight_searched, flight_saved, fare_repriced, checkout_started,
@@ -212,8 +220,10 @@ Environment (see `.env.example`; full production matrix in the runbook): `DATABA
 `ENCRYPTION_KEY`, `JOBS_SECRET`, `NEXT_PUBLIC_MAPBOX_TOKEN`, `RESEND_API_KEY`/`EMAIL_FROM`,
 `DEMO_MODE`.
 
-Deploy: `make deploy-gcp` (Cloud Build → Cloud Run) or the WIF-gated `deploy.yml` workflow —
-details, jobs (`make scheduler-setup`), and incident playbooks in [`../RUNBOOK.md`](../RUNBOOK.md).
+Deploy: `make deploy-gcp` (Cloud Build → Cloud Run) or the WIF-gated `deploy.yml` workflow, which
+canaries (no-traffic revision → smoke → promote). Ops: `make rollback` (previous revision in
+seconds), `make alerts-setup` (monitoring policies from `ops/alerts/`), `make scheduler-setup`
+(jobs) — incident playbooks in [`../RUNBOOK.md`](../RUNBOOK.md).
 
 ## 12. Keeping this document honest
 

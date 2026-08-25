@@ -49,7 +49,13 @@ Required in production (see `summit-social/.env.example` for the full list):
 - Manual: `cd summit-social && make deploy-gcp` (Cloud Build → Cloud Run,
   project `basecamp-494710`, region `europe-west2`).
 - CI: `.github/workflows/deploy.yml` deploys `main` with SHA-tagged images
-  once `GCP_WIF_PROVIDER` / `GCP_SERVICE_ACCOUNT` repo variables are set.
+  once `GCP_WIF_PROVIDER` / `GCP_DEPLOY_SA` repo variables are set. It is a
+  **canary flow**: the new revision starts with zero traffic behind the
+  `canary` tag URL, gets smoke-tested there (health + critical pages inside
+  a 5s budget), and only then is promoted to live traffic. A failed smoke
+  leaves production on the previous revision.
+- Rollback: `make rollback` routes 100% of traffic back to the previous
+  ready revision in seconds (`make rollback REVISION=<name>` to pick one).
 - Migrations: `npx prisma migrate deploy` runs against the production DB
   before traffic shifts. Never `db push`, never edit applied migrations.
 - Rust service: build/deploy separately (`services/flight-search/Dockerfile`),
@@ -77,6 +83,15 @@ when "no emails went out last night". Cadence emails go only to users with
   `SELECT name, count(*) FROM "AnalyticsEvent" WHERE "createdAt" > now() - interval '7 days' GROUP BY 1;`
   Signed-in rows cascade-delete with the account; anonymous rows carry only
   the daily-rotating salted key. The client beacon honours DNT/GPC.
+- **Latency**: the API envelope logs every request in production with the
+  Cloud Logging `httpRequest` shape (method, status, latency) plus `route`
+  and `requestId` — Logs Explorer renders it natively; build log-based
+  metrics on `route` for per-route p95.
+- **Alerts as code**: `summit-social/ops/alerts/*.json` is the source of
+  truth — 5xx rate, p95 latency over the 2s budget, ERROR-log spikes, and
+  uptime on `/api/health`. `make alerts-setup` upserts the policies and
+  provisions the uptime check; attach notification channels once in the
+  console. Edit the JSON, re-run the target, done.
 - Watch: 5xx rate on `/api/chat` (OpenAI incidents), 429 spikes (Redis
   down ⇒ fail-closed), `EmailLog.status=FAILED` counts, `JobRun` failures,
   Stripe webhook 4xx (signature/secret drift).

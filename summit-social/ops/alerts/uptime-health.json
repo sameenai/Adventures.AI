@@ -1,0 +1,29 @@
+{
+  "displayName": "Basecamper — health check failing",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "Uptime check on basecamper.ai/api/health failing from multiple regions",
+      "conditionThreshold": {
+        "filter": "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND resource.type=\"uptime_url\" AND resource.labels.host=\"basecamper.ai\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "1200s",
+            "perSeriesAligner": "ALIGN_NEXT_OLDER",
+            "crossSeriesReducer": "REDUCE_COUNT_FALSE",
+            "groupByFields": ["resource.label.host"]
+          }
+        ],
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 1,
+        "duration": "600s",
+        "trigger": { "count": 1 }
+      }
+    }
+  ],
+  "documentation": {
+    "mimeType": "text/markdown",
+    "content": "`GET /api/health` (liveness: DB + Redis reachability) is failing from more than one probe region. This is a user-facing outage until proven otherwise. Check Cloud Run service status and recent deploys first — `make rollback` restores the previous revision in seconds — then Cloud SQL and the Redis instance. The uptime check itself is provisioned by `make alerts-setup`."
+  },
+  "userLabels": { "app": "basecamper", "managed_by": "repo-ops-alerts" }
+}

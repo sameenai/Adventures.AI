@@ -1,4 +1,4 @@
-.PHONY: setup run test test-unit test-integration test-e2e lint build db-migrate db-seed db-studio deploy-preview deploy-gcp
+.PHONY: setup run test test-unit test-integration test-e2e lint build db-migrate db-seed db-studio deploy-preview deploy-gcp scheduler-setup alerts-setup rollback
 
 GCP_PROJECT    := basecamp-494710
 GCP_REGION     := europe-west2
@@ -122,3 +122,56 @@ scheduler-setup:
 		--http-method=POST \
 		--update-headers="x-jobs-secret=$(JOBS_SECRET)" \
 		--attempt-deadline=300s
+
+# ---------------------------------------------------------------------------
+# Monitoring alerts as code (ops/alerts/*.json = the source of truth).
+# Upserts every policy by displayName, and provisions the uptime check the
+# uptime-health policy consumes. Notification channels are attached once in
+# the console (email/Slack) — policies pick them up on the next run via
+# `gcloud alpha monitoring policies update`. Idempotent; re-run after edits.
+# ---------------------------------------------------------------------------
+alerts-setup:
+	@for f in ops/alerts/*.json; do \
+		dn=$$(node -pe "JSON.parse(require('fs').readFileSync('$$f','utf8')).displayName"); \
+		existing=$$(gcloud alpha monitoring policies list \
+			--project=$(GCP_PROJECT) \
+			--filter="display_name='$$dn'" \
+			--format="value(name)"); \
+		if [ -n "$$existing" ]; then \
+			echo "→ Updating policy: $$dn"; \
+			gcloud alpha monitoring policies update "$$existing" \
+				--project=$(GCP_PROJECT) --policy-from-file="$$f" --quiet; \
+		else \
+			echo "→ Creating policy: $$dn"; \
+			gcloud alpha monitoring policies create \
+				--project=$(GCP_PROJECT) --policy-from-file="$$f"; \
+		fi; \
+	done
+	@echo "→ Ensuring uptime check on basecamper.ai/api/health..."
+	@gcloud monitoring uptime create basecamper-health \
+		--project=$(GCP_PROJECT) \
+		--resource-type=uptime-url \
+		--resource-labels=host=basecamper.ai,project_id=$(GCP_PROJECT) \
+		--protocol=https --port=443 --path=/api/health \
+		--period=1 --timeout=10 2>/dev/null \
+		|| echo "→ Uptime check already exists, leaving as-is"
+
+# ---------------------------------------------------------------------------
+# Roll traffic back to the previous revision (or REVISION=<name> explicitly).
+# The canary deploy keeps the prior revision warm, so this takes seconds.
+# ---------------------------------------------------------------------------
+rollback:
+	@target="$(REVISION)"; \
+	if [ -z "$$target" ]; then \
+		target=$$(gcloud run revisions list \
+			--project=$(GCP_PROJECT) --region=$(GCP_REGION) \
+			--service=$(GCP_SERVICE) \
+			--filter="status.conditions.type:Ready AND status.conditions.status:True" \
+			--sort-by="~metadata.creationTimestamp" \
+			--format="value(metadata.name)" | sed -n 2p); \
+	fi; \
+	test -n "$$target" || (echo "No previous ready revision found; pass REVISION=<name>" && exit 1); \
+	echo "→ Routing 100% of traffic to $$target"; \
+	gcloud run services update-traffic $(GCP_SERVICE) \
+		--project=$(GCP_PROJECT) --region=$(GCP_REGION) \
+		--to-revisions="$$target=100"

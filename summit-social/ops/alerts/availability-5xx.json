@@ -1,0 +1,28 @@
+{
+  "displayName": "Basecamper — 5xx error rate",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "Cloud Run 5xx responses sustained above ~6 per 5 minutes",
+      "conditionThreshold": {
+        "filter": "metric.type=\"run.googleapis.com/request_count\" AND resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"basecamper\" AND metric.labels.response_code_class=\"5xx\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "300s",
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM"
+          }
+        ],
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 0.02,
+        "duration": "300s",
+        "trigger": { "count": 1 }
+      }
+    }
+  ],
+  "documentation": {
+    "mimeType": "text/markdown",
+    "content": "Sustained 5xx responses from the basecamper Cloud Run service. Triage: RUNBOOK.md → Health & monitoring. Search logs by `requestId` from any failing response; `reportError()` entries group in Error Reporting. Usual suspects: OpenAI incident (`/api/chat`), DB connectivity, a bad deploy — roll back with `make rollback`."
+  },
+  "userLabels": { "app": "basecamper", "managed_by": "repo-ops-alerts" }
+}

@@ -55,10 +55,37 @@ jobs:
           gcloud run jobs execute migrate-db \
             --project=basecamp-494710 --region=europe-west2 --wait
 
-      - name: Deploy
+      # Canary: the new revision comes up with zero traffic behind a tagged
+      # URL, gets smoke-tested there, and only then takes live traffic. A
+      # failed smoke leaves production untouched on the previous revision.
+      - name: Deploy canary revision (no traffic)
         run: >-
           gcloud run deploy basecamper
           --project=basecamp-494710
           --region=europe-west2
           --image=europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:${{ github.sha }}
+          --no-traffic
+          --tag=canary
+          --quiet
+
+      - name: Smoke test the canary
+        run: |
+          CANARY_URL=$(gcloud run services describe basecamper \
+            --project=basecamp-494710 --region=europe-west2 --format=json \
+            | jq -r '.status.traffic[] | select(.tag=="canary") | .url')
+          echo "Canary URL: $CANARY_URL"
+          test -n "$CANARY_URL"
+          # Health must pass (DB + Redis reachable from the new revision) and
+          # the critical pages must render inside the 5s smoke budget.
+          curl -sf --max-time 5 "$CANARY_URL/api/health" | jq -e '.status == "ok"'
+          curl -sf --max-time 5 -o /dev/null -w "GET / -> %{http_code} in %{time_total}s\n" "$CANARY_URL/"
+          curl -sf --max-time 5 -o /dev/null -w "GET /adventures -> %{http_code} in %{time_total}s\n" "$CANARY_URL/adventures"
+          curl -sf --max-time 5 -o /dev/null -w "GET /login -> %{http_code} in %{time_total}s\n" "$CANARY_URL/login"
+
+      - name: Promote canary to live traffic
+        run: >-
+          gcloud run services update-traffic basecamper
+          --project=basecamp-494710
+          --region=europe-west2
+          --to-latest
           --quiet

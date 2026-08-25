@@ -1,0 +1,28 @@
+{
+  "displayName": "Basecamper — p95 latency over 2s budget",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "Cloud Run p95 request latency above 2000ms for 10 minutes",
+      "conditionThreshold": {
+        "filter": "metric.type=\"run.googleapis.com/request_latencies\" AND resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"basecamper\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "300s",
+            "perSeriesAligner": "ALIGN_PERCENTILE_95",
+            "crossSeriesReducer": "REDUCE_MAX"
+          }
+        ],
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 2000,
+        "duration": "600s",
+        "trigger": { "count": 1 }
+      }
+    }
+  ],
+  "documentation": {
+    "mimeType": "text/markdown",
+    "content": "p95 latency breached the 2-second page budget for 10 minutes. Per-route latency lives in the structured `httpRequest` logs emitted by the API envelope (filter on `route`). Check: cold-start storm (min instances), slow Postgres queries, an external service hanging past its timeout, or a regression in the latest revision — roll back with `make rollback`."
+  },
+  "userLabels": { "app": "basecamper", "managed_by": "repo-ops-alerts" }
+}
