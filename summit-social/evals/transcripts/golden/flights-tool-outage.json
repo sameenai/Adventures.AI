@@ -1,0 +1,28 @@
+{
+  "caseId": "flights-tool-outage",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_fs_1",
+      "name": "search_flights",
+      "arguments": {
+        "origin": "MAN",
+        "destination": "GVA",
+        "departureDate": "2026-09-12",
+        "returnDate": "2026-09-19",
+        "passengers": 2,
+        "cabinClass": "economy"
+      }
+    }
+  ],
+  "toolResults": {
+    "call_fs_1": {
+      "success": false,
+      "error": "Flight search is currently unavailable — the flight data providers did not respond."
+    }
+  },
+  "days": [],
+  "finalText": "I ran the search for Manchester to Geneva (12–19 September, two passengers, economy), but flight search is currently unavailable, so I couldn't retrieve live fares — and I won't guess at prices, because a made-up number is worse than none.\n\nWhat I can tell you about the route while the search is down: Manchester–Geneva is well served in September, with direct services from easyJet and one-stop options via Amsterdam, Paris or Zurich on KLM, Air France and SWISS. Flight time is around 1h50 direct. Mid-September is shoulder season for Geneva, so seat availability is normally good, and midweek departures on this route tend to be the cheapest — your Saturday-to-Saturday dates are the busiest pattern, so it's worth me checking a Friday or Sunday departure too when the search is back.\n\nShall I try again in a few minutes and bring you real fares to compare?",
+  "recordedAt": "2026-08-25T09:00:00.000Z"
+}

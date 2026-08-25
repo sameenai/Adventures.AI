@@ -1,0 +1,30 @@
+{
+  "caseId": "save-flight-rejected-recovery",
+  "source": "golden",
+  "model": "gpt-4o",
+  "toolCalls": [
+    {
+      "id": "call_sv_1",
+      "name": "save_flight",
+      "arguments": {
+        "airline": "SWISS",
+        "flightNumber": "LX345",
+        "origin": "MAN",
+        "destination": "GVA",
+        "departureAt": "2026-09-12T07:15:00Z",
+        "arrivalAt": "2026-09-12T10:05:00Z",
+        "priceGBP": 31000,
+        "cabinClass": "economy"
+      }
+    }
+  ],
+  "toolResults": {
+    "call_sv_1": {
+      "success": false,
+      "error": "Invalid flight details — only save offers exactly as returned by search_flights"
+    }
+  },
+  "days": [],
+  "finalText": "That didn't go through, and I want to be straight with you: nothing has been stored on your trip. The itinerary will only accept an offer exactly as it came back from a flight search, and this one was rejected — most likely the £310 SWISS fare has shifted or expired since we last searched, which happens fast on this route.\n\nThe clean fix is a fresh search: I'll re-run Manchester to Geneva for your dates right now, and you can pick the SWISS option again from the live results — if the fare has moved, you'll see the real current price before anything is stored. Shall I run it?",
+  "recordedAt": "2026-08-25T09:00:00.000Z"
+}

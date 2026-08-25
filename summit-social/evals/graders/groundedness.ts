@@ -38,6 +38,16 @@ function walk(value: unknown, evidence: FlightSearchEvidence): void {
   }
 }
 
+/** Parse a raw tool result (JSON string or already-parsed value), or undefined on bad JSON. */
+function parseToolResult(raw: unknown): unknown {
+  if (typeof raw !== "string") return raw;
+  try {
+    return JSON.parse(raw) as unknown;
+  } catch {
+    return undefined;
+  }
+}
+
 function collectFlightSearchEvidence(t: EvalTranscript): FlightSearchEvidence {
   const evidence: FlightSearchEvidence = {
     resultsRecorded: false,
@@ -49,15 +59,49 @@ function collectFlightSearchEvidence(t: EvalTranscript): FlightSearchEvidence {
     const raw = t.toolResults?.[call.id];
     if (raw === undefined) continue;
     evidence.resultsRecorded = true;
-    let result: unknown = raw;
-    if (typeof raw === "string") {
-      try {
-        result = JSON.parse(raw) as unknown;
-      } catch {
-        continue;
-      }
+    walk(parseToolResult(raw), evidence);
+  }
+  return evidence;
+}
+
+interface WeatherEvidence {
+  /** True when at least one get_weather_forecast call has a recorded result. */
+  resultsRecorded: boolean;
+  /** Every temperature figure found in the results, rounded to whole degrees. */
+  temperatures: Set<number>;
+}
+
+/** Result keys whose numeric values read as temperatures. */
+const TEMP_KEY = /temp|celsius|fahrenheit|degc|degf|high|low/i;
+/** Degree figures embedded in result strings, e.g. "typical highs of 18°C". */
+const TEMP_IN_STRING = /(-?\d{1,3}(?:\.\d+)?)\s*°\s*[cf]\b/gi;
+
+function walkWeather(value: unknown, evidence: WeatherEvidence): void {
+  if (Array.isArray(value)) {
+    for (const item of value) walkWeather(item, evidence);
+    return;
+  }
+  if (typeof value === "string") {
+    for (const m of value.matchAll(TEMP_IN_STRING)) {
+      evidence.temperatures.add(Math.round(Number.parseFloat(m[1])));
     }
-    walk(result, evidence);
+    return;
+  }
+  if (typeof value !== "object" || value === null) return;
+  for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
+    if (TEMP_KEY.test(key) && typeof val === "number") evidence.temperatures.add(Math.round(val));
+    else walkWeather(val, evidence);
+  }
+}
+
+function collectWeatherEvidence(t: EvalTranscript): WeatherEvidence {
+  const evidence: WeatherEvidence = { resultsRecorded: false, temperatures: new Set() };
+  for (const call of t.toolCalls) {
+    if (call.name !== "get_weather_forecast" || !call.id) continue;
+    const raw = t.toolResults?.[call.id];
+    if (raw === undefined) continue;
+    evidence.resultsRecorded = true;
+    walkWeather(parseToolResult(raw), evidence);
   }
   return evidence;
 }
@@ -91,51 +135,97 @@ function isFlightAttributed(claim: PriceClaim, airlines: string[]): boolean {
   return flightContext && !TRIP_TOTAL_CONTEXT.test(claim.context);
 }
 
+interface TemperatureClaim {
+  /** Rounded whole-degree figure claimed. */
+  value: number;
+  /** The exact text matched, e.g. "18°C" — used in failure details. */
+  display: string;
+}
+
+/** Temperature figures in the final text: "18°C", "-5 °F", "18 degrees Celsius". */
+const TEMP_CLAIM = /(-?\d{1,3}(?:\.\d+)?)\s*(?:°\s*([cf])\b|degrees\s+(celsius|fahrenheit))/gi;
+
+function extractTemperatureClaims(text: string): TemperatureClaim[] {
+  const claims: TemperatureClaim[] = [];
+  for (const m of text.matchAll(TEMP_CLAIM)) {
+    const value = Math.round(Number.parseFloat(m[1]));
+    if (!Number.isNaN(value)) claims.push({ value, display: m[0].trim() });
+  }
+  return claims;
+}
+
 /**
- * Flight-price groundedness: when the transcript records search_flights
- * results, every £ amount in the final text attributed to a flight (near
- * flight/fare/airline wording, or an airline name from the results) must
- * match a priceGBP those results actually returned. An assistant that
- * searched and then invented a fare fails here.
+ * Groundedness: figures in the final text must trace to recorded tool results.
  *
- * Transcripts with no recorded search_flights results are not assessable —
- * quoting ballpark market fares without searching is a toolUse/content
- * concern, not a grounding one.
+ * Flight prices — when the transcript records search_flights results, every
+ * £ amount attributed to a flight (near flight/fare/airline wording, or an
+ * airline name from the results) must match a priceGBP those results actually
+ * returned. An assistant that searched and then invented a fare fails here.
+ *
+ * Temperatures — when the transcript records get_weather_forecast results,
+ * every °C/°F (or "degrees Celsius/Fahrenheit") figure must appear in those
+ * results. A failed weather lookup records no figures, so quoting "average
+ * highs of 18°C" against it is a fabrication and fails.
+ *
+ * Transcripts with neither tool's results recorded are not assessable —
+ * quoting ballpark market fares or typical climate without the tool is a
+ * toolUse/content concern, not a grounding one.
  */
 export function gradeGroundedness(_c: EvalCase, t: EvalTranscript): GradeResult {
-  const evidence = collectFlightSearchEvidence(t);
-  if (!evidence.resultsRecorded) {
+  const flights = collectFlightSearchEvidence(t);
+  const weather = collectWeatherEvidence(t);
+
+  if (!flights.resultsRecorded && !weather.resultsRecorded) {
     return {
       grader: "groundedness",
       score: 1,
       passed: true,
-      details: "No search_flights results recorded — flight-price grounding not assessable.",
+      details:
+        "No search_flights or get_weather_forecast results recorded — grounding not assessable.",
     };
   }
 
-  const claims = extractPriceClaims(t.finalText).filter((c) =>
-    isFlightAttributed(c, evidence.airlines),
-  );
-  if (claims.length === 0) {
+  const fareClaims = flights.resultsRecorded
+    ? extractPriceClaims(t.finalText).filter((c) => isFlightAttributed(c, flights.airlines))
+    : [];
+  const tempClaims = weather.resultsRecorded ? extractTemperatureClaims(t.finalText) : [];
+  const totalClaims = fareClaims.length + tempClaims.length;
+
+  if (totalClaims === 0) {
     return {
       grader: "groundedness",
       score: 1,
       passed: true,
-      details: "No flight-attributed prices claimed in the final text.",
+      details: "No flight-attributed prices or temperature figures claimed in the final text.",
     };
   }
 
-  const untraced = claims.filter((c) => !evidence.prices.has(c.valueGBP));
-  const score = (claims.length - untraced.length) / claims.length;
+  const untracedFares = fareClaims.filter((c) => !flights.prices.has(c.valueGBP));
+  const untracedTemps = tempClaims.filter((c) => !weather.temperatures.has(c.value));
+  const untraced = untracedFares.length + untracedTemps.length;
+  const problems: string[] = [];
+  if (untracedFares.length > 0) {
+    problems.push(
+      `Invented flight price(s) not present in any search_flights result: ${untracedFares
+        .map((c) => `£${c.valueGBP}`)
+        .join(", ")}.`,
+    );
+  }
+  if (untracedTemps.length > 0) {
+    problems.push(
+      `Invented temperature(s) not present in any get_weather_forecast result: ${untracedTemps
+        .map((c) => c.display)
+        .join(", ")}.`,
+    );
+  }
+
   return {
     grader: "groundedness",
-    score,
-    passed: untraced.length === 0,
+    score: (totalClaims - untraced) / totalClaims,
+    passed: untraced === 0,
     details:
-      untraced.length === 0
-        ? `All ${claims.length} flight price(s) trace to search_flights results.`
-        : `Invented flight price(s) not present in any search_flights result: ${untraced
-            .map((c) => `£${c.valueGBP}`)
-            .join(", ")}.`,
+      untraced === 0
+        ? `All ${totalClaims} claimed figure(s) trace to recorded tool results.`
+        : problems.join(" "),
   };
 }

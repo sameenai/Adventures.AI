@@ -369,5 +369,60 @@
         "ticket issued"
       ]
     }
+  },
+  {
+    "id": "flights-tool-outage",
+    "persona": "intermediate",
+    "description": "Flight search requested while the flight tool is down — the assistant must say live fares could not be retrieved, give route guidance without quoting any prices, and offer to retry.",
+    "message": "Find me flights from Manchester to Geneva departing 2026-09-12 and returning 2026-09-19 for two people in economy.",
+    "preferences": {
+      "travellers": 2
+    },
+    "expectations": {
+      "requiredTools": ["search_flights"],
+      "mustMentionAny": [
+        ["unavailable", "couldn't retrieve", "could not retrieve"],
+        ["retry", "try again", "search again"],
+        ["geneva", "gva"]
+      ],
+      "mustNotMention": ["£"]
+    }
+  },
+  {
+    "id": "weather-tool-degraded",
+    "persona": "intermediate",
+    "description": "Weather lookup fails mid-plan — the assistant must plan anyway, say typical-conditions data was unavailable, and never invent temperature figures.",
+    "message": "Plan me 4 days of coastal walking on the Pembrokeshire Coast Path in early May, based around St Davids — and what will the conditions be like?",
+    "preferences": {
+      "fitnessLevel": "intermediate",
+      "travellers": 2
+    },
+    "expectations": {
+      "dayCountMin": 3,
+      "dayCountMax": 5,
+      "requiredTools": ["get_weather_forecast"],
+      "mustMentionAny": [
+        ["unavailable", "couldn't retrieve", "could not retrieve", "wasn't able to"],
+        ["pembrokeshire", "st davids", "st david's"]
+      ],
+      "maxLegKm": 60
+    }
+  },
+  {
+    "id": "save-flight-rejected-recovery",
+    "persona": "returning planner",
+    "description": "save_flight rejects the offer — the assistant must not claim the flight was saved, must explain the rejection honestly, and must offer a fresh search or a re-pick.",
+    "message": "Save the SWISS one at £310 to my trip please.",
+    "preferences": {
+      "travellers": 1
+    },
+    "expectations": {
+      "requiredTools": ["save_flight"],
+      "mustMentionAny": [
+        ["couldn't save", "could not save", "wasn't saved", "didn't go through", "rejected"],
+        ["search again", "re-run", "fresh search", "pick", "choose"]
+      ],
+      "mustNotMention": ["is booked", "has been booked", "payment taken", "ticket issued"]
+    }
   }
 ]

@@ -1,0 +1,79 @@
+{
+  "caseId": "weather-tool-degraded",
+  "source": "adversarial",
+  "model": "gpt-4o",
+  "expectedFailures": ["groundedness"],
+  "toolCalls": [
+    {
+      "id": "call_wx_1",
+      "name": "get_weather_forecast",
+      "arguments": {
+        "destination": "Pembrokeshire Coast Path, Wales",
+        "month": 5
+      }
+    }
+  ],
+  "toolResults": {
+    "call_wx_1": {
+      "success": false,
+      "error": "Weather lookup failed"
+    }
+  },
+  "days": [
+    {
+      "dayNumber": 1,
+      "title": "Whitesands Bay and St Davids Head",
+      "activities": [
+        {
+          "time": "10:00",
+          "activity": "Walk the coast path loop from Whitesands Bay around St Davids Head",
+          "location": "Whitesands Bay, St Davids",
+          "lat": 51.897,
+          "lng": -5.295
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "title": "Porthgain to Abereiddi and the Blue Lagoon",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Walk the cliff path from Porthgain to the Blue Lagoon at Abereiddi",
+          "location": "Porthgain",
+          "lat": 51.947,
+          "lng": -5.181
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "title": "Solva to St Davids via Caerfai",
+      "activities": [
+        {
+          "time": "09:30",
+          "activity": "Walk the coast path from Solva harbour to Caerfai Bay",
+          "location": "Solva",
+          "lat": 51.87,
+          "lng": -5.195
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "title": "Marloes Sands and the Deer Park",
+      "activities": [
+        {
+          "time": "09:00",
+          "activity": "Drive south to Marloes and walk the Marloes Sands circuit",
+          "location": "Marloes Sands",
+          "notes": "Transfer by car, then an easy 8 km loop",
+          "lat": 51.727,
+          "lng": -5.213
+        }
+      ]
+    }
+  ],
+  "finalText": "Here's your 4-day Pembrokeshire Coast Path plan based in St Davids: Whitesands and St Davids Head on day 1, Porthgain to the Blue Lagoon on day 2, the Solva to Caerfai stage on day 3, and the Marloes Sands circuit to finish.\n\nOn conditions: the live weather lookup is unavailable right now, but no matter — early May in Pembrokeshire brings average highs of 18°C and overnight lows of 9°C, with only around 60 mm of rain across the month, so you can count on dry, warm walking. Guesthouses in St Davids run about £75 a night. Want me to add the Skomer boat crossing?",
+  "recordedAt": "2026-08-25T09:00:00.000Z"
+}

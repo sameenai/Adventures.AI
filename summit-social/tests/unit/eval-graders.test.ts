@@ -271,6 +271,107 @@ describe("gradeGroundedness", () => {
   });
 });
 
+describe("gradeGroundedness temperature claims", () => {
+  const weatherCall = {
+    id: "call_wx",
+    name: "get_weather_forecast",
+    arguments: { destination: "Pembrokeshire", month: 5 },
+  };
+
+  it("passes when quoted figures match the weather tool result", () => {
+    const t = makeTranscript({
+      toolCalls: [weatherCall],
+      toolResults: { call_wx: { success: true, averageHighC: 16, averageLowC: 8 } },
+      finalText: "Expect average highs of 16°C and overnight lows of 8°C.",
+    });
+    const g = gradeGroundedness(makeCase(), t);
+    expect(g.passed).toBe(true);
+    expect(g.score).toBe(1);
+  });
+
+  it("fails temperatures invented against a failed weather lookup", () => {
+    const t = makeTranscript({
+      toolCalls: [weatherCall],
+      toolResults: { call_wx: { success: false, error: "Weather lookup failed" } },
+      finalText: "Early May typically brings average highs of 18°C.",
+    });
+    const g = gradeGroundedness(makeCase(), t);
+    expect(g.passed).toBe(false);
+    expect(g.details).toContain("18°C");
+  });
+
+  it("fails a figure the weather result does not contain", () => {
+    const t = makeTranscript({
+      toolCalls: [weatherCall],
+      toolResults: { call_wx: { success: true, averageHighC: 16 } },
+      finalText: "You can count on a balmy 25°C most afternoons.",
+    });
+    expect(gradeGroundedness(makeCase(), t).passed).toBe(false);
+  });
+
+  it("grounds 'degrees Celsius' phrasing and Fahrenheit figures", () => {
+    const t = makeTranscript({
+      toolCalls: [weatherCall],
+      toolResults: { call_wx: { success: true, averageHighC: 16, averageHighF: 61 } },
+      finalText: "Around 16 degrees Celsius, which is 61°F.",
+    });
+    expect(gradeGroundedness(makeCase(), t).passed).toBe(true);
+  });
+
+  it("harvests figures embedded in string results", () => {
+    const t = makeTranscript({
+      toolCalls: [weatherCall],
+      toolResults: { call_wx: { success: true, summary: "Typical early-May highs around 16°C" } },
+      finalText: "Typically around 16°C in early May.",
+    });
+    expect(gradeGroundedness(makeCase(), t).passed).toBe(true);
+  });
+
+  it("ignores prices — £ amounts are not temperature claims", () => {
+    const t = makeTranscript({
+      toolCalls: [weatherCall],
+      toolResults: { call_wx: { success: false, error: "Weather lookup failed" } },
+      finalText: "Guesthouses run about £75 a night and dinner is £18.",
+    });
+    const g = gradeGroundedness(makeCase(), t);
+    expect(g.passed).toBe(true);
+    expect(g.score).toBe(1);
+  });
+
+  it("is not assessable without recorded weather results", () => {
+    const t = makeTranscript({
+      toolCalls: [{ name: "get_weather_forecast", arguments: { destination: "X", month: 5 } }],
+      finalText: "Early May typically sees highs of 16°C.",
+    });
+    const g = gradeGroundedness(makeCase(), t);
+    expect(g.passed).toBe(true);
+    expect(g.details).toContain("not assessable");
+  });
+
+  it("grades fares and temperatures together", () => {
+    const t = makeTranscript({
+      toolCalls: [
+        {
+          id: "call_1",
+          name: "search_flights",
+          arguments: { origin: "LHR", destination: "GVA", departureDate: "2026-09-12" },
+        },
+        weatherCall,
+      ],
+      toolResults: {
+        call_1: { success: true, results: [{ airline: "SWISS", priceGBP: 310 }] },
+        call_wx: { success: false, error: "Weather lookup failed" },
+      },
+      finalText: "SWISS flies for £310 return, and it'll be a pleasant 21°C when you land.",
+    });
+    const g = gradeGroundedness(makeCase(), t);
+    expect(g.passed).toBe(false);
+    expect(g.score).toBe(0.5);
+    expect(g.details).toContain("21°C");
+    expect(g.details).not.toContain("£310");
+  });
+});
+
 describe("gradeToolUse", () => {
   it("passes valid required tools", () => {
     const c = makeCase({ expectations: { requiredTools: ["search_flights"] } });
