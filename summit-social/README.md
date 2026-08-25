@@ -50,6 +50,8 @@ summit-social/
 │   ├── api/                 # withApi() shared route envelope (auth→limit→validate→handle)
 │   ├── auth/                # NextAuth config
 │   ├── billing/             # Stripe customer helper, flight-booking payment transitions
+│   ├── client/              # useMutation() — shared client mutation wrapper (busy gate,
+│   │                        #   user-safe errors) behind vote/bookmark/booking/billing buttons
 │   ├── db/                  # Prisma singleton, Redis client + atomic Lua rate limiter
 │   ├── email/               # Resend adapter, templates, signed unsubscribe tokens
 │   ├── flights/             # Amadeus + Skyscanner adapters, aggregator (+ Rust service proxy)
