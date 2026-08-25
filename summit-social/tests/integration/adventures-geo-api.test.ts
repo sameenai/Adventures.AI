@@ -14,12 +14,21 @@ vi.mock("@/lib/db/redis", () => ({
   rateLimit: vi.fn().mockResolvedValue({ allowed: true, retryAfter: 0 }),
 }));
 
+// Partial mock: only logRequest is stubbed (to assert telemetry); the
+// scrubber and everything else stay real.
+vi.mock("@/lib/logger", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/logger")>();
+  return { ...actual, logRequest: vi.fn() };
+});
+
 import { GET as getGeo } from "@/app/api/adventures/geo/route";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
+import { logRequest } from "@/lib/logger";
 
 const mockFindMany = prisma.adventure.findMany as ReturnType<typeof vi.fn>;
 const mockRateLimit = rateLimit as ReturnType<typeof vi.fn>;
+const mockLogRequest = logRequest as ReturnType<typeof vi.fn>;
 
 function geoRequest(params: Record<string, string>) {
   const query = new URLSearchParams(params).toString();
@@ -232,5 +241,47 @@ describe("GET /api/adventures/geo — validation and rate limiting", () => {
     expect(response.headers.get("Retry-After")).toBe("120");
     expect((await response.json()).code).toBe("RATE_LIMITED");
     expect(mockFindMany).not.toHaveBeenCalled();
+  });
+});
+
+describe("GET /api/adventures/geo — latency telemetry", () => {
+  it("logs method, path, status and latency once for a successful request", async () => {
+    mockFindMany.mockResolvedValue([adventureRow()]);
+
+    const response = await getGeo(geoRequest(markerBbox));
+    expect(response.status).toBe(200);
+
+    expect(mockLogRequest).toHaveBeenCalledTimes(1);
+    expect(mockLogRequest).toHaveBeenCalledWith({
+      method: "GET",
+      path: "/api/adventures/geo",
+      status: 200,
+      latencyMs: expect.any(Number),
+      requestId: expect.any(String),
+    });
+  });
+
+  it("logs the 400 status when validation rejects the bbox", async () => {
+    const response = await getGeo(
+      geoRequest({ west: "left", south: "40", east: "15", north: "50", zoom: "8" }),
+    );
+    expect(response.status).toBe(400);
+
+    expect(mockLogRequest).toHaveBeenCalledTimes(1);
+    expect(mockLogRequest).toHaveBeenCalledWith(expect.objectContaining({ status: 400 }));
+  });
+
+  it("adopts an incoming x-request-id as the correlation id", async () => {
+    mockFindMany.mockResolvedValue([]);
+    const query = new URLSearchParams(markerBbox).toString();
+    const request = new NextRequest(`http://localhost/api/adventures/geo?${query}`, {
+      headers: { "x-request-id": "trace-me-123" },
+    });
+
+    await getGeo(request);
+
+    expect(mockLogRequest).toHaveBeenCalledWith(
+      expect.objectContaining({ requestId: "trace-me-123" }),
+    );
   });
 });

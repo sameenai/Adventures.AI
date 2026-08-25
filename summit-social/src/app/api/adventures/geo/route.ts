@@ -1,6 +1,8 @@
+import { randomUUID } from "node:crypto";
 import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { rateLimit } from "@/lib/db/redis";
+import { logRequest } from "@/lib/logger";
 import { getClientIp } from "@/lib/request";
 import { adventureGeoSchema } from "@/lib/validators/adventure";
 import type { Prisma } from "@prisma/client";
@@ -21,12 +23,33 @@ function wrapLongitude(value: number): number {
 /**
  * PUBLIC viewport query for the explore map — anonymous, IP rate-limited, and
  * hand-rolled like the catalog list (`/api/adventures`) rather than `withApi`.
+ * Being outside the envelope, it emits its own `httpRequest` latency log:
+ * every exit path (429, 400, 200, throw) passes through `logRequest` below.
  *
  * zoom >= 6 → `{ markers }` inside the bbox, capped at MARKER_CAP.
  * zoom <  6 → `{ clusters }` snapped to a grid of ≈ 360/2^zoom/8 degrees,
  *             computed in one pass over a lat/lng-only select (no groupBy).
  */
 export async function GET(request: NextRequest) {
+  const requestId = request.headers.get("x-request-id") ?? randomUUID();
+  const started = Date.now();
+  let status = 500; // a throw exits without a response — log it as the 500 it becomes
+  try {
+    const response = await handleGeo(request);
+    status = response.status;
+    return response;
+  } finally {
+    logRequest({
+      method: request.method,
+      path: request.nextUrl.pathname,
+      status,
+      latencyMs: Date.now() - started,
+      requestId,
+    });
+  }
+}
+
+async function handleGeo(request: NextRequest): Promise<NextResponse> {
   const ip = getClientIp(request);
   const { allowed, retryAfter } = await rateLimit(
     `geo:search:${ip}`,
