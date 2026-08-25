@@ -17,14 +17,14 @@ export default defineConfig({
     exclude: ["**/node_modules/**", "tests/db/**"],
     coverage: {
       provider: "v8",
-      // Ratchet: measured 90.2/88.6/91.6/90.2 (stmts/branch/funcs/lines) at
-      // the time thresholds landed. Raise these as coverage rises — never
+      // Ratchet: measured 89.9/88.2/90.1/89.9 (stmts/branch/funcs/lines) after
+      // the withApi() route migration. Raise these as coverage rises — never
       // lower them to make a PR pass.
       thresholds: {
-        statements: 88,
-        branches: 86,
+        statements: 88.4,
+        branches: 86.6,
         functions: 89,
-        lines: 88,
+        lines: 88.4,
       },
       include: ["src/**/*.ts", "src/**/*.tsx"],
       exclude: [
