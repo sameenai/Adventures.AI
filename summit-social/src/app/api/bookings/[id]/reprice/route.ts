@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { withApi } from "@/lib/api/handler";
 import { prisma } from "@/lib/db/prisma";
 import { searchFlights } from "@/lib/flights/aggregator";
@@ -64,6 +65,10 @@ export const POST = withApi(
       );
     }
 
+    track("fare_repriced", {
+      userId,
+      props: { verified, priceChanged: (match?.priceGBP ?? booking.priceGBP) !== booking.priceGBP },
+    });
     const currentPrice = match?.priceGBP ?? booking.priceGBP;
     const updated = await prisma.flightBooking.update({
       where: { id: booking.id },

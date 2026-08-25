@@ -69,6 +69,14 @@ when "no emails went out last night". Cadence emails go only to users with
 - `GET /api/health` — liveness (DB + Redis checks).
 - Cloud Run request logs are structured; the app logger scrubs secrets and
   PII (emails, API keys) before anything reaches Cloud Logging.
+- **Errors**: `reportError()` emits GCP Error Reporting-shaped entries — Cloud
+  Run ingests them automatically, so errors are grouped/counted/alertable in
+  the console with no agent. Every API error response carries an
+  `x-request-id`; search logs by `requestId` to trace one failure end to end.
+- **Product analytics**: SQL over `AnalyticsEvent` — e.g. funnel:
+  `SELECT name, count(*) FROM "AnalyticsEvent" WHERE "createdAt" > now() - interval '7 days' GROUP BY 1;`
+  Signed-in rows cascade-delete with the account; anonymous rows carry only
+  the daily-rotating salted key. The client beacon honours DNT/GPC.
 - Watch: 5xx rate on `/api/chat` (OpenAI incidents), 429 spikes (Redis
   down ⇒ fail-closed), `EmailLog.status=FAILED` counts, `JobRun` failures,
   Stripe webhook 4xx (signature/secret drift).

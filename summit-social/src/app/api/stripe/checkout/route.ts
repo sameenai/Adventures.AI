@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { authOptions } from "@/lib/auth/config";
 import { APP_URL, RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
@@ -81,6 +82,7 @@ export async function POST(request: Request) {
     });
   }
 
+  track("checkout_started", { userId: session.user.id, props: { kind: "pro" } });
   const checkoutSession = await stripe.checkout.sessions.create({
     customer: customerId,
     mode: "subscription",

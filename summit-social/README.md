@@ -84,7 +84,10 @@ home airport), `TripEvent` (the "last trip" anchor: `MARKED_DONE` today, booking
 user×adventure×window, `PENDING → SENT → …` with CTR feedback).
 
 **Ops & audit** — `StripeEvent` (webhook idempotency ledger), `EmailLog` (every send attempt:
-SENT/FAILED/SKIPPED), `JobRun` (scheduled-job observability).
+SENT/FAILED/SKIPPED), `JobRun` (scheduled-job observability), `AnalyticsEvent` (product analytics:
+one row per funnel event, captured server-side where the thing actually happened — payment via the
+webhook, not a button click; signed-in rows cascade-delete with the account, anonymous rows carry
+only the daily-rotating salted viewer key; props are short primitives, never free text).
 
 ## 4. API surface
 
@@ -104,6 +107,7 @@ per-user rate limits, fail-closed on cost-bearing routes). New routes use `withA
 | Account | `/api/user/me` (profile + GDPR delete) · `/api/user/me/export` (data export) · `/api/user/openai-key` (BYOK, encrypted at rest) · `/api/auth/[...nextauth]` |
 | Billing | `/api/stripe/checkout` (Pro subscription) · `/api/stripe/portal` (manage/cancel) · `/api/webhooks/stripe` (signed, idempotent) |
 | Email | `/api/email/unsubscribe` (HMAC-signed one-tap link) |
+| Analytics | `/api/analytics/collect` (first-party page-view beacon: allowlisted names only, no cookies, DNT/GPC honoured, anonymous senders keyed by the rotating salted hash) |
 | Ops | `/api/health` (db + redis component status) · `/api/jobs/[job]` (secret-gated: cadence-scan, retention) |
 
 ## 5. The AI agent
@@ -148,7 +152,22 @@ SKIPPED in `EmailLog`, never a crash. Marketing mail (trip-due) goes **only** to
 `marketingConsent` (opt-in lives in the traveler-profile form) and always carries an HMAC-signed
 one-tap unsubscribe. Booking confirmations are transactional. Templates escape every user string.
 
-## 8. Security & privacy posture
+## 8. Observability & product analytics
+
+Errors are reported without an agent or vendor: `reportError()` (in `src/lib/logger.ts`) emits
+GCP Error Reporting-shaped log entries that Cloud Run ingests automatically — grouped, counted,
+alertable. The shared route envelope stamps every request with an `x-request-id` (accepted or
+generated) and includes it in error responses and reports, so one failure traces across log lines.
+`/api/health` reports db + redis component status.
+
+Product analytics is server-side-first (`src/lib/analytics/track.ts`): funnel events — signup,
+chat_message, itinerary_created, flight_searched, flight_saved, fare_repriced, checkout_started,
+payment_succeeded, booking_refunded, pro_subscribed, pro_cancelled, bookmark_added, trip_logged,
+cadence_email_sent — are captured at the write path or webhook where they become true. The one
+client signal is a page_view beacon (`PageViewPing`): no cookies, no fingerprinting, DNT/GPC
+respected, dynamic path segments normalised before sending. Query with SQL over `AnalyticsEvent`.
+
+## 9. Security & privacy posture
 
 Google OAuth (email-verified upsert) with JWT sessions; dev login is compile-time gated out of
 production. Zod on every input; scheme-allowlisted URLs; ownership checked before every write
@@ -158,7 +177,7 @@ on cost-bearing routes. BYOK OpenAI keys encrypted at rest (save refuses without
 GDPR: click-wrap terms stamping, account deletion cascade, JSON export, salted rotating view
 hashes, retention jobs. Legal pages at `/privacy` and `/terms` name every processor.
 
-## 9. Testing
+## 10. Testing
 
 | Tier | Command | What it proves |
 |------|---------|----------------|
@@ -173,7 +192,7 @@ CI (`.github/workflows/ci.yml`) runs lint+types, mocked tests with coverage, eva
 production build, the real-services tier (migrations + schema-drift check + full seed), Rust
 gates, and e2e on every PR. Never merge red; never lower a threshold to pass.
 
-## 10. Commands & environment
+## 11. Commands & environment
 
 Dev: `npm run dev` (server only) · `make setup` / `make run` (with services) · `npm run build` ·
 `npm run start` · `npm run lint` / `npm run lint:fix` / `npm run format`.
@@ -192,7 +211,7 @@ Environment (see `.env.example`; full production matrix in the runbook): `DATABA
 Deploy: `make deploy-gcp` (Cloud Build → Cloud Run) or the WIF-gated `deploy.yml` workflow —
 details, jobs (`make scheduler-setup`), and incident playbooks in [`../RUNBOOK.md`](../RUNBOOK.md).
 
-## 11. Keeping this document honest
+## 12. Keeping this document honest
 
 Change the code, change the docs — **in the same PR**. `tests/unit/docs-drift.test.ts` asserts
 every API route directory, Prisma model, chat tool, npm script, and `.env.example` variable is

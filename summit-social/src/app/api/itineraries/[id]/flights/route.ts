@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
@@ -69,6 +70,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   }
   const offer = parsed.data;
 
+  track("flight_saved", {
+    userId: session.user.id,
+    props: { via: "ui", route: `${offer.origin}-${offer.destination}` },
+  });
   const booking = await prisma.flightBooking.create({
     data: {
       status: "SELECTED",

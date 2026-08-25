@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { APP_URL } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
 import { sendEmail } from "@/lib/email/send";
@@ -30,6 +31,11 @@ export async function handleFlightBookingPaid(session: Stripe.Checkout.Session):
     include: { user: { select: { id: true, email: true, name: true } } },
   });
   if (!booking) return;
+
+  track("payment_succeeded", {
+    userId: booking.userId,
+    props: { kind: "flight", amountGBP: booking.priceGBP },
+  });
 
   if (booking.itineraryId) {
     await prisma.itinerary.updateMany({
@@ -76,8 +82,9 @@ export async function handleFlightBookingPaid(session: Stripe.Checkout.Session):
 export async function handleFlightBookingRefund(charge: Stripe.Charge): Promise<void> {
   const paymentIntentId = typeof charge.payment_intent === "string" ? charge.payment_intent : null;
   if (!paymentIntentId || !charge.refunded) return;
-  await prisma.flightBooking.updateMany({
+  const refunded = await prisma.flightBooking.updateMany({
     where: { stripePaymentIntentId: paymentIntentId, status: { in: ["PAID", "TICKETED"] } },
     data: { status: "REFUNDED" },
   });
+  if (refunded.count > 0) track("booking_refunded", { props: { kind: "flight" } });
 }

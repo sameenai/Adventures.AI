@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { rateLimit } from "@/lib/db/redis";
@@ -39,6 +40,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  track("flight_searched", {
+    userId: session?.user?.id ?? undefined,
+    props: { route: `${parsed.data.origin}-${parsed.data.destination}` },
+  });
   const result = await searchFlights(parsed.data);
   return NextResponse.json(result);
 }

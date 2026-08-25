@@ -2,6 +2,7 @@ import type { ToolExecutionContext, ToolExecutor } from "@/lib/ai/chat-service";
 import { CHAT_MODEL } from "@/lib/ai/model";
 import { ItineraryDaySchema, SearchAdventuresArgsSchema } from "@/lib/ai/parser";
 import { GEAR_SYSTEM_PROMPT } from "@/lib/ai/prompts";
+import { track } from "@/lib/analytics/track";
 import { prisma } from "@/lib/db/prisma";
 import { searchFlights } from "@/lib/flights/aggregator";
 import { logger } from "@/lib/logger";
@@ -192,6 +193,10 @@ const saveFlight: ToolExecutor = async (rawArgs, ctx) => {
     return JSON.stringify({ success: false, error: "Itinerary not found" });
   }
 
+  track("flight_saved", {
+    userId: ctx.userId,
+    props: { via: "agent", route: `${offer.origin}-${offer.destination}` },
+  });
   const booking = await prisma.flightBooking.create({
     data: {
       status: "SELECTED",

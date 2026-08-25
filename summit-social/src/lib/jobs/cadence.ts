@@ -1,3 +1,4 @@
+import { track } from "@/lib/analytics/track";
 import { prisma } from "@/lib/db/prisma";
 import { sendEmail } from "@/lib/email/send";
 import { tripDueEmail } from "@/lib/email/templates";
@@ -165,6 +166,7 @@ async function sendTripDueEmail(
   });
 
   if (result.status === "SENT") {
+    track("cadence_email_sent", { userId, props: { recommendations: recs.length } });
     await prisma.cadenceRecommendation.updateMany({
       where: { userId, windowStart, status: "PENDING" },
       data: { status: "SENT", sentAt: new Date() },
