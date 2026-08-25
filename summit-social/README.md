@@ -175,7 +175,9 @@ Google OAuth (email-verified upsert) with JWT sessions; dev login is compile-tim
 production. Zod on every input; scheme-allowlisted URLs; ownership checked before every write
 (IDOR regression tests from the attacker's perspective). Atomic Lua rate limiting fails closed
 on cost-bearing routes. BYOK OpenAI keys encrypted at rest (save refuses without
-`ENCRYPTION_KEY`). CSP without `unsafe-eval` in production. Logger scrubs secrets and PII.
+`ENCRYPTION_KEY`). Strict CSP with per-request script nonces + `strict-dynamic` (no
+`unsafe-inline`/`unsafe-eval` scripts in production), emitted by `src/middleware.ts` from
+`src/lib/security/csp.ts`. Logger scrubs secrets and PII.
 GDPR: click-wrap terms stamping, account deletion cascade, JSON export, salted rotating view
 hashes, retention jobs. Legal pages at `/privacy` and `/terms` name every processor.
 
