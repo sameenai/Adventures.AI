@@ -146,7 +146,11 @@ before the replay baseline is trusted again. CI runs `npm run eval` on every PR.
 
 Production closes the loop: every assistant reply carries thumbs up/down in the chat window, and
 a rating lands in `MessageFeedback` with a snapshot of the conversation up to that reply (plus an
-optional comment on a thumbs down). `npm run eval:candidates` exports unprocessed DOWN ratings as
+optional comment on a thumbs down). One known limitation: a freshly streamed reply is located in
+the stored history by its text, so if the assistant repeats the exact same reply twice in one
+conversation, a rating on the earlier copy is attributed to the last occurrence — streamed
+messages carry no client-side identity, and the freshest reply is overwhelmingly the one being
+rated. `npm run eval:candidates` exports unprocessed DOWN ratings as
 candidate transcripts for triage into the golden/adversarial sets — see `evals/README.md`.
 
 ## 6. The booking rail

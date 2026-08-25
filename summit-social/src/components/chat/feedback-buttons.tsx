@@ -32,9 +32,16 @@ function parseHistoryIndex(itineraryId: string, messageId: string): number | nul
 /**
  * Live-streamed messages carry random ids, so their history index is resolved
  * at click time by finding the reply in the persisted chatHistory (searching
- * from the end — the freshest occurrence is the one just rated). Tool-call
- * plumbing between visible messages means the index cannot be counted
- * client-side.
+ * from the end). Tool-call plumbing between visible messages means the index
+ * cannot be counted client-side.
+ *
+ * Known limitation: the match is by content, so when the assistant has sent
+ * the exact same text twice in one conversation, a rating on the earlier
+ * bubble is attributed to the LAST occurrence. A streamed reply has no
+ * client-side identity signal (no server-issued id until the session is
+ * resumed), so this is accepted rather than worked around; last-occurrence
+ * was chosen because the freshest reply is overwhelmingly the one being
+ * rated.
  */
 async function resolveHistoryIndex(
   itineraryId: string,
