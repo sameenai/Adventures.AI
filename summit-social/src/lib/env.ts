@@ -6,6 +6,28 @@
  */
 import { z } from "zod";
 
+const PLACEHOLDER_VALUES = new Set(["placeholder", "", "changeme", "todo", "none", "xxx"]);
+
+function isPlaceholder(v: unknown): boolean {
+  return typeof v !== "string" || PLACEHOLDER_VALUES.has(v.toLowerCase());
+}
+
+function secretWithPrefix(prefix: string) {
+  return z
+    .string()
+    .optional()
+    .refine((v) => !v || isPlaceholder(v) || v.startsWith(prefix), {
+      message: `must start with "${prefix}"`,
+    });
+}
+
+function secretWithPattern(pattern: RegExp, message: string) {
+  return z
+    .string()
+    .optional()
+    .refine((v) => !v || isPlaceholder(v) || pattern.test(v), { message });
+}
+
 // Required everywhere the server runs.
 const required = z.object({
   DATABASE_URL: z.string().min(1),
@@ -15,18 +37,19 @@ const required = z.object({
 
 // Optional, but validated for shape when present so a typo fails loudly at
 // boot instead of surfacing as a confusing runtime error mid-request.
+// Placeholder values ("placeholder", "", "changeme") are treated as unset.
 const optional = z.object({
-  REDIS_URL: z.string().startsWith("redis").optional(),
-  OPENAI_API_KEY: z.string().startsWith("sk-").optional(),
-  ENCRYPTION_KEY: z
-    .string()
-    .regex(/^[0-9a-fA-F]{64}$/, "expected 64 hex chars (openssl rand -hex 32)")
-    .optional(),
+  REDIS_URL: secretWithPrefix("redis"),
+  OPENAI_API_KEY: secretWithPrefix("sk-"),
+  ENCRYPTION_KEY: secretWithPattern(
+    /^[0-9a-fA-F]{64}$/,
+    "expected 64 hex chars (openssl rand -hex 32)",
+  ),
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
-  STRIPE_SECRET_KEY: z.string().startsWith("sk_").optional(),
-  STRIPE_WEBHOOK_SECRET: z.string().startsWith("whsec_").optional(),
-  STRIPE_PRO_PRICE_ID: z.string().startsWith("price_").optional(),
+  STRIPE_SECRET_KEY: secretWithPrefix("sk_"),
+  STRIPE_WEBHOOK_SECRET: secretWithPrefix("whsec_"),
+  STRIPE_PRO_PRICE_ID: secretWithPrefix("price_"),
   AMADEUS_CLIENT_ID: z.string().optional(),
   AMADEUS_CLIENT_SECRET: z.string().optional(),
   AMADEUS_BASE_URL: z.string().url().optional(),
