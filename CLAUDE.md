@@ -181,4 +181,14 @@ Do not bypass hooks with `--no-verify`. Fix the underlying issue instead.
 
 **Run tests before opening a PR.** All unit and integration tests must pass locally (`npm run test:unit` and `npm run test:integration`) before a PR is created. New code must include tests, and overall coverage must remain high (target 95%+).
 
+**Update the READMEs in the same PR as the change.** `README.md` (repo map + product) and
+`summit-social/README.md` (the codebase guide) must always describe the current system. Any PR
+that adds or changes an API route, Prisma model, chat tool, npm script, env var, user journey, or
+architectural decision updates the relevant README section in that same PR — never as a follow-up.
+This is enforced: `tests/unit/docs-drift.test.ts` fails CI (and the pre-push hook) when a route,
+model, tool, script, or env var exists that the READMEs/RUNBOOK don't mention. When it fires, the
+fix is documentation, never skipping the test. Prose accuracy beyond the mechanical checks (state
+machines, journeys, counts) is part of PR review: read the affected README sections and correct
+anything your change made stale.
+
 **After merging a PR**, delete the remote branch and sync local main: `gh pr merge <number> --squash --delete-branch && git checkout main && git pull`. Never push directly to `main` and then try to create a PR — always create a feature branch first.
