@@ -91,7 +91,14 @@ promoted into eval candidates, so the feedback → eval-case pipeline never doub
 SENT/FAILED/SKIPPED), `JobRun` (scheduled-job observability), `AnalyticsEvent` (product analytics:
 one row per funnel event, captured server-side where the thing actually happened — payment via the
 webhook, not a button click; signed-in rows cascade-delete with the account, anonymous rows carry
-only the daily-rotating salted viewer key; props are short primitives, never free text).
+only the daily-rotating salted viewer key; props are short primitives, never free text),
+`MessageFeedback` (thumbs rating on a specific assistant reply with a conversation snapshot — the
+AI quality loop's raw material; cascade-deletes with the user).
+
+The daily `retention` job trims the audit surfaces on a published schedule (mirrored in
+`/privacy` and RUNBOOK.md): views/read notifications after 90 days, empty itineraries after 30,
+`AnalyticsEvent` after 180, `EmailLog` and `SearchEvent` after 365, and `MessageFeedback` UP after
+90 / DOWN after 365 (DOWN feeds the evals, so it keeps the longer window).
 
 ## 4. API surface
 

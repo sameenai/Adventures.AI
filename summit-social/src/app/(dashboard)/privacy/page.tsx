@@ -133,6 +133,13 @@ export default function PrivacyPage() {
           <li>Adventure view records — deleted after 90 days.</li>
           <li>Read notifications — deleted after 90 days.</li>
           <li>Auto-created empty itineraries — deleted after 30 days.</li>
+          <li>Product analytics events — deleted after 180 days.</li>
+          <li>Email send log — deleted after 365 days.</li>
+          <li>Search events — deleted after 365 days.</li>
+          <li>
+            AI answer feedback — thumbs-up deleted after 90 days; thumbs-down kept 365 days to
+            improve answer quality.
+          </li>
           <li>Server logs — 30 days.</li>
         </ul>
       </Section>

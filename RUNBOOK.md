@@ -112,6 +112,15 @@ when "no emails went out last night". Cadence emails go only to users with
   in code). Redis is disposable — only rate-limit windows and caches.
 - Account deletion cascades (bookings, email log, cadence rows included);
   data export lives at `/api/user/export`.
+- Retention windows (enforced by the daily `retention` job, mirrored in
+  `/privacy`): `AdventureView` rows are deleted after 90 days.
+  Read `Notification` rows are deleted after 90 days.
+  Abandoned empty `Itinerary` rows are deleted after 30 days.
+  `AnalyticsEvent` rows are deleted after 180 days.
+  `EmailLog` rows are deleted after 365 days.
+  `SearchEvent` rows are deleted after 365 days.
+  `MessageFeedback` UP ratings are deleted after 90 days, DOWN ratings after
+  365 days (DOWN feeds the eval suite, so it keeps the longer window).
 
 ## CI gates (every PR)
 
