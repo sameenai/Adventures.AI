@@ -76,9 +76,7 @@ acceptance), `Follow`, `Notification`.
 **Planning & booking** — `Itinerary` (AI `chatHistory` JSON; status
 `DRAFT → PLANNING → BOOKED → COMPLETED`, event-driven), `ItineraryDay`, `FlightBooking`
 (state machine `SELECTED → PRICE_CONFIRMED → PAID → TICKETED`, terminal
-`CANCELLED`/`REFUNDED`; passengers/segments JSON, Stripe payment-intent ref),
-`MessageFeedback` (a thumbs rating on one assistant reply with a conversation snapshot up to
-that reply; `exportedAt` marks rows already turned into eval candidates; cascades with the user).
+`CANCELLED`/`REFUNDED`; passengers/segments JSON, Stripe payment-intent ref).
 
 **Retention & cadence** — `TravelerProfile` (cadence months, budget band, difficulty ceiling,
 home airport), `TripEvent` (the "last trip" anchor: `MARKED_DONE` today, booking sources later),
