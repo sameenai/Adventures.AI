@@ -87,8 +87,10 @@ user×adventure×window, `PENDING → SENT → …` with CTR feedback).
 
 **AI quality** — `MessageFeedback` (thumbs up/down on assistant chat messages with optional
 comment and the conversation transcript captured verbatim — the AI quality loop's raw material;
-`exportedAt` marks rows already promoted into eval candidates, so the feedback → eval-case
-pipeline never double-exports; cascade-deletes with the user).
+one row per user × itinerary × message, enforced by a compound unique constraint, so re-rating
+upserts in place and clears `exportedAt` — the marker for rows already promoted into eval
+candidates, so the feedback → eval-case pipeline never double-exports; cascade-deletes with the
+user).
 
 **Ops & audit** — `StripeEvent` (webhook idempotency ledger), `EmailLog` (every send attempt:
 SENT/FAILED/SKIPPED), `JobRun` (scheduled-job observability), `AnalyticsEvent` (product analytics:

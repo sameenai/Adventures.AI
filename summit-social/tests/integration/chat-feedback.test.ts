@@ -1,5 +1,5 @@
 // Thumbs feedback on assistant replies: ownership, index validation, the
-// conversation snapshot, and replace-on-re-rate semantics.
+// conversation snapshot, and upsert-on-re-rate semantics.
 import { NextRequest } from "next/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -11,8 +11,7 @@ vi.mock("@/lib/db/redis", () => ({
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {
     itinerary: { findUnique: vi.fn() },
-    messageFeedback: { deleteMany: vi.fn(), create: vi.fn() },
-    $transaction: vi.fn(),
+    messageFeedback: { upsert: vi.fn() },
   },
 }));
 vi.mock("@/lib/analytics/track", () => ({ track: vi.fn() }));
@@ -26,8 +25,7 @@ import { getServerSession } from "next-auth";
 const mockSession = getServerSession as ReturnType<typeof vi.fn>;
 const p = prisma as unknown as {
   itinerary: { findUnique: ReturnType<typeof vi.fn> };
-  messageFeedback: { deleteMany: ReturnType<typeof vi.fn>; create: ReturnType<typeof vi.fn> };
-  $transaction: ReturnType<typeof vi.fn>;
+  messageFeedback: { upsert: ReturnType<typeof vi.fn> };
 };
 
 const route = { params: Promise.resolve({}) };
@@ -63,11 +61,9 @@ beforeEach(() => {
   mockSession.mockResolvedValue({ user: { id: "user-1" } });
   vi.mocked(rateLimit).mockResolvedValue({ allowed: true, retryAfter: 0 });
   p.itinerary.findUnique.mockResolvedValue({ chatHistory: history });
-  p.messageFeedback.deleteMany.mockResolvedValue({ count: 0 });
-  p.messageFeedback.create.mockImplementation((args: { data: Record<string, unknown> }) =>
-    Promise.resolve({ id: "fb-1", ...args.data }),
+  p.messageFeedback.upsert.mockImplementation((args: { create: Record<string, unknown> }) =>
+    Promise.resolve({ id: "fb-1", ...args.create }),
   );
-  p.$transaction.mockImplementation(async (fn: (tx: unknown) => unknown) => fn(prisma));
 });
 
 describe("POST /api/chat/feedback", () => {
@@ -86,7 +82,7 @@ describe("POST /api/chat/feedback", () => {
     expect(p.itinerary.findUnique).toHaveBeenCalledWith(
       expect.objectContaining({ where: { id: "it-2", userId: "user-1" } }),
     );
-    expect(p.messageFeedback.create).not.toHaveBeenCalled();
+    expect(p.messageFeedback.upsert).not.toHaveBeenCalled();
   });
 
   it("400s when messageIndex is out of range", async () => {
@@ -119,7 +115,7 @@ describe("POST /api/chat/feedback", () => {
       expect(res.status).toBe(400);
       expect((await res.json()).code).toBe("VALIDATION_ERROR");
     }
-    expect(p.messageFeedback.create).not.toHaveBeenCalled();
+    expect(p.messageFeedback.upsert).not.toHaveBeenCalled();
   });
 
   it("stores the rating with a snapshot up to and including the rated reply", async () => {
@@ -131,8 +127,21 @@ describe("POST /api/chat/feedback", () => {
     const body = await res.json();
     expect(body.feedback).toMatchObject({ id: "fb-1", rating: "DOWN", messageIndex: 5 });
 
-    expect(p.messageFeedback.create).toHaveBeenCalledWith({
-      data: {
+    expect(p.messageFeedback.upsert).toHaveBeenCalledWith({
+      where: {
+        userId_itineraryId_messageIndex: {
+          userId: "user-1",
+          itineraryId: "it-1",
+          messageIndex: 5,
+        },
+      },
+      update: {
+        rating: "DOWN",
+        comment: "Fares look invented",
+        transcript: history.slice(0, 6),
+        exportedAt: null,
+      },
+      create: {
         userId: "user-1",
         itineraryId: "it-1",
         messageIndex: 5,
@@ -142,32 +151,38 @@ describe("POST /api/chat/feedback", () => {
       },
     });
     // The snapshot ends AT the rated reply and carries the tool plumbing.
-    const transcript = p.messageFeedback.create.mock.calls[0][0].data.transcript;
+    const transcript = p.messageFeedback.upsert.mock.calls[0][0].create.transcript;
     expect(transcript).toHaveLength(6);
     expect(transcript[5].content).toBe("Qatar Airways via Doha is the strongest option.");
     expect(transcript[4].role).toBe("tool");
   });
 
   it("can rate an earlier assistant reply mid-conversation", async () => {
-    const res = await feedback(req({ itineraryId: "it-1", messageIndex: 1, rating: "UP" }), route);
+    const res = await feedback(req({ itineraryId: "it-1", messageIndex: 1, rating: "DOWN" }), route);
     expect(res.status).toBe(201);
-    const transcript = p.messageFeedback.create.mock.calls[0][0].data.transcript;
+    const transcript = p.messageFeedback.upsert.mock.calls[0][0].create.transcript;
     expect(transcript).toHaveLength(2);
     expect(transcript[1].content).toBe("Great — here is a plan for the Khumbu.");
   });
 
   it("re-rating replaces the row for the (user, itinerary, index) triple", async () => {
-    p.messageFeedback.deleteMany.mockResolvedValue({ count: 1 });
+    // The row already exists, so upsert's update path runs: the same triple
+    // still ends with exactly one row and the latest rating wins.
+    p.messageFeedback.upsert.mockImplementation((args: { update: Record<string, unknown> }) =>
+      Promise.resolve({ id: "fb-1", messageIndex: 5, ...args.update }),
+    );
     const res = await feedback(req({ itineraryId: "it-1", messageIndex: 5, rating: "UP" }), route);
     expect(res.status).toBe(201);
-    expect(p.messageFeedback.deleteMany).toHaveBeenCalledWith({
-      where: { userId: "user-1", itineraryId: "it-1", messageIndex: 5 },
+    expect((await res.json()).feedback).toMatchObject({ id: "fb-1", rating: "UP" });
+
+    // One atomic upsert keyed on the compound unique — no delete/create race.
+    expect(p.messageFeedback.upsert).toHaveBeenCalledTimes(1);
+    const args = p.messageFeedback.upsert.mock.calls[0][0];
+    expect(args.where).toEqual({
+      userId_itineraryId_messageIndex: { userId: "user-1", itineraryId: "it-1", messageIndex: 5 },
     });
-    // Delete happens before create, inside the transaction.
-    expect(p.$transaction).toHaveBeenCalledTimes(1);
-    expect(p.messageFeedback.deleteMany.mock.invocationCallOrder[0]).toBeLessThan(
-      p.messageFeedback.create.mock.invocationCallOrder[0],
-    );
+    // The update path overwrites the rating and re-arms the eval export.
+    expect(args.update).toMatchObject({ rating: "UP", exportedAt: null });
   });
 
   it("tracks feedback_submitted with the rating only (no free text)", async () => {
@@ -185,6 +200,6 @@ describe("POST /api/chat/feedback", () => {
     vi.mocked(rateLimit).mockResolvedValue({ allowed: false, retryAfter: 120 });
     const res = await feedback(req({ itineraryId: "it-1", messageIndex: 5, rating: "UP" }), route);
     expect(res.status).toBe(429);
-    expect(p.messageFeedback.create).not.toHaveBeenCalled();
+    expect(p.messageFeedback.upsert).not.toHaveBeenCalled();
   });
 });

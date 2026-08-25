@@ -13,9 +13,10 @@ import { NextResponse } from "next/server";
  * continues or the itinerary is deleted. DOWN-rated rows are later exported as
  * eval candidate transcripts by `npm run eval:candidates`.
  *
- * One row per (user, itinerary, messageIndex): re-rating replaces the previous
- * row (delete-then-create in a transaction — the model has no unique
- * constraint on the triple, so the replace is done atomically here).
+ * One row per (user, itinerary, messageIndex), enforced by a compound unique
+ * constraint: re-rating upserts on the triple. The update overwrites rating,
+ * comment and transcript, and clears exportedAt so a re-rated reply is picked
+ * up again by the eval-candidate export.
  */
 
 type StoredChatEntry = { role?: unknown; content?: unknown };
@@ -60,11 +61,10 @@ export const POST = withApi(
     // Snapshot everything up to and including the rated reply.
     const transcript = history.slice(0, messageIndex + 1) as Prisma.InputJsonValue;
 
-    const feedback = await prisma.$transaction(async (tx) => {
-      await tx.messageFeedback.deleteMany({ where: { userId, itineraryId, messageIndex } });
-      return tx.messageFeedback.create({
-        data: { userId, itineraryId, messageIndex, rating, comment: comment ?? null, transcript },
-      });
+    const feedback = await prisma.messageFeedback.upsert({
+      where: { userId_itineraryId_messageIndex: { userId, itineraryId, messageIndex } },
+      update: { rating, comment: comment ?? null, transcript, exportedAt: null },
+      create: { userId, itineraryId, messageIndex, rating, comment: comment ?? null, transcript },
     });
 
     track("feedback_submitted", { userId, props: { rating } });
