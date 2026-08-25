@@ -65,6 +65,8 @@ jobs:
           cache-dependency-path: summit-social/package-lock.json
       - run: npm ci
       - run: npm run build
+      - name: Bundle budget gate (client JS per route vs bundle-budget.json)
+        run: node scripts/check-bundle-budget.mjs
 
   migrations:
     name: Data Layer (real Postgres + Redis)
