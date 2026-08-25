@@ -84,16 +84,15 @@ home airport), `TripEvent` (the "last trip" anchor: `MARKED_DONE` today, booking
 user×adventure×window, `PENDING → SENT → …` with CTR feedback).
 
 **AI quality** — `MessageFeedback` (thumbs up/down on assistant chat messages with optional
-comment and the conversation transcript captured verbatim; `exportedAt` marks rows already
-promoted into eval candidates, so the feedback → eval-case pipeline never double-exports).
+comment and the conversation transcript captured verbatim — the AI quality loop's raw material;
+`exportedAt` marks rows already promoted into eval candidates, so the feedback → eval-case
+pipeline never double-exports; cascade-deletes with the user).
 
 **Ops & audit** — `StripeEvent` (webhook idempotency ledger), `EmailLog` (every send attempt:
 SENT/FAILED/SKIPPED), `JobRun` (scheduled-job observability), `AnalyticsEvent` (product analytics:
 one row per funnel event, captured server-side where the thing actually happened — payment via the
 webhook, not a button click; signed-in rows cascade-delete with the account, anonymous rows carry
-only the daily-rotating salted viewer key; props are short primitives, never free text),
-`MessageFeedback` (thumbs rating on a specific assistant reply with a conversation snapshot — the
-AI quality loop's raw material; cascade-deletes with the user).
+only the daily-rotating salted viewer key; props are short primitives, never free text).
 
 The daily `retention` job trims the audit surfaces on a published schedule (mirrored in
 `/privacy` and RUNBOOK.md): views/read notifications after 90 days, empty itineraries after 30,
