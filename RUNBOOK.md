@@ -86,10 +86,12 @@ when "no emails went out last night". Cadence emails go only to users with
   `SELECT name, count(*) FROM "AnalyticsEvent" WHERE "createdAt" > now() - interval '7 days' GROUP BY 1;`
   Signed-in rows cascade-delete with the account; anonymous rows carry only
   the daily-rotating salted key. The client beacon honours DNT/GPC.
-- **Latency**: the API envelope logs every request in production with the
-  Cloud Logging `httpRequest` shape (method, status, latency) plus `route`
-  and `requestId` — Logs Explorer renders it natively; build log-based
-  metrics on `route` for per-route p95.
+- **Latency**: enveloped routes and the hand-rolled `/api/adventures/geo`
+  route log each request in production with the Cloud Logging `httpRequest`
+  shape (method, status, latency) plus `route` and `requestId` — Logs
+  Explorer renders it natively; build log-based metrics on `route` for
+  per-route p95 on those paths. The streaming chat route and the Stripe
+  webhook are observed via Cloud Run's own request logs and `reportError()`.
 - **Alerts as code**: `summit-social/ops/alerts/*.json` is the source of
   truth — 5xx rate, p95 latency over the 2s budget, ERROR-log spikes, and
   uptime on `/api/health`. `make alerts-setup` upserts the policies and

@@ -177,8 +177,10 @@ Errors are reported without an agent or vendor: `reportError()` (in `src/lib/log
 GCP Error Reporting-shaped log entries that Cloud Run ingests automatically — grouped, counted,
 alertable. The shared route envelope stamps every request with an `x-request-id` (accepted or
 generated) and includes it in error responses and reports, so one failure traces across log lines.
-In production the envelope also logs every request in the Cloud Logging `httpRequest` shape
-(method, status, latency) with `route` + `requestId`, so per-route p95 is a log-based metric away.
+In production, enveloped routes plus the hand-rolled `/api/adventures/geo` viewport route log
+each request in the Cloud Logging `httpRequest` shape (method, status, latency) with `route` +
+`requestId`, so per-route p95 on those paths is a log-based metric away; the streaming chat
+route and the Stripe webhook are observed via Cloud Run's own request logs and `reportError()`.
 `/api/health` reports db + redis component status. Alert policies live as code in
 `ops/alerts/*.json` (5xx rate, p95 latency, error-log spikes, uptime) — `make alerts-setup`
 upserts them; see RUNBOOK.md for triage.
