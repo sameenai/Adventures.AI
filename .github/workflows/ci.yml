@@ -67,6 +67,8 @@ jobs:
       - run: npm run build
       - name: Bundle budget gate (client JS per route vs bundle-budget.json)
         run: node scripts/check-bundle-budget.mjs
+      - name: CSP prerender gate (no static documents — nonce requires SSR)
+        run: node scripts/check-csp-prerender.mjs
 
   migrations:
     name: Data Layer (real Postgres + Redis)

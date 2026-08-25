@@ -80,7 +80,18 @@ jobs:
           curl -sf --max-time 5 "$CANARY_URL/api/health" | jq -e '.status == "ok"'
           curl -sf --max-time 5 -o /dev/null -w "GET / -> %{http_code} in %{time_total}s\n" "$CANARY_URL/"
           curl -sf --max-time 5 -o /dev/null -w "GET /adventures -> %{http_code} in %{time_total}s\n" "$CANARY_URL/adventures"
-          curl -sf --max-time 5 -o /dev/null -w "GET /login -> %{http_code} in %{time_total}s\n" "$CANARY_URL/login"
+          # CSP nonce round-trip: header and body MUST come from the same
+          # response (the nonce is per-request). A page whose scripts don't
+          # carry the response's nonce ships with all JavaScript blocked —
+          # exactly the failure a plain 200 check cannot see.
+          for PAGE in / /login; do
+            curl -sf --max-time 5 -D /tmp/smoke-headers.txt -o /tmp/smoke-body.html "$CANARY_URL$PAGE"
+            NONCE=$(tr -d '\r' < /tmp/smoke-headers.txt | grep -i '^content-security-policy:' | sed -n "s/.*'nonce-\([^']*\)'.*/\1/p")
+            test -n "$NONCE" || { echo "FAIL: no CSP nonce in headers for $PAGE"; exit 1; }
+            COUNT=$(grep -c "nonce=\"$NONCE\"" /tmp/smoke-body.html || true)
+            echo "GET $PAGE -> $COUNT nonced script/style tags"
+            test "$COUNT" -gt 0 || { echo "FAIL: $PAGE served HTML without the response nonce — scripts would be CSP-blocked"; exit 1; }
+          done
 
       - name: Promote canary to live traffic
         run: >-

@@ -52,7 +52,10 @@ export default async function middleware(request: NextRequest, event: NextFetchE
 
 export const config = {
   // Document routes only: API responses and static assets carry no scripts.
+  // The extension exclusion is anchored ($) so only paths ENDING in a static
+  // extension skip the middleware — /itineraries/notes.txt must still hit the
+  // auth gate and carry CSP.
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|ico|webp|txt|xml)).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|ico|webp|txt|xml)$).*)",
   ],
 };

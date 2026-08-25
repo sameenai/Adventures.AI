@@ -3,6 +3,7 @@ import "@/lib/env";
 import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter, Space_Mono } from "next/font/google";
+import { headers } from "next/headers";
 import { Providers } from "./providers";
 
 const cormorant = Cormorant_Garamond({
@@ -27,6 +28,13 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
+// Every document must render at request time: the CSP script nonce is minted
+// per request in src/middleware.ts and Next can only stamp it on its inline
+// bootstrap scripts during SSR. A statically prerendered page would ship
+// nonce-less scripts that the strict-dynamic policy blocks outright (dead
+// login/signup). scripts/check-csp-prerender.mjs enforces this in CI.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: APP_NAME,
   description: APP_DESCRIPTION,
@@ -38,7 +46,10 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Minted per request by src/middleware.ts; next-themes needs it for its
+  // inline anti-FOUC script (Next stamps its own scripts automatically).
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <html
       lang="en"
@@ -52,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to main content
         </a>
-        <Providers>{children}</Providers>
+        <Providers nonce={nonce}>{children}</Providers>
       </body>
     </html>
   );
