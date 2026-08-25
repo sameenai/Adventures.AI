@@ -203,7 +203,7 @@ hashes, retention jobs. Legal pages at `/privacy` and `/terms` name every proces
 | Real services | `npm run test:db` | keyset-cursor semantics, vote/credit races, limiter windows against live Postgres + Redis |
 | AI evals | `npm run eval` (replay, CI) · `npm run eval:live` (real model + judge) | agent quality can't regress; surface hash forces re-certification |
 | E2E | `npm run test:e2e` | 16 journeys × desktop + Pixel 7 mobile, incl. sign-in→plan→save→log-trip and an axe WCAG 2A/AA gate |
-| Load | `tests/load/k6-smoke.js` | smoke throughput baseline |
+| Load | `tests/load/k6-smoke.js` · `tests/load/k6-profile.js` | smoke throughput baseline · 5→25 VU ramp over pages + API with hard budgets (p95 < 800ms, errors < 1%); run manually: `k6 run -e BASE_URL=... tests/load/k6-profile.js` |
 | Docs | part of `test:unit` (`docs-drift.test.ts`) | this README + runbook stay true to the code |
 
 CI (`.github/workflows/ci.yml`) runs lint+types, mocked tests with coverage, eval replay,
