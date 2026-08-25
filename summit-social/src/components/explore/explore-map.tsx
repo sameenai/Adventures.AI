@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { ExploreMarker } from "./explore-map-inner";
 
 const ExploreMapInner = dynamic(
   () => import("./explore-map-inner").then((m) => m.ExploreMapInner),
@@ -15,10 +14,6 @@ const ExploreMapInner = dynamic(
   },
 );
 
-interface ExploreMapProps {
-  markers: ExploreMarker[];
-}
-
-export function ExploreMap({ markers }: ExploreMapProps) {
-  return <ExploreMapInner markers={markers} />;
+export function ExploreMap() {
+  return <ExploreMapInner />;
 }

@@ -28,6 +28,7 @@ export const RATE_LIMITS = {
   commentReact: { limit: 120, windowSeconds: 3600 },
   adventureView: { limit: 300, windowSeconds: 3600 },
   analyticsCollect: { limit: 600, windowSeconds: 3600 },
+  geoSearch: { limit: 240, windowSeconds: 3600 },
 } as const;
 
 export const CACHE_TTL = {

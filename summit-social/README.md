@@ -107,7 +107,7 @@ per-user rate limits, fail-closed on cost-bearing routes). New routes use `withA
 
 | Area | Routes |
 |------|--------|
-| Catalog | `/api/adventures` (cursor-paginated list) · `/api/adventures/[id]` · `/api/adventures/[id]/vote` · `/api/adventures/[id]/bookmark` · `/api/adventures/[id]/comments` · `/api/adventures/[id]/comments/[commentId]` · `/api/adventures/[id]/comments/[commentId]/react` · `/api/adventures/[id]/view` · `/api/adventures/[id]/publish` · `/api/adventures/[id]/duplicate` · `/api/adventures/enhance-description` (AI rewrite) |
+| Catalog | `/api/adventures` (cursor-paginated list) · `/api/adventures/geo` (public viewport query for the explore map: bbox + zoom in, ≤300 markers out, server-side grid clusters below zoom 6; anonymous, IP rate-limited, hand-rolled like the list) · `/api/adventures/[id]` · `/api/adventures/[id]/vote` · `/api/adventures/[id]/bookmark` · `/api/adventures/[id]/comments` · `/api/adventures/[id]/comments/[commentId]` · `/api/adventures/[id]/comments/[commentId]/react` · `/api/adventures/[id]/view` · `/api/adventures/[id]/publish` · `/api/adventures/[id]/duplicate` · `/api/adventures/enhance-description` (AI rewrite) |
 | Trip log & cadence | `/api/adventures/[id]/complete` (✓ I did this) · `/api/user/traveler-profile` (preferences + email opt-in) |
 | AI planner | `/api/chat` (streaming agent loop, credit-metered) · `/api/chat/feedback` (thumbs on an assistant reply, stored with its conversation snapshot) |
 | Flights & booking | `/api/flights` (aggregated search) · `/api/itineraries/[id]/flights` (save an offer) · `/api/bookings/[id]/reprice` (fare re-validation) · `/api/bookings/[id]/checkout` (Stripe payment) |

@@ -92,5 +92,21 @@ export const adventureFilterSchema = z.object({
   tag: z.string().max(50).optional(),
 });
 
+// Viewport query for the explore map. Longitudes are deliberately unbounded:
+// Leaflet reports wrapped values (e.g. west=-200) when the map crosses the
+// antimeridian or spans more than one world copy — the route normalises them.
+export const adventureGeoSchema = z
+  .object({
+    west: z.coerce.number().finite(),
+    south: z.coerce.number().finite().min(-90).max(90),
+    east: z.coerce.number().finite(),
+    north: z.coerce.number().finite().min(-90).max(90),
+    zoom: z.coerce.number().int().min(1).max(18),
+  })
+  .refine((bounds) => bounds.south < bounds.north, {
+    message: "south must be less than north",
+  });
+
 export type CreateAdventureInput = z.infer<typeof createAdventureSchema>;
 export type AdventureFilterInput = z.infer<typeof adventureFilterSchema>;
+export type AdventureGeoInput = z.infer<typeof adventureGeoSchema>;
