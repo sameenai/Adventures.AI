@@ -1,7 +1,8 @@
+import { randomUUID } from "node:crypto";
 import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { rateLimit } from "@/lib/db/redis";
-import { logger } from "@/lib/logger";
+import { reportError } from "@/lib/logger";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -23,6 +24,8 @@ export interface ApiContext<TBody> {
   body: TBody;
   /** Resolved dynamic route params ({} for static routes). */
   params: Record<string, string>;
+  /** Correlation id — accepted from x-request-id or generated; echoed on errors. */
+  requestId: string;
 }
 
 export interface ApiOptions<TBody> {
@@ -47,6 +50,7 @@ export function withApi<TBody = undefined>(
   // tolerates its absence (static routes, direct test calls).
 ): (request: NextRequest, route: RouteContext) => Promise<NextResponse> {
   return async (request: NextRequest, route?: RouteContext) => {
+    const requestId = request.headers.get("x-request-id") ?? randomUUID();
     try {
       const session = await getServerSession(authOptions);
       if (!session?.user?.id) {
@@ -84,10 +88,16 @@ export function withApi<TBody = undefined>(
       }
 
       const params = route ? await route.params : {};
-      return await handler({ request, userId, body, params });
+      return await handler({ request, userId, body, params, requestId });
     } catch (err) {
-      logger.error(`Unhandled API error on ${request.nextUrl.pathname}`, err);
-      return NextResponse.json({ error: "Internal error", code: "INTERNAL" }, { status: 500 });
+      reportError(err, {
+        route: `${request.method} ${request.nextUrl.pathname}`,
+        requestId,
+      });
+      return NextResponse.json(
+        { error: "Internal error", code: "INTERNAL", requestId },
+        { status: 500, headers: { "x-request-id": requestId } },
+      );
     }
   };
 }
