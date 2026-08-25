@@ -432,6 +432,11 @@ model MessageFeedback {
   exportedAt   DateTime?
   createdAt    DateTime  @default(now())
 
+  /// One rating per (user, itinerary, message) — re-rating upserts in place.
+  /// itineraryId is nullable (SetNull keeps rows after itinerary deletion);
+  /// NULLs are distinct in Postgres, which is fine: orphaned rows are
+  /// historical and no longer written to.
+  @@unique([userId, itineraryId, messageIndex])
   @@index([rating, createdAt(sort: Desc)])
   @@index([userId, createdAt(sort: Desc)])
 }
