@@ -126,7 +126,9 @@ scheduler-setup:
 # ---------------------------------------------------------------------------
 # Monitoring alerts as code (ops/alerts/*.json = the source of truth).
 # Upserts every policy by displayName, and provisions the uptime check the
-# uptime-health policy consumes. Notification channels are attached once in
+# uptime-health policy consumes (display names are not unique, so the check
+# is looked up by displayName first and created only when missing).
+# Notification channels are attached once in
 # the console (email/Slack) and survive re-runs: `policies update
 # --policy-from-file` replaces the whole policy (the JSON carries no
 # notificationChannels), so the target captures each policy's channels
@@ -161,13 +163,20 @@ alerts-setup:
 		fi; \
 	done
 	@echo "→ Ensuring uptime check on basecamper.ai/api/health..."
-	@gcloud monitoring uptime create basecamper-health \
+	@existing=$$(gcloud monitoring uptime list-configs \
 		--project=$(GCP_PROJECT) \
-		--resource-type=uptime-url \
-		--resource-labels=host=basecamper.ai,project_id=$(GCP_PROJECT) \
-		--protocol=https --port=443 --path=/api/health \
-		--period=1 --timeout=10 2>/dev/null \
-		|| echo "→ Uptime check already exists, leaving as-is"
+		--filter='displayName="basecamper-health"' \
+		--format="value(name)"); \
+	if [ -n "$$existing" ]; then \
+		echo "→ Uptime check basecamper-health exists, leaving as-is"; \
+	else \
+		gcloud monitoring uptime create basecamper-health \
+			--project=$(GCP_PROJECT) \
+			--resource-type=uptime-url \
+			--resource-labels=host=basecamper.ai,project_id=$(GCP_PROJECT) \
+			--protocol=https --port=443 --path=/api/health \
+			--period=1 --timeout=10; \
+	fi
 
 # ---------------------------------------------------------------------------
 # Roll traffic back to the previous revision (or REVISION=<name> explicitly).
