@@ -1,30 +1,10 @@
-import { authOptions } from "@/lib/auth/config";
-import { RATE_LIMITS } from "@/lib/constants";
+import { withApi } from "@/lib/api/handler";
 import { prisma } from "@/lib/db/prisma";
-import { rateLimit } from "@/lib/db/redis";
 import { Prisma } from "@prisma/client";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
-export async function POST(_request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id: adventureId } = await params;
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
-
-  const { allowed, retryAfter } = await rateLimit(
-    `vote:${session.user.id}`,
-    RATE_LIMITS.vote.limit,
-    RATE_LIMITS.vote.windowSeconds,
-  );
-  if (!allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter },
-      { status: 429, headers: { "Retry-After": String(retryAfter) } },
-    );
-  }
+export const POST = withApi({ rateLimit: { name: "vote" } }, async ({ userId, params }) => {
+  const adventureId = params.id;
 
   // Toggle without a read-then-write race: two concurrent taps previously
   // both observed "no vote", both created, and the loser threw a raw P2002
@@ -32,7 +12,7 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
   // atomically — deleteMany reports whether a vote actually existed.
   const removed = await prisma.$transaction(async (tx) => {
     const deleted = await tx.vote.deleteMany({
-      where: { userId: session.user.id, adventureId },
+      where: { userId, adventureId },
     });
     if (deleted.count > 0) {
       await tx.adventure.update({
@@ -52,7 +32,7 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
   try {
     [, updatedAdventure] = await prisma.$transaction([
       prisma.vote.create({
-        data: { userId: session.user.id, adventureId },
+        data: { userId, adventureId },
       }),
       prisma.adventure.update({
         where: { id: adventureId },
@@ -71,10 +51,7 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
 
   // Notify owner at milestone vote counts
   const MILESTONES = [10, 50, 100];
-  if (
-    MILESTONES.includes(updatedAdventure.voteCount) &&
-    updatedAdventure.userId !== session.user.id
-  ) {
+  if (MILESTONES.includes(updatedAdventure.voteCount) && updatedAdventure.userId !== userId) {
     await prisma.notification.create({
       data: {
         userId: updatedAdventure.userId,
@@ -86,4 +63,4 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
   }
 
   return NextResponse.json({ voted: true });
-}
+});

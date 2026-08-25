@@ -6,7 +6,7 @@ import { reportError } from "@/lib/logger";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import type { ZodType } from "zod";
+import type { ZodType, ZodTypeDef } from "zod";
 
 /**
  * The one route envelope: auth → rate limit → validate → handle, with the
@@ -36,8 +36,12 @@ export interface ApiOptions<TBody> {
     prefix?: string;
     failClosed?: boolean;
   };
-  /** Zod schema for the JSON body; failures return 400 VALIDATION_ERROR. */
-  schema?: ZodType<TBody>;
+  /**
+   * Zod schema for the JSON body; failures return 400 VALIDATION_ERROR.
+   * Input is left as unknown so schemas with .default()/.transform()
+   * (input type ≠ output type) still infer TBody from their output.
+   */
+  schema?: ZodType<TBody, ZodTypeDef, unknown>;
 }
 
 type RouteContext = { params: Promise<Record<string, string>> };

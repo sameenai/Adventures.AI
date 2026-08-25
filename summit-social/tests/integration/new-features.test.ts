@@ -660,6 +660,7 @@ describe("POST /api/adventures/enhance-description", () => {
         }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(res.status).toBe(401);
   });
@@ -672,6 +673,7 @@ describe("POST /api/adventures/enhance-description", () => {
         body: JSON.stringify({ title: "" }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(res.status).toBe(400);
   });
@@ -691,6 +693,7 @@ describe("POST /api/adventures/enhance-description", () => {
         }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(res.status).toBe(200);
     const data = await res.json();
@@ -712,6 +715,7 @@ describe("POST /api/adventures/enhance-description", () => {
         }),
         headers: { "Content-Type": "application/json" },
       }),
+      { params: Promise.resolve({}) },
     );
     expect(res.status).toBe(429);
   });

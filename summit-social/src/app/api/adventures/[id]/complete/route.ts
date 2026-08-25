@@ -1,11 +1,7 @@
 import { track } from "@/lib/analytics/track";
-import { authOptions } from "@/lib/auth/config";
-import { RATE_LIMITS } from "@/lib/constants";
+import { withApi } from "@/lib/api/handler";
 import { prisma } from "@/lib/db/prisma";
-import { rateLimit } from "@/lib/db/redis";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import { z } from "zod";
 
 const completeSchema = z.object({
@@ -20,74 +16,59 @@ const completeSchema = z.object({
  * "I did this" — the logbook write that anchors the cadence clock and,
  * aggregated, becomes the adventurer's expedition record.
  */
-export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id: adventureId } = await params;
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
+export const POST = withApi(
+  { rateLimit: { name: "vote", prefix: "adventure:complete" } },
+  async ({ request, userId, params }) => {
+    const adventureId = params.id;
 
-  const rl = await rateLimit(
-    `adventure:complete:${session.user.id}`,
-    RATE_LIMITS.vote.limit,
-    RATE_LIMITS.vote.windowSeconds,
-  );
-  if (!rl.allowed) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
-    );
-  }
+    // A missing or malformed body means "completed today" — never a 400.
+    const body = await request.json().catch(() => ({}));
+    const parsed = completeSchema.safeParse(body ?? {});
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Invalid input", code: "VALIDATION_ERROR" },
+        { status: 400 },
+      );
+    }
 
-  const body = await request.json().catch(() => ({}));
-  const parsed = completeSchema.safeParse(body ?? {});
-  if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid input", code: "VALIDATION_ERROR" }, { status: 400 });
-  }
+    const adventure = await prisma.adventure.findUnique({
+      where: { id: adventureId },
+      select: { id: true, country: true, published: true },
+    });
+    if (!adventure || !adventure.published) {
+      return NextResponse.json(
+        { error: "Adventure not found", code: "NOT_FOUND" },
+        { status: 404 },
+      );
+    }
 
-  const adventure = await prisma.adventure.findUnique({
-    where: { id: adventureId },
-    select: { id: true, country: true, published: true },
-  });
-  if (!adventure || !adventure.published) {
-    return NextResponse.json({ error: "Adventure not found", code: "NOT_FOUND" }, { status: 404 });
-  }
-
-  const startedAt = parsed.data.completedAt ? new Date(parsed.data.completedAt) : new Date();
-  track("trip_logged", { userId: session.user.id, props: { adventureId } });
-  const event = await prisma.tripEvent.upsert({
-    where: {
-      userId_adventureId_source: {
-        userId: session.user.id,
+    const startedAt = parsed.data.completedAt ? new Date(parsed.data.completedAt) : new Date();
+    track("trip_logged", { userId, props: { adventureId } });
+    const event = await prisma.tripEvent.upsert({
+      where: {
+        userId_adventureId_source: {
+          userId,
+          adventureId,
+          source: "MARKED_DONE",
+        },
+      },
+      update: { startedAt },
+      create: {
+        userId,
         adventureId,
         source: "MARKED_DONE",
+        destinationCountry: adventure.country,
+        startedAt,
       },
-    },
-    update: { startedAt },
-    create: {
-      userId: session.user.id,
-      adventureId,
-      source: "MARKED_DONE",
-      destinationCountry: adventure.country,
-      startedAt,
-    },
-  });
+    });
 
-  return NextResponse.json({ completed: true, tripEventId: event.id }, { status: 201 });
-}
+    return NextResponse.json({ completed: true, tripEventId: event.id }, { status: 201 });
+  },
+);
 
-export async function DELETE(
-  _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const { id: adventureId } = await params;
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
-
+export const DELETE = withApi({}, async ({ userId, params }) => {
   await prisma.tripEvent.deleteMany({
-    where: { userId: session.user.id, adventureId, source: "MARKED_DONE" },
+    where: { userId, adventureId: params.id, source: "MARKED_DONE" },
   });
   return NextResponse.json({ completed: false });
-}
+});

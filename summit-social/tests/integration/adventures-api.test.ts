@@ -567,7 +567,7 @@ describe("GET /api/adventures/[id]", () => {
       votes: [],
     });
 
-    const response = await getAdventure(new Request("http://localhost/api/adventures/adv-1"), {
+    const response = await getAdventure(new NextRequest("http://localhost/api/adventures/adv-1"), {
       params: Promise.resolve({ id: "adv-1" }),
     });
     expect(response.status).toBe(200);
@@ -578,7 +578,7 @@ describe("GET /api/adventures/[id]", () => {
   it("returns 404 when adventure not found", async () => {
     (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
 
-    const response = await getAdventure(new Request("http://localhost/api/adventures/missing"), {
+    const response = await getAdventure(new NextRequest("http://localhost/api/adventures/missing"), {
       params: Promise.resolve({ id: "missing" }),
     });
     expect(response.status).toBe(404);
@@ -600,7 +600,7 @@ describe("DELETE /api/adventures/[id]", () => {
     });
     (mockPrisma.adventure.delete as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
-    const response = await deleteAdventure(new Request("http://localhost/api/adventures/adv-1"), {
+    const response = await deleteAdventure(new NextRequest("http://localhost/api/adventures/adv-1"), {
       params: Promise.resolve({ id: "adv-1" }),
     });
     expect(response.status).toBe(204);
@@ -612,7 +612,7 @@ describe("DELETE /api/adventures/[id]", () => {
       userId: "user-1",
     });
 
-    const response = await deleteAdventure(new Request("http://localhost/api/adventures/adv-1"), {
+    const response = await deleteAdventure(new NextRequest("http://localhost/api/adventures/adv-1"), {
       params: Promise.resolve({ id: "adv-1" }),
     });
     expect(response.status).toBe(401);
@@ -622,7 +622,7 @@ describe("DELETE /api/adventures/[id]", () => {
     mockSession("user-1");
     (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
 
-    const response = await deleteAdventure(new Request("http://localhost/api/adventures/missing"), {
+    const response = await deleteAdventure(new NextRequest("http://localhost/api/adventures/missing"), {
       params: Promise.resolve({ id: "missing" }),
     });
     expect(response.status).toBe(404);
@@ -634,7 +634,7 @@ describe("DELETE /api/adventures/[id]", () => {
       userId: "user-1",
     });
 
-    const response = await deleteAdventure(new Request("http://localhost/api/adventures/adv-1"), {
+    const response = await deleteAdventure(new NextRequest("http://localhost/api/adventures/adv-1"), {
       params: Promise.resolve({ id: "adv-1" }),
     });
     expect(response.status).toBe(403);
@@ -664,7 +664,7 @@ describe("POST /api/adventures/[id]/vote", () => {
     );
 
     const response = await voteOnAdventure(
-      new Request("http://localhost/api/adventures/adv-1/vote"),
+      new NextRequest("http://localhost/api/adventures/adv-1/vote"),
       {
         params: Promise.resolve({ id: "adv-1" }),
       },
@@ -689,7 +689,7 @@ describe("POST /api/adventures/[id]/vote", () => {
     );
 
     const response = await voteOnAdventure(
-      new Request("http://localhost/api/adventures/adv-1/vote"),
+      new NextRequest("http://localhost/api/adventures/adv-1/vote"),
       {
         params: Promise.resolve({ id: "adv-1" }),
       },
@@ -703,7 +703,7 @@ describe("POST /api/adventures/[id]/vote", () => {
     noSession();
 
     const response = await voteOnAdventure(
-      new Request("http://localhost/api/adventures/adv-1/vote"),
+      new NextRequest("http://localhost/api/adventures/adv-1/vote"),
       {
         params: Promise.resolve({ id: "adv-1" }),
       },
@@ -716,7 +716,7 @@ describe("POST /api/adventures/[id]/vote", () => {
     mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
 
     const response = await voteOnAdventure(
-      new Request("http://localhost/api/adventures/adv-1/vote"),
+      new NextRequest("http://localhost/api/adventures/adv-1/vote"),
       {
         params: Promise.resolve({ id: "adv-1" }),
       },

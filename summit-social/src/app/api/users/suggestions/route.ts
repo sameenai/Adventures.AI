@@ -1,24 +1,17 @@
-import { authOptions } from "@/lib/auth/config";
+import { withApi } from "@/lib/api/handler";
 import { prisma } from "@/lib/db/prisma";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-export async function GET(request: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-  }
-
+export const GET = withApi({}, async ({ request, userId }) => {
   const { searchParams } = request.nextUrl;
   const category = searchParams.get("category") ?? undefined;
 
   // Get IDs of users already followed
   const following = await prisma.follow.findMany({
-    where: { followerId: session.user.id },
+    where: { followerId: userId },
     select: { followingId: true },
   });
-  const followingIds = new Set([session.user.id, ...following.map((f) => f.followingId)]);
+  const followingIds = new Set([userId, ...following.map((f) => f.followingId)]);
 
   // Find active users in same category (most votes)
   const suggestions = await prisma.user.findMany({
@@ -42,4 +35,4 @@ export async function GET(request: NextRequest) {
   });
 
   return NextResponse.json(suggestions);
-}
+});

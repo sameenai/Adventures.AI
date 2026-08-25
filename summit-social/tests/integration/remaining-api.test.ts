@@ -338,7 +338,7 @@ describe("POST /api/users/[id]/follow", () => {
   it("returns 401 when unauthenticated", async () => {
     noSession();
     const response = await followUser(
-      new Request("http://localhost/api/users/user-2/follow", { method: "POST" }),
+      new NextRequest("http://localhost/api/users/user-2/follow", { method: "POST" }),
       { params: Promise.resolve({ id: "user-2" }) },
     );
     expect(response.status).toBe(401);
@@ -347,7 +347,7 @@ describe("POST /api/users/[id]/follow", () => {
   it("returns 400 when following yourself", async () => {
     mockSession("user-1");
     const response = await followUser(
-      new Request("http://localhost/api/users/user-1/follow", { method: "POST" }),
+      new NextRequest("http://localhost/api/users/user-1/follow", { method: "POST" }),
       { params: Promise.resolve({ id: "user-1" }) },
     );
     expect(response.status).toBe(400);
@@ -357,7 +357,7 @@ describe("POST /api/users/[id]/follow", () => {
     mockSession("user-1");
     mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
     const response = await followUser(
-      new Request("http://localhost/api/users/user-2/follow", { method: "POST" }),
+      new NextRequest("http://localhost/api/users/user-2/follow", { method: "POST" }),
       { params: Promise.resolve({ id: "user-2" }) },
     );
     expect(response.status).toBe(429);
@@ -373,7 +373,7 @@ describe("POST /api/users/[id]/follow", () => {
     (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
     const response = await followUser(
-      new Request("http://localhost/api/users/user-2/follow", { method: "POST" }),
+      new NextRequest("http://localhost/api/users/user-2/follow", { method: "POST" }),
       { params: Promise.resolve({ id: "user-2" }) },
     );
 
@@ -393,7 +393,7 @@ describe("POST /api/users/[id]/follow", () => {
     (mockPrisma.follow.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue({ id: "f-1" });
     (mockPrisma.follow.upsert as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
-    await followUser(new Request("http://localhost/api/users/user-2/follow", { method: "POST" }), {
+    await followUser(new NextRequest("http://localhost/api/users/user-2/follow", { method: "POST" }), {
       params: Promise.resolve({ id: "user-2" }),
     });
 
@@ -405,7 +405,7 @@ describe("POST /api/users/[id]/follow", () => {
     (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
 
     const response = await followUser(
-      new Request("http://localhost/api/users/missing/follow", { method: "POST" }),
+      new NextRequest("http://localhost/api/users/missing/follow", { method: "POST" }),
       { params: Promise.resolve({ id: "missing" }) },
     );
     expect(response.status).toBe(404);
@@ -418,7 +418,7 @@ describe("DELETE /api/users/[id]/follow", () => {
   it("returns 401 when unauthenticated", async () => {
     noSession();
     const response = await unfollowUser(
-      new Request("http://localhost/api/users/user-2/follow", { method: "DELETE" }),
+      new NextRequest("http://localhost/api/users/user-2/follow", { method: "DELETE" }),
       { params: Promise.resolve({ id: "user-2" }) },
     );
     expect(response.status).toBe(401);
@@ -429,7 +429,7 @@ describe("DELETE /api/users/[id]/follow", () => {
     (mockPrisma.follow.deleteMany as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
     const response = await unfollowUser(
-      new Request("http://localhost/api/users/user-2/follow", { method: "DELETE" }),
+      new NextRequest("http://localhost/api/users/user-2/follow", { method: "DELETE" }),
       { params: Promise.resolve({ id: "user-2" }) },
     );
     expect(response.status).toBe(200);
@@ -447,7 +447,7 @@ describe("POST /api/adventures/[id]/vote", () => {
   it("returns 401 when unauthenticated", async () => {
     noSession();
     const response = await voteAdventure(
-      new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
     expect(response.status).toBe(401);
@@ -457,7 +457,7 @@ describe("POST /api/adventures/[id]/vote", () => {
     mockSession();
     mockRateLimit.mockResolvedValueOnce({ allowed: false, retryAfter: 30 });
     const response = await voteAdventure(
-      new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
     expect(response.status).toBe(429);
@@ -480,7 +480,7 @@ describe("POST /api/adventures/[id]/vote", () => {
     );
 
     const response = await voteAdventure(
-      new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
     expect(response.status).toBe(200);
@@ -504,7 +504,7 @@ describe("POST /api/adventures/[id]/vote", () => {
     (mockPrisma.notification.create as ReturnType<typeof vi.fn>).mockResolvedValue({});
 
     const response = await voteAdventure(
-      new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
 
@@ -532,7 +532,7 @@ describe("POST /api/adventures/[id]/vote", () => {
       },
     );
     const response = await voteAdventure(
-      new Request("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/vote", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
 
@@ -551,6 +551,7 @@ describe("GET /api/users/suggestions", () => {
     noSession();
     const response = await getUserSuggestions(
       new NextRequest("http://localhost/api/users/suggestions"),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(401);
   });
@@ -566,6 +567,7 @@ describe("GET /api/users/suggestions", () => {
 
     const response = await getUserSuggestions(
       new NextRequest("http://localhost/api/users/suggestions"),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(200);
     const data = await response.json();
@@ -580,6 +582,7 @@ describe("GET /api/users/suggestions", () => {
 
     const response = await getUserSuggestions(
       new NextRequest("http://localhost/api/users/suggestions"),
+      { params: Promise.resolve({}) },
     );
     expect(response.status).toBe(200);
     const data = await response.json();
@@ -593,6 +596,7 @@ describe("GET /api/users/suggestions", () => {
 
     await getUserSuggestions(
       new NextRequest("http://localhost/api/users/suggestions?category=TREKKING"),
+      { params: Promise.resolve({}) },
     );
 
     const call = (mockPrisma.user.findMany as ReturnType<typeof vi.fn>).mock.calls[0][0];
@@ -938,7 +942,7 @@ describe("POST /api/adventures/[id]/duplicate", () => {
   it("returns 401 when unauthenticated", async () => {
     noSession();
     const response = await duplicateAdventure(
-      new Request("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
     expect(response.status).toBe(401);
@@ -948,7 +952,7 @@ describe("POST /api/adventures/[id]/duplicate", () => {
     mockSession("user-1");
     (mockPrisma.adventure.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
     const response = await duplicateAdventure(
-      new Request("http://localhost/api/adventures/missing/duplicate", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/missing/duplicate", { method: "POST" }),
       { params: Promise.resolve({ id: "missing" }) },
     );
     expect(response.status).toBe(404);
@@ -960,7 +964,7 @@ describe("POST /api/adventures/[id]/duplicate", () => {
       originalAdventure,
     );
     const response = await duplicateAdventure(
-      new Request("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
     expect(response.status).toBe(403);
@@ -980,7 +984,7 @@ describe("POST /api/adventures/[id]/duplicate", () => {
     });
 
     const response = await duplicateAdventure(
-      new Request("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
 
@@ -1004,7 +1008,7 @@ describe("POST /api/adventures/[id]/duplicate", () => {
     });
 
     await duplicateAdventure(
-      new Request("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/adv-1/duplicate", { method: "POST" }),
       { params: Promise.resolve({ id: "adv-1" }) },
     );
 
@@ -1608,7 +1612,7 @@ describe("GET /api/users/[id]", () => {
       _count: { adventures: 0, votes: 0 },
     });
 
-    const response = await getUser(new Request("http://localhost/api/users/user-1"), {
+    const response = await getUser(new NextRequest("http://localhost/api/users/user-1"), {
       params: Promise.resolve({ id: "user-1" }),
     });
 
@@ -1621,7 +1625,7 @@ describe("GET /api/users/[id]", () => {
   it("returns 404 when user not found", async () => {
     (mockPrisma.user.findUnique as ReturnType<typeof vi.fn>).mockResolvedValue(null);
 
-    const response = await getUser(new Request("http://localhost/api/users/missing"), {
+    const response = await getUser(new NextRequest("http://localhost/api/users/missing"), {
       params: Promise.resolve({ id: "missing" }),
     });
 

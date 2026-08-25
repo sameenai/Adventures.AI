@@ -1,5 +1,6 @@
 // Tests for POST/DELETE /api/adventures/[id]/bookmark
 import { describe, it, expect, vi, afterEach } from "vitest";
+import { NextRequest } from "next/server";
 
 vi.mock("next-auth", () => ({ getServerSession: vi.fn() }));
 vi.mock("@/lib/db/redis", () => ({
@@ -50,14 +51,14 @@ afterEach(() => {
 describe("POST /api/adventures/[id]/bookmark", () => {
   it("returns 401 when not authenticated", async () => {
     mockGetSession.mockResolvedValue(null);
-    const res = await POST(new Request("http://localhost"), makeParams("adv-1"));
+    const res = await POST(new NextRequest("http://localhost"), makeParams("adv-1"));
     expect(res.status).toBe(401);
   });
 
   it("returns 404 when adventure does not exist", async () => {
     mockSession();
     mockAdventure.findUnique.mockResolvedValue(null);
-    const res = await POST(new Request("http://localhost"), makeParams("adv-1"));
+    const res = await POST(new NextRequest("http://localhost"), makeParams("adv-1"));
     expect(res.status).toBe(404);
   });
 
@@ -67,7 +68,7 @@ describe("POST /api/adventures/[id]/bookmark", () => {
     mockUser.findUnique.mockResolvedValue({ plan: "FREE" });
     mockBookmark.count.mockResolvedValue(0);
     mockBookmark.upsert.mockResolvedValue({});
-    const res = await POST(new Request("http://localhost"), makeParams("adv-1"));
+    const res = await POST(new NextRequest("http://localhost"), makeParams("adv-1"));
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.bookmarked).toBe(true);
@@ -83,7 +84,7 @@ describe("POST /api/adventures/[id]/bookmark", () => {
     mockAdventure.findUnique.mockResolvedValue({ id: "adv-1" });
     mockUser.findUnique.mockResolvedValue({ plan: "FREE" });
     mockBookmark.count.mockResolvedValue(20); // at the limit
-    const res = await POST(new Request("http://localhost"), makeParams("adv-1"));
+    const res = await POST(new NextRequest("http://localhost"), makeParams("adv-1"));
     expect(res.status).toBe(402);
     const data = await res.json();
     expect(data.code).toBe("UPGRADE_REQUIRED");
@@ -96,7 +97,7 @@ describe("POST /api/adventures/[id]/bookmark", () => {
     mockUser.findUnique.mockResolvedValue({ plan: "PRO" });
     mockBookmark.count.mockResolvedValue(50); // well above free limit
     mockBookmark.upsert.mockResolvedValue({});
-    const res = await POST(new Request("http://localhost"), makeParams("adv-1"));
+    const res = await POST(new NextRequest("http://localhost"), makeParams("adv-1"));
     expect(res.status).toBe(200);
     expect(mockBookmark.upsert).toHaveBeenCalled();
   });
@@ -108,14 +109,14 @@ describe("POST /api/adventures/[id]/bookmark", () => {
 describe("DELETE /api/adventures/[id]/bookmark", () => {
   it("returns 401 when not authenticated", async () => {
     mockGetSession.mockResolvedValue(null);
-    const res = await DELETE(new Request("http://localhost"), makeParams("adv-1"));
+    const res = await DELETE(new NextRequest("http://localhost"), makeParams("adv-1"));
     expect(res.status).toBe(401);
   });
 
   it("deletes bookmark and returns bookmarked=false", async () => {
     mockSession();
     mockBookmark.deleteMany.mockResolvedValue({ count: 1 });
-    const res = await DELETE(new Request("http://localhost"), makeParams("adv-1"));
+    const res = await DELETE(new NextRequest("http://localhost"), makeParams("adv-1"));
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.bookmarked).toBe(false);

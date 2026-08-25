@@ -1,6 +1,7 @@
 // The bug classes an all-mock suite is structurally blind to:
 // unique-constraint races and denormalized-counter drift under concurrency.
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { NextRequest } from "next/server";
 
 vi.mock("next-auth", () => ({ getServerSession: vi.fn() }));
 vi.mock("@/lib/auth/config", () => ({ authOptions: {} }));
@@ -41,7 +42,7 @@ describe("vote toggle under real concurrency", () => {
   it("five concurrent votes leave a consistent vote row + counter", async () => {
     const responses = await Promise.all(
       Array.from({ length: 5 }, () =>
-        vote(new Request("http://localhost/api/adventures/x/vote", { method: "POST" }), {
+        vote(new NextRequest("http://localhost/api/adventures/x/vote", { method: "POST" }), {
           params: Promise.resolve({ id: adventureId }),
         }),
       ),
@@ -61,13 +62,13 @@ describe("vote toggle under real concurrency", () => {
 
   it("sequential toggle: vote then unvote returns to zero, in sync", async () => {
     const first = await vote(
-      new Request("http://localhost/api/adventures/x/vote", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/x/vote", { method: "POST" }),
       { params: Promise.resolve({ id: adventureId }) },
     );
     expect((await first.json()).voted).toBe(true);
 
     const second = await vote(
-      new Request("http://localhost/api/adventures/x/vote", { method: "POST" }),
+      new NextRequest("http://localhost/api/adventures/x/vote", { method: "POST" }),
       { params: Promise.resolve({ id: adventureId }) },
     );
     expect((await second.json()).voted).toBe(false);
