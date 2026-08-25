@@ -6,8 +6,15 @@ const globalForRedis = globalThis as unknown as { redis: Redis | undefined };
 export const redis =
   globalForRedis.redis ??
   new Redis(process.env.REDIS_URL ?? "redis://localhost:6379", {
-    maxRetriesPerRequest: 3,
+    maxRetriesPerRequest: 1,
+    connectTimeout: 1000,
+    commandTimeout: 1000,
+    enableOfflineQueue: false,
     lazyConnect: true,
+    retryStrategy(times) {
+      if (times > 2) return null;
+      return Math.min(times * 200, 1000);
+    },
   });
 
 if (process.env.NODE_ENV !== "production") {
@@ -15,8 +22,8 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 let consecutiveFailures = 0;
-const CIRCUIT_BREAKER_THRESHOLD = 5;
-const CIRCUIT_BREAKER_RESET_MS = 30_000;
+const CIRCUIT_BREAKER_THRESHOLD = 3;
+const CIRCUIT_BREAKER_RESET_MS = 10_000;
 let circuitOpenUntil = 0;
 
 function isCircuitOpen(): boolean {

@@ -79,6 +79,28 @@ make deploy-gcp
 
 Do not skip this step. If the deploy fails, report the error before ending the session.
 
+## Orchestration & Quality
+
+**Always use ultracode mode with maximum parallel agents.** Every substantive task should be
+orchestrated via dynamic workflows with full fan-out. Do not ask — just run workflows for any
+non-trivial work (audits, implementations, reviews, testing).
+
+**Performance is a hard requirement.** Every page must render in <2 seconds on production. Any
+external service (Redis, OpenAI, Stripe, flight APIs) that is unreachable must fail fast (<500ms)
+with graceful degradation — never hang. Server components must not block on optional services.
+
+**Pre-deploy validation checklist** (run before every `make deploy-gcp`):
+1. `npm run test:unit && npm run test:integration` — all pass
+2. `npm run build` — production build succeeds
+3. Playwright smoke test: all critical paths render within 5s budget
+4. No env vars pointing to unreachable services (VPC IPs without connector, placeholder values)
+
+**Resilience rules for external services:**
+- Redis: connection timeout ≤ 1s, circuit breaker trips after 3 failures (not 5), fail-open for reads
+- OpenAI: timeout ≤ 30s, graceful "AI unavailable" message on failure
+- Flight APIs: timeout ≤ 10s per provider, return partial results on partial failure
+- All optional secrets: if not set or placeholder, skip silently — never crash the app
+
 ## Architecture
 
 ### Repository layout
