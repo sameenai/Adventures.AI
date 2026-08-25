@@ -16,6 +16,7 @@ import { logger } from "@/lib/logger";
 export type EventName =
   | "signup"
   | "chat_message"
+  | "feedback_submitted"
   | "itinerary_created"
   | "flight_searched"
   | "flight_saved"

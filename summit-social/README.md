@@ -76,7 +76,9 @@ acceptance), `Follow`, `Notification`.
 **Planning & booking** — `Itinerary` (AI `chatHistory` JSON; status
 `DRAFT → PLANNING → BOOKED → COMPLETED`, event-driven), `ItineraryDay`, `FlightBooking`
 (state machine `SELECTED → PRICE_CONFIRMED → PAID → TICKETED`, terminal
-`CANCELLED`/`REFUNDED`; passengers/segments JSON, Stripe payment-intent ref).
+`CANCELLED`/`REFUNDED`; passengers/segments JSON, Stripe payment-intent ref),
+`MessageFeedback` (a thumbs rating on one assistant reply with a conversation snapshot up to
+that reply; `exportedAt` marks rows already turned into eval candidates; cascades with the user).
 
 **Retention & cadence** — `TravelerProfile` (cadence months, budget band, difficulty ceiling,
 home airport), `TripEvent` (the "last trip" anchor: `MARKED_DONE` today, booking sources later),
@@ -109,7 +111,7 @@ per-user rate limits, fail-closed on cost-bearing routes). New routes use `withA
 |------|--------|
 | Catalog | `/api/adventures` (cursor-paginated list) · `/api/adventures/[id]` · `/api/adventures/[id]/vote` · `/api/adventures/[id]/bookmark` · `/api/adventures/[id]/comments` · `/api/adventures/[id]/comments/[commentId]` · `/api/adventures/[id]/comments/[commentId]/react` · `/api/adventures/[id]/view` · `/api/adventures/[id]/publish` · `/api/adventures/[id]/duplicate` · `/api/adventures/enhance-description` (AI rewrite) |
 | Trip log & cadence | `/api/adventures/[id]/complete` (✓ I did this) · `/api/user/traveler-profile` (preferences + email opt-in) |
-| AI planner | `/api/chat` (streaming agent loop, credit-metered) |
+| AI planner | `/api/chat` (streaming agent loop, credit-metered) · `/api/chat/feedback` (thumbs on an assistant reply, stored with its conversation snapshot) |
 | Flights & booking | `/api/flights` (aggregated search) · `/api/itineraries/[id]/flights` (save an offer) · `/api/bookings/[id]/reprice` (fare re-validation) · `/api/bookings/[id]/checkout` (Stripe payment) |
 | Itineraries | `/api/itineraries` · `/api/itineraries/[id]` |
 | Collections | `/api/collections` · `/api/collections/[id]` · `/api/collections/[id]/items` |
@@ -141,6 +143,10 @@ fails and the assistant must degrade honestly —
 keeps 9 deliberately-flawed adversarial transcripts failing (teeth-check), and hashes the entire
 prompt/tool/model surface — any change forces a live re-certification (`npm run eval:live`)
 before the replay baseline is trusted again. CI runs `npm run eval` on every PR.
+
+Production closes the loop: every assistant reply carries thumbs up/down in the chat window, and
+a rating lands in `MessageFeedback` with a snapshot of the conversation up to that reply (plus an
+optional comment on a thumbs down). DOWN ratings are the raw material for new eval cases.
 
 ## 6. The booking rail
 
@@ -177,8 +183,9 @@ In production the envelope also logs every request in the Cloud Logging `httpReq
 upserts them; see RUNBOOK.md for triage.
 
 Product analytics is server-side-first (`src/lib/analytics/track.ts`): funnel events — signup,
-chat_message, itinerary_created, flight_searched, flight_saved, fare_repriced, checkout_started,
-payment_succeeded, booking_refunded, pro_subscribed, pro_cancelled, bookmark_added, trip_logged,
+chat_message, feedback_submitted, itinerary_created, flight_searched, flight_saved,
+fare_repriced, checkout_started, payment_succeeded, booking_refunded, pro_subscribed,
+pro_cancelled, bookmark_added, trip_logged,
 cadence_email_sent — are captured at the write path or webhook where they become true. The one
 client signal is a page_view beacon (`PageViewPing`): no cookies, no fingerprinting, DNT/GPC
 respected, dynamic path segments normalised before sending. Query with SQL over `AnalyticsEvent`.

@@ -6,6 +6,7 @@ import type { ChatMessage } from "@/types";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { FeedbackButtons } from "./feedback-buttons";
 import { MessageBubble } from "./message-bubble";
 import { TypingIndicator } from "./typing-indicator";
 
@@ -122,21 +123,29 @@ export function ChatWindow({ itineraryId, initialMessages = [], initialPrompt }:
           </div>
         )}
         {messages.map((message, idx) => (
-          <MessageBubble
-            key={message.id}
-            message={message}
-            onRetry={
-              message.isError && idx >= 2
-                ? () => {
-                    const lastUserMsg = messages
-                      .slice(0, idx)
-                      .filter((m) => m.role === "user")
-                      .pop();
-                    if (lastUserMsg) sendMessage(lastUserMsg.content);
-                  }
-                : undefined
-            }
-          />
+          <div key={message.id}>
+            <MessageBubble
+              message={message}
+              onRetry={
+                message.isError && idx >= 2
+                  ? () => {
+                      const lastUserMsg = messages
+                        .slice(0, idx)
+                        .filter((m) => m.role === "user")
+                        .pop();
+                      if (lastUserMsg) sendMessage(lastUserMsg.content);
+                    }
+                  : undefined
+              }
+            />
+            {/* Thumbs on settled assistant replies — the AI quality loop's input. */}
+            {message.role === "assistant" &&
+              !message.isError &&
+              activeItineraryId &&
+              !(isStreaming && idx === messages.length - 1) && (
+                <FeedbackButtons itineraryId={activeItineraryId} message={message} />
+              )}
+          </div>
         ))}
         {isStreaming && <TypingIndicator />}
         {limitReached && (

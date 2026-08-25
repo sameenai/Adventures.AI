@@ -8,6 +8,7 @@ export const PAGINATION_MAX_LIMIT = 100;
 
 export const RATE_LIMITS = {
   chat: { limit: 30, windowSeconds: 3600 },
+  feedback: { limit: 60, windowSeconds: 3600 },
   vote: { limit: 60, windowSeconds: 3600 },
   flightSearch: { limit: 20, windowSeconds: 3600 },
   adventureCreate: { limit: 10, windowSeconds: 3600 },
