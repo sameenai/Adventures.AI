@@ -44,6 +44,7 @@ model User {
   collections      Collection[]
   flightBookings   FlightBooking[]
   emailLogs        EmailLog[]
+  analyticsEvents  AnalyticsEvent[]
   travelerProfile  TravelerProfile?
   tripEvents       TripEvent[]
   searchEvents     SearchEvent[]
@@ -389,6 +390,24 @@ enum EmailStatus {
   SENT
   FAILED
   SKIPPED
+}
+
+// Product analytics: one row per funnel event, captured server-side at the
+// moment the thing actually happened (payment via webhook, not button click).
+// Signed-in events key on the user (cascade-deleted with the account);
+// anonymous client events carry only the daily-rotating salted viewer key.
+// Props hold small primitive facts, never free text or PII.
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  name      String
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anonId    String?
+  props     Json?
+  createdAt DateTime @default(now())
+
+  @@index([name, createdAt(sort: Desc)])
+  @@index([userId, createdAt(sort: Desc)])
 }
 
 model JobRun {
