@@ -48,6 +48,11 @@
   --color-amber-400: var(--bc-accent-400);
   --color-amber-500: var(--bc-accent-500);
   --color-amber-600: var(--bc-accent-600);
+
+  /* Ghost: decorative display-size text (>=24px). Holds the 3:1 large-text
+     AA minimum in both themes while staying visibly quieter than the muted
+     text tiers. Never use at body sizes. */
+  --color-ghost: var(--bc-ghost);
 }
 
 @layer base {
@@ -62,9 +67,12 @@
     --bc-stone-100: #2e2924;
     --bc-stone-200: #3e3a34;
     --bc-stone-300: #5c5650;
-    --bc-stone-400: #7a7470;
-    --bc-stone-500: #9a9490;
-    --bc-stone-600: #b8b2ac;
+    /* 400-600 are the muted TEXT tiers — every value here holds >=4.5:1 on
+       the paper bg AND the stone-900 card bg (WCAG AA). 700+ are decorative
+       (borders, fills) and must never carry text. */
+    --bc-stone-400: #6b6560;
+    --bc-stone-500: #716b65;
+    --bc-stone-600: #767069;
     --bc-stone-700: #d4cec8;
     --bc-stone-800: #e2ddd8;
     --bc-stone-900: #ede8e2;
@@ -73,6 +81,8 @@
     --bc-accent-400: #4a7a65;
     --bc-accent-500: #2c4a3e;
     --bc-accent-600: #1e3329;
+
+    --bc-ghost: #948e88;
 
     --dot-opacity: 0.06;
   }
@@ -88,8 +98,9 @@
     --bc-stone-200: #e7e5e4;
     --bc-stone-300: #d6d3d1;
     --bc-stone-400: #a8a29e;
-    --bc-stone-500: #78716c;
-    --bc-stone-600: #57534e;
+    /* Text tiers hold >=4.5:1 on the near-black bg and stone-900 cards. */
+    --bc-stone-500: #8b847e;
+    --bc-stone-600: #837c76;
     --bc-stone-700: #44403c;
     --bc-stone-800: #2e2a27;
     --bc-stone-900: #1e1a17;
@@ -98,6 +109,8 @@
     --bc-accent-400: #5a9e82;
     --bc-accent-500: #3d7a62;
     --bc-accent-600: #2c5a48;
+
+    --bc-ghost: #6e6862;
 
     --dot-opacity: 0.07;
   }

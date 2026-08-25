@@ -216,7 +216,7 @@ export default async function AdventuresPage({
       <div className="mx-auto max-w-7xl px-6 pb-10 pt-6 lg:px-8">
         {/* Category filters */}
         <div className="flex flex-wrap items-center gap-2">
-          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
             Category
           </span>
           <Link
@@ -238,7 +238,7 @@ export default async function AdventuresPage({
 
         {/* Duration quick-filters */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
             Duration
           </span>
           {(
@@ -263,7 +263,7 @@ export default async function AdventuresPage({
                 }`}
               >
                 {label}
-                <span className="font-mono text-[9px] normal-case tracking-normal opacity-60">
+                <span className="font-mono text-[9px] normal-case tracking-normal text-stone-500">
                   {sub}
                 </span>
               </Link>
@@ -273,7 +273,7 @@ export default async function AdventuresPage({
 
         {/* Difficulty quick-filters */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
             Level
           </span>
           {DIFFICULTIES.map((diff) => {
@@ -296,7 +296,7 @@ export default async function AdventuresPage({
 
         {/* Continent quick-filters */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
             Continent
           </span>
           {CONTINENTS.map((continent) => (
@@ -312,7 +312,7 @@ export default async function AdventuresPage({
 
         {/* Climate quick-filters */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
             Climate
           </span>
           {(
@@ -334,7 +334,7 @@ export default async function AdventuresPage({
 
         {/* Month quick-filters */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700">
+          <span className="pr-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
             Season
           </span>
           {(

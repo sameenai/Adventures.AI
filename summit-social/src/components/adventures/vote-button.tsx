@@ -43,7 +43,7 @@ export function VoteButton({ adventureId, voteCount, hasVoted, disabled }: VoteB
           href={`/login?callbackUrl=${encodeURIComponent(pathname ?? "/")}`}
           title="Sign in to vote"
           aria-label="Sign in to vote"
-          className="flex items-center gap-1.5 border border-stone-700 px-2.5 py-1 font-mono text-xs text-stone-500 opacity-40 transition-all hover:border-amber-500 hover:text-amber-500 hover:opacity-100"
+          className="flex items-center gap-1.5 border border-stone-700 px-2.5 py-1 font-mono text-xs text-stone-500 transition-all hover:border-amber-500 hover:text-amber-500"
         >
           <VoteIcon />
           {voteCount}

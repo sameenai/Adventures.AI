@@ -166,7 +166,12 @@ export default async function LandingPage() {
           <div className="grid sm:grid-cols-3 sm:divide-x sm:divide-stone-800">
             {FEATURES.map(({ num, title, body }) => (
               <div key={num} className="px-0 py-14 sm:px-10 sm:first:pl-0 sm:last:pr-0">
-                <div className="font-display text-5xl font-light leading-none tracking-[-1px] text-stone-800">
+                {/* Decorative numeral: aria-hidden (the heading carries the
+                    order) and the ghost token holds the 3:1 large-text AA line. */}
+                <div
+                  aria-hidden="true"
+                  className="font-display text-5xl font-light leading-none tracking-[-1px] text-ghost"
+                >
                   {num}
                 </div>
                 <h3 className="mt-4 font-display text-2xl font-light text-stone-100">{title}</h3>
