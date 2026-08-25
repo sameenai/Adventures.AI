@@ -91,7 +91,9 @@ when "no emails went out last night". Cadence emails go only to users with
   truth — 5xx rate, p95 latency over the 2s budget, ERROR-log spikes, and
   uptime on `/api/health`. `make alerts-setup` upserts the policies and
   provisions the uptime check; attach notification channels once in the
-  console. Edit the JSON, re-run the target, done.
+  console — they survive re-runs because the target captures each policy's
+  channels before the update and re-attaches them after. Edit the JSON,
+  re-run the target, done.
 - Watch: 5xx rate on `/api/chat` (OpenAI incidents), 429 spikes (Redis
   down ⇒ fail-closed), `EmailLog.status=FAILED` counts, `JobRun` failures,
   Stripe webhook 4xx (signature/secret drift).

@@ -127,8 +127,11 @@ scheduler-setup:
 # Monitoring alerts as code (ops/alerts/*.json = the source of truth).
 # Upserts every policy by displayName, and provisions the uptime check the
 # uptime-health policy consumes. Notification channels are attached once in
-# the console (email/Slack) — policies pick them up on the next run via
-# `gcloud alpha monitoring policies update`. Idempotent; re-run after edits.
+# the console (email/Slack) and survive re-runs: `policies update
+# --policy-from-file` replaces the whole policy (the JSON carries no
+# notificationChannels), so the target captures each policy's channels
+# before updating and re-attaches them afterwards. Idempotent; re-run
+# after edits.
 # ---------------------------------------------------------------------------
 alerts-setup:
 	@for f in ops/alerts/*.json; do \
@@ -139,8 +142,18 @@ alerts-setup:
 			--format="value(name)"); \
 		if [ -n "$$existing" ]; then \
 			echo "→ Updating policy: $$dn"; \
+			channels=$$(gcloud alpha monitoring policies describe "$$existing" \
+				--project=$(GCP_PROJECT) \
+				--format="value(notificationChannels)"); \
 			gcloud alpha monitoring policies update "$$existing" \
 				--project=$(GCP_PROJECT) --policy-from-file="$$f" --quiet; \
+			if [ -n "$$channels" ]; then \
+				channels=$$(printf '%s' "$$channels" | tr ';' ','); \
+				echo "→ Re-attaching notification channels: $$channels"; \
+				gcloud alpha monitoring policies update "$$existing" \
+					--project=$(GCP_PROJECT) \
+					--add-notification-channels="$$channels" --quiet; \
+			fi; \
 		else \
 			echo "→ Creating policy: $$dn"; \
 			gcloud alpha monitoring policies create \
