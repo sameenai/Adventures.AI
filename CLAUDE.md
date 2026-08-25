@@ -101,6 +101,11 @@ with graceful degradation — never hang. Server components must not block on op
 - Flight APIs: timeout ≤ 10s per provider, return partial results on partial failure
 - All optional secrets: if not set or placeholder, skip silently — never crash the app
 
+**Documentation freshness:** Before opening any PR that adds/removes features, routes, models, or
+changes architecture, update the relevant README sections (root `README.md` and any subsystem
+READMEs like `evals/README.md`, `services/flight-search/README.md`). The README is the onboarding
+surface — it must always reflect current state. Verify with a quick scan before `gh pr create`.
+
 ## Architecture
 
 ### Repository layout
