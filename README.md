@@ -1,318 +1,71 @@
 # Basecamper
 
-AI-powered expedition planning and social discovery platform. Discover world-class adventure routes, plan trips with an AI assistant, compare flights across providers, and share your journeys with a community of serious adventurers.
+**The adventure-travel platform Booking.com can't be.** Discover 789 curated expeditions across
+7 continents, plan trips with an AI agent that searches real catalogs and live fares, save and pay
+for flights, and get told when you're due your next adventure — based on your own travel rhythm.
 
 **Live at [basecamper.ai](https://basecamper.ai)**
 
----
+## Repository map
 
-## Repository Structure
+| Path | What it is |
+|------|-----------|
+| `summit-social/` | The main product: a Next.js 15 full-stack app (web UI + API + AI agent + payments). **Start with [`summit-social/README.md`](summit-social/README.md)** — the complete codebase guide: architecture, data model, full API surface, testing, env matrix. |
+| `services/flight-search/` | Rust (Axum) flight-search service — the first strangler-pattern backend extraction. Opt-in via `FLIGHT_SERVICE_URL`; falls back in-process on any failure. See [`services/flight-search/README.md`](services/flight-search/README.md). |
+| `summit-social/evals/` | The AI eval harness: golden replays, adversarial teeth-checks, deterministic graders, and a prompt-surface hash gate. See [`summit-social/evals/README.md`](summit-social/evals/README.md). |
+| `RUNBOOK.md` | Production operations: deploy, secrets matrix, scheduled jobs, incident playbook. |
+| `CLAUDE.md` | Working conventions for AI-assisted development (commit style, hooks, workflow, resilience rules). |
+| `.github/workflows/` | CI (`ci.yml`), gated Cloud Run deploy (`deploy.yml`), weekly live evals (`evals-live.yml`). |
 
-```
-.
-├── summit-social/              # Next.js 15 full-stack web application
-├── services/flight-search/     # Rust (Axum) flight-search microservice
-├── .github/workflows/          # CI (lint, test, deploy) + eval pipelines
-└── CLAUDE.md                   # AI coding assistant instructions
-```
+## Quick start
 
-| Service | Language | Purpose |
-|---------|----------|---------|
-| `summit-social/` | TypeScript | Main app — UI, API, AI chat, payments |
-| `services/flight-search/` | Rust | Amadeus + Skyscanner flight aggregation (strangler extraction) |
-
----
-
-## Quick Start
-
-### Prerequisites
+**No Docker required** — local dev uses Homebrew-managed services.
 
 | Tool | Version | Install |
 |------|---------|---------|
-| Node.js | 22+ | `brew install node` |
+| Node.js | 20+ | `brew install node` |
 | PostgreSQL | 16 | `brew install postgresql@16` |
 | Redis | 7 | `brew install redis` |
 
-**No Docker required.** Local dev uses Homebrew-managed services.
-
-### Setup
-
 ```bash
 cd summit-social
-make setup    # Install deps, start Postgres/Redis, create DB, migrate, seed
-make run      # Start dev server at http://localhost:3000
+make setup    # install deps, start Postgres/Redis, create DB, migrate, seed
+make run      # start everything + the Next.js dev server at http://localhost:3000
 ```
 
-### Local Sign-In
+Sign in with the **local dev login** (any email, password `dev` — creates the account on the fly;
+seeded users `alex@`, `maya@`, `james@basecamper.ai` also work). Dev login is enabled by
+`ENABLE_DEV_LOGIN=true` locally and compile-gated out of production, where Google OAuth is the
+way in. `npm run db:studio` opens Prisma Studio at http://localhost:5555.
 
-No OAuth keys needed. On the login page, use the **Local Dev** form:
-- **Email**: any address (creates account on the fly)
-- **Password**: `dev`
+Everything external is optional locally and degrades gracefully: without `OPENAI_API_KEY` the
+planner streams a demo itinerary; without flight-provider keys you get clearly-mock offers;
+without `STRIPE_SECRET_KEY` pay routes return 503; without `RESEND_API_KEY` emails are recorded
+(`EmailLog`) but not sent. The full commands reference and environment matrix live in
+[`summit-social/README.md`](summit-social/README.md) §9–10.
 
-Seeded users: `alex@basecamper.ai`, `maya@basecamper.ai`, `james@basecamper.ai`
+## The product in one paragraph
 
----
+A user browses the **adventure catalog** (deduplicated, price-audited, seasonal metadata),
+bookmarks a bucket list, and asks the **AI planner** for a trip. The agent searches the catalog and
+live fares, builds a day-by-day itinerary, and can **stage a chosen flight** on the trip — the user
+then confirms the re-validated fare and **pays through Stripe**, flipping the itinerary to BOOKED
+with a confirmation email. Marking trips "✓ I did this" anchors the **travel-cadence engine**,
+which recommends the next seasonal window from the user's own signals and — with consent — emails
+"your next trip window opens in March". Community features (votes, comments, collections, follows)
+feed the same taste profile.
 
-## Environment Variables
+## Engineering posture
 
-`make setup` generates `.env` from `.env.example` automatically.
+- **Tests gate everything**: 1,100+ mocked unit/integration tests with coverage thresholds, a
+  real-Postgres/Redis tier, Playwright e2e on desktop **and** mobile viewports with accessibility
+  and performance gates, Rust `fmt`/`clippy`/`test`, and an AI eval regression suite — all on
+  every PR.
+- **Honesty by construction**: the AI cannot claim a booking it didn't make (eval-graded), mock
+  data never masquerades as real, rate limits fail closed on cost-bearing routes (chat, flights,
+  checkout) while reads fail open behind a circuit breaker.
+- **Docs stay true**: `tests/unit/docs-drift.test.ts` fails CI when an API route, data model,
+  chat tool, npm script, or env var exists that the READMEs don't document.
 
-### Required
-
-| Variable | Default | Notes |
-|----------|---------|-------|
-| `DATABASE_URL` | `postgresql://summit:summit@localhost:5432/summitsocial` | Postgres connection |
-| `REDIS_URL` | `redis://localhost:6379` | Redis for caching + rate limiting |
-| `NEXTAUTH_SECRET` | Auto-generated | Session encryption key |
-| `NEXTAUTH_URL` | `http://localhost:3000` | Canonical app URL |
-
-### Optional (graceful degradation when absent)
-
-| Variable | Fallback |
-|----------|----------|
-| `OPENAI_API_KEY` | Streams mock itinerary response |
-| `AMADEUS_CLIENT_ID/SECRET` | Returns mock flight offers |
-| `SKYSCANNER_API_KEY` | Returns mock flight offers |
-| `GOOGLE_CLIENT_ID/SECRET` | OAuth button hidden; use local dev login |
-| `GITHUB_CLIENT_ID/SECRET` | OAuth button hidden; use local dev login |
-| `STRIPE_SECRET_KEY` | Pro upgrade disabled |
-| `ENCRYPTION_KEY` | BYOK key storage disabled |
-
----
-
-## Commands Reference
-
-All commands run from `summit-social/`.
-
-### Development
-
-```bash
-make run              # Start Postgres + Redis + Next.js dev server
-npm run dev           # Dev server only (requires services running)
-npm run db:studio     # Prisma Studio at http://localhost:5555
-npm run db:migrate    # Run pending migrations
-npm run db:seed       # Seed sample data (1000 adventures, 3 users)
-```
-
-### Testing
-
-```bash
-npm run test:unit          # Vitest unit tests (tests/unit/) — no services needed
-npm run test:integration   # Vitest integration tests (tests/integration/)
-npm run test:db            # Real-service tier: live Postgres + Redis
-npm run test:e2e           # Playwright e2e — desktop + mobile viewports
-npm run eval               # AI eval regression suite (offline replay)
-npm run eval:live          # AI evals against live model (requires OPENAI_API_KEY)
-npx vitest run --coverage  # Full suite with v8 coverage
-```
-
-### Lint & Format
-
-```bash
-npm run lint          # Biome check + TypeScript type check
-npm run lint:fix      # Auto-fix
-npm run format        # Biome format
-```
-
-### Deploy
-
-```bash
-make deploy-gcp       # Cloud Build → migrate → deploy to Cloud Run
-```
-
----
-
-## Architecture
-
-### Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 15 (App Router, RSC, Streaming) |
-| Database | PostgreSQL 16 via Prisma ORM |
-| Cache / Rate limiting | Redis 7 via ioredis (circuit breaker, fail-open) |
-| Auth | NextAuth v4 (Google, GitHub, Credentials for dev) |
-| AI | OpenAI GPT-4o (streaming chat + tool calling) |
-| Payments | Stripe (subscriptions, webhooks) |
-| Flights | Amadeus + Skyscanner aggregation |
-| Linter / Formatter | Biome |
-| Unit / Integration | Vitest |
-| E2E | Playwright (desktop + mobile) |
-| AI Evals | Custom replay + live grading framework |
-| Styling | Tailwind CSS v4 (amber/stone dark theme) |
-| Fonts | Cormorant Garamond (display), Inter (body), Space Mono (code) |
-
-### Directory Layout
-
-```
-summit-social/src/
-├── app/
-│   ├── (auth)/                 # Login, signup (unauthenticated)
-│   ├── (dashboard)/            # Main app pages with nav/footer
-│   │   ├── adventures/         # Browse, filter, detail, create
-│   │   ├── itinerary/          # AI chat planner
-│   │   ├── leaderboard/        # Top adventurers
-│   │   ├── explore/            # Map view
-│   │   ├── flights/            # Flight search
-│   │   ├── collections/        # User collections
-│   │   ├── next-trip/          # Cadence-driven suggestions
-│   │   └── profile/            # User profiles, settings
-│   └── api/                    # API routes (Zod-validated, rate-limited)
-├── components/
-│   ├── ui/                     # Primitives (Button, Card, Input, Modal)
-│   ├── shared/                 # Navbar, Footer
-│   ├── adventures/             # AdventureCard, VoteButton, BookmarkButton
-│   ├── chat/                   # ChatWindow, MessageBubble
-│   └── flights/                # FlightCard, SearchForm
-├── hooks/                      # useChat, useFlightSearch, useVote, useInfiniteScroll
-├── lib/
-│   ├── ai/                     # OpenAI client, prompts, tools, chat-service
-│   ├── auth/                   # NextAuth config
-│   ├── db/                     # Prisma client, Redis (circuit breaker + rate limiter)
-│   ├── flights/                # Amadeus + Skyscanner adapters, aggregator
-│   ├── validators/             # Zod schemas for all API inputs
-│   ├── jobs/                   # Scheduled jobs (retention, cadence)
-│   ├── personalization/        # Taste profile aggregation
-│   ├── adventures/             # Query builders (cursor pagination, filters)
-│   ├── env.ts                  # Startup env validation (fail-fast)
-│   ├── logger.ts               # Structured logging
-│   └── constants.ts            # App-wide constants, categories, difficulties
-└── middleware.ts               # Request logging, auth checks
-```
-
-### Key Data Flows
-
-| Flow | Path |
-|------|------|
-| **Adventures** | RSC pages → Prisma queries → Redis cache → rendered cards |
-| **AI Chat** | Client SSE → `/api/chat` → OpenAI streaming + tool calling → `Itinerary.chatHistory` |
-| **Flights** | `/api/flights` → Amadeus + Skyscanner in parallel → Redis cache (15 min) |
-| **Cadence** | Scheduled job → taste profile aggregation → personalized "Next Trip" suggestions |
-| **Votes** | Optimistic UI → `/api/adventures/[id]/vote` → atomic Vote row + denormalized count |
-
-### API Routes
-
-All routes use Zod validation + `getServerSession` auth. Mutating endpoints are rate-limited via Redis.
-
-| Route | Method | Purpose |
-|-------|--------|---------|
-| `/api/adventures` | GET | Cursor-paginated list with filters |
-| `/api/adventures/[id]` | GET/PATCH/DELETE | Adventure CRUD |
-| `/api/adventures/[id]/vote` | POST | Toggle vote |
-| `/api/adventures/[id]/bookmark` | POST | Toggle bookmark |
-| `/api/chat` | POST | Streaming AI itinerary planner |
-| `/api/flights` | GET | Aggregated flight search |
-| `/api/itineraries/[id]` | GET/PATCH | Itinerary management |
-| `/api/user/openai-key` | GET/PUT/DELETE | BYOK key storage (encrypted) |
-| `/api/webhooks/stripe` | POST | Subscription events |
-| `/api/jobs/[job]` | POST | Secret-gated scheduled jobs |
-
----
-
-## Data Model
-
-| Entity | Key Fields | Relationships |
-|--------|-----------|---------------|
-| **User** | email, name, bio, avatarUrl, tier | Adventures, Votes, Bookmarks, Itineraries, Collections |
-| **Adventure** | title, location, country, category, difficulty, durationDays, voteCount | User (author), Votes, Comments, Tags, Bookmarks |
-| **Itinerary** | title, destination, chatHistory (JSON), status | User, ItineraryDays, FlightBookings |
-| **ItineraryDay** | dayNumber, title, description, activities | Itinerary |
-| **Vote** | userId + adventureId (unique) | User, Adventure |
-| **Comment** | content, parentId (threaded) | User, Adventure |
-| **Tag** | name (unique) | Adventures (many-to-many) |
-| **Collection** | name, description | User, Adventures |
-| **FlightBooking** | origin, destination, outboundDate, provider | Itinerary |
-| **TasteProfile** | userId, preferredCategories, climate, pace | User |
-| **Notification** | type, title, read | User |
-
----
-
-## Testing Strategy
-
-| Tier | Scope | External Services | Speed |
-|------|-------|------------------|-------|
-| **Unit** (`tests/unit/`) | Components, hooks, validators, utils, parsers | All mocked | ~5s |
-| **Integration** (`tests/integration/`) | API routes end-to-end, auth flows | Prisma + Redis mocked | ~15s |
-| **DB** (`tests/db/`) | Pagination, concurrency, rate-limit windows | Live Postgres + Redis | ~30s |
-| **E2E** (`tests/e2e/`) | User journeys, a11y, performance | Running app + DB | ~60s |
-| **Evals** (`evals/`) | AI response quality, grounding, tool use | Replay or live OpenAI | ~120s |
-
-**Coverage target: 95%+ statements.**
-
-Key patterns:
-- Unit/integration tests need NO running services — everything is mocked
-- `vi.mock("@/lib/db/prisma")` for database, `vi.mock("@/lib/db/redis")` for cache
-- Component tests use `// @vitest-environment jsdom` docblock
-- Playwright runs desktop (Chrome) + mobile (Pixel 7) viewports
-- AI evals replay saved transcripts for deterministic regression, or hit live model for drift detection
-
----
-
-## Deployment
-
-### Production: GCP Cloud Run
-
-| Resource | Value |
-|----------|-------|
-| Project | `basecamp-494710` |
-| Region | `europe-west2` |
-| Service | `basecamper` |
-| URL | https://basecamper.ai |
-| Database | Cloud SQL PostgreSQL (private IP) |
-| Secrets | GCP Secret Manager |
-
-```bash
-cd summit-social
-make deploy-gcp
-```
-
-This command:
-1. Builds `:latest` app image via Cloud Build
-2. Builds `:migrate` image for database migrations
-3. Runs `migrate-db` Cloud Run job
-4. Deploys new revision to `basecamper` service
-
-### Resilience Requirements
-
-- Redis: 1s connect/command timeout, circuit breaker at 3 failures, fail-open for reads
-- All optional services: graceful degradation when unreachable — never hang or crash
-- Pages must render meaningful content in <2 seconds
-- Placeholder env values ("placeholder", "") treated as unset — no startup crashes
-
----
-
-## Contributing
-
-### Git Workflow
-
-1. `git checkout -b <branch-name>` from `main`
-2. Make changes, commit (Conventional Commits enforced by hook)
-3. `npm run test:unit && npm run test:integration` — must pass
-4. `gh pr create` — squash merge, delete branch
-5. `make deploy-gcp` after merge
-
-### Commit Format
-
-```
-<type>(<scope>): <description>
-```
-
-Types: `feat` · `fix` · `refactor` · `test` · `chore` · `docs` · `style` · `perf` · `ci` · `build` · `revert`
-
-### Code Style
-
-- Biome: double quotes, 2-space indent, 100-char width
-- `import type` for type-only imports
-- No `any` types
-- No comments unless the "why" is non-obvious
-- Path alias `@/` → `src/`
-
-### Git Hooks (automated)
-
-| Hook | Action |
-|------|--------|
-| pre-commit | Biome auto-fix + `tsc --noEmit` |
-| commit-msg | commitlint (Conventional Commits) |
-| pre-push | Unit + integration tests |
-
-Do not bypass with `--no-verify`.
+See [`summit-social/README.md`](summit-social/README.md) for the full architecture, data model,
+API surface, and testing guide.

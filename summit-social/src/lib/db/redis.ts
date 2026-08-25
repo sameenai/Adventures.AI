@@ -9,7 +9,11 @@ export const redis =
     maxRetriesPerRequest: 1,
     connectTimeout: 1000,
     commandTimeout: 1000,
-    enableOfflineQueue: false,
+    // The offline queue must stay ENABLED with lazyConnect: disabling it
+    // rejects the first command instead of letting it trigger the connect,
+    // so the client can sit in "wait" forever and every Redis feature fails
+    // open silently. Waits stay bounded anyway: connectTimeout 1s, at most
+    // 2 connect retries, commandTimeout 1s.
     lazyConnect: true,
     retryStrategy(times) {
       if (times > 2) return null;
