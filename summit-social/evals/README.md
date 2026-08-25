@@ -15,6 +15,7 @@ evals/
   datasets/itinerary-cases.json   # golden intents + machine-checkable expectations
   transcripts/golden/             # known-good exchanges — must keep passing
   transcripts/adversarial/        # known-bad exchanges — must keep FAILING (teeth check)
+  transcripts/candidates/         # feedback-derived triage input (gitignored, never replayed)
   graders/                        # deterministic graders (see below)
   prompt-snapshot.json            # hash of the AI surface transcripts were recorded against
   baseline.json                   # replay scorecard the CI gate compares against
@@ -88,6 +89,36 @@ per-case budgets (`SOFT_TOKEN_BUDGET_PER_CASE`, `SOFT_LATENCY_BUDGET_MS_PER_CASE
 in `run.ts`). Budget overruns are listed for visibility but never gate. Replay
 mode ignores usage entirely.
 
+## From production feedback
+
+The chat UI puts thumbs up/down on every assistant reply. A rating is stored in
+`MessageFeedback` together with a snapshot of the conversation up to and
+including the rated reply (plus an optional user comment on a thumbs down) —
+the input side of the quality loop this harness closes.
+
+```bash
+npm run eval:candidates            # requires DATABASE_URL — reads the real DB
+```
+
+selects DOWN-rated rows with `exportedAt IS NULL` and writes each as
+`transcripts/candidates/feedback-<id>.json`: an `EvalTranscript`-shaped
+scaffold (`source: "candidate"`) with `finalText` set to the rated reply,
+`toolCalls`/`toolResults`/`days`/`turns` reconstructed from the snapshot's tool
+messages, and a `_meta` block carrying the rating, the user's comment and the
+feedback row's provenance. Rows are stamped `exportedAt` after their file is
+written, so each complaint is exported exactly once.
+
+Candidates are **triage input, not regression cases**: the replay run loads
+only `golden/` and `adversarial/`, and the candidates directory is gitignored
+because snapshots contain raw user conversation text. To act on one, review it
+(the `_meta.comment` says what the user objected to), scrub anything personal,
+then either promote it into `transcripts/golden/` under a real dataset caseId
+(the reply was actually fine) or turn it into an adversarial transcript with
+`expectedFailures` naming the grader that should have caught the flaw — which
+usually also means teaching a grader to catch it. The shaping logic is pure
+(`feedback-transcript.ts`) and unit-tested in
+`tests/unit/feedback-transcript.test.ts`.
+
 ## Commands
 
 ```bash
@@ -95,6 +126,7 @@ npm run eval                       # replay mode — offline, deterministic, CI-
 npm run eval -- --case <id>        # single case
 npm run eval:live                  # live mode — requires OPENAI_API_KEY
 npm run eval:live -- --judge       # live + LLM-judge grader
+npm run eval:candidates            # export DOWN-rated feedback as candidate transcripts
 npm run eval -- --update-baseline  # accept current replay scores as the new baseline
 npm run eval -- --update-snapshot  # accept a changed prompt/tool surface (see below)
 ```

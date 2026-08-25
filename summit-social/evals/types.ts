@@ -68,7 +68,12 @@ export interface TranscriptTurn {
 
 export interface EvalTranscript {
   caseId: string;
-  source: "golden" | "adversarial" | "live";
+  /**
+   * "candidate" transcripts are generated from production thumbs-down feedback
+   * (evals/from-feedback.ts). They are triage input only — the replay run loads
+   * just golden/ and adversarial/ — until a human promotes them.
+   */
+  source: "golden" | "adversarial" | "live" | "candidate";
   /** Graders listed here are EXPECTED to fail — used to prove the harness catches bad outputs. */
   expectedFailures?: string[];
   /** All tool calls across every turn, in order. */
@@ -95,6 +100,28 @@ export interface EvalTranscript {
   totalTokens?: number;
   /** Wall-clock time to produce this transcript (live mode only). */
   latencyMs?: number;
+}
+
+/** Provenance carried on candidate transcripts generated from production feedback. */
+export interface CandidateMeta {
+  feedbackId: string;
+  rating: "UP" | "DOWN";
+  /** The user's free-text comment, when they left one on the thumbs down. */
+  comment: string | null;
+  itineraryId: string | null;
+  /** Index of the rated assistant reply in the itinerary's stored chatHistory. */
+  messageIndex: number;
+  ratedAt: string;
+}
+
+/**
+ * What `npm run eval:candidates` writes to evals/transcripts/candidates/:
+ * an EvalTranscript-shaped scaffold plus the feedback provenance, ready for a
+ * human (or AI triage) to review and promote into golden/ or adversarial/.
+ */
+export interface CandidateTranscript extends EvalTranscript {
+  source: "candidate";
+  _meta: CandidateMeta;
 }
 
 export interface GradeResult {

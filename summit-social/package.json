@@ -16,6 +16,7 @@
     "test:watch": "vitest",
     "eval": "tsx evals/run.ts",
     "eval:live": "tsx evals/run.ts --mode live",
+    "eval:candidates": "tsx evals/from-feedback.ts",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",

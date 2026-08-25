@@ -146,7 +146,8 @@ before the replay baseline is trusted again. CI runs `npm run eval` on every PR.
 
 Production closes the loop: every assistant reply carries thumbs up/down in the chat window, and
 a rating lands in `MessageFeedback` with a snapshot of the conversation up to that reply (plus an
-optional comment on a thumbs down). DOWN ratings are the raw material for new eval cases.
+optional comment on a thumbs down). `npm run eval:candidates` exports unprocessed DOWN ratings as
+candidate transcripts for triage into the golden/adversarial sets — see `evals/README.md`.
 
 ## 6. The booking rail
 
@@ -208,7 +209,7 @@ hashes, retention jobs. Legal pages at `/privacy` and `/terms` name every proces
 |------|---------|----------------|
 | Unit + integration (mocked) | `npm run test:unit` · `npm run test:integration` · `npm run test` · `npm run test:watch` | 1,100+ tests, no services needed; coverage thresholds 88/86/89/88 enforced via `npx vitest run --coverage` |
 | Real services | `npm run test:db` | keyset-cursor semantics, vote/credit races, limiter windows against live Postgres + Redis |
-| AI evals | `npm run eval` (replay, CI) · `npm run eval:live` (real model + judge) | agent quality can't regress; surface hash forces re-certification |
+| AI evals | `npm run eval` (replay, CI) · `npm run eval:live` (real model + judge) · `npm run eval:candidates` (export thumbs-down feedback as candidate transcripts; needs `DATABASE_URL`) | agent quality can't regress; surface hash forces re-certification; production complaints feed the suite |
 | E2E | `npm run test:e2e` | 16 journeys × desktop + Pixel 7 mobile, incl. sign-in→plan→save→log-trip and an axe WCAG 2A/AA gate |
 | Load | `tests/load/k6-smoke.js` · `tests/load/k6-profile.js` | smoke throughput baseline · 5→25 VU ramp over pages + API with hard budgets (p95 < 800ms, errors < 1%); run manually: `k6 run -e BASE_URL=... tests/load/k6-profile.js` |
 | Docs | part of `test:unit` (`docs-drift.test.ts`) | this README + runbook stay true to the code |
