@@ -19,3 +19,13 @@ export const chatMessageSchema = z.object({
 });
 
 export type ChatMessageInput = z.infer<typeof chatMessageSchema>;
+
+export const chatFeedbackSchema = z.object({
+  itineraryId: z.string().min(1),
+  /** Index into the itinerary's stored chatHistory of the assistant reply being rated. */
+  messageIndex: z.number().int().min(0),
+  rating: z.enum(["UP", "DOWN"]),
+  comment: z.string().max(500).optional(),
+});
+
+export type ChatFeedbackInput = z.infer<typeof chatFeedbackSchema>;

@@ -1,5 +1,6 @@
 "use client";
 
+import { useMutation } from "@/lib/client/use-mutation";
 import { formatPrice } from "@/lib/utils";
 import { useState } from "react";
 
@@ -36,11 +37,20 @@ export function BookingList({ bookings }: { bookings: BookingListItem[] }) {
     setNotes((n) => ({ ...n, [id]: message }));
   }
 
-  async function confirmAndPay(id: string) {
+  // Failures render as per-booking notes rather than the hook's global error,
+  // so every message stays anchored to the row it belongs to. The hook still
+  // provides the one-in-flight gate and the never-throws guarantee.
+  const { run: confirmAndPay } = useMutation(async (id: string) => {
     setBusy(id);
     note(id, "");
     try {
-      const repriceRes = await fetch(`/api/bookings/${id}/reprice`, { method: "POST" });
+      const repriceRes = await fetch(`/api/bookings/${id}/reprice`, { method: "POST" }).catch(
+        () => null,
+      );
+      if (!repriceRes) {
+        note(id, "Network error — try again");
+        return;
+      }
       const reprice = (await repriceRes.json().catch(() => ({}))) as {
         error?: string;
         priceChanged?: boolean;
@@ -54,7 +64,13 @@ export function BookingList({ bookings }: { bookings: BookingListItem[] }) {
         note(id, `Fare updated to ${formatPrice(reprice.booking.priceGBP)} — continuing`);
       }
 
-      const checkoutRes = await fetch(`/api/bookings/${id}/checkout`, { method: "POST" });
+      const checkoutRes = await fetch(`/api/bookings/${id}/checkout`, { method: "POST" }).catch(
+        () => null,
+      );
+      if (!checkoutRes) {
+        note(id, "Network error — try again");
+        return;
+      }
       const checkout = (await checkoutRes.json().catch(() => ({}))) as {
         url?: string;
         error?: string;
@@ -64,12 +80,10 @@ export function BookingList({ bookings }: { bookings: BookingListItem[] }) {
         return;
       }
       window.location.assign(checkout.url);
-    } catch {
-      note(id, "Network error — try again");
     } finally {
       setBusy(null);
     }
-  }
+  });
 
   if (bookings.length === 0) return null;
 

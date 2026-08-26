@@ -1,0 +1,13 @@
+{
+  "sharedKB": 378,
+  "routes": {
+    "/itinerary": 590,
+    "/profile/edit": 463,
+    "/adventures/[id]": 459,
+    "/login": 457,
+    "/signup": 457,
+    "/adventures": 456,
+    "/profile/[id]": 450,
+    "/collections/[id]": 441
+  }
+}

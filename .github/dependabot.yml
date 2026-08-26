@@ -1,0 +1,28 @@
+# Automated dependency updates: npm (app), cargo (flight-search), actions.
+# Security updates open immediately; version updates batch weekly so review
+# load stays sane. The CI suite (tests, evals, e2e, audit gate) is the judge.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /summit-social
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: cargo
+    directory: /services/flight-search
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3

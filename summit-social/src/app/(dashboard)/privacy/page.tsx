@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "How Basecamper collects, uses, and protects your personal data.",
 };
 
-const LAST_UPDATED = "24 August 2026";
+const LAST_UPDATED = "25 August 2026";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -53,6 +53,15 @@ export default function PrivacyPage() {
             exchange with the AI trip planner and the itineraries it builds are saved to your
             account so you can resume them. Treat them like any other saved document: they may
             contain whatever you chose to share (dates, budgets, fitness notes).
+          </li>
+          <li>
+            <strong className="text-stone-300">AI answer feedback</strong> — if you rate an
+            assistant reply with thumbs up or down, we store your rating and any comment you add. A
+            thumbs-down also stores a verbatim copy of the conversation up to and including the
+            rated reply, so we can reproduce the bad answer and improve the planner; a thumbs-up
+            stores only the rating, never any conversation text. This copy is kept separately from
+            the itinerary, so it remains after you delete the itinerary itself. It is included in
+            your data export and permanently deleted with your account.
           </li>
           <li>
             <strong className="text-stone-300">Your OpenAI API key</strong> (optional) — if you add
@@ -133,6 +142,14 @@ export default function PrivacyPage() {
           <li>Adventure view records — deleted after 90 days.</li>
           <li>Read notifications — deleted after 90 days.</li>
           <li>Auto-created empty itineraries — deleted after 30 days.</li>
+          <li>Product analytics events — deleted after 180 days.</li>
+          <li>Email send log — deleted after 365 days.</li>
+          <li>Search events — deleted after 365 days.</li>
+          <li>
+            AI answer feedback — a thumbs-up (the rating only, no conversation text) is deleted
+            after 90 days; a thumbs-down, with its conversation copy, is kept 365 days to improve
+            answer quality. Both are deleted immediately with your account.
+          </li>
           <li>Server logs — 30 days.</li>
         </ul>
       </Section>

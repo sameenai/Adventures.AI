@@ -1,6 +1,7 @@
 "use client";
 
 import { SaveMenu } from "@/components/adventures/save-menu";
+import { useMutation } from "@/lib/client/use-mutation";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -34,10 +35,24 @@ function BookmarkIcon({ filled }: { filled: boolean }) {
 export function BookmarkButton({ adventureId, isBookmarked, disabled }: BookmarkButtonProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [loading, setLoading] = useState(false);
   const [bookmarked, setBookmarked] = useState(isBookmarked);
   const [limitReached, setLimitReached] = useState(false);
   const [showSaveMenu, setShowSaveMenu] = useState(false);
+
+  const { run: toggle, busy: loading } = useMutation(async () => {
+    setLimitReached(false);
+    const res = await fetch(`/api/adventures/${adventureId}/bookmark`, {
+      method: bookmarked ? "DELETE" : "POST",
+    });
+    if (res.ok) {
+      const nowBookmarked = !bookmarked;
+      setBookmarked(nowBookmarked);
+      setShowSaveMenu(nowBookmarked);
+      router.refresh();
+    } else if (res.status === 402) {
+      setLimitReached(true);
+    }
+  });
 
   // Logged out: turn the save-moment into a signup/login conversion instead of a dead button.
   if (disabled) {
@@ -53,27 +68,6 @@ export function BookmarkButton({ adventureId, isBookmarked, disabled }: Bookmark
       </Link>
     );
   }
-
-  const toggle = async () => {
-    if (loading) return;
-    setLoading(true);
-    setLimitReached(false);
-    try {
-      const res = await fetch(`/api/adventures/${adventureId}/bookmark`, {
-        method: bookmarked ? "DELETE" : "POST",
-      });
-      if (res.ok) {
-        const nowBookmarked = !bookmarked;
-        setBookmarked(nowBookmarked);
-        setShowSaveMenu(nowBookmarked);
-        router.refresh();
-      } else if (res.status === 402) {
-        setLimitReached(true);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="relative inline-flex">

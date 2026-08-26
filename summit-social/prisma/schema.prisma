@@ -45,6 +45,7 @@ model User {
   flightBookings   FlightBooking[]
   emailLogs        EmailLog[]
   analyticsEvents  AnalyticsEvent[]
+  messageFeedback  MessageFeedback[]
   travelerProfile  TravelerProfile?
   tripEvents       TripEvent[]
   searchEvents     SearchEvent[]
@@ -185,6 +186,7 @@ model Itinerary {
   user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   days           ItineraryDay[]
   flightBookings FlightBooking[]
+  messageFeedback MessageFeedback[]
 }
 
 model ItineraryDay {
@@ -408,6 +410,40 @@ model AnalyticsEvent {
 
   @@index([name, createdAt(sort: Desc)])
   @@index([userId, createdAt(sort: Desc)])
+}
+
+// The AI quality feedback loop: a thumbs rating on a specific assistant
+// reply, snapshotting the conversation up to that point so a bad answer can
+// be replayed as an eval case (evals/from-feedback.ts). Cascade-deleted with
+// the user; the transcript snapshot lives here, not in analytics.
+model MessageFeedback {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itineraryId  String?
+  itinerary    Itinerary? @relation(fields: [itineraryId], references: [id], onDelete: SetNull)
+  /// Index of the assistant message in chatHistory this rates.
+  messageIndex Int
+  rating       FeedbackRating
+  comment      String?   @db.Text
+  /// Conversation snapshot up to and including the rated reply.
+  transcript   Json
+  /// Set when an eval case has been generated from this row.
+  exportedAt   DateTime?
+  createdAt    DateTime  @default(now())
+
+  /// One rating per (user, itinerary, message) — re-rating upserts in place.
+  /// itineraryId is nullable (SetNull keeps rows after itinerary deletion);
+  /// NULLs are distinct in Postgres, which is fine: orphaned rows are
+  /// historical and no longer written to.
+  @@unique([userId, itineraryId, messageIndex])
+  @@index([rating, createdAt(sort: Desc)])
+  @@index([userId, createdAt(sort: Desc)])
+}
+
+enum FeedbackRating {
+  UP
+  DOWN
 }
 
 model JobRun {

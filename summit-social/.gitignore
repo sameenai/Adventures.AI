@@ -15,3 +15,8 @@ playwright-report/
 
 # AI eval harness local run output
 evals/results/
+
+# Feedback-derived eval candidates: raw production conversation snapshots.
+# Triage locally; only scrubbed, promoted transcripts get committed
+# (into evals/transcripts/golden/ or evals/transcripts/adversarial/).
+evals/transcripts/candidates/

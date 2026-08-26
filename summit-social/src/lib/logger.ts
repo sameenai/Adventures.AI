@@ -85,6 +85,43 @@ export const logger = {
   error: (message: string, data?: unknown) => log("error", message, data),
 };
 
+export interface RequestLogEntry {
+  method: string;
+  /** Route path as served, e.g. "/api/adventures" — no query string. */
+  path: string;
+  status: number;
+  latencyMs: number;
+  requestId: string;
+  userId?: string;
+}
+
+/**
+ * Per-request latency telemetry in the shape Cloud Logging promotes: a
+ * top-level `httpRequest` with `latency` as a duration string, so Logs
+ * Explorer renders method/status/latency natively and log-based metrics can
+ * alert on p95 latency per route. Production only — Cloud Run is the sole
+ * consumer, and dev/test output would be pure noise. Evaluated per call so
+ * tests can exercise the production shape.
+ */
+export function logRequest(entry: RequestLogEntry): void {
+  if (process.env.NODE_ENV !== "production") return;
+  console.log(
+    JSON.stringify({
+      severity: "INFO",
+      message: `${entry.method} ${entry.path} ${entry.status}`,
+      httpRequest: {
+        requestMethod: entry.method,
+        status: entry.status,
+        latency: `${(entry.latencyMs / 1000).toFixed(3)}s`,
+      },
+      route: entry.path,
+      requestId: entry.requestId,
+      user: entry.userId,
+      timestamp: new Date().toISOString(),
+    }),
+  );
+}
+
 export interface ErrorContext {
   /** Where it happened, e.g. "POST /api/bookings/[id]/checkout" or "job:cadence-scan". */
   route?: string;

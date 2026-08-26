@@ -23,3 +23,6 @@ add-adventures.sh
 node_modules/
 dump.rdb
 .claude/worktrees/
+
+# Dependencies (root-level tooling runs)
+node_modules/

@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
 
+// Content-Security-Policy is NOT set here: it carries a per-request script
+// nonce and is emitted by src/middleware.ts (see src/lib/security/csp.ts).
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
@@ -14,25 +16,6 @@ const securityHeaders = [
   {
     key: "Strict-Transport-Security",
     value: "max-age=63072000; includeSubDomains; preload",
-  },
-  {
-    key: "Content-Security-Policy",
-    value: [
-      "default-src 'self'",
-      // unsafe-eval is a dev-only concession (React Refresh needs it); the
-      // production bundle runs without it. unsafe-inline remains for Next's
-      // hydration bootstrap — migrating to nonces is tracked platform debt.
-      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com`,
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com",
-      "img-src 'self' data: blob: https://*.r2.cloudflarestorage.com https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://images.unsplash.com https://api.dicebear.com https://unpkg.com https://*.tile.openstreetmap.org https://api.mapbox.com https://events.mapbox.com",
-      "connect-src 'self' https://api.stripe.com https://api.mapbox.com https://events.mapbox.com https://*.tile.openstreetmap.org",
-      "worker-src blob:",
-      "frame-src https://js.stripe.com https://hooks.stripe.com",
-      "object-src 'none'",
-      "base-uri 'self'",
-      "form-action 'self'",
-    ].join("; "),
   },
 ];
 

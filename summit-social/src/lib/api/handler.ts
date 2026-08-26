@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { authOptions } from "@/lib/auth/config";
 import { RATE_LIMITS } from "@/lib/constants";
 import { rateLimit } from "@/lib/db/redis";
-import { reportError } from "@/lib/logger";
+import { logRequest, reportError } from "@/lib/logger";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
@@ -55,53 +55,68 @@ export function withApi<TBody = undefined>(
 ): (request: NextRequest, route: RouteContext) => Promise<NextResponse> {
   return async (request: NextRequest, route?: RouteContext) => {
     const requestId = request.headers.get("x-request-id") ?? randomUUID();
+    const started = Date.now();
+    let response: NextResponse;
     try {
-      const session = await getServerSession(authOptions);
-      if (!session?.user?.id) {
-        return NextResponse.json({ error: "Unauthorized", code: "UNAUTHORIZED" }, { status: 401 });
-      }
-      const userId = session.user.id;
-
-      if (options.rateLimit) {
-        const config = RATE_LIMITS[options.rateLimit.name];
-        const rl = await rateLimit(
-          `${options.rateLimit.prefix ?? options.rateLimit.name}:${userId}`,
-          config.limit,
-          config.windowSeconds,
-          options.rateLimit.failClosed ? { failClosed: true } : undefined,
-        );
-        if (!rl.allowed) {
+      response = await (async () => {
+        const session = await getServerSession(authOptions);
+        if (!session?.user?.id) {
           return NextResponse.json(
-            { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
-            { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+            { error: "Unauthorized", code: "UNAUTHORIZED" },
+            { status: 401 },
           );
         }
-      }
+        const userId = session.user.id;
 
-      let body = undefined as TBody;
-      if (options.schema) {
-        const raw = await request.json().catch(() => null);
-        const parsed = options.schema.safeParse(raw);
-        if (!parsed.success) {
-          return NextResponse.json(
-            { error: "Invalid input", code: "VALIDATION_ERROR", details: parsed.error.flatten() },
-            { status: 400 },
+        if (options.rateLimit) {
+          const config = RATE_LIMITS[options.rateLimit.name];
+          const rl = await rateLimit(
+            `${options.rateLimit.prefix ?? options.rateLimit.name}:${userId}`,
+            config.limit,
+            config.windowSeconds,
+            options.rateLimit.failClosed ? { failClosed: true } : undefined,
           );
+          if (!rl.allowed) {
+            return NextResponse.json(
+              { error: "Rate limit exceeded", code: "RATE_LIMITED", retryAfter: rl.retryAfter },
+              { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+            );
+          }
         }
-        body = parsed.data;
-      }
 
-      const params = route ? await route.params : {};
-      return await handler({ request, userId, body, params, requestId });
+        let body = undefined as TBody;
+        if (options.schema) {
+          const raw = await request.json().catch(() => null);
+          const parsed = options.schema.safeParse(raw);
+          if (!parsed.success) {
+            return NextResponse.json(
+              { error: "Invalid input", code: "VALIDATION_ERROR", details: parsed.error.flatten() },
+              { status: 400 },
+            );
+          }
+          body = parsed.data;
+        }
+
+        const params = route ? await route.params : {};
+        return await handler({ request, userId, body, params, requestId });
+      })();
     } catch (err) {
       reportError(err, {
         route: `${request.method} ${request.nextUrl.pathname}`,
         requestId,
       });
-      return NextResponse.json(
+      response = NextResponse.json(
         { error: "Internal error", code: "INTERNAL", requestId },
         { status: 500, headers: { "x-request-id": requestId } },
       );
     }
+    logRequest({
+      method: request.method,
+      path: request.nextUrl.pathname,
+      status: response.status,
+      latencyMs: Date.now() - started,
+      requestId,
+    });
+    return response;
   };
 }

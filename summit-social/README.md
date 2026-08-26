@@ -50,6 +50,8 @@ summit-social/
 │   ├── api/                 # withApi() shared route envelope (auth→limit→validate→handle)
 │   ├── auth/                # NextAuth config
 │   ├── billing/             # Stripe customer helper, flight-booking payment transitions
+│   ├── client/              # useMutation() — shared client mutation wrapper (busy gate,
+│   │                        #   user-safe errors) behind vote/bookmark/booking/billing buttons
 │   ├── db/                  # Prisma singleton, Redis client + atomic Lua rate limiter
 │   ├── email/               # Resend adapter, templates, signed unsubscribe tokens
 │   ├── flights/             # Amadeus + Skyscanner adapters, aggregator (+ Rust service proxy)
@@ -83,11 +85,23 @@ home airport), `TripEvent` (the "last trip" anchor: `MARKED_DONE` today, booking
 `SearchEvent` (demand capture from chat + catalog), `CadenceRecommendation` (idempotent per
 user×adventure×window, `PENDING → SENT → …` with CTR feedback).
 
+**AI quality** — `MessageFeedback` (thumbs up/down on assistant chat messages with optional
+comment; a thumbs-down captures the conversation transcript verbatim — the AI quality loop's raw
+material — while a thumbs-up stores no transcript, only the rating; one row per user × itinerary
+× message, enforced by a compound unique constraint, so re-rating upserts in place and clears
+`exportedAt` — the marker for rows already promoted into eval candidates, so the feedback →
+eval-case pipeline never double-exports; cascade-deletes with the user).
+
 **Ops & audit** — `StripeEvent` (webhook idempotency ledger), `EmailLog` (every send attempt:
 SENT/FAILED/SKIPPED), `JobRun` (scheduled-job observability), `AnalyticsEvent` (product analytics:
 one row per funnel event, captured server-side where the thing actually happened — payment via the
 webhook, not a button click; signed-in rows cascade-delete with the account, anonymous rows carry
 only the daily-rotating salted viewer key; props are short primitives, never free text).
+
+The daily `retention` job trims the audit surfaces on a published schedule (mirrored in
+`/privacy` and RUNBOOK.md): views/read notifications after 90 days, empty itineraries after 30,
+`AnalyticsEvent` after 180, `EmailLog` and `SearchEvent` after 365, and `MessageFeedback` UP after
+90 / DOWN after 365 (DOWN feeds the evals, so it keeps the longer window).
 
 ## 4. API surface
 
@@ -97,9 +111,9 @@ per-user rate limits, fail-closed on cost-bearing routes). New routes use `withA
 
 | Area | Routes |
 |------|--------|
-| Catalog | `/api/adventures` (cursor-paginated list) · `/api/adventures/[id]` · `/api/adventures/[id]/vote` · `/api/adventures/[id]/bookmark` · `/api/adventures/[id]/comments` · `/api/adventures/[id]/comments/[commentId]` · `/api/adventures/[id]/comments/[commentId]/react` · `/api/adventures/[id]/view` · `/api/adventures/[id]/publish` · `/api/adventures/[id]/duplicate` · `/api/adventures/enhance-description` (AI rewrite) |
+| Catalog | `/api/adventures` (cursor-paginated list) · `/api/adventures/geo` (public viewport query for the explore map: bbox + zoom in, ≤300 markers out, server-side grid clusters below zoom 6; anonymous, IP rate-limited, hand-rolled like the list) · `/api/adventures/[id]` · `/api/adventures/[id]/vote` · `/api/adventures/[id]/bookmark` · `/api/adventures/[id]/comments` · `/api/adventures/[id]/comments/[commentId]` · `/api/adventures/[id]/comments/[commentId]/react` · `/api/adventures/[id]/view` · `/api/adventures/[id]/publish` · `/api/adventures/[id]/duplicate` · `/api/adventures/enhance-description` (AI rewrite) |
 | Trip log & cadence | `/api/adventures/[id]/complete` (✓ I did this) · `/api/user/traveler-profile` (preferences + email opt-in) |
-| AI planner | `/api/chat` (streaming agent loop, credit-metered) |
+| AI planner | `/api/chat` (streaming agent loop, credit-metered) · `/api/chat/feedback` (thumbs on an assistant reply, stored with its conversation snapshot) |
 | Flights & booking | `/api/flights` (aggregated search) · `/api/itineraries/[id]/flights` (save an offer) · `/api/bookings/[id]/reprice` (fare re-validation) · `/api/bookings/[id]/checkout` (Stripe payment) |
 | Itineraries | `/api/itineraries` · `/api/itineraries/[id]` |
 | Collections | `/api/collections` · `/api/collections/[id]` · `/api/collections/[id]/items` |
@@ -132,6 +146,15 @@ keeps 9 deliberately-flawed adversarial transcripts failing (teeth-check), and h
 prompt/tool/model surface — any change forces a live re-certification (`npm run eval:live`)
 before the replay baseline is trusted again. CI runs `npm run eval` on every PR.
 
+Production closes the loop: every assistant reply carries thumbs up/down in the chat window. A
+thumbs-down lands in `MessageFeedback` with a snapshot of the conversation up to that reply (plus
+an optional comment); a thumbs-up stores just the rating. One known limitation: a freshly
+streamed reply is located in the stored history by its text, so if the assistant repeats the
+exact same reply twice in one conversation, a rating on the earlier copy is attributed to the
+last occurrence — streamed messages carry no client-side identity, and the freshest reply is
+overwhelmingly the one being rated. `npm run eval:candidates` exports unprocessed DOWN ratings as
+candidate transcripts for triage into the golden/adversarial sets — see `evals/README.md`.
+
 ## 6. The booking rail
 
 ```
@@ -160,11 +183,18 @@ Errors are reported without an agent or vendor: `reportError()` (in `src/lib/log
 GCP Error Reporting-shaped log entries that Cloud Run ingests automatically — grouped, counted,
 alertable. The shared route envelope stamps every request with an `x-request-id` (accepted or
 generated) and includes it in error responses and reports, so one failure traces across log lines.
-`/api/health` reports db + redis component status.
+In production, enveloped routes plus the hand-rolled `/api/adventures/geo` viewport route log
+each request in the Cloud Logging `httpRequest` shape (method, status, latency) with `route` +
+`requestId`, so per-route p95 on those paths is a log-based metric away; the streaming chat
+route and the Stripe webhook are observed via Cloud Run's own request logs and `reportError()`.
+`/api/health` reports db + redis component status. Alert policies live as code in
+`ops/alerts/*.json` (5xx rate, p95 latency, error-log spikes, uptime) — `make alerts-setup`
+upserts them; see RUNBOOK.md for triage.
 
 Product analytics is server-side-first (`src/lib/analytics/track.ts`): funnel events — signup,
-chat_message, itinerary_created, flight_searched, flight_saved, fare_repriced, checkout_started,
-payment_succeeded, booking_refunded, pro_subscribed, pro_cancelled, bookmark_added, trip_logged,
+chat_message, feedback_submitted, itinerary_created, flight_searched, flight_saved,
+fare_repriced, checkout_started, payment_succeeded, booking_refunded, pro_subscribed,
+pro_cancelled, bookmark_added, trip_logged,
 cadence_email_sent — are captured at the write path or webhook where they become true. The one
 client signal is a page_view beacon (`PageViewPing`): no cookies, no fingerprinting, DNT/GPC
 respected, dynamic path segments normalised before sending. Query with SQL over `AnalyticsEvent`.
@@ -175,7 +205,9 @@ Google OAuth (email-verified upsert) with JWT sessions; dev login is compile-tim
 production. Zod on every input; scheme-allowlisted URLs; ownership checked before every write
 (IDOR regression tests from the attacker's perspective). Atomic Lua rate limiting fails closed
 on cost-bearing routes. BYOK OpenAI keys encrypted at rest (save refuses without
-`ENCRYPTION_KEY`). CSP without `unsafe-eval` in production. Logger scrubs secrets and PII.
+`ENCRYPTION_KEY`). Strict CSP with per-request script nonces + `strict-dynamic` (no
+`unsafe-inline`/`unsafe-eval` scripts in production), emitted by `src/middleware.ts` from
+`src/lib/security/csp.ts`. Logger scrubs secrets and PII.
 GDPR: click-wrap terms stamping, account deletion cascade, JSON export, salted rotating view
 hashes, retention jobs. Legal pages at `/privacy` and `/terms` name every processor.
 
@@ -185,14 +217,16 @@ hashes, retention jobs. Legal pages at `/privacy` and `/terms` name every proces
 |------|---------|----------------|
 | Unit + integration (mocked) | `npm run test:unit` · `npm run test:integration` · `npm run test` · `npm run test:watch` | 1,100+ tests, no services needed; coverage thresholds 88/86/89/88 enforced via `npx vitest run --coverage` |
 | Real services | `npm run test:db` | keyset-cursor semantics, vote/credit races, limiter windows against live Postgres + Redis |
-| AI evals | `npm run eval` (replay, CI) · `npm run eval:live` (real model + judge) | agent quality can't regress; surface hash forces re-certification |
+| AI evals | `npm run eval` (replay, CI) · `npm run eval:live` (real model + judge) · `npm run eval:candidates` (export thumbs-down feedback as candidate transcripts; needs `DATABASE_URL`) | agent quality can't regress; surface hash forces re-certification; production complaints feed the suite |
 | E2E | `npm run test:e2e` | 16 journeys × desktop + Pixel 7 mobile, incl. sign-in→plan→save→log-trip and an axe WCAG 2A/AA gate |
-| Load | `tests/load/k6-smoke.js` | smoke throughput baseline |
+| Load | `tests/load/k6-smoke.js` · `tests/load/k6-profile.js` | smoke throughput baseline · 5→25 VU ramp over pages + API with hard budgets (p95 < 800ms, errors < 1%); run manually: `k6 run -e BASE_URL=... tests/load/k6-profile.js` |
+| Bundle budget | `node scripts/check-bundle-budget.mjs` (after `npm run build`) | per-route client JS and the shared baseline stay within `bundle-budget.json` (measured + 10% headroom; re-baseline with `--update`) |
 | Docs | part of `test:unit` (`docs-drift.test.ts`) | this README + runbook stay true to the code |
 
 CI (`.github/workflows/ci.yml`) runs lint+types, mocked tests with coverage, eval replay,
-production build, the real-services tier (migrations + schema-drift check + full seed), Rust
-gates, and e2e on every PR. Never merge red; never lower a threshold to pass.
+production build + the bundle budget gate, the real-services tier (migrations + schema-drift
+check + full seed), Rust gates, and e2e on every PR. Never merge red; never lower a threshold
+to pass.
 
 ## 11. Commands & environment
 
@@ -210,8 +244,10 @@ Environment (see `.env.example`; full production matrix in the runbook): `DATABA
 `ENCRYPTION_KEY`, `JOBS_SECRET`, `NEXT_PUBLIC_MAPBOX_TOKEN`, `RESEND_API_KEY`/`EMAIL_FROM`,
 `DEMO_MODE`.
 
-Deploy: `make deploy-gcp` (Cloud Build → Cloud Run) or the WIF-gated `deploy.yml` workflow —
-details, jobs (`make scheduler-setup`), and incident playbooks in [`../RUNBOOK.md`](../RUNBOOK.md).
+Deploy: `make deploy-gcp` (Cloud Build → Cloud Run) or the WIF-gated `deploy.yml` workflow, which
+canaries (no-traffic revision → smoke → promote). Ops: `make rollback` (previous revision in
+seconds), `make alerts-setup` (monitoring policies from `ops/alerts/`), `make scheduler-setup`
+(jobs) — incident playbooks in [`../RUNBOOK.md`](../RUNBOOK.md).
 
 ## 12. Keeping this document honest
 

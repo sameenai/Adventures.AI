@@ -1,0 +1,28 @@
+{
+  "displayName": "Basecamper — error log spike",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "ERROR-severity log entries sustained above ~6 per 5 minutes",
+      "conditionThreshold": {
+        "filter": "metric.type=\"logging.googleapis.com/log_entry_count\" AND resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"basecamper\" AND metric.labels.severity=\"ERROR\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "300s",
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM"
+          }
+        ],
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 0.02,
+        "duration": "300s",
+        "trigger": { "count": 1 }
+      }
+    }
+  ],
+  "documentation": {
+    "mimeType": "text/markdown",
+    "content": "Spike in ERROR-severity logs (every `reportError()` call lands here, including failures that still returned a 2xx to the user — webhook handlers, background jobs, degraded fallbacks). Open Error Reporting for grouped stacks; correlate with `requestId`. Check `JobRun` and `EmailLog.status=FAILED` if the spike aligns with the nightly jobs."
+  },
+  "userLabels": { "app": "basecamper", "managed_by": "repo-ops-alerts" }
+}

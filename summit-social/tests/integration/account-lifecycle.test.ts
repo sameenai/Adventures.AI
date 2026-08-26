@@ -25,6 +25,7 @@ vi.mock("@/lib/db/prisma", () => ({
     collection: { findMany: vi.fn().mockResolvedValue([]) },
     follow: { findMany: vi.fn().mockResolvedValue([]) },
     notification: { findMany: vi.fn().mockResolvedValue([]) },
+    messageFeedback: { findMany: vi.fn().mockResolvedValue([]) },
   },
 }));
 
@@ -124,6 +125,24 @@ describe("GET /api/user/me/export", () => {
   });
 
   it("returns a complete bundle as a download, never the raw key", async () => {
+    // The bundle must include AI answer feedback — its DOWN-rated rows hold a
+    // conversation snapshot that survives itinerary deletion, so this export
+    // is the only place a user can see it.
+    const mockFeedback = prisma.messageFeedback as unknown as Record<
+      string,
+      ReturnType<typeof vi.fn>
+    >;
+    mockFeedback.findMany.mockResolvedValue([
+      {
+        id: "fb-1",
+        rating: "DOWN",
+        comment: "fares look invented",
+        transcript: [{ role: "assistant", content: "Qatar Airways via Doha." }],
+        itineraryId: null,
+        createdAt: new Date("2026-08-01"),
+      },
+    ]);
+
     const res = await exportRoute(new NextRequest("http://localhost/api/user/me/export"), {
       params: Promise.resolve({}),
     });
@@ -146,8 +165,21 @@ describe("GET /api/user/me/export", () => {
       "collections",
       "follows",
       "notifications",
+      "messageFeedback",
     ]) {
       expect(Array.isArray(bundle[key])).toBe(true);
     }
+
+    expect(mockFeedback.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { userId: "user-1" } }),
+    );
+    expect(bundle.messageFeedback).toHaveLength(1);
+    expect(bundle.messageFeedback[0]).toMatchObject({
+      id: "fb-1",
+      rating: "DOWN",
+      comment: "fares look invented",
+      itineraryId: null,
+    });
+    expect(bundle.messageFeedback[0].transcript[0].content).toBe("Qatar Airways via Doha.");
   });
 });

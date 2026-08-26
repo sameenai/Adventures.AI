@@ -49,7 +49,16 @@ Required in production (see `summit-social/.env.example` for the full list):
 - Manual: `cd summit-social && make deploy-gcp` (Cloud Build → Cloud Run,
   project `basecamp-494710`, region `europe-west2`).
 - CI: `.github/workflows/deploy.yml` deploys `main` with SHA-tagged images
-  once `GCP_WIF_PROVIDER` / `GCP_SERVICE_ACCOUNT` repo variables are set.
+  once `GCP_WIF_PROVIDER` / `GCP_DEPLOY_SA` repo variables are set. It is a
+  **canary flow**: the new revision starts with zero traffic behind the
+  `canary` tag URL, gets smoke-tested there (health + critical pages inside
+  a 5s budget), and only then is promoted to live traffic. A failed smoke
+  leaves production on the previous revision.
+- Rollback: `make rollback` finds the revision currently receiving traffic,
+  walks the most recent revisions newest-first, and routes 100% of traffic
+  to the first other one whose Ready condition is True — it verifies
+  readiness per revision, so it never rolls back onto a broken revision
+  (`make rollback REVISION=<name>` skips detection and uses that revision).
 - Migrations: `npx prisma migrate deploy` runs against the production DB
   before traffic shifts. Never `db push`, never edit applied migrations.
 - Rust service: build/deploy separately (`services/flight-search/Dockerfile`),
@@ -77,6 +86,19 @@ when "no emails went out last night". Cadence emails go only to users with
   `SELECT name, count(*) FROM "AnalyticsEvent" WHERE "createdAt" > now() - interval '7 days' GROUP BY 1;`
   Signed-in rows cascade-delete with the account; anonymous rows carry only
   the daily-rotating salted key. The client beacon honours DNT/GPC.
+- **Latency**: enveloped routes and the hand-rolled `/api/adventures/geo`
+  route log each request in production with the Cloud Logging `httpRequest`
+  shape (method, status, latency) plus `route` and `requestId` — Logs
+  Explorer renders it natively; build log-based metrics on `route` for
+  per-route p95 on those paths. The streaming chat route and the Stripe
+  webhook are observed via Cloud Run's own request logs and `reportError()`.
+- **Alerts as code**: `summit-social/ops/alerts/*.json` is the source of
+  truth — 5xx rate, p95 latency over the 2s budget, ERROR-log spikes, and
+  uptime on `/api/health`. `make alerts-setup` upserts the policies and
+  provisions the uptime check; attach notification channels once in the
+  console — they survive re-runs because the target captures each policy's
+  channels before the update and re-attaches them after. Edit the JSON,
+  re-run the target, done.
 - Watch: 5xx rate on `/api/chat` (OpenAI incidents), 429 spikes (Redis
   down ⇒ fail-closed), `EmailLog.status=FAILED` counts, `JobRun` failures,
   Stripe webhook 4xx (signature/secret drift).
@@ -97,12 +119,35 @@ when "no emails went out last night". Cadence emails go only to users with
   in code). Redis is disposable — only rate-limit windows and caches.
 - Account deletion cascades (bookings, email log, cadence rows included);
   data export lives at `/api/user/export`.
+- Retention windows (enforced by the daily `retention` job, mirrored in
+  `/privacy`): `AdventureView` rows are deleted after 90 days.
+  Read `Notification` rows are deleted after 90 days.
+  Abandoned empty `Itinerary` rows are deleted after 30 days.
+  `AnalyticsEvent` rows are deleted after 180 days.
+  `EmailLog` rows are deleted after 365 days.
+  `SearchEvent` rows are deleted after 365 days.
+  `MessageFeedback` UP ratings are deleted after 90 days, DOWN ratings after
+  365 days (DOWN feeds the eval suite, so it keeps the longer window).
+- Eval candidate files: `npm run eval:candidates` writes raw feedback
+  conversation snapshots to `summit-social/evals/transcripts/candidates/` on
+  the operator's machine — working copies of user text, outside the app's
+  retention machinery (they are gitignored and never committed). Delete them
+  once triaged/promoted, and when handling an erasure request include wiping
+  that directory on any machine that ran the export — deleting the DB rows
+  does not reach these files.
 
 ## CI gates (every PR)
 
-Biome + tsc · 1,100+ mocked unit/integration tests with coverage thresholds
+Biome + tsc · supply-chain gate (`scripts/audit-gate.mjs`: high/critical
+production advisories fail unless pinned by GHSA id in the allowlist —
+a liability ledger whose entries carry a `reviewBy` date that expires) ·
+1,100+ mocked unit/integration tests with coverage thresholds
 (88/86/89/88) · AI eval replay gate (19 goldens + adversarial teeth-check +
-prompt-surface hash) · production build · real-Postgres/Redis tier
-(migrations, schema-drift check, seed, concurrency) · Rust fmt/clippy/test ·
-Playwright e2e, desktop + mobile. Do not merge red; do not lower thresholds
-to pass.
+prompt-surface hash) · production build + bundle-budget gate
+(`scripts/check-bundle-budget.mjs` vs `bundle-budget.json`) + csp-prerender
+gate (`scripts/check-csp-prerender.mjs`: no scripted route may slip back
+into the prerender manifest, or it ships nonce-less scripts the CSP blocks) ·
+real-Postgres/Redis tier (migrations, schema-drift check, seed, concurrency)
+· Rust fmt/clippy/test · Playwright e2e, desktop + mobile. Do not merge red;
+do not lower thresholds to pass. Dependabot opens weekly npm/cargo/actions
+update PRs (security fixes immediately), judged by this same suite.

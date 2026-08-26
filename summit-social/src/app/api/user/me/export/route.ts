@@ -43,6 +43,7 @@ export const GET = withApi(
       collections,
       follows,
       notifications,
+      messageFeedback,
     ] = await Promise.all([
       prisma.adventure.findMany({ where: { userId }, include: { tags: true } }),
       prisma.comment.findMany({ where: { userId } }),
@@ -52,6 +53,19 @@ export const GET = withApi(
       prisma.collection.findMany({ where: { userId }, include: { items: true } }),
       prisma.follow.findMany({ where: { OR: [{ followerId: userId }, { followingId: userId }] } }),
       prisma.notification.findMany({ where: { userId } }),
+      // AI answer feedback, including the conversation snapshot a thumbs-down
+      // stores (it survives itinerary deletion, so it must be exported here).
+      prisma.messageFeedback.findMany({
+        where: { userId },
+        select: {
+          id: true,
+          rating: true,
+          comment: true,
+          transcript: true,
+          itineraryId: true,
+          createdAt: true,
+        },
+      }),
     ]);
 
     const { openAiApiKey, ...profile } = user;
@@ -67,6 +81,7 @@ export const GET = withApi(
       collections,
       follows,
       notifications,
+      messageFeedback,
     };
 
     return new NextResponse(JSON.stringify(bundle, null, 2), {

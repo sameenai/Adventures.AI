@@ -1,29 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { MutationError, useMutation } from "@/lib/client/use-mutation";
 
 /** Opens the Stripe Billing Portal — card, invoices, cancellation. */
 export function ManageBillingButton() {
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
-
-  async function open() {
-    setBusy(true);
-    setError("");
-    try {
+  const {
+    run: open,
+    busy,
+    error,
+  } = useMutation(
+    async () => {
       const res = await fetch("/api/stripe/portal", { method: "POST" });
       const data = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
       if (!res.ok || !data.url) {
-        setError(data.error ?? "Could not open billing — try again");
-        return;
+        throw new MutationError(data.error ?? "Could not open billing — try again");
       }
       window.location.assign(data.url);
-    } catch {
-      setError("Network error — try again");
-    } finally {
-      setBusy(false);
-    }
-  }
+    },
+    { fallbackError: "Network error — try again" },
+  );
 
   return (
     <div>
