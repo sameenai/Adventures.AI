@@ -55,7 +55,7 @@ const AdventureSchema = z.object({
   highlights: z.array(z.string().min(3)).min(1).max(8),
   gear: z.array(z.string().min(2)).min(1).max(10),
   bestMonths: z.array(z.number().int().min(1).max(12)),
-  climate: z.array(z.enum(["hot", "cold", "mixed"])).min(1),
+  climate: z.array(z.enum(["hot", "tropical", "arid", "temperate", "cold", "alpine", "polar"])).min(1),
   estimatedCost: z.number().int().min(5000).max(10000000).nullable(),
   latitude: z.number().min(-90).max(90).nullable(),
   longitude: z.number().min(-180).max(180).nullable(),

@@ -15,7 +15,7 @@ export function buildCsp(nonce: string, dev: boolean): string {
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${dev ? " 'unsafe-eval'" : ""} https://js.stripe.com`,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com",
-    "img-src 'self' data: blob: https://*.r2.cloudflarestorage.com https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://images.unsplash.com https://api.dicebear.com https://unpkg.com https://*.tile.openstreetmap.org https://api.mapbox.com https://events.mapbox.com",
+    "img-src 'self' data: blob: https://*.r2.cloudflarestorage.com https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://images.unsplash.com https://upload.wikimedia.org https://api.dicebear.com https://unpkg.com https://*.tile.openstreetmap.org https://api.mapbox.com https://events.mapbox.com",
     "connect-src 'self' https://api.stripe.com https://api.mapbox.com https://events.mapbox.com https://*.tile.openstreetmap.org",
     "worker-src blob:",
     "frame-src https://js.stripe.com https://hooks.stripe.com",

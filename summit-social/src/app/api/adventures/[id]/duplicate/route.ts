@@ -23,11 +23,22 @@ export const POST = withApi(
       return NextResponse.json({ error: "Forbidden", code: "FORBIDDEN" }, { status: 403 });
     }
 
-    const { id: _id, createdAt: _c, updatedAt: _u, userId: _uid, tags, ...rest } = original;
+    const {
+      id: _id,
+      createdAt: _c,
+      updatedAt: _u,
+      userId: _uid,
+      tags,
+      imageAttribution,
+      ...rest
+    } = original;
 
     const duplicate = await prisma.adventure.create({
       data: {
         ...rest,
+        // Json columns read back as JsonValue (nullable); the create input
+        // wants InputJsonValue or omission.
+        ...(imageAttribution !== null ? { imageAttribution } : {}),
         title: `${rest.title} (Copy)`,
         published: false,
         userId,

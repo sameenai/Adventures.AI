@@ -288,6 +288,26 @@ export default async function AdventureDetailPage({ params }: Props) {
   // Gallery: cover + up to 4 extras
   const allPhotos = [adventure.coverImageUrl, ...adventure.galleryImages].slice(0, 5);
 
+  // Cover-photo provenance (CC imagery requires the credit; shape guarded —
+  // the column is Json and older rows may carry nothing).
+  const rawAttribution = adventure.imageAttribution as {
+    artist?: unknown;
+    license?: unknown;
+    sourceUrl?: unknown;
+  } | null;
+  const credit =
+    rawAttribution && typeof rawAttribution.artist === "string" && rawAttribution.artist
+      ? {
+          artist: rawAttribution.artist,
+          license: typeof rawAttribution.license === "string" ? rawAttribution.license : "",
+          sourceUrl:
+            typeof rawAttribution.sourceUrl === "string" &&
+            rawAttribution.sourceUrl.startsWith("https://")
+              ? rawAttribution.sourceUrl
+              : "",
+        }
+      : null;
+
   return (
     <>
       <script
@@ -346,6 +366,24 @@ export default async function AdventureDetailPage({ params }: Props) {
                 </div>
               ))}
             </div>
+          )}
+          {credit && (
+            <p className="mt-1 text-right font-mono text-[10px] text-stone-600">
+              Photo:{" "}
+              {credit.sourceUrl ? (
+                <a
+                  href={credit.sourceUrl}
+                  rel="noopener noreferrer nofollow"
+                  target="_blank"
+                  className="underline decoration-stone-700 underline-offset-2 hover:text-stone-400 transition-colors"
+                >
+                  {credit.artist}
+                </a>
+              ) : (
+                credit.artist
+              )}
+              {credit.license ? ` · ${credit.license}` : ""}
+            </p>
           )}
         </div>
 

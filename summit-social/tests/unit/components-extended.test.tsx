@@ -634,6 +634,7 @@ const baseAdventure: AdventureWithUser = {
   coverImageUrl: "https://example.com/img.jpg",
   albumUrl: null,
   albumPlatform: null,
+  imageAttribution: null,
   galleryImages: [],
   highlights: [],
   gear: [],

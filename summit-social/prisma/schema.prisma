@@ -68,6 +68,9 @@ model Adventure {
   galleryImages  String[] @default([])
   albumUrl       String?
   albumPlatform  String?
+  /// Cover photo provenance: { artist, license, sourceUrl } — required for
+  /// CC-licensed imagery (Wikimedia Commons); rendered as a credit line.
+  imageAttribution Json?
   highlights    String[]
   gear          String[]
   bestMonths    Int[]

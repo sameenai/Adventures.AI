@@ -17,7 +17,7 @@ this file (or the runbook) doesn't mention — so what you read here is what the
 
 Four user journeys, one loop:
 
-1. **Discover** — browse/filter/search 789 curated adventures (`/adventures`, `/explore` map,
+1. **Discover** — browse/filter/search 1,000 curated adventures (`/adventures`, `/explore` map,
    `/feed`, `/leaderboard`), vote, comment, follow, bookmark a bucket list, group saves into
    collections.
 2. **Plan** — the AI planner (`/itinerary`) is a real agent: it searches the catalog and live
@@ -70,7 +70,9 @@ summit-social/
 acceptance), `Follow`, `Notification`.
 
 **Catalog** — `Adventure` (category, difficulty, geo, `bestMonths` seasonality, denormalized
-`voteCount`/`viewCount`, optional `Operator`), `Tag`, `Vote` (unique per user×adventure),
+`voteCount`/`viewCount`, optional `Operator`; `imageAttribution` carries the cover photo's
+artist/license/source — CC imagery from Wikimedia Commons is credited on the detail page),
+`Tag`, `Vote` (unique per user×adventure),
 `Comment` (threaded via `parentId`) + `CommentReaction`, `Bookmark` (the bucket list),
 `Collection`/`CollectionItem`, `AdventureView` (salted daily-rotating viewer hash),
 `Operator` (who actually runs it; `bookingUrlTemplate` with `{date}`/`{pax}`).

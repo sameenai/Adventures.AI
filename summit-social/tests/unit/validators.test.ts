@@ -353,7 +353,7 @@ describe("adventureFilterSchema", () => {
   });
 
   it("accepts valid climate values and returns them as an array", () => {
-    for (const v of ["hot", "cold", "mixed"]) {
+    for (const v of ["hot", "tropical", "arid", "temperate", "cold", "alpine", "polar"]) {
       const result = adventureFilterSchema.safeParse({ climate: v });
       expect(result.success).toBe(true);
       if (result.success) expect(result.data.climate).toEqual([v]);
@@ -367,7 +367,8 @@ describe("adventureFilterSchema", () => {
   });
 
   it("rejects invalid climate value", () => {
-    expect(adventureFilterSchema.safeParse({ climate: "tropical" }).success).toBe(false);
+    expect(adventureFilterSchema.safeParse({ climate: "mixed" }).success).toBe(false);
+    expect(adventureFilterSchema.safeParse({ climate: "scorching" }).success).toBe(false);
   });
 
   it("accepts a tag filter", () => {

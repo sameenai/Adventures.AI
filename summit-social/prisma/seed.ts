@@ -30,6 +30,7 @@ interface SeedAdventure {
   difficulty: string;
   durationDays: number;
   coverImageUrl: string;
+  imageAttribution?: { artist: string; license: string; sourceUrl: string } | null;
   highlights: string[];
   gear: string[];
   bestMonths: number[];
@@ -156,6 +157,7 @@ async function main() {
           difficulty: a.difficulty as Difficulty,
           durationDays: a.durationDays,
           coverImageUrl: a.coverImageUrl,
+          ...(a.imageAttribution ? { imageAttribution: a.imageAttribution } : {}),
           highlights: a.highlights,
           gear: a.gear,
           bestMonths: a.bestMonths,
