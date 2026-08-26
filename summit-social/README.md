@@ -17,7 +17,7 @@ this file (or the runbook) doesn't mention — so what you read here is what the
 
 Four user journeys, one loop:
 
-1. **Discover** — browse/filter/search 789 curated adventures (`/adventures`, `/explore` map,
+1. **Discover** — browse/filter/search 1,000 curated adventures (`/adventures`, `/explore` map,
    `/feed`, `/leaderboard`), vote, comment, follow, bookmark a bucket list, group saves into
    collections.
 2. **Plan** — the AI planner (`/itinerary`) is a real agent: it searches the catalog and live

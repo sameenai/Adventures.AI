@@ -1,6 +1,6 @@
 # Basecamper
 
-**The adventure-travel platform Booking.com can't be.** Discover 789 curated expeditions across
+**The adventure-travel platform Booking.com can't be.** Discover 1,000 curated expeditions across
 7 continents, plan trips with an AI agent that searches real catalogs and live fares, save and pay
 for flights, and get told when you're due your next adventure — based on your own travel rhythm.
 
