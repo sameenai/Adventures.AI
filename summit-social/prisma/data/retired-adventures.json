@@ -177,7 +177,7 @@
   },
   {
    "id": "seed-adventure-301",
-   "duplicateOf": "seed-adventure-121",
+   "duplicateOf": "seed-adventure-13",
    "reason": "Both are the standard Laugavegur trek, Landmannalaugar to Thorsmork, 55 km — identical route and landscape description. 301 merely mentions the Fimmvorduhals as an optional extension, so it is still the same base product."
   },
   {
@@ -222,7 +222,7 @@
   },
   {
    "id": "seed-adventure-335",
-   "duplicateOf": "seed-adventure-226",
+   "duplicateOf": "seed-adventure-52",
    "reason": "All three are the 65 km Overland Track from Cradle Mountain to Lake St Clair with Mount Ossa side trip; same iconic Tasmanian walk."
   },
   {
@@ -307,7 +307,7 @@
   },
   {
    "id": "seed-adventure-488",
-   "duplicateOf": "seed-adventure-430",
+   "duplicateOf": "seed-adventure-194",
    "reason": "Same Azores volcanic-island trekking product — crater lakes, Pico summit (highest point in Portugal), whales and thermal pools."
   },
   {
@@ -472,7 +472,7 @@
   },
   {
    "id": "seed-adventure-597",
-   "duplicateOf": "seed-adventure-276",
+   "duplicateOf": "seed-adventure-63",
    "reason": "Both describe the classic Tour du Mont Blanc 170 km circuit through France, Italy, and Switzerland from Chamonix; same product despite title differences."
   },
   {
@@ -547,7 +547,7 @@
   },
   {
    "id": "seed-adventure-642",
-   "duplicateOf": "seed-adventure-401",
+   "duplicateOf": "seed-adventure-36",
    "reason": "Both are the standard El Chalten Fitz Roy trekking circuit centred on Laguna de los Tres in Los Glaciares NP — 'Trek' vs 'Circuit' is cosmetic."
   },
   {
@@ -557,7 +557,7 @@
   },
   {
    "id": "seed-adventure-655",
-   "duplicateOf": "seed-adventure-355",
+   "duplicateOf": "seed-adventure-23",
    "reason": "Both are the 19.4 km Tongariro Alpine Crossing day walk; the Northern Circuit record is a distinct multi-day 43 km product that merely includes the Crossing."
   },
   {
@@ -582,7 +582,7 @@
   },
   {
    "id": "seed-adventure-712",
-   "duplicateOf": "seed-adventure-197",
+   "duplicateOf": "seed-adventure-830",
    "reason": "Both are the classic Everest Three Passes circuit crossing Renjo La, Cho La and Kongma La plus EBC and Gokyo; identical route."
   },
   {
@@ -902,7 +902,7 @@
   },
   {
    "id": "seed-adventure-916",
-   "duplicateOf": "seed-adventure-226",
+   "duplicateOf": "seed-adventure-52",
    "reason": "All three are the 65 km Overland Track from Cradle Mountain to Lake St Clair with Mount Ossa side trip; same iconic Tasmanian walk."
   },
   {
@@ -1054,6 +1054,131 @@
    "id": "seed-adventure-1000",
    "duplicateOf": "seed-adventure-38",
    "reason": "All are the Mont Blanc summit climb via the Gouter Route / Voie Normale to 4,808 m — same mountaineering product under different titles."
+  },
+  {
+   "id": "seed-adventure-122",
+   "duplicateOf": "seed-adventure-31",
+   "reason": "Same product: Milford Track 4-day Great Walk; thin copy of the richer record."
+  },
+  {
+   "id": "seed-adventure-121",
+   "duplicateOf": "seed-adventure-13",
+   "reason": "Same product family: classic Laugavegur covered by the Laugavegur & Fimmvörðuháls record, which describes both."
+  },
+  {
+   "id": "seed-adventure-226",
+   "duplicateOf": "seed-adventure-52",
+   "reason": "Same product: Overland Track Cradle Mountain-Lake St Clair; thin copy."
+  },
+  {
+   "id": "seed-adventure-787",
+   "duplicateOf": "seed-adventure-416",
+   "reason": "Same product: Wild Atlantic Way cycle tour; the full-route record covers section options."
+  },
+  {
+   "id": "seed-adventure-355",
+   "duplicateOf": "seed-adventure-23",
+   "reason": "Same product: Tongariro Alpine Crossing day hike; thin copy."
+  },
+  {
+   "id": "seed-adventure-201",
+   "duplicateOf": "seed-adventure-22",
+   "reason": "Identical product: both sell the 2-day Trolltunga hike from the Skjeggedal trailhead above Odda to the rock ledge 700m over Lake Ringedalsvatnet, both pitching the pre-dawn/overnight start to beat the queue for the ledge photograph. Same trail, same duration, same experience; 22 is far richer (108 v"
+  },
+  {
+   "id": "seed-adventure-401",
+   "duplicateOf": "seed-adventure-36",
+   "reason": "Both sell El Chalten-based trekking to Laguna de los Tres below Fitz Roy (both cite the same 800m ascent to stand under the spire at sunrise, plus Cerro Torre and Los Glaciares). 401 is a thin one-paragraph subset of 36's fuller El Chalten trail-network record (169 votes vs 3)."
+  },
+  {
+   "id": "seed-adventure-802",
+   "duplicateOf": "seed-adventure-56",
+   "reason": "Both are the full GR20 Calenzana-to-Conca, 180 km, ~15-16 days, both billed as 'the most demanding long-distance trail in Europe' with the harder granite/chains north and Mediterranean south, refuge nights. Same route end-to-end; 56 has 33 votes vs 3."
+  },
+  {
+   "id": "seed-adventure-788",
+   "duplicateOf": "seed-adventure-60",
+   "reason": "Both are the Alta Via 1: 120 km Lago di Braies to Belluno, 9 days hut-to-hut, same set pieces (Rifugio Lagazuoi WWI tunnels, Cinque Torri, Civetta NW face, alpenglow). Identical product; 60 kept on voteCount 47 vs 2 — 788's booking/cost detail is worth folding into 60."
+  },
+  {
+   "id": "seed-adventure-900",
+   "duplicateOf": "seed-adventure-61",
+   "reason": "Both are the Baltoro Glacier trek to K2 Base Camp via Concordia from Askole/Skardu — same glacier approach, same Concordia 8,000m amphitheatre (K2, Broad Peak, Gasherbrums), same moraine camping. One trip in a customer's eyes; 61 richer at 29 votes vs 3."
+  },
+  {
+   "id": "seed-adventure-276",
+   "duplicateOf": "seed-adventure-63",
+   "reason": "Both are the classic 170 km Tour du Mont Blanc circuit through France/Italy/Switzerland with ~10,000 m ascent, hut-to-hut refuges, from Chamonix. Identical route and format (10 vs 11 days is trivial); 63 has 64 votes vs 3."
+  },
+  {
+   "id": "seed-adventure-173",
+   "duplicateOf": "seed-adventure-259",
+   "reason": "173's own description states 'The Markha Valley is the classic Ladakh traverse' — the exact trek 259 sells: same homestay format, Kongmaru La at 5,260 m, Kang Yatse over Nimaling, Hemis NP blue-sheep country, same Jul-Sep window. Same product under two titles; 259 has the cleaner title, more concret"
+  },
+  {
+   "id": "seed-adventure-430",
+   "duplicateOf": "seed-adventure-194",
+   "reason": "Both are a 10-day multi-island Azores trek from Ponta Delgada with the identical anchors: Pico summit (2,351 m, Portugal's highest), Sete Cidades twin crater lakes, Furnas geothermal, whale watching. Identical coordinates and duration; 194 kept for its more concrete per-island itinerary."
+  },
+  {
+   "id": "seed-adventure-907",
+   "duplicateOf": "seed-adventure-208",
+   "reason": "Both are the Gangotri-to-Gomukh walk (18-19 km) to the ice-cave source of the Ganges with the same Tapovan meadow extension below Shivling (6,543 m), same permit requirement and same glacier-retreat framing. Same pilgrimage-trail product; 208's three-paragraph record is much richer."
+  },
+  {
+   "id": "seed-adventure-269",
+   "duplicateOf": "seed-adventure-235",
+   "reason": "Despite the 'Continental Divide Trail' title, 269's actual description sells the same product as 235: an off-trail, above-treeline Wind River traverse from Pinedale demanding map navigation, headlined by the Cirque of the Towers, glaciers and total solitude. 235 is the more concrete record (Big Sand"
+  },
+  {
+   "id": "seed-adventure-829",
+   "duplicateOf": "seed-adventure-280",
+   "reason": "Both are the identical 78.4 km, 5-day Heaphy Track: Perry Saddle beech climb, Gouland Downs tussock/kiwi/snails, nikau-palm finale to Kohaihai, DOC huts, legendary Heaphy Hut sandflies, the same ~£400 budget and the same 460 km trailhead-shuttle problem. Same Great Walk twice; 280 kept as the fuller"
+  },
+  {
+   "id": "seed-adventure-428",
+   "duplicateOf": "seed-adventure-622",
+   "reason": "Both are composite 'best of the Drakensberg' multi-day treks selling the same components: the Giant's Cup Trail by name, the Amphitheatre wall and Tugela Falls (948 m), San rock art, and lammergeier — neither describes a route the other doesn't cover. 622 is richer and has 8 votes vs 2."
+  },
+  {
+   "id": "seed-adventure-439",
+   "duplicateOf": "seed-adventure-662",
+   "reason": "Same title, same product: the restricted-area Nar Phu Valley trek off the Annapurna Circuit — Phu village at ~4,100 m, exit over the Kang La at 5,320 m back to the Circuit, permit-and-guide format, 15-16 days. 662 is far richer (Koto gorge entry, Tashi Lhakhang, costs) with 7 votes vs 2."
+  },
+  {
+   "id": "seed-adventure-142",
+   "duplicateOf": "seed-adventure-293",
+   "reason": "Both are ~3-week cycling loops of Sri Lanka from Colombo built on identical anchors: Sigiriya and Anuradhapura in the Cultural Triangle, the climb to Nuwara Eliya/Ella tea country, and Mirissa blue-whale watching. Same grand-tour product; 293's record is far richer with monsoon-planning and cost det"
+  },
+  {
+   "id": "seed-adventure-471",
+   "duplicateOf": "seed-adventure-674",
+   "reason": "Both sell San Pedro de Atacama-based desert loop riding with the same set pieces: the pre-dawn ride to El Tatio geysers at 4,320 m, the Salar de Atacama, and valley descents from a San Pedro base — unlike 185, neither crosses to Uyuni. Same product; 674 is richer (acclimatisation, water, seasons) wi"
+  },
+  {
+   "id": "seed-adventure-162",
+   "duplicateOf": "seed-adventure-103",
+   "reason": "Both sell the same wild-orangutan Sabah safari built on Danum Valley old-growth forest plus Kinabatangan River boat safaris, with near-identical highlight lists (wild orangutans, pygmy elephants, proboscis/hornbills). 103 adds Sepilok and is richer; 963 stays distinct as a rehab-centre volunteering "
+  },
+  {
+   "id": "seed-adventure-456",
+   "duplicateOf": "seed-adventure-581",
+   "reason": "456's 'Photography' title has no photography product behind it — its description is the same Porto Jofre jaguar-boat safari as 581: near-daily jaguar sightings from motorised boats on the Cuiabá, giant river otters, giant anteaters, jabiru/hyacinth macaw, dry-season timing. The photography-vs-genera"
+  },
+  {
+   "id": "seed-adventure-943",
+   "duplicateOf": "seed-adventure-9",
+   "reason": "Both sell the same Rwenzori product: a 9-10 day trek through the identical vegetation-zone sequence (heather, giant lobelia/groundsel Afro-alpine, bogs) to Margherita Peak on Mount Stanley (5,109 m), both framed around the fast-retreating equatorial glaciers. 943 names no distinct routing that a cus"
+  },
+  {
+   "id": "seed-adventure-197",
+   "duplicateOf": "seed-adventure-830",
+   "reason": "Found while reading the Khumbu suspects (not in the warning list — Δ0.21° escaped the filter): both are the identical 20-day Everest Three Passes circuit crossing Renjo La 5,360 m, Cho La 5,420 m and Kongma La 5,535 m with EBC and Gokyo Ri included, both EXTREME. 830 is slightly richer (Kala Patthar"
+  },
+  {
+   "id": "seed-adventure-805",
+   "duplicateOf": "seed-adventure-548",
+   "reason": "Same product: Galapagos liveaboard diving at Wolf and Darwin (hammerhead schools, whale sharks); the richer Diving Week record covers it."
   }
  ]
 }
