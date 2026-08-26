@@ -71,6 +71,10 @@ test.describe("authenticated journeys", () => {
   });
 
   test("demo-mode chat: message streams a reply and creates an itinerary", async ({ page }) => {
+    // Longest journey (login → redirect → chat stream → trips list); under
+    // parallel workers the dev compiler can eat the default budget, so this
+    // asserts the flow completes, not that a loaded dev server is fast.
+    test.slow();
     await signIn(page, uniqueEmail());
     await page.goto("/itinerary");
 
