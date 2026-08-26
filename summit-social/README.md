@@ -70,7 +70,9 @@ summit-social/
 acceptance), `Follow`, `Notification`.
 
 **Catalog** — `Adventure` (category, difficulty, geo, `bestMonths` seasonality, denormalized
-`voteCount`/`viewCount`, optional `Operator`), `Tag`, `Vote` (unique per user×adventure),
+`voteCount`/`viewCount`, optional `Operator`; `imageAttribution` carries the cover photo's
+artist/license/source — CC imagery from Wikimedia Commons is credited on the detail page),
+`Tag`, `Vote` (unique per user×adventure),
 `Comment` (threaded via `parentId`) + `CommentReaction`, `Bookmark` (the bucket list),
 `Collection`/`CollectionItem`, `AdventureView` (salted daily-rotating viewer hash),
 `Operator` (who actually runs it; `bookingUrlTemplate` with `{date}`/`{pax}`).

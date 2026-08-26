@@ -130,6 +130,7 @@ const baseAdventure: AdventureWithUser = {
   operatorId: null,
   albumUrl: null,
   albumPlatform: null,
+  imageAttribution: null,
   galleryImages: [],
   highlights: [],
   gear: [],
