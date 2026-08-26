@@ -318,8 +318,12 @@ export default async function AdventuresPage({
           {(
             [
               { value: "hot", label: "Hot" },
+              { value: "tropical", label: "Tropical" },
+              { value: "arid", label: "Arid" },
+              { value: "temperate", label: "Temperate" },
               { value: "cold", label: "Cold" },
-              { value: "mixed", label: "Mixed" },
+              { value: "alpine", label: "Alpine" },
+              { value: "polar", label: "Polar" },
             ] as const
           ).map(({ value, label }) => (
             <Link
