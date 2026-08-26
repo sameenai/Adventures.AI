@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.5.10",
     "@commitlint/cli": "^20.4.3",
     "@commitlint/config-conventional": "^20.4.3",
     "@playwright/test": "^1.50.1",
