@@ -224,6 +224,7 @@ hashes, retention jobs. Legal pages at `/privacy` and `/terms` name every proces
 | Load | `tests/load/k6-smoke.js` · `tests/load/k6-profile.js` | smoke throughput baseline · 5→25 VU ramp over pages + API with hard budgets (p95 < 800ms, errors < 1%); run manually: `k6 run -e BASE_URL=... tests/load/k6-profile.js` |
 | Bundle budget | `node scripts/check-bundle-budget.mjs` (after `npm run build`) | per-route client JS and the shared baseline stay within `bundle-budget.json` (measured + 10% headroom; re-baseline with `--update`) |
 | Docs | part of `test:unit` (`docs-drift.test.ts`) | this README + runbook stay true to the code |
+| Catalog quality | part of `test:unit` (`catalog-quality.test.ts`) | the 1,000 adventures stay complete, uniquely titled, uniquely photographed (compared by Commons file identity, not URL string) and fully credited; plus factual gates — hemisphere vs. ski season, latitude-and-declination vs. midnight-sun claims, bear-proof storage only where bears live |
 
 CI (`.github/workflows/ci.yml`) runs lint+types, mocked tests with coverage, eval replay,
 production build + the bundle budget gate, the real-services tier (migrations + schema-drift
