@@ -129,6 +129,58 @@ describe("catalog quality — 1,000 adventures, no duplicates, aligned data", ()
     }
   });
 
+  it("the midnight sun is only claimed where and when it actually happens", () => {
+    // Geometry, not a season. The sun stays up when the solar declination
+    // reaches 90° − |lat|, so the window is a fortnight at the Arctic Circle
+    // and half the year at the pole. A flat "May–July above 66.5°" rule gets
+    // both ends wrong, and nine records once claimed it at 60–66° where the
+    // sun genuinely sets. Iceland is the trap: it sits just SOUTH of the
+    // circle, so "midnight sun" there is marketing, not fact.
+    const declination = (dayOfYear: number) =>
+      23.44 * Math.sin(((2 * Math.PI) / 365) * (dayOfYear - 81));
+    const MONTH_START = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+    const MONTH_LEN = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    for (const a of adventures) {
+      const prose = `${a.title} ${a.description} ${a.highlights.join(" ")} ${a.gear.join(" ")}`;
+      const claims =
+        /midnight[- ]sun/i.test(prose) || a.tags.some((t) => /midnight.?sun/i.test(t));
+      if (!claims) continue;
+      // A record may name the real dates in order to say the trip misses them.
+      if (/midnight sun (?:arrives|starts|begins)/i.test(a.description)) continue;
+
+      const lat = a.latitude as number;
+      const needed = 90 - Math.abs(lat);
+      expect(Math.abs(lat), `${a.id}: claims midnight sun at ${lat}°`).toBeGreaterThanOrEqual(66.5);
+
+      const reachable = a.bestMonths.some((m) => {
+        const first = MONTH_START[m - 1] + 1;
+        for (let d = first; d < first + MONTH_LEN[m - 1]; d++) {
+          const decl = lat > 0 ? declination(d) : -declination(d);
+          if (decl >= needed) return true;
+        }
+        return false;
+      });
+      expect(reachable, `${a.id}: midnight sun at ${lat}° never occurs in months ${a.bestMonths}`).toBe(true);
+    }
+  });
+
+  it("bear-proof food storage is only listed where bears live", () => {
+    // "Bear canister" is North American boilerplate that has drifted onto trips
+    // on landmasses with no bears at all — Patagonia's southernmost bear is
+    // ~3,000 km north of Torres del Paine.
+    const BEARLESS = new Set([
+      "Chile", "Argentina", "Australia", "New Zealand", "South Africa",
+      "Namibia", "Botswana", "Kenya", "Tanzania", "Iceland", "Ireland",
+      "United Kingdom", "Madagascar", "Papua New Guinea", "Fiji",
+    ]);
+    for (const a of adventures) {
+      const hasCanister = a.gear.some((g) => /bear canister|bear barrel|bear-proof/i.test(g));
+      if (!hasCanister) continue;
+      expect(BEARLESS.has(a.country), `${a.id}: bear storage listed in ${a.country}, which has no bears`).toBe(false);
+    }
+  });
+
   it("southern-hemisphere summer activities do not claim northern-summer-only windows", () => {
     // Structural sanity: a deep-southern (lat < -30) SKIING record must not be
     // exclusively northern-winter (Dec-Mar), and vice versa for lat > 30.

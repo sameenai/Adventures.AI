@@ -28,7 +28,7 @@
     "Gaiters and waterproof trail boots",
     "Camp stove and fuel canisters",
     "Headlamp with spare batteries (pre-dawn starts)",
-    "Bear canister or rodent-proof food bag",
+    "Rodent-proof food bag (foxes and mice raid camps; no bears in Patagonia)",
     "Buff and balaclava for wind protection",
     "Trekking permits (book at torresdelpaine.cl months ahead)"
    ],
@@ -4857,7 +4857,7 @@
   {
    "num": 86,
    "title": "Iceland Ring Road Complete Circuit",
-   "description": "Route 1, Iceland's Ring Road, circles the entire island in 1,332km — a complete circuit that passes through every major landscape type the country offers: black sand desert, active volcanoes, ice cap, fjord, lava field, waterfall, and geothermal spa. The road is fully paved and well-maintained, making the circuit accessible to ordinary rental vehicles in summer while demanding a 4WD in winter.\n\nThe classic highlights are well-documented — Jökulsárlón glacier lagoon and its icebergs, the waterfalls of the south coast (Skógafoss, Seljalandsfoss, Svartifoss), the Snæfellsnes Peninsula's volcanic glacier, the Westfjords for true wilderness — but the Ring Road's particular joy is the landscape between the highlights: lava deserts that look post-apocalyptic, fjord drives where you share the road with nothing but sheep, and the consistent surprise of Iceland's scale.\n\nMidnight sun in June–July means 24-hour daylight, enabling driving and hiking at any hour. Northern lights season runs September–March, with the darkest windows in October–February providing the best aurora photography.\n\nRent a campervan in Reykjavik for maximum flexibility — but since the 2015 Nature Conservation Act, campervans and caravans must overnight in designated campsites, and tent camping outside them needs the landowner's permission. Budget £200–320 per day for rental, fuel, food, and camping fees.",
+   "description": "Route 1, Iceland's Ring Road, circles the entire island in 1,332km — a complete circuit that passes through every major landscape type the country offers: black sand desert, active volcanoes, ice cap, fjord, lava field, waterfall, and geothermal spa. The road is fully paved and well-maintained, making the circuit accessible to ordinary rental vehicles in summer while demanding a 4WD in winter.\n\nThe classic highlights are well-documented — Jökulsárlón glacier lagoon and its icebergs, the waterfalls of the south coast (Skógafoss, Seljalandsfoss, Svartifoss), the Snæfellsnes Peninsula's volcanic glacier, the Westfjords for true wilderness — but the Ring Road's particular joy is the landscape between the highlights: lava deserts that look post-apocalyptic, fjord drives where you share the road with nothing but sheep, and the consistent surprise of Iceland's scale.\n\nIn June and July the sun dips below the horizon for only two or three hours and the sky never goes dark, so you can drive or hike at any hour. Northern lights season runs September–March, with the darkest windows in October–February providing the best aurora photography.\n\nRent a campervan in Reykjavik for maximum flexibility — but since the 2015 Nature Conservation Act, campervans and caravans must overnight in designated campsites, and tent camping outside them needs the landowner's permission. Budget £200–320 per day for rental, fuel, food, and camping fees.",
    "location": "Ring Road, Route 1, Iceland",
    "country": "Iceland",
    "continent": "Europe",
@@ -4870,7 +4870,7 @@
     "Seljalandsfoss — walk right behind the 60m curtain of water",
     "Vatnajökull National Park — Europe's largest glacier by volume",
     "Northern lights from a darkened campervan in the Westfjords (September–March)",
-    "Midnight sun drive through the East Fjords in June",
+    "East Fjords driven at midnight in June, in full daylight",
     "Mývatn geothermal area — pseudocraters, boiling mud pools, and cave baths"
    ],
    "gear": [
@@ -4899,7 +4899,7 @@
     "glacier",
     "camping",
     "bucket-list",
-    "midnight-sun"
+    "nightless-nights"
    ],
    "user": 2,
    "voteCount": 82,
@@ -12966,7 +12966,7 @@
     "Saimaa ringed seal sightings",
     "Kolovesi's motorboat-free channels",
     "Everyman's Right wild camping",
-    "Midnight-sun paddling in June",
+    "White-night paddling in June — barely three hours of dusk",
     "Olavinlinna castle finish at Savonlinna"
    ],
    "gear": [
@@ -12990,7 +12990,7 @@
    "longitude": 28.88,
    "tags": [
     "kayaking",
-    "midnight-sun",
+    "white-nights",
     "camping",
     "wildlife"
    ],
@@ -15191,7 +15191,7 @@
     "Klondike Gold Rush 1898 route",
     "Fort Selkirk abandoned 1950 ghost town",
     "Five Finger Rapids Class III",
-    "Midnight sun 24-hour paddling",
+    "White nights — usable light around the clock in June",
     "Grizzly bear and moose wildlife"
    ],
    "gear": [
@@ -15219,7 +15219,7 @@
     "wildlife",
     "camping",
     "expedition",
-    "midnight-sun"
+    "white-nights"
    ],
    "user": 2,
    "voteCount": 2,
@@ -18258,8 +18258,8 @@
    "tags": [
     "cultural-immersion",
     "arctic",
-    "midnight-sun",
-    "wildlife"
+    "wildlife",
+    "arctic-spring-light"
    ],
    "user": 1,
    "voteCount": 2,
@@ -26775,7 +26775,7 @@
   {
    "num": 628,
    "title": "Iceland Westfjords Kayaking",
-   "description": "Paddle north out of Isafjordur and you are quickly beyond Iceland's last road, tracing cliffs into Hornstrandir Nature Reserve - abandoned by its farmers in the 1950s and now the country's wildest corner. From the cockpit of a sea kayak the scale sinks in: 500-metre bird cliffs streaming with puffins and guillemots, beaches without a footprint, and Arctic foxes - fully protected here and boldly curious - trotting into camp to inspect your tent pegs. Across the fjords, Dynjandi spreads its 100-metre bridal-veil cascade down the mountainside.\n\nThe sea is the variable that sets the rules. Water at 5-8C makes a drysuit non-negotiable, katabatic gusts spill off the plateaus without warning, and fog can erase the coastline in minutes - so this is a trip for a guided expedition (around £2,000 for five days from Isafjordur, boats and camps included) unless you hold serious cold-water qualifications. June to August brings the midnight sun, which changes the game: with 24-hour light you paddle when the sea allows rather than when the clock says, and some of the finest crossings happen at two in the morning on water like mercury.",
+   "description": "Paddle north out of Isafjordur and you are quickly beyond Iceland's last road, tracing cliffs into Hornstrandir Nature Reserve - abandoned by its farmers in the 1950s and now the country's wildest corner. From the cockpit of a sea kayak the scale sinks in: 500-metre bird cliffs streaming with puffins and guillemots, beaches without a footprint, and Arctic foxes - fully protected here and boldly curious - trotting into camp to inspect your tent pegs. Across the fjords, Dynjandi spreads its 100-metre bridal-veil cascade down the mountainside.\n\nThe sea is the variable that sets the rules. Water at 5-8C makes a drysuit non-negotiable, katabatic gusts spill off the plateaus without warning, and fog can erase the coastline in minutes - so this is a trip for a guided expedition (around £2,000 for five days from Isafjordur, boats and camps included) unless you hold serious cold-water qualifications. June and July bring nightless nights — just south of the Arctic Circle the sun sets for barely two hours and never takes the light with it — and that changes the game: with usable light around the clock you paddle when the sea allows rather than when the clock says, and some of the finest crossings happen at two in the morning on water like mercury.",
    "location": "Westfjords, Iceland",
    "country": "Iceland",
    "continent": "Europe",
@@ -26788,7 +26788,7 @@
     "Puffin colony Latrabjarg largest Europe",
     "Isafjordur village compact fjord drama",
     "Dynjandi waterfall tiered cascade approach kayak",
-    "Midnight sun navigation 24-hour daylight"
+    "Nightless-night navigation — crossings at two in the morning"
    ],
    "gear": [
     "Expedition sea kayak with full cold-water outfitting",
@@ -35562,7 +35562,7 @@
     "Auyuittuq tidewater cliffs",
     "Narwhal and walrus encounters",
     "Iceberg-filled fiord paddling",
-    "Midnight sun camps",
+    "Camps under long Arctic dusk",
     "Inuit guide knowledge",
     "Calving tidewater glaciers"
    ],
@@ -37993,8 +37993,8 @@
   },
   {
    "num": 912,
-   "title": "Iceland Ring Road Midnight Sun Cycling",
-   "description": "Cycle Iceland's Ring Road under the midnight sun — 1,332 km around the entire island on Route 1, past the iceberg lagoon at Jökulsárlón, the falls of Skógafoss and Seljalandsfoss, Mývatn's geothermal fields and the switchbacking Eastfjords, in June-July daylight that never ends. Riding at 11pm in low golden light with the road to yourself is the memory that lasts. Ten to fourteen days is a sane schedule at 100-130 km a day; the Eastfjords are the most dramatic riding and the northern sections the loneliest.\n\nWind is the variable that breaks trips: katabatic gusts can stop a loaded bike dead or shove it across the lane, and sandstorms south of Vatnajökull have stripped paint from cars. Check the forecast religiously and be willing to sit out a day. The interior F-roads are 4WD territory — stay on the loop unless you are on a fat-tyred rig. Cyclists are banned from the Hvalfjörður tunnel and detour around the old fjord road instead, and lights are essential for the unlit tunnels in the east. Campsites appear every 40-60 km; around £1,400 covers a fortnight of camping with hostel nights when storms roll in, but food is dear, so carry more than feels reasonable — and pack an eye mask, because the tent glows at 2am.",
+   "title": "Iceland Ring Road: Cycling the Nightless Summer",
+   "description": "Cycle Iceland's Ring Road through Iceland's nightless summer — 1,332 km around the entire island on Route 1, past the iceberg lagoon at Jökulsárlón, the falls of Skógafoss and Seljalandsfoss, Mývatn's geothermal fields and the switchbacking Eastfjords, in June-July daylight that never ends. Riding at 11pm in low golden light with the road to yourself is the memory that lasts. Ten to fourteen days is a sane schedule at 100-130 km a day; the Eastfjords are the most dramatic riding and the northern sections the loneliest.\n\nWind is the variable that breaks trips: katabatic gusts can stop a loaded bike dead or shove it across the lane, and sandstorms south of Vatnajökull have stripped paint from cars. Check the forecast religiously and be willing to sit out a day. The interior F-roads are 4WD territory — stay on the loop unless you are on a fat-tyred rig. Cyclists are banned from the Hvalfjörður tunnel and detour around the old fjord road instead, and lights are essential for the unlit tunnels in the east. Campsites appear every 40-60 km; around £1,400 covers a fortnight of camping with hostel nights when storms roll in, but food is dear, so carry more than feels reasonable — and pack an eye mask, because the tent glows at 2am.",
    "location": "Ring Road, Iceland",
    "country": "Iceland",
    "continent": "Europe",
@@ -38003,7 +38003,7 @@
    "durationDays": 14,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Iceland_Ring_Road_trip%2C_7.jpg/1920px-Iceland_Ring_Road_trip%2C_7.jpg",
    "highlights": [
-    "Riding under midnight sun",
+    "Riding at midnight in broad daylight",
     "Jökulsárlón glacier lagoon",
     "Eastfjords coastal switchbacks",
     "Mývatn geothermal fields",
@@ -38036,7 +38036,7 @@
     "cycling",
     "arctic",
     "volcanic",
-    "midnight-sun",
+    "nightless-nights",
     "multi-day"
    ],
    "user": 1,
@@ -47279,7 +47279,7 @@
    "durationDays": 6,
    "highlights": [
     "Wild camping on your own granite skerry each night",
-    "Midnight-sun paddling through glassy channels",
+    "White-night paddling through glassy channels",
     "Sea eagles and eider flotillas at close range",
     "Reaching remote Kökar in the outer archipelago",
     "Wood-fired sauna and Baltic swim at a guest harbour"
@@ -47308,7 +47308,7 @@
     "archipelago",
     "sea kayaking",
     "wild camping",
-    "midnight sun",
+    "white-nights",
     "finland"
    ],
    "user": 3,
@@ -48507,7 +48507,7 @@
     "Binoculars for bird cliffs",
     "Swimwear for hot pots",
     "Offline maps and fuel plan",
-    "Eye mask for midnight sun"
+    "Eye mask — it never gets properly dark"
    ],
    "bestMonths": [
     6,
@@ -48526,7 +48526,7 @@
     "puffins",
     "waterfalls",
     "remote",
-    "midnight sun"
+    "nightless-nights"
    ],
    "user": 3,
    "voteCount": 7,
