@@ -149,19 +149,15 @@ const baseAdventure: AdventureWithUser = {
 };
 
 describe("AdventureListRow", () => {
-  it("renders the country on the top line", () => {
+  it("renders location and country together", () => {
     render(<AdventureListRow adventure={baseAdventure} />);
+    expect(screen.getByText(/Annapurna Region,/)).toBeTruthy();
     expect(screen.getByText("Nepal")).toBeTruthy();
   });
 
   it("renders the adventure title as a link", () => {
     render(<AdventureListRow adventure={baseAdventure} />);
     expect(screen.getByRole("heading", { name: /annapurna circuit/i })).toBeTruthy();
-  });
-
-  it("renders the location", () => {
-    render(<AdventureListRow adventure={baseAdventure} />);
-    expect(screen.getByText("Annapurna Region")).toBeTruthy();
   });
 
   it("renders category and duration", () => {

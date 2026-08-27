@@ -78,15 +78,15 @@ export function AdventureCard({
       </Link>
 
       <div className="px-4 pb-4 pt-3">
-        <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
-          {adventure.country}
-        </p>
         <Link href={`/adventures/${adventure.id}`}>
-          <h3 className="mt-1 font-display text-lg font-light leading-snug text-stone-100 transition-colors group-hover:text-amber-500 line-clamp-2">
+          <h3 className="font-display text-lg font-light leading-snug text-stone-100 transition-colors group-hover:text-amber-500 line-clamp-2">
             {adventure.title}
           </h3>
         </Link>
-        <p className="mt-0.5 text-xs text-stone-600 line-clamp-1">{adventure.location}</p>
+        <p className="mt-1 text-xs text-stone-400 line-clamp-1">
+          {adventure.location},{" "}
+          <span className="font-medium text-stone-300">{adventure.country}</span>
+        </p>
 
         <div className="mt-3 flex items-center justify-between">
           <div className="flex items-center gap-2 min-w-0">

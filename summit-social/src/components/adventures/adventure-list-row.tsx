@@ -41,15 +41,15 @@ export function AdventureListRow({
 
       {/* Main content */}
       <div className="min-w-0 flex-1">
-        <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-stone-500">
-          {adventure.country}
-        </p>
         <Link href={`/adventures/${adventure.id}`}>
-          <h3 className="mt-0.5 font-display text-base font-light text-stone-100 transition-colors group-hover:text-amber-500 line-clamp-1">
+          <h3 className="font-display text-base font-light text-stone-100 transition-colors group-hover:text-amber-500 line-clamp-1">
             {adventure.title}
           </h3>
         </Link>
-        <p className="mt-0.5 text-xs text-stone-600 line-clamp-1">{adventure.location}</p>
+        <p className="mt-0.5 text-xs text-stone-400 line-clamp-1">
+          {adventure.location},{" "}
+          <span className="font-medium text-stone-300">{adventure.country}</span>
+        </p>
 
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-stone-500">
