@@ -67,7 +67,7 @@
   {
    "num": 2,
    "title": "Cycling the Karakoram Highway",
-   "description": "The Karakoram Highway is the highest paved international road on earth, climbing from the heat of Islamabad's plains to the Khunjerab Pass at 4,693m on the Pakistan–China border. Cycling it is an act of sustained commitment: three weeks of daily effort against altitude, gradient, and the relentless scale of the Karakoram and Hindu Kush ranges.\n\nLeave Islamabad in the cool of early morning. The first four days cross Punjab's agricultural flatlands — deceptively easy, deceptively hot. The road kicks up at Besham, where the Indus Gorge narrows and the mountains close in. From here everything becomes spectacular and everything becomes hard. The Indus is a constant companion, pewter-grey and violent, as the road clings to cliff faces blasted out of the rock.\n\nKarimabad in Hunza Valley is the trip's emotional midpoint. The fort of Baltit stands above the terraced apricot orchards, framed by the 7,788m pyramid of Rakaposhi. Rest two nights. Buy dried mulberries from roadside stalls. Let the altitude begin its acclimatisation work.\n\nThe final push to Khunjerab crosses the Attabad Lake tunnel system, built after a 2010 landslide created a 22km lake overnight. You'll pass the turquoise water and the otherworldly Passu Cones — a row of cathedral spires rising straight from the valley floor — before the road tilts up to the pass itself.\n\nAt Khunjerab, on a clear day, K2 is visible to the east. There is no better reward for three weeks of pedalling.",
+   "description": "The Karakoram Highway is the highest paved international road on earth, climbing from the heat of Islamabad's plains to the Khunjerab Pass at 4,693m on the Pakistan–China border. Cycling it is an act of sustained commitment: three weeks of daily effort against altitude, gradient, and the relentless scale of the Karakoram and Hindu Kush ranges.\n\nLeave Islamabad in the cool of early morning. The first four days cross Punjab's agricultural flatlands — deceptively easy, deceptively hot. The road kicks up at Besham, where the Indus Gorge narrows and the mountains close in. From here everything becomes spectacular and everything becomes hard. The Indus is a constant companion, pewter-grey and violent, as the road clings to cliff faces blasted out of the rock.\n\nKarimabad in Hunza Valley is the trip's emotional midpoint. The fort of Baltit stands above the terraced apricot orchards, framed by the 7,788m pyramid of Rakaposhi. Rest two nights. Buy dried mulberries from roadside stalls. Let the altitude begin its acclimatisation work.\n\nThe final push to Khunjerab crosses the Attabad Lake tunnel system, built after a 2010 landslide created a 22km lake overnight. You'll pass the turquoise water and the otherworldly Passu Cones — a row of cathedral spires rising straight from the valley floor — before the road tilts up to the pass itself.\n\nAt Khunjerab, the road tops out on a bare 4,693m saddle between ice-streaked ridgelines, with the Chinese frontier post just beyond the marker stone. There is no better reward for three weeks of pedalling.",
    "location": "Islamabad to Khunjerab Pass",
    "country": "Pakistan",
    "continent": "Asia",
@@ -110,7 +110,7 @@
    ],
    "estimatedCost": 200000,
    "latitude": 36.8527,
-   "longitude": 74.8527,
+   "longitude": 75.42,
    "tags": [
     "bucket-list",
     "solo-travel",
@@ -200,7 +200,7 @@
    "continent": "Europe",
    "category": "TREKKING",
    "difficulty": "CHALLENGING",
-   "durationDays": 12,
+   "durationDays": 15,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Mont_Collon_%28VS%29_1.jpg/1920px-Mont_Collon_%28VS%29_1.jpg",
    "highlights": [
     "Final descent into Zermatt with the Matterhorn materialising around each bend",
@@ -254,7 +254,7 @@
   {
    "num": 5,
    "title": "Lofoten Islands Sea Kayaking",
-   "description": "The Lofoten Islands rise from the Norwegian Sea like a fever dream: vertical walls of granite and gneiss dropping directly into arctic water so clear you can watch cod move ten metres below the hull of your kayak. The archipelago sits above the Arctic Circle, and in July and August the sun circles the horizon without setting — you paddle at midnight in amber light, set camp on a beach at 2am, and wake to find the same light still pouring through the tent door.\n\nEight days of paddling covers the outer archipelago from Å in the south to Svolvær in the north, with a route that weaves between sea stacks, through tidal narrows, and around headlands that funnel wind into powerful chop on exposed crossings. The fjords are genuinely sheltered — 20-minute crossings between islands rather than open-water marathon days — but weather changes fast and paddlers must read conditions conservatively. Three of eight days will have enough wind to consider a rest day.\n\nCamping is the way to experience Lofoten properly. Friluftsliv — the Norwegian concept of outdoor life — means public access to virtually all land and beaches. You'll camp on white sand beaches backed by wildflowers, with fishing villages accessible by kayak but invisible from any road. The fishing huts (rorbuer) offer a warm meal and a shower on rest days for roughly 600 NOK.\n\nCod fishing has defined Lofoten for a thousand years. In spring, the air is heavy with drying fish. In summer the mountains mirror in the flat water and the light never stops.",
+   "description": "The Lofoten Islands rise from the Norwegian Sea like a fever dream: vertical walls of granite and gneiss dropping directly into arctic water so clear you can watch cod move ten metres below the hull of your kayak. The archipelago sits above the Arctic Circle, and from late May to mid-July the sun circles the horizon without setting — you paddle at midnight in amber light, set camp on a beach at 2am, and wake to find the same light still pouring through the tent door.\n\nEight days of paddling covers the outer archipelago from Å in the south to Svolvær in the north, with a route that weaves between sea stacks, through tidal narrows, and around headlands that funnel wind into powerful chop on exposed crossings. The fjords are genuinely sheltered — 20-minute crossings between islands rather than open-water marathon days — but weather changes fast and paddlers must read conditions conservatively. Three of eight days will have enough wind to consider a rest day.\n\nCamping is the way to experience Lofoten properly. Friluftsliv — the Norwegian concept of outdoor life — means public access to virtually all land and beaches. You'll camp on white sand beaches backed by wildflowers, with fishing villages accessible by kayak but invisible from any road. The fishing huts (rorbuer) offer a warm meal and a shower on rest days for roughly 600 NOK.\n\nCod fishing has defined Lofoten for a thousand years. In spring, the air is heavy with drying fish. In summer the mountains mirror in the flat water and the light never stops.",
    "location": "Lofoten Archipelago, Nordland",
    "country": "Norway",
    "continent": "Europe",
@@ -680,7 +680,7 @@
   {
    "num": 12,
    "title": "Skeleton Coast Self-Drive & Kayak, Namibia",
-   "description": "The Skeleton Coast earned its name from the whale and seal bones that once lined its beaches in the age of industrial whaling, and from the shipwrecks of vessels driven onto a shore where south-flowing cold Atlantic current meets north-flowing desert air to produce permanent fog banks that roll 60 kilometres inland before burning off. It is one of the most remote and inhospitable coastlines on earth — and one of the most spectacular.\n\nA 14-day self-drive routes south to north from Lüderitz on the southern Namibian coast through the Sperrgebiet diamond-prohibited territory to Swakopmund, then north along the Skeleton Coast to the Ugab River and the northern sector — a zone so restricted it requires a special permit and can only be visited on fly-in safaris or on foot with a registered guide.\n\nThe southern section is accessible by 4WD and rewards with: the rusted hulk of the Eduard Bohlen beached 500m from the current shore (the dunes moved around it), the fur seal colony at Cape Cross (100,000 animals, overwhelming in every sense), the red sand dunes of the Namib tumbling directly into the Atlantic, and the desert-adapted wildlife that somehow survives — black rhino, desert lion, and the Welwitschia mirabilis plant, a living fossil estimated at up to 2,000 years old.\n\nThe kayaking section runs three days from Swakopmund on the open Atlantic coast among Cape fur seals and African penguins. The cold Benguela current means the water never exceeds 16°C even in summer. The seals approach to within metres of the kayak out of pure curiosity.",
+   "description": "The Skeleton Coast earned its name from the whale and seal bones that once lined its beaches in the age of industrial whaling, and from the shipwrecks of vessels driven onto a shore where the north-flowing cold Benguela current meets the heat of the desert air to produce permanent fog banks that roll 60 kilometres inland before burning off. It is one of the most remote and inhospitable coastlines on earth — and one of the most spectacular.\n\nA 14-day self-drive routes south to north from Lüderitz on the southern Namibian coast through the Sperrgebiet diamond-prohibited territory to Swakopmund, then north along the Skeleton Coast to the Ugab River and the northern sector — a zone so restricted it requires a special permit and can only be visited on fly-in safaris or on foot with a registered guide.\n\nThe southern section is accessible by 4WD and rewards with: the rusted hulk of the Eduard Bohlen beached 500m from the current shore (the dunes moved around it), the fur seal colony at Cape Cross (100,000 animals, overwhelming in every sense), the red sand dunes of the Namib tumbling directly into the Atlantic, and the desert-adapted wildlife that somehow survives — black rhino, desert lion, and the Welwitschia mirabilis plant, a living fossil estimated at up to 2,000 years old.\n\nThe kayaking section runs three days out of Walvis Bay, just south of Swakopmund, among the Cape fur seals, pelicans and flamingos of Pelican Point. The cold Benguela current means the water never exceeds 16°C even in summer. The seals approach to within metres of the kayak out of pure curiosity.",
    "location": "Lüderitz to Terrace Bay, Namib Desert Coast",
    "country": "Namibia",
    "continent": "Africa",
@@ -1033,7 +1033,7 @@
   {
    "num": 18,
    "title": "Cape Peninsula Hike & Penguin Beach",
-   "description": "The Cape Peninsula juts 75km south from Cape Town into the South Atlantic, narrowing to the Cape of Good Hope — not the southernmost point of Africa (that's Cape Agulhas, 150km east) but the point where the continent seems to end and the two oceans begin their conversation. A two-day walk covers the peninsula's highlights from the city end to the Cape, with a return by train through the wine farms of the False Bay coast.\n\nDay one starts at Chapman's Peak, where the cliff road is closed to traffic and open to walkers with unobstructed views of Hout Bay and the Atlantic. The trail threads through fynbos — the unique Cape floral kingdom with 8,500 plant species in an area the size of Portugal — before descending to Noordhoek Beach, a 7km arc of white sand usually shared only with horses and kelp.\n\nDay two covers Boulders Beach, where an African penguin colony of 3,000 birds has colonised the granite boulders between the beach houses, and the Cape of Good Hope itself — the dramatic meeting point of the peninsula's final cliffs, with a lighthouse, a sign, and views that feel like the edge of something large.\n\nThis is one of the world's few places where baboons, penguins, and great white sharks all share a coastline. The baboons are genuinely dangerous in car parks; keep windows closed and bags zipped.",
+   "description": "The Cape Peninsula juts 75km south from Cape Town into the South Atlantic, narrowing to the Cape of Good Hope — not the southernmost point of Africa (that's Cape Agulhas, 150km east) but the point where the continent seems to end and the two oceans begin their conversation. A two-day walk covers the peninsula's highlights from the city end to the Cape, with a return by train through the wine farms of the False Bay coast.\n\nDay one starts at Chapman's Peak, where the toll road carves a ledge across the cliff face and the trail above it opens unobstructed views of Hout Bay and the Atlantic. The trail threads through fynbos — the unique Cape floral kingdom with 8,500 plant species in an area the size of Portugal — before descending to Noordhoek Beach, a 7km arc of white sand usually shared only with horses and kelp.\n\nDay two covers Boulders Beach, where an African penguin colony of 3,000 birds has colonised the granite boulders between the beach houses, and the Cape of Good Hope itself — the dramatic meeting point of the peninsula's final cliffs, with a lighthouse, a sign, and views that feel like the edge of something large.\n\nThis is one of the world's few places where baboons, penguins, and great white sharks all share a coastline. The baboons are genuinely dangerous in car parks; keep windows closed and bags zipped.",
    "location": "Cape Peninsula, Western Cape",
    "country": "South Africa",
    "continent": "Africa",
@@ -1093,7 +1093,7 @@
   {
    "num": 19,
    "title": "Dolomites Tre Cime Loop",
-   "description": "The Tre Cime di Lavaredo — three vertical dolomite pillars rising to 2,999m from the Sexten Dolomites plateau — are the most photographed rock formation in the Alps, and the circular trail beneath them is one of the most accessible truly spectacular mountain walks in Europe. The loop is 9km and 600m of elevation gain, and it can be walked in three hours by a fit person or stretched across a magnificent day.\n\nThe standard approach drives or takes a shuttle bus from Auronzo to the Rifugio Auronzo at 2,333m, which eliminates the hardest altitude gain. From there the trail circles anticlockwise through the rocky saddles on the north face — the dramatic side, where the walls drop 500m into the scree below — before returning across the south-facing meadows with the peaks' profiles catching the afternoon light.\n\nThe north face views are the highlight: the Cima Piccola, Cima Grande, and Cima Occidentale standing in a row, their north walls scored with ice and lichens, the Austrian Dolomites behind them. You can often see climbers on the routes but the walls are genuinely large enough that they appear as insects.\n\nArrive before 8am to park, or take the shuttle after 9am and accept sharing the trail. The rifugio system offers lunch and coffee at 2,450m. Sunset from the Locatelli Rifugio on the north side is worth staying for.",
+   "description": "The Tre Cime di Lavaredo — three vertical dolomite pillars rising to 2,999m from the Sexten Dolomites plateau — are the most photographed rock formation in the Alps, and the circular trail beneath them is one of the most accessible truly spectacular mountain walks in Europe. The loop is 9km and 600m of elevation gain, and it can be walked in three hours by a fit person or stretched across a magnificent day.\n\nThe standard approach drives or takes a shuttle bus from Auronzo to the Rifugio Auronzo at 2,333m, which eliminates the hardest altitude gain. From there the trail circles anticlockwise through the rocky saddles on the north face — the dramatic side, where the walls drop 500m into the scree below — before returning across the south-facing meadows with the peaks' profiles catching the afternoon light.\n\nThe north face views are the highlight: the Cima Piccola, Cima Grande, and Cima Occidentale standing in a row, their north walls scored with ice and lichens, the rest of the Sexten Dolomites and the Carnic Alps behind them. You can often see climbers on the routes but the walls are genuinely large enough that they appear as insects.\n\nArrive before 8am to park, or take the shuttle after 9am and accept sharing the trail. The rifugio system offers lunch and coffee at 2,450m. Sunset from the Locatelli Rifugio on the north side is worth staying for.",
    "location": "Tre Cime di Lavaredo, South Tyrol",
    "country": "Italy",
    "continent": "Europe",
@@ -1204,7 +1204,7 @@
   {
    "num": 21,
    "title": "Snowdon via the Watkin Path",
-   "description": "Snowdon — Yr Wyddfa in Welsh — is the highest point in England and Wales at 1,085m, and the Watkin Path is its finest ascent route: beginning in a Nantgwynant oakwood beside a waterfall and climbing through cwms, beside Bronze Age standing stones and abandoned slate quarries, to the summit ridge with 360-degree views across Snowdonia and, on clear days, Ireland.\n\nThe Watkin Path is the longest and most varied of Snowdon's six main routes. The lower section through Nantgwynant is genuinely woodland walking — ancient sessile oak hung with ferns and mosses in a landscape that has barely changed since the glaciers retreated 12,000 years ago. The ruins of the Plas Cwmllan slate quarry halfway up are a reminder that this mountain was a working landscape until the 1890s.\n\nThe upper section becomes rocky and exposed, requiring hands on rock at the final steps to the summit. The Bwlch y Saethau (Pass of the Arrows) on the ridge is where, in legend, Arthur fell in his final battle. The summit cairn holds the ruins of a Victorian railway station — the Snowdon Mountain Railway still runs from Llanberis and deposits people 50m from the top, which adds to the surreal summit experience.\n\nStay overnight in Beddgelert — a 45-minute drive from the trailhead — to reach the car park before the 9am rush on weekends.",
+   "description": "Snowdon — Yr Wyddfa in Welsh — is the highest point in England and Wales at 1,085m, and the Watkin Path is its finest ascent route: beginning in a Nantgwynant oakwood beside a waterfall and climbing through cwms, beside Bronze Age standing stones and abandoned slate quarries, to the summit ridge with 360-degree views across Snowdonia and, on clear days, Ireland.\n\nThe Watkin Path is the longest and most varied of Snowdon's six main routes. The lower section through Nantgwynant is genuinely woodland walking — ancient sessile oak hung with ferns and mosses in a landscape that has barely changed since the glaciers retreated 12,000 years ago. The ruins of the Plas Cwmllan slate quarry halfway up are a reminder that this mountain was a working landscape until the 1890s.\n\nThe upper section becomes rocky and exposed, requiring hands on rock at the final steps to the summit. The Bwlch y Saethau (Pass of the Arrows) on the ridge is where, in legend, Arthur fell in his final battle. The summit cairn sits beside Hafod Eryri, the slate-and-glass visitor centre opened in 2009 — the Snowdon Mountain Railway has run from Llanberis since 1896 and deposits people 50m from the top, which adds to the surreal summit experience.\n\nStay overnight in Beddgelert — a 45-minute drive from the trailhead — to reach the car park before the 9am rush on weekends.",
    "location": "Snowdon (Yr Wyddfa), Gwynedd",
    "country": "United Kingdom",
    "continent": "Europe",
@@ -1300,7 +1300,7 @@
    "latitude": 60.1242,
    "longitude": 6.7393,
    "tags": [
-    "midnight-sun",
+    "norway",
     "photography",
     "bucket-list",
     "camping",
@@ -1378,7 +1378,7 @@
   {
    "num": 24,
    "title": "Ben Nevis Winter Summit",
-   "description": "At 1,345m, Ben Nevis is the highest point in the British Isles — unremarkable in height by alpine standards, but formidable in winter condition. The north face holds Scotland's longest and most technically demanding ice routes, and the summit plateau in January sits under ice and wind that regularly exceeds 150 km/h. A winter ascent of the Mountain Track (the tourist path in summer) is a serious mountaineering objective that requires full winter equipment and navigation competence.\n\nThe Mountain Track from the Visitor Centre in Glen Nevis is 16km return with 1,345m of ascent. In summer it is a well-marked gravel path. In winter it is buried under consolidated snow and ice from the 700m mark, becomes a grade 1/2 winter climb on the final zigzags in hard conditions, and the plateau is a white-out navigation exercise in cloud. Every year ill-prepared walkers require rescue. Every year some don't come back.\n\nWhich makes the summit in good conditions one of the most rewarding day objectives in the UK. Clear winter days — rare but spectacular — give views to Ireland, Northern England, and deep into the Cairngorms. The snow cornices on the north face rim are sculptural. The ice formations in the summit observatory ruins are extraordinary. The silence at the top on a still day in February is complete.\n\nThe key hazard is the plateau: featureless, cornice-rimmed on the north, and in cloud indistinguishable from the descent route. A compass bearing (282° for the summit, 231° to descend away from the cliffs) must be known before departure.",
+   "description": "At 1,345m, Ben Nevis is the highest point in the British Isles — unremarkable in height by alpine standards, but formidable in winter condition. The north face holds Scotland's longest and most technically demanding ice routes, and the summit plateau in January sits under ice and wind that regularly exceeds 150 km/h. A winter ascent of the Mountain Track (the tourist path in summer) is a serious mountaineering objective that requires full winter equipment and navigation competence.\n\nThe Mountain Track from the Visitor Centre in Glen Nevis is 16km return with 1,345m of ascent. In summer it is a well-marked gravel path. In winter it is buried under consolidated snow and ice from the 700m mark, becomes a grade 1/2 winter climb on the final zigzags in hard conditions, and the plateau is a white-out navigation exercise in cloud. Every year ill-prepared walkers require rescue. Every year some don't come back.\n\nWhich makes the summit in good conditions one of the most rewarding day objectives in the UK. Clear winter days — rare but spectacular — give views to Ireland, Northern England, and deep into the Cairngorms. The snow cornices on the north face rim are sculptural. The ice formations in the summit observatory ruins are extraordinary. The silence at the top on a still day in February is complete.\n\nThe key hazard is the plateau: featureless, cornice-rimmed on the north, and in cloud indistinguishable from the descent route. The escape bearings must be known before departure: leave the summit on a grid bearing of 231° for 150m, then turn onto 281° to descend clear of the summit cliffs.",
    "location": "Ben Nevis, Fort William, Lochaber",
    "country": "United Kingdom",
    "continent": "Europe",
@@ -1636,6 +1636,7 @@
     4,
     5,
     6,
+    7,
     8,
     9,
     10
@@ -1666,7 +1667,7 @@
   {
    "num": 29,
    "title": "Galapagos Islands Wildlife Snorkel Week",
-   "description": "The Galapagos Islands are a living classroom in evolutionary biology — the archipelago where Darwin formulated natural selection, and where a millennium of geographic isolation has produced wildlife with no fear of humans. The marine iguanas sun themselves on your towel. The sea lions sleep on the dive pontoon. The blue-footed boobies perform their mating dance three feet from where you stand.\n\nA week on a live-aboard or island-hopping itinerary covers the three principal wildlife zones: the western islands (Fernandina and Isabela) where the Humboldt current brings cold upwelling and the richest marine density; the central islands (Santa Cruz and Seymour Norte) for giant tortoises, frigatebirds, and the Darwin Research Station; and the southern islands (Española and Floreana) for the waved albatross colony and sea turtle nesting beaches.\n\nSnorkelling in the Galapagos is among the best in the world without technical skill. The cold Humboldt current brings extraordinary nutrient load and unusual species: marine iguanas feeding on algae at 5m depth, sea lions spiralling around you in close circles, Galapagos penguins swimming at the surface, and whale sharks cruising by in July and August. The visibility on a calm day exceeds 20m.\n\nJuly–December brings cooler and rougher conditions but whale sharks and the albatross. January–June is calmer and warmer with better visibility. Either way, the wildlife is year-round.",
+   "description": "The Galapagos Islands are a living classroom in evolutionary biology — the archipelago where Darwin formulated natural selection, and where millions of years of geographic isolation have produced wildlife with no fear of humans. The marine iguanas sun themselves on your towel. The sea lions sleep on the dive pontoon. The blue-footed boobies perform their mating dance three feet from where you stand.\n\nA week on a live-aboard or island-hopping itinerary covers the three principal wildlife zones: the western islands (Fernandina and Isabela) where the Humboldt current brings cold upwelling and the richest marine density; the central islands (Santa Cruz and Seymour Norte) for giant tortoises, frigatebirds, and the Darwin Research Station; and the southern islands (Española and Floreana) for the waved albatross colony and sea turtle nesting beaches.\n\nSnorkelling in the Galapagos is among the best in the world without technical skill. The cold Humboldt current brings extraordinary nutrient load and unusual species: marine iguanas feeding on algae at 5m depth, sea lions spiralling around you in close circles, Galapagos penguins swimming at the surface, and whale sharks cruising by in July and August. The visibility on a calm day exceeds 20m.\n\nJuly–December brings cooler and rougher conditions but whale sharks and the albatross. January–June is calmer and warmer with better visibility. Either way, the wildlife is year-round.",
    "location": "Galapagos Archipelago, Pacific Ocean",
    "country": "Ecuador",
    "continent": "South America",
@@ -1696,6 +1697,7 @@
     3,
     4,
     5,
+    6,
     7,
     8
    ],
@@ -1723,7 +1725,7 @@
   {
    "num": 30,
    "title": "Bali Temples, Rice Terraces and Jungle Trek",
-   "description": "Bali's cultural and natural landscape is the most layered in Southeast Asia — a Hindu island inside a Muslim archipelago, where the rice terrace engineering of the subak irrigation system has shaped the land for a thousand years and the temple calendar runs continuously through 200+ ceremonies a year. Walking through this landscape rather than touring it by scooter reveals the depth beneath the Instagram surface.\n\nA five-day itinerary centres on Ubud — the cultural heartland in the island's interior — and radiates out: north into the volcanic highlands of Mount Batur, east to the water temples of Pura Tirta Empul, west through the Campuhan Ridge walk above the Wos River, and south to the rice terraces of Tegalalang and Jatiluwih.\n\nThe Campuhan Ridge is the ideal first morning: a 9km walk along a narrow path between two river valleys, through stands of bamboo and the back gardens of the silver craftsmen's compound, arriving at the Pura Gunung Lebah temple above the confluence. No tourist buses reach this path. The only company is local farmers and the occasional artist seeking light.\n\nMount Batur at dawn requires a 2am start but pays back: the volcanic caldera at sunrise, with Lake Batur below and Agung filling the eastern horizon. It is the easiest summit in Indonesia and the most rewarding dawn view.",
+   "description": "Bali's cultural and natural landscape is the most layered in Southeast Asia — a Hindu island inside a Muslim archipelago, where the rice terrace engineering of the subak irrigation system has shaped the land for a thousand years and the temple calendar runs continuously through 200+ ceremonies a year. Walking through this landscape rather than touring it by scooter reveals the depth beneath the Instagram surface.\n\nA five-day itinerary centres on Ubud — the cultural heartland in the island's interior — and radiates out: north into the volcanic highlands of Mount Batur, east to the water temples of Pura Tirta Empul, west through the Campuhan Ridge walk above the Wos River, and north to the rice terraces of Tegalalang and northwest to those of Jatiluwih.\n\nThe Campuhan Ridge is the ideal first morning: a 9km walk along a narrow path between two river valleys, through stands of bamboo and the back gardens of the silver craftsmen's compound, arriving at the Pura Gunung Lebah temple above the confluence. No tourist buses reach this path. The only company is local farmers and the occasional artist seeking light.\n\nMount Batur at dawn requires a 2am start but pays back: the volcanic caldera at sunrise, with Lake Batur below and Agung filling the eastern horizon. It is the easiest summit in Indonesia and the most rewarding dawn view.",
    "location": "Ubud, Bali",
    "country": "Indonesia",
    "continent": "Asia",
@@ -1837,7 +1839,7 @@
   {
    "num": 32,
    "title": "Ha Giang Loop Motorbike, Vietnam",
-   "description": "Ha Giang Province in Vietnam's far north is the country's most dramatic and least-visited landscape: a vast karst plateau dissected by river gorges, terraced by H'mong and Dao farmers into staircases of rice and corn, and bounded to the north by the Chinese border mountains. The 350km loop from Ha Giang city through Dong Van, Meo Vac, and back is among the finest motorbike routes in Southeast Asia.\n\nThe road to Dong Van crosses the Ma Pi Leng Pass — a 20km stretch of cliff-edge mountain road above the Nho Que River gorge that is legitimately one of the most spectacular stretches of road in Asia. The gorge is 1,000m deep and the road has no barrier. The river 1,000m below appears as a turquoise thread. On a semi-automatic 110cc step-through, this section takes two hours and commands complete attention.\n\nThe H'mong and Lo Lo villages along the route have maintained their traditional dress, architecture, and market culture largely undisturbed by tourism. Sunday markets at Dong Van and Meo Vac bring together a dozen different ethnic groups in their full traditional costume. The corn wine is unavoidable and the lamb hot pot at altitude is excellent.\n\nRent a semi-automatic Honda at Ha Giang (no licence required, ~200,000 VND per day). The loop runs clockwise. Allow five days to avoid rushing any section. The roads are paved but narrow and trucks own the right of way.",
+   "description": "Ha Giang Province in Vietnam's far north is the country's most dramatic and least-visited landscape: a vast karst plateau dissected by river gorges, terraced by H'mong and Dao farmers into staircases of rice and corn, and bounded to the north by the Chinese border mountains. The 350km loop from Ha Giang city through Dong Van, Meo Vac, and back is among the finest motorbike routes in Southeast Asia.\n\nThe road to Dong Van crosses the Ma Pi Leng Pass — a 20km stretch of cliff-edge mountain road above the Nho Que River gorge that is legitimately one of the most spectacular stretches of road in Asia. The gorge is 1,000m deep and the road has no barrier. The river 1,000m below appears as a turquoise thread. On a semi-automatic 110cc step-through, this section takes two hours and commands complete attention.\n\nThe H'mong and Lo Lo villages along the route have maintained their traditional dress, architecture, and market culture largely undisturbed by tourism. Sunday markets at Dong Van and Meo Vac bring together a dozen different ethnic groups in their full traditional costume. The corn wine is unavoidable and the lamb hot pot at altitude is excellent.\n\nRent a semi-automatic Honda at Ha Giang (~200,000 VND per day). Rental shops rarely ask, but Vietnamese law requires a Vietnamese licence or an IDP carrying the A1 motorcycle category, and riding without one voids most travel insurance. The loop runs clockwise. Allow five days to avoid rushing any section. The roads are paved but narrow and trucks own the right of way.",
    "location": "Ha Giang Province, Northern Vietnam",
    "country": "Vietnam",
    "continent": "Asia",
@@ -2126,7 +2128,7 @@
   {
    "num": 37,
    "title": "Inca Trail to Machu Picchu",
-   "description": "The classic Inca Trail is a four-day, 43km walk through the Peruvian Andes on a route the Incas built, maintained, and walked 500 years before the first European reached South America. It climbs from the Sacred Valley at 2,650m to Dead Woman's Pass at 4,215m and descends through cloud forest to emerge at the Sun Gate above Machu Picchu — the most famous archaeological reveal in trekking.\n\nThe trail is not technically difficult but it is aerobically demanding: the second day climbs 1,200m in 10km on cobbled stone steps designed for shorter-legged people and maintained in largely original condition. At altitude in the Andean sun, porters with 25kg loads overtake most walkers without apparent effort. The altitude is the variable nobody fully accounts for: Dead Woman's Pass at 4,215m is not extreme, but arriving at it without acclimatisation days in Cusco and Pisac first will reduce most fit adults to a slow shuffle.\n\nThe cloud forest on the third day is one of the great botanical environments: a closed canopy of tree ferns, bromeliads, and orchids at 3,000m, with hummingbirds feeding at eye level and Andean cock-of-the-rock displaying in the understorey. The forest opens at Wiñay Wayna — a complete Inca ruin complex embedded in the cloud forest wall — before the final descent to Intipunku.\n\nPermits are limited to 500 per day total (guides and porters included). Book three to six months ahead for May–September. The trail closes in February.",
+   "description": "The classic Inca Trail is a four-day, 43km walk through the Peruvian Andes on a route the Incas built, maintained, and walked five centuries ago, in the decades before the first European reached South America. It climbs from the Sacred Valley at 2,650m to Dead Woman's Pass at 4,215m and descends through cloud forest to emerge at the Sun Gate above Machu Picchu — the most famous archaeological reveal in trekking.\n\nThe trail is not technically difficult but it is aerobically demanding: the second day climbs 1,200m in 10km on cobbled stone steps designed for shorter-legged people and maintained in largely original condition. At altitude in the Andean sun, porters with 25kg loads overtake most walkers without apparent effort. The altitude is the variable nobody fully accounts for: Dead Woman's Pass at 4,215m is not extreme, but arriving at it without acclimatisation days in Cusco and Pisac first will reduce most fit adults to a slow shuffle.\n\nThe cloud forest on the third day is one of the great botanical environments: a closed canopy of tree ferns, bromeliads, and orchids at 3,000m, with hummingbirds feeding at eye level and Andean cock-of-the-rock displaying in the understorey. The forest opens at Wiñay Wayna — a complete Inca ruin complex embedded in the cloud forest wall — before the final descent to Intipunku.\n\nPermits are limited to 500 per day total (guides and porters included). Book three to six months ahead for May–September. The trail closes in February.",
    "location": "Cusco to Machu Picchu, Cusco Region",
    "country": "Peru",
    "continent": "South America",
@@ -2184,7 +2186,7 @@
   {
    "num": 38,
    "title": "Mont Blanc Summit via the Gouter Route",
-   "description": "At 4,808m, Mont Blanc is the highest peak in the Alps and the highest point in Western Europe. The Voie Normale via the Gouter Hut is the easiest route to the summit — a high-altitude snow climb rather than a technical mountaineering route — but it demands full alpine competence, acclimatisation, and respect for rapidly changing weather at altitude. Between 10,000 and 30,000 people attempt the summit each year; roughly a quarter turn back.\n\nThe approach from Saint-Gervais takes the Mont Blanc Express rack railway to Nid d'Aigle station (2,372m), then climbs the Tete Rousse Glacier and the notorious Grand Couloir — a rock funnel that channels stonefall from the Aiguille du Gouter above. Crossing the Grand Couloir is timed to the early morning freeze before the sun loosens the rock; the window is 45 minutes and the guide will know it precisely.\n\nThe Gouter Hut at 3,835m is the staging point for summit day. Departure is at 2am. Six hours of cramponing on 30-40 degree consolidated snow, with the Dome du Gouter at 4,304m and the Col du Dome before the final push to the summit. The altitude affects judgment — decisions about summit or turn-back are harder at 4,500m than they look from the valley. Trust your guide.\n\nThe view from the summit is 360 degrees and the horizon curves. Fourteen countries are theoretically visible. The experience is one of complete disorientation: you are standing higher than all of Western Europe, in all its smallness.",
+   "description": "At 4,808m, Mont Blanc is the highest peak in the Alps and the highest point in Western Europe. The Voie Normale via the Gouter Hut is the easiest route to the summit — a high-altitude snow climb rather than a technical mountaineering route — but it demands full alpine competence, acclimatisation, and respect for rapidly changing weather at altitude. Between 10,000 and 30,000 people attempt the summit each year; roughly a quarter turn back.\n\nThe approach from Saint-Gervais takes the Tramway du Mont-Blanc rack railway to Nid d'Aigle station (2,372m), then climbs the Tete Rousse Glacier and the notorious Grand Couloir — a rock funnel that channels stonefall from the Aiguille du Gouter above. Crossing the Grand Couloir is timed to the early morning freeze before the sun loosens the rock; the window is 45 minutes and the guide will know it precisely.\n\nThe Gouter Hut at 3,835m is the staging point for summit day. Departure is at 2am. Six hours of cramponing on 30-40 degree consolidated snow, with the Dome du Gouter at 4,304m and the Col du Dome before the final push to the summit. The altitude affects judgment — decisions about summit or turn-back are harder at 4,500m than they look from the valley. Trust your guide.\n\nThe view from the summit is 360 degrees and the horizon curves. Fourteen countries are theoretically visible. The experience is one of complete disorientation: you are standing higher than all of Western Europe, in all its smallness.",
    "location": "Mont Blanc, Chamonix Valley",
    "country": "France",
    "continent": "Europe",
@@ -2576,7 +2578,7 @@
   {
    "num": 45,
    "title": "Aconcagua Normal Route",
-   "description": "Aconcagua is the highest mountain outside Asia at 6,961m — the Roof of the Americas. The Normal Route via the northwest face is a non-technical high-altitude mountaineering objective: no ropes required on the standard line, no glacier travel, no technical rock. What it demands instead is extraordinary altitude adaptation, physical conditioning, and patience for a 20-day summit window that includes acclimatisation camps, rest days, and weather holds at the mountain.\n\nThe approach from Mendoza takes three days by road and mule trail to Plaza de Mulas base camp at 4,300m — already higher than all of Europe. The climb then moves through two high camps (Nido de Condores at 5,570m and Cólera at 6,000m) to the Canaleta — the loose scree gully that is the final 350m before the summit. At altitude, the Canaleta takes 4–5 hours for what looks like a 30-minute walk.\n\nThe summit view encompasses the Pacific coast, the Chilean glaciers, and the plains of Mendoza. You are standing higher than any point in the world outside Asia. The success rate on any given expedition is roughly 30–40% for acclimatised, well-guided climbers; weather and altitude sickness are the dominant factors. Most summits come on attempt days between January 10 and February 20.\n\nThe experience of altitude at 6,900m is unlike anything below it. Decision-making degrades. Fine motor control is reduced. The team dynamic is the margin between summit and safe descent.",
+   "description": "Aconcagua is the highest mountain outside Asia at 6,961m — the Roof of the Americas. The Normal Route via the northwest face is a non-technical high-altitude mountaineering objective: no ropes required on the standard line, no glacier travel, no technical rock. What it demands instead is extraordinary altitude adaptation, physical conditioning, and patience for a 20-day summit window that includes acclimatisation camps, rest days, and weather holds at the mountain.\n\nThe approach from Mendoza takes three days by road and mule trail to Plaza de Mulas base camp at 4,300m — already higher than any summit in the Pyrenees. The climb then moves through two high camps (Nido de Condores at 5,570m and Cólera at 6,000m) to the Canaleta — the loose scree gully that is the final 350m before the summit. At altitude, the Canaleta takes 4–5 hours for what looks like a 30-minute walk.\n\nThe summit view encompasses the Pacific coast, the Chilean glaciers, and the plains of Mendoza. You are standing higher than any point in the world outside Asia. The success rate on any given expedition is roughly 30–40% for acclimatised, well-guided climbers; weather and altitude sickness are the dominant factors. Most summits come on attempt days between January 10 and February 20.\n\nThe experience of altitude at 6,900m is unlike anything below it. Decision-making degrades. Fine motor control is reduced. The team dynamic is the margin between summit and safe descent.",
    "location": "Aconcagua Provincial Park, Mendoza",
    "country": "Argentina",
    "continent": "South America",
@@ -3524,7 +3526,7 @@
   {
    "num": 62,
    "title": "Camino Portugues Coastal",
-   "description": "Walk the Coastal Variant of the Camino Portugues from Porto to Santiago de Compostela — 280 km of Atlantic coastline, estuaries, and fishing villages that offer an alternative to the more crowded Central Route. The coastal path follows dune paths, wooden boardwalks, and clifftop trails with the Atlantic on one side and cork oak forest on the other, crossing into Galicia over a beautifully simple stone bridge at Vila Nova de Cerveira.\n\nThis is a Camino for those who want solitude alongside pilgrimage. The coastal route sees far fewer walkers than the Meseta, meaning you often have beaches entirely to yourself. Albergues are plentiful and inexpensive; the food shifts from Portuguese bacalhau to Galician pulpo as you cross the border. The final 100 km enter the required minimum for the compostela certificate, but the whole route rewards those who start from Porto. Arriving into the Plaza del Obradoiro after two weeks of walking carries a weight that surprises nearly everyone who experiences it.",
+   "description": "Walk the Coastal Variant of the Camino Portugues from Porto to Santiago de Compostela — 280 km of Atlantic coastline, estuaries, and fishing villages that offer an alternative to the more crowded Central Route. The coastal path follows dune paths, wooden boardwalks, and clifftop trails with the Atlantic on one side and cork oak forest on the other, crossing into Galicia on the little ferry that carries pilgrims over the Minho estuary from Caminha to A Guarda.\n\nThis is a Camino for those who want solitude alongside pilgrimage. The coastal route sees far fewer walkers than the Meseta, meaning you often have beaches entirely to yourself. Albergues are plentiful and inexpensive; the food shifts from Portuguese bacalhau to Galician pulpo as you cross the border. The final 100 km enter the required minimum for the compostela certificate, but the whole route rewards those who start from Porto. Arriving into the Plaza del Obradoiro after two weeks of walking carries a weight that surprises nearly everyone who experiences it.",
    "location": "Porto to Santiago de Compostela",
    "country": "Portugal",
    "continent": "Europe",
@@ -3536,7 +3538,7 @@
     "Atlantic dunes and clifftop coastal trails",
     "Far fewer pilgrims than the popular Frances route",
     "Seafood transition from Portuguese bacalhau to Galician pulpo",
-    "Stone bridge crossing into Galicia at Vila Nova de Cerveira",
+    "Minho estuary ferry from Caminha to A Guarda — the crossing into Spain",
     "Cathedral arrival at Plaza del Obradoiro in Santiago"
    ],
    "gear": [
@@ -3689,7 +3691,7 @@
   {
    "num": 65,
    "title": "Niseko Powder Safari, Hokkaido",
-   "description": "Niseko receives an average of 15 metres of snowfall per season — more than almost any other ski resort on earth — and the quality of that snow is legendary. Cold Siberian air picks up moisture crossing the Sea of Japan and dumps it on Hokkaido as ultra-dry, ultra-light powder that skiers and snowboarders have been hunting since the early 2000s.\n\nThe resort complex (Grand Hirafu, Hanazono, Annupuri, Village) is well-connected and increasingly high-end, but the real draw is the gate access into the open backcountry trees. When the gates open after a storm cycle, locals and visitors sprint for the powder stashes in the larch forest beneath Annupuri — untouched lines that remain skiable for hours before they're tracked out.\n\nBeyond the resorts, day trips to nearby Furano or the smaller Rusutsu resort break up a longer stay. Combine with a night in Sapporo for ramen, izakaya culture, and the famous snow festival in early February.\n\nSki season runs late November through late April. Peak powder window is January–February. Flights to Sapporo (New Chitose) then 90-minute bus to Niseko. Accommodation ranges from Japanese ryokan with onsen to European-style ski lodges — book months ahead for the best weeks.",
+   "description": "Niseko receives an average of 15 metres of snowfall per season — more than almost any other ski resort on earth — and the quality of that snow is legendary. Cold Siberian air picks up moisture crossing the Sea of Japan and dumps it on Hokkaido as ultra-dry, ultra-light powder that skiers and snowboarders have been hunting since the early 2000s.\n\nThe resort complex (Grand Hirafu, Hanazono, Annupuri, Village) is well-connected and increasingly high-end, but the real draw is the gate access into the open backcountry trees. When the gates open after a storm cycle, locals and visitors sprint for the powder stashes in the larch forest beneath Annupuri — untouched lines that remain skiable for hours before they're tracked out.\n\nBeyond the resorts, day trips to nearby Furano or the smaller Rusutsu resort break up a longer stay. Combine with a night in Sapporo for ramen, izakaya culture, and the famous snow festival in early February.\n\nSki season runs late November through late April. Peak powder window is January–February. Flights to Sapporo (New Chitose) then a 2.5–3 hour bus transfer to Niseko. Accommodation ranges from Japanese ryokan with onsen to European-style ski lodges — book months ahead for the best weeks.",
    "location": "Niseko, Shiribeshi Subprefecture",
    "country": "Japan",
    "continent": "Asia",
@@ -3745,7 +3747,7 @@
   {
    "num": 66,
    "title": "Lyngen Alps Ski Touring, Norway",
-   "description": "The Lyngen Alps rise almost directly from the sea in Arctic Norway — a 90km peninsula of steep, glaciated peaks descending to fjords. Ski touring here means ascending a 1,500m couloir in the morning, skiing a 45-degree face down to a fishing village, removing your skis to board a local boat, and crossing to the next fjord to do it again.\n\nThe unique topography means you can access summit ski lines without snowmobiles or helicopters — just skins, good legs, and the ability to read fjord weather that changes faster than mountain weather anywhere in the Alps. The best lines face north and northeast, sheltered from the prevailing Atlantic systems that can shut down operations for days at a time.\n\nMarch and April offer the prime window — long daylight hours (18+ hours by late April), stable high-pressure systems, and consolidated snow that allows the most technical descents. The midnight sun makes it possible to ski at 11pm in a surreal pink light.\n\nBases are the villages of Lyngseidet and Furuflaten. A handful of specialist guiding outfits run week-long trips — book 12+ months ahead. Alternatively, rent a van and explore independently, but carry full avalanche gear and have serious ski mountaineering experience.",
+   "description": "The Lyngen Alps rise almost directly from the sea in Arctic Norway — a 90km peninsula of steep, glaciated peaks descending to fjords. Ski touring here means ascending a 1,500m couloir in the morning, skiing a 45-degree face down to a fishing village, removing your skis to board a local boat, and crossing to the next fjord to do it again.\n\nThe unique topography means you can access summit ski lines without snowmobiles or helicopters — just skins, good legs, and the ability to read fjord weather that changes faster than mountain weather anywhere in the Alps. The best lines face north and northeast, sheltered from the prevailing Atlantic systems that can shut down operations for days at a time.\n\nMarch and April offer the prime window — long daylight hours (18+ hours by late April), stable high-pressure systems, and consolidated snow that allows the most technical descents. The light lingers so long that skiing at 11pm in a surreal pink dusk is routine — the true midnight sun arrives later, from around 20 May.\n\nBases are the villages of Lyngseidet and Furuflaten. A handful of specialist guiding outfits run week-long trips — book 12+ months ahead. Alternatively, rent a van and explore independently, but carry full avalanche gear and have serious ski mountaineering experience.",
    "location": "Lyngen Peninsula, Troms",
    "country": "Norway",
    "continent": "Europe",
@@ -3755,7 +3757,7 @@
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Lyngseidet-kjosen-lyngen-alps.jpg/1920px-Lyngseidet-kjosen-lyngen-alps.jpg",
    "highlights": [
     "Ski from Arctic summits directly to the fjord — unique sea-level access",
-    "Midnight sun ski descents in late April — skiing at 11pm in pink light",
+    "Late-April twilight descents — skiing at 11pm in low pink light",
     "Fjord boat crossings between ski lines",
     "Northern lights visible from camp in March on clear nights",
     "Remote couloirs and 45-degree north-facing faces rarely skied",
@@ -3765,10 +3767,10 @@
     "Ski touring setup with 110mm+ powder skis",
     "Avalanche transceiver, probe, and shovel",
     "Ski crampons for hard morning crusts",
-    "Dry suit or immersion suit layer for potential water crossings",
+    "Warm windproof layer and dry bag for the open fjord boat crossings",
     "Arc'teryx-style hardshell (Arctic wind is relentless)",
     "Bivy bag and emergency supplies",
-    "Headlamp (March) — redundant in April midnight sun"
+    "Headlamp — needed for March starts, barely used by late April"
    ],
    "bestMonths": [
     3,
@@ -3784,7 +3786,6 @@
     "skiing",
     "arctic",
     "remote",
-    "midnight-sun",
     "alpine"
    ],
    "user": 3,
@@ -3831,7 +3832,7 @@
    "climate": [
     "cold"
    ],
-   "estimatedCost": 1000000,
+   "estimatedCost": 850000,
    "latitude": 52.3667,
    "longitude": -126.7667,
    "tags": [
@@ -4034,7 +4035,7 @@
     "Snowmobile or helicopter access budget for backcountry approaches",
     "Crevasse and glacier travel equipment for Durrand variant",
     "Satellite communicator (SPOT/Garmin inReach) for remote terrain",
-    "Bear canister for multi-day backcountry trips"
+    "Repair kit — skin glue, spare binding parts, pole basket"
    ],
    "bestMonths": [
     1,
@@ -4123,7 +4124,7 @@
   {
    "num": 73,
    "title": "Jeffreys Bay Surfing Expedition, South Africa",
-   "description": "Jeffreys Bay — J-Bay to anyone who surfs — is one of the five best point breaks on earth. The wave unzips from Boneyards through Point and on to Kitchen Windows in a single right-hand wall that in prime conditions runs for 800 metres without a section. In July during the WSL Championship Tour event, the world's best surfers compete here. The rest of the year, you share it with travelling surfers and a growing local contingent.\n\nCold, nutrient-rich upwelling along the Eastern Cape coast keeps the water at 14–18°C year-round — cold enough to require a 4/3mm full suit in winter, when the best swells arrive. The beach itself has evolved from a hippie outpost into a decent surf town with good accommodation and restaurants, but hasn't lost its edge entirely.\n\nBeyond J-Bay itself, the Eastern Cape offers remarkable marine wildlife — great white shark cage diving at Mossel Bay, southern right whale watching along the Garden Route coast (June–November), and the Garden Route national parks within driving distance. A surf trip that combines J-Bay with a broader Eastern Cape road trip makes an exceptional two-week journey.\n\nFly to Port Elizabeth (now Gqeberha), hire a car, and base yourself in J-Bay for surf. Three to seven days at the break itself is typical before extending the road trip.",
+   "description": "Jeffreys Bay — J-Bay to anyone who surfs — is one of the five best point breaks on earth. The wave unzips from Boneyards through Supertubes and Impossibles to the Point in a single right-hand wall that in prime conditions runs for 800 metres without a section. In July during the WSL Championship Tour event, the world's best surfers compete here. The rest of the year, you share it with travelling surfers and a growing local contingent.\n\nCold, nutrient-rich upwelling along the Eastern Cape coast keeps the water at 14–18°C year-round — cold enough to require a 4/3mm full suit in winter, when the best swells arrive. The beach itself has evolved from a hippie outpost into a decent surf town with good accommodation and restaurants, but hasn't lost its edge entirely.\n\nBeyond J-Bay itself, the coast west into the Western Cape offers remarkable marine wildlife — great white shark cage diving at Mossel Bay, southern right whale watching along the Garden Route coast (June–November), and the Garden Route national parks within driving distance. A surf trip that combines J-Bay with a broader Eastern Cape road trip makes an exceptional two-week journey.\n\nFly to Port Elizabeth (now Gqeberha), hire a car, and base yourself in J-Bay for surf. Three to seven days at the break itself is typical before extending the road trip.",
    "location": "Jeffreys Bay, Eastern Cape",
    "country": "South Africa",
    "continent": "Africa",
@@ -4248,7 +4249,7 @@
    "highlights": [
     "Uluwatu sea cave entry — paddle out through a limestone cave at low tide",
     "Padang Padang — a perfect short, hollow tube that requires precise timing",
-    "Bingin right-hander — long, forgiving wall ideal for intermediate progression",
+    "Bingin — a short, hollow left over shallow reef, best on a mid tide",
     "Sunset Kecak fire dance at Uluwatu temple above the break",
     "Cliff-top warung sunset — Bintang, grilled fish, and the Indian Ocean below",
     "Dreamland for beginners when the bukit is too big"
@@ -4701,7 +4702,7 @@
     "Mekong slow boat — two days drifting 300km through the jungle",
     "Kuang Si waterfalls — multi-tiered turquoise pools with rope swings",
     "Wat Xieng Thong — Luang Prabang's finest temple with mosaic Tree of Life",
-    "Plain of Jars — Bronze Age mystery of 2,000-year-old stone vessels",
+    "Plain of Jars — Iron Age mystery of 2,000-year-old stone vessels",
     "Night market silk shopping and Laotian BBQ on the river bend"
    ],
    "gear": [
@@ -4856,7 +4857,7 @@
   {
    "num": 86,
    "title": "Iceland Ring Road Complete Circuit",
-   "description": "Route 1, Iceland's Ring Road, circles the entire island in 1,332km — a complete circuit that passes through every major landscape type the country offers: black sand desert, active volcanoes, ice cap, fjord, lava field, waterfall, and geothermal spa. The road is fully paved and well-maintained, making the circuit accessible to ordinary rental vehicles in summer while demanding a 4WD in winter.\n\nThe classic highlights are well-documented — Jökulsárlón glacier lagoon and its icebergs, the waterfalls of the south coast (Skógafoss, Seljalandsfoss, Svartifoss), the Snæfellsnes Peninsula's volcanic glacier, the Westfjords for true wilderness — but the Ring Road's particular joy is the landscape between the highlights: lava deserts that look post-apocalyptic, fjord drives where you share the road with nothing but sheep, and the consistent surprise of Iceland's scale.\n\nMidnight sun in June–July means 24-hour daylight, enabling driving and hiking at any hour. Northern lights season runs September–March, with the darkest windows in October–February providing the best aurora photography.\n\nRent a campervan in Reykjavik for maximum flexibility — wild camping is legal on most uncultivated land outside national parks. Budget £200–320 per day for rental, fuel, food, and camping fees.",
+   "description": "Route 1, Iceland's Ring Road, circles the entire island in 1,332km — a complete circuit that passes through every major landscape type the country offers: black sand desert, active volcanoes, ice cap, fjord, lava field, waterfall, and geothermal spa. The road is fully paved and well-maintained, making the circuit accessible to ordinary rental vehicles in summer while demanding a 4WD in winter.\n\nThe classic highlights are well-documented — Jökulsárlón glacier lagoon and its icebergs, the waterfalls of the south coast (Skógafoss, Seljalandsfoss, Svartifoss), the Snæfellsnes Peninsula's volcanic glacier, the Westfjords for true wilderness — but the Ring Road's particular joy is the landscape between the highlights: lava deserts that look post-apocalyptic, fjord drives where you share the road with nothing but sheep, and the consistent surprise of Iceland's scale.\n\nMidnight sun in June–July means 24-hour daylight, enabling driving and hiking at any hour. Northern lights season runs September–March, with the darkest windows in October–February providing the best aurora photography.\n\nRent a campervan in Reykjavik for maximum flexibility — but since the 2015 Nature Conservation Act, campervans and caravans must overnight in designated campsites, and tent camping outside them needs the landowner's permission. Budget £200–320 per day for rental, fuel, food, and camping fees.",
    "location": "Ring Road, Route 1, Iceland",
    "country": "Iceland",
    "continent": "Europe",
@@ -4866,7 +4867,7 @@
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240718_1553_2250.jpg/1920px-J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240718_1553_2250.jpg",
    "highlights": [
     "Jökulsárlón glacier lagoon — icebergs calving into a coastal lagoon at the Atlantic",
-    "Skógafoss waterfall — walk behind the 60m curtain of water",
+    "Seljalandsfoss — walk right behind the 60m curtain of water",
     "Vatnajökull National Park — Europe's largest glacier by volume",
     "Northern lights from a darkened campervan in the Westfjords (September–March)",
     "Midnight sun drive through the East Fjords in June",
@@ -5023,7 +5024,7 @@
   {
    "num": 89,
    "title": "Tasmania Grand Drive, Australia",
-   "description": "Tasmania is the most wilderness-intensive state in Australia — 40% of the island is national park or World Heritage Area, and its southwest corner is one of the last intact temperate rainforests on earth. A 10–14 day driving circuit from Hobart clockwise through the Midlands, Freycinet Peninsula, Bay of Fires, Cradle Mountain, the Franklin Gordon Wild Rivers, and Port Arthur brings together landscapes that simply don't exist elsewhere in the Southern Hemisphere.\n\nThe Freycinet Peninsula is the easy seduction: Wineglass Bay seen from the lookout is the image that sells Tasmania to the world, and the 3-day circuit walk that covers the full peninsula is one of Australia's finest short hikes. The Bay of Fires in the northeast — white sand beaches with orange lichen-encrusted granite boulders — has no parallel in Australian coastal scenery.\n\nCradle Mountain, the rugged dolerite peak above the iconic Lake Dove, anchors Tasmania's most accessible alpine walking. The 65km Overland Track (6 days) starts here; day walks around the lake are accessible to non-hikers. To the southwest, the Franklin-Gordon Wild Rivers National Park is wild in the original sense — the proposed Franklin River dam in the 1980s mobilised the modern Australian environmental movement.\n\nDrive the circuit in 10–14 days. Hire a campervan from Hobart — Tasmania's camping infrastructure is excellent and well-maintained. Spring (September–November) offers wildflowers, green hills, and manageable summer visitor numbers.",
+   "description": "Tasmania is the most wilderness-intensive state in Australia — 40% of the island is national park or World Heritage Area, and its southwest corner is one of the last intact temperate rainforests on earth. A 10–14 day driving circuit from Hobart clockwise through the Midlands, Freycinet Peninsula, Bay of Fires, Cradle Mountain, the Franklin Gordon Wild Rivers, and Port Arthur brings together landscapes that simply don't exist elsewhere in the Southern Hemisphere.\n\nThe Freycinet Peninsula is the easy seduction: Wineglass Bay seen from the lookout is the image that sells Tasmania to the world, and the 3-day circuit walk that covers the full peninsula is one of Australia's finest short hikes. The Bay of Fires in the northeast — white sand beaches with orange lichen-encrusted granite boulders — has no parallel in Australian coastal scenery.\n\nCradle Mountain, the rugged dolerite peak above the iconic Dove Lake, anchors Tasmania's most accessible alpine walking. The 65km Overland Track (6 days) starts here; day walks around the lake are accessible to non-hikers. To the southwest, the Franklin-Gordon Wild Rivers National Park is wild in the original sense — the proposed Franklin River dam in the 1980s mobilised the modern Australian environmental movement.\n\nDrive the circuit in 10–14 days. Hire a campervan from Hobart — Tasmania's camping infrastructure is excellent and well-maintained. Spring (September–November) offers wildflowers, green hills, and manageable summer visitor numbers.",
    "location": "Hobart, Freycinet, Cradle Mountain, Southwest Wilderness",
    "country": "Australia",
    "continent": "Oceania",
@@ -5034,7 +5035,7 @@
    "highlights": [
     "Wineglass Bay lookout, Freycinet — the most iconic beach view in Australia",
     "Bay of Fires — white sand and orange-granite coast with zero development",
-    "Cradle Mountain at dawn — dolerite summit mirrored in Lake Dove",
+    "Cradle Mountain at dawn — dolerite summit mirrored in Dove Lake",
     "Overland Track (6-day option) — Tasmania's premier alpine multi-day walk",
     "MONA, Hobart — David Walsh's underground museum of old and new art",
     "Salamanca Market, Hobart — Saturday morning institution for local produce"
@@ -5093,7 +5094,7 @@
     "Blue Corner drift dive — grey reef and whitetip sharks riding the current",
     "Blue Hole — columns of light through a limestone cathedral ceiling",
     "Jellyfish Lake — swimming through millions of stingless golden jellyfish",
-    "German Channel manta ray cleaning station — up-close with oceanic mantas",
+    "German Channel manta cleaning station — up-close with resident reef mantas",
     "WWII wrecks: Iro Maru and Amatsu Maru in 10–30m of water",
     "Ngercheu Island pristine outer reef — untouched coral gardens"
    ],
@@ -5139,7 +5140,7 @@
   {
    "num": 91,
    "title": "Red Sea Liveaboard, Ras Mohammed to Brothers Islands",
-   "description": "The Red Sea is one of the world's premier liveaboard diving destinations — warm, clear water, shallow-growing hard coral in superb condition, and a pelagic scene that delivers hammerhead sharks, oceanic whitetips, and thresher sharks at the Brothers Islands and Daedalus Reef. The classic southern liveaboard circuit from Hurghada runs to Ras Mohammed (the submerged tip of the Sinai Peninsula), down the Egyptian coast past Sha'ab Abu Nuhas wreck site, and out to the offshore pinnacles.\n\nThe Brothers (El Akhawein) are two tiny rocky islands in the open Red Sea, 60km offshore, that rise from 800m of water. The walls are covered in soft corals and home to schools of barracuda, jacks, and the resident oceanic whitetip sharks that were Jacques Cousteau's favourite Red Sea subject. Daedalus Reef adds schooling scalloped hammerheads on the right current.\n\nLiveaboard boats from Hurghada run 7-day circuits year-round. The boats range from basic to genuinely comfortable — choose an operator on safety record and group size rather than the cheapest berth. Nitrox is widely available for extending bottom time. Prices run £750–1,450 per person for a 7-night all-inclusive liveaboard.\n\nOctober–May is the prime season. Summer (June–September) is hot (air and water both 30°C+) but still excellent diving.",
+   "description": "The Red Sea is one of the world's premier liveaboard diving destinations — warm, clear water, shallow-growing hard coral in superb condition, and a pelagic scene that delivers hammerhead sharks, oceanic whitetips, and thresher sharks at the Brothers Islands and Daedalus Reef. The classic circuit from Hurghada runs north to Ras Mohammed (the submerged tip of the Sinai Peninsula) and the Sha'ab Abu Nuhas wreck site in the Strait of Gubal, then turns south and out to the offshore pinnacles.\n\nThe Brothers (El Akhawein) are two tiny rocky islands in the open Red Sea, 60km offshore, that rise from 800m of water. The walls are covered in soft corals and home to schools of barracuda, jacks, and the resident oceanic whitetip sharks that were Jacques Cousteau's favourite Red Sea subject. Daedalus Reef adds schooling scalloped hammerheads on the right current.\n\nLiveaboard boats from Hurghada run 7-day circuits year-round. The boats range from basic to genuinely comfortable — choose an operator on safety record and group size rather than the cheapest berth. Nitrox is widely available for extending bottom time. Prices run £750–1,450 per person for a 7-night all-inclusive liveaboard.\n\nOctober–May is the prime season. Summer (June–September) is hot (air and water both 30°C+) but still excellent diving.",
    "location": "Hurghada to Brothers Islands, Red Sea",
    "country": "Egypt",
    "continent": "Africa",
@@ -5322,7 +5323,7 @@
    "durationDays": 7,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Padar_Island%2C_Komodo_National_Park%2C_Indonesia%2C_20250822_0911_2638.jpg/1920px-Padar_Island%2C_Komodo_National_Park%2C_Indonesia%2C_20250822_0911_2638.jpg",
    "highlights": [
-    "Manta Point — snorkel and dive with oceanic manta rays at the cleaning station",
+    "Manta Point — snorkel and dive with reef manta rays at the cleaning station",
     "Batu Bolong — a volcanic pinnacle with 80m visibility and wall-to-wall fish",
     "Komodo dragon trekking on Rinca Island — UNESCO listed predator encounter",
     "Crystal Rock current diving — schooling barracuda and giant trevally",
@@ -5372,7 +5373,7 @@
   {
    "num": 95,
    "title": "Haida Gwaii Outer Islands Sea Kayak, Canada",
-   "description": "Haida Gwaii — formerly the Queen Charlotte Islands — is an archipelago 100km off the northern British Columbia coast, separated from the mainland by the treacherous Hecate Strait and belonging to the Haida Nation, whose culture survived here while most of the Pacific Northwest coast was transformed. The outer islands of the Gwaii Haanas National Park Reserve are accessible only by kayak or small boat, and the paddling conditions are among the most demanding on the Pacific Coast.\n\nThe classic route through Gwaii Haanas covers 150km over 10–14 days, paddling between uninhabited islands dense with old-growth Sitka spruce, stopping at abandoned Haida village sites (Skedans, Tanu, Ninstints) where mortuary poles still stand in the forest — a UNESCO World Heritage Site. Wildlife is extraordinary: humpback whales surface alongside kayaks, black bears forage the shoreline, and sea otters float in kelp beds throughout.\n\nOpen-water crossings up to 10km are necessary on the outer route — plan around weather windows, paddle with a guide on first visits, and carry a VHF radio and EPIRB. The Hecate Strait is notorious; the outer coast less so, but fog and Pacific swells are genuine hazards.\n\nBook guided trips through one of the small number of licensed Gwaii Haanas operators — visitor numbers are capped and an orientation session is mandatory. July–September is the window; June is possible but cold. Fly to Sandspit via Vancouver.",
+   "description": "Haida Gwaii — formerly the Queen Charlotte Islands — is an archipelago 100km off the northern British Columbia coast, separated from the mainland by the treacherous Hecate Strait and belonging to the Haida Nation, whose culture survived here while most of the Pacific Northwest coast was transformed. The outer islands of the Gwaii Haanas National Park Reserve are accessible only by kayak or small boat, and the paddling conditions are among the most demanding on the Pacific Coast.\n\nThe classic route through Gwaii Haanas covers 150km over 10–14 days, paddling between uninhabited islands dense with old-growth Sitka spruce, stopping at abandoned Haida village sites (Skedans, Tanu, Ninstints) where mortuary poles still stand in the forest — a UNESCO World Heritage Site. Wildlife is extraordinary: humpback whales surface alongside kayaks, black bears forage the shoreline, and Steller sea lions haul out on the outer rocks.\n\nOpen-water crossings up to 10km are necessary on the outer route — plan around weather windows, paddle with a guide on first visits, and carry a VHF radio and EPIRB. The Hecate Strait is notorious; the outer coast less so, but fog and Pacific swells are genuine hazards.\n\nBook guided trips through one of the small number of licensed Gwaii Haanas operators — visitor numbers are capped and an orientation session is mandatory. July–September is the window; June is possible but cold. Fly to Sandspit via Vancouver.",
    "location": "Gwaii Haanas National Park Reserve, Haida Gwaii",
    "country": "Canada",
    "continent": "North America",
@@ -5384,7 +5385,7 @@
     "SGang Gwaay (Ninstints) UNESCO village site — standing mortuary poles in old-growth forest",
     "Humpback whale surfacing alongside kayaks in open water",
     "Black bear shore foraging — common throughout the archipelago",
-    "Sea otter colonies in kelp beds on the outer coast",
+    "Steller sea lion haul-outs and bald eagles on the outer coast",
     "10km open-water crossings with Pacific swell — genuine ocean paddling",
     "Old-growth Sitka spruce and cedar forest — trees over 1,000 years old"
    ],
@@ -5441,7 +5442,7 @@
     "Boka Waterfall — 106m plunge into the Soča valley from the cliff",
     "Triglav National Park — pristine Julian Alps with chamois and golden eagles",
     "Kozjak Waterfall via the Soča gorge walk — hidden amphitheatre pool",
-    "Kobarid Museum of WWI — Soča front where Hemingway served and wrote"
+    "Kobarid Museum of WWI — the Isonzo front and the Caporetto retreat of A Farewell to Arms"
    ],
    "gear": [
     "Sea kayak or touring kayak for Lake Bled flat water",
@@ -5549,7 +5550,7 @@
    "durationDays": 7,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Cloudy_and_kayaks_at_Fj%C3%A4rdl%C3%A5ng%2C_Stockholm_archipelago_%28Sweden%29_-_panoramio.jpg/1920px-Cloudy_and_kayaks_at_Fj%C3%A4rdl%C3%A5ng%2C_Stockholm_archipelago_%28Sweden%29_-_panoramio.jpg",
    "highlights": [
-    "Paddling through 30,000-island granite archipelago in midnight sun",
+    "Paddling through the 30,000-island granite archipelago in 18-hour Baltic daylight",
     "Wild camping on outer skerries under Swedish allemansrätten — no fees, no fences",
     "Sandhamn village — historic maritime racing hub with summer restaurant culture",
     "Landsort lighthouse — southernmost point of the archipelago on a tiny island",
@@ -5577,7 +5578,6 @@
    "longitude": 18.8167,
    "tags": [
     "kayaking",
-    "midnight-sun",
     "camping",
     "europe",
     "solo-travel"
@@ -5594,7 +5594,7 @@
   {
    "num": 99,
    "title": "Sea of Cortez Island-Hopping Kayak, Baja California Sur",
-   "description": "Jacques Cousteau called the Sea of Cortez \"the world's aquarium\" — a semi-enclosed sea between Baja California and mainland Mexico that contains more marine species than almost anywhere else on earth due to its mix of cold Pacific upwelling and warm tropical water. Kayaking between the Espíritu Santo island group in the southern Sea of Cortez — a 3-hour ferry from La Paz — gives access to sea lion colonies, whale shark snorkelling, manta ray encounters, and deserted white sand beaches with no facilities.\n\nThe standard route covers Espíritu Santo and Partida islands: 20–30km of paddling per day on calm water between beaches shaded by cardón cactus and palo verde trees, camping in coves where California sea lions surf in the shore break and bark through the night. The snorkelling off Los Islotes is among the best in Mexico — the resident sea lion colony approaches snorkellers and plays in the bubbles.\n\nWater temperature peaks at 28°C in August–October; winter months (December–March) see 18–22°C with clearer water and reliable whale watching (blue and fin whales in the Cortez). Several La Paz outfitters run 3–7 day guided trips with full equipment, food, and camping gear. Independent kayakers can rent from various outfitters.\n\nNovember–April is the optimal combination of temperatures and whale activity. Summer (June–September) is fiercely hot (air 40°C) and quiet; the whale sharks of La Paz Bay arrive with the plankton from roughly October to April.",
+   "description": "Jacques Cousteau called the Sea of Cortez \"the world's aquarium\" — a semi-enclosed sea between Baja California and mainland Mexico that contains more marine species than almost anywhere else on earth due to its mix of cold Pacific upwelling and warm tropical water. Kayaking between the Espíritu Santo island group in the southern Sea of Cortez — a 60–90 minute panga ride from La Paz — gives access to sea lion colonies, whale shark snorkelling, manta ray encounters, and deserted white sand beaches with no facilities.\n\nThe standard route covers Espíritu Santo and Partida islands: 20–30km of paddling per day on calm water between beaches shaded by cardón cactus and palo verde trees, camping in coves where California sea lions surf in the shore break and bark through the night. The snorkelling off Los Islotes is among the best in Mexico — the resident sea lion colony approaches snorkellers and plays in the bubbles.\n\nWater temperature peaks at 28°C in August–October; winter months (December–March) see 18–22°C with clearer water and reliable whale watching (blue and fin whales in the Cortez). Several La Paz outfitters run 3–7 day guided trips with full equipment, food, and camping gear. Independent kayakers can rent from various outfitters.\n\nNovember–April is the optimal combination of temperatures and whale activity. Summer (June–September) is fiercely hot (air 40°C) and quiet; the whale sharks of La Paz Bay arrive with the plankton from roughly October to April.",
    "location": "Espíritu Santo Biosphere Reserve, Baja California Sur",
    "country": "Mexico",
    "continent": "North America",
@@ -5616,7 +5616,7 @@
     "Snorkel mask and fins for sea lion and whale shark encounters",
     "Sun protection: hat, SPF 50, UPF clothing — Baja UV is extreme",
     "Water purification tablets or filter (no fresh water on islands)",
-    "Bear canister or animal-proof food storage (coyotes on Espíritu Santo)"
+    "Animal-proof food storage — endemic ringtails and gulls raid unattended camp food"
    ],
    "bestMonths": [
     11,
@@ -7054,7 +7054,7 @@
   {
    "num": 139,
    "title": "Patagonia Ice Cap Traverse",
-   "description": "The Northern Patagonian Ice Cap traverse is one of the last great blank spots in alpine adventure — a 100 km ski traverse across the second largest ice cap outside the poles, with no roads, no huts, and no rescue infrastructure. Teams fly in by ski-equipped plane to the Monte San Valentín area and navigate crevassed plateau ice to reach Cochrane. Full expedition planning required; weather windows are brief and infrequent.",
+   "description": "The Northern Patagonian Ice Cap traverse is one of the last great blank spots in alpine adventure — a 100 km ski traverse across a roadless 4,000 km² plateau of ice, with no huts and no rescue infrastructure. Teams fly in by ski-equipped plane to the Monte San Valentín area and navigate crevassed plateau ice to reach Cochrane. Full expedition planning required; weather windows are brief and infrequent.",
    "location": "Cochrane",
    "country": "Chile",
    "continent": "South America",
@@ -7482,7 +7482,7 @@
    "title": "Pacific Coast Highway Road Trip",
    "description": "The full Pacific coast run from Vancouver to San Diego is 2,400 km of the best coastal driving on Earth, stitched together from Washington's US-101, Oregon's clifftop 101, and California's Highway 1. The rhythm changes by state: Olympic National Park's rainforest and sea stacks, Oregon's dunes and lighthouse headlands, then the famous Big Sur stretch where Highway 1 hangs off the cliffs between Carmel and San Simeon — Bixby Bridge, sea lions at Point Lobos, condors overhead — before the light turns southern-Californian at Malibu.\n\nTwo things catch people out. Summer campgrounds from Oregon southward book out six months ahead on the state-park systems, and Big Sur suffers regular landslide closures — check Caltrans before committing to the one-road section. April–May and September–October give empty roads, whale migrations and the best light. Three weeks is right; budget around £4,000 per person with a hire car, mixing state-park camping and motels, before flights.",
    "location": "Vancouver",
-   "country": "United States",
+   "country": "Canada",
    "continent": "North America",
    "category": "ROAD_TRIP",
    "difficulty": "EASY",
@@ -8253,7 +8253,7 @@
     "Chitina River paddling",
     "Root Glacier walk-in",
     "Grizzly bear country",
-    "Nabesna volcanic area",
+    "Kennecott ghost mines",
     "True wilderness solitude"
    ],
    "gear": [
@@ -8354,7 +8354,7 @@
    "category": "MOUNTAINEERING",
    "difficulty": "CHALLENGING",
    "durationDays": 7,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Mont_Chetif_2.jpg/1920px-Mont_Chetif_2.jpg",
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Glacier_de_Fr%C3%AAney_Col_du_Mont_Fortin.jpg/1920px-Glacier_de_Fr%C3%AAney_Col_du_Mont_Fortin.jpg",
    "highlights": [
     "Mont Chétif via ferrata summit",
     "Mont Blanc massif full-frontal views",
@@ -8392,9 +8392,9 @@
    "voteCount": 2,
    "id": "seed-adventure-176",
    "imageAttribution": {
-    "artist": "Tiia Monto",
-    "license": "CC BY-SA 3.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mont_Chetif_2.jpg"
+    "artist": "Rémih",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Glacier_de_Fr%C3%AAney_Col_du_Mont_Fortin.jpg"
    }
   },
   {
@@ -9219,7 +9219,7 @@
   {
    "num": 194,
    "title": "Azores Multi-Island Trek",
-   "description": "Trek across several of the nine Azores islands — volcanic mid-Atlantic outposts with twin craters, steaming fumaroles, whale-watching, and whale shark diving all within a few kilometres of each other. Sao Miguel's Sete Cidades caldera is a 5 km double crater lake walk; Pico Island's volcano (2,351 m, Portugal's highest summit) takes 7-8 hours return. Faial and Flores offer sea cliff walking and waterfalls. The islands are less than 2 hours from Lisbon; whale watching season runs April to October when sperm whales, fin whales, and blue whales pass through.",
+   "description": "Trek across several of the nine Azores islands — volcanic mid-Atlantic outposts with twin craters, steaming fumaroles, whale-watching, and whale shark diving all within a few kilometres of each other. Sao Miguel's Sete Cidades caldera is a 5 km double crater lake walk; Pico Island's volcano (2,351 m, Portugal's highest summit) takes 7-8 hours return. Faial and Flores offer sea cliff walking and waterfalls. The islands are about two and a half hours by air from Lisbon; whale watching season runs April to October when sperm whales, fin whales, and blue whales pass through.",
    "location": "Ponta Delgada",
    "country": "Portugal",
    "continent": "Europe",
@@ -9299,8 +9299,7 @@
    ],
    "bestMonths": [
     2,
-    3,
-    4
+    3
    ],
    "climate": [
     "cold"
@@ -9499,14 +9498,14 @@
    "highlights": [
     "Nanda Devi 7,816m",
     "Rishi Gorge approach",
-    "Sanctuary restricted interior",
+    "Dharansi Pass 4,250m viewpoint",
     "Himalayan flora sanctuary",
     "Garhwal village culture"
    ],
    "gear": [
     "Expedition sleeping system",
     "High-altitude boots",
-    "Rishi Gorge technical climbing gear",
+    "Microspikes for early-season snow",
     "Altitude medication",
     "Special permit documentation"
    ],
@@ -10274,7 +10273,7 @@
    ],
    "gear": [
     "Raft or hardshell kayak",
-    "Class V experience required",
+    "Class II wilderness river experience",
     "Dry suits",
     "First aid kit",
     "Satellite communicator"
@@ -10589,7 +10588,7 @@
    "category": "TREKKING",
    "difficulty": "CHALLENGING",
    "durationDays": 7,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Reine_%2841869653542%29.jpg/1920px-Reine_%2841869653542%29.jpg",
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Reine_At_Sunrise_%28139429959%29.jpeg/1920px-Reine_At_Sunrise_%28139429959%29.jpeg",
    "highlights": [
     "Northern lights over Svolvær",
     "Svolværgeita's twin horns",
@@ -10628,9 +10627,9 @@
    "voteCount": 2,
    "id": "seed-adventure-223",
    "imageAttribution": {
-    "artist": "El Coleccionista de Instantes",
-    "license": "CC BY-SA 2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Reine_(41869653542).jpg"
+    "artist": "Russo Francesco",
+    "license": "CC BY 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Reine_At_Sunrise_(139429959).jpeg"
    }
   },
   {
@@ -12398,8 +12397,8 @@
     "alpine"
    ],
    "estimatedCost": 250000,
-   "latitude": 37.49,
-   "longitude": 72.78,
+   "latitude": 36.72,
+   "longitude": 71.61,
    "tags": [
     "expedition",
     "remote",
@@ -13284,7 +13283,7 @@
    "durationDays": 90,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Lake_Baikal%2C_Siberia_-_Russian_Federation_%288461554525%29.jpg/1920px-Lake_Baikal%2C_Siberia_-_Russian_Federation_%288461554525%29.jpg",
    "highlights": [
-    "10000km across eleven time zones",
+    "10,000 km across seven time zones",
     "Lake Baikal world deepest lake",
     "Ural Mountains Europe-Asia boundary",
     "Buryat Buddhist temple stays",
@@ -13703,7 +13702,7 @@
   {
    "num": 299,
    "title": "Scottish Highland High Route",
-   "description": "This is not a waymarked trail, and that is the point. The Highland High Route is a self-devised 160-kilometre traverse from Aviemore to Torridon that stays high wherever Scotland allows: across the sub-arctic gravel of the Cairngorm plateau, over Creag Meagaidh's cliff-rimmed tableland, through the ancient pines of Glen Affric, along the Five Sisters of Kintail, and finally onto the 750-metre quartzite and sandstone ramparts of Liathach and Beinn Eighe above Torridon. For a fortnight you navigate ridge to ridge by map and compass, sleeping in a mix of wild camps and bothies, and when the cloud is down - it often is - every summit is an act of faith in your bearing.\n\nJune to September is the window, but the true adversaries are Scottish: midges that make June to August evenings unbearable without a head net, spate rivers after rain, and multi-day blows that force valley detours, so build in two spare days. Resupply at Fort Augustus or Shiel Bridge; otherwise you carry everything. The whole traverse costs perhaps £600 including trains and food, which may be British adventure's best value - but the navigation and commitment are a full grade beyond any waymarked national trail.",
+   "description": "This is not a waymarked trail, and that is the point. The Highland High Route is a self-devised 160-kilometre traverse from Aviemore to Torridon that stays high wherever Scotland allows: across the sub-arctic gravel of the Cairngorm plateau, over Creag Meagaidh's cliff-rimmed tableland, through the ancient pines of Glen Affric, along the Five Sisters of Kintail, and finally onto the 1,000-metre quartzite and sandstone ramparts of Liathach and Beinn Eighe above Torridon. For a fortnight you navigate ridge to ridge by map and compass, sleeping in a mix of wild camps and bothies, and when the cloud is down - it often is - every summit is an act of faith in your bearing.\n\nJune to September is the window, but the true adversaries are Scottish: midges that make June to August evenings unbearable without a head net, spate rivers after rain, and multi-day blows that force valley detours, so build in two spare days. Resupply at Fort Augustus or Shiel Bridge; otherwise you carry everything. The whole traverse costs perhaps £600 including trains and food, which may be British adventure's best value - but the navigation and commitment are a full grade beyond any waymarked national trail.",
    "location": "Aviemore",
    "country": "United Kingdom",
    "continent": "Europe",
@@ -13836,7 +13835,8 @@
     1,
     2,
     3,
-    4
+    4,
+    5
    ],
    "climate": [
     "alpine",
@@ -14139,14 +14139,14 @@
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Roraima3_%2879%29.JPG/1920px-Roraima3_%2879%29.JPG",
    "highlights": [
     "Roraima summit endemic carnivorous plants",
-    "Angel Falls 979m world highest waterfall",
+    "Kukenan tepui's plume waterfall from the summit rim",
     "Lost World inspiration plateau landscape",
     "Pemon indigenous guide required",
     "Quartz crystal summit fields"
    ],
    "gear": [
     "Waterproof tent and gear",
-    "Climbing harness for gully sections",
+    "Sturdy boots and poles for the Tek and Kukenan river crossings",
     "Rain jacket constant mist summit",
     "Permits Canaima National Park",
     "4WD transport to trailhead"
@@ -15604,7 +15604,7 @@
   {
    "num": 347,
    "title": "Komodo Island Dragon Trek",
-   "description": "Komodo Island in the Indonesian archipelago is home to the world's largest lizard, the Komodo dragon, which reaches 3 metres in length and hunts deer, pigs, and occasionally humans using venom-laced saliva. Trekking the island's three routes with a park ranger allows close encounters with these prehistoric predators in their natural habitat. The surrounding Komodo National Park waters contain some of the most biodiverse coral reefs in the world, with manta ray cleaning stations at Manta Point.",
+   "description": "Komodo Island in the Indonesian archipelago is home to the world's largest lizard, the Komodo dragon, which reaches 3 metres in length and brings down deer, wild pigs and water buffalo with serrated teeth and venom glands that stop a wound clotting. Trekking the island's three ranger-led routes - short, medium and long - allows close encounters with these prehistoric predators in their natural habitat; attacks on people are rare, but the rangers carry a forked stick for good reason. The surrounding Komodo National Park waters contain some of the most biodiverse coral reefs in the world, with manta ray cleaning stations at Manta Point.",
    "location": "Labuan Bajo",
    "country": "Indonesia",
    "continent": "Asia",
@@ -15616,7 +15616,7 @@
     "Komodo dragon 3m close encounters",
     "Manta ray cleaning station diving",
     "Pink Beach coral reef snorkelling",
-    "Dragon nesting area paluarium",
+    "Nesting mounds the dragons take over from megapode birds",
     "Rinca Island more accessible option"
    ],
    "gear": [
@@ -15719,7 +15719,7 @@
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Dracaena_cinnabari_%2849862143573%29.jpg/1920px-Dracaena_cinnabari_%2849862143573%29.jpg",
    "highlights": [
     "Dragon Blood Tree endemic alien landscape",
-    "800 endemic plant species 35 percent",
+    "307 endemic plants - over a third of the island's flora",
     "Socotra cormorant seabird colonies",
     "Bedouin nomad cultural encounter",
     "Diksam plateau ancient forest"
@@ -15777,7 +15777,7 @@
     "Brown bear lynx chamois wildlife",
     "70km ridge traverse above 2000m",
     "Glacial cirque lakes Capra Balea",
-    "Bran Castle Dracula tourism"
+    "Negoiu 2535m and the Strunga Dracului gully"
    ],
    "gear": [
     "Mountain tent plateau camping",
@@ -16169,8 +16169,8 @@
     "hot"
    ],
    "estimatedCost": 300000,
-   "latitude": 3.2,
-   "longitude": 73.22,
+   "latitude": 4.17,
+   "longitude": 73.51,
    "tags": [
     "diving",
     "island",
@@ -17003,7 +17003,7 @@
    "durationDays": 20,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Samaria_Gorge_09.jpg/1920px-Samaria_Gorge_09.jpg",
    "highlights": [
-    "Samaria Gorge longest Europe 18km",
+    "Samaria Gorge longest Europe 16km",
     "Cretan wild kri-kri goat sightings",
     "White Mountains 2453m summit",
     "E4 pan-European trail section",
@@ -17221,7 +17221,7 @@
     "Most remote inhabited islands world",
     "Ancient Marquesan tiki statues",
     "Gauguin final paintings Hiva Oa",
-    "3000km Pacific passage yacht",
+    "3000nm Pacific passage yacht",
     "Typee Valley Melville jungle"
    ],
    "gear": [
@@ -17752,7 +17752,7 @@
    "durationDays": 21,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Kluane_Icefield_2.jpg/1920px-Kluane_Icefield_2.jpg",
    "highlights": [
-    "Kluane Icefield 8500km world largest",
+    "Kluane Icefield 8500km largest non-polar",
     "Mount Logan 5959m Canada highest",
     "200km glacier ski traverse",
     "Grizzly and Dall sheep sightings",
@@ -18441,7 +18441,7 @@
    "category": "SKIING",
    "difficulty": "EXTREME",
    "durationDays": 10,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Snowboarder_at_resort_%28Unsplash%29.jpg/1920px-Snowboarder_at_resort_%28Unsplash%29.jpg",
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/A_day%27s_skiing_at_spedtacular_Mt_Revelstoke_-_Noth_Americas_biggest_vertical_drop_at_1713m_%285620_ft%29_-_the_buried_trees_appear_like_snow_ghosts_-_%2828905451175%29.jpg/1920px-thumbnail.jpg",
    "highlights": [
     "Revelstoke 1713m North America greatest vertical",
     "Heli-skiing untracked Selkirk powder",
@@ -18478,15 +18478,15 @@
    "voteCount": 3,
    "id": "seed-adventure-409",
    "imageAttribution": {
-    "artist": "Joshua Reddekopp joshuaryanphoto",
-    "license": "CC0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Snowboarder_at_resort_(Unsplash).jpg"
+    "artist": "Murray Foubister",
+    "license": "CC BY-SA 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_day's_skiing_at_spedtacular_Mt_Revelstoke_-_Noth_Americas_biggest_vertical_drop_at_1713m_(5620_ft)_-_the_buried_trees_appear_like_snow_ghosts_-_(28905451175).jpg"
    }
   },
   {
    "num": 410,
    "title": "Greek Epirus Vikos Gorge",
-   "description": "The Vikos Gorge in the Pindus Mountains of northwestern Greece is the world's deepest gorge in proportion to its width, with walls rising 900 metres above the Voidomatis River. The 12-kilometre gorge walk from Monodendri to Vikos village passes through the Zagori stone-built villages with their arched Venetian bridges that have been declared a UNESCO protected cultural landscape. The river springs that feed the gorge from underground aquifers are impossibly blue and cold.",
+   "description": "The Vikos Gorge in the Pindus Mountains of northwestern Greece is the world's deepest gorge in proportion to its width, with walls rising 900 metres above the Voidomatis River. The 12-kilometre gorge walk from Monodendri to Vikos village passes through the Zagori stone-built villages with their Ottoman-era arched stone bridges that have been declared a UNESCO protected cultural landscape. The river springs that feed the gorge from underground aquifers are impossibly blue and cold.",
    "location": "Konitsa",
    "country": "Greece",
    "continent": "Europe",
@@ -18498,7 +18498,7 @@
     "World deepest gorge width ratio",
     "900m walls Voidomatis River",
     "Zagori stone village UNESCO",
-    "Venetian arched bridges",
+    "Ottoman-era arched stone bridges",
     "Blue spring pools gorge bottom"
    ],
    "gear": [
@@ -18646,7 +18646,7 @@
   {
    "num": 413,
    "title": "New Zealand Fiordland Kayaking",
-   "description": "Paddle through Fiordland National Park — one of the wettest places on Earth, averaging 6-8 m of annual rainfall — through Milford and Doubtful Sounds where hanging waterfalls create their own microweather, and bottlenose dolphins escort kayaks through the fjords at dawn. Doubtful Sound (three times deeper than Milford) has less boat traffic and greater wilderness character. The four-day Milford Track Great Walk ends at Sandfly Point on the fiord and can be combined with a kayak return. The fiord's black coral trees grow unusually close to the surface due to the fresh water layer suppressing light penetration.",
+   "description": "Paddle through Fiordland National Park — one of the wettest places on Earth, averaging 6-8 m of annual rainfall — through Milford and Doubtful Sounds where hanging waterfalls create their own microweather, and bottlenose dolphins escort kayaks through the fjords at dawn. Doubtful Sound (three times longer than Milford) has less boat traffic and greater wilderness character. The four-day Milford Track Great Walk ends at Sandfly Point on the fiord and can be combined with a kayak return. The fiord's black coral trees grow unusually close to the surface due to the fresh water layer suppressing light penetration.",
    "location": "Te Anau",
    "country": "New Zealand",
    "continent": "Oceania",
@@ -18732,8 +18732,8 @@
     "cold"
    ],
    "estimatedCost": 250000,
-   "latitude": 46,
-   "longitude": 7,
+   "latitude": 45.9237,
+   "longitude": 6.8694,
    "tags": [
     "skiing",
     "glacier",
@@ -18872,7 +18872,7 @@
     "Luang Prabang UNESCO monks alms",
     "Pak Ou Buddha Caves 4000 statues",
     "Golden Triangle historic opium trade",
-    "Irrawaddy dolphin river sightings"
+    "Pak Beng overnight river village stop"
    ],
    "gear": [
     "Sun protection long boat days",
@@ -18896,9 +18896,9 @@
    "longitude": 100.43,
    "tags": [
     "cultural-immersion",
-    "kayaking",
     "remote",
-    "photography"
+    "photography",
+    "multi-day"
    ],
    "user": 2,
    "voteCount": 2,
@@ -19440,7 +19440,7 @@
   {
    "num": 433,
    "title": "Japan Winter Onsen to Onsen Trek",
-   "description": "The Yuzawa onsen region in Niigata prefecture and the Nozawa Onsen village in Nagano offer the finest combination of deep powder skiing, mountain village culture, and traditional hot spring bathing in Japan. The Zao backcountry offers unique juhyo snow monsters where trees are encased in wind-sculpted ice formations. Walking between onsen villages in a yukata bathrobe following ancient rotenburo outdoor bath paths connects Japanese winter culture at its most authentic.",
+   "description": "The Yuzawa onsen region in Niigata prefecture and the Nozawa Onsen village in Nagano offer the finest combination of deep powder skiing, mountain village culture, and traditional hot spring bathing in Japan. Nozawa's thirteen free soto-yu bathhouses, funded and cleaned by the villagers themselves, sit a few minutes' walk from the Yamabiko ridge where the powder bowls hold cold, dry snow into March. Walking between onsen villages in a yukata bathrobe following ancient rotenburo outdoor bath paths connects Japanese winter culture at its most authentic.",
    "location": "Nozawa Onsen",
    "country": "Japan",
    "continent": "Asia",
@@ -19449,7 +19449,7 @@
    "durationDays": 7,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Mt._Zao_snow_monsters_%2851843220026%29.jpg/1920px-Mt._Zao_snow_monsters_%2851843220026%29.jpg",
    "highlights": [
-    "Juhyo ice monster sculptures Zao",
+    "Dosojin fire festival Nozawa January",
     "Nozawa Onsen free communal baths",
     "Yamabiko ridge powder bowls",
     "Rotenburo outdoor hot spring night",
@@ -20558,7 +20558,7 @@
   {
    "num": 457,
    "title": "Jordan Wadi Rum Ultra Trail",
-   "description": "The 400-kilometre Jordan Trail from Umm Qais in the north to Aqaba on the Red Sea passes through Wadi Rum desert, the ancient Nabataean city of Petra, and the Dana Biosphere Reserve in a 40-day traverse of the most diverse landscapes in the Middle East. The desert section through Wadi Rum involves scrambling up sand dunes, navigating by star, and sleeping in Bedouin camp in canyon shadows. The Red Sea finish at Aqaba provides world-class coral reef diving as the ultimate reward.",
+   "description": "The 675-kilometre Jordan Trail from Umm Qais in the north to Aqaba on the Red Sea passes through Wadi Rum desert, the ancient Nabataean city of Petra, and the Dana Biosphere Reserve in a 40-day traverse of the most diverse landscapes in the Middle East. The desert section through Wadi Rum involves scrambling up sand dunes, navigating by star, and sleeping in Bedouin camp in canyon shadows. The Red Sea finish at Aqaba provides world-class coral reef diving as the ultimate reward.",
    "location": "Umm Qais",
    "country": "Jordan",
    "continent": "Asia",
@@ -20567,7 +20567,7 @@
    "durationDays": 40,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Jordan%2C_Wadi_Rum_Desert%2C_Infinite_Spaces.jpg/1920px-Jordan%2C_Wadi_Rum_Desert%2C_Infinite_Spaces.jpg",
    "highlights": [
-    "400km north Jordan to Red Sea",
+    "675km north Jordan to Red Sea",
     "Petra Siq entry full day walking",
     "Dana Biosphere Reserve wildlife",
     "Wadi Rum desert starfield camps",
@@ -20875,7 +20875,7 @@
   {
    "num": 465,
    "title": "Tasmania Three Capes Track",
-   "description": "The Three Capes Track on the Tasman Peninsula is one of Australia's newest and most dramatic coastal hikes, with dolerite sea cliffs rising 300 metres from the Tasman Sea as the highest sea cliffs in the Southern Hemisphere. The 46-kilometre route passes Cape Raoul, Cape Pillar, and Cape Hauy in a four-day journey through old-growth eucalyptus forest and bare dolerite headlands with nesting white-bellied sea eagles. Stylish private huts replace standard bushwalking camps.",
+   "description": "The Three Capes Track on the Tasman Peninsula is one of Australia's newest and most dramatic coastal hikes, with dolerite sea cliffs rising 300 metres from the Tasman Sea as the highest sea cliffs in the Southern Hemisphere. The 48-kilometre route walks out to Cape Pillar and Cape Hauy — Cape Raoul, the third cape, stays a silhouette across Maingon Bay and is reached only on a separate day walk from Stormlea — in a four-day journey through old-growth eucalyptus forest and bare dolerite headlands with nesting white-bellied sea eagles. Stylish private huts replace standard bushwalking camps.",
    "location": "Port Arthur",
    "country": "Australia",
    "continent": "Oceania",
@@ -20886,9 +20886,9 @@
    "highlights": [
     "Highest sea cliffs Southern Hemisphere 300m",
     "Cape Pillar dolerite columns",
+    "Cape Hauy final day descent",
     "White-bellied sea eagle nesting",
-    "Luxury hut accommodation",
-    "Tasman Sea view 180 degrees"
+    "Luxury hut accommodation"
    ],
    "gear": [
     "Parks Tasmania booking required",
@@ -21038,7 +21038,7 @@
    "num": 468,
    "title": "Bernese Oberland Via Ferrata",
    "description": "The Mürren–Gimmelwald via ferrata is the Bernese Oberland's signature wire: 2.2 kilometres traversing the rim of the Lauterbrunnen valley, much of it on staples and ladders bolted to a cliff that drops sheer to the valley floor. The crux is a Nepal-style three-wire bridge over the Sefinen gorge with the Eiger, Mönch and Jungfrau filling the horizon — committing but well protected, and free to climb with your own kit. Over the hill at Kandersteg, the Allmenalp via ferrata adds a steeper test piece with ladders beside a waterfall and a cable traverse above the valley.\n\nJune to September is the season; outside it the routes are iced or stripped. Afternoon storms build fast on the Oberland walls, so start early and be off the wire by two. A via ferrata set, harness and helmet are mandatory — rentable in Mürren or Kandersteg for about £25 a day.\n\nBase in car-free Mürren, reached by cable car and mountain rail, and rest days sort themselves: the Schilthorn, the 72 waterfalls of the Lauterbrunnen valley floor and the Grütschalp balcony path. Budget around £1,200 for five days — Swiss hut and hotel prices are the real exposure.",
-   "location": "Grindelwald",
+   "location": "Mürren",
    "country": "Switzerland",
    "continent": "Europe",
    "category": "MULTI_SPORT",
@@ -21070,8 +21070,8 @@
     "temperate"
    ],
    "estimatedCost": 120000,
-   "latitude": 46.62,
-   "longitude": 8.04,
+   "latitude": 46.5606,
+   "longitude": 7.8928,
    "tags": [
     "via-ferrata",
     "alpine",
@@ -21248,17 +21248,17 @@
   {
    "num": 476,
    "title": "Cuba Cultural Cycling",
-   "description": "Cycling Cuba from Havana to Santiago de Cuba along the Carretera Central passes through the tobacco-growing Vinales Valley, the colonial sugar towns of Trinidad and Camaguey, and the musical heartland of Santiago where son cubano developed. The 1,100-kilometre route crosses the island's mountainous spine through the Sierra Maestra where Fidel Castro's guerrilla campaign began. The combination of extraordinary music, Caribbean cuisine, and 1950s American car culture is unlike anywhere else on Earth.",
+   "description": "Cycling Cuba from Havana to Santiago de Cuba along the Carretera Central runs the length of the island: the sugar country east of Matanzas, the colonial cores of Trinidad and Camagüey — Trinidad's Valle de los Ingenios still holding its ruined mills and the Manaca Iznaga bell tower — and the musical heartland of Santiago, where son cubano developed. The 1,100-kilometre route crosses the island's mountainous spine beside the Sierra Maestra, where Fidel Castro's guerrilla campaign began. The tobacco country of the Viñales Valley is worth a loop of its own, but it lies in Pinar del Río, west of Havana and in the opposite direction from this ride — add it before you turn east rather than expecting to pass through it. The combination of extraordinary music, Caribbean cuisine and 1950s American car culture is unlike anywhere else on Earth.",
    "location": "Havana",
    "country": "Cuba",
    "continent": "North America",
    "category": "CYCLING",
    "difficulty": "MODERATE",
    "durationDays": 20,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Vi%C3%B1ales_Valley.jpg/1920px-Vi%C3%B1ales_Valley.jpg",
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Valle_de_los_Ingenios_desde_Trindad.jpg/1920px-Valle_de_los_Ingenios_desde_Trindad.jpg",
    "highlights": [
     "Havana 1950s car culture colonial",
-    "Vinales Valley tobacco cigar farms",
+    "Valle de los Ingenios sugar mills Manaca Iznaga",
     "Trinidad UNESCO colonial town",
     "Santiago son cubano birthplace",
     "Sierra Maestra Fidel guerrilla route"
@@ -21294,9 +21294,9 @@
    "voteCount": 2,
    "id": "seed-adventure-476",
    "imageAttribution": {
-    "artist": "Severin.stalder",
-    "license": "CC BY-SA 3.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vi%C3%B1ales_Valley.jpg"
+    "artist": "Yomangani",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Valle_de_los_Ingenios_desde_Trindad.jpg"
    }
   },
   {
@@ -21416,7 +21416,7 @@
    "durationDays": 7,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Tracy_Arm_fjord%2C_Alaska.jpg/1920px-Tracy_Arm_fjord%2C_Alaska.jpg",
    "highlights": [
-    "Glacier Bay glacier calving close approach",
+    "South Sawyer Glacier calving front by kayak",
     "Humpback whale encounters daily",
     "Tracy Arm Fjord ice-choked narrows",
     "Orca pods Chatham Strait passage",
@@ -21647,7 +21647,6 @@
     "Chinese permit Xinjiang border crossing"
    ],
    "bestMonths": [
-    5,
     6,
     7,
     8,
@@ -22499,7 +22498,7 @@
    "durationDays": 12,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Paragliding_over_the_Blue_Lagoon_in_%C3%96l%C3%BCdeniz%2C_Turkey_%2849070937152%29.jpg/1920px-Paragliding_over_the_Blue_Lagoon_in_%C3%96l%C3%BCdeniz%2C_Turkey_%2849070937152%29.jpg",
    "highlights": [
-    "Oludeniz blue lagoon aerial paraglide view",
+    "Oludeniz Blue Lagoon from the trail above Ovacik",
     "Kekova sunken Lycian city snorkel swim",
     "Patara Roman city sand-buried ruins",
     "Chimera eternal flames hillside mythology",
@@ -22573,7 +22572,8 @@
     6,
     7,
     8,
-    9
+    9,
+    10
    ],
    "climate": [
     "hot"
@@ -22941,7 +22941,7 @@
    "gear": [
     "Rain gear permanent cloud summit moisture",
     "Navigation summit plateau featureless",
-    "Guide mandatory indigenous Pemon land",
+    "Guide mandatory Akawaio community land",
     "Multi-day food 6-day expedition supply",
     "Hammock jungle below treeline camping"
    ],
@@ -23095,10 +23095,10 @@
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Mount_Olive_and_Saint_Nicholas_Peak.jpg/1920px-Mount_Olive_and_Saint_Nicholas_Peak.jpg",
    "highlights": [
     "Columbia Icefield ski tour glaciated plateau",
-    "Cariboo heli-skiing deepest powder Canada",
+    "Wapta Traverse four days hut-to-hut icefield",
     "Mount Assiniboine hut circuit wilderness",
-    "Grizzly track fresh powder morning reveal",
-    "Lake Louise backcountry larch meadow autumn"
+    "Balfour Hut night beneath St Nicholas Peak",
+    "Bow Summit dry continental powder day tours"
    ],
    "gear": [
     "Avalanche transceiver probe shovel mandatory",
@@ -23309,7 +23309,7 @@
    "durationDays": 7,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/GoldHarbour.JPG/1920px-GoldHarbour.JPG",
    "highlights": [
-    "King penguin 500000 breeding St Andrews Bay",
+    "King penguin 150000 breeding pairs St Andrews Bay",
     "Shackleton crossing glaciated spine mountaineering",
     "Elephant seal bull beach harem bellowing",
     "Albatross wandering 3m wingspan sailing overhead",
@@ -23469,7 +23469,7 @@
    "durationDays": 7,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Amboseli_Park_-_Kilimanjaro_elephant.jpg/1920px-Amboseli_Park_-_Kilimanjaro_elephant.jpg",
    "highlights": [
-    "Maasai Mara cycling savanna wildebeest crossing",
+    "Maasai group ranch tracks on the park fringes",
     "Kilimanjaro Amboseli plains cycle backdrop",
     "Elephant herd road crossing close encounter",
     "Maasai village boma traditional welcome",
@@ -23760,7 +23760,8 @@
     2,
     6,
     7,
-    8
+    8,
+    9
    ],
    "climate": [
     "hot",
@@ -23956,16 +23957,16 @@
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Kazbegi%2C_Gergeti_Trinity_Church_and_Mt_Kazbek_%2835959311351%29.jpg/1920px-Kazbegi%2C_Gergeti_Trinity_Church_and_Mt_Kazbek_%2835959311351%29.jpg",
    "highlights": [
     "Gergeti Trinity Church cliff 2170m iconic view",
-    "Mount Kazbegi 5047m summit attempt",
-    "Mestia Svan tower village mediaeval fortification",
-    "Chalaadi Glacier moraine approach geology",
-    "Ushba twin summit 4710m dramatic backdrop"
+    "Mount Kazbek 5047m glaciated summit attempt",
+    "Chaukhi massif Georgian Dolomites via Juta",
+    "Gergeti Glacier moraine above Stepantsminda",
+    "Truso Valley towers and mineral springs"
    ],
    "gear": [
     "Trekking poles mountain terrain",
     "Warm layers high altitude Caucasus cold",
     "Georgian lari cash mountain villages",
-    "Guide optional Mestia trekking trails",
+    "Guide required Kazbek glacier ascent",
     "Altitude acclimatization Kazbegi 1756m base"
    ],
    "bestMonths": [
@@ -24071,7 +24072,7 @@
    "gear": [
     "Ridge traverse helmet rockfall",
     "Trekking poles steep descent knee",
-    "Hut reservation essential Golden Week",
+    "Hut reservation essential Obon mid-August",
     "Rain gear Japan monsoon afternoon clouds",
     "Gaiters loose scree mountain hut approach"
    ],
@@ -24725,12 +24726,12 @@
     "Head torch camp night sounds orientation"
    ],
    "bestMonths": [
-    4,
     5,
     6,
     7,
     8,
-    9
+    9,
+    10
    ],
    "climate": [
     "hot"
@@ -24956,7 +24957,7 @@
     "skiing",
     "arctic",
     "cultural-immersion",
-    "midnight-sun",
+    "northern-lights",
     "europe"
    ],
    "user": 2,
@@ -25377,11 +25378,10 @@
     "DEET insect protection day and night"
    ],
    "bestMonths": [
-    6,
-    7,
-    8,
-    11,
-    12
+    12,
+    1,
+    2,
+    3
    ],
    "climate": [
     "tropical"
@@ -25854,7 +25854,7 @@
    "durationDays": 7,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Ferrocarril_Ch_P_-_panoramio.jpg/1920px-Ferrocarril_Ch_P_-_panoramio.jpg",
    "highlights": [
-    "Copper Canyon 4x Grand Canyon depth scale",
+    "Copper Canyon four times larger than the Grand Canyon",
     "El Chepe train spectacular railway descent",
     "Tarahumara ultrarunner cultural encounter",
     "Barrancas del Cobre canyon floor tropical",
@@ -26725,7 +26725,7 @@
    "country": "Bhutan",
    "continent": "Asia",
    "category": "CYCLING",
-   "difficulty": "EXTREME",
+   "difficulty": "CHALLENGING",
    "durationDays": 7,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Chele_La_Pass_-_Paro_-_during_LGFC_-_Bhutan_2019_%2835%29.jpg/1920px-Chele_La_Pass_-_Paro_-_during_LGFC_-_Bhutan_2019_%2835%29.jpg",
    "highlights": [
@@ -27598,7 +27598,7 @@
     "Nachi Falls 133m Japan highest sacred waterfall",
     "Daimon-zaka cedar avenue approach ancient",
     "Oji shrine network pilgrim stamp collection",
-    "Yunomine Onsen world's oldest hot spring"
+    "Yunomine Onsen, Japan's oldest hot spring"
    ],
    "gear": [
     "Traditional pilgrim staff from a Tanabe outfitter",
@@ -28504,7 +28504,7 @@
   },
   {
    "num": 667,
-   "title": "Himalaya Kora Around Amnye Machen",
+   "title": "Qinghai Kora Around Amnye Machen",
    "description": "Amnye Machen (6,282 m) is the great mountain god of Amdo, and its kora is what Tibetan pilgrimage looks like away from the crowds: roughly 180 km of high grassland, glacier snouts and mani walls at 4,000-4,600 m, walked in eight to ten days alongside nomad families driving yaks between summer pastures. You will be offered butter tea in black yak-hair tents, pass prayer walls of carved stones centuries old, and quite possibly meet no other foreigners at all.\n\nLogistics are the real difficulty here rather than technical ground. Access runs from Xining across the Qinghai plateau by hired 4WD — two long days — a local Tibetan guide is essential for navigation and courtesy, and you carry or horse-pack everything; resupply amounts to a handful of monastery villages. The weather can throw snow across the trail even in July.\n\nGo July to September when the grasslands are green and the passes clear. Around £2,000 per person covers transport from Xining, guide, horses and permits for the ten-day circuit.",
    "location": "Qinghai, China",
    "country": "China",
@@ -29127,7 +29127,6 @@
     "Full self-sufficiency remote section camping"
    ],
    "bestMonths": [
-    3,
     4,
     5,
     10,
@@ -29440,11 +29439,11 @@
    "durationDays": 7,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Palomino_beach.JPG/1920px-Palomino_beach.JPG",
    "highlights": [
-    "Punta Gallinas northernmost South America point",
+    "Lost City trek with the Kogi and Wiwa of the sierra",
     "Palomino beach Caribbean surf consistent",
     "Tayrona National Park pristine beach jungle",
     "Sierra Nevada backdrop snow cap beach unique",
-    "Wayuu indigenous community desert coastal"
+    "Costeno Beach surf camps and glassy dawn sessions"
    ],
    "gear": [
     "Surfboard shortboard Caribbean wave size",
@@ -29539,7 +29538,7 @@
   {
    "num": 687,
    "title": "Portugal Alentejo Wine Walk",
-   "description": "Alentejo is slow walking under Portugal's biggest sky: cork oaks stripped glowing terracotta to the waist, sheep bells, whitewashed villages, and wine estates that treat a dusty walker like a returning cousin. String a week between quintas around Évora and the Alqueva — the walled hill village of Monsaraz floating above Europe's largest reservoir, tastings at estates such as Esporão, and a megalithic detour to the Almendres cromlech, millennia older than Stonehenge. Nights under the Alqueva Dark Sky Reserve end with the Milky Way at full brightness.\n\nIf you want drama to bookend the pastoral, finish on the Rota Vicentina's Fishermen's Trail between Porto Covo and Odeceixe, where storks nest on Atlantic sea stacks above empty surf beaches.\n\nGo in March-May for wildflowers or September-October for the grape and cork harvests — high summer regularly passes 40°C and the shadeless plains do not forgive it. Around £700 for a week of guesthouses, estate dinners and luggage transfers. The most civilised trek in this catalogue, and unapologetic about it.",
+   "description": "Alentejo is slow walking under Portugal's biggest sky: cork oaks stripped glowing terracotta to the waist, sheep bells, whitewashed villages, and wine estates that treat a dusty walker like a returning cousin. String a week between quintas around Évora and the Alqueva — the walled hill village of Monsaraz floating above Western Europe's largest reservoir, tastings at estates such as Esporão, and a megalithic detour to the Almendres cromlech, millennia older than Stonehenge. Nights under the Alqueva Dark Sky Reserve end with the Milky Way at full brightness.\n\nIf you want drama to bookend the pastoral, finish on the Rota Vicentina's Fishermen's Trail between Porto Covo and Odeceixe, where storks nest on Atlantic sea stacks above empty surf beaches.\n\nGo in March-May for wildflowers or September-October for the grape and cork harvests — high summer regularly passes 40°C and the shadeless plains do not forgive it. Around £700 for a week of guesthouses, estate dinners and luggage transfers. The most civilised trek in this catalogue, and unapologetic about it.",
    "location": "Alentejo, Portugal",
    "country": "Portugal",
    "continent": "Europe",
@@ -29673,7 +29672,8 @@
     8,
     9,
     10,
-    11
+    11,
+    12
    ],
    "climate": [
     "hot"
@@ -29720,7 +29720,7 @@
     "Full self-sufficiency 12-day remote section",
     "High altitude sleeping bag minus 20",
     "Guide mandatory remote western Nepal",
-    "Flight Nepalgunj far west access point"
+    "Flight Dhangadhi, then jeep days up the Mahakali corridor"
    ],
    "bestMonths": [
     3,
@@ -29986,7 +29986,7 @@
     "Akshayuk Pass Baffin Island through park",
     "Pangnirtung Fjord boat access dramatic",
     "Polar bear territory Arctic tundra constant",
-    "Midnight sun June 24-hour daylight hiking"
+    "Near-round-the-clock July daylight on the Arctic Circle crossing"
    ],
    "gear": [
     "Bear deterrents and protocol — firearms are not permitted in the park",
@@ -29996,7 +29996,6 @@
     "8-day food supply carried from Pangnirtung"
    ],
    "bestMonths": [
-    6,
     7,
     8
    ],
@@ -30092,7 +30091,7 @@
     "Costa Verde dune beach isolated boat only",
     "La Maddalena archipelago turquoise snorkel",
     "Nuraghe Bronze Age tower coastal archaeology",
-    "Cala Goloritze sea arch UNESCO Ogliastra"
+    "Cala Goloritze limestone pinnacle, Ogliastra national monument"
    ],
    "gear": [
     "Sea kayak Mediterranean summer conditions",
@@ -30368,7 +30367,7 @@
     "Przewalski wild horse Khustain Nuruu herd",
     "Ger ceremony kumiss fermented mare milk",
     "Mongolian wrestling bukh traditional final",
-    "Horse racing child jockey 40km steppe"
+    "Horse racing child jockeys 20-30km across open steppe"
    ],
    "gear": [
     "Festival UV sunscreen July sun Mongolia",
@@ -30701,6 +30700,7 @@
     "Satellite communicator remote channel"
    ],
    "bestMonths": [
+    5,
     6,
     7,
     8
@@ -30749,7 +30749,7 @@
     "Open Water certification minimum required",
     "Liveaboard 6-day Barren Island access",
     "Underwater camera wide angle reef scale",
-    "5mm wetsuit Bay of Bengal water",
+    "3mm wetsuit ample in 28C Bay of Bengal water",
     "Permit Andaman Islands restricted tribal"
    ],
    "bestMonths": [
@@ -31174,7 +31174,7 @@
    "durationDays": 12,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Cordillera_Huayhuash_07341.jpg/1920px-Cordillera_Huayhuash_07341.jpg",
    "highlights": [
-    "Yerupaja 6635m second Americas highest backdrop",
+    "Yerupaja 6635m, Peru's second-highest peak, over camp",
     "Siula Grande Touching the Void Simpson route",
     "Laguna Jahuacocha turquoise reflection camp",
     "Nine passes above 4500m circuit complete",
@@ -31336,8 +31336,8 @@
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Djigit_and_Pik_Karakol_from_pass_Karakolskiy_Vostochniy.jpg/1920px-Djigit_and_Pik_Karakol_from_pass_Karakolskiy_Vostochniy.jpg",
    "highlights": [
     "Karakol ski resort Tian Shan off-piste vast",
-    "Jyrgalan Valley heli-ski 2000m vertical drop",
-    "Issyk-Kul Lake largest alpine lake backdrop",
+    "Jyrgalan Valley snowcat and touring lines dropping 1000m",
+    "Issyk-Kul, the world's second-largest mountain lake, below",
     "Soviet infrastructure charm unique experience",
     "Kyrgyz hospitality guesthouse traditional"
    ],
@@ -31416,11 +31416,11 @@
    "latitude": -33.71,
    "longitude": 150.31,
    "tags": [
-    "trekking",
+    "canyoning",
+    "abseiling",
+    "multi-sport",
     "australia",
-    "mountains",
-    "camping",
-    "hiking"
+    "mountains"
    ],
    "user": 1,
    "voteCount": 7,
@@ -31493,7 +31493,7 @@
    "continent": "Asia",
    "category": "TREKKING",
    "difficulty": "CHALLENGING",
-   "durationDays": 7,
+   "durationDays": 10,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006_edit_1.jpg/1920px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006_edit_1.jpg",
    "highlights": [
     "Everest north face full view from Rongbuk",
@@ -31504,7 +31504,7 @@
    ],
    "gear": [
     "Tibet permit China group tour required",
-    "Altitude medication 6400m ABC extreme",
+    "Altitude medication, base camp 5200m reached by vehicle",
     "High altitude sleeping bag minus 30",
     "Acclimatization Lhasa Shigatse gradual",
     "Vehicle hire Tibet base camp road access"
@@ -31976,7 +31976,7 @@
    "continent": "North America",
    "category": "SKIING",
    "difficulty": "EXPEDITION_GRADE",
-   "durationDays": 5,
+   "durationDays": 12,
    "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Greenland-iceberg_hg.jpg/1920px-Greenland-iceberg_hg.jpg",
    "highlights": [
     "Scoresby Sound worlds largest fjord system view",
@@ -32588,6 +32588,8 @@
    "bestMonths": [
     10,
     11,
+    12,
+    1,
     2,
     3,
     4
@@ -32799,7 +32801,7 @@
     "Polar tent camping ice surface wind",
     "Sleeping bag minus 40 Siberian winter",
     "Satellite phone Baikal remote emergency",
-    "Pulk sled 600km food fuel supply"
+    "Glacier glasses ice glare Baikal sun"
    ],
    "bestMonths": [
     2,
@@ -33976,7 +33978,7 @@
   {
    "num": 803,
    "title": "New Zealand Northland Coast Kayaking",
-   "description": "Paddle the Bay of Islands and Northland coast of New Zealand — 144 islands scattered across a subtropical sea with dolphins, kingfishers, and pohutukawa trees overhanging sea caves. The multi-day kayak tour links deserted beaches, Maori pa sites, and diving spots in the Poor Knights Islands Marine Reserve — one of the top 10 dive sites in the world according to Jacques Cousteau. Whales and orcas pass through in winter. The water temperature is comfortable from November to April.",
+   "description": "Paddle the Bay of Islands and Northland coast of New Zealand — 144 islands scattered across a subtropical sea with dolphins, kingfishers, and pohutukawa trees overhanging sea caves. The multi-day kayak tour links deserted beaches, Maori pa sites, and snorkelling stops in the bay's own sheltered reserves. Further down the Northland coast, a boat day out of Tutukaka reaches the Poor Knights Islands Marine Reserve — rated by Jacques Cousteau among the world's top ten dive sites — as a dive add-on rather than a paddling leg, since the islands lie 23 km offshore and landings are prohibited. Whales and orcas pass through in winter. The water temperature is comfortable from November to April.",
    "location": "Bay of Islands, New Zealand",
    "country": "New Zealand",
    "continent": "Oceania",
@@ -34007,7 +34009,8 @@
     12,
     1,
     2,
-    3
+    3,
+    4
    ],
    "climate": [
     "temperate"
@@ -34063,7 +34066,8 @@
    "bestMonths": [
     1,
     2,
-    3
+    3,
+    4
    ],
    "climate": [
     "cold"
@@ -34090,7 +34094,7 @@
   {
    "num": 806,
    "title": "Australia Kimberley Coast Sailing",
-   "description": "Sail the remote Kimberley coast of Western Australia — one of the last great wilderness coastlines on Earth — through horizontal waterfalls, 10-metre tidal ranges, sandstone gorges rising directly from the sea, and freshwater cascades accessible only by inflatable dinghy. The region supports the world's largest population of freshwater crocodiles and significant saltwater crocodile populations; swimming protocols are strict. Aboriginal rock art galleries in the Wandjina tradition date to over 17,000 years. The season is May to September only.",
+   "description": "Sail the remote Kimberley coast of Western Australia — one of the last great wilderness coastlines on Earth — through horizontal waterfalls, 10-metre tidal ranges, sandstone gorges rising directly from the sea, and freshwater cascades accessible only by inflatable dinghy. The region supports the world's largest population of freshwater crocodiles and significant saltwater crocodile populations; swimming protocols are strict. The rock art spans two distinct traditions: the Wandjina figures at Raft Point, and the far older Gwion Gwion paintings, some of which have been dated to more than 17,000 years. The season is May to September only.",
    "location": "Kimberley Coast, Western Australia",
    "country": "Australia",
    "continent": "Oceania",
@@ -34209,7 +34213,7 @@
   {
    "num": 808,
    "title": "Iceland Fjallabak Nature Reserve Trek",
-   "description": "Explore Iceland's colourful Fjallabak Nature Reserve — a highland interior of rhyolite mountains in reds, yellows, and purples, obsidian lava fields, steaming hot spring rivers, and geothermal hot pots you can bathe in. The reserve encompasses the Laugavegur and Fimmvorduhals trails but also vast unmarked terrain beyond the main routes. The F208 highland road is one of Iceland's most dramatic drives if not trekking; crossing the Tungna River ford requires a 4WD. Highland conditions can change within hours year-round.",
+   "description": "Explore Iceland's colourful Fjallabak Nature Reserve — a highland interior of rhyolite mountains in reds, yellows, and purples, obsidian lava fields, steaming hot spring rivers, and geothermal hot pots you can bathe in. The reserve holds Landmannalaugar and the northern half of the Laugavegur trail, but also vast unmarked terrain beyond the main route. The F208 highland road is one of Iceland's most dramatic drives if not trekking, and the highland fords on it require a high-clearance 4WD. Highland conditions can change within hours year-round.",
    "location": "Fjallabak Nature Reserve, Iceland",
    "country": "Iceland",
    "continent": "Europe",
@@ -34241,8 +34245,8 @@
     "cold"
    ],
    "estimatedCost": 190000,
-   "latitude": 63.7,
-   "longitude": -19.5,
+   "latitude": 63.99,
+   "longitude": -19.06,
    "tags": [
     "trekking",
     "volcanic",
@@ -34378,7 +34382,7 @@
   {
    "num": 815,
    "title": "Hawaii Big Island Lava Flow Hike and Dive",
-   "description": "Experience active volcanism at Hawaii Volcanoes National Park — where ongoing eruptions from Kilauea and Mauna Loa periodically send lava flows to the coast, entering the ocean in spectacular steam explosions visible from shore. The park trail system allows safe observation of volcanic features including lava tubes, calderas, and when active flows permit, glowing lava at night. Combine with a manta ray night dive off the Kona coast — one of the most accessible and reliable manta encounters in the world.",
+   "description": "Experience active volcanism at Hawaii Volcanoes National Park — where Kilauea's episodic summit eruptions flood the Halemaumau crater floor with fresh lava and fountains, and the glow off the caldera rim after dark is the thing people fly in for. Activity starts and stops without warning, so check the USGS Hawaiian Volcano Observatory status before booking and treat any eruption as a bonus rather than a guarantee; there has been no ocean entry since the 2018 lower Puna eruption. The park trail system gives safe access to lava tubes, caldera overlooks and the Chain of Craters Road. Combine with a manta ray night dive off the Kona coast — one of the most accessible and reliable manta encounters in the world.",
    "location": "Hawaii Volcanoes National Park, Hawaii, USA",
    "country": "United States",
    "continent": "North America",
@@ -34445,11 +34449,11 @@
    "description": "Cross the Georgian Greater Caucasus from Svaneti to Tusheti, linking two highland communities that spent most of history cut off from everyone — including each other. In the west you leave Ushguli's medieval Svan defensive towers beneath the 5,193 m wall of Shkhara; roughly two weeks later you drop into Tusheti's slate-roofed villages of Dartlo and Omalo, supplied by a single 4WD track over the 2,850 m Abano Pass that is dug out of snow for only four months a year. The crux is the Atsunta Pass (3,431 m) between Khevsureti and Tusheti — a long scree day where pack horses carry the bags and border police check permits, since the trail runs close to the Chechen frontier. Rivers are the variable that catches people out: unbridged crossings that are shin-deep at 8am can be thigh-deep and pushy by mid-afternoon, so early starts matter more than fitness. Count on 10-14 days mixing camping and village guesthouses, roughly £1,200 with local guides and horse support, and July to September only — outside that window the passes are shut.",
    "location": "Greater Caucasus, Georgia",
    "country": "Georgia",
-   "continent": "Europe",
+   "continent": "Asia",
    "category": "TREKKING",
    "difficulty": "EXTREME",
    "durationDays": 12,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Kazbegi_-_Gergeti_Trinity_Church_%289460878378%29.jpg/1920px-Kazbegi_-_Gergeti_Trinity_Church_%289460878378%29.jpg",
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ushguli_Village%2C_Svaneti%2C_view_of_Shkhara_mountain.jpg/1920px-Ushguli_Village%2C_Svaneti%2C_view_of_Shkhara_mountain.jpg",
    "highlights": [
     "Ushguli medieval Svan towers",
     "Shkhara glacier views",
@@ -34491,9 +34495,9 @@
    "voteCount": 3,
    "id": "seed-adventure-820",
    "imageAttribution": {
-    "artist": "Andrzej Wójtowicz from Poznań, Poland",
-    "license": "CC BY-SA 2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kazbegi_-_Gergeti_Trinity_Church_(9460878378).jpg"
+    "artist": "D.Rovchak",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ushguli_Village,_Svaneti,_view_of_Shkhara_mountain.jpg"
    }
   },
   {
@@ -35166,9 +35170,9 @@
     "Water bottle"
    ],
    "bestMonths": [
-    10,
     5,
-    6
+    6,
+    10
    ],
    "climate": [
     "temperate"
@@ -35255,7 +35259,7 @@
   {
    "num": 838,
    "title": "Georgia Black Sea to Caspian Sea Cycling",
-   "description": "Cycle across the South Caucasus from Batumi on the Black Sea to Baku on the Caspian — a 1,000 km journey through Georgia, Armenia, or Azerbaijan across three former Soviet republics with contrasting cultures, cuisines, and mountain landscapes. The route crosses the Surami Range and the Kura River basin; the Azerbaijani section descends to the Absheron Peninsula through oil-field landscapes as surreal as any industrial heritage site. Cycling infrastructure is minimal; this is pure cycle touring on quiet back roads through hospitable communities.",
+   "description": "Cycle across the South Caucasus from Batumi on the Black Sea to Baku on the Caspian — a 1,000 km journey through Georgia and Azerbaijan, two former Soviet republics with contrasting cultures, cuisines, and mountain landscapes. The route crosses the Surami Range and the Kura River basin before the Kakheti vineyards and the border; the Azerbaijani section descends to the Absheron Peninsula through oil-field landscapes as surreal as any industrial heritage site. Cycling infrastructure is minimal; this is pure cycle touring on quiet back roads through hospitable communities.",
    "location": "South Caucasus — Georgia / Azerbaijan",
    "country": "Georgia/Azerbaijan",
    "continent": "Europe",
@@ -35657,7 +35661,7 @@
   {
    "num": 848,
    "title": "Turkey Mount Ararat Mountaineering",
-   "description": "Climb Agri Dagi — Mount Ararat — at 5,137 m, the highest peak in Turkey and a dormant stratovolcano of enormous cultural significance as the purported resting place of Noah's Ark. The standard route from the village of Dogubayazit involves two or three days of ascent through alpine meadows and snowfields to the summit snowcap. A permit from the Turkish government is required and must be obtained in advance; the mountain sits close to the Iranian and Armenian borders. The views south into Iran and the Aras River valley below are extraordinary.",
+   "description": "Climb Agri Dagi — Mount Ararat — at 5,137 m, the highest peak in Turkey and a dormant stratovolcano of enormous cultural significance as the purported resting place of Noah's Ark. The standard route from the village of Dogubayazit involves two or three days of ascent through alpine meadows and snowfields to the summit snowcap. A permit from the Turkish government is required and must be obtained in advance; the mountain sits close to the Iranian and Armenian borders. The views east into Iran and north across the Aras River valley into Armenia are extraordinary.",
    "location": "Agri Province, Turkey",
    "country": "Turkey",
    "continent": "Asia",
@@ -35713,7 +35717,7 @@
   {
    "num": 850,
    "title": "Philippines El Nido Island Hopping and Diving",
-   "description": "Explore El Nido in Palawan — the most spectacular island seascape in the Philippines — by banca boat, kayaking into hidden lagoons through narrow limestone crevices, snorkelling coral gardens, and diving walls where sea turtles graze on barrel sponges. The Bacuit Archipelago contains 45 islands and islets within a protected area. Kayaking through the Secret Lagoon and Big Lagoon is the iconic activity; PADI dive sites at Miniloc and Matinloc offer outstanding visibility. Arrive in April or May before peak season crowds.",
+   "description": "Explore El Nido in Palawan — the most spectacular island seascape in the Philippines — by banca boat, kayaking into hidden lagoons through narrow limestone crevices, snorkelling coral gardens, and diving walls where sea turtles graze on barrel sponges. The Bacuit Archipelago contains 45 islands and islets within a protected area. Kayaking through the Secret Lagoon and Big Lagoon is the iconic activity; PADI dive sites at Miniloc and Matinloc offer outstanding visibility. Arrive in November or in May to catch dry weather either side of the Christmas-to-Easter peak.",
    "location": "El Nido, Palawan, Philippines",
    "country": "Philippines",
    "continent": "Asia",
@@ -35740,13 +35744,13 @@
     "Light quick-dry clothing"
    ],
    "bestMonths": [
-    10,
     11,
     12,
     1,
     2,
     3,
-    4
+    4,
+    5
    ],
    "climate": [
     "tropical"
@@ -35773,7 +35777,7 @@
   {
    "num": 852,
    "title": "Namibia Damaraland Desert Walk",
-   "description": "Walk through Damaraland — a vast territory of volcanic rock, ochre gravel plains, and ancient dry riverbeds in northwest Namibia — guided by Damara community guides tracking desert-adapted elephant, rhino, and lion on foot through landscapes so remote that GPS coordinates often predate the satellite era. The Brandberg massif, containing the famous White Lady San rock painting at 6,000 years old, rises 2,573 m from surrounding plains. Torra Bay on the Atlantic coast provides accommodation before the desert interior. Night skies here are among the darkest on the African continent.",
+   "description": "Walk through Damaraland — a vast territory of volcanic rock, ochre gravel plains, and ancient dry riverbeds in northwest Namibia — guided by Damara community guides tracking desert-adapted elephant, rhino, and lion on foot across country so empty that a day's walking can pass without a road, a fence, or another vehicle. The Brandberg massif, containing the famous White Lady rock painting, estimated at around 2,000 years old, rises 2,573 m from the surrounding plains. Community camps and lodges around Twyfelfontein and the Palmwag concession are the bases for the walking sections. Night skies here are among the darkest on the African continent.",
    "location": "Damaraland, Namibia",
    "country": "Namibia",
    "continent": "Africa",
@@ -36741,7 +36745,7 @@
   {
    "num": 882,
    "title": "France Verdon Gorge Kayaking and Climbing",
-   "description": "Explore Europe's Grand Canyon — the Gorges du Verdon in Provence — from the water and the cliff face. The Verdon River runs emerald green between 700 m limestone walls for 21 km; canoes and kayaks are launched at Castellane and taken out at Lac de Sainte-Croix. The same limestone walls provide single pitch sport climbing at the Escalès cliffs and multi-pitch routes above the river. A road along each rim gives access between climbing areas and viewpoints. The colour of the Verdon's water — caused by ground glacial flour — is extraordinary at midday.",
+   "description": "Explore Europe's Grand Canyon — the Gorges du Verdon in Provence — from the water and the cliff face. The Verdon River runs emerald green between 700 m limestone walls for 21 km; canoes and kayaks are launched at Castellane and taken out at Lac de Sainte-Croix. The same limestone walls provide single pitch sport climbing at the Escalès cliffs and multi-pitch routes above the river. A road along each rim gives access between climbing areas and viewpoints. The colour of the Verdon's water — caused by dissolved limestone minerals and micro-algae, not glacial melt — is extraordinary at midday.",
    "location": "Gorges du Verdon, Alpes-de-Haute-Provence, France",
    "country": "France",
    "continent": "Europe",
@@ -36854,7 +36858,7 @@
   {
    "num": 884,
    "title": "Mozambique Gorongosa National Park Walk",
-   "description": "Walk through Gorongosa National Park — one of Africa's greatest conservation success stories, reborn from near-extinction after the Mozambican civil war through a partnership between the Carr Foundation and the government — where wildlife numbers have recovered from near zero in 1994 to tens of thousands today. The Rift Valley escarpment forest above the plain provides guided walking through habitat for samango monkey, lion, elephant, and an extraordinary 800 species of birds. The recovery narrative is told at the park's research and education centre.",
+   "description": "Walk through Gorongosa National Park — one of Africa's greatest conservation success stories, reborn from near-extinction after the Mozambican civil war through a partnership between the Carr Foundation and the government — where wildlife numbers have recovered from near zero in 1994 to tens of thousands today. The Rift Valley escarpment forest above the plain provides guided walking through habitat for samango monkey, lion, elephant, and more than 400 species of birds. The recovery narrative is told at the park's research and education centre.",
    "location": "Gorongosa National Park, Sofala, Mozambique",
    "country": "Mozambique",
    "continent": "Africa",
@@ -37193,7 +37197,7 @@
   {
    "num": 892,
    "title": "Spain Sierra Nevada Ski Mountaineering",
-   "description": "Ski tour the Sierra Nevada in Andalucia — southern Europe's southernmost ski mountaineering terrain, with Mulhacen (3,479 m) as the highest peak in mainland Spain — across a mountain range you can see both the Atlantic and the Mediterranean from in clear conditions. The combination of Granada's culture, the Alhambra palace, and alpine skiing makes this the most culturally rich ski destination in Europe. Spring ski touring gives access to the full extent of the range above the resort boundary. Sea-level Mediterranean coastline is 40 km from the summit.",
+   "description": "Ski tour the Sierra Nevada in Andalucia — southern Europe's southernmost ski mountaineering terrain, with Mulhacen (3,479 m) as the highest peak in mainland Spain — across a mountain range from which, on the clearest days, you can see the Mediterranean and the Rif mountains of Morocco beyond it. The combination of Granada's culture, the Alhambra palace, and alpine skiing makes this the most culturally rich ski destination in Europe. Spring ski touring gives access to the full extent of the range above the resort boundary. Sea-level Mediterranean coastline is 40 km from the summit.",
    "location": "Sierra Nevada, Granada, Spain",
    "country": "Spain",
    "continent": "Europe",
@@ -37934,7 +37938,7 @@
   {
    "num": 910,
    "title": "Norway Rondane National Park Ski Traverse",
-   "description": "Traverse Rondane National Park — Norway's oldest national park, a high plateau of rounded glacially sculpted peaks between 1,600 and 2,178 m — on skis over 3-4 days, staying in Norwegian Trekking Association huts on one of the classic Nordic ski traverses outside the Hardangervidda. The reindeer herds of Rondane are the largest in Norway; the chance of encountering them on open plateau is high in winter. The approach from Otta or Dombas takes 2-3 hours from Oslo by train; the park is more accessible than Svalbard or Hardangervidda equivalents.",
+   "description": "Traverse Rondane National Park — Norway's oldest national park, a high plateau of rounded glacially sculpted peaks between 1,600 and 2,178 m — on skis over 3-4 days, staying in Norwegian Trekking Association huts on one of the classic Nordic ski traverses outside the Hardangervidda. Rondane is one of Norway's core wild reindeer ranges — Hardangervidda holds the country's largest herd — and the chance of encountering animals on the open plateau is real. The approach from Otta or Dombas takes 2-3 hours from Oslo by train; the park is more accessible than Svalbard or Hardangervidda equivalents.",
    "location": "Rondane National Park, Innlandet, Norway",
    "country": "Norway",
    "continent": "Europe",
@@ -38218,7 +38222,7 @@
    "num": 918,
    "title": "Spain Andalucia Coast to Summit Cycling",
    "description": "Ride from the Mediterranean to the highest paved road in Europe: from the beach at Motril the tarmac climbs through the orange groves of the Lecrín Valley to Granada, then grinds up the A-395 past the Sierra Nevada ski station to Hoya de la Mora, where a barrier stops cars and bikes carry on up crumbling asphalt into thin air beneath the Veleta's 3,396 m summit pyramid — some 110 km and well over 3,300 m of climbing from sea level to snow line in a single enormous day. The final kilometres, above the last vegetation with the Mediterranean shimmering far behind, are ridden on willpower alone.\n\nAltitude is what catches out strong riders: power fades markedly above 2,500 m, and the descent is bitterly cold even in August — carry a windproof, arm warmers and full-finger gloves whatever the valley temperature says. The upper road is only reliably clear of snow from late June to September. Base yourself in Granada for the week (around £750 covers cycling-friendly lodging, food and a rest-day Alhambra ticket — book the Alhambra weeks ahead) and warm up on the Monachil and Hazallanas climbs beloved of professional training camps.",
-   "location": "Malaga to Sierra Nevada, Andalucia, Spain",
+   "location": "Motril to Sierra Nevada, Andalucia, Spain",
    "country": "Spain",
    "continent": "Europe",
    "category": "CYCLING",
@@ -38230,7 +38234,7 @@
     "Sea-to-snowline in a single day",
     "Monachil and Hazallanas climbs",
     "Granada and Alhambra rest stop",
-    "Costa del Sol dawn rollout"
+    "Costa Tropical dawn rollout at Motril"
    ],
    "gear": [
     "Helmet",
@@ -38675,7 +38679,7 @@
   {
    "num": 929,
    "title": "Greenland Arctic Circle Trail",
-   "description": "Walk the Arctic Circle Trail — 160 km from Kangerlussuaq to Sisimiut across the Greenlandic tundra, one of the longest established wilderness routes above the Arctic Circle — in 8-12 days through a landscape with no infrastructure, no trees, and no human habitation between start and end. Musk oxen and arctic fox are encountered regularly. River crossings require cold-water wading. Kangerlussuaq is accessible by direct flight from Copenhagen; Sisimiut is a genuine Greenlandic town of 5,500 people with a remarkable craft tradition and dog sled culture.",
+   "description": "Walk the Arctic Circle Trail — 160 km from Kangerlussuaq to Sisimiut across the Greenlandic tundra, one of the longest established wilderness routes above the Arctic Circle — in 8-12 days through a landscape with no infrastructure, no trees, and no human habitation between start and end. Musk oxen and arctic fox are encountered regularly. River crossings require cold-water wading. Kangerlussuaq is reached by domestic flight from Nuuk, which took over the direct Copenhagen service when its extended international runway opened in late 2024; Sisimiut is a genuine Greenlandic town of 5,500 people with a remarkable craft tradition and dog sled culture.",
    "location": "West Greenland",
    "country": "Greenland",
    "continent": "North America",
@@ -38842,7 +38846,7 @@
   {
    "num": 934,
    "title": "Canada Skyline Trail — Jasper",
-   "description": "Walk the Skyline Trail in Jasper National Park — 44 km along a high ridge above treeline with panoramic views of the Columbia Icefield and surrounding peaks for most of its length — one of the finest multi-day wilderness trails in North America. The highest point at Amber Mountain (2,469 m) overlooks what feels like the entire Canadian Rockies at once. Grizzly bears frequent the avalanche slopes on either side of the ridge. A Parks Canada permit system limits numbers; booking opens in January for summer dates.",
+   "description": "Walk the Skyline Trail in Jasper National Park — 44 km along a high ridge above treeline with panoramic views of the Columbia Icefield and surrounding peaks for most of its length — one of the finest multi-day wilderness trails in North America. The Notch, at 2,510 m the trail's high point, overlooks what feels like the entire Canadian Rockies at once. Grizzly bears frequent the avalanche slopes on either side of the ridge. A Parks Canada permit system limits numbers; booking opens in January for summer dates.",
    "location": "Jasper National Park, Alberta, Canada",
    "country": "Canada",
    "continent": "North America",
@@ -39073,7 +39077,7 @@
   {
    "num": 938,
    "title": "Tanzania Ruaha National Park Walking Safari",
-   "description": "Walk through Ruaha National Park — Tanzania's largest national park and one of Africa's best-kept safari secrets — with experienced walking guides through habitats that support the largest elephant population in East Africa. The Great Ruaha River provides a corridor for concentrated wildlife during the dry season; crocodile, hippo, lion, and wild dog are all reliably seen. Ruaha sees a fraction of the tourists of the Northern Circuit parks; the experience is intimate and unfiltered. The Miombo woodland ecosystem is distinct from the better-known savanna reserves.",
+   "description": "Walk through Ruaha National Park — Tanzania's second-largest national park after Nyerere and one of Africa's best-kept safari secrets — with experienced walking guides through habitats that support the largest elephant population in East Africa. The Great Ruaha River provides a corridor for concentrated wildlife during the dry season; crocodile, hippo, lion, and wild dog are all reliably seen. Ruaha sees a fraction of the tourists of the Northern Circuit parks; the experience is intimate and unfiltered. The Miombo woodland ecosystem is distinct from the better-known savanna reserves.",
    "location": "Ruaha National Park, Iringa, Tanzania",
    "country": "Tanzania",
    "continent": "Africa",
@@ -39563,8 +39567,8 @@
     "temperate"
    ],
    "estimatedCost": 90000,
-   "latitude": -33.7,
-   "longitude": 114.9,
+   "latitude": -33.95,
+   "longitude": 115.05,
    "tags": [
     "trekking",
     "australia",
@@ -39640,7 +39644,7 @@
   {
    "num": 957,
    "title": "Madagascar Isalo National Park Trekking",
-   "description": "Trek through Isalo National Park — a dramatic sandstone massif in south-central Madagascar, eroded into canyons, arches, and gorges that contain permanent natural swimming pools fed by year-round springs surrounded by endemic Pachypodium palms and ring-tailed lemur troops. The park's oasis-like quality in the midst of dry Mahafaly plateau country makes it extraordinary. The Canyons circuit takes 2-3 days; the longer routes to the summit plateau take 4-5 days with overnight camping. The Bara people have carved rock tombs into the sandstone cliffs for centuries.",
+   "description": "Trek through Isalo National Park — a dramatic sandstone massif in south-central Madagascar, eroded into canyons, arches, and gorges that contain permanent natural swimming pools fed by year-round springs surrounded by endemic Pachypodium succulents and ring-tailed lemur troops. The park's oasis-like quality in the midst of the dry Horombe plateau country makes it extraordinary. The Canyons circuit takes 2-3 days; the longer routes to the summit plateau take 4-5 days with overnight camping. The Bara people have carved rock tombs into the sandstone cliffs for centuries.",
    "location": "Isalo National Park, Ihorombe Region, Madagascar",
    "country": "Madagascar",
    "continent": "Africa",
@@ -39734,8 +39738,8 @@
     "temperate"
    ],
    "estimatedCost": 120000,
-   "latitude": -33.7,
-   "longitude": 22.1,
+   "latitude": -34.05,
+   "longitude": 23,
    "tags": [
     "cycling",
     "africa",
@@ -39755,8 +39759,8 @@
   {
    "num": 959,
    "title": "Indonesia Borneo Heart of Borneo Trek",
-   "description": "Trek deep into the Heart of Borneo — the tri-national rainforest conservation area shared by Malaysia, Brunei, and Indonesia, containing one of the last large lowland rainforest complexes in Southeast Asia — with Dayak guides through primary forest that supports pygmy elephants, proboscis monkeys, clouded leopards, and the rare Bornean orangutan. The Kayan Mentarang National Park in East Kalimantan provides access; river travel by longboat is the primary transport. Multi-day forest camps require carrying food and shelter. One of the planet's most biodiverse remaining intact forest systems.",
-   "location": "Kayan Mentarang National Park, East Kalimantan, Indonesia",
+   "description": "Trek deep into the Heart of Borneo — the tri-national rainforest conservation area shared by Malaysia, Brunei, and Indonesia, containing one of the last large lowland rainforest complexes in Southeast Asia — with Dayak guides through primary forest that supports pygmy elephants, proboscis monkeys, clouded leopards, and the rare Bornean orangutan. The Kayan Mentarang National Park in North Kalimantan provides access; river travel by longboat is the primary transport. Multi-day forest camps require carrying food and shelter. One of the planet's most biodiverse remaining intact forest systems.",
+   "location": "Kayan Mentarang National Park, North Kalimantan, Indonesia",
    "country": "Indonesia",
    "continent": "Asia",
    "category": "EXPEDITION",
@@ -39923,7 +39927,7 @@
   {
    "num": 964,
    "title": "Austria Grossglockner High Alpine Road Cycling",
-   "description": "Cycle the Grossglockner High Alpine Road — the highest paved mountain road in Austria and one of Europe's most famous alpine drives — from Heiligenblut on the south side to Zell am See, climbing to the Edelweisserspitze viewpoint at 2,571 m with panoramic views of the Grossglockner (3,798 m), Austria's highest peak. The 48 km of climbing road is closed in winter but opens late May; cyclists must pay the road toll unless entering before 6am on non-peak days. The road surface is perfect; the gradient is consistent and demanding.",
+   "description": "Cycle the Grossglockner High Alpine Road — the highest paved mountain road in Austria and one of Europe's most famous alpine drives — from Heiligenblut on the south side to Zell am See, climbing to the Edelweissspitze viewpoint at 2,571 m with panoramic views of the Grossglockner (3,798 m), Austria's highest peak. The 48 km of climbing road is closed in winter but opens late May; bicycles use the road free of charge — the toll applies to motor vehicles — but the road has daily opening hours, so plan an early start rather than a night ascent. The road surface is perfect; the gradient is consistent and demanding.",
    "location": "Grossglockner, Carinthia, Austria",
    "country": "Austria",
    "continent": "Europe",
@@ -40167,7 +40171,7 @@
     "Waterproof insulated Zodiac boots",
     "Expedition-grade waterproof parka",
     "Waterproof over-trousers",
-    "Seasickness medication for the Drake and Southern Ocean",
+    "Seasickness medication for the Southern Ocean crossing",
     "Glacier sunglasses and high-SPF sunscreen",
     "Merino base layers and fleece mid layers",
     "Insulated waterproof gloves",
@@ -40267,7 +40271,7 @@
    "category": "ROAD_TRIP",
    "difficulty": "MODERATE",
    "durationDays": 10,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/SaPhin_HaGiang_Vietnam.JPG/1920px-SaPhin_HaGiang_Vietnam.JPG",
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/TuSan_Canyon.jpg/1920px-TuSan_Canyon.jpg",
    "highlights": [
     "Ma Pi Leng Pass above Nho Que River",
     "Mu Cang Chai golden rice terraces",
@@ -40309,9 +40313,9 @@
    "voteCount": 2,
    "id": "seed-adventure-975",
    "imageAttribution": {
-    "artist": "BacLuong at Vietnamese Wikipedia",
-    "license": "Public domain",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:SaPhin_HaGiang_Vietnam.JPG"
+    "artist": "NKSTTSSHNVN",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:TuSan_Canyon.jpg"
    }
   },
   {
@@ -40773,7 +40777,7 @@
   {
    "num": 991,
    "title": "Tanzania Ruaha Night Safari and Stars",
-   "description": "Experience Ruaha National Park at night — guided night game drives and bush walks that reveal the park's nocturnal community of aardvark, porcupine, thick-tailed greater galago, and lion on evening hunts in the dry season — under a night sky ranked among the darkest in sub-Saharan Africa. Ruaha's remoteness from Dar es Salaam (5 hours by road or 90 minutes by charter flight) limits visitor numbers such that night drives can feel entirely private. Combine with dawn walking safaris along the Great Ruaha River for the full 24-hour Ruaha experience.",
+   "description": "Experience Ruaha National Park at night — guided night game drives and bush walks that reveal the park's nocturnal community of aardvark, porcupine, thick-tailed greater galago, and lion on evening hunts in the dry season — under a night sky ranked among the darkest in sub-Saharan Africa. Ruaha's remoteness from Dar es Salaam (a full day's drive, around 10 hours by road, or under two hours by charter flight) limits visitor numbers such that night drives can feel entirely private. Combine with dawn walking safaris along the Great Ruaha River for the full 24-hour Ruaha experience.",
    "location": "Ruaha National Park, Iringa, Tanzania",
    "country": "Tanzania",
    "continent": "Africa",
@@ -40949,7 +40953,7 @@
   {
    "num": 995,
    "title": "Bolivia Potosi Silver Mine and Altiplano Trek",
-   "description": "Visit the Cerro Rico silver mine of Potosi — 4,090 m above sea level, the site of the colonial silver extraction that financed the Spanish Empire for 200 years and killed an estimated 8 million miners — then trek across the surrounding altiplano through Inca highways and 17th-century colonial waymarkers to the thermal baths of Uyuni. The mine is still active; tours enter with miners who continue to work the same tunnels. The altiplano hiking above 4,000 m is otherworldly: thin air, vast views, and llama caravans on unpaved tracks.",
+   "description": "Visit the Cerro Rico silver mine of Potosi — 4,090 m above sea level, the site of the colonial silver extraction that financed the Spanish Empire for 200 years and killed an estimated 8 million miners — then trek across the surrounding altiplano through Inca highways and 17th-century colonial waymarkers to the thermal crater lake of Ojo del Inca at Tarapaya. The mine is still active; tours enter with miners who continue to work the same tunnels. The altiplano hiking above 4,000 m is otherworldly: thin air, vast views, and llama caravans on unpaved tracks.",
    "location": "Potosi Department, Bolivia",
    "country": "Bolivia",
    "continent": "South America",
@@ -41067,7 +41071,7 @@
   {
    "num": 997,
    "title": "Indonesia Komodo to Flores Island Sailing",
-   "description": "Sail from Lombok through the Komodo archipelago to Flores on a phinisi (traditional Indonesian wooden sailing vessel), stopping at Komodo and Rinca for dragon encounters, Padar Island for the three-colour bay view, Pink Beach for snorkelling on coral that has coloured the sand rose, and Manta Point for open-water encounters with oceanic manta rays on every tide. The 5-day live-aboard itinerary covers 400 km of Indonesia's most dramatic sea and island scenery. The cooking is Indonesian; the crew of 8 have sailed these waters their entire lives.",
+   "description": "Sail from Lombok through the Komodo archipelago to Flores on a phinisi (traditional Indonesian wooden sailing vessel), stopping at Komodo and Rinca for dragon encounters, Padar Island for the three-colour bay view, Pink Beach for snorkelling on coral that has coloured the sand rose, and Manta Point for open-water encounters with reef manta rays on every tide. The 5-day live-aboard itinerary covers 400 km of Indonesia's most dramatic sea and island scenery. The cooking is Indonesian; the crew of 8 have sailed these waters their entire lives.",
    "location": "Lesser Sunda Islands, Indonesia",
    "country": "Indonesia",
    "continent": "Asia",
@@ -41970,7 +41974,7 @@
   },
   {
    "title": "Göbekli Tepe and Mesopotamian Turkey",
-   "description": "Göbekli Tepe rewrote the human story: hunter-gatherers raised these carved T-shaped pillars 11,500 years ago — more than six millennia before Stonehenge — and the implication that ritual may have preceded agriculture still unsettles archaeology. Standing under the canopy above Enclosure D, foxes and vultures carved crisp on six-tonne stones, is as close to the beginning of 'us' as travel gets.\n\nThis eight-day route explores Turkey's deep south-east from Şanlıurfa: the city's superb archaeology museum and the sacred carp pools of Balıklıgöl (legendary birthplace of Abraham), the mud-brick beehive houses of Harran, then east to Mardin, a honey-stone town stacked above the Mesopotamian plain, and the working Syriac Orthodox monastery of Deyrulzafaran, where services are still sung in Aramaic. West of Urfa, Mount Nemrut's colossal toppled heads catch the sunrise on their 2,000-year-old summit terrace.\n\nFly to Şanlıurfa via Istanbul and hire a driver-guide; check current FCDO advice, which warns against travel within 10km of the Syrian border — this route stays clear. April–May and September–October avoid the 45°C summer. About £850–£1,100 for eight days, sıra gecesi music dinners included.",
+   "description": "Göbekli Tepe rewrote the human story: hunter-gatherers raised these carved T-shaped pillars 11,500 years ago — more than six millennia before Stonehenge — and the implication that ritual may have preceded agriculture still unsettles archaeology. Standing under the canopy above Enclosure D, foxes and vultures carved crisp on six-tonne stones, is as close to the beginning of 'us' as travel gets.\n\nThis eight-day route explores Turkey's deep south-east from Şanlıurfa: the city's superb archaeology museum and the sacred carp pools of Balıklıgöl (legendary birthplace of Abraham), the mud-brick beehive houses of Harran, then east to Mardin, a honey-stone town stacked above the Mesopotamian plain, and the working Syriac Orthodox monastery of Deyrulzafaran, where services are still sung in Aramaic. North of Urfa, Mount Nemrut's colossal toppled heads catch the sunrise on their 2,000-year-old summit terrace.\n\nFly to Şanlıurfa via Istanbul and hire a driver-guide; check current FCDO advice, which warns against travel within 10km of the Syrian border — this route stays clear. April–May and September–October avoid the 45°C summer. About £850–£1,100 for eight days, sıra gecesi music dinners included.",
    "location": "Şanlıurfa, Harran and Mardin, south-eastern Anatolia",
    "country": "Turkey",
    "continent": "Asia",
@@ -42085,7 +42089,7 @@
   {
    "title": "Temple-Stay Korea: Haeinsa and the Southern Mountains",
    "description": "The moktak wooden clapper starts at 3.30am, and by the time you shuffle into the main hall the monks are already chanting. Korea's official Templestay programme opens working monasteries to visitors, and this six-day route pairs the two best: Haeinsa, deep in Gayasan's forests, home of the Tripitaka Koreana — 81,258 wooden printing blocks of the Buddhist canon, carved in the thirteenth century and stored in a hall so perfectly ventilated it has never needed restoration — and Golgulsa near Gyeongju, where the monks practise sunmudo, a meditative martial art you train in twice daily.\n\nExpect 108 prostrations (harder than any summit day), barugongyang formal meals eaten in silence to the last grain of rice, tea with a monk who will answer anything, and free afternoons hiking the Gayasan ridge above the temple roofs.\n\nBook both stays on the English Templestay site (templestay.com) a few weeks ahead; you sleep on a heated ondol floor in loaned uniform, and meals are vegetarian. Access via Daegu for Haeinsa, Gyeongju for Golgulsa. Six days runs about £600–£750 including trains, temple fees and two Gyeongju guesthouse nights among the Silla royal tombs.",
-   "location": "Gayasan and Gyeongju, North Gyeongsang",
+   "location": "Gayasan (South Gyeongsang) and Gyeongju (North Gyeongsang)",
    "country": "South Korea",
    "continent": "Asia",
    "category": "CULTURAL",
@@ -42649,7 +42653,7 @@
   },
   {
    "title": "Otago Central Rail Trail",
-   "description": "New Zealand's original Great Ride follows 152km of the old Otago Central Railway from Clyde to Middlemarch, through the big-sky sheep country of the Maniototo. The gradients are locomotive-gentle, the surface is smooth gravel, and the infrastructure is superb — which is why this is the ride to bring a partner or parent who 'doesn't really cycle' and watch them fall for touring by day two.\n\nThe drama is quiet and golden: schist tors glowing at dusk, the twin tunnels and viaducts of the Poolburn Gorge, and the lonely Wedderburn goods shed that Grahame Sydney painted into national iconography. Pub accommodation anchors each day — Chatto Creek, Oturehua, Waipiata — and a curling rink detour at Naseby is obligatory in winter.\n\nStart in Clyde, 2.5 hours from Queenstown airport; shuttle companies move bags between stops so you ride unladen. Four days at 40km a day is the standard rhythm. The variable that catches people out is weather whiplash — Central Otago swings from 30°C summer days to sub-zero snaps, and the wind across the Maniototo can halve your speed. Book pubs months ahead for February–March. Budget around £500 with bike hire, transfers and pub beds; the trail itself is free.",
+   "description": "New Zealand's original Great Ride follows 152km of the old Otago Central Railway from Clyde to Middlemarch, through the big-sky sheep country of the Maniototo. The gradients are locomotive-gentle, the surface is smooth gravel, and the infrastructure is superb — which is why this is the ride to bring a partner or parent who 'doesn't really cycle' and watch them fall for touring by day two.\n\nThe drama is quiet and golden: schist tors glowing at dusk, the twin tunnels and viaducts of the Poolburn Gorge, and the lonely Wedderburn goods shed that Grahame Sydney painted into national iconography. Pub accommodation anchors each day — Chatto Creek, Oturehua, Waipiata — and a curling rink detour at Naseby is obligatory in winter.\n\nStart in Clyde, about an hour from Queenstown airport; shuttle companies move bags between stops so you ride unladen. Four days at 40km a day is the standard rhythm. The variable that catches people out is weather whiplash — Central Otago swings from 30°C summer days to sub-zero snaps, and the wind across the Maniototo can halve your speed. Book pubs months ahead for February–March. Budget around £500 with bike hire, transfers and pub beds; the trail itself is free.",
    "location": "Central Otago, Clyde to Middlemarch",
    "country": "New Zealand",
    "continent": "Oceania",
@@ -44298,6 +44302,8 @@
     4,
     5,
     6,
+    7,
+    8,
     9,
     10,
     11,
@@ -45115,7 +45121,7 @@
     "snorkel",
     "rift valley",
     "liveaboard",
-    "red sea",
+    "gulf of aden",
     "off the beaten track"
    ],
    "user": 3,
@@ -45758,7 +45764,7 @@
   },
   {
    "title": "Lenin Peak: The Accessible 7000er",
-   "description": "No other 7,000 m summit on Earth lets you drive to base camp through wildflower meadows. Lenin Peak (7,134 m) rises straight out of the Alay Valley in southern Kyrgyzstan, and its northern flank is the classic first step into true high-altitude mountaineering: technically straightforward, logistically simple, physiologically enormous.\n\nFrom the yurts and marmots of Achik-Tash at 3,600 m, the route crosses the Puza glacier to Camp 1, climbs the notorious 'frying pan' — a solar-oven snow basin — to Camp 2 at 5,300 m, then gains the crest of Razdelnaya Peak for Camp 3 at 6,100 m. Summit day is a ten-to-twelve-hour ridge walk in thin, bitter air with a long false-flat that breaks more spirits than any crux. The catch is the weather: the Pamir fronts arrive fast, and the summit plateau has a history of trapping parties — turn-around discipline matters more than fitness here.\n\nFly to Osh, six hours by road from base camp. Full-service expeditions (July and August only) cost a remarkable £3,500 to £4,500 for three weeks, making this the cheapest 7,000er in the world. You need prior glacier experience and the patience for a proper rotation schedule; roughly one climber in three summits.",
+   "description": "No other 7,000 m summit on Earth lets you drive to base camp through wildflower meadows. Lenin Peak (7,134 m) rises straight out of the Alay Valley in southern Kyrgyzstan, and its northern flank is the classic first step into true high-altitude mountaineering: technically straightforward, logistically simple, physiologically enormous.\n\nFrom the yurts and marmots of Achik-Tash at 3,600 m, the route crosses the Travellers’ Pass onto the Lenin Glacier to Camp 1, climbs the notorious 'frying pan' — a solar-oven snow basin — to Camp 2 at 5,300 m, then gains the crest of Razdelnaya Peak for Camp 3 at 6,100 m. Summit day is a ten-to-twelve-hour ridge walk in thin, bitter air with a long false-flat that breaks more spirits than any crux. The catch is the weather: the Pamir fronts arrive fast, and the summit plateau has a history of trapping parties — turn-around discipline matters more than fitness here.\n\nFly to Osh, six hours by road from base camp. Full-service expeditions (July and August only) cost a remarkable £3,500 to £4,500 for three weeks, making this the cheapest 7,000er in the world. You need prior glacier experience and the patience for a proper rotation schedule; roughly one climber in three summits.",
    "location": "Trans-Alay Range, Pamirs, Osh Region",
    "country": "Kyrgyzstan",
    "continent": "Asia",
@@ -47472,11 +47478,11 @@
    ],
    "user": 2,
    "voteCount": 3,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Arrigetch_Peaks_-_DPLA_-_c3b352ffca70814ecdb41c50eee06b29.jpg/1920px-Arrigetch_Peaks_-_DPLA_-_c3b352ffca70814ecdb41c50eee06b29.jpg",
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Gates_of_the_Arctic_National_Park%2C_Brooks_Range%2C_Alaska.jpg/1920px-Gates_of_the_Arctic_National_Park%2C_Brooks_Range%2C_Alaska.jpg",
    "imageAttribution": {
-    "artist": "National Park Service, Alaska Region",
-    "license": "Public domain",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Arrigetch_Peaks_-_DPLA_-_c3b352ffca70814ecdb41c50eee06b29.jpg"
+    "artist": "Paxson Woelber",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gates_of_the_Arctic_National_Park,_Brooks_Range,_Alaska.jpg"
    },
    "num": 1112,
    "id": "seed-adventure-1112"
@@ -48025,11 +48031,11 @@
    ],
    "user": 1,
    "voteCount": 21,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Blue_Ridge_Parkway_-_North_Carolina_%2814748114326%29.jpg/1920px-Blue_Ridge_Parkway_-_North_Carolina_%2814748114326%29.jpg",
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Blue_Ridge_Parkway-27527.jpg/1920px-Blue_Ridge_Parkway-27527.jpg",
    "imageAttribution": {
-    "artist": "Doug Kerr",
-    "license": "CC BY-SA 2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Blue_Ridge_Parkway_-_North_Carolina_(14748114326).jpg"
+    "artist": "Ken Thomas",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Blue_Ridge_Parkway-27527.jpg"
    },
    "num": 1122,
    "id": "seed-adventure-1122"
@@ -49910,7 +49916,7 @@
    "durationDays": 10,
    "highlights": [
     "First light taxi-boat to the Havae Pass channel",
-    "Watching a west bora set detonate over the reef",
+    "Watching a west-swell bomb set detonate over the reef",
     "Paddle sessions at the mellower Vairao pass",
     "The PK0 road-end marker and Teahupo'o marina",
     "Poisson cru with the pension family after dark"
@@ -51401,7 +51407,7 @@
    "description": "Eleven miles of trail carved into thousand-metre sea cliffs, ending at a beach you can only reach on foot or by kayak. The Kalalau Trail traces Kauai's Nā Pali Coast from Keʻe Beach through a corrugation of jungled valleys — Hanakāpīʻai, Hanakoa — to Kalalau Beach, where you camp under fluted green walls that starred as Jurassic Park's backdrop. The pinch is Crawler's Ledge around mile seven: a narrow catwalk over the Pacific that is fine in the dry and unnerving in rain.\n\nRain is the real gatekeeper. Streams flash-flood fast enough to strand hikers between valleys for days — if Hanakāpīʻai is brown and pushy, you turn around, no debate. Winter swells also eat the beach and the trail gets greasier the wetter the season.\n\nOvernight camping permits (about US$35 a night) release 90 days out on the Hawaii DLNR site and sell out almost instantly; day access beyond Hanakāpīʻai without one is illegal. Access is via the Hāʻena State Park shuttle or pre-booked parking. Two to three days on trail; budget roughly £220 with permits, shuttle and food, plus whatever Kauai does to your wallet either side.",
    "location": "Nā Pali Coast State Wilderness Park, Kauai, Hawaii",
    "country": "United States",
-   "continent": "Oceania",
+   "continent": "North America",
    "category": "TREKKING",
    "difficulty": "CHALLENGING",
    "durationDays": 3,
@@ -52768,6 +52774,7 @@
    "bestMonths": [
     11,
     12,
+    1,
     2,
     3,
     4,
@@ -53679,7 +53686,6 @@
     "Binoculars for whale watching"
    ],
    "bestMonths": [
-    5,
     8,
     9,
     10
@@ -54049,7 +54055,7 @@
    "description": "Quttinirpaaq means \"top of the world\", and the name is literal: Canada's second-largest national park sits at 82 degrees north, closer to the Pole than to any city. Your Twin Otter drops onto the gravel strip at Tanquary Fiord and leaves, and for twelve days the only humans in an area the size of Switzerland are your team. You trek beneath Gull Glacier, ford braided meltwater rivers, and walk valleys where muskox and Peary caribou never learned to fear people — Arctic wolves sometimes trot into camp out of sheer curiosity.\n\nThe thermal oasis around Lake Hazen, the largest lake entirely north of the Arctic Circle, is the surprise: microclimate warmth, wildflowers, 24-hour daylight. The variable that catches people out is the fly-in logistics — everything hinges on charter weather from Resolute, and a two-day delay either side is normal, so build slack into your plans.\n\nThis is expedition travel at expedition prices: Kenn Borek charters from Resolute Bay dominate the roughly £22,000 land cost, and guided departures run a handful of times each July. Register with Parks Canada and train with a loaded pack — you carry your safety with you.",
    "location": "Quttinirpaaq National Park, Ellesmere Island, Nunavut",
    "country": "Canada",
-   "continent": "Arctic",
+   "continent": "North America",
    "category": "EXPEDITION",
    "difficulty": "EXPEDITION_GRADE",
    "durationDays": 12,
