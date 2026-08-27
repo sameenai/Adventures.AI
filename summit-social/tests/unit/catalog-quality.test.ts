@@ -129,6 +129,27 @@ describe("catalog quality — 1,000 adventures, no duplicates, aligned data", ()
     }
   });
 
+  it("every cover is a bounded Commons thumbnail, not the full original", () => {
+    // next/image fetches the source URL server-side before resizing, so a cover
+    // pointing at the full Commons original makes the optimizer pull a
+    // multi-megabyte file for a grid card — straight through the <2s render
+    // budget. Wikimedia also now renders only a narrow set of widths (960,
+    // 1280, 1920); everything else returns HTTP 400, so a URL must not invent
+    // one. 37 covers served originals before this gate existed.
+    const ALLOWED = new Set([960, 1280, 1920]);
+    for (const a of adventures) {
+      if (!a.coverImageUrl.includes("upload.wikimedia.org")) continue;
+      expect(a.coverImageUrl, `${a.id}: cover serves the full original, not a thumbnail`).toContain(
+        "/commons/thumb/",
+      );
+      const width = Number(a.coverImageUrl.match(/\/(\d+)px-[^/]*$/)?.[1]);
+      expect(
+        ALLOWED.has(width),
+        `${a.id}: ${width}px is not a width Wikimedia renders (960/1280/1920)`,
+      ).toBe(true);
+    }
+  });
+
   it("the midnight sun is only claimed where and when it actually happens", () => {
     // Geometry, not a season. The sun stays up when the solar declination
     // reaches 90° − |lat|, so the window is a fortnight at the Arctic Circle
