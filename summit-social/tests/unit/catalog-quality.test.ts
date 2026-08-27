@@ -46,6 +46,12 @@ const CONTINENTS = new Set([
   "Africa", "Asia", "Europe", "North America", "South America", "Oceania", "Antarctica", "Arctic",
 ]);
 
+/** upload.wikimedia.org URL -> canonical "File:Name.jpg" (thumb size stripped). */
+function commonsFile(url: string): string | null {
+  const m = decodeURIComponent(url).match(/\/commons\/(?:thumb\/)?[0-9a-f]\/[0-9a-f]{2}\/([^/]+)/);
+  return m ? `File:${m[1].replace(/^\d+px-/, "")}` : null;
+}
+
 describe("catalog quality — 1,000 adventures, no duplicates, aligned data", () => {
   it("holds exactly 1,000 adventures", () => {
     expect(adventures).toHaveLength(1000);
@@ -68,13 +74,16 @@ describe("catalog quality — 1,000 adventures, no duplicates, aligned data", ()
   });
 
   it("every cover photo is unique — no two adventures share an image", () => {
+    // Compare the UNDERLYING Commons file, not the URL string: the same photo
+    // served at two thumbnail widths is two different URLs but one image, and
+    // a URL-equality check waves it straight through.
     const seen = new Map<string, string>();
     for (const a of adventures) {
-      expect(
-        seen.has(a.coverImageUrl),
-        `shared photo between ${a.id} and ${seen.get(a.coverImageUrl)}`,
-      ).toBe(false);
-      seen.set(a.coverImageUrl, a.id);
+      const key = commonsFile(a.coverImageUrl) ?? a.coverImageUrl;
+      expect(seen.has(key), `shared image between ${a.id} and ${seen.get(key)} (${key})`).toBe(
+        false,
+      );
+      seen.set(key, a.id);
     }
   });
 
@@ -117,6 +126,79 @@ describe("catalog quality — 1,000 adventures, no duplicates, aligned data", ()
       expect(Math.abs(a.latitude as number), `${a.id}: latitude range`).toBeLessThanOrEqual(90);
       expect(Math.abs(a.longitude as number), `${a.id}: longitude range`).toBeLessThanOrEqual(180);
       expect([1, 2, 3].includes(a.user), `${a.id}: user ${a.user}`).toBe(true);
+    }
+  });
+
+  it("every cover is a bounded Commons thumbnail, not the full original", () => {
+    // next/image fetches the source URL server-side before resizing, so a cover
+    // pointing at the full Commons original makes the optimizer pull a
+    // multi-megabyte file for a grid card — straight through the <2s render
+    // budget. Wikimedia also now renders only a narrow set of widths (960,
+    // 1280, 1920); everything else returns HTTP 400, so a URL must not invent
+    // one. 37 covers served originals before this gate existed.
+    const ALLOWED = new Set([960, 1280, 1920]);
+    for (const a of adventures) {
+      if (!a.coverImageUrl.includes("upload.wikimedia.org")) continue;
+      expect(a.coverImageUrl, `${a.id}: cover serves the full original, not a thumbnail`).toContain(
+        "/commons/thumb/",
+      );
+      const width = Number(a.coverImageUrl.match(/\/(\d+)px-[^/]*$/)?.[1]);
+      expect(
+        ALLOWED.has(width),
+        `${a.id}: ${width}px is not a width Wikimedia renders (960/1280/1920)`,
+      ).toBe(true);
+    }
+  });
+
+  it("the midnight sun is only claimed where and when it actually happens", () => {
+    // Geometry, not a season. The sun stays up when the solar declination
+    // reaches 90° − |lat|, so the window is a fortnight at the Arctic Circle
+    // and half the year at the pole. A flat "May–July above 66.5°" rule gets
+    // both ends wrong, and nine records once claimed it at 60–66° where the
+    // sun genuinely sets. Iceland is the trap: it sits just SOUTH of the
+    // circle, so "midnight sun" there is marketing, not fact.
+    const declination = (dayOfYear: number) =>
+      23.44 * Math.sin(((2 * Math.PI) / 365) * (dayOfYear - 81));
+    const MONTH_START = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+    const MONTH_LEN = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    for (const a of adventures) {
+      const prose = `${a.title} ${a.description} ${a.highlights.join(" ")} ${a.gear.join(" ")}`;
+      const claims =
+        /midnight[- ]sun/i.test(prose) || a.tags.some((t) => /midnight.?sun/i.test(t));
+      if (!claims) continue;
+      // A record may name the real dates in order to say the trip misses them.
+      if (/midnight sun (?:arrives|starts|begins)/i.test(a.description)) continue;
+
+      const lat = a.latitude as number;
+      const needed = 90 - Math.abs(lat);
+      expect(Math.abs(lat), `${a.id}: claims midnight sun at ${lat}°`).toBeGreaterThanOrEqual(66.5);
+
+      const reachable = a.bestMonths.some((m) => {
+        const first = MONTH_START[m - 1] + 1;
+        for (let d = first; d < first + MONTH_LEN[m - 1]; d++) {
+          const decl = lat > 0 ? declination(d) : -declination(d);
+          if (decl >= needed) return true;
+        }
+        return false;
+      });
+      expect(reachable, `${a.id}: midnight sun at ${lat}° never occurs in months ${a.bestMonths}`).toBe(true);
+    }
+  });
+
+  it("bear-proof food storage is only listed where bears live", () => {
+    // "Bear canister" is North American boilerplate that has drifted onto trips
+    // on landmasses with no bears at all — Patagonia's southernmost bear is
+    // ~3,000 km north of Torres del Paine.
+    const BEARLESS = new Set([
+      "Chile", "Argentina", "Australia", "New Zealand", "South Africa",
+      "Namibia", "Botswana", "Kenya", "Tanzania", "Iceland", "Ireland",
+      "United Kingdom", "Madagascar", "Papua New Guinea", "Fiji",
+    ]);
+    for (const a of adventures) {
+      const hasCanister = a.gear.some((g) => /bear canister|bear barrel|bear-proof/i.test(g));
+      if (!hasCanister) continue;
+      expect(BEARLESS.has(a.country), `${a.id}: bear storage listed in ${a.country}, which has no bears`).toBe(false);
     }
   });
 

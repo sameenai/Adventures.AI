@@ -267,7 +267,7 @@
   },
   {
    "id": "seed-adventure-462",
-   "duplicateOf": "seed-adventure-144",
+   "duplicateOf": "seed-adventure-548",
    "reason": "Both are the Galapagos liveaboard dive expedition to Wolf and Darwin Islands (hammerhead schools, whale sharks) — the same product."
   },
   {
@@ -752,7 +752,7 @@
   },
   {
    "id": "seed-adventure-817",
-   "duplicateOf": "seed-adventure-477",
+   "duplicateOf": "seed-adventure-753",
    "reason": "Same Hardangervidda winter ski traverse between Finse and Haukeliseter, both citing the Amundsen training history and DNT huts; duration difference (5 vs 6 days) is within the normal 4-6 day range for this crossing"
   },
   {
@@ -997,7 +997,7 @@
   },
   {
    "id": "seed-adventure-972",
-   "duplicateOf": "seed-adventure-635",
+   "duplicateOf": "seed-adventure-203",
    "reason": "Same Rapa Nui exploration product visiting the moai sites, Rano Raraku quarry and Rano Kau crater; the optional bicycle circuit on this 24 km island is a cosmetic mode variation, not a different trip."
   },
   {
@@ -1007,7 +1007,7 @@
   },
   {
    "id": "seed-adventure-976",
-   "duplicateOf": "seed-adventure-336",
+   "duplicateOf": "seed-adventure-539",
    "reason": "Both are the South Georgia Island wildlife expedition voyage (Grytviken, Shackleton's grave, king penguin colonies) — same ship-based product."
   },
   {
@@ -1179,6 +1179,76 @@
    "id": "seed-adventure-805",
    "duplicateOf": "seed-adventure-548",
    "reason": "Same product: Galapagos liveaboard diving at Wolf and Darwin (hammerhead schools, whale sharks); the richer Diving Week record covers it."
+  },
+  {
+   "id": "seed-adventure-357",
+   "duplicateOf": "seed-adventure-801",
+   "reason": "Both sell the identical product: a multi-day guided Basotho pony trek through Lesotho's highland villages. seed-adventure-357 ('Lesotho Mountain Kingdom Pony Trek', 7d) describes 'genuine horse trekking through remote Basotho villages where ponies are the primary transport', the 192m Maletsunyane Falls reached by pony trek from Semonkong, and the Basotho blanket-and-conical-hat culture. seed-adven"
+  },
+  {
+   "id": "seed-adventure-477",
+   "duplicateOf": "seed-adventure-753",
+   "reason": "Both are a late-winter (March-April/May) multi-day Nordic ski tour on the Hardangervidda, starting from Finse, sleeping in DNT huts — same place, same mode, same season, coordinates 60.6/7.5 vs 60.62/7.52. seed-adventure-477 ('Winter Crossing') sells 'the five-day ski traverse ... from Finse to Haukelisaeter' with 'DNT ... winter huts every 20 kilometres' and the Amundsen training-ground story. se"
+  },
+  {
+   "id": "seed-adventure-191",
+   "duplicateOf": "seed-adventure-349",
+   "reason": "Pair 30. 'Socotra Island Trekking' (191) vs 'Socotra Island Walk, Yemen' (349): same island, same trailhead town (Hadibo), same 10-day duration, same season, and the same itinerary content — 191 sells 'trekking the interior plateau and coastal dunes' for dragon blood trees, endemic-plant statistics, Detwah lagoon and Bedouin encounters, which is exactly what 349 describes in detail (Diksam Plateau"
+  },
+  {
+   "id": "seed-adventure-222",
+   "duplicateOf": "seed-adventure-328",
+   "reason": "Pair 31. 'Flores Island Hiking' (222) vs 'Flores Island Trek, Indonesia' (328): both are TREKKING/MODERATE walking trips over the same Flores corridor in the same April–September window, and both sell the identical four features — dawn at Kelimutu's three colour-changing crater lakes, walking the Bajawa plateau through Ngada villages with their megalithic ancestor houses, Komodo dragons, and manta"
+  },
+  {
+   "id": "seed-adventure-421",
+   "duplicateOf": "seed-adventure-912",
+   "reason": "Pair 32. 'Iceland Midnight Sun Cycling' (421) vs 'Iceland Ring Road Midnight Sun Cycling' (912): both are CYCLING/CHALLENGING listings selling the same 1,332 km Route 1 circuit ridden in the June–July continuous-daylight window, both citing riding in golden light in the small hours with empty roads, and both hitting Mývatn's geothermal area, the glaciers and the waterfalls. 912 is the same trip wr"
+  },
+  {
+   "id": "seed-adventure-163",
+   "duplicateOf": "seed-adventure-46",
+   "reason": "Same product: an 8-day Svalbard polar-bear/walrus/glacier boat expedition out of Longyearbyen (Spitsbergen is Svalbard's main island). 163 is a generic destination blurb — 386 chars, five one-word highlights, and bestMonths spanning both March and July, which no single departure covers; 46 sells the same trip with a real itinerary (Woodfjorden, Zodiac landings, ice-edge navigation) and 79 votes."
+  },
+  {
+   "id": "seed-adventure-137",
+   "duplicateOf": "seed-adventure-653",
+   "reason": "Same product: both sell a 21-day EXPEDITION_GRADE ascent of Denali by the West Buttress from the Kahiltna Glacier. 137 ('Denali West Buttress') describes 'the standard line, taking climbers from the Kahiltna Glacier base camp through fixed camps at 4,335 m and 5,240 m to the summit ridge... teams haul sleds with food and fuel for 3 weeks'; 653 ('US Alaska Denali Climb') describes the identical iti"
+  },
+  {
+   "id": "seed-adventure-635",
+   "duplicateOf": "seed-adventure-203",
+   "reason": "Same product: a week-long circuit of Rapa Nui's classic archaeological sites from Hanga Roa, on foot. 203 ('Easter Island Discovery') - 'over four or five days you can circuit the island's coast and volcanoes on foot, from the fifteen re-erected giants of Ahu Tongariki... to Rano Raraku, the quarry-volcano... The clifftop village of Orongo... Anakena's palm-backed beach'. 635 ('Chile Easter Island"
+  },
+  {
+   "id": "seed-adventure-311",
+   "duplicateOf": "seed-adventure-665",
+   "reason": "Same product under two names for the same word: 'kora' and 'parikrama' both denote the 52 km clockwise circuit of Mount Kailash from Darchen. Both descriptions sell the identical trip — 52 km circuit, day-two crux to the Dolma La at 5,630 m, prostrating pilgrims doing the circuit body-length by body-length over weeks, the striated north face above Dirapuk, Lake Manasarovar, sacred to four religion"
+  },
+  {
+   "id": "seed-adventure-336",
+   "duplicateOf": "seed-adventure-539",
+   "reason": "Both are the same South Georgia expedition-ship voyage, differing only by the generic 'Antarctica' modifier in the title. Each description opens on the king penguin colony at St Andrews Bay, then runs the same set pieces: beachmaster/bull elephant seals holding their beaches, wandering albatross on 3–3.5 m wings, Grytviken's rusting whaling station with Shackleton's grave toasted in whisky, ships "
+  },
+  {
+   "id": "seed-adventure-436",
+   "duplicateOf": "seed-adventure-490",
+   "reason": "Both sell a guided summer hiking week out of Longyearbyen in the same June–August window: armed rifle-carrying guides mandatory outside the settlement, 24-hour midnight-sun hiking, a glacier day in the Longyear valley (436's 'Longyear Valley glacier hike' = 490's Longyearbreen/Larsbreen glacier travel), a ridge/plateau summit above town (436's Plataberget = 490's Trollsteinen), and a boat day into"
+  },
+  {
+   "id": "seed-adventure-470",
+   "duplicateOf": "seed-adventure-748",
+   "reason": "Both sell the same Bumthang cultural walking circuit in central Bhutan. 470 ('Bhutan Bumthang Valley Hike') explicitly describes 'The Bumthang Cultural Trek ... through apple orchards, buckwheat fields, and ancient temples on a gentle walk', listing Jakar Dzong, Mebar Tsho (the Burning Lake / Pema Lingpa story) and Jambay Lhakhang. 748 ('Bhutan Bumthang Cultural Trek') sells the identical product "
+  },
+  {
+   "id": "seed-adventure-862",
+   "duplicateOf": "seed-adventure-578",
+   "reason": "Both are the Santa Cruz trek out of Huaraz in the Cordillera Blanca, differing only in title framing ('Huascaran National Park Trek' vs 'Cordillera Blanca High Trek'). 578: 'The Santa Cruz trek is the classic four-day line, from Cashapampa's canyon up to Punta Union at 4,750m, where Taulliraju's fluted face fills the pass ... acclimatisation hikes to Laguna Churup and Laguna 69', with Alpamayo as "
+  },
+  {
+   "id": "seed-adventure-144",
+   "duplicateOf": "seed-adventure-548",
+   "reason": "Same product: a Galapagos liveaboard diving week to Darwin and Wolf for schooling scalloped hammerheads and whale sharks. Missed by the first title sweep because the accented \"Galapagos\" tokenised differently from the unaccented spelling; surfaced by a diacritic-normalised re-sweep and confirmed by both records sharing one underlying photo. 548 is richer and carries 12 votes to 144s 3."
   }
  ]
 }
