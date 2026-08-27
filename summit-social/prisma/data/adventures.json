@@ -7052,58 +7052,6 @@
    }
   },
   {
-   "num": 137,
-   "title": "Denali West Buttress",
-   "description": "Denali (6,190 m) is North America's highest peak and the West Buttress route is its standard line, taking climbers from the Kahiltna Glacier base camp through fixed camps at 4,335 m and 5,240 m to the summit ridge. The mountain is fully self-supported — teams haul sleds with food and fuel for 3 weeks. Cold reaches -50°C with windchill. The Alaska Range landscape is among the most otherworldly on the planet.",
-   "location": "Talkeetna",
-   "country": "United States",
-   "continent": "North America",
-   "category": "MOUNTAINEERING",
-   "difficulty": "EXPEDITION_GRADE",
-   "durationDays": 21,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/DENALI_NATIONAL_PARK_%28MT._MCKINLEY%29_-_KAHILTNA_GLACIER_BASE_CAMP.jpg/1920px-DENALI_NATIONAL_PARK_%28MT._MCKINLEY%29_-_KAHILTNA_GLACIER_BASE_CAMP.jpg",
-   "highlights": [
-    "6,190m summit",
-    "Kahiltna Glacier ski-in",
-    "14,200ft camp ice wall",
-    "Alaska Range panorama",
-    "NPS ranger station"
-   ],
-   "gear": [
-    "Expedition sleeping bag -40°C",
-    "Double boots",
-    "Sled",
-    "Wands",
-    "High camp stove"
-   ],
-   "bestMonths": [
-    5,
-    6
-   ],
-   "climate": [
-    "cold",
-    "alpine"
-   ],
-   "estimatedCost": 900000,
-   "latitude": 63.07,
-   "longitude": -151,
-   "tags": [
-    "expedition",
-    "mountaineering",
-    "remote",
-    "alaska",
-    "glacier"
-   ],
-   "user": 2,
-   "voteCount": 2,
-   "id": "seed-adventure-137",
-   "imageAttribution": {
-    "artist": "CROCKERBD",
-    "license": "CC BY-SA 4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:DENALI_NATIONAL_PARK_(MT._MCKINLEY)_-_KAHILTNA_GLACIER_BASE_CAMP.jpg"
-   }
-  },
-  {
    "num": 139,
    "title": "Patagonia Ice Cap Traverse",
    "description": "The Northern Patagonian Ice Cap traverse is one of the last great blank spots in alpine adventure — a 100 km ski traverse across the second largest ice cap outside the poles, with no roads, no huts, and no rescue infrastructure. Teams fly in by ski-equipped plane to the Monte San Valentín area and navigate crevassed plateau ice to reach Cochrane. Full expedition planning required; weather windows are brief and infrequent.",
@@ -7962,60 +7910,6 @@
     "artist": "Zairon",
     "license": "CC BY-SA 4.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Namibia_Skelettk%C3%BCste-Nationalpark_Schiffswrack_01.jpg"
-   }
-  },
-  {
-   "num": 163,
-   "title": "Spitsbergen Polar Bear Safari",
-   "description": "Svalbard at 78° North is the world's most accessible Arctic wilderness — a high-Arctic archipelago of glaciers, polar bears, walrus, and Arctic foxes reachable by scheduled flight from Tromsø. Summer brings the midnight sun and boat expeditions into drift ice where polar bears hunt. Winter brings the blue twilight of polar night and the northern lights. Armed guide requirement means most access is via guided expedition.",
-   "location": "Longyearbyen",
-   "country": "Norway",
-   "continent": "Europe",
-   "category": "EXPEDITION",
-   "difficulty": "CHALLENGING",
-   "durationDays": 8,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Polar_bear_%28js%291.jpg/1920px-Polar_bear_%28js%291.jpg",
-   "highlights": [
-    "Polar bear encounters",
-    "Glacier boat expeditions",
-    "Walrus haul-outs",
-    "Arctic fox",
-    "Midnight sun (or polar night)"
-   ],
-   "gear": [
-    "Expedition cold-weather kit",
-    "Flotation suit (boat trips)",
-    "Layers (minimum -20°C capable)",
-    "Camera telephoto",
-    "Waterproof boots"
-   ],
-   "bestMonths": [
-    3,
-    4,
-    6,
-    7,
-    8
-   ],
-   "climate": [
-    "polar"
-   ],
-   "estimatedCost": 550000,
-   "latitude": 78.22,
-   "longitude": 15.63,
-   "tags": [
-    "arctic",
-    "wildlife",
-    "expedition",
-    "photography",
-    "remote"
-   ],
-   "user": 1,
-   "voteCount": 3,
-   "id": "seed-adventure-163",
-   "imageAttribution": {
-    "artist": "Jerzy Strzelecki",
-    "license": "CC BY 3.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Polar_bear_(js)1.jpg"
    }
   },
   {
@@ -9269,62 +9163,6 @@
    }
   },
   {
-   "num": 191,
-   "title": "Socotra Island Trekking",
-   "description": "Socotra Island in the Arabian Sea is the Galápagos of the Indian Ocean — 37% of its plant species are found nowhere else on earth, including the extraordinary Dragon Blood Tree with its umbrella canopy, the frankincense trees, and the bottle-shaped Desert Rose. The island has basic tourism infrastructure and requires a Yemeni visa (current access via flights from Abu Dhabi). Trekking the interior plateau and coastal dunes is the way to experience the alien vegetation.",
-   "location": "Hadibo",
-   "country": "Yemen",
-   "continent": "Asia",
-   "category": "EXPEDITION",
-   "difficulty": "MODERATE",
-   "durationDays": 10,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Dragons_Blood_Tree%2C_Socotra_Island_%2810941931846%29.jpg/1920px-Dragons_Blood_Tree%2C_Socotra_Island_%2810941931846%29.jpg",
-   "highlights": [
-    "Dragon Blood Trees",
-    "Desert Rose succulent forests",
-    "Dihamri Marine Reserve",
-    "Detwah lagoon",
-    "Nomadic herder encounters"
-   ],
-   "gear": [
-    "Light summer clothing",
-    "Sun protection extreme",
-    "Cash only (no ATMs)",
-    "Water purification",
-    "Wind protection"
-   ],
-   "bestMonths": [
-    11,
-    12,
-    1,
-    2,
-    3,
-    4
-   ],
-   "climate": [
-    "arid",
-    "tropical"
-   ],
-   "estimatedCost": 250000,
-   "latitude": 12.64,
-   "longitude": 54.01,
-   "tags": [
-    "expedition",
-    "island",
-    "wildlife",
-    "remote",
-    "photography"
-   ],
-   "user": 2,
-   "voteCount": 2,
-   "id": "seed-adventure-191",
-   "imageAttribution": {
-    "artist": "Rod Waddington from Kergunyah, Australia",
-    "license": "CC BY-SA 2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dragons_Blood_Tree,_Socotra_Island_(10941931846).jpg"
-   }
-  },
-  {
    "num": 192,
    "title": "Tour de Mont Blanc Running",
    "description": "Running the Tour du Mont Blanc compresses the hikers' fortnight into five huge days: 170 km and roughly 10,000 m of climbing around the entire massif through France, Italy and Switzerland, on the same trails the UTMB race covers in a single night and day. Stages of 30-40 km link Chamonix, Les Contamines, Courmayeur, Rifugio Bonatti's balcony above Val Ferret and Champex-Lac, over cols — Bonhomme, Seigne, Grand Ferret — that each rearrange the massif's geometry behind you.\n\nNothing is technical; everything is relentless. The trick that catches fit road runners is the descending — 10,000 m of quad-shredding downhill is what ends attempts, so train on descents and carry poles.\n\nRifugio and gîte nights mean you run with a five-kilo vest rather than a pack, but beds must be booked months ahead for July and August. Early September is the connoisseur's slot: the UTMB circus has just left, the larches are turning gold and the refuges stay open into the third week. Around £2,000 covers half-board huts and valley transfers. Carry UTMB-style mandatory kit — waterproofs, warm layer, foil blanket — because 2,500 m cols manufacture their own weather in any month.",
@@ -9860,7 +9698,7 @@
     "bucket-list"
    ],
    "user": 2,
-   "voteCount": 2,
+   "voteCount": 9,
    "id": "seed-adventure-203",
    "imageAttribution": {
     "artist": "Mbmerino",
@@ -10794,61 +10632,6 @@
     "artist": "kallerna",
     "license": "CC BY-SA 4.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Segla_Senja.jpg"
-   }
-  },
-  {
-   "num": 222,
-   "title": "Flores Island Hiking",
-   "description": "Flores in eastern Indonesia is the gateway to Komodo National Park and the home of Mount Kelimutu — three crater lakes that change colour independently between turquoise, black, and deep red depending on volcanic chemistry. The lake colours shift seasonally; dawn visits catch the mist lifting from the caldera. Walking the Bajawa plateau reveals traditional Ngada villages with conical men's houses and shrine ancestor poles; the road from Labuan Bajo to Ende passes extraordinary volcanic scenery.",
-   "location": "Labuan Bajo",
-   "country": "Indonesia",
-   "continent": "Asia",
-   "category": "TREKKING",
-   "difficulty": "MODERATE",
-   "durationDays": 10,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beautiful_Kelimutu_at_Sunrise.jpg/1920px-Beautiful_Kelimutu_at_Sunrise.jpg",
-   "highlights": [
-    "Kelimutu crater lakes",
-    "Komodo dragon encounter",
-    "Ngada traditional villages",
-    "Bajawa volcanic plateau",
-    "Manta ray snorkelling"
-   ],
-   "gear": [
-    "Hiking boots",
-    "Snorkelling kit",
-    "Sun protection",
-    "Light clothing",
-    "Camera"
-   ],
-   "bestMonths": [
-    4,
-    5,
-    6,
-    7,
-    8,
-    9
-   ],
-   "climate": [
-    "tropical"
-   ],
-   "estimatedCost": 150000,
-   "latitude": -8.46,
-   "longitude": 120.01,
-   "tags": [
-    "trekking",
-    "volcanic",
-    "island",
-    "wildlife",
-    "cultural-immersion"
-   ],
-   "user": 3,
-   "voteCount": 2,
-   "id": "seed-adventure-222",
-   "imageAttribution": {
-    "artist": "Bagus Pinandoyo Basuki",
-    "license": "CC BY-SA 4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Beautiful_Kelimutu_at_Sunrise.jpg"
    }
   },
   {
@@ -14451,60 +14234,6 @@
    }
   },
   {
-   "num": 311,
-   "title": "Tibetan Kailash Kora",
-   "description": "Mount Kailash has never been climbed: no permit has ever been granted, and for the Hindus, Buddhists, Jains and Bon practitioners who hold the mountain sacred, the summit is not the point. The point is the kora - 52 kilometres around the mountain, walked clockwise from Darchen between 4,600 and 5,630 metres. Day two is both crux and wonder: the slow climb into the prayer-flag storm of the Dolma La at 5,630 metres, moving in a river of pilgrims, some of whom are prostrating the entire circuit body-length by body-length over weeks. The north face, a 1,500-metre pyramid of banded rock and ice, reveals itself above Dirapuk and justifies the journey alone; the turquoise mirror of Lake Manasarovar below completes it.\n\nAccess is the hard part. Tibet requires an organised tour with permits arranged weeks ahead, plus a long 4WD approach from Lhasa that usefully forces acclimatisation - even so, the Dolma La flattens the underprepared, and the guesthouses en route are basic. May, June and September are ideal; the Saga Dawa festival is unforgettable but busy. Budget about £3,500 for the full Lhasa to Kailash circuit including permits, guide and transport.",
-   "location": "Darchen",
-   "country": "China",
-   "continent": "Asia",
-   "category": "CULTURAL",
-   "difficulty": "CHALLENGING",
-   "durationDays": 5,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/KailashNorth.jpg/1920px-KailashNorth.jpg",
-   "highlights": [
-    "Most sacred mountain four religions",
-    "Dolma La pass 5630 metres",
-    "Manasarovar holy lake reflection",
-    "Prostrating pilgrims Buddhist practice",
-    "Himalayas most remote sacred site"
-   ],
-   "gear": [
-    "High altitude sleeping bag",
-    "Tibet permit organised tour",
-    "Altitude acclimatisation Lhasa",
-    "Trekking poles for pass",
-    "Cold weather down layers"
-   ],
-   "bestMonths": [
-    5,
-    6,
-    7,
-    8,
-    9
-   ],
-   "climate": [
-    "alpine",
-    "arid"
-   ],
-   "estimatedCost": 350000,
-   "latitude": 31.07,
-   "longitude": 81.31,
-   "tags": [
-    "cultural-immersion",
-    "high-altitude",
-    "remote",
-    "bucket-list"
-   ],
-   "user": 1,
-   "voteCount": 3,
-   "id": "seed-adventure-311",
-   "imageAttribution": {
-    "artist": "Jean-Marie Hullot",
-    "license": "CC BY-SA 4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KailashNorth.jpg"
-   }
-  },
-  {
    "num": 312,
    "title": "Alaska Range Ski Mountaineering",
    "description": "The trip begins with the best commute in skiing: a ski-plane out of Talkeetna that threads the granite gates of the Alaska Range and sets you down on the Kahiltna Glacier with three weeks of food and fuel. Base camp life at 2,200 metres runs on the near-24-hour daylight of April and May - you can ski corn at midnight if the freeze is right - and the terrain is effectively endless, from warm-up classics around Control Tower and Kahiltna Dome to serious lines on Mount Frances and the flanks of Hunter and Foraker for teams with the skills. Denali's West Buttress traffic passes through, but ski parties mostly have the side glaciers entirely to themselves.\n\nTwo disciplines keep you alive here: crevasse protocol (roped, always, even on tracked glacier) and patience, because flat light and storms can pin camp for days and the plane only returns when Talkeetna Air can see the strip. Everything is expedition logistics - National Park Service registration, waste kits, sleep systems rated to minus 40. Eighteen days with glacier flights, food and shared guiding runs about £5,000 excluding travel to Alaska; the memory of an untracked first descent under midnight alpenglow is permanent.",
@@ -15394,59 +15123,6 @@
     "artist": "Joe McKenna",
     "license": "CC BY 2.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Big_Spy_Hop,_Laguna_San_Ignacio.jpg"
-   }
-  },
-  {
-   "num": 336,
-   "title": "South Georgia Island Expedition",
-   "description": "Nothing prepares you for St Andrews Bay: a two-kilometre sweep of black sand and glacier outwash occupied by a king penguin colony well over a hundred thousand pairs strong - a sound, a smell and a sheer mass of life that silences even seasoned wildlife hands. South Georgia stacks such scenes shore after shore: beachmaster elephant seals warring at Gold Harbour, fur seal nurseries at Salisbury Plain, wandering albatrosses - the largest flying birds on Earth - brooding on Prion Island, and at Grytviken the rusting whaling station and Shackleton's grave, where tradition pours a toast to \"the Boss\". The island is reached only by sea, on expedition ships usually pairing it with the Falklands and Antarctic Peninsula, across 800 miles of Southern Ocean.\n\nWeather is the governing variable: katabatic gusts can cancel a landing in minutes, so itineraries are written in pencil and the expedition team calls each bay on the day. November and December bring peak elephant-seal drama and courting albatross; January and February add armies of brown, woolly king chicks. Biosecurity is drilled seriously - every velcro strap vacuumed before you land. Fifteen-to-twenty-day voyages start around £10,000 per person: brutal on the wallet, unmatched on Earth.",
-   "location": "Grytviken",
-   "country": "South Georgia",
-   "continent": "Antarctica",
-   "category": "EXPEDITION",
-   "difficulty": "CHALLENGING",
-   "durationDays": 14,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/King_Penguins_at_St._Andrews_Bay%2C_South_Georgia_%285817275340%29.jpg/1920px-King_Penguins_at_St._Andrews_Bay%2C_South_Georgia_%285817275340%29.jpg",
-   "highlights": [
-    "300000 king penguin colony St Andrews Bay",
-    "Wandering albatross 3.5m wingspan nesting",
-    "Shackleton grave Grytviken",
-    "150000 elephant seals",
-    "Whaling station ghost town"
-   ],
-   "gear": [
-    "Expedition ship or yacht",
-    "Waterproof landings gear",
-    "Camera 500mm wildlife lens",
-    "Seasickness medication",
-    "Cold weather layering"
-   ],
-   "bestMonths": [
-    11,
-    12,
-    1,
-    2
-   ],
-   "climate": [
-    "polar"
-   ],
-   "estimatedCost": 1000000,
-   "latitude": -54.28,
-   "longitude": -36.51,
-   "tags": [
-    "expedition",
-    "wildlife",
-    "glacier",
-    "bucket-list",
-    "photography"
-   ],
-   "user": 2,
-   "voteCount": 3,
-   "id": "seed-adventure-336",
-   "imageAttribution": {
-    "artist": "Liam Quinn",
-    "license": "CC BY-SA 2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:King_Penguins_at_St._Andrews_Bay,_South_Georgia_(5817275340).jpg"
    }
   },
   {
@@ -16350,58 +16026,6 @@
     "artist": "Giles Laurent",
     "license": "CC BY-SA 4.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:016a_Desert-adapted_elephant_dust_bathing_in_Damaraland_Photo_by_Giles_Laurent.jpg"
-   }
-  },
-  {
-   "num": 357,
-   "title": "Lesotho Mountain Kingdom Pony Trek",
-   "description": "Lesotho is the only country in the world entirely above 1,000 metres, and its highland plateau accessed from Semonkong and Mokhotlong offers genuine horse trekking through remote Basotho villages where ponies are the primary transport. The 192-metre Maletsunyane Falls, one of Africa's highest single-drop waterfalls, is accessible by pony trek from Semonkong. The Basotho cultural tradition of wearing blankets and conical hats remains vibrant in the mountains.",
-   "location": "Maseru",
-   "country": "Lesotho",
-   "continent": "Africa",
-   "category": "TREKKING",
-   "difficulty": "MODERATE",
-   "durationDays": 7,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Maletsunyanefalls.JPG/1920px-Maletsunyanefalls.JPG",
-   "highlights": [
-    "Maletsunyane Falls 192m highest Africa single drop",
-    "Basotho blanket and hat culture",
-    "Highest country world entirely 1000m",
-    "Sani Pass 2876m gravel switchback ascent",
-    "Remote village pony overnight stays"
-   ],
-   "gear": [
-    "Riding experience helpful",
-    "Basotho blanket local purchase",
-    "Warm layers altitude evenings",
-    "Waterproof rain Southern Africa",
-    "Lesotho visa on arrival SA passport"
-   ],
-   "bestMonths": [
-    9,
-    10,
-    11
-   ],
-   "climate": [
-    "temperate",
-    "alpine"
-   ],
-   "estimatedCost": 50000,
-   "latitude": -29.31,
-   "longitude": 27.48,
-   "tags": [
-    "horse-trekking",
-    "mountains",
-    "cultural-immersion",
-    "remote"
-   ],
-   "user": 2,
-   "voteCount": 2,
-   "id": "seed-adventure-357",
-   "imageAttribution": {
-    "artist": "BagelBelt",
-    "license": "Public domain",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maletsunyanefalls.JPG"
    }
   },
   {
@@ -19500,56 +19124,6 @@
    }
   },
   {
-   "num": 421,
-   "title": "Iceland Midnight Sun Cycling",
-   "description": "Cycling Iceland during the summer solstice window from late June to mid-July allows continuous daylight riding, with the ability to cycle at 2am under golden Arctic light with virtually no other traffic. The Ring Road circuit of Iceland covers 1,332 kilometres through lava fields, waterfalls, glaciers, and geothermal areas including the Myvatn lake region. The additional Westfjords peninsula adds the most dramatic fjord scenery and puffin colonies.",
-   "location": "Reykjavik",
-   "country": "Iceland",
-   "continent": "Europe",
-   "category": "CYCLING",
-   "difficulty": "CHALLENGING",
-   "durationDays": 21,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Cap_Vestrahorn_from_Vikurfjall_Ring_Road.JPG/1920px-Cap_Vestrahorn_from_Vikurfjall_Ring_Road.JPG",
-   "highlights": [
-    "Midnight sun 24-hour cycling",
-    "Ring Road 1332km complete circuit",
-    "Westfjords puffin cliff colonies",
-    "Myvatn lake geothermal midge swarm",
-    "Vatnajokull glacier Europe largest"
-   ],
-   "gear": [
-    "Touring bicycle panniers",
-    "Rain gear constant Iceland weather",
-    "Windproof jacket 100kmh gusts",
-    "Sleep mask midnight sun",
-    "Repair kit volcanic roads"
-   ],
-   "bestMonths": [
-    6,
-    7
-   ],
-   "climate": [
-    "cold"
-   ],
-   "estimatedCost": 200000,
-   "latitude": 64.14,
-   "longitude": -21.95,
-   "tags": [
-    "cycling",
-    "midnight-sun",
-    "europe",
-    "volcanic"
-   ],
-   "user": 3,
-   "voteCount": 2,
-   "id": "seed-adventure-421",
-   "imageAttribution": {
-    "artist": "Borvan53",
-    "license": "CC BY-SA 3.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cap_Vestrahorn_from_Vikurfjall_Ring_Road.JPG"
-   }
-  },
-  {
    "num": 422,
    "title": "Peru Choquequirao Trek",
    "description": "Choquequirao is often called the other Machu Picchu, an Inca citadel abandoned at Spanish conquest and not excavated until the 20th century, accessible only on foot after a two-day approach from Cachora. The descent and ascent of 1,500 metres to the Apurimac River and back makes this one of the most demanding day hikes in Peru, but the site itself is visited by fewer than 50 people per day compared to Machu Picchu's 3,000. The planned cable car would change this forever.",
@@ -20073,58 +19647,6 @@
     "artist": "Gube12",
     "license": "CC BY-SA 4.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Orang_Utan_Leuser.jpg"
-   }
-  },
-  {
-   "num": 436,
-   "title": "Svalbard Summer Hiking",
-   "description": "Svalbard in the Arctic summer offers 24-hour daylight hiking across tundra carpeted in Arctic flowers between July and August, with polar bear encounters requiring rifle-carrying guides beyond Longyearbyen. The Longyear Valley glacier hike, the Plataberget plateau walk above Longyearbyen, and the boat-accessed Pyramiden Soviet ghost town create an extraordinary combination of natural and Cold War heritage. Reinsdyrflya nature reserve provides the world's most accessible high Arctic landscape.",
-   "location": "Longyearbyen",
-   "country": "Norway",
-   "continent": "Europe",
-   "category": "TREKKING",
-   "difficulty": "CHALLENGING",
-   "durationDays": 8,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Hike_on_top_of_a_mountain_near_Longyearbyen%2C_Svalbard.JPG/1920px-Hike_on_top_of_a_mountain_near_Longyearbyen%2C_Svalbard.JPG",
-   "highlights": [
-    "Midnight sun 24-hour Arctic hiking",
-    "Polar bear rifle escort requirement",
-    "Pyramiden Soviet ghost town",
-    "Arctic tundra summer flowers",
-    "Glacier day hike Longyear Valley"
-   ],
-   "gear": [
-    "Rifle guide mandatory outside town",
-    "Windproof Arctic clothing",
-    "Midnight sun eye mask camp",
-    "Gaiters tundra terrain",
-    "Camera Arctic wildlife"
-   ],
-   "bestMonths": [
-    6,
-    7,
-    8
-   ],
-   "climate": [
-    "polar",
-    "cold"
-   ],
-   "estimatedCost": 200000,
-   "latitude": 78.22,
-   "longitude": 15.65,
-   "tags": [
-    "arctic",
-    "hiking",
-    "wildlife",
-    "glacier"
-   ],
-   "user": 3,
-   "voteCount": 2,
-   "id": "seed-adventure-436",
-   "imageAttribution": {
-    "artist": "Al83tito",
-    "license": "CC0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hike_on_top_of_a_mountain_near_Longyearbyen,_Svalbard.JPG"
    }
   },
   {
@@ -21621,58 +21143,6 @@
    }
   },
   {
-   "num": 470,
-   "title": "Bhutan Bumthang Valley Hike",
-   "description": "The Bumthang Valley at the heart of Bhutan is the most sacred valley in the kingdom, with the Jakar Dzong fortress monastery and the Burning Lake of Mebar Tsho where Pema Lingpa discovered treasure texts hidden by Guru Rinpoche. The Bumthang Cultural Trek passes through apple orchards, buckwheat fields, and ancient temples on a gentle 3-day walk accessible to less experienced trekkers. The Jambay Lhakhang Drub festival in October features fire ceremonies and naked runs.",
-   "location": "Jakar",
-   "country": "Bhutan",
-   "continent": "Asia",
-   "category": "CULTURAL",
-   "difficulty": "MODERATE",
-   "durationDays": 5,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Bumthang-Jakar_Dzong-02-2015-gje.jpg/1920px-Bumthang-Jakar_Dzong-02-2015-gje.jpg",
-   "highlights": [
-    "Mebar Tsho Burning Lake sacred site",
-    "Jambay Lhakhang Drub fire festival",
-    "Apple orchard cultural walk",
-    "Jakar Dzong fortress monastery",
-    "Most sacred valley Bhutan"
-   ],
-   "gear": [
-    "Bhutan SDF 100 USD daily fee",
-    "Warm layers valley evenings",
-    "Licensed guide required",
-    "Camera festival photography",
-    "Modest dress monastery visits"
-   ],
-   "bestMonths": [
-    3,
-    4,
-    10,
-    11
-   ],
-   "climate": [
-    "temperate"
-   ],
-   "estimatedCost": 300000,
-   "latitude": 27.55,
-   "longitude": 90.74,
-   "tags": [
-    "cultural-immersion",
-    "hiking",
-    "mountains",
-    "remote"
-   ],
-   "user": 1,
-   "voteCount": 2,
-   "id": "seed-adventure-470",
-   "imageAttribution": {
-    "artist": "Gerd Eichmann",
-    "license": "CC BY-SA 4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bumthang-Jakar_Dzong-02-2015-gje.jpg"
-   }
-  },
-  {
    "num": 472,
    "title": "Borneo Danum Valley Conservation",
    "description": "The Danum Valley Conservation Area in Sabah protects 43,800 hectares of primary lowland dipterocarp rainforest that is among the most biodiverse on Earth. Staying at the Borneo Rainforest Lodge allows night drives to spot clouded leopards, pygmy elephants drinking at forest pools, and flying lemurs gliding between trees. The research station has been documenting Bornean wildlife for 40 years and guides carry decades of site knowledge.",
@@ -21882,58 +21352,6 @@
     "artist": "Severin.stalder",
     "license": "CC BY-SA 3.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vi%C3%B1ales_Valley.jpg"
-   }
-  },
-  {
-   "num": 477,
-   "title": "Norway Hardangervidda Winter Crossing",
-   "description": "The Hardangervidda plateau is the largest mountain plateau in northern Europe at 8,000 square kilometres, and crossing it by ski from Finse to Haukelisaeter follows the route that informed Roald Amundsen's preparation for his South Pole expedition. The five-day ski traverse crosses an arctic landscape above 1,000 metres where the DNT Norwegian Trekking Association maintains winter huts every 20 kilometres. The plateau hosts the largest remaining wild reindeer population in Europe.",
-   "location": "Finse",
-   "country": "Norway",
-   "continent": "Europe",
-   "category": "SKIING",
-   "difficulty": "CHALLENGING",
-   "durationDays": 6,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Camp_near_Hardangerj%C3%B8kulen_glacier_Norway_1991.jpg",
-   "highlights": [
-    "Amundsen South Pole preparation route",
-    "Largest European mountain plateau",
-    "Wild reindeer 10000 strong herds",
-    "DNT hut-to-hut Norway style",
-    "Finse train station access"
-   ],
-   "gear": [
-    "Nordic touring skis and skins",
-    "Pulk optional for supplies",
-    "DNT hut key membership",
-    "Navigation plateau fog",
-    "Emergency bivouac"
-   ],
-   "bestMonths": [
-    3,
-    4
-   ],
-   "climate": [
-    "cold"
-   ],
-   "estimatedCost": 110000,
-   "latitude": 60.6,
-   "longitude": 7.5,
-   "tags": [
-    "skiing",
-    "europe",
-    "arctic",
-    "mountains",
-    "remote",
-    "expedition"
-   ],
-   "user": 2,
-   "voteCount": 2,
-   "id": "seed-adventure-477",
-   "imageAttribution": {
-    "artist": "Finn-j",
-    "license": "CC BY-SA 4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Camp_near_Hardangerj%C3%B8kulen_glacier_Norway_1991.jpg"
    }
   },
   {
@@ -27729,61 +27147,6 @@
     "artist": "Gary Banziger (NASA Langley) and Ralph Kahn (NASA GSFC)",
     "license": "Public domain",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:ARCSIX_Analyzes_Arctic_Sea_Ice_Loss_(153113_-_photo_lrg).jpg"
-   }
-  },
-  {
-   "num": 635,
-   "title": "Chile Easter Island Trek",
-   "description": "Explore Rapa Nui (Easter Island) — the most remote inhabited island in the world, 3,700 km from the Chilean mainland in the Pacific — on foot and by bicycle, visiting the moai platforms (ahu) that ring the coast and the quarry at Rano Raraku where 397 unfinished statues remain frozen in the hillside. The island is 24 km long; the entire circuit by bicycle takes a day. Hiking to the rim of Rano Kau, the extinct volcano in the southwest corner, rewards with a view of a rare freshwater crater lake in the ocean. The Rapa Nui people maintain strict cultural protocols around the moai.",
-   "location": "Easter Island, Chile",
-   "country": "Chile",
-   "continent": "Oceania",
-   "category": "TREKKING",
-   "difficulty": "EASY",
-   "durationDays": 7,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Easter_Island%2C_Ahu_Tongariki_%286696298947%29.jpg/1920px-Easter_Island%2C_Ahu_Tongariki_%286696298947%29.jpg",
-   "highlights": [
-    "Ahu Tongariki 15 moai restored sunrise backdrop",
-    "Rano Raraku moai quarry 400 statues unfinished",
-    "Rano Kau volcano crater lake trekking",
-    "Birdman ceremony site Orongo cliff edge",
-    "Anakena beach palm archaeological excavation"
-   ],
-   "gear": [
-    "Sun protection Pacific latitude UV strong",
-    "Wind jacket trade wind ocean constant",
-    "Comfortable shoes gravel road statue sites",
-    "Guide Rapa Nui culture interpretation",
-    "Cash limited ATM most accept card"
-   ],
-   "bestMonths": [
-    11,
-    12,
-    1,
-    2,
-    3
-   ],
-   "climate": [
-    "temperate"
-   ],
-   "estimatedCost": 180000,
-   "latitude": -27.11,
-   "longitude": -109.35,
-   "tags": [
-    "trekking",
-    "island",
-    "cultural-immersion",
-    "volcanic",
-    "photography",
-    "cycling"
-   ],
-   "user": 1,
-   "voteCount": 9,
-   "id": "seed-adventure-635",
-   "imageAttribution": {
-    "artist": "Arian Zwegers",
-    "license": "CC BY 2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Easter_Island,_Ahu_Tongariki_(6696298947).jpg"
    }
   },
   {
@@ -36861,65 +36224,6 @@
     "artist": "Prabeshsdev",
     "license": "CC BY-SA 4.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Heavenly_Rara_Lake_-_edited_2.jpg"
-   }
-  },
-  {
-   "num": 862,
-   "title": "Peru Cordillera Blanca High Trek",
-   "description": "Trek the Santa Cruz circuit and surrounding routes in the Cordillera Blanca — the highest tropical mountain range in the world, with 27 peaks above 6,000 m visible from the Llanganuco valley. The Santa Cruz-Llanganuco trek is a 4-day classic; the more challenging Alpamayo base camp adds 3 days and reaches within view of what many mountaineers consider the most beautiful mountain on Earth. Huaraz at 3,052 m is the base; acclimatisation days at the surrounding highland lakes are required before any high trekking. The range is under serious glacier retreat.",
-   "location": "Cordillera Blanca, Ancash, Peru",
-   "country": "Peru",
-   "continent": "South America",
-   "category": "TREKKING",
-   "difficulty": "EXTREME",
-   "durationDays": 8,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Laguna_69%2C_Yungay_-_Huaraz_-_Per%C3%BA.jpg/1920px-Laguna_69%2C_Yungay_-_Huaraz_-_Per%C3%BA.jpg",
-   "highlights": [
-    "Punta Union pass 4,750m",
-    "Alpamayo base camp",
-    "Taulliraju glacier views",
-    "Llanganuco turquoise lakes",
-    "Artesonraju pyramid views",
-    "Laguna 69 side trip"
-   ],
-   "gear": [
-    "-10C rated sleeping bag",
-    "Altitude medication (discuss Diamox)",
-    "Water purification",
-    "Broken-in boots",
-    "Down jacket",
-    "High-UV sun protection",
-    "Trekking poles",
-    "Four-season tent (or arriero-supported)"
-   ],
-   "bestMonths": [
-    5,
-    6,
-    7,
-    8,
-    9
-   ],
-   "climate": [
-    "alpine",
-    "cold"
-   ],
-   "estimatedCost": 75000,
-   "latitude": -9.1,
-   "longitude": -77.6,
-   "tags": [
-    "trekking",
-    "glacier",
-    "high-altitude",
-    "mountains",
-    "bucket-list"
-   ],
-   "user": 2,
-   "voteCount": 3,
-   "id": "seed-adventure-862",
-   "imageAttribution": {
-    "artist": "Christian Cruzado",
-    "license": "CC BY 2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laguna_69,_Yungay_-_Huaraz_-_Per%C3%BA.jpg"
    }
   },
   {
@@ -55123,6 +54427,740 @@
    },
    "num": 1236,
    "id": "seed-adventure-1236"
+  },
+  {
+   "title": "P'tit Train du Nord Rail Trail",
+   "description": "The P'tit Train du Nord is Québec's beloved linear park: 234km of former Canadian Pacific railbed running north from Saint-Jérôme through the Laurentian mountains to Mont-Laurier. The gradients are locomotive-flat, the surface is smooth crushed stone and tarmac, and the old railway stations have been reborn as cafés, bike shops and information stops — you ride from gare to gare, croissant to croissant, past a chain of lakes with red canoes and wooded hills that turn incandescent in late September.\n\nThe sweet spot is the middle third: the river gorge sections along the Rivière du Nord, a lunch stop at Val-David's arty village market, and an overnight near Mont-Tremblant, where the trail skirts Lac Raymond with the resort's peak behind. Autumn colour week is the trip of the year — book beds well ahead, as Québecois cyclists have the same idea.\n\nShuttles solve the linear-route problem: operators run riders and bags from Saint-Jérôme (an hour from Montréal) to Mont-Laurier so you ride back southbound with the net descent. Three days at around 78km/day is the classic itinerary; e-bikes are common and welcome. Budget around £380 with auberges, café lunches and shuttle.",
+   "location": "Laurentides, Saint-Jérôme to Mont-Laurier",
+   "country": "Canada",
+   "continent": "North America",
+   "category": "CYCLING",
+   "difficulty": "EASY",
+   "durationDays": 3,
+   "highlights": [
+    "Restored railway stations turned trailside cafés",
+    "The Rivière du Nord gorge north of Saint-Jérôme",
+    "Village market lunch in Val-David",
+    "Lac Raymond with Mont-Tremblant behind",
+    "Peak autumn colour in late September"
+   ],
+   "gear": [
+    "Hybrid, gravel or e-bike",
+    "Pre-booked baggage shuttle",
+    "Light layers for cool Laurentian mornings",
+    "Café budget in Canadian dollars",
+    "Insect repellent for June evenings"
+   ],
+   "bestMonths": [
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "climate": [
+    "temperate"
+   ],
+   "estimatedCost": 38000,
+   "latitude": 45.7761,
+   "longitude": -74.0037,
+   "tags": [
+    "rail trail",
+    "quebec",
+    "autumn colour",
+    "easy touring",
+    "lakes"
+   ],
+   "user": 3,
+   "voteCount": 2,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Point_de_vue_le_long_de_la_piste_du_P%27tit_Train_du_Nord_-_panoramio.jpg/1920px-Point_de_vue_le_long_de_la_piste_du_P%27tit_Train_du_Nord_-_panoramio.jpg",
+   "imageAttribution": {
+    "artist": "Alain Hardy",
+    "license": "CC BY 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Point_de_vue_le_long_de_la_piste_du_P%27tit_Train_du_Nord_-_panoramio.jpg"
+   },
+   "num": 1237,
+   "id": "seed-adventure-1237"
+  },
+  {
+   "title": "Franz Josef Land Archipelago Voyage",
+   "description": "Franz Josef Land is the Arctic's locked room: 192 islands of basalt and ice at 80 degrees north, closed to travellers for most of the Soviet century and still reachable only by expedition ship. Zodiacs put you below Rubini Rock, a fluted basalt organ-pipe cliff seething with tens of thousands of guillemots and kittiwakes; on Champ Island you walk among perfectly spherical stone geodes up to two metres across that look machined rather than natural.\n\nThe history lands as hard as the geology. At Cape Flora you stand where Nansen, drifting south after his Pole attempt, stumbled into Frederick Jackson in 1896 — one of exploration's great chance meetings. Polar bears patrol the pack ice, and walrus haul-outs number in the hundreds.\n\nBe honest about the booking reality: this is Russian High Arctic territory inside the Russian Arctic National Park, and sailings (historically from Longyearbyen or Murmansk, around 13 days) have been intermittent, hinging on permits and geopolitics. Book only through polar specialists and expect around £10,500 for a berth when voyages run. The variable is the pack ice itself — some years whole islands stay out of reach.",
+   "location": "Franz Josef Land, Russian High Arctic",
+   "country": "Russia",
+   "continent": "Arctic",
+   "category": "EXPEDITION",
+   "difficulty": "MODERATE",
+   "durationDays": 13,
+   "highlights": [
+    "Zodiac cruising beneath the Rubini Rock bird cliffs",
+    "The perfectly spherical stone geodes of Champ Island",
+    "Cape Flora, where Nansen met Jackson in 1896",
+    "Polar bears hunting along the pack-ice edge",
+    "Walrus haul-outs numbering in the hundreds"
+   ],
+   "gear": [
+    "Expedition-grade insulated parka",
+    "Waterproof trousers for wet Zodiac landings",
+    "Muck boots (usually loaned on board)",
+    "Ski goggles for wind-driven sleet",
+    "Camera with 400mm-equivalent lens",
+    "Seasickness remedies for the Barents Sea crossing"
+   ],
+   "bestMonths": [
+    7,
+    8
+   ],
+   "climate": [
+    "polar"
+   ],
+   "estimatedCost": 1050000,
+   "latitude": 80.33,
+   "longitude": 52.8,
+   "tags": [
+    "high arctic",
+    "expedition cruise",
+    "polar bears",
+    "seabirds",
+    "history",
+    "pack ice"
+   ],
+   "user": 3,
+   "voteCount": 2,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/View_of_Franz_Josef_Land_from_a_Konvers-Avia_Mil_Mi-2_helicopter.jpg/1920px-View_of_Franz_Josef_Land_from_a_Konvers-Avia_Mil_Mi-2_helicopter.jpg",
+   "imageAttribution": {
+    "artist": "Christopher Michel",
+    "license": "CC BY 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:View_of_Franz_Josef_Land_from_a_Konvers-Avia_Mil_Mi-2_helicopter.jpg"
+   },
+   "num": 1238,
+   "id": "seed-adventure-1238"
+  },
+  {
+   "title": "Val d'Aran Splitboard Initiation, Pyrenees",
+   "description": "If you can ride a board off-piste, splitboarding opens the whole winter mountain — and the Val d'Aran is a forgiving, beautiful place to learn. Over four days a guide takes you from your first clumsy transitions on the Beret meadows to a proper summit tour, with Baqueira Beret's lifts as a safety net and the wild Montgarri valley as the graduation exam: a long glide through frozen pine forest to a snowbound sanctuary where snowmobiles deliver lunch.\n\nYou learn the craft that matters — skinning rhythm, kick turns that do not end in a faceplant, ridge-line transitions in wind, and the avalanche fundamentals (transceiver drills, terrain reading, companion rescue) that underpin every future tour. The Pyrenean snowpack swings between Atlantic dumps and Mediterranean crusts, which makes it an honest classroom.\n\nFly to Toulouse (2.5 hours' drive) and stay in Salardú or Vielha, where Aranese village life carries on regardless of the resort above. January to March is prime. Around £600 for four days including guiding, splitboard and avalanche-kit hire and B&B — remarkable value against Alpine equivalents.",
+   "location": "Val d'Aran, Catalan Pyrenees",
+   "country": "Spain",
+   "continent": "Europe",
+   "category": "SKIING",
+   "difficulty": "MODERATE",
+   "durationDays": 4,
+   "highlights": [
+    "First full splitboard tour to the Montgarri sanctuary",
+    "Transceiver and rescue drills that stick",
+    "Baqueira Beret sidecountry laps with lift backup",
+    "Aranese mountain villages of Salardú and Bagergue",
+    "Summit transition above the Noguera Pallaresa headwaters"
+   ],
+   "gear": [
+    "Splitboard with skins (hire included locally)",
+    "Avalanche transceiver, shovel and probe",
+    "Collapsible poles",
+    "Soft-boot crampons",
+    "Layered shell system",
+    "Thermos — village cafés are far apart"
+   ],
+   "bestMonths": [
+    1,
+    2,
+    3
+   ],
+   "climate": [
+    "cold",
+    "alpine"
+   ],
+   "estimatedCost": 60000,
+   "latitude": 42.7,
+   "longitude": 0.93,
+   "tags": [
+    "splitboard",
+    "pyrenees",
+    "beginner friendly",
+    "ski touring",
+    "spain"
+   ],
+   "user": 2,
+   "voteCount": 2,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Baqueira-Beret_03.jpg/1920px-Baqueira-Beret_03.jpg",
+   "imageAttribution": {
+    "artist": "Cantabrucu",
+    "license": "CC0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baqueira-Beret_03.jpg"
+   },
+   "num": 1239,
+   "id": "seed-adventure-1239"
+  },
+  {
+   "title": "Bells Beach and Winkipop, Easter Swell",
+   "description": "The Southern Ocean does not send waves so much as fire them. When a deep low tracks under Tasmania and the groundswell reaches the limestone cliffs west of Torquay, Bells wakes up: a long right-hander that starts at Rincon, doubles up through the Bowl and runs a couple of hundred metres while the amphitheatre of cliffs above fills with people watching.\n\nNext door, Winkipop is faster and hollower over a shallower ledge, and it punishes a late take-off. The Easter contest here is the longest-running event in professional surfing and still hands the winner a bell rather than a trophy; the reserve behind the beach was the first surfing reserve declared anywhere in the world. On flat days you drive: Jan Juc, Point Impossible, Thirteenth Beach, or Johanna when the swell is too big for everything else.\n\nWhat catches visitors out is temperature, not size. Autumn and winter water sits near 14C, so a 4/3 steamer and boots are the minimum; a 3/2 will end your session in an hour. Base yourself in Torquay, hire a car, and budget about £950 for eight days with a simple apartment and board hire. Paddle out at mid tide until you know where the rocks are.",
+   "location": "Surf Coast, Victoria",
+   "country": "Australia",
+   "continent": "Oceania",
+   "category": "SURFING",
+   "difficulty": "CHALLENGING",
+   "durationDays": 8,
+   "highlights": [
+    "A set wave from Rincon through the Bowl at Bells",
+    "Winkipop's fast ledge on a clean autumn morning",
+    "The Easter contest watched from the Bells amphitheatre",
+    "A dawn session at Jan Juc with nobody else out",
+    "Board hunting in Torquay, home of Rip Curl"
+   ],
+   "gear": [
+    "4/3 steamer wetsuit",
+    "3mm booties",
+    "shortboard plus a step-up for solid Bells",
+    "hooded vest for winter mornings",
+    "soft racks for the hire car",
+    "flask and a dry changing robe"
+   ],
+   "bestMonths": [
+    3,
+    4,
+    5,
+    6,
+    9
+   ],
+   "climate": [
+    "temperate",
+    "cold"
+   ],
+   "estimatedCost": 95000,
+   "latitude": -38.3708,
+   "longitude": 144.2822,
+   "tags": [
+    "point-break",
+    "cold-water",
+    "right-hander",
+    "southern-ocean",
+    "victoria",
+    "surf-coast"
+   ],
+   "user": 1,
+   "voteCount": 41,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Bells_beach_surfers.JPG/1920px-Bells_beach_surfers.JPG",
+   "imageAttribution": {
+    "artist": "Chensiyuan",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bells_beach_surfers.JPG"
+   },
+   "num": 1240,
+   "id": "seed-adventure-1240"
+  },
+  {
+   "title": "Rincón Winter Swells, Puerto Rico's West Coast",
+   "description": "From November the North Atlantic throws swell at the corner of the island where the Mona Passage meets the Caribbean, and Rincón switches on. María's peels off the rocks in front of the surf shacks, Domes breaks beneath the concrete dome of a nuclear reactor shut down in 1968, and Sandy Beach and Steps fill in on smaller days.\n\nRincón hosted the 1968 World Surfing Championships and has been a pilgrimage ever since, but the town stays low-rise and pleasantly ramshackle: food trucks, roosters, sunset at the Punta Higüero lighthouse where humpbacks blow offshore between January and March. Save your reverence for Tres Palmas, which only wakes on a big north-westerly inside a reserve of elkhorn coral.\n\nFly into Aguadilla, forty minutes away, rather than San Juan, a two-and-a-half hour drive. Hire a car: the breaks are strung along miles of coast and the tide window moves through the day. The water is 26C, so boardshorts, but the reefs are urchin-covered and booties save the trip. Reckon on £1,000 for eight days with guesthouse, car and boards. British passport holders need an ESTA: Puerto Rico is US territory.",
+   "location": "Rincón, west coast",
+   "country": "Puerto Rico",
+   "continent": "North America",
+   "category": "SURFING",
+   "difficulty": "MODERATE",
+   "durationDays": 8,
+   "highlights": [
+    "María's at first light with the swell lined up",
+    "Surfing beneath the old reactor dome at Domes",
+    "Watching Tres Palmas break on a big north-west swell",
+    "Humpbacks blowing off the Punta Higüero lighthouse",
+    "Sunset and mofongo on the Rincón waterfront"
+   ],
+   "gear": [
+    "shortboard plus a fish for smaller days",
+    "step-up board if a big north-west swell is forecast",
+    "reef booties",
+    "rash vest and reef-safe sunscreen",
+    "soft racks for the hire car",
+    "offline tide and swell app"
+   ],
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "climate": [
+    "tropical",
+    "hot"
+   ],
+   "estimatedCost": 100000,
+   "latitude": 18.3492,
+   "longitude": -67.2673,
+   "tags": [
+    "point-break",
+    "winter-swell",
+    "caribbean",
+    "reef-break",
+    "whale-watching",
+    "surf-town"
+   ],
+   "user": 2,
+   "voteCount": 7,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sunset_at_Maria%27s_Beach_in_Rinc%C3%B3n%2C_Puerto_Rico.jpg/1920px-Sunset_at_Maria%27s_Beach_in_Rinc%C3%B3n%2C_Puerto_Rico.jpg",
+   "imageAttribution": {
+    "artist": "M S",
+    "license": "CC BY-SA 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sunset_at_Maria%27s_Beach_in_Rinc%C3%B3n,_Puerto_Rico.jpg"
+   },
+   "num": 1241,
+   "id": "seed-adventure-1241"
+  },
+  {
+   "title": "Coiba: Pacific Pinnacles off a Prison Island",
+   "description": "Isla Coiba was Panama's penal colony for more than eighty years, and fear of it kept the fishing fleets away. When the prison closed in 2004 the country found itself with one of the largest protected marine areas in the eastern Pacific and reefs nobody had touched. You dive it from Santa Catalina, ninety minutes each way in an open boat with the swell on the beam.\n\nThe sites are volcanic pinnacles and boulder fields, not coral gardens. Frijoles and Iglesia have whitetip reef sharks stacked like firewood under the ledges; Granito de Oro gives you turtles and a white-sand lunch stop; and on settled days the run out to Hannibal Bank puts hammerheads and mobulas in the blue. Humpbacks calve here from August to October and you hear them through your regulator long before you see them.\n\nThe variable is water, not weather. Thermoclines slice through at 20C and visibility can drop from 25 metres to five in one descent, so bring a 5mm suit with a hood. The dry season from December to April gives the calmest crossings. Santa Catalina is a scruffy surf village with unreliable cash machines: carry dollars. Eight days with rooms, park fees and ten dives is about £1,100.",
+   "location": "Coiba National Park, Veraguas",
+   "country": "Panama",
+   "continent": "North America",
+   "category": "DIVING",
+   "difficulty": "CHALLENGING",
+   "durationDays": 8,
+   "highlights": [
+    "Whitetip reef sharks stacked under the ledges at Frijoles",
+    "Turtles and a sand-spit lunch at Granito de Oro",
+    "The long run out to Hannibal Bank for hammerheads",
+    "Humpback song through your regulator in September",
+    "Walking the ruins of the Coiba penal colony"
+   ],
+   "gear": [
+    "5mm wetsuit with hood",
+    "SMB and reel for open-water pickups",
+    "gloves for holding station in current",
+    "dive computer with deco capability",
+    "seasickness tablets for the boat crossing",
+    "torch for the ledges",
+    "US dollars in cash"
+   ],
+   "bestMonths": [
+    1,
+    2,
+    3,
+    9,
+    10,
+    12
+   ],
+   "climate": [
+    "tropical",
+    "hot"
+   ],
+   "estimatedCost": 110000,
+   "latitude": 7.4508,
+   "longitude": -81.7448,
+   "tags": [
+    "pelagics",
+    "hammerheads",
+    "marine-park",
+    "unesco",
+    "pacific",
+    "shark-diving"
+   ],
+   "user": 3,
+   "voteCount": 6,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Lutjanus_viridis.jpg/1920px-Lutjanus_viridis.jpg",
+   "imageAttribution": {
+    "artist": "Laszlo Ilyes",
+    "license": "CC BY 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lutjanus_viridis.jpg"
+   },
+   "num": 1242,
+   "id": "seed-adventure-1242"
+  },
+  {
+   "title": "Kimbe Bay Seamounts, New Britain",
+   "description": "Kimbe Bay is a drowned volcanic amphitheatre. You dive from a small boat on flat water with Mount Ulawun smoking on the horizon, dropping onto seamounts that rise from hundreds of metres to within a few metres of the surface. Surveys credit the bay with more than half the coral species known from the Indo-Pacific, and it shows: Susan's Reef is a wall of red whip corals and orange gorgonians with pygmy seahorses tucked into them.\n\nBradford Shoals and Inglis Shoal pull barracuda and grey reef sharks into the current line. Restorf Island is an easy afternoon of anemonefish and coral heads with a beach to sit on. A Japanese Zero fighter lies almost intact in shallow water near the shore, propeller bent, coral growing through the cockpit.\n\nGetting there is the real cost: Port Moresby, a hop to Hoskins, then an hour by road. Book room, diving and transfers as one package through the resort, because independent logistics in Papua New Guinea are not worth the saving. The bay sits in the lee of New Britain's mountains, so the trade-wind months from May to November are usually glassy. Ten days with diving comes to roughly £3,200 on the ground, before flights.",
+   "location": "Kimbe Bay, West New Britain",
+   "country": "Papua New Guinea",
+   "continent": "Oceania",
+   "category": "DIVING",
+   "difficulty": "MODERATE",
+   "durationDays": 10,
+   "highlights": [
+    "Red whip corals and pygmy seahorses on Susan's Reef",
+    "Barracuda in the current line at Bradford Shoals",
+    "The shallow Japanese Zero with coral through its cockpit",
+    "Coral heads and a beach afternoon at Restorf Island",
+    "Mount Ulawun steaming across the bay at dawn"
+   ],
+   "gear": [
+    "3mm wetsuit or shorty",
+    "macro-capable camera and a focus light",
+    "SMB and whistle",
+    "dive computer plus spare batteries",
+    "long-sleeved rash vest and reef-safe sunscreen",
+    "antimalarial prescription and DEET",
+    "kina in cash for tips and the village fee"
+   ],
+   "bestMonths": [
+    5,
+    6,
+    7,
+    9,
+    10,
+    11
+   ],
+   "climate": [
+    "tropical",
+    "hot"
+   ],
+   "estimatedCost": 320000,
+   "latitude": -5.5167,
+   "longitude": 150.09,
+   "tags": [
+    "coral-triangle",
+    "seamounts",
+    "macro-diving",
+    "wreck-dive",
+    "remote",
+    "reef"
+   ],
+   "user": 1,
+   "voteCount": 5,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Kimbe_Bay_islands.jpg/1920px-Kimbe_Bay_islands.jpg",
+   "imageAttribution": {
+    "artist": "Kimbe (Wikipedia user)",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kimbe_Bay_islands.jpg"
+   },
+   "num": 1243,
+   "id": "seed-adventure-1243"
+  },
+  {
+   "title": "Trans-Labrador Highway: Baie-Comeau to the Ferry",
+   "description": "This is the last long drive in eastern North America where the map goes quiet. From Baie-Comeau you climb Route 389 past the Daniel-Johnson dam at Manic-5, a wall of concrete arches in the middle of nowhere, then cross into Labrador and turn east on Route 500 through black spruce and burnt barrens towards Churchill Falls, a town that exists to serve an underground power station you can tour.\n\nRoute 510 runs south through Port Hope Simpson and Mary's Harbour to Red Bay, where Basque whalers rendered oil in the 1500s and left a UNESCO site of tryworks on a treeless shore. Detour by boat to Battle Harbour, a restored fishing station on a car-free island, and finish at Blanc-Sablon for the ferry to Newfoundland. Icebergs drift down the Straits into July.\n\nWhat catches people out is fuel, not surface. The 400 km between Happy Valley-Goose Bay and Port Hope Simpson has almost nothing, so fill up at every pump and carry a jerrycan. Check your hire agreement too: many companies forbid these roads outright, and a cracked windscreen is close to inevitable. Carry a satellite messenger. Ten days with a 4x4, fuel, motels and the ferry is around £1,650 each, two sharing.",
+   "location": "Routes 389, 500 and 510, Labrador",
+   "country": "Canada",
+   "continent": "North America",
+   "category": "ROAD_TRIP",
+   "difficulty": "CHALLENGING",
+   "durationDays": 10,
+   "highlights": [
+    "The concrete arches of the Daniel-Johnson dam at Manic-5",
+    "Touring the underground powerhouse at Churchill Falls",
+    "Basque tryworks and whale bone at Red Bay",
+    "The boat crossing to car-free Battle Harbour",
+    "Icebergs in the Labrador Straits in early July"
+   ],
+   "gear": [
+    "spare fuel can and a full-size spare wheel",
+    "satellite messenger or personal locator beacon",
+    "headlight protectors and a windscreen repair kit",
+    "insect head net and strong repellent",
+    "offline maps and a printed road book",
+    "sleeping bag in case of a night in the car",
+    "two days of spare food and water"
+   ],
+   "bestMonths": [
+    6,
+    7,
+    8,
+    9
+   ],
+   "climate": [
+    "cold",
+    "temperate"
+   ],
+   "estimatedCost": 165000,
+   "latitude": 49.216,
+   "longitude": -68.149,
+   "tags": [
+    "remote-driving",
+    "gravel-roads",
+    "subarctic",
+    "unesco",
+    "icebergs",
+    "self-drive"
+   ],
+   "user": 2,
+   "voteCount": 8,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Route_500_Churchill_Falls_-_Labrador_City.jpg/1920px-Route_500_Churchill_Falls_-_Labrador_City.jpg",
+   "imageAttribution": {
+    "artist": "Felix-Antoine Tremblay",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Route_500_Churchill_Falls_-_Labrador_City.jpg"
+   },
+   "num": 1244,
+   "id": "seed-adventure-1244"
+  },
+  {
+   "title": "Abano Pass to Tusheti by 4x4",
+   "description": "Seventy kilometres of unsealed shelf road, no barriers, and a pass at 2,826 metres that is shut by snow for most of the year: the Sh44 from Pshaveli to Omalo is the only way into Tusheti, and it takes five or six hours. You climb through beech forest, then out onto a switchbacked traverse with the valley dropping away beneath the wheels.\n\nThe Keselo towers stand above Zemo Omalo. Walk or ride up the Pirikiti Alazani to Dartlo, Chesho and Parsma, past shrines whose rules are still observed and along tracks shepherds use to bring flocks down to the Kakhetian plains in autumn. Guesthouses serve khinkali and guda, the sheep cheese matured in skin; in late summer the villages fill for Atengenoba.\n\nDo not attempt this in a standard hire car: most Georgian rental agreements exclude the road, and it punishes poor clutch control on blind hairpins where uphill traffic has right of way. Hire a Delica and driver in Telavi for roughly £120 a day split between four, and fill up in Alvani because there is no fuel in Tusheti. Build in a spare day: rain brings landslides and closes the pass. Six days all in is about £620.",
+   "location": "Tusheti, Kakheti",
+   "country": "Georgia",
+   "continent": "Asia",
+   "category": "ROAD_TRIP",
+   "difficulty": "CHALLENGING",
+   "durationDays": 6,
+   "highlights": [
+    "The switchback traverse below the Abano Pass",
+    "Keselo's stone towers above Zemo Omalo",
+    "Walking the Pirikiti Alazani to Dartlo and Parsma",
+    "Guda cheese and khinkali in a village guesthouse",
+    "Shepherds moving flocks off the mountain in September"
+   ],
+   "gear": [
+    "motion sickness tablets",
+    "cash in lari, as there are no card machines in Tusheti",
+    "warm layers for nights above 1,900 m",
+    "walking boots for the village trails",
+    "power bank and offline maps",
+    "head torch for guesthouses on generator power"
+   ],
+   "bestMonths": [
+    6,
+    7,
+    8,
+    9
+   ],
+   "climate": [
+    "temperate",
+    "alpine",
+    "cold"
+   ],
+   "estimatedCost": 62000,
+   "latitude": 42.3661,
+   "longitude": 45.6339,
+   "tags": [
+    "mountain-road",
+    "4x4",
+    "caucasus",
+    "village-guesthouse",
+    "remote",
+    "tusheti"
+   ],
+   "user": 3,
+   "voteCount": 6,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/2019_-_Tusheti_National_Park_-_the_view_from_Abano_pass.jpg/1920px-2019_-_Tusheti_National_Park_-_the_view_from_Abano_pass.jpg",
+   "imageAttribution": {
+    "artist": "Moahim",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2019_-_Tusheti_National_Park_-_the_view_from_Abano_pass.jpg"
+   },
+   "num": 1245,
+   "id": "seed-adventure-1245"
+  },
+  {
+   "title": "Durmitor Three Ways: Tara, Nevidio, Bobotov Kuk",
+   "description": "Žabljak is the highest town in the Balkans and a scruffy, useful base: cheap rooms, a good bakery, and three completely different days within an hour of it. First the Tara, the deepest canyon in Europe, rafted from Brštanovica down to Šćepan Polje through eighteen kilometres of green water and limestone walls that shut out the sky.\n\nThen Nevidio, the slot canyon on the Komarnica that nobody descended until 1965: a guided half day of abseils, jumps into black pools and squeezes where the walls close to shoulder width, open only once the snowmelt drops away. Finally Bobotov Kuk at 2,523 metres, a scrambly six-hour round trip from the Sedlo pass with the whole massif laid out at the top.\n\nPodgorica is about three hours by road and a hire car makes the week work. Book Nevidio well in advance: operators cap group sizes and cancel outright in high water, which is what most often reshuffles an itinerary here. By Alpine standards it is absurdly cheap - seven days with car, guesthouse, a rafting day and a guided canyon is roughly £850. Bring approach shoes with real grip; the limestone stays polished and wet.",
+   "location": "Durmitor National Park, Žabljak",
+   "country": "Montenegro",
+   "continent": "Europe",
+   "category": "MULTI_SPORT",
+   "difficulty": "CHALLENGING",
+   "durationDays": 7,
+   "highlights": [
+    "Rafting the Tara from Brštanovica to Šćepan Polje",
+    "Abseiling the shoulder-width slots of Nevidio",
+    "The summit scramble on Bobotov Kuk",
+    "The Đurđevića Tara bridge seen from the river below",
+    "Swimming in the Black Lake after a long day"
+   ],
+   "gear": [
+    "approach shoes with sticky rubber",
+    "quick-dry layers and a thin fleece",
+    "dry bag for phone and keys",
+    "walking poles for the Bobotov Kuk scree",
+    "swimming kit and a fast-drying towel",
+    "euros in cash for guides and huts"
+   ],
+   "bestMonths": [
+    6,
+    7,
+    8,
+    9
+   ],
+   "climate": [
+    "temperate",
+    "alpine"
+   ],
+   "estimatedCost": 85000,
+   "latitude": 43.1544,
+   "longitude": 19.1236,
+   "tags": [
+    "canyoning",
+    "rafting",
+    "unesco",
+    "balkans",
+    "summit-scramble",
+    "budget-friendly"
+   ],
+   "user": 1,
+   "voteCount": 5,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Durmitor%2C_canyon_Tara_-_Montenegro.JPG/1920px-Durmitor%2C_canyon_Tara_-_Montenegro.JPG",
+   "imageAttribution": {
+    "artist": "Pudelek (Marcin Szala)",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Durmitor,_canyon_Tara_-_Montenegro.JPG"
+   },
+   "num": 1246,
+   "id": "seed-adventure-1246"
+  },
+  {
+   "title": "Jebel Jais and the Wadis of Ras Al Khaimah",
+   "description": "An hour and a half north of Dubai the Hajar Mountains rise out of the gravel plain like a broken wall, and new tarmac climbs to a viewing deck at 1,680 metres in switchbacks that would embarrass an Alpine pass. At the top you can be strapped face down into the longest zipline in the world and fired 2.8 kilometres across the wadi at motorway speed.\n\nThat is the theme-park half. The other half is older: the waymarked loop in Wadi Shawka past falaj channels and rock pools, the abandoned pearling town of Al Jazirah Al Hamra crumbling in the salt air, and, for anyone properly fit, the Stairway to Heaven above Wadi Ghalilah - some 1,300 metres of exposed goat path up the escarpment that needs a guide and a pre-dawn start.\n\nCome between November and March; by April the wadis are in the high thirties and the mountain walks turn dangerous. Hire a car at Dubai or Ras Al Khaimah airport, because nothing here is reachable otherwise, and book the zipline online: weekend slots sell out and the ride is cancelled in strong wind, which is the thing most likely to derail a short trip. Five days with hotel, car and mountain activities is about £850.",
+   "location": "Hajar Mountains, Ras Al Khaimah",
+   "country": "United Arab Emirates",
+   "continent": "Asia",
+   "category": "MULTI_SPORT",
+   "difficulty": "CHALLENGING",
+   "durationDays": 5,
+   "highlights": [
+    "Face down on Jais Flight, 2.8 km across the wadi",
+    "Sunset from the Jebel Jais viewing deck at 1,680 m",
+    "The guided Stairway to Heaven above Wadi Ghalilah",
+    "Rock pools and falaj channels on the Wadi Shawka loop",
+    "The salt-eaten pearling ruins of Al Jazirah Al Hamra"
+   ],
+   "gear": [
+    "trail shoes with hard-rock grip",
+    "three litres of water per person per walk",
+    "sun hat and long sleeves",
+    "head torch for pre-dawn starts",
+    "warm layer for the summit after dark",
+    "GPS tracks downloaded offline"
+   ],
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "climate": [
+    "hot",
+    "arid"
+   ],
+   "estimatedCost": 85000,
+   "latitude": 25.9483,
+   "longitude": 56.13,
+   "tags": [
+    "zipline",
+    "hajar-mountains",
+    "desert-hiking",
+    "wadi",
+    "uae",
+    "long-weekend"
+   ],
+   "user": 2,
+   "voteCount": 4,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Mountain_view_with_road%2C_Jebel_Jais%2C_Ras_al_Khaimah%2C_UAE.jpg/1920px-Mountain_view_with_road%2C_Jebel_Jais%2C_Ras_al_Khaimah%2C_UAE.jpg",
+   "imageAttribution": {
+    "artist": "Tashmetova808",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mountain_view_with_road,_Jebel_Jais,_Ras_al_Khaimah,_UAE.jpg"
+   },
+   "num": 1247,
+   "id": "seed-adventure-1247"
+  },
+  {
+   "title": "Mount Aspiring Southwest Ridge, Tititea",
+   "description": "Tititea stands alone at 3,033 metres, a white pyramid that looks like the Matterhorn dropped into beech forest and rain. From Raspberry Creek at the end of the Matukituki road you walk up the valley to Aspiring Hut, then grind over Bevan Col or the Quarterdeck onto the Bonar Glacier and traverse to Colin Todd Hut, perched on rock above a sea of crevasses.\n\nSummit day starts in the dark: across the Bonar, up the Ramp and onto the Southwest Ridge itself, a snow arête that steepens near the top and falls away on both sides. It is Alpine Grade 2, which means no real crux and instead sustained exposure, glacier travel and the need to keep moving. The reward is the Southern Alps from Aoraki to the Tasman Sea.\n\nThe catch is weather. Fronts arrive off the Tasman with little warning and parties routinely lose three days sitting in a hut, so book seven and take a book. Many climbers now fly to Bevan Col by helicopter to save the approach and buy a better window. Wānaka is the base, and a private guided ascent runs around £2,900 for six days. You need crampon, rope and crevasse-rescue competence before you arrive: this is a climb, not a course.",
+   "location": "Mount Aspiring National Park, Otago",
+   "country": "New Zealand",
+   "continent": "Oceania",
+   "category": "MOUNTAINEERING",
+   "difficulty": "EXTREME",
+   "durationDays": 7,
+   "highlights": [
+    "The West Matukituki walk-in to Aspiring Hut",
+    "Crossing the Bonar Glacier at first light",
+    "The snow arête of the Southwest Ridge",
+    "Aoraki and the Tasman Sea from the summit",
+    "Hut days at Colin Todd waiting out a front"
+   ],
+   "gear": [
+    "mountaineering boots and crampons",
+    "ice axe and glacier rope kit",
+    "harness, prusiks and crevasse rescue gear",
+    "storm shell and a warm belay jacket",
+    "four-season sleeping bag for the huts",
+    "five days of hut food",
+    "glacier sunglasses and high-factor sun cream"
+   ],
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2
+   ],
+   "climate": [
+    "alpine",
+    "cold",
+    "temperate"
+   ],
+   "estimatedCost": 290000,
+   "latitude": -44.3833,
+   "longitude": 168.7333,
+   "tags": [
+    "alpine-climbing",
+    "glacier-travel",
+    "southern-alps",
+    "snow-ridge",
+    "guided",
+    "new-zealand"
+   ],
+   "user": 3,
+   "voteCount": 22,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Mount_Aspiring%2C_Otago%2C_New_Zealand%2C_22_July_2005.jpg/1920px-Mount_Aspiring%2C_Otago%2C_New_Zealand%2C_22_July_2005.jpg",
+   "imageAttribution": {
+    "artist": "Phillip Capper",
+    "license": "CC BY 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mount_Aspiring,_Otago,_New_Zealand,_22_July_2005.jpg"
+   },
+   "num": 1248,
+   "id": "seed-adventure-1248"
+  },
+  {
+   "title": "Peak Korzhenevskaya from Moskvina Glade",
+   "description": "There is no road to base camp. You drive from Dushanbe into the Rasht valley, then wait for the weather to let an ageing Mi-8 lift you over the ridges and set you down on Moskvina Glade at about 4,200 metres: a green shelf between two seven-thousanders, with a mess tent, a sauna and no way out until the helicopter comes back.\n\nKorzhenevskaya, 7,105 metres, was named by a Russian surveyor in 1910 after his wife. The normal route takes the south side in three camps at roughly 5,300, 5,800 and 6,400 metres, with fixed line on the steeper sections and a summit day that keeps going long after you think the ridge should have ended. Across the glacier stands Ismoil Somoni at 7,495 metres; between them they hold two of the five peaks in the old Snow Leopard award.\n\nThe season is July and August, nothing else. Budget three weeks and expect to lose days to helicopter weather at both ends - people have sat at Moskvina for a week waiting to fly out, so never book a tight onward flight. A full-service expedition with permits, helicopter, camp and food is around £4,300, one of the cheapest 7,000 metre peaks on earth. Experience above 6,000 metres and on fixed lines is essential.",
+   "location": "Academy of Sciences Range, northern Pamir",
+   "country": "Tajikistan",
+   "continent": "Asia",
+   "category": "MOUNTAINEERING",
+   "difficulty": "EXPEDITION_GRADE",
+   "durationDays": 23,
+   "highlights": [
+    "The Mi-8 flight in to Moskvina Glade",
+    "Base camp pitched between two seven-thousanders",
+    "Fixed lines on the south side above Camp 2",
+    "The long summit ridge above 7,000 metres",
+    "Ismoil Somoni glowing across the glacier at sunset"
+   ],
+   "gear": [
+    "double high-altitude boots",
+    "down suit or heavy down jacket and salopettes",
+    "jumar and fixed-line lanyards",
+    "minus 30C sleeping bag",
+    "expedition mitts plus spares",
+    "glacier goggles and category 4 sunglasses",
+    "solar panel and power bank",
+    "personal medication including altitude drugs"
+   ],
+   "bestMonths": [
+    7,
+    8
+   ],
+   "climate": [
+    "alpine",
+    "cold"
+   ],
+   "estimatedCost": 430000,
+   "latitude": 39.05,
+   "longitude": 72.0167,
+   "tags": [
+    "pamir",
+    "7000er",
+    "snow-leopard",
+    "expedition",
+    "high-altitude",
+    "tajikistan"
+   ],
+   "user": 1,
+   "voteCount": 6,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Kor%C5%BEenevskaja_m%C3%A4etipp_90.jpg/1920px-Kor%C5%BEenevskaja_m%C3%A4etipp_90.jpg",
+   "imageAttribution": {
+    "artist": "Jaan Künnap",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kor%C5%BEenevskaja_m%C3%A4etipp_90.jpg"
+   },
+   "num": 1249,
+   "id": "seed-adventure-1249"
   }
  ]
 }
