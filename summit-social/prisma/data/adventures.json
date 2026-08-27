@@ -7262,61 +7262,6 @@
    }
   },
   {
-   "num": 144,
-   "title": "Galápagos Diving Expedition",
-   "description": "The Galápagos Islands offer the most dramatic macro and mega-fauna diving on earth — hammerhead sharks school in their hundreds at Darwin and Wolf, whale sharks cruise the deep channel at Wolf, and manta rays barrel-roll in cleaning stations. Fur seals play in the shallows and marine iguanas graze on the sea floor. Liveaboard access to the northern islands of Darwin and Wolf is the only way to experience the best sites; book 6–12 months in advance.",
-   "location": "Galápagos Islands",
-   "country": "Ecuador",
-   "continent": "South America",
-   "category": "DIVING",
-   "difficulty": "CHALLENGING",
-   "durationDays": 8,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Bogenstirn-Hammerhaie_Sphyrna_lewini_Schule_in_Galapagos.jpg/1280px-Bogenstirn-Hammerhaie_Sphyrna_lewini_Schule_in_Galapagos.jpg",
-   "highlights": [
-    "Hammerhead shark schools",
-    "Whale shark encounters",
-    "Marine iguanas",
-    "Darwin Arch",
-    "Manta cleaning stations"
-   ],
-   "gear": [
-    "Advanced Open Water minimum",
-    "Wetsuit 5mm",
-    "SMB",
-    "Dive computer",
-    "Underwater camera"
-   ],
-   "bestMonths": [
-    6,
-    7,
-    8,
-    9,
-    10,
-    11
-   ],
-   "climate": [
-    "tropical"
-   ],
-   "estimatedCost": 550000,
-   "latitude": -0.95,
-   "longitude": -90.97,
-   "tags": [
-    "wildlife",
-    "island",
-    "bucket-list",
-    "photography",
-    "diving"
-   ],
-   "user": 3,
-   "voteCount": 3,
-   "id": "seed-adventure-144",
-   "imageAttribution": {
-    "artist": "kdaniel20816",
-    "license": "CC0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bogenstirn-Hammerhaie_Sphyrna_lewini_Schule_in_Galapagos.jpg"
-   }
-  },
-  {
    "num": 146,
    "title": "Cocos Island Shark Dive",
    "description": "Cocos Island, 550 km off the Pacific coast of Costa Rica, is perhaps the world's best shark-diving destination — a submerged seamount that aggregates scalloped hammerheads in groups of hundreds, plus tiger sharks, silky sharks, and the occasional whale shark. The island is national park; access is strictly liveaboard only, a 36-hour open-ocean crossing each way from Puntarenas. Strong currents require Advanced Open Water and experience.",
@@ -15084,7 +15029,7 @@
    "category": "KAYAKING",
    "difficulty": "EASY",
    "durationDays": 7,
-   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Big_Spy_Hop%2C_Laguna_San_Ignacio.jpg/1920px-Big_Spy_Hop%2C_Laguna_San_Ignacio.jpg",
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Laguna_Ojo_de_Liebre%2C_Mexico.jpg/1920px-Laguna_Ojo_de_Liebre%2C_Mexico.jpg",
    "highlights": [
     "Friendly grey whale interactions",
     "San Ignacio Lagoon UNESCO site",
@@ -15120,9 +15065,9 @@
    "voteCount": 3,
    "id": "seed-adventure-334",
    "imageAttribution": {
-    "artist": "Joe McKenna",
-    "license": "CC BY 2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Big_Spy_Hop,_Laguna_San_Ignacio.jpg"
+    "artist": "NASA",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laguna_Ojo_de_Liebre,_Mexico.jpg"
    }
   },
   {
@@ -55161,6 +55106,66 @@
    },
    "num": 1249,
    "id": "seed-adventure-1249"
+  },
+  {
+   "num": 1250,
+   "id": "seed-adventure-1250",
+   "title": "Bunaken Wall Diving, North Sulawesi",
+   "description": "Bunaken's reefs do not slope — they stop. The island sits on the lip of a drop that falls past 800 metres, and the wall is undercut, so you finish a dive hanging over blue with the coral roof above your head and nothing at all below your fins. Turtles the size of coffee tables sit wedged in the sponges, indifferent; schooling bannerfish stack up in the current lines off Lekuan and Mandolin.\n\nYou dive it from Manado or from a homestay on Bunaken itself, and the two give different trips: town gets you a wider choice of operators and the Lembeh muck-diving day trip, the island gets you the house reef before breakfast and no boat transfer at dawn. Most operators run three tanks a day; visibility is best from March to October and the wall works on any tide, though the currents at Sachiko's Point deserve respect and a guide who reads them.\n\nBudget roughly £900-1,200 for a week with accommodation, full board and a three-dive-a-day package — Sulawesi remains one of the cheapest world-class dive destinations. Fly to Manado via Jakarta or Singapore; the park entry fee is a modest annual tag bought on arrival.",
+   "location": "Bunaken National Marine Park, Manado",
+   "country": "Indonesia",
+   "continent": "Asia",
+   "category": "DIVING",
+   "difficulty": "MODERATE",
+   "durationDays": 7,
+   "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Bunaken_Marine_Park_%281%29.JPG/1920px-Bunaken_Marine_Park_%281%29.JPG",
+   "imageAttribution": {
+    "artist": "Sakurai Midori",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bunaken_Marine_Park_(1).JPG"
+   },
+   "highlights": [
+    "The undercut wall at Lekuan — coral roof above, 800 m of blue below",
+    "Green turtles wedged in barrel sponges at arm's length",
+    "Bannerfish and surgeonfish stacked in the current at Mandolin",
+    "Sachiko's Point when the current runs",
+    "Optional Lembeh Strait muck-diving day for the critters"
+   ],
+   "gear": [
+    "Certification card and logged dives",
+    "3 mm shorty or full wetsuit",
+    "Reef hook for the current lines",
+    "Dive computer",
+    "Torch for the wall overhangs",
+    "Reef-safe sun cream",
+    "Surface marker buoy"
+   ],
+   "bestMonths": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "climate": [
+    "tropical"
+   ],
+   "estimatedCost": 105000,
+   "latitude": 1.6167,
+   "longitude": 124.7667,
+   "tags": [
+    "diving",
+    "wall-diving",
+    "coral",
+    "turtles",
+    "indonesia",
+    "marine-park"
+   ],
+   "user": 1,
+   "voteCount": 5
   }
  ]
 }

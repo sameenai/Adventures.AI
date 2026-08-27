@@ -267,7 +267,7 @@
   },
   {
    "id": "seed-adventure-462",
-   "duplicateOf": "seed-adventure-144",
+   "duplicateOf": "seed-adventure-548",
    "reason": "Both are the Galapagos liveaboard dive expedition to Wolf and Darwin Islands (hammerhead schools, whale sharks) — the same product."
   },
   {
@@ -1244,6 +1244,11 @@
    "id": "seed-adventure-862",
    "duplicateOf": "seed-adventure-578",
    "reason": "Both are the Santa Cruz trek out of Huaraz in the Cordillera Blanca, differing only in title framing ('Huascaran National Park Trek' vs 'Cordillera Blanca High Trek'). 578: 'The Santa Cruz trek is the classic four-day line, from Cashapampa's canyon up to Punta Union at 4,750m, where Taulliraju's fluted face fills the pass ... acclimatisation hikes to Laguna Churup and Laguna 69', with Alpamayo as "
+  },
+  {
+   "id": "seed-adventure-144",
+   "duplicateOf": "seed-adventure-548",
+   "reason": "Same product: a Galapagos liveaboard diving week to Darwin and Wolf for schooling scalloped hammerheads and whale sharks. Missed by the first title sweep because the accented \"Galapagos\" tokenised differently from the unaccented spelling; surfaced by a diacritic-normalised re-sweep and confirmed by both records sharing one underlying photo. 548 is richer and carries 12 votes to 144s 3."
   }
  ]
 }

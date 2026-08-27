@@ -46,6 +46,12 @@ const CONTINENTS = new Set([
   "Africa", "Asia", "Europe", "North America", "South America", "Oceania", "Antarctica", "Arctic",
 ]);
 
+/** upload.wikimedia.org URL -> canonical "File:Name.jpg" (thumb size stripped). */
+function commonsFile(url: string): string | null {
+  const m = decodeURIComponent(url).match(/\/commons\/(?:thumb\/)?[0-9a-f]\/[0-9a-f]{2}\/([^/]+)/);
+  return m ? `File:${m[1].replace(/^\d+px-/, "")}` : null;
+}
+
 describe("catalog quality — 1,000 adventures, no duplicates, aligned data", () => {
   it("holds exactly 1,000 adventures", () => {
     expect(adventures).toHaveLength(1000);
@@ -68,13 +74,16 @@ describe("catalog quality — 1,000 adventures, no duplicates, aligned data", ()
   });
 
   it("every cover photo is unique — no two adventures share an image", () => {
+    // Compare the UNDERLYING Commons file, not the URL string: the same photo
+    // served at two thumbnail widths is two different URLs but one image, and
+    // a URL-equality check waves it straight through.
     const seen = new Map<string, string>();
     for (const a of adventures) {
-      expect(
-        seen.has(a.coverImageUrl),
-        `shared photo between ${a.id} and ${seen.get(a.coverImageUrl)}`,
-      ).toBe(false);
-      seen.set(a.coverImageUrl, a.id);
+      const key = commonsFile(a.coverImageUrl) ?? a.coverImageUrl;
+      expect(seen.has(key), `shared image between ${a.id} and ${seen.get(key)} (${key})`).toBe(
+        false,
+      );
+      seen.set(key, a.id);
     }
   });
 
