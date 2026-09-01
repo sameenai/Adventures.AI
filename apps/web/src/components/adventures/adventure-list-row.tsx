@@ -1,3 +1,4 @@
+import { Avatar } from "@/components/ui/avatar";
 import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
 import { cn, formatPrice, pluralise } from "@/lib/utils";
 import type { AdventureWithUser } from "@/types";
@@ -95,15 +96,12 @@ export function AdventureListRow({
           />
         </div>
         <div className="flex items-center gap-1.5">
-          {adventure.user.avatarUrl && (
-            <Image
-              src={adventure.user.avatarUrl}
-              alt={adventure.user.name ?? ""}
-              width={14}
-              height={14}
-              className="rounded-full opacity-50 shrink-0"
-            />
-          )}
+          <Avatar
+            src={adventure.user.avatarUrl}
+            name={adventure.user.name}
+            size={14}
+            className="rounded-full opacity-50 shrink-0"
+          />
           <span className="font-mono text-[10px] text-stone-600 max-w-[80px] truncate">
             {adventure.user.name}
           </span>

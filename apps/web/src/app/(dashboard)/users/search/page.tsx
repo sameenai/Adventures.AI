@@ -1,6 +1,6 @@
+import { Avatar } from "@/components/ui/avatar";
 import { prisma } from "@/lib/db/prisma";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -45,15 +45,13 @@ async function UserResults({ q }: { q: string }) {
             className="flex items-center gap-4 border border-stone-800 p-4 hover:border-stone-700 transition-colors group"
           >
             <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-stone-800">
-              {user.avatarUrl && (
-                <Image
-                  src={user.avatarUrl}
-                  alt={user.name ?? ""}
-                  fill
-                  sizes="48px"
-                  className="object-cover"
-                />
-              )}
+              <Avatar
+                src={user.avatarUrl}
+                name={user.name}
+                fill
+                sizes="48px"
+                className="object-cover"
+              />
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-mono text-sm text-stone-200 group-hover:text-amber-500 transition-colors">

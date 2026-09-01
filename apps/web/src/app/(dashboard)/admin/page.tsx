@@ -1,9 +1,9 @@
 import { PublishButton } from "@/components/admin/publish-button";
+import { Avatar } from "@/components/ui/avatar";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { timeAgo } from "@/lib/utils";
 import { getServerSession } from "next-auth";
-import Image from "next/image";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -109,15 +109,12 @@ function AdventureRow({
   return (
     <div className="flex items-center justify-between gap-4 border border-stone-800 px-4 py-3 hover:border-stone-700 transition-colors">
       <div className="flex items-center gap-3 min-w-0">
-        {adventure.user.avatarUrl && (
-          <Image
-            src={adventure.user.avatarUrl}
-            alt={adventure.user.name ?? ""}
-            width={24}
-            height={24}
-            className="shrink-0 border border-stone-700"
-          />
-        )}
+        <Avatar
+          src={adventure.user.avatarUrl}
+          name={adventure.user.name}
+          size={24}
+          className="shrink-0 border border-stone-700"
+        />
         <div className="min-w-0">
           <Link
             href={`/adventures/${adventure.id}`}

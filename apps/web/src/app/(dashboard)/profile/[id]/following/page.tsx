@@ -1,7 +1,7 @@
+import { Avatar } from "@/components/ui/avatar";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -83,15 +83,13 @@ export default async function FollowingPage({ params }: { params: Promise<{ id: 
                 className="flex items-center gap-3 group min-w-0"
               >
                 <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-stone-800">
-                  {followed.avatarUrl && (
-                    <Image
-                      src={followed.avatarUrl}
-                      alt={followed.name ?? ""}
-                      fill
-                      sizes="40px"
-                      className="object-cover"
-                    />
-                  )}
+                  <Avatar
+                    src={followed.avatarUrl}
+                    name={followed.name}
+                    fill
+                    sizes="40px"
+                    className="object-cover"
+                  />
                 </div>
                 <div className="min-w-0">
                   <p className="font-mono text-sm text-stone-200 group-hover:text-amber-500 transition-colors truncate">

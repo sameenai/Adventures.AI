@@ -6,6 +6,7 @@ import { ShareButtons } from "@/components/adventures/share-buttons";
 import { ViewCounter } from "@/components/adventures/view-counter";
 import { VoteButton } from "@/components/adventures/vote-button";
 import { MapView } from "@/components/itinerary/map-view";
+import { Avatar } from "@/components/ui/avatar";
 import { authOptions } from "@/lib/auth/config";
 import { prisma } from "@/lib/db/prisma";
 import { DIFFICULTY_MAP } from "@/lib/difficulty-map";
@@ -683,15 +684,12 @@ export default async function AdventureDetailPage({ params }: Props) {
                 href={`/profile/${adventure.user.id}`}
                 className="flex items-center gap-3 group"
               >
-                {adventure.user.avatarUrl && (
-                  <Image
-                    src={adventure.user.avatarUrl}
-                    alt={adventure.user.name ?? ""}
-                    width={40}
-                    height={40}
-                    className="border border-stone-700"
-                  />
-                )}
+                <Avatar
+                  src={adventure.user.avatarUrl}
+                  name={adventure.user.name}
+                  size={40}
+                  className="border border-stone-700"
+                />
                 <div>
                   <p className="font-mono text-sm text-stone-200 group-hover:text-amber-500 transition-colors">
                     {adventure.user.name}

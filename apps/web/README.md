@@ -43,7 +43,8 @@ apps/web/
 │   │                        #   leaderboard, users, profile, next-trip, pro, admin,
 │   │                        #   privacy, terms, unsubscribed
 │   └── api/                 # route handlers — full surface in §4
-├── src/components/          # ui/ primitives + feature components (adventures/, chat/,
+├── src/components/          # ui/ primitives (incl. Avatar, which owns the optimizer
+│                            #   decision in §9) + feature components (adventures/, chat/,
 │                            #   flights/, billing/, itinerary/, explore/, profile/, shared/)
 ├── src/lib/
 │   ├── ai/                  # agent loop (chat-service), tools, executors, prompts, parser
@@ -215,6 +216,11 @@ on cost-bearing routes. BYOK OpenAI keys encrypted at rest (save refuses without
 `ENCRYPTION_KEY`). Strict CSP with per-request script nonces + `strict-dynamic` (no
 `unsafe-inline`/`unsafe-eval` scripts in production), emitted by `src/middleware.ts` from
 `src/lib/security/csp.ts`. Logger scrubs secrets and PII.
+`dangerouslyAllowSVG` stays off in `next.config.ts`, so the image optimizer will not serve a
+vector from any remote host — several of the allowed ones carry user-uploaded SVG. That means it
+answers our DiceBear avatars with a 400 rather than passing them through, so `Avatar`
+(`src/components/ui/avatar.tsx`) renders a vector source unoptimized instead. Nothing is lost:
+there is no smaller version of a vector to produce.
 GDPR: click-wrap terms stamping, account deletion cascade, JSON export, salted rotating view
 hashes, retention jobs. Legal pages at `/privacy` and `/terms` name every processor.
 

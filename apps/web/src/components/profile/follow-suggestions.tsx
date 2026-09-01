@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Avatar } from "@/components/ui/avatar";
 import { useEffect, useState } from "react";
 
 interface Suggestion {
@@ -50,15 +50,13 @@ export function FollowSuggestions({ category }: FollowSuggestionsProps) {
           <li key={user.id} className="flex items-center justify-between gap-3">
             <a href={`/profile/${user.id}`} className="flex items-center gap-3 min-w-0 group">
               <div className="relative h-8 w-8 shrink-0 rounded-full bg-stone-800 overflow-hidden">
-                {user.avatarUrl && (
-                  <Image
-                    src={user.avatarUrl}
-                    alt={user.name ?? ""}
-                    fill
-                    className="object-cover"
-                    sizes="32px"
-                  />
-                )}
+                <Avatar
+                  src={user.avatarUrl}
+                  name={user.name}
+                  fill
+                  sizes="32px"
+                  className="object-cover"
+                />
               </div>
               <div className="min-w-0">
                 <p className="font-mono text-xs text-stone-200 group-hover:text-amber-500 transition-colors truncate">

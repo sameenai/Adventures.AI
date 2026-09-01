@@ -1,5 +1,5 @@
+import { Avatar } from "@/components/ui/avatar";
 import type { UserProfile } from "@/types";
-import Image from "next/image";
 import { SocialLinks } from "./social-links";
 
 interface ProfileHeaderProps {
@@ -9,15 +9,7 @@ interface ProfileHeaderProps {
 export function ProfileHeader({ user }: ProfileHeaderProps) {
   return (
     <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:gap-6">
-      {user.avatarUrl && (
-        <Image
-          src={user.avatarUrl}
-          alt={user.name ?? ""}
-          width={96}
-          height={96}
-          className="border border-stone-700"
-        />
-      )}
+      <Avatar src={user.avatarUrl} name={user.name} size={96} className="border border-stone-700" />
       <div className="text-center sm:text-left">
         <div className="flex items-center gap-3">
           <h1 className="font-display text-2xl uppercase tracking-widest text-stone-100">

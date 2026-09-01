@@ -1,10 +1,10 @@
 "use client";
 
 import { CommentForm } from "@/components/adventures/comment-form";
+import { Avatar } from "@/components/ui/avatar";
 import { Modal } from "@/components/ui/modal";
 import { timeAgo } from "@/lib/utils";
 import type { CommentWithUser } from "@/types";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -84,15 +84,12 @@ function CommentBody({
   return (
     <div>
       <div className="flex items-start gap-3">
-        {comment.user.avatarUrl && (
-          <Image
-            src={comment.user.avatarUrl}
-            alt={comment.user.name ?? ""}
-            width={28}
-            height={28}
-            className="shrink-0 border border-stone-700"
-          />
-        )}
+        <Avatar
+          src={comment.user.avatarUrl}
+          name={comment.user.name}
+          size={28}
+          className="shrink-0 border border-stone-700"
+        />
         <div className="flex-1">
           <div className="flex items-baseline gap-2">
             <Link
@@ -188,15 +185,12 @@ function CommentBody({
         <div className="ml-10 mt-4 space-y-4 border-l border-stone-800 pl-4">
           {comment.replies?.map((reply) => (
             <div key={reply.id} className="flex items-start gap-3">
-              {reply.user.avatarUrl && (
-                <Image
-                  src={reply.user.avatarUrl}
-                  alt={reply.user.name ?? ""}
-                  width={22}
-                  height={22}
-                  className="shrink-0 border border-stone-700"
-                />
-              )}
+              <Avatar
+                src={reply.user.avatarUrl}
+                name={reply.user.name}
+                size={22}
+                className="shrink-0 border border-stone-700"
+              />
               <div>
                 <div className="flex items-baseline gap-2">
                   <Link
