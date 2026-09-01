@@ -17,6 +17,8 @@ for flights, and get told when you're due your next adventure — based on your 
 | `docs/adr/` | Architecture decisions: the Rust core, React/React Native clients, the server-rendered public surface, and web-only Stripe checkout. |
 | `docs/architecture/` | [Target architecture](docs/architecture/target-architecture.md) — where the platform is going and why. |
 | `docs/testing-strategy.md` | Every test tier, including the AI eval and agentic QA tiers. |
+| `docs/product/` | The original product spec (`SummitSocial_PRD.docx`) — kept for provenance; the roadmap above is the current plan. |
+| `docs/assets/` | Screenshots and images used by the documentation. |
 | `RUNBOOK.md` | Production operations: deploy, secrets matrix, scheduled jobs, incident playbook. |
 | `CLAUDE.md` | Working conventions for AI-assisted development (commit style, hooks, workflow, resilience rules). |
 | `.github/workflows/` | CI (`ci.yml`), gated Cloud Run deploy (`deploy.yml`), weekly live evals (`evals-live.yml`). |
