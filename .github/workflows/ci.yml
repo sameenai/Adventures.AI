@@ -25,6 +25,8 @@ jobs:
       - run: npm run lint
       - name: Supply-chain gate (high+ production advisories fail; allowlist is a ledger)
         run: node scripts/audit-gate.mjs
+      - name: Roadmap gate (every live feature must point at code that exists)
+        run: npm run roadmap:check
 
   test:
     name: Unit & Integration Tests

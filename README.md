@@ -13,6 +13,10 @@ for flights, and get told when you're due your next adventure — based on your 
 | `summit-social/` | The main product: a Next.js 15 full-stack app (web UI + API + AI agent + payments). **Start with [`summit-social/README.md`](summit-social/README.md)** — the complete codebase guide: architecture, data model, full API surface, testing, env matrix. |
 | `services/flight-search/` | Rust (Axum) flight-search service — the first strangler-pattern backend extraction. Opt-in via `FLIGHT_SERVICE_URL`; falls back in-process on any failure. See [`services/flight-search/README.md`](services/flight-search/README.md). |
 | `summit-social/evals/` | The AI eval harness: golden replays, adversarial teeth-checks, deterministic graders, and a prompt-surface hash gate. See [`summit-social/evals/README.md`](summit-social/evals/README.md). |
+| `docs/roadmap/` | **The plan of record.** Feature registry, generated delivery board, milestones and the debt register. Start at [`docs/roadmap/README.md`](docs/roadmap/README.md). |
+| `docs/adr/` | Architecture decisions, including the move to a Rust core and React/React Native clients. |
+| `docs/architecture/` | [Target architecture](docs/architecture/target-architecture.md) — where the platform is going and why. |
+| `docs/testing-strategy.md` | Every test tier, including the AI eval and agentic QA tiers. |
 | `RUNBOOK.md` | Production operations: deploy, secrets matrix, scheduled jobs, incident playbook. |
 | `CLAUDE.md` | Working conventions for AI-assisted development (commit style, hooks, workflow, resilience rules). |
 | `.github/workflows/` | CI (`ci.yml`), gated Cloud Run deploy (`deploy.yml`), weekly live evals (`evals-live.yml`). |

@@ -1,0 +1,1063 @@
+{
+  "version": 1,
+  "note": "Source of truth for the product surface. `status` is what users can do TODAY; `migration` is how far that feature has moved to the target architecture. Keeping them separate is what stops the board claiming a milestone is done because the feature already existed. Validated by tests/unit/roadmap.test.ts, rendered by scripts/roadmap.mjs.",
+  "statuses": {
+    "live": "Shipped and reachable by a user today.",
+    "partial": "Reachable but incomplete against its target definition.",
+    "planned": "Not built. Sequenced to a milestone.",
+    "deprecated": "Exists in code but is being removed. Must name its removal milestone."
+  },
+  "areas": {
+    "discovery": "Finding an adventure worth doing.",
+    "planning": "Turning an intent into a dated, costed plan.",
+    "trip": "Flights, bookings and money.",
+    "social": "Signal from other people.",
+    "retention": "Coming back without being nagged.",
+    "account": "Identity, billing, privacy.",
+    "content": "Catalogue quality and media.",
+    "platform": "The substrate everything else runs on."
+  },
+  "surfaces": [
+    "web",
+    "mobile",
+    "api",
+    "public"
+  ],
+  "features": [
+    {
+      "id": "DISC-001",
+      "name": "Adventure catalogue browse",
+      "area": "discovery",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/adventures",
+        "api": [
+          "adventures"
+        ]
+      },
+      "target": {
+        "service": "catalog",
+        "surfaces": [
+          "web",
+          "mobile",
+          "public"
+        ]
+      },
+      "milestone": "M2",
+      "notes": "Keyset pagination on (voteCount desc, id). Highest-traffic read path; first thing the Rust core takes over.",
+      "migration": "not-started"
+    },
+    {
+      "id": "DISC-002",
+      "name": "Adventure detail",
+      "area": "discovery",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/adventures/[id]",
+        "api": [
+          "adventures/[id]",
+          "adventures/[id]/view"
+        ]
+      },
+      "target": {
+        "service": "catalog",
+        "surfaces": [
+          "web",
+          "mobile",
+          "public"
+        ]
+      },
+      "milestone": "M2",
+      "notes": "The main SEO landing surface — 1,000 indexable pages. Must stay server-rendered (ADR-0004).",
+      "migration": "not-started"
+    },
+    {
+      "id": "DISC-003",
+      "name": "Search and filtering",
+      "area": "discovery",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/adventures",
+        "api": [
+          "adventures"
+        ]
+      },
+      "target": {
+        "service": "catalog",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M2",
+      "notes": "Category, difficulty, continent, duration, cost. Currently SQL LIKE; full-text search is a candidate for Postgres tsvector before any external search service.",
+      "migration": "not-started"
+    },
+    {
+      "id": "DISC-004",
+      "name": "Explore map",
+      "area": "discovery",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/explore",
+        "api": [
+          "adventures/geo"
+        ]
+      },
+      "target": {
+        "service": "catalog",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M4",
+      "notes": "Viewport-bounded geo query so the client never receives 1,000 pins. Mobile gets the native map view.",
+      "migration": "not-started"
+    },
+    {
+      "id": "DISC-005",
+      "name": "Leaderboard",
+      "area": "discovery",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/leaderboard",
+        "api": [
+          "adventures"
+        ]
+      },
+      "target": {
+        "service": "catalog",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M2",
+      "notes": "Cached 5 minutes.",
+      "migration": "not-started"
+    },
+    {
+      "id": "DISC-006",
+      "name": "Trending",
+      "area": "discovery",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/adventures",
+        "api": [
+          "adventures"
+        ]
+      },
+      "target": {
+        "service": "catalog",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M2",
+      "notes": "Ranked by votes inside a recent window rather than all-time count.",
+      "migration": "not-started"
+    },
+    {
+      "id": "DISC-007",
+      "name": "Public shareable adventure page",
+      "area": "discovery",
+      "status": "partial",
+      "today": {
+        "web": "/(dashboard)/adventures/[id]"
+      },
+      "target": {
+        "service": "seo-edge",
+        "surfaces": [
+          "public"
+        ]
+      },
+      "milestone": "M2",
+      "notes": "Renders today but sits inside the authenticated layout. Target is a genuinely public, crawlable route with JSON-LD.",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAN-001",
+      "name": "AI trip planner chat",
+      "area": "planning",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/itinerary",
+        "api": [
+          "chat"
+        ]
+      },
+      "target": {
+        "service": "assistant",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M5",
+      "notes": "Streaming, six tools. Moves to Rust SSE; tool execution gets direct database access instead of round-tripping through HTTP.",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAN-002",
+      "name": "Itinerary documents",
+      "area": "planning",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/itineraries",
+        "api": [
+          "itineraries",
+          "itineraries/[id]"
+        ]
+      },
+      "target": {
+        "service": "planning",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "notes": "A plan is a document a conversation edits, not a chat log.",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAN-003",
+      "name": "Day-by-day timeline",
+      "area": "planning",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/itinerary/[id]",
+        "api": [
+          "itineraries/[id]"
+        ]
+      },
+      "target": {
+        "service": "planning",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAN-004",
+      "name": "Itinerary export",
+      "area": "planning",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/itinerary/[id]"
+      },
+      "target": {
+        "service": "planning",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "notes": "Offline access is the real mobile requirement — an expedition has no signal.",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAN-005",
+      "name": "AI feedback capture",
+      "area": "planning",
+      "status": "live",
+      "today": {
+        "api": [
+          "chat/feedback"
+        ]
+      },
+      "target": {
+        "service": "assistant",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M5",
+      "notes": "Thumbs-down transcripts become candidate eval cases. Keep this wired through the migration — it is the only production signal on assistant quality.",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAN-006",
+      "name": "AI description enhancement",
+      "area": "planning",
+      "status": "live",
+      "today": {
+        "api": [
+          "adventures/enhance-description"
+        ]
+      },
+      "target": {
+        "service": "assistant",
+        "surfaces": [
+          "web"
+        ]
+      },
+      "milestone": "M5",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAN-007",
+      "name": "Offline itinerary access",
+      "area": "planning",
+      "status": "planned",
+      "target": {
+        "service": "planning",
+        "surfaces": [
+          "mobile"
+        ]
+      },
+      "milestone": "M4",
+      "notes": "Local-first cache with background sync. The single most valuable mobile-only capability.",
+      "migration": "n/a"
+    },
+    {
+      "id": "TRIP-001",
+      "name": "Flight search",
+      "area": "trip",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/flights",
+        "api": [
+          "flights"
+        ]
+      },
+      "target": {
+        "service": "flights",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M1",
+      "notes": "Already extracted to Rust behind FLIGHT_SERVICE_URL. Becomes the template for every later extraction.",
+      "migration": "in-progress"
+    },
+    {
+      "id": "TRIP-002",
+      "name": "Flight comparison",
+      "area": "trip",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/flights"
+      },
+      "target": {
+        "service": "flights",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M2",
+      "migration": "not-started"
+    },
+    {
+      "id": "TRIP-003",
+      "name": "Save flight to itinerary",
+      "area": "trip",
+      "status": "live",
+      "today": {
+        "api": [
+          "itineraries/[id]/flights"
+        ]
+      },
+      "target": {
+        "service": "planning",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "migration": "not-started"
+    },
+    {
+      "id": "TRIP-004",
+      "name": "Booking checkout",
+      "area": "trip",
+      "status": "live",
+      "today": {
+        "api": [
+          "bookings/[id]/checkout",
+          "bookings/[id]/reprice"
+        ]
+      },
+      "target": {
+        "service": "billing",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M5",
+      "notes": "Repricing before payment is a correctness requirement, not a nicety — a stale fare is a chargeback.",
+      "migration": "not-started"
+    },
+    {
+      "id": "TRIP-005",
+      "name": "Partner deep links",
+      "area": "trip",
+      "status": "live",
+      "today": {
+        "api": [
+          "flights"
+        ]
+      },
+      "target": {
+        "service": "flights",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M2",
+      "notes": "Affiliate attribution. Revenue-bearing — needs its own contract test.",
+      "migration": "not-started"
+    },
+    {
+      "id": "SOC-001",
+      "name": "Voting",
+      "area": "social",
+      "status": "live",
+      "today": {
+        "api": [
+          "adventures/[id]/vote"
+        ]
+      },
+      "target": {
+        "service": "social",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "notes": "Denormalised voteCount plus a unique Vote row. Race behaviour is covered by a real-database test — port that test with the code.",
+      "migration": "not-started"
+    },
+    {
+      "id": "SOC-002",
+      "name": "Threaded comments",
+      "area": "social",
+      "status": "live",
+      "today": {
+        "api": [
+          "adventures/[id]/comments",
+          "adventures/[id]/comments/[commentId]"
+        ]
+      },
+      "target": {
+        "service": "social",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "migration": "not-started"
+    },
+    {
+      "id": "SOC-003",
+      "name": "Comment reactions",
+      "area": "social",
+      "status": "live",
+      "today": {
+        "api": [
+          "adventures/[id]/comments/[commentId]/react"
+        ]
+      },
+      "target": {
+        "service": "social",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "migration": "not-started"
+    },
+    {
+      "id": "SOC-004",
+      "name": "Bookmarks / bucket list",
+      "area": "social",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/bookmarks",
+        "api": [
+          "adventures/[id]/bookmark"
+        ]
+      },
+      "target": {
+        "service": "social",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "migration": "not-started"
+    },
+    {
+      "id": "SOC-005",
+      "name": "Collections",
+      "area": "social",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/collections/[id]",
+        "api": [
+          "collections",
+          "collections/[id]",
+          "collections/[id]/items"
+        ]
+      },
+      "target": {
+        "service": "social",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "migration": "not-started"
+    },
+    {
+      "id": "SOC-006",
+      "name": "Follow graph",
+      "area": "social",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/profile/[id]/followers",
+        "api": [
+          "users/[id]/follow",
+          "users/suggestions"
+        ]
+      },
+      "target": {
+        "service": "social",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "migration": "not-started"
+    },
+    {
+      "id": "SOC-007",
+      "name": "Activity feed",
+      "area": "social",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/feed"
+      },
+      "target": {
+        "service": "social",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "notes": "Fan-out-on-read today. Fine at current scale; revisit only with evidence.",
+      "migration": "not-started"
+    },
+    {
+      "id": "SOC-008",
+      "name": "Public profiles",
+      "area": "social",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/profile/[id]",
+        "api": [
+          "users/[id]",
+          "users/search"
+        ]
+      },
+      "target": {
+        "service": "identity",
+        "surfaces": [
+          "web",
+          "mobile",
+          "public"
+        ]
+      },
+      "milestone": "M3",
+      "migration": "not-started"
+    },
+    {
+      "id": "SOC-009",
+      "name": "User-submitted adventures",
+      "area": "social",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/adventures/new",
+        "api": [
+          "adventures",
+          "adventures/[id]/publish",
+          "adventures/[id]/duplicate"
+        ]
+      },
+      "target": {
+        "service": "catalog",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "migration": "not-started"
+    },
+    {
+      "id": "SOC-010",
+      "name": "Trip logging",
+      "area": "social",
+      "status": "live",
+      "today": {
+        "api": [
+          "adventures/[id]/complete"
+        ]
+      },
+      "target": {
+        "service": "social",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "notes": "Feeds the cadence engine. Mobile should capture this in the field, not weeks later.",
+      "migration": "not-started"
+    },
+    {
+      "id": "RET-001",
+      "name": "Travel cadence engine",
+      "area": "retention",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/next-trip",
+        "api": [
+          "jobs/[job]"
+        ]
+      },
+      "target": {
+        "service": "cadence",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M6",
+      "notes": "Scans for people overdue a trip and recommends against their taste profile. The product's retention thesis.",
+      "migration": "not-started"
+    },
+    {
+      "id": "RET-002",
+      "name": "Taste profile",
+      "area": "retention",
+      "status": "live",
+      "today": {
+        "api": [
+          "user/traveler-profile"
+        ]
+      },
+      "target": {
+        "service": "cadence",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M6",
+      "migration": "not-started"
+    },
+    {
+      "id": "RET-003",
+      "name": "In-app notifications",
+      "area": "retention",
+      "status": "live",
+      "today": {
+        "api": [
+          "notifications",
+          "notifications/read-all"
+        ]
+      },
+      "target": {
+        "service": "notify",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M4",
+      "migration": "not-started"
+    },
+    {
+      "id": "RET-004",
+      "name": "Transactional email",
+      "area": "retention",
+      "status": "live",
+      "today": {
+        "api": [
+          "email/unsubscribe"
+        ]
+      },
+      "target": {
+        "service": "notify",
+        "surfaces": [
+          "api"
+        ]
+      },
+      "milestone": "M6",
+      "notes": "Signed unsubscribe tokens; every send recorded in EmailLog.",
+      "migration": "not-started"
+    },
+    {
+      "id": "RET-005",
+      "name": "Push notifications",
+      "area": "retention",
+      "status": "planned",
+      "target": {
+        "service": "notify",
+        "surfaces": [
+          "mobile"
+        ]
+      },
+      "milestone": "M4",
+      "notes": "The cadence nudge belongs on a phone, not in an inbox. Requires the mobile client to exist first.",
+      "migration": "n/a"
+    },
+    {
+      "id": "ACCT-001",
+      "name": "Google sign-in",
+      "area": "account",
+      "status": "live",
+      "today": {
+        "web": "/(auth)/login",
+        "api": [
+          "auth/[...nextauth]"
+        ]
+      },
+      "target": {
+        "service": "identity",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "notes": "Highest-risk migration in the programme. Sessions must stay valid across the cutover or every user is logged out.",
+      "migration": "not-started"
+    },
+    {
+      "id": "ACCT-002",
+      "name": "Profile management",
+      "area": "account",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/profile/edit",
+        "api": [
+          "user/me"
+        ]
+      },
+      "target": {
+        "service": "identity",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M3",
+      "migration": "not-started"
+    },
+    {
+      "id": "ACCT-003",
+      "name": "Pro subscription",
+      "area": "account",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/pro",
+        "api": [
+          "stripe/checkout",
+          "stripe/portal",
+          "webhooks/stripe"
+        ]
+      },
+      "target": {
+        "service": "billing",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M5",
+      "notes": "Webhook idempotency via StripeEvent. Mobile must respect app-store billing rules — see M4 notes.",
+      "migration": "not-started"
+    },
+    {
+      "id": "ACCT-004",
+      "name": "Data export and deletion",
+      "area": "account",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/privacy",
+        "api": [
+          "user/me/export"
+        ]
+      },
+      "target": {
+        "service": "identity",
+        "surfaces": [
+          "web"
+        ]
+      },
+      "milestone": "M3",
+      "notes": "Regulatory. Cannot regress during the migration.",
+      "migration": "not-started"
+    },
+    {
+      "id": "ACCT-005",
+      "name": "Bring-your-own OpenAI key",
+      "area": "account",
+      "status": "live",
+      "today": {
+        "api": [
+          "user/openai-key"
+        ]
+      },
+      "target": {
+        "service": "identity",
+        "surfaces": [
+          "web"
+        ]
+      },
+      "milestone": "M5",
+      "notes": "Encrypted at rest.",
+      "migration": "not-started"
+    },
+    {
+      "id": "CONT-001",
+      "name": "Curated catalogue",
+      "area": "content",
+      "status": "live",
+      "today": {
+        "api": [
+          "adventures"
+        ]
+      },
+      "target": {
+        "service": "catalog",
+        "surfaces": [
+          "api"
+        ]
+      },
+      "milestone": "M2",
+      "notes": "1,000 adventures across 143 countries, held to CI-enforced invariants. Data, not code.",
+      "migration": "not-started"
+    },
+    {
+      "id": "CONT-002",
+      "name": "Cover image serving",
+      "area": "content",
+      "status": "live",
+      "today": {
+        "api": [
+          "images/[id]"
+        ]
+      },
+      "target": {
+        "service": "media",
+        "surfaces": [
+          "public"
+        ]
+      },
+      "milestone": "M6",
+      "notes": "Images are bytea in Postgres today — the right emergency fix for upstream rate limiting. Target is object storage behind a CDN; see DEBT-004.",
+      "migration": "not-started"
+    },
+    {
+      "id": "CONT-003",
+      "name": "Photo attribution",
+      "area": "content",
+      "status": "live",
+      "today": {
+        "api": [
+          "adventures/[id]"
+        ]
+      },
+      "target": {
+        "service": "media",
+        "surfaces": [
+          "web",
+          "mobile",
+          "public"
+        ]
+      },
+      "milestone": "M2",
+      "notes": "Licence compliance. Credit must render wherever the image renders, including mobile.",
+      "migration": "not-started"
+    },
+    {
+      "id": "CONT-004",
+      "name": "Admin publish controls",
+      "area": "content",
+      "status": "live",
+      "today": {
+        "web": "/(dashboard)/admin",
+        "api": [
+          "adventures/[id]/publish"
+        ]
+      },
+      "target": {
+        "service": "catalog",
+        "surfaces": [
+          "web"
+        ]
+      },
+      "milestone": "M6",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAT-001",
+      "name": "Rate limiting",
+      "area": "platform",
+      "status": "live",
+      "today": {
+        "api": [
+          "chat",
+          "flights"
+        ]
+      },
+      "target": {
+        "service": "gateway",
+        "surfaces": [
+          "api"
+        ]
+      },
+      "milestone": "M1",
+      "notes": "Fail-closed on cost-bearing routes, fail-open elsewhere. Becomes a tower middleware layer; the stance must survive the port.",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAT-002",
+      "name": "Structured logging and error reporting",
+      "area": "platform",
+      "status": "live",
+      "today": {
+        "api": [
+          "health"
+        ]
+      },
+      "target": {
+        "service": "gateway",
+        "surfaces": [
+          "api"
+        ]
+      },
+      "milestone": "M1",
+      "notes": "Secrets and PII scrubbed before anything reaches Cloud Logging. Port the scrubber, not just the logger.",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAT-003",
+      "name": "First-party analytics",
+      "area": "platform",
+      "status": "live",
+      "today": {
+        "api": [
+          "analytics/collect"
+        ]
+      },
+      "target": {
+        "service": "gateway",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M4",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAT-004",
+      "name": "Scheduled jobs",
+      "area": "platform",
+      "status": "live",
+      "today": {
+        "api": [
+          "jobs/[job]"
+        ]
+      },
+      "target": {
+        "service": "jobs",
+        "surfaces": [
+          "api"
+        ]
+      },
+      "milestone": "M6",
+      "notes": "Retention and cadence scan. Secret-gated HTTP today; becomes an in-process scheduler in the Rust core.",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAT-005",
+      "name": "Health and readiness",
+      "area": "platform",
+      "status": "live",
+      "today": {
+        "api": [
+          "health"
+        ]
+      },
+      "target": {
+        "service": "gateway",
+        "surfaces": [
+          "api"
+        ]
+      },
+      "milestone": "M1",
+      "migration": "not-started"
+    },
+    {
+      "id": "PLAT-006",
+      "name": "Typed API contract",
+      "area": "platform",
+      "status": "planned",
+      "target": {
+        "service": "gateway",
+        "surfaces": [
+          "api"
+        ]
+      },
+      "milestone": "M0",
+      "notes": "OpenAPI generated from the Rust handlers; the TypeScript client is generated from that. This is what makes one backend serve web, mobile and any future product without hand-written fetch calls.",
+      "migration": "n/a"
+    },
+    {
+      "id": "PLAT-007",
+      "name": "Agentic QA harness",
+      "area": "platform",
+      "status": "planned",
+      "target": {
+        "service": "gateway",
+        "surfaces": [
+          "web",
+          "mobile"
+        ]
+      },
+      "milestone": "M7",
+      "notes": "An agent drives the running app looking for breakage; anything it finds becomes a deterministic regression test. See docs/testing-strategy.md.",
+      "migration": "n/a"
+    }
+  ],
+  "migrationStates": {
+    "not-started": "Still served entirely by the TypeScript backend.",
+    "in-progress": "A Rust implementation exists behind an opt-in flag, with fallback.",
+    "done": "Served by Rust in production; the fallback has been removed.",
+    "n/a": "Nothing to migrate — the feature is new work in the target architecture."
+  }
+}
