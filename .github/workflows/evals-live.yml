@@ -15,14 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: summit-social
+        working-directory: apps/web
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: summit-social/package-lock.json
+          cache-dependency-path: apps/web/package-lock.json
       - run: npm ci
       - name: Check key availability
         id: key
@@ -46,5 +46,5 @@ jobs:
         with:
           name: live-eval-results
           path: |
-            summit-social/evals/results/
+            apps/web/evals/results/
           retention-days: 90

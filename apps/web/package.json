@@ -22,7 +22,7 @@
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
     "postinstall": "prisma generate",
-    "prepare": "cd .. && husky summit-social/.husky",
+    "prepare": "cd ../.. && husky apps/web/.husky",
     "test:db": "vitest run --config vitest.db.config.ts",
     "roadmap": "node scripts/roadmap.mjs render",
     "roadmap:check": "node scripts/roadmap.mjs check"

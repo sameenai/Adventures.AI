@@ -9,7 +9,6 @@ current-*.png
 screenshot-*.png
 
 # Token / secret files
-summit-social/mapbox_token.txt
 
 # Playwright MCP browser state
 .playwright-mcp/

@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 /// Cabin classes accepted by the search API (mirrors the Zod enum in
-/// `summit-social/src/lib/validators/flight.ts`).
+/// `apps/web/src/lib/validators/flight.ts`).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum CabinClass {

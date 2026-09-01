@@ -19,7 +19,9 @@ import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = join(HERE, "..");
-const REPO = join(APP, "..");
+// apps/web -> apps -> repo root. Two levels, not one: this script lives inside
+// a workspace package, and docs/ sits at the root beside apps/.
+const REPO = join(APP, "..", "..");
 const DOCS = join(REPO, "docs", "roadmap");
 
 export const REGISTRY_PATH = join(DOCS, "features.json");

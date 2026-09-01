@@ -3,13 +3,13 @@
 The first Rust backend service for Basecamper, extracted from the Next.js
 monolith as the start of a strangler-pattern migration. It is a drop-in
 implementation of the flight search that currently lives in
-`summit-social/src/lib/flights/` (Amadeus + Skyscanner adapters and the
+`apps/web/src/lib/flights/` (Amadeus + Skyscanner adapters and the
 aggregator), exposed as a small Axum HTTP service.
 
 ## The strangler plan
 
 - **Next.js stays the web/BFF layer.** Pages, auth, sessions, Stripe, the AI
-  chat, and the Postgres data model stay in `summit-social/`. Its API routes
+  chat, and the Postgres data model stay in `apps/web/`. Its API routes
   keep owning validation-at-the-edge, auth, rate limiting, and caching.
 - **Bounded backend domains move to Rust services**, one at a time, behind the
   existing TypeScript interfaces so nothing upstream has to change while a
@@ -20,7 +20,7 @@ aggregator), exposed as a small Axum HTTP service.
 
 ### How the Next.js layer opts in
 
-The aggregator (`summit-social/src/lib/flights/aggregator.ts`) gains an opt-in
+The aggregator (`apps/web/src/lib/flights/aggregator.ts`) gains an opt-in
 env var:
 
 - `FLIGHT_SERVICE_URL` unset → current in-process TS adapters run (no change).

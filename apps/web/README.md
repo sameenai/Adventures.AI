@@ -35,7 +35,7 @@ volume, plus one-off flight payments. Free users get metered monthly AI credits.
 ## 2. Directory map
 
 ```
-summit-social/
+apps/web/
 ├── src/app/
 │   ├── (auth)/              # login, signup (Google OAuth; dev login outside production)
 │   ├── (dashboard)/         # all product pages: adventures, explore, feed, flights,

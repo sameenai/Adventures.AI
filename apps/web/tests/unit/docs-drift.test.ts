@@ -8,7 +8,9 @@ import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const APP_ROOT = resolve(__dirname, "../..");
-const REPO_ROOT = resolve(APP_ROOT, "..");
+// apps/web -> apps -> repo root. Two levels: this app is a workspace under
+// apps/, and README.md/RUNBOOK.md sit at the root beside it.
+const REPO_ROOT = resolve(APP_ROOT, "..", "..");
 
 const appReadme = readFileSync(join(APP_ROOT, "README.md"), "utf8");
 const rootReadme = readFileSync(join(REPO_ROOT, "README.md"), "utf8");
@@ -57,35 +59,35 @@ function envKeys(): string[] {
 describe("docs drift — the READMEs describe the actual system", () => {
   it("documents every API route", () => {
     const missing = apiRoutePaths().filter((route) => !appReadme.includes(route));
-    expect(missing, `Add to summit-social/README.md §4: ${missing.join(", ")}`).toEqual([]);
+    expect(missing, `Add to apps/web/README.md §4: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("documents every Prisma model", () => {
     const missing = prismaModels().filter((model) => !new RegExp(`\\b${model}\\b`).test(appReadme));
-    expect(missing, `Add to summit-social/README.md §3: ${missing.join(", ")}`).toEqual([]);
+    expect(missing, `Add to apps/web/README.md §3: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("documents every chat tool", () => {
     const tools = chatToolNames();
     expect(tools.length).toBeGreaterThanOrEqual(6); // the loop really declares tools
     const missing = tools.filter((tool) => !appReadme.includes(tool));
-    expect(missing, `Add to summit-social/README.md §5: ${missing.join(", ")}`).toEqual([]);
+    expect(missing, `Add to apps/web/README.md §5: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("documents every npm script", () => {
     const missing = npmScripts().filter((script) => !appReadme.includes(script));
-    expect(missing, `Add to summit-social/README.md §9/§10: ${missing.join(", ")}`).toEqual([]);
+    expect(missing, `Add to apps/web/README.md §9/§10: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("documents every environment variable (README or runbook)", () => {
     const missing = envKeys().filter((key) => !appDocs.includes(key));
-    expect(missing, `Add to summit-social/README.md §10 or RUNBOOK.md: ${missing.join(", ")}`).toEqual(
+    expect(missing, `Add to apps/web/README.md §10 or RUNBOOK.md: ${missing.join(", ")}`).toEqual(
       [],
     );
   });
 
   it("root README maps every workspace", () => {
-    for (const path of ["summit-social/", "services/flight-search", "RUNBOOK.md"]) {
+    for (const path of ["apps/web", "services/flight-search", "RUNBOOK.md"]) {
       expect(rootReadme, `Root README.md must mention ${path}`).toContain(path);
     }
   });
