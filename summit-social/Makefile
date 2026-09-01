@@ -87,6 +87,26 @@ deploy-gcp:
 		--project=$(GCP_PROJECT) \
 		--region=$(GCP_REGION) \
 		--image=$(GCP_MIGRATE_IMAGE) \
+		--command=node_modules/.bin/prisma --args=migrate,deploy \
+		--quiet
+	gcloud run jobs execute migrate-db \
+		--project=$(GCP_PROJECT) \
+		--region=$(GCP_REGION) \
+		--wait
+# Seed the catalog. Migrations only change SHAPE — without this, catalog edits
+# (new adventures, retired duplicates, corrected copy, re-sourced photos) never
+# reach production no matter how many times we deploy. The seed is upsert-based
+# and idempotent: it updates content in place, leaves vote counts and any
+# user-created rows alone, and moves user data onto keepers before retiring
+# duplicates. Reuses the migrate-db job because it already has the production
+# database wiring; both steps set --command explicitly, so neither can inherit
+# the other's and run the wrong thing.
+	@echo "→ Seeding catalog..."
+	gcloud run jobs update migrate-db \
+		--project=$(GCP_PROJECT) \
+		--region=$(GCP_REGION) \
+		--image=$(GCP_MIGRATE_IMAGE) \
+		--command=node_modules/.bin/tsx --args=prisma/seed.ts \
 		--quiet
 	gcloud run jobs execute migrate-db \
 		--project=$(GCP_PROJECT) \

@@ -40,18 +40,47 @@ jobs:
 
       - uses: google-github-actions/setup-gcloud@v3
 
-      - name: Build image (tagged with the commit SHA, not :latest)
+      - name: Build app image (tagged with the commit SHA, not :latest)
         run: >-
           gcloud builds submit .
           --project=basecamp-494710
           --tag=europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:${{ github.sha }}
 
+      # The app image is a Next standalone bundle: it carries prisma/ and the
+      # generated client, but NOT the prisma CLI or tsx, which are devDependencies.
+      # Database work runs on the `migrator` target instead, which keeps the full
+      # node_modules. Tagged per-SHA so a job never runs a stale image.
+      - name: Build migrator image
+        run: >-
+          gcloud builds submit .
+          --project=basecamp-494710
+          --config=cloudbuild-migrate.yaml
+          --substitutions=_MIGRATE_TAG=migrate-${{ github.sha }}
+
       - name: Run database migrations
         run: |
           gcloud run jobs update migrate-db \
             --project=basecamp-494710 --region=europe-west2 \
-            --image=europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:${{ github.sha }} \
-            --command=npx --args=prisma,migrate,deploy --quiet
+            --image=europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:migrate-${{ github.sha }} \
+            --command=node_modules/.bin/prisma --args=migrate,deploy --quiet
+          gcloud run jobs execute migrate-db \
+            --project=basecamp-494710 --region=europe-west2 --wait
+
+      # Migrations only change SHAPE. Without this step, catalog edits — new
+      # adventures, retired duplicates, corrected copy, re-sourced photos — never
+      # reach production however often we deploy. The seed is upsert-based and
+      # idempotent: content updates in place, vote counts and user-created rows
+      # are left alone, and user data is moved onto keepers before any duplicate
+      # is retired. It runs before the canary so the smoke test below exercises
+      # the catalog people will actually see.
+      # Reuses the migrate-db job for its existing database wiring; both steps set
+      # --command explicitly so neither can inherit the other's and run the wrong one.
+      - name: Seed the catalog
+        run: |
+          gcloud run jobs update migrate-db \
+            --project=basecamp-494710 --region=europe-west2 \
+            --image=europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:migrate-${{ github.sha }} \
+            --command=node_modules/.bin/tsx --args=prisma/seed.ts --quiet
           gcloud run jobs execute migrate-db \
             --project=basecamp-494710 --region=europe-west2 --wait
 

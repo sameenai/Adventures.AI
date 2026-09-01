@@ -1,10 +1,21 @@
+# Builds the `migrator` Docker target — the image database work runs on.
+#
+# The production app image is a Next standalone bundle and deliberately does NOT
+# carry the prisma CLI or tsx (both devDependencies), so it cannot run migrations
+# or the seed. This target keeps the full node_modules for exactly that.
+#
+# _MIGRATE_TAG defaults to `migrate` for the manual `make deploy-gcp` path; CI
+# overrides it with `migrate-<sha>` so a job can never execute a stale image.
+substitutions:
+  _MIGRATE_TAG: migrate
+
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       - build
       - --target=migrator
       - -t
-      - europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:migrate
+      - europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:${_MIGRATE_TAG}
       - .
 images:
-  - europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:migrate
+  - europe-west2-docker.pkg.dev/basecamp-494710/basecamper/app:${_MIGRATE_TAG}

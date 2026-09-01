@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { Category, Difficulty, ItineraryStatus, PrismaClient } from "@prisma/client";
+import { buildKeeperMap, salvageUserData } from "./retirement";
 
 /**
  * Data-driven seed.
@@ -8,8 +9,9 @@ import { Category, Difficulty, ItineraryStatus, PrismaClient } from "@prisma/cli
  * The adventure catalog lives in prisma/data/adventures.json — a single
  * canonical, deduplicated dataset. This script:
  *   1. Upserts the three demo users and all tags referenced by the catalog.
- *   2. Deletes retired duplicate adventures (prisma/data/retired-adventures.json)
- *      so existing databases converge on the deduplicated catalog.
+ *   2. Moves user-generated rows off retired duplicates onto their keeper, then
+ *      deletes the duplicates (prisma/data/retired-adventures.json) so existing
+ *      databases converge on the deduplicated catalog without losing history.
  *   3. Upserts every adventure — updating content fields in place so data-quality
  *      fixes reach existing databases, while never touching vote counts or any
  *      user-generated rows (user adventures have cuid ids, not seed-adventure-*).
@@ -130,6 +132,23 @@ async function main() {
   // ---------------------------------------------------------------------------
   const retiredIds = retired.map((r) => r.id);
   if (retiredIds.length > 0) {
+    // Move people's votes, bookmarks, comments, collection entries and trip logs
+    // onto the keeper BEFORE deleting — every one of those relations cascades, so
+    // on a live database the delete would otherwise destroy real history for a
+    // record that has an identical surviving twin.
+    const keeperMap = buildKeeperMap(
+      retired,
+      new Set(adventures.map((a) => a.id)),
+    );
+    const salvaged = await salvageUserData(prisma, keeperMap);
+    if (salvaged.total > 0) {
+      const detail = Object.entries(salvaged.moved)
+        .filter(([, n]) => n > 0)
+        .map(([model, n]) => `${n} ${model}`)
+        .join(", ");
+      console.log(`  Moved ${salvaged.total} user rows to keepers (${detail})`);
+    }
+
     const { count } = await prisma.adventure.deleteMany({ where: { id: { in: retiredIds } } });
     if (count > 0) console.log(`  Retired ${count} duplicate adventures`);
   }
