@@ -59,8 +59,20 @@ Required in production (see `summit-social/.env.example` for the full list):
   to the first other one whose Ready condition is True — it verifies
   readiness per revision, so it never rolls back onto a broken revision
   (`make rollback REVISION=<name>` skips detection and uses that revision).
-- Migrations: `npx prisma migrate deploy` runs against the production DB
-  before traffic shifts. Never `db push`, never edit applied migrations.
+- Migrations: `prisma migrate deploy` runs against the production DB before
+  traffic shifts. Never `db push`, never edit applied migrations.
+- Seed: the catalog seed runs immediately after migrations, before the canary
+  takes traffic. Migrations only change SHAPE — without this step a catalog
+  change (new adventures, retired duplicates, corrected copy, re-sourced
+  photos) never reaches production however often you deploy. The seed is
+  upsert-based and idempotent: content fields update in place, `voteCount` and
+  user-created rows are untouched, and user data (votes, bookmarks, comments,
+  collection entries, trip logs) is moved onto the keeper before a duplicate is
+  retired, so retiring never destroys someone's history.
+- Both database steps run on the **migrator** image, not the app image: the app
+  image is a Next standalone bundle and does not carry the prisma CLI or tsx.
+  They share the `migrate-db` Cloud Run job and each sets `--command`
+  explicitly, so neither can inherit the other's and run the wrong thing.
 - Rust service: build/deploy separately (`services/flight-search/Dockerfile`),
   then set `FLIGHT_SERVICE_URL` on the main service. Roll back by unsetting
   the variable — the in-process adapters take over immediately.

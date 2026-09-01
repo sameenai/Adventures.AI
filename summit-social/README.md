@@ -248,7 +248,10 @@ Environment (see `.env.example`; full production matrix in the runbook): `DATABA
 `DEMO_MODE`.
 
 Deploy: `make deploy-gcp` (Cloud Build → Cloud Run) or the WIF-gated `deploy.yml` workflow, which
-canaries (no-traffic revision → smoke → promote). Ops: `make rollback` (previous revision in
+canaries (no-traffic revision → smoke → promote). Both build a second **migrator** image (the app
+image is a Next standalone bundle without the prisma CLI or tsx) and run migrations *then the
+catalog seed* on it before traffic shifts — migrations only change schema, so without the seed step
+a catalog change never reaches production. Ops: `make rollback` (previous revision in
 seconds), `make alerts-setup` (monitoring policies from `ops/alerts/`), `make scheduler-setup`
 (jobs) — incident playbooks in [`../RUNBOOK.md`](../RUNBOOK.md).
 
