@@ -3,9 +3,6 @@ export const APP_DESCRIPTION =
   "The expedition platform for serious adventurers. Discover world-class routes, plan trips with AI, and share your journeys.";
 export const APP_URL = process.env.NEXTAUTH_URL ?? "http://localhost:3000";
 
-export const PAGINATION_DEFAULT_LIMIT = 20;
-export const PAGINATION_MAX_LIMIT = 100;
-
 export const RATE_LIMITS = {
   chat: { limit: 30, windowSeconds: 3600 },
   feedback: { limit: 60, windowSeconds: 3600 },
@@ -86,8 +83,6 @@ export const CHAT_HISTORY_MAX_MESSAGES = 100;
 // Bump when /terms materially changes; first sign-in after a bump re-stamps
 // User.termsVersion via the auth signIn event.
 export const TERMS_VERSION = "2026-08-24";
-
-export const UPLOAD_MAX_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
 
 export const PLANS = {
   FREE: {

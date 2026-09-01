@@ -18,8 +18,6 @@ COPY . .
 RUN npx prisma generate
 
 # Build Next.js — env vars starting with NEXT_PUBLIC_ must be available at build time
-ARG NEXT_PUBLIC_MAPBOX_TOKEN
-ENV NEXT_PUBLIC_MAPBOX_TOKEN=$NEXT_PUBLIC_MAPBOX_TOKEN
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_PHASE=phase-production-build
 
