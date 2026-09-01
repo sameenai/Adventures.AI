@@ -211,6 +211,60 @@ async function main() {
   }
 
   // ---------------------------------------------------------------------------
+  // Cover images — download any missing, then point URLs at the local API
+  // ---------------------------------------------------------------------------
+  const missingImages = await prisma.adventure.findMany({
+    where: {
+      id: { startsWith: "seed-adventure-" },
+      coverImage: { is: null },
+      coverImageUrl: { startsWith: "http" },
+    },
+    select: { id: true, title: true, coverImageUrl: true },
+  });
+
+  if (missingImages.length > 0) {
+    console.log(`  Ingesting ${missingImages.length} new cover images...`);
+    const IMG_BATCH = 10;
+    let imgOk = 0;
+    let imgFail = 0;
+    for (let i = 0; i < missingImages.length; i += IMG_BATCH) {
+      const batch = missingImages.slice(i, i + IMG_BATCH);
+      await Promise.all(
+        batch.map(async (a) => {
+          try {
+            const ctrl = new AbortController();
+            const timer = setTimeout(() => ctrl.abort(), 15_000);
+            const res = await fetch(a.coverImageUrl, { signal: ctrl.signal });
+            clearTimeout(timer);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const contentType = res.headers.get("content-type") ?? "image/jpeg";
+            const data = Buffer.from(await res.arrayBuffer());
+            await prisma.coverImage.create({
+              data: { adventureId: a.id, data, contentType, sourceUrl: a.coverImageUrl },
+            });
+            imgOk++;
+          } catch (e) {
+            imgFail++;
+            console.error(`    Failed: ${a.title} — ${e instanceof Error ? e.message : e}`);
+          }
+        }),
+      );
+      if (i + IMG_BATCH < missingImages.length) {
+        await new Promise((r) => setTimeout(r, 1_000));
+      }
+    }
+    console.log(`  Cover images: ${imgOk} downloaded, ${imgFail} failed`);
+  }
+
+  const urlsUpdated = await prisma.$executeRaw`
+    UPDATE "Adventure"
+    SET "coverImageUrl" = '/api/images/' || "id"
+    WHERE "id" IN (SELECT "adventureId" FROM "CoverImage")
+      AND "coverImageUrl" LIKE 'http%'
+  `;
+  if (urlsUpdated > 0) console.log(`  Cover image URLs updated: ${urlsUpdated}`);
+
+  // ---------------------------------------------------------------------------
   // Showcase itineraries — fixed ids so re-seeding never duplicates them
   // ---------------------------------------------------------------------------
   const itineraries = [

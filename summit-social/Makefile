@@ -1,4 +1,4 @@
-.PHONY: setup run test test-unit test-integration test-e2e lint build db-migrate db-seed db-studio deploy-preview deploy-gcp scheduler-setup alerts-setup rollback
+.PHONY: setup run test test-unit test-integration test-e2e lint build db-migrate db-seed db-studio deploy-preview deploy-gcp ingest-images scheduler-setup alerts-setup rollback
 
 GCP_PROJECT    := basecamp-494710
 GCP_REGION     := europe-west2
@@ -67,6 +67,9 @@ db-seed:
 
 db-studio:
 	npx prisma studio
+
+ingest-images:
+	npx tsx prisma/ingest-images.ts
 
 deploy-preview:
 	npx vercel

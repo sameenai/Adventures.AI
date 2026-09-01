@@ -94,6 +94,10 @@ material — while a thumbs-up stores no transcript, only the rating; one row pe
 `exportedAt` — the marker for rows already promoted into eval candidates, so the feedback →
 eval-case pipeline never double-exports; cascade-deletes with the user).
 
+**Media** — `CoverImage` (adventure cover photo stored as a Postgres bytea blob; served via
+`/api/images/[id]` with immutable cache headers; seeded from Wikimedia Commons, no external
+dependency at runtime).
+
 **Ops & audit** — `StripeEvent` (webhook idempotency ledger), `EmailLog` (every send attempt:
 SENT/FAILED/SKIPPED), `JobRun` (scheduled-job observability), `AnalyticsEvent` (product analytics:
 one row per funnel event, captured server-side where the thing actually happened — payment via the
@@ -124,6 +128,7 @@ per-user rate limits, fail-closed on cost-bearing routes). New routes use `withA
 | Billing | `/api/stripe/checkout` (Pro subscription) · `/api/stripe/portal` (manage/cancel) · `/api/webhooks/stripe` (signed, idempotent) |
 | Email | `/api/email/unsubscribe` (HMAC-signed one-tap link) |
 | Analytics | `/api/analytics/collect` (first-party page-view beacon: allowlisted names only, no cookies, DNT/GPC honoured, anonymous senders keyed by the rotating salted hash) |
+| Media | `/api/images/[id]` (serves cover image from Postgres with `Cache-Control: immutable`; keyed by adventure ID) |
 | Ops | `/api/health` (db + redis component status) · `/api/jobs/[job]` (secret-gated: cadence-scan, retention) |
 
 ## 5. The AI agent

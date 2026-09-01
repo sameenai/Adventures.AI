@@ -96,6 +96,7 @@ model Adventure {
   cadenceRecs     CadenceRecommendation[]
   operatorId      String?
   operator        Operator? @relation(fields: [operatorId], references: [id], onDelete: SetNull)
+  coverImage      CoverImage?
 
   @@index([voteCount(sort: Desc), id])
   @@index([createdAt(sort: Desc), id])
@@ -553,4 +554,14 @@ enum CadenceRecStatus {
   CLICKED
   PLANNED
   DISMISSED
+}
+
+model CoverImage {
+  id          String    @id @default(cuid())
+  adventureId String    @unique
+  adventure   Adventure @relation(fields: [adventureId], references: [id], onDelete: Cascade)
+  data        Bytes
+  contentType String
+  sourceUrl   String
+  createdAt   DateTime  @default(now())
 }
