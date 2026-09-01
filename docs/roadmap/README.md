@@ -10,7 +10,8 @@ React Native clients. Three files do the work:
 | [`milestones/`](./milestones) | One file per milestone: goal, scope, exit criteria, risks. |
 | [`tech-debt.md`](./tech-debt.md) | Debt register with owners and trigger conditions. |
 
-Architecture decisions live in [`../adr/`](../adr). The target design is in
+Architecture decisions live in [`../adr/`](../adr) — including the Rust core, the
+client split, the server-rendered public surface, and [web-only checkout](../adr/0006-web-only-checkout.md). The target design is in
 [`../architecture/target-architecture.md`](../architecture/target-architecture.md).
 Testing — including the agentic tiers — is in [`../testing-strategy.md`](../testing-strategy.md).
 

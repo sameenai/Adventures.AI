@@ -7,6 +7,10 @@
 - **`billing` service** — Stripe via `async-stripe`. Checkout, portal, webhooks,
   booking checkout and repricing. Webhook idempotency keeps the `StripeEvent` ledger:
   a redelivered event must stay a no-op.
+  Checkout is **web-only** ([ADR-0006](../../adr/0006-web-only-checkout.md)): there is
+  no store-billing branch, and entitlement has one source of truth — the Stripe
+  subscription. The service stays reusable precisely because it carries no
+  platform-specific path.
 - **`assistant` service** — streaming chat over SSE, six tools, tool execution with
   direct database access instead of HTTP round-trips through its own API.
 - **Evals move with the code.** The harness in `evals/` — nine graders, 22 golden and

@@ -14,7 +14,7 @@ for flights, and get told when you're due your next adventure — based on your 
 | `services/flight-search/` | Rust (Axum) flight-search service — the first strangler-pattern backend extraction. Opt-in via `FLIGHT_SERVICE_URL`; falls back in-process on any failure. See [`services/flight-search/README.md`](services/flight-search/README.md). |
 | `apps/web/evals/` | The AI eval harness: golden replays, adversarial teeth-checks, deterministic graders, and a prompt-surface hash gate. See [`apps/web/evals/README.md`](apps/web/evals/README.md). |
 | `docs/roadmap/` | **The plan of record.** Feature registry, generated delivery board, milestones and the debt register. Start at [`docs/roadmap/README.md`](docs/roadmap/README.md). |
-| `docs/adr/` | Architecture decisions, including the move to a Rust core and React/React Native clients. |
+| `docs/adr/` | Architecture decisions: the Rust core, React/React Native clients, the server-rendered public surface, and web-only Stripe checkout. |
 | `docs/architecture/` | [Target architecture](docs/architecture/target-architecture.md) — where the platform is going and why. |
 | `docs/testing-strategy.md` | Every test tier, including the AI eval and agentic QA tiers. |
 | `RUNBOOK.md` | Production operations: deploy, secrets matrix, scheduled jobs, incident playbook. |
