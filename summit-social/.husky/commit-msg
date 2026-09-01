@@ -1,2 +1,0 @@
-cd summit-social
-npx --no -- commitlint --edit "$1"

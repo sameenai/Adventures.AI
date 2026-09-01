@@ -1,16 +1,16 @@
-# Root Makefile — delegates to summit-social/
-# Run `make setup` or `make run` from the repo root or from summit-social/
+# Root Makefile — delegates to apps/web/
+# Run `make setup` or `make run` from the repo root or from apps/web/
 
 .PHONY: setup run test lint
 
 setup:
-	$(MAKE) -C summit-social setup
+	$(MAKE) -C apps/web setup
 
 run:
-	$(MAKE) -C summit-social run
+	$(MAKE) -C apps/web run
 
 test:
-	$(MAKE) -C summit-social test
+	$(MAKE) -C apps/web test
 
 lint:
-	$(MAKE) -C summit-social lint
+	$(MAKE) -C apps/web lint

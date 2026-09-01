@@ -10,13 +10,15 @@ for flights, and get told when you're due your next adventure — based on your 
 
 | Path | What it is |
 |------|-----------|
-| `summit-social/` | The main product: a Next.js 15 full-stack app (web UI + API + AI agent + payments). **Start with [`summit-social/README.md`](summit-social/README.md)** — the complete codebase guide: architecture, data model, full API surface, testing, env matrix. |
+| `apps/web/` | The main product: a Next.js 15 full-stack app (web UI + API + AI agent + payments). **Start with [`apps/web/README.md`](apps/web/README.md)** — the complete codebase guide: architecture, data model, full API surface, testing, env matrix. |
 | `services/flight-search/` | Rust (Axum) flight-search service — the first strangler-pattern backend extraction. Opt-in via `FLIGHT_SERVICE_URL`; falls back in-process on any failure. See [`services/flight-search/README.md`](services/flight-search/README.md). |
-| `summit-social/evals/` | The AI eval harness: golden replays, adversarial teeth-checks, deterministic graders, and a prompt-surface hash gate. See [`summit-social/evals/README.md`](summit-social/evals/README.md). |
+| `apps/web/evals/` | The AI eval harness: golden replays, adversarial teeth-checks, deterministic graders, and a prompt-surface hash gate. See [`apps/web/evals/README.md`](apps/web/evals/README.md). |
 | `docs/roadmap/` | **The plan of record.** Feature registry, generated delivery board, milestones and the debt register. Start at [`docs/roadmap/README.md`](docs/roadmap/README.md). |
-| `docs/adr/` | Architecture decisions, including the move to a Rust core and React/React Native clients. |
+| `docs/adr/` | Architecture decisions: the Rust core, React/React Native clients, the server-rendered public surface, and web-only Stripe checkout. |
 | `docs/architecture/` | [Target architecture](docs/architecture/target-architecture.md) — where the platform is going and why. |
 | `docs/testing-strategy.md` | Every test tier, including the AI eval and agentic QA tiers. |
+| `docs/product/` | The original product spec (`SummitSocial_PRD.docx`) — kept for provenance; the roadmap above is the current plan. |
+| `docs/assets/` | Screenshots and images used by the documentation. |
 | `RUNBOOK.md` | Production operations: deploy, secrets matrix, scheduled jobs, incident playbook. |
 | `CLAUDE.md` | Working conventions for AI-assisted development (commit style, hooks, workflow, resilience rules). |
 | `.github/workflows/` | CI (`ci.yml`), gated Cloud Run deploy (`deploy.yml`), weekly live evals (`evals-live.yml`). |
@@ -32,7 +34,7 @@ for flights, and get told when you're due your next adventure — based on your 
 | Redis | 7 | `brew install redis` |
 
 ```bash
-cd summit-social
+cd apps/web
 make setup    # install deps, start Postgres/Redis, create DB, migrate, seed
 make run      # start everything + the Next.js dev server at http://localhost:3000
 ```
@@ -46,7 +48,7 @@ Everything external is optional locally and degrades gracefully: without `OPENAI
 planner streams a demo itinerary; without flight-provider keys you get clearly-mock offers;
 without `STRIPE_SECRET_KEY` pay routes return 503; without `RESEND_API_KEY` emails are recorded
 (`EmailLog`) but not sent. The full commands reference and environment matrix live in
-[`summit-social/README.md`](summit-social/README.md) §9–10.
+[`apps/web/README.md`](apps/web/README.md) §9–10.
 
 ## The product in one paragraph
 
@@ -71,5 +73,5 @@ feed the same taste profile.
 - **Docs stay true**: `tests/unit/docs-drift.test.ts` fails CI when an API route, data model,
   chat tool, npm script, or env var exists that the READMEs don't document.
 
-See [`summit-social/README.md`](summit-social/README.md) for the full architecture, data model,
+See [`apps/web/README.md`](apps/web/README.md) for the full architecture, data model,
 API surface, and testing guide.

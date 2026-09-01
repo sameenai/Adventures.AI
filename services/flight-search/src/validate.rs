@@ -1,5 +1,5 @@
 //! Request validation, mirroring `flightSearchSchema` in
-//! `summit-social/src/lib/validators/flight.ts`.
+//! `apps/web/src/lib/validators/flight.ts`.
 
 use serde::Serialize;
 use serde_json::{Map, Value};

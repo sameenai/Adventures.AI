@@ -796,7 +796,7 @@
         ]
       },
       "milestone": "M5",
-      "notes": "Webhook idempotency via StripeEvent. Mobile must respect app-store billing rules — see M4 notes.",
+      "notes": "Webhook idempotency via StripeEvent. Checkout is web-only (ADR-0006) — the mobile app reads entitlement and never sells, so there is no store-billing integration and one source of truth for Pro state.",
       "migration": "not-started"
     },
     {

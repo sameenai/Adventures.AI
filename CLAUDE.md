@@ -8,9 +8,9 @@ When receiving a short or ambiguous request (e.g. a single word like "tui"), ask
 
 ## Project
 
-**Basecamper** (basecamper.ai) — An automated tour and itinerary builder with social features. The main application lives in `summit-social/`, a Next.js 15 full-stack app.
+**Basecamper** (basecamper.ai) — An automated tour and itinerary builder with social features. The main application lives in `apps/web/`, a Next.js 15 full-stack app.
 
-All commands below should be run from `summit-social/`.
+All commands below should be run from `apps/web/`.
 
 ## Commands
 
@@ -71,7 +71,7 @@ make deploy-gcp     # Build Docker image via Cloud Build and deploy to Cloud Run
 ## Session-End Requirement
 
 **At the end of every prompt session, deploy to GCP.** After all code changes have been merged to
-`main`, run the following from `summit-social/`:
+`main`, run the following from `apps/web/`:
 
 ```bash
 make deploy-gcp
@@ -109,7 +109,7 @@ surface — it must always reflect current state. Verify with a quick scan befor
 ## Architecture
 
 ### Repository layout
-- `summit-social/` — the Next.js full-stack app (web + BFF layer)
+- `apps/web/` — the Next.js full-stack app (web + BFF layer)
 - `services/flight-search/` — Rust (Axum) flight-search service: the first
   strangler-pattern backend extraction. The Next.js aggregator proxies to it
   when `FLIGHT_SERVICE_URL` is set, and falls back to the in-process TS
@@ -209,7 +209,7 @@ Do not bypass hooks with `--no-verify`. Fix the underlying issue instead.
 **Run tests before opening a PR.** All unit and integration tests must pass locally (`npm run test:unit` and `npm run test:integration`) before a PR is created. New code must include tests, and overall coverage must remain high (target 95%+).
 
 **Update the READMEs in the same PR as the change.** `README.md` (repo map + product) and
-`summit-social/README.md` (the codebase guide) must always describe the current system. Any PR
+`apps/web/README.md` (the codebase guide) must always describe the current system. Any PR
 that adds or changes an API route, Prisma model, chat tool, npm script, env var, user journey, or
 architectural decision updates the relevant README section in that same PR — never as a follow-up.
 This is enforced: `tests/unit/docs-drift.test.ts` fails CI (and the pre-push hook) when a route,

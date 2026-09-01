@@ -21,6 +21,7 @@ settled, so the app is built once.
   in an inbox.
 - **Field trip logging** — mark an adventure done where it happens.
 - **Native map** for explore.
+- **No paywall.** Pro state is read and rendered; it is never sold. See ADR-0006.
 
 ## Exit criteria
 
@@ -29,14 +30,18 @@ settled, so the app is built once.
 - [ ] Push delivery verified for the cadence nudge
 - [ ] Cold start under 2 s on a mid-range Android device
 - [ ] Mobile E2E suite green in CI (Maestro)
+- [ ] No purchase flow, price or buy-now copy anywhere in the app bundle — asserted by a test, not by inspection
 
 ## Risks
 
-**App-store billing rules.** Selling a subscription inside the app may require
-store billing and its revenue share. Decide before building the paywall: either
-web-only checkout (with the app linking out where policy permits) or store billing
-with Stripe reserved for web. This is a commercial decision, not an engineering one —
-it needs an answer before M5.
+**App-store review, not billing.** The billing question is settled: checkout is
+web-only through Stripe ([ADR-0006](../../adr/0006-web-only-checkout.md)), so the
+app never sells anything and there is no second payment integration to build.
+
+What remains is review risk on the Pro explainer screen. Store rules on steering
+users to outside purchase are specific and they change, so the copy stays
+informational — no price, no purchase link, no call to buy — and is re-read
+before each submission. That is one screen's wording rather than a payment path.
 
 **Two clients, one team.** Shared logic reduces this but does not remove it. The
 answer is the generated client plus `packages/core`, not a cross-platform UI layer

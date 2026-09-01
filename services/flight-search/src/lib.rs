@@ -1,6 +1,6 @@
 //! Basecamper flight-search service.
 //!
-//! Mirrors the semantics of `summit-social/src/lib/flights/` (Amadeus + Skyscanner
+//! Mirrors the semantics of `apps/web/src/lib/flights/` (Amadeus + Skyscanner
 //! adapters and the aggregator) so the Next.js layer can proxy to it verbatim.
 
 pub mod aggregator;

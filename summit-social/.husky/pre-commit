@@ -1,3 +1,0 @@
-cd summit-social
-npx lint-staged
-npx tsc --noEmit

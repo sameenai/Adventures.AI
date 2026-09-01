@@ -1,14 +1,14 @@
 # Basecamper Runbook
 
 Operational reference for running Basecamper in production. The app is a
-Next.js 15 monolith (`summit-social/`) on Cloud Run with Postgres + Redis,
+Next.js 15 monolith (`apps/web/`) on Cloud Run with Postgres + Redis,
 plus a Rust flight-search service (`services/flight-search/`) behind the
 strangler pattern.
 
 ## Architecture at a glance
 
 - **Web + API**: Next.js (App Router) — one Cloud Run service (`basecamper`).
-- **Database**: PostgreSQL via Prisma. Migrations in `summit-social/prisma/migrations`.
+- **Database**: PostgreSQL via Prisma. Migrations in `apps/web/prisma/migrations`.
 - **Cache / rate limiting**: Redis (ioredis). Rate limits are atomic (Lua);
   cost-bearing routes (chat, flight search, checkout) **fail closed** when
   Redis is down — expect 429s, not free traffic, during a Redis outage.
@@ -27,7 +27,7 @@ strangler pattern.
 
 ## Environments & secrets
 
-Required in production (see `summit-social/.env.example` for the full list):
+Required in production (see `apps/web/.env.example` for the full list):
 
 | Variable | Purpose | Absent ⇒ |
 |---|---|---|
@@ -46,7 +46,7 @@ Required in production (see `summit-social/.env.example` for the full list):
 
 ## Deploy
 
-- Manual: `cd summit-social && make deploy-gcp` (Cloud Build → Cloud Run,
+- Manual: `cd apps/web && make deploy-gcp` (Cloud Build → Cloud Run,
   project `basecamp-494710`, region `europe-west2`).
 - CI: `.github/workflows/deploy.yml` deploys `main` with SHA-tagged images
   once `GCP_WIF_PROVIDER` / `GCP_DEPLOY_SA` repo variables are set. It is a
@@ -104,7 +104,7 @@ when "no emails went out last night". Cadence emails go only to users with
   Explorer renders it natively; build log-based metrics on `route` for
   per-route p95 on those paths. The streaming chat route and the Stripe
   webhook are observed via Cloud Run's own request logs and `reportError()`.
-- **Alerts as code**: `summit-social/ops/alerts/*.json` is the source of
+- **Alerts as code**: `apps/web/ops/alerts/*.json` is the source of
   truth — 5xx rate, p95 latency over the 2s budget, ERROR-log spikes, and
   uptime on `/api/health`. `make alerts-setup` upserts the policies and
   provisions the uptime check; attach notification channels once in the
@@ -141,7 +141,7 @@ when "no emails went out last night". Cadence emails go only to users with
   `MessageFeedback` UP ratings are deleted after 90 days, DOWN ratings after
   365 days (DOWN feeds the eval suite, so it keeps the longer window).
 - Eval candidate files: `npm run eval:candidates` writes raw feedback
-  conversation snapshots to `summit-social/evals/transcripts/candidates/` on
+  conversation snapshots to `apps/web/evals/transcripts/candidates/` on
   the operator's machine — working copies of user text, outside the app's
   retention machinery (they are gitignored and never committed). Delete them
   once triaged/promoted, and when handling an erasure request include wiping

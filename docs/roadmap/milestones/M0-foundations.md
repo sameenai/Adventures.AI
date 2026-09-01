@@ -13,7 +13,7 @@ confuse "the extraction is wrong" with "the scaffolding is wrong".
 ## Scope
 
 - **Monorepo layout.** `apps/` for clients, `services/` for Rust, `packages/` for
-  shared TypeScript. `summit-social/` stays exactly where it is and keeps serving
+  shared TypeScript. `apps/web/` stays exactly where it is and keeps serving
   production throughout; it moves to `apps/legacy-web/` only in M6.
 - **API contract.** `utoipa` annotations on the existing Rust flight service emit an
   OpenAPI document. A generated TypeScript client is published as

@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: summit-social
+    working-directory: apps/web
 
 jobs:
   lint:
@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: summit-social/package-lock.json
+          cache-dependency-path: apps/web/package-lock.json
       - run: npm ci
       - run: npm run lint
       - name: Supply-chain gate (high+ production advisories fail; allowlist is a ledger)
@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: summit-social/package-lock.json
+          cache-dependency-path: apps/web/package-lock.json
       - run: npm ci
       - name: Unit + integration with coverage thresholds
         run: npx vitest run --coverage
@@ -51,7 +51,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: summit-social/package-lock.json
+          cache-dependency-path: apps/web/package-lock.json
       - run: npm ci
       - run: npm run eval
 
@@ -64,7 +64,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: summit-social/package-lock.json
+          cache-dependency-path: apps/web/package-lock.json
       - run: npm ci
       - run: npm run build
       - name: Bundle budget gate (client JS per route vs bundle-budget.json)
@@ -108,7 +108,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: summit-social/package-lock.json
+          cache-dependency-path: apps/web/package-lock.json
       - run: npm ci
       - name: Apply every migration to a clean database
         run: npx prisma migrate deploy
@@ -186,7 +186,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: summit-social/package-lock.json
+          cache-dependency-path: apps/web/package-lock.json
       - run: npm ci
       - run: npx prisma migrate deploy
       - run: npm run db:seed
@@ -196,5 +196,5 @@ jobs:
         if: failure()
         with:
           name: playwright-report
-          path: summit-social/playwright-report/
+          path: apps/web/playwright-report/
           retention-days: 14

@@ -15,11 +15,11 @@ loud rather than discovered in a year.
 
 ## Scope
 
-- **Delete** `summit-social/src/app/api/**` and `summit-social/src/lib/**` server code
+- **Delete** `apps/web/src/app/api/**` and `apps/web/src/lib/**` server code
   once each route has been served by Rust with the fallback unused for 7 days.
 - **Retire the fallbacks.** The `*_SERVICE_URL` opt-in flags and their in-process
   fallbacks come out; the Rust services become the only implementation.
-- **`summit-social/` becomes `apps/legacy-web/`** or is deleted outright if
+- **`apps/web/` becomes `apps/legacy-web/`** or is deleted outright if
   `apps/web` plus the SEO surface fully covers it.
 - **Jobs move in-process.** The secret-gated `/api/jobs/[job]` endpoints become a
   tokio scheduler inside the Rust core; `JobRun` records continue unchanged.
