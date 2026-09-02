@@ -23,7 +23,7 @@ export function Pagination({ page, totalPages, buildHref }: PaginationProps) {
             ← Prev
           </Link>
         ) : (
-          <span className="border border-stone-800 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-700 cursor-not-allowed">
+          <span className="border border-stone-800 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-600 cursor-not-allowed">
             ← Prev
           </span>
         )}
@@ -42,7 +42,7 @@ export function Pagination({ page, totalPages, buildHref }: PaginationProps) {
             Next →
           </Link>
         ) : (
-          <span className="border border-stone-800 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-700 cursor-not-allowed">
+          <span className="border border-stone-800 px-4 py-2 font-display text-xs uppercase tracking-widest text-stone-600 cursor-not-allowed">
             Next →
           </span>
         )}

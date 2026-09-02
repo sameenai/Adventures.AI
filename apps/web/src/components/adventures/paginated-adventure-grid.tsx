@@ -151,7 +151,7 @@ export function PaginatedAdventureGrid({
               Prev
             </Link>
           ) : (
-            <span className="border border-stone-900 px-3 py-1.5 font-mono text-xs text-stone-800 cursor-not-allowed">
+            <span className="border border-stone-900 px-3 py-1.5 font-mono text-xs text-stone-600 cursor-not-allowed">
               Prev
             </span>
           )}
@@ -164,7 +164,7 @@ export function PaginatedAdventureGrid({
               >
                 1
               </Link>
-              {start > 2 && <span className="px-1 font-mono text-xs text-stone-700">...</span>}
+              {start > 2 && <span className="px-1 font-mono text-xs text-stone-600">...</span>}
             </>
           )}
 
@@ -185,7 +185,7 @@ export function PaginatedAdventureGrid({
           {end < totalPages && (
             <>
               {end < totalPages - 1 && (
-                <span className="px-1 font-mono text-xs text-stone-700">...</span>
+                <span className="px-1 font-mono text-xs text-stone-600">...</span>
               )}
               <Link
                 href={buildPageUrl(searchParams, { page: String(totalPages) })}
@@ -204,7 +204,7 @@ export function PaginatedAdventureGrid({
               Next
             </Link>
           ) : (
-            <span className="border border-stone-900 px-3 py-1.5 font-mono text-xs text-stone-800 cursor-not-allowed">
+            <span className="border border-stone-900 px-3 py-1.5 font-mono text-xs text-stone-600 cursor-not-allowed">
               Next
             </span>
           )}

@@ -60,7 +60,7 @@ async function UserResults({ q }: { q: string }) {
               {user.bio && (
                 <p className="mt-0.5 font-mono text-xs text-stone-600 truncate">{user.bio}</p>
               )}
-              <p className="mt-1 font-mono text-xs text-stone-700">
+              <p className="mt-1 font-mono text-xs text-stone-600">
                 {user._count.adventures} adventures · {user._count.followers} followers
               </p>
             </div>

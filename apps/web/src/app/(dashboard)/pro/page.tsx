@@ -66,7 +66,7 @@ export default async function ProPage() {
           <ul className="mt-8 space-y-3">
             {FREE_FEATURES.map((f) => (
               <li key={f} className="flex items-start gap-2 font-mono text-xs text-stone-500">
-                <span className="mt-0.5 shrink-0 text-stone-700">–</span>
+                <span className="mt-0.5 shrink-0 text-stone-600">–</span>
                 {f}
               </li>
             ))}
@@ -122,7 +122,7 @@ export default async function ProPage() {
         </div>
       </div>
 
-      <p className="mt-8 text-center font-mono text-[10px] text-stone-700">
+      <p className="mt-8 text-center font-mono text-[10px] text-stone-600">
         Cancel anytime. Billed monthly. Prices in GBP.
       </p>
     </div>

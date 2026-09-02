@@ -113,7 +113,7 @@ export function CollectionsPanel({ initialCollections }: CollectionsPanelProps) 
                 <button
                   type="button"
                   onClick={() => handleDelete(col.id)}
-                  className="font-mono text-xs text-stone-700 hover:text-red-400 transition-colors shrink-0"
+                  className="font-mono text-xs text-stone-600 hover:text-red-400 transition-colors shrink-0"
                   aria-label={`Delete ${col.name}`}
                 >
                   ×

@@ -189,7 +189,7 @@ function AdventureFeedItem({
         <p className="font-mono text-xs text-stone-500 mt-0.5">
           {adventure.location} · <span className={difficulty?.color}>{difficulty?.label}</span>
         </p>
-        <p className="font-mono text-[10px] text-stone-700 mt-1">{timeAgo(adventure.createdAt)}</p>
+        <p className="font-mono text-[10px] text-stone-600 mt-1">{timeAgo(adventure.createdAt)}</p>
       </div>
     </div>
   );
@@ -226,7 +226,7 @@ function CommentFeedItem({
       <p className="font-mono text-xs text-stone-400 line-clamp-2 leading-relaxed">
         "{comment.body}"
       </p>
-      <p className="font-mono text-[10px] text-stone-700 mt-1">{timeAgo(comment.createdAt)}</p>
+      <p className="font-mono text-[10px] text-stone-600 mt-1">{timeAgo(comment.createdAt)}</p>
     </div>
   );
 }
