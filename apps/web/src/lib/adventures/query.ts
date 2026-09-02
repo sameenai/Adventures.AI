@@ -197,7 +197,42 @@ export async function fetchTrendingAdventures(
 }
 
 // ---------------------------------------------------------------------------
-// Unified page fetch
+// Offset-based pagination (for page controls)
+// ---------------------------------------------------------------------------
+
+export interface AdventureOffsetPage {
+  items: AdventureListItem[];
+  total: number;
+  page: number;
+  perPage: number;
+  totalPages: number;
+}
+
+export async function fetchAdventuresOffset(
+  filters: AdventureFilterInput,
+  page: number,
+  perPage: number,
+): Promise<AdventureOffsetPage> {
+  const where = buildAdventureWhere(filters);
+  const orderBy = buildAdventureOrderBy(filters.sortBy);
+  const skip = (page - 1) * perPage;
+
+  const [items, total] = await Promise.all([
+    prisma.adventure.findMany({
+      where,
+      orderBy,
+      skip,
+      take: perPage,
+      include: ADVENTURE_LIST_INCLUDE,
+    }),
+    prisma.adventure.count({ where }),
+  ]);
+
+  return { items, total, page, perPage, totalPages: Math.ceil(total / perPage) };
+}
+
+// ---------------------------------------------------------------------------
+// Unified page fetch (cursor-based, for backwards compat)
 // ---------------------------------------------------------------------------
 
 export async function fetchAdventuresPage(

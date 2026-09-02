@@ -13,8 +13,8 @@ vi.mock("next-auth", () => ({ getServerSession: vi.fn().mockResolvedValue(null) 
 vi.mock("@/lib/auth/config", () => ({ authOptions: {} }));
 vi.mock("@/components/adventures/search-filter", () => ({ SearchFilter: () => null }));
 vi.mock("@/components/adventures/view-toggle", () => ({ ViewToggle: () => null }));
-vi.mock("@/components/adventures/infinite-adventure-grid", () => ({
-  InfiniteAdventureGrid: () => <div data-testid="grid" />,
+vi.mock("@/components/adventures/paginated-adventure-grid", () => ({
+  PaginatedAdventureGrid: () => <div data-testid="grid" />,
 }));
 vi.mock("@/components/adventures/adventure-card", () => ({
   AdventureCard: ({ adventure }: { adventure: { title: string } }) => (
@@ -23,7 +23,7 @@ vi.mock("@/components/adventures/adventure-card", () => ({
 }));
 vi.mock("@/lib/adventures/query", () => ({
   ADVENTURE_LIST_INCLUDE: {},
-  fetchAdventuresPage: vi.fn().mockResolvedValue({ items: [], nextCursor: undefined }),
+  fetchAdventuresOffset: vi.fn().mockResolvedValue({ items: [], total: 0, page: 1, perPage: 20, totalPages: 0 }),
 }));
 vi.mock("@/lib/db/prisma", () => ({
   prisma: {

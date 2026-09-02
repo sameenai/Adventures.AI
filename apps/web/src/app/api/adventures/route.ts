@@ -1,4 +1,4 @@
-import { fetchAdventuresPage } from "@/lib/adventures/query";
+import { fetchAdventuresOffset, fetchAdventuresPage } from "@/lib/adventures/query";
 import { authOptions } from "@/lib/auth/config";
 import { CACHE_TTL, RATE_LIMITS } from "@/lib/constants";
 import { prisma } from "@/lib/db/prisma";
@@ -48,7 +48,10 @@ export async function GET(request: NextRequest) {
     if (cached) return NextResponse.json(cached);
   }
 
-  const payload = await fetchAdventuresPage(filters);
+  const { page, perPage } = filters;
+  const payload = page
+    ? await fetchAdventuresOffset(filters, page, perPage ?? limit)
+    : await fetchAdventuresPage(filters);
   if (cacheKey) await setCache(cacheKey, payload, CACHE_TTL.adventureCounts);
 
   // Demand capture (fire-and-forget, first page only): searches and filter

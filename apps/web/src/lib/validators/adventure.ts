@@ -71,6 +71,8 @@ function multiEnum(values: [string, ...string[]]) {
 
 export const adventureFilterSchema = z.object({
   cursor: z.string().optional(),
+  page: z.coerce.number().int().min(1).optional(),
+  perPage: z.coerce.number().int().min(1).max(100).optional(),
   limit: z.coerce.number().int().min(1).max(100).default(20),
   category: multiEnum(CATEGORY_VALUES),
   continent: multiEnum(CONTINENT_VALUES),
