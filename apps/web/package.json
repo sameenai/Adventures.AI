@@ -79,6 +79,7 @@
     "@prisma/config": {
       "deepmerge-ts": "^8.0.0",
       "effect": "^3.20.0"
-    }
+    },
+    "qs": "^6.16.0"
   }
 }
