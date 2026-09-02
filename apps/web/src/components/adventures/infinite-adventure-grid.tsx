@@ -150,7 +150,7 @@ export function InfiniteAdventureGrid({
       )}
 
       {!hasMore && items.length > 0 && (
-        <p className="mt-8 text-center font-mono text-xs text-stone-700 uppercase tracking-widest">
+        <p className="mt-8 text-center font-mono text-xs text-stone-600 uppercase tracking-widest">
           All adventures loaded
         </p>
       )}

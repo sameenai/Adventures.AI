@@ -102,8 +102,8 @@ export function AdventureCard({
             </span>
             {(adventure._count?.comments ?? 0) > 0 && (
               <>
-                <span className="text-stone-700 text-[10px]">·</span>
-                <span className="font-mono text-[10px] text-stone-700 shrink-0">
+                <span className="text-stone-600 text-[10px]">·</span>
+                <span className="font-mono text-[10px] text-stone-600 shrink-0">
                   {pluralise(adventure._count?.comments ?? 0, "comment")}
                 </span>
               </>

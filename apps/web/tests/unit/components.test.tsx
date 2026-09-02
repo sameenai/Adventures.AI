@@ -173,7 +173,10 @@ describe("RankBadge", () => {
   it("applies muted styling for rank > 3", () => {
     const { container } = render(<RankBadge rank={10} />);
     const badge = container.firstChild as HTMLElement;
-    expect(badge.className).toContain("stone-700");
+    // A muted TEXT tier (400-600), never a decorative one: stone-700+ are
+    // borders and fills and fail contrast as text — see globals.css and
+    // tests/unit/text-tiers.test.ts.
+    expect(badge.className).toMatch(/text-stone-[456]00\b/);
   });
 
   it("renders correct number for various ranks", () => {

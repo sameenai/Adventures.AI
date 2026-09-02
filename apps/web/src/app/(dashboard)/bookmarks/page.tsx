@@ -106,7 +106,7 @@ export default async function BookmarksPage({
                   <p className="font-mono text-xs text-stone-600 truncate">
                     {adventure.location}, {adventure.country}
                   </p>
-                  <p className="font-mono text-xs text-stone-700">
+                  <p className="font-mono text-xs text-stone-600">
                     {adventure.category.replace(/_/g, " ")} · {adventure.difficulty.toLowerCase()} ·{" "}
                     {adventure.durationDays}d
                   </p>
