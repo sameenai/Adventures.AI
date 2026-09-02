@@ -33,6 +33,7 @@ describe("GET /api/images/[id]", () => {
     expect(res.headers.get("Cache-Control")).toBe(
       "public, max-age=31536000, immutable",
     );
+    expect(res.headers.get("ETag")).toBeTruthy();
     const body = Buffer.from(await res.arrayBuffer());
     expect(body).toEqual(imageData);
   });
@@ -59,5 +60,30 @@ describe("GET /api/images/[id]", () => {
     expect(mockFindUnique).toHaveBeenCalledWith({
       where: { adventureId: "adv-123" },
     });
+  });
+
+  it("returns 304 when ETag matches If-None-Match", async () => {
+    const imageData = Buffer.from("fake-etag-data");
+    mockFindUnique.mockResolvedValue({
+      data: imageData,
+      contentType: "image/jpeg",
+      sourceUrl: "https://example.com/img.jpg",
+    });
+
+    const first = await GET(
+      new Request("http://localhost/api/images/etag-test"),
+      { params: Promise.resolve({ id: "etag-test" }) },
+    );
+    const etag = first.headers.get("ETag")!;
+    expect(etag).toBeTruthy();
+
+    const second = await GET(
+      new Request("http://localhost/api/images/etag-test", {
+        headers: { "If-None-Match": etag },
+      }),
+      { params: Promise.resolve({ id: "etag-test" }) },
+    );
+
+    expect(second.status).toBe(304);
   });
 });

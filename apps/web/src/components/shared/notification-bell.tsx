@@ -121,14 +121,14 @@ export function NotificationBell() {
                         onClick={() => setOpen(false)}
                       >
                         <p className="text-xs text-stone-300">{n.message}</p>
-                        <p className="mt-0.5 font-mono text-[10px] text-stone-700">
+                        <p className="mt-0.5 font-mono text-[10px] text-stone-600">
                           {new Date(n.createdAt).toLocaleDateString()}
                         </p>
                       </a>
                     ) : (
                       <div className="px-4 py-3">
                         <p className="text-xs text-stone-300">{n.message}</p>
-                        <p className="mt-0.5 font-mono text-[10px] text-stone-700">
+                        <p className="mt-0.5 font-mono text-[10px] text-stone-600">
                           {new Date(n.createdAt).toLocaleDateString()}
                         </p>
                       </div>

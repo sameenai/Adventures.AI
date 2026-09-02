@@ -644,7 +644,7 @@ export default async function AdventureDetailPage({ params }: Props) {
                         className={`font-mono text-xs px-2 py-1 ${
                           active
                             ? "bg-amber-500/10 text-amber-500 border border-amber-500/30"
-                            : "text-stone-700 border border-stone-900"
+                            : "text-stone-600 border border-stone-900"
                         }`}
                       >
                         {name}

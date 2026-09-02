@@ -73,7 +73,7 @@ export function AdventureListRow({
             </span>
           )}
           {(adventure._count?.comments ?? 0) > 0 && (
-            <span className="font-mono text-[10px] text-stone-700">
+            <span className="font-mono text-[10px] text-stone-600">
               {pluralise(adventure._count?.comments ?? 0, "comment")}
             </span>
           )}

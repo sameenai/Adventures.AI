@@ -98,7 +98,7 @@ function CommentBody({
             >
               {comment.user.name}
             </Link>
-            <span className="font-mono text-xs text-stone-700">
+            <span className="font-mono text-xs text-stone-600">
               {timeAgo(new Date(comment.createdAt))}
             </span>
           </div>
@@ -199,7 +199,7 @@ function CommentBody({
                   >
                     {reply.user.name}
                   </Link>
-                  <span className="font-mono text-xs text-stone-700">
+                  <span className="font-mono text-xs text-stone-600">
                     {timeAgo(new Date(reply.createdAt))}
                   </span>
                 </div>

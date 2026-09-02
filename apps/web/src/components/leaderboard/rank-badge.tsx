@@ -17,7 +17,7 @@ export function RankBadge({ rank }: RankBadgeProps) {
     <span
       className={cn(
         "inline-flex h-8 w-8 items-center justify-center font-mono text-sm font-bold",
-        isTop3 ? TOP3_STYLES[rank] : "text-stone-700",
+        isTop3 ? TOP3_STYLES[rank] : "text-stone-600",
       )}
     >
       {rank}

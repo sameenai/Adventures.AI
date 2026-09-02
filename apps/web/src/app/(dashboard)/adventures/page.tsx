@@ -1,9 +1,9 @@
 import { AdventureCard } from "@/components/adventures/adventure-card";
-import { InfiniteAdventureGrid } from "@/components/adventures/infinite-adventure-grid";
+import { PaginatedAdventureGrid } from "@/components/adventures/paginated-adventure-grid";
 import { SearchFilter } from "@/components/adventures/search-filter";
 import { ViewToggle } from "@/components/adventures/view-toggle";
 import { Button } from "@/components/ui/button";
-import { ADVENTURE_LIST_INCLUDE, fetchAdventuresPage } from "@/lib/adventures/query";
+import { ADVENTURE_LIST_INCLUDE, fetchAdventuresOffset } from "@/lib/adventures/query";
 import type { AdventureListItem } from "@/lib/adventures/query";
 import { authOptions } from "@/lib/auth/config";
 import { CATEGORIES, CONTINENTS, DIFFICULTIES } from "@/lib/constants";
@@ -114,33 +114,34 @@ export default async function AdventuresPage({
   const currentMonth = now.getMonth() + 1;
   const currentMonthName = now.toLocaleString("en-GB", { month: "long" });
 
-  // Fetch a featured (top-voted) adventure for the hero banner — independent of current filters.
-  const [session, featured, { items: adventures, nextCursor }, totalCount, inSeason] =
-    await Promise.all([
-      getServerSession(authOptions),
-      prisma.adventure.findFirst({
-        where: { published: true },
-        orderBy: { voteCount: "desc" },
-        select: {
-          id: true,
-          title: true,
-          country: true,
-          location: true,
-          category: true,
-          durationDays: true,
-          voteCount: true,
-          coverImageUrl: true,
-        },
-      }),
-      fetchAdventuresPage(filters),
-      prisma.adventure.count({ where: { published: true } }),
-      // In-season rail only renders on the unfiltered view — skip the query otherwise.
-      hasActiveFilters
-        ? Promise.resolve([])
-        : withTimeout(getInSeasonAdventures(currentMonth), 2000, []),
-    ]);
+  const page = params.page ? Number(params.page) : 1;
+  const perPage = params.perPage ? Number(params.perPage) : 20;
+  const validPage = Number.isFinite(page) && page >= 1 ? page : 1;
+  const validPerPage = [10, 20, 50].includes(perPage) ? perPage : 20;
 
-  const hasMore = nextCursor !== undefined;
+  const [session, featured, offsetResult, inSeason] = await Promise.all([
+    getServerSession(authOptions),
+    prisma.adventure.findFirst({
+      where: { published: true },
+      orderBy: { voteCount: "desc" },
+      select: {
+        id: true,
+        title: true,
+        country: true,
+        location: true,
+        category: true,
+        durationDays: true,
+        voteCount: true,
+        coverImageUrl: true,
+      },
+    }),
+    fetchAdventuresOffset(filters, validPage, validPerPage),
+    hasActiveFilters
+      ? Promise.resolve([])
+      : withTimeout(getInSeasonAdventures(currentMonth), 2000, []),
+  ]);
+
+  const { items: adventures, total: totalCount, totalPages } = offsetResult;
 
   let votedIds: string[] = [];
   let bookmarkedIds: string[] = [];
@@ -182,7 +183,7 @@ export default async function AdventuresPage({
               </h1>
               <p className="mt-3 text-xs text-stone-600">
                 {hasActiveFilters
-                  ? `${adventures.length}${hasMore ? "+" : ""} of ${totalCount.toLocaleString()} expeditions`
+                  ? `${totalCount.toLocaleString()} expeditions matching filters`
                   : `${totalCount.toLocaleString()} expeditions across 7 continents`}
               </p>
             </div>
@@ -401,34 +402,19 @@ export default async function AdventuresPage({
         )}
 
         <div className="mt-6">
-          <InfiniteAdventureGrid
-            key={[
-              params.category,
-              params.continent,
-              params.difficulty,
-              params.duration,
-              params.month,
-              params.climate,
-              params.tag,
-              params.search,
-              params.sortBy,
-            ].join("|")}
-            initialAdventures={adventures}
-            initialNextCursor={nextCursor}
-            currentUserId={session?.user?.id}
-            votedAdventureIds={votedIds}
-            bookmarkedAdventureIds={bookmarkedIds}
-            category={params.category}
-            continent={params.continent}
-            difficulty={params.difficulty}
-            duration={params.duration}
-            month={params.month}
-            climate={params.climate}
-            tag={params.tag}
-            search={params.search}
-            sortBy={params.sortBy}
-            view={view}
-          />
+          <Suspense>
+            <PaginatedAdventureGrid
+              adventures={adventures}
+              currentUserId={session?.user?.id}
+              votedAdventureIds={votedIds}
+              bookmarkedAdventureIds={bookmarkedIds}
+              page={validPage}
+              perPage={validPerPage}
+              totalPages={totalPages}
+              total={totalCount}
+              view={view}
+            />
+          </Suspense>
         </div>
       </div>
     </div>
