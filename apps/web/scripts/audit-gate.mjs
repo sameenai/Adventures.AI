@@ -16,9 +16,26 @@ import { execSync } from "node:child_process";
 const ALLOWLIST = [
   {
     // GHSA advisories for postcss <=8.5.22 vendored INSIDE next's own
-    // node_modules (next/node_modules/postcss). Not resolvable from this
-    // package.json without forking Next; postcss runs at build time only.
-    // Clear when Next ships a patch bundling postcss >8.5.22.
+    // node_modules (next/node_modules/postcss, currently 8.4.31). Our own
+    // postcss is already 8.5.26; this copy is not resolvable from this
+    // package.json without forking Next, and it runs at build time only, over
+    // our own CSS — none of these advisories are reachable by a request.
+    //
+    // Measured 2026-09-02, so the next person does not have to redo it: the
+    // only Next release that bundles a patched postcss is 16.x (`npm audit` is
+    // clean on 16.3.4). Taking it is NOT worth it yet on two counts. It costs
+    // ~47 KB gzip of extra client JS on *every* route — measured 101 -> 148 KB
+    // shared, /adventures 125 -> 175, /itinerary 163 -> 212 — because 16 builds
+    // with Turbopack by default; and `next build --webpack` is not an escape,
+    // since it emits neither app-build-manifest.json nor route-bundle-stats.json,
+    // so the bundle-budget gate cannot read it at all. There is also no security
+    // pressure to move: every one of the 23 current Next advisories tops out at
+    // <15.5.21 and we run 15.5.24, while the two RCEs in Next's 16.3.3 notes
+    // (GHSA-2xp9-vwfh-vxw4 AVIF, GHSA-p293-qw3h-jr36 Windows) are 16.x-only
+    // regressions that never affected the 15.x line.
+    //
+    // Clear when a 15.x patch bundles postcss >8.5.22, or when Next 16's client
+    // weight comes back down — re-measure before assuming it has.
     module: "postcss",
     advisories: [
       "GHSA-qx2v-qp2m-jg93", // XSS via unescaped </style> in stringify output
@@ -26,7 +43,7 @@ const ALLOWLIST = [
       "GHSA-fxqj-rqcc-2cmp", // incomplete fix of GHSA-6g55-p6wh-862q
       "GHSA-r28c-9q8g-f849", // path traversal in source-map auto-loading
     ],
-    reason: "vendored by next; build-time only; awaiting next patch release",
+    reason: "vendored by next; build-time only; only fixed in 16.x, which costs ~47 KB/route",
     reviewBy: "2026-10-01",
   },
 ];
